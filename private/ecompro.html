@@ -321,6 +321,25 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 @media(min-width:1500px){body{font-size:16px}}
 @media(min-width:1900px){body{font-size:17px}h1{font-size:2.8rem}}
 @media(min-width:2400px){body{font-size:19px}}
+
+/* Vista Tabla / Cuadros */
+.vsw{display:inline-flex;align-self:flex-end;border:1px solid var(--line);border-radius:99px;background:var(--card);padding:2px;gap:2px;margin:6px 0 8px auto;width:max-content;max-width:100%}
+.vsw button{font:inherit;font-size:.78rem;font-weight:700;padding:4px 12px;border:0;border-radius:99px;background:transparent;color:var(--muted);cursor:pointer}
+.vsw button[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg)}
+.vswrap{display:flex;justify-content:flex-end}
+.tbl.cards{overflow:visible;background:none;border:0;box-shadow:none;border-radius:0}
+.tbl.cards table{min-width:0!important;display:block;width:100%}
+.tbl.cards thead{display:none}
+.tbl.cards tbody{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.tbl.cards tr{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(10,40,60,.06),0 6px 16px -10px rgba(10,60,90,.18);min-width:0}
+.tbl.cards td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border:0;padding:0;text-align:right;min-width:0;overflow-wrap:anywhere}
+.tbl.cards td:has(>div),.tbl.cards td:has(>b){flex-direction:column;align-items:flex-start;gap:2px;text-align:left}
+.tbl.cards td::before{content:attr(data-label);flex:none;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;text-align:left}
+.tbl.cards td[data-label=""]::before{display:none}
+.tbl.cards td[data-label=""]{justify-content:flex-start}
+.tbl.cards td[colspan]{display:block;text-align:left}
+.tbl.cards td[colspan]::before{display:none}
+.tbl.cards td.num{text-align:right}
 </style>
 
 <div class="wrap">
@@ -1307,4 +1326,24 @@ s.addEventListener('click',function(){set(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
 nw.addEventListener('click',function(e){if(e.target.closest('#side button'))setTimeout(function(){set(false)},0)},true);
 window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
+</script>
+<script>
+(function(){
+  function lab(t){var hs=Array.prototype.map.call(t.querySelectorAll("thead th"),function(x){return x.textContent.replace(/\s+/g," ").trim()});
+    t.querySelectorAll("tbody tr").forEach(function(r){var i=0;Array.prototype.forEach.call(r.children,function(c){if(c.tagName!=="TD")return;var s=c.colSpan||1;if(s===1&&c.getAttribute("data-label")!==(hs[i]||"")){c.setAttribute("data-label",hs[i]||"")}i+=s})})}
+  function setup(t,key){
+    if(!t||t.getAttribute("data-vsw"))return;var box=t.closest(".tbl");if(!box)return;t.setAttribute("data-vsw","1");
+    var mode=innerWidth<=520?"cuadros":"tabla";try{var s=localStorage.getItem("ec_view_"+key);if(s==="cuadros"||s==="tabla")mode=s}catch(e){}
+    var bar=document.createElement("div");bar.className="vswrap";
+    bar.innerHTML='<div class="vsw" role="group" aria-label="Vista"><button type="button" data-m="tabla">Tabla</button><button type="button" data-m="cuadros">Cuadros</button></div>';
+    box.parentNode.insertBefore(bar,box);
+    function paint(){box.classList.toggle("cards",mode==="cuadros");bar.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-m")===mode)});lab(t)}
+    bar.addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;mode=b.getAttribute("data-m");try{localStorage.setItem("ec_view_"+key,mode)}catch(x){}paint()});
+    var tb=t.querySelector("tbody");if(tb)new MutationObserver(function(){lab(t)}).observe(tb,{childList:true});
+    paint();
+  }
+  setup(document.getElementById("v-tabla"),"validador");
+  setup(document.getElementById("o-tabla"),"pedidos");
+  var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
+})();
 </script>
