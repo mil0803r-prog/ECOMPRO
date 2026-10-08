@@ -282,6 +282,10 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .fxrate{font-size:.8rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-left:auto}
 .fxin{font:inherit;font-size:.85rem;width:84px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
 .fxnote{flex-basis:100%;font-size:.74rem;color:var(--muted)}
+
+.fxcmp{display:flex;flex-wrap:wrap;gap:10px 28px;flex-basis:100%;padding-top:8px;border-top:1px dashed var(--line)}
+.fxcmp div{display:flex;flex-direction:column;gap:2px}.fxcmp small{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}.fxcmp b{font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.fxbar2 .fxinfo{flex:1 1 260px}
 </style>
 
 <div class="wrap">
@@ -411,6 +415,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-lan" hidden>
+    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
     <div>
       <h2>Embudo, últimos 30 días</h2>
       <div class="card fun" id="embudo"></div>
@@ -419,14 +424,14 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
     <div>
       <h2>Por página</h2>
       <div class="tbl"><table>
-        <thead><tr><th>Página</th><th class="num">Visitas</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas</th><th class="num">Conv.</th></tr></thead>
+        <thead><tr><th>Página</th><th class="num">Visitas</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas <span class="mc">GTQ</span></th><th class="num">Conv.</th></tr></thead>
         <tbody>
-          <tr><td>Dúo Mágico (copia)</td><td class="num">2.590</td><td class="num">8</td><td class="num">4</td><td class="num">1.530</td><td class="num">0,3%</td></tr>
-          <tr><td>Ejercitador de piso pélvico</td><td class="num">310</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
-          <tr><td>Dúo Mágico (copia x3)</td><td class="num">227</td><td class="num">3</td><td class="num">0</td><td class="num">284</td><td class="num">1,3%</td></tr>
-          <tr><td>Spray dental GT</td><td class="num">91</td><td class="num">1</td><td class="num">0</td><td class="num">229</td><td class="num">1,1%</td></tr>
-          <tr><td>Pastilla limpiador de lavadora (2 páginas)</td><td class="num">89</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
-          <tr><td>Otras 9 páginas</td><td class="num">334</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
+          <tr><td>Dúo Mágico (copia)</td><td class="num">2.590</td><td class="num">8</td><td class="num">4</td><td class="num"><span class="mq" data-q="1530">1.530</span></td><td class="num">0,3%</td></tr>
+          <tr><td>Ejercitador de piso pélvico</td><td class="num">310</td><td class="num">0</td><td class="num">0</td><td class="num"><span class="mq" data-q="0">0</span></td><td class="num">0%</td></tr>
+          <tr><td>Dúo Mágico (copia x3)</td><td class="num">227</td><td class="num">3</td><td class="num">0</td><td class="num"><span class="mq" data-q="284">284</span></td><td class="num">1,3%</td></tr>
+          <tr><td>Spray dental GT</td><td class="num">91</td><td class="num">1</td><td class="num">0</td><td class="num"><span class="mq" data-q="229">229</span></td><td class="num">1,1%</td></tr>
+          <tr><td>Pastilla limpiador de lavadora (2 páginas)</td><td class="num">89</td><td class="num">0</td><td class="num">0</td><td class="num"><span class="mq" data-q="0">0</span></td><td class="num">0%</td></tr>
+          <tr><td>Otras 9 páginas</td><td class="num">334</td><td class="num">0</td><td class="num">0</td><td class="num"><span class="mq" data-q="0">0</span></td><td class="num">0%</td></tr>
         </tbody>
       </table></div>
       <p class="foot">Menos de 200 visitas no alcanza para juzgar una página.</p>
@@ -434,14 +439,14 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
     <div>
       <h2>De dónde llegan</h2>
       <div class="tbl"><table>
-        <thead><tr><th>Campaña</th><th class="num">Visitas</th><th class="num">Formul.</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas</th></tr></thead>
+        <thead><tr><th>Campaña</th><th class="num">Visitas</th><th class="num">Formul.</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas <span class="mc">GTQ</span></th></tr></thead>
         <tbody>
-          <tr><td>TikTok · Testeo 10-09</td><td class="num">236</td><td class="num">11</td><td class="num">5</td><td class="num">3</td><td class="num">949</td></tr>
-          <tr><td>TikTok · Ventas 13-09</td><td class="num">282</td><td class="num">19</td><td class="num">3</td><td class="num">1</td><td class="num">581</td></tr>
-          <tr><td>TikTok · Testeo collar 07-10</td><td class="num">153</td><td class="num">7</td><td class="num">2</td><td class="num">0</td><td class="num">284</td></tr>
-          <tr><td>Directo</td><td class="num">1.013</td><td class="num">84</td><td class="num">2</td><td class="num">0</td><td class="num">229</td></tr>
-          <tr><td>TikTok · "__CAMPAIGN_NAME__"</td><td class="num tr_">1.874</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
-          <tr><td>Meta / Facebook / Instagram</td><td class="num">≈ 100</td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>TikTok · Testeo 10-09</td><td class="num">236</td><td class="num">11</td><td class="num">5</td><td class="num">3</td><td class="num"><span class="mq" data-q="949">949</span></td></tr>
+          <tr><td>TikTok · Ventas 13-09</td><td class="num">282</td><td class="num">19</td><td class="num">3</td><td class="num">1</td><td class="num"><span class="mq" data-q="581">581</span></td></tr>
+          <tr><td>TikTok · Testeo collar 07-10</td><td class="num">153</td><td class="num">7</td><td class="num">2</td><td class="num">0</td><td class="num"><span class="mq" data-q="284">284</span></td></tr>
+          <tr><td>Directo</td><td class="num">1.013</td><td class="num">84</td><td class="num">2</td><td class="num">0</td><td class="num"><span class="mq" data-q="229">229</span></td></tr>
+          <tr><td>TikTok · "__CAMPAIGN_NAME__"</td><td class="num tr_">1.874</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num"><span class="mq" data-q="0">0</span></td></tr>
+          <tr><td>Meta / Facebook / Instagram</td><td class="num">≈ 100</td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num"><span class="mq" data-q="0">0</span></td></tr>
         </tbody>
       </table></div>
       <p class="foot">Las campañas de TikTok con nombre real dejaron 2,1% y 1,1% de conversión, las mejores. Lumy no tiene TikTok Ads conectado, así que aquí no hay gasto de TikTok.</p>
@@ -449,6 +454,9 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-met" hidden>
+    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Los anuncios ya vienen en <b>soles (PEN)</b>. Aquí convierto tus ventas en quetzales para que las compares con el gasto.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label>
+      <div class="fxcmp"><div><small>Venta entregada (Lumy, todo el periodo)</small><b><span class="mq" data-q="45103"></span> <span class="mc">GTQ</span></b></div><div><small>Ganancia según Lumy (techo)</small><b><span class="mq" data-q="23093"></span> <span class="mc">GTQ</span></b></div></div>
+      <span class="fxnote"></span></div>
     <div class="card" style="display:flex;flex-direction:column;gap:12px">
       <div class="frow">
         <div class="fld grow"><label for="cta">Cuenta de anuncios</label><select id="cta"></select></div>
@@ -462,6 +470,9 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-tik" hidden>
+    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Los anuncios ya vienen en <b>soles (PEN)</b>. Aquí convierto tus ventas en quetzales para que las compares con el gasto.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label>
+      <div class="fxcmp"><div><small>Venta entregada (Lumy, todo el periodo)</small><b><span class="mq" data-q="45103"></span> <span class="mc">GTQ</span></b></div><div><small>Ganancia según Lumy (techo)</small><b><span class="mq" data-q="23093"></span> <span class="mc">GTQ</span></b></div></div>
+      <span class="fxnote"></span></div>
     <div class="card" style="display:flex;flex-direction:column;gap:12px">
       <div class="frow">
         <div class="fld grow"><label for="tt-cta">Cuenta de anuncios</label><select id="tt-cta"></select></div>
