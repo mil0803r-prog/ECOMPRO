@@ -27,5 +27,5 @@ module.exports = (req, res) => {
   }
   const html = fs.readFileSync(path.join(process.cwd(), "private", "ecompro.html"), "utf8");
   res.statusCode = 200;
-  res.end('<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ICONS + '<script>try{var t=localStorage.getItem("ec_theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script><script>' + shim + "</script></head><body>" + html + "</body></html>");
+  res.end('<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' + ICONS + '<script>try{var t=localStorage.getItem("ec_theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script><script>' + shim + "</script></head><body>" + html + "</body></html>");
 };
