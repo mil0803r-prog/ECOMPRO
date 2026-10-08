@@ -423,8 +423,11 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <p class="sub" id="z-sub" style="margin:0 0 10px"></p>
       <div class="zbar">
         <div class="vsw" role="group" aria-label="Agrupar por"><button type="button" data-z="dep" aria-pressed="true">Departamentos</button><button type="button" data-z="ciu" aria-pressed="false">Ciudades</button></div>
-        <div class="fld"><label for="z-q">Buscar zona</label><input id="z-q" type="search" placeholder="Ej.: San Marcos, Concepción Tutuapa" autocomplete="off"></div>
+        <div class="fld"><label for="z-dep">Departamento</label><select id="z-dep"></select></div>
+        <div class="fld"><label for="z-ciu">Ciudad</label><select id="z-ciu"></select></div>
+        <div class="fld"><label for="z-q">Buscar zona</label><input id="z-q" type="search" placeholder="Ej.: Tutuapa" autocomplete="off"></div>
         <div class="fld"><label for="z-ord">Ordenar por</label><select id="z-ord"><option value="t">Más pedidos</option><option value="best">Mejor % de entrega</option><option value="worst">Peor % de entrega</option></select></div>
+        <button class="btn" id="z-clear" type="button" hidden>Quitar filtro</button>
       </div>
       <div class="tbl"><table id="z-tabla" style="min-width:720px">
         <thead><tr><th>Zona</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">En camino</th><th class="num">Cancelados</th><th class="num">% entrega</th><th>Veredicto</th></tr></thead>
@@ -817,13 +820,15 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   function zgroups(mode){var m={};ORD.forEach(function(o){var k=mode==="dep"?o.dep:o.c;(m[k]=m[k]||[]).push(o)});return Object.keys(m).map(function(k){var s=zst(m[k]);s.k=k;s.dep=mode==="ciu"?m[k][0].dep:"";return s})}
   function norm(t){return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
   function zrows(){
-    var q=norm($("z-q").value.trim()),o=$("z-ord").value,L=zgroups(zmode).filter(function(s){return !q||norm(s.k).indexOf(q)>-1||norm(s.dep).indexOf(q)>-1});
+    var q=norm($("z-q").value.trim()),o=$("z-ord").value,dp=odep.value,ci=ociu.value,mode=ci?"ciu":zmode;
+    var L=zgroups(mode).filter(function(s){return !q||norm(s.k).indexOf(q)>-1||norm(s.dep).indexOf(q)>-1});
+    if(ci)L=L.filter(function(s){return s.k===ci});else if(dp)L=L.filter(function(s){return mode==="dep"?s.k===dp:s.dep===dp});
     L.sort(function(a,b){if(o==="best"||o==="worst"){var ka=a.res<MINC?-1:a.r,kb=b.res<MINC?-1:b.r;if(ka!==kb)return o==="best"?kb-ka:(ka<0?1:kb<0?-1:ka-kb)}return b.t-a.t||a.k.localeCompare(b.k)});
     return L}
   function zrender(){
-    var L=zrows(),all=zst(ORD),show=L.slice(0,zlim);
+    var L=zrows(),all=zst(ORD),show=L.slice(0,zlim),emode=odep.value||ociu.value?(ociu.value?"ciu":zmode):zmode;
     $("z-sub").textContent="Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): "+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
-    $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(zmode==="dep"?s.k:s.k)+'</b>'+(zmode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
+    $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(s.k)+'</b>'+(emode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
     $("z-mas").hidden=L.length<=zlim;$("z-mas").textContent="Ver más zonas ("+(L.length-zlim)+" restantes)";
     $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con tu flete de unos 68 GTQ y ~69 GTQ de ganancia por entrega, bajo ~"+BE+"% se pierde dinero). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
   }
@@ -849,9 +854,18 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   $("z-body").addEventListener("click",function(ev){var tr=ev.target.closest("tr[data-k]");if(!tr)return;var k=tr.getAttribute("data-k");
     if(zmode==="dep"){odep.value=k;ciudades();ociu.value=""}else{var o=ORD.filter(function(x){return x.c===k})[0];odep.value=o?o.dep:"";ciudades();ociu.value=k}
     lim=50;rOrd();$("o-filtros").scrollIntoView({behavior:"smooth",block:"start"})});
-  zrender();
+  function zsel(){
+    var d=$("z-dep"),c=$("z-ciu");
+    opts(d,"Todos",deps,odep.value);d.value=odep.value;
+    opts(c,"Todas",Array.prototype.slice.call(ociu.options,1).map(function(x){return x.value}),ociu.value);c.value=ociu.value;
+    $("z-clear").hidden=!(odep.value||ociu.value);
+  }
+  $("z-dep").addEventListener("change",function(){odep.value=this.value;ciudades();ociu.value="";lim=50;zlim=15;rOrd()});
+  $("z-ciu").addEventListener("change",function(){var v=this.value;if(v&&!odep.value){var o=ORD.filter(function(x){return x.c===v})[0];if(o){odep.value=o.dep;ciudades()}}ociu.value=v;lim=50;zlim=15;rOrd()});
+  $("z-clear").addEventListener("click",function(){odep.value="";ciudades();ociu.value="";lim=50;rOrd()});
+  zrender();zsel();
   function rOrd(keepFocus){
-    zonaCard();
+    zsel();zrender();zonaCard();
     var F=filtrar(),e=0,dv=0,pr=0,ca=0,val=0;
     F.forEach(function(o){if(o.s==="E"){e++;val+=o.v}else if(o.s==="D"||o.s==="I"||o.s==="J")dv++;else if(o.s==="C")ca++;else pr++});
     var pe=(e+dv)?Math.round(e/(e+dv)*100)+"%":"–";
