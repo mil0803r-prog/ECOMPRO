@@ -361,6 +361,16 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .zcard .zmsg{font-size:.9rem}
 .zcard .zsub{display:flex;flex-wrap:wrap;gap:6px}
 .zcard .zsub button{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:99px;padding:3px 10px;cursor:pointer}
+
+/* Gastos de plataforma */
+.gtipo{display:inline-block;padding:2px 9px;border-radius:6px;font-size:.68rem;font-weight:800;letter-spacing:.06em}
+.gtipo.f{background:var(--verde-bg);color:var(--verde)}.gtipo.v{background:color-mix(in srgb,var(--azul) 16%,transparent);color:var(--azul)}
+.gmes{display:inline-block;padding:2px 11px;border-radius:99px;font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:1px solid currentColor}
+#g-body td .sub{font-weight:400}
+#g-tabla tfoot td{border-top:2px solid var(--line);border-bottom:0;padding-top:12px}
+.gend{opacity:.55}
+#g-body .btn{padding:4px 10px;font-size:.78rem;min-height:0}
+#g-tabla tfoot td[colspan]{white-space:normal}
 </style>
 
 <div class="wrap">
@@ -377,6 +387,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <button type="button" role="tab" data-g="log" aria-selected="false">Logística</button>
       <button type="button" role="tab" data-g="mkt" aria-selected="false">Marketing</button>
       <button type="button" role="tab" data-g="inv" aria-selected="false">Investigación de mercado</button>
+      <button type="button" role="tab" data-g="fin" aria-selected="false">Gastos de plataforma</button>
     </nav>
     <nav id="nav-s" role="tablist" aria-label="Secciones" hidden></nav>
   </div>
@@ -728,9 +739,134 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     </div>
   </section>
 
+  <section class="pane" id="p-gas" hidden>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
+      <div><h2 style="margin:0">Gastos de plataforma</h2><span class="sub">Software, suscripciones, sueldos y costos por venta. Se guardan solos y se calcula el impacto mensual.</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="g-csv">Exportar CSV</button><button class="btn vprim" type="button" id="g-nuevo">＋ Registrar gasto</button></div>
+    </div>
+    <p class="sub" id="g-msg" role="status" style="margin:0"></p>
+    <div class="grid g4" id="g-kpis"></div>
+    <div class="card vbox" id="g-form" hidden>
+      <h3 id="g-ftit">Registrar gasto</h3>
+      <div class="frow">
+        <div class="fld"><label for="g-tipo">Tipo</label><select id="g-tipo"><option value="fijo">Fijo (se repite)</option><option value="variable">Variable (por venta)</option></select></div>
+        <div class="fld grow"><label for="g-con">Concepto o plataforma</label><input id="g-con" maxlength="80" placeholder="Ej.: Shopify, Claude, Lumy"></div>
+        <div class="fld"><label for="g-cat">Categoría</label><input id="g-cat" list="g-cats" maxlength="40" placeholder="Suscripciones"><datalist id="g-cats"><option>Suscripciones</option><option>Software</option><option>Servicios</option><option>Sueldos</option><option>Publicidad</option><option>Logística</option><option>Costo por Unidad</option><option>Otros</option></datalist></div>
+      </div>
+      <div class="frow">
+        <div class="fld"><label for="g-monto">Monto</label><input id="g-monto" type="number" min="0" step="0.01" inputmode="decimal" placeholder="40"></div>
+        <div class="fld"><label for="g-mon">Moneda</label><select id="g-mon"><option value="PEN">S/ Soles (PEN)</option><option value="GTQ">Q Quetzales (GTQ)</option><option value="USD">$ Dólares (USD)</option></select></div>
+        <div class="fld"><label for="g-ciclo">Ciclo o frecuencia</label><select id="g-ciclo"><option value="mensual">Mensual</option><option value="anual">Anual</option><option value="trimestral">Trimestral</option><option value="semestral">Semestral</option><option value="unico">Pago único</option><option value="venta">Por venta</option></select></div>
+        <div class="fld"><label for="g-ini">Fecha de inicio</label><input id="g-ini" type="date"></div>
+        <div class="fld"><label for="g-fin">Fecha de fin (opcional)</label><input id="g-fin" type="date"></div>
+      </div>
+      <div class="fld"><label for="g-nota">Nota (opcional)</label><input id="g-nota" maxlength="160" placeholder="Ej.: plan Pro, renueva el 3 de cada mes"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn vprim" type="button" id="g-guardar">Guardar gasto</button><button class="btn" type="button" id="g-cancel">Cancelar</button></div>
+    </div>
+    <div>
+      <h2>Historial de gastos</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div class="chips" id="g-chips"><button type="button" class="chip" data-t="todos" aria-pressed="true">Todos</button><button type="button" class="chip" data-t="fijo" aria-pressed="false">Fijos</button><button type="button" class="chip" data-t="variable" aria-pressed="false">Variables</button></div>
+        <input id="g-q" type="search" class="tg" style="width:min(240px,100%)" placeholder="Buscar concepto o categoría" aria-label="Buscar gasto">
+      </div>
+      <div class="tbl"><table id="g-tabla" style="min-width:900px">
+        <thead><tr><th>Tipo</th><th>Mes</th><th>Concepto / plataforma</th><th>Categoría</th><th class="num">Monto</th><th>Ciclo</th><th>Fechas (inicio - fin)</th><th class="num">Impacto mensual</th><th></th></tr></thead>
+        <tbody id="g-body"></tbody>
+        <tfoot><tr><td colspan="7" style="text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700">Total administrativo (fijos activos por mes)</td><td class="num" id="g-total" style="font-weight:700"></td><td></td></tr></tfoot>
+      </table></div>
+      <p class="foot" id="g-pie"></p>
+    </div>
+  </section>
+
   <p class="foot">Foto de datos de Lumy y Dropi al 8 de octubre de 2026. Pídele a Claude que la actualice cuando quieras verla al día.</p>
 </div>
 
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var MES=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
+  var CIC={mensual:["MENSUAL",1],anual:["ANUAL",12],trimestral:["TRIMESTRAL",3],semestral:["SEMESTRAL",6],unico:["PAGO ÚNICO",1],venta:["POR VENTA",1]};
+  var SYM={PEN:"S/",GTQ:"Q",USD:"$"};
+  var G=[],gDb=null,gWrite=true,gEdit=null,gDel=null,gTipo="todos",gArm=0;
+  function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function f2(n){return Number(n).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function f0(n){return Number(n).toLocaleString("es",{maximumFractionDigits:0})}
+  function money(n,m){return (SYM[m]||m)+" "+(Math.abs(n-Math.round(n))<0.005?f0(n):f2(n))}
+  function today(){try{return new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})}catch(e){return new Date().toISOString().slice(0,10)}}
+  function imp(g){var c=CIC[g.ciclo]||CIC.mensual;return g.ciclo==="anual"||g.ciclo==="trimestral"||g.ciclo==="semestral"?g.monto/c[1]:g.monto}
+  function activo(g){var t=today();return g.tipo==="fijo"&&g.ciclo!=="unico"&&(!g.ini||g.ini<=t)&&(!g.fin||g.fin>=t)}
+  function toPen(n,m){var fx=window.ecFx;if(m==="PEN")return n;if(fx&&fx.pen){var q=fx.pen(n,m);if(q!=null)return q}return null}
+  function toGtq(pen){var fx=window.ecFx;var r=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504;return pen/r}
+  function kpi(t,b,s,c){return '<div class="card kpi"><h3>'+t+'</h3><div class="big '+(c||"")+'">'+b+'</div><div class="sub">'+s+'</div></div>'}
+  function lista(){
+    var q=$("g-q").value.trim().toLowerCase();
+    return G.filter(function(g){return (gTipo==="todos"||g.tipo===gTipo)&&(!q||((g.concepto||"")+" "+(g.cat||"")+" "+(g.nota||"")).toLowerCase().indexOf(q)>-1)})
+      .sort(function(a,b){return (b.ini||"").localeCompare(a.ini||"")||(a.concepto||"").localeCompare(b.concepto||"")});
+  }
+  function totales(){
+    var fj=G.filter(activo),pen=0,miss=0;fj.forEach(function(g){var x=toPen(imp(g),g.mon||"PEN");if(x==null)miss++;else pen+=x});
+    var vars=G.filter(function(g){return g.tipo==="variable"&&(!g.fin||g.fin>=today())}),vp=0;vars.forEach(function(g){var x=toPen(imp(g),g.mon||"PEN");if(x!=null)vp+=x});
+    return {fj:fj.length,pen:pen,vars:vars.length,vp:vp,miss:miss,nf:G.filter(function(g){return g.tipo==="fijo"}).length}}
+  function render(){
+    var t=totales(),L=lista();
+    $("g-kpis").innerHTML=kpi("Gastos fijos por mes","S/ "+f2(t.pen),"≈ Q "+f0(toGtq(t.pen))+" · "+t.fj+" fijos activos")+
+      kpi("Costo por venta","S/ "+f2(t.vp),"≈ Q "+f0(toGtq(t.vp))+" · "+t.vars+" variables, suman por cada venta","ta")+
+      kpi("Fijos al año","S/ "+f0(t.pen*12),"≈ Q "+f0(toGtq(t.pen*12))+" proyectado con lo actual")+
+      kpi("Registros",String(G.length),t.nf+" fijos · "+(G.length-t.nf)+" variables");
+    $("g-body").innerHTML=L.length?L.map(function(g){
+      var d=g.ini?new Date(g.ini+"T12:00:00"):null,m=d?d.getMonth():-1,fin=g.fin&&g.fin<today();
+      var mes=m>=0?'<span class="gmes" style="color:hsl('+((m*37+140)%360)+',70%,'+(document.documentElement.getAttribute("data-theme")==="dark"?"65%":"36%")+')">'+MES[m]+'</span>':'–';
+      var c=CIC[g.ciclo]||CIC.mensual,im=imp(g);
+      return '<tr'+(fin?' class="gend"':'')+' data-id="'+esc(g.id)+'"><td><span class="gtipo '+(g.tipo==="fijo"?"f":"v")+'">'+(g.tipo==="fijo"?"FIJO":"VARIABLE")+'</span></td><td>'+mes+'</td><td><b>'+esc(g.concepto)+'</b>'+(g.nota?'<div class="sub">'+esc(g.nota)+'</div>':'')+'</td><td>'+(g.tipo==="variable"&&!g.cat?'<i>Costo por unidad</i>':esc(g.cat||"–"))+'</td><td class="num">'+money(g.monto,g.mon||"PEN")+'</td><td>'+c[0]+'</td><td style="white-space:nowrap">'+(g.ini||"–")+(g.fin?' → '+g.fin:'')+'</td><td class="num">'+money(im,g.mon||"PEN")+(g.tipo==="variable"?' <span class="sub">(unitario)</span>':(g.ciclo==="unico"?' <span class="sub">(una vez)</span>':''))+'</td><td style="white-space:nowrap"><button type="button" class="btn" data-a="ed">Editar</button> <button type="button" class="btn" data-a="del">Eliminar</button></td></tr>';
+    }).join(""):'<tr><td colspan="9" class="sub" style="padding:18px 14px">Todavía no hay gastos registrados. Toca "＋ Registrar gasto".</td></tr>';
+    $("g-total").textContent="S/ "+f2(t.pen);
+    $("g-pie").textContent="Equivale a unos Q "+f0(toGtq(t.pen))+" al mes con el tipo de cambio de hoy. Los fijos anuales se reparten en 12 meses; los variables se suman por cada venta."+(t.miss?" "+t.miss+" gasto(s) no se pudieron convertir.":"");
+  }
+  function formShow(show,g){
+    $("g-form").hidden=!show;if(!show)return;
+    gEdit=g?g.id:null;$("g-ftit").textContent=g?"Editar gasto":"Registrar gasto";
+    var d=g||{tipo:"fijo",concepto:"",cat:"",monto:"",mon:"PEN",ciclo:"mensual",ini:today(),fin:"",nota:""};
+    $("g-tipo").value=d.tipo;$("g-con").value=d.concepto;$("g-cat").value=d.cat||"";$("g-monto").value=d.monto;$("g-mon").value=d.mon||"PEN";$("g-ciclo").value=d.ciclo||"mensual";$("g-ini").value=d.ini||"";$("g-fin").value=d.fin||"";$("g-nota").value=d.nota||"";
+    $("g-form").scrollIntoView({behavior:"smooth",block:"center"});$("g-con").focus();
+  }
+  function msg(t){$("g-msg").textContent=t;if(t)setTimeout(function(){if($("g-msg").textContent===t)$("g-msg").textContent=""},3500)}
+  window.gWire=function(db,can){
+    gDb=db;gWrite=can;
+    $("g-nuevo").addEventListener("click",function(){if(!gDb||!gWrite){msg("No tienes permiso para guardar gastos.");return}formShow(true,null)});
+    $("g-cancel").addEventListener("click",function(){formShow(false)});
+    $("g-tipo").addEventListener("change",function(){if(this.value==="variable"){$("g-ciclo").value="venta";if(!$("g-cat").value)$("g-cat").value="Costo por Unidad"}else if($("g-ciclo").value==="venta")$("g-ciclo").value="mensual"});
+    $("g-guardar").addEventListener("click",function(){
+      if(!gDb||!gWrite)return;
+      var con=$("g-con").value.trim(),mo=parseFloat($("g-monto").value);
+      if(!con){msg("Escribe el concepto o la plataforma.");$("g-con").focus();return}
+      if(!(mo>=0)){msg("Escribe el monto.");$("g-monto").focus();return}
+      var id=gEdit||("g"+Date.now().toString(36)+Math.random().toString(36).slice(2,5));
+      var doc={id:id,tipo:$("g-tipo").value,concepto:con,cat:$("g-cat").value.trim(),monto:mo,mon:$("g-mon").value,ciclo:$("g-ciclo").value,ini:$("g-ini").value,fin:$("g-fin").value,nota:$("g-nota").value.trim(),updated:Date.now()};
+      gDb.doc("gastos/"+id).set(doc).then(function(){msg(gEdit?"Cambios guardados.":"Gasto guardado.");formShow(false)}).catch(function(){msg("No se pudo guardar. Intenta otra vez.")});
+    });
+    $("g-body").addEventListener("click",function(ev){
+      var b=ev.target.closest("button[data-a]");if(!b)return;var tr=b.closest("tr"),id=tr.getAttribute("data-id"),g=G.filter(function(x){return x.id===id})[0];if(!g)return;
+      if(b.dataset.a==="ed"){if(!gWrite)return;formShow(true,g)}
+      if(b.dataset.a==="del"){if(!gWrite||!gDb)return;if(gDel===id){gDel=null;gDb.doc("gastos/"+id).delete().catch(function(){msg("No se pudo eliminar.")})}else{gDel=id;b.textContent="¿Seguro?";setTimeout(function(){if(gDel===id){gDel=null;b.textContent="Eliminar"}},4000)}}
+    });
+    $("g-chips").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;gTipo=b.dataset.t;document.querySelectorAll("#g-chips .chip").forEach(function(x){x.setAttribute("aria-pressed",x===b)});render()});
+    $("g-q").addEventListener("input",render);
+    $("g-csv").addEventListener("click",async function(){
+      var dl=null;try{dl=await window.claude.use("downloads")}catch(e){}
+      if(!dl){msg("La descarga no está disponible en esta vista.");return}
+      function q(x){x=x==null?"":String(x);return '"'+x.replace(/"/g,'""')+'"'}
+      var rows=[["Tipo","Concepto","Categoría","Monto","Moneda","Ciclo","Inicio","Fin","Impacto mensual","Nota"]];
+      lista().forEach(function(g){rows.push([g.tipo,g.concepto,g.cat,g.monto,g.mon,g.ciclo,g.ini,g.fin,imp(g).toFixed(2),g.nota])});
+      try{await dl.save({filename:"gastos-plataforma.csv",data:"\ufeff"+rows.map(function(r){return r.map(q).join(",")}).join("\n")});msg("Archivo listo.")}catch(e){msg("No se pudo descargar.")}
+    });
+    if(db){db.collection("gastos").limit(500).onSnapshot(function(snap){G=snap.docs.map(function(d){var x=d.data();x.id=x.id||d.id;return x});render()},function(){G=[];render()})}
+    render();
+    if(window.ecFx)window.ecFx.hooks.push(render);
+  };
+  document.addEventListener("click",function(e){if(e.target.closest("#thm"))setTimeout(render,0)});
+  render();
+})();
+</script>
 <script>
 (function(){
   var KEY="ec_fx",st={on:false,rate:0.4504,fecha:"8 oct 2026"},R={GTQ:1,COP:423.87,USD:0.130952},hooks=[];
@@ -1270,6 +1406,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     await Promise.resolve();
     czWire(db,can);
     vWire(db,can);
+    if(window.gWire)window.gWire(db,can);
   })();
 
   /* ===== Validador manual ===== */
@@ -1382,8 +1519,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]]};
-  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv"};
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]],fin:[["gas","Gastos de plataforma"]]};
+  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gas"};
   function show(g,pane){
     cur[g]=pane;
     gb.forEach(function(b){b.setAttribute("aria-selected",b.dataset.g===g)});
@@ -1440,6 +1577,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setup(document.getElementById("v-tabla"),"validador");
   setup(document.getElementById("o-tabla"),"pedidos");
   setup(document.getElementById("z-tabla"),"zonas");
+  setup(document.getElementById("g-tabla"),"gastos");
   var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
 })();
 </script>
