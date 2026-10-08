@@ -231,12 +231,13 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));border-color:transparent}
 .fld input:focus,.fld select:focus,.fld textarea:focus,.sel select:focus{outline:2px solid var(--cel);outline-offset:1px;border-color:var(--cel)}
 @media(max-width:520px){.brand img{width:44px;height:44px;border-radius:12px}h1{font-size:2rem}}
+.thm{font:inherit;font-size:.78rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer;margin-right:10px}.thm:hover{border-color:var(--cel)}
 </style>
 
 <div class="wrap">
   <header>
     <div class="brand"><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
-    <div class="meta">1 mar – 7 oct 2026 · Dropi sincronizado 7 oct 19:06 · montos en GTQ salvo Meta (PEN)</div>
+    <div class="meta"><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 7 oct 2026 · Dropi sincronizado 7 oct 19:06 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
   <div class="navwrap">
@@ -1149,4 +1150,10 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   ns.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var g=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0].dataset.g;show(g,b.dataset.p)});
   try{var sn=(sessionStorage.getItem("nav")||"").split("|");if(GR[sn[0]]&&GR[sn[0]].some(function(x){return x[0]===sn[1]}))show(sn[0],sn[1]);else show("res","res")}catch(e){show("res","res")}
 })();
+</script>
+<script>
+(function(){var b=document.getElementById('thm');if(!b)return;var r=document.documentElement;
+function cur(){return r.getAttribute('data-theme')==='dark'?'dark':'light'}
+function paint(){b.textContent=cur()==='dark'?'☀ Claro':'☾ Oscuro'}
+b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('ec_theme',n)}catch(e){}paint()});paint()})();
 </script>
