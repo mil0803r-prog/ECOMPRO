@@ -274,18 +274,12 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .sg[aria-current="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg);box-shadow:0 2px 10px rgba(56,198,244,.25)}
 .sgrp{display:flex;flex-direction:column;gap:2px}
 
-/* Convertidor de moneda (Logística) */
-.fxbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
-.fxbtn{font:inherit;font-weight:600;font-size:.88rem;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:99px;padding:7px 16px;cursor:pointer}
-.fxbtn[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg);border-color:transparent}
-.fxinfo{font-size:.85rem;color:var(--muted)}.fxinfo b{color:var(--fg)}
-.fxrate{font-size:.8rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-left:auto}
-.fxin{font:inherit;font-size:.85rem;width:84px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
-.fxnote{flex-basis:100%;font-size:.74rem;color:var(--muted)}
+/* Convertidor de moneda: Q / S/ */
 
-.fxcmp{display:flex;flex-wrap:wrap;gap:10px 28px;flex-basis:100%;padding-top:8px;border-top:1px dashed var(--line)}
-.fxcmp div{display:flex;flex-direction:column;gap:2px}.fxcmp small{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}.fxcmp b{font-family:var(--display);font-size:1.5rem;font-variant-numeric:tabular-nums}
-.fxbar2 .fxinfo{flex:1 1 260px}
+
+.fxmini{display:inline-flex;align-self:flex-end;margin-left:auto;border:1px solid var(--line);border-radius:99px;background:var(--card);padding:2px;gap:2px}
+.fxopt{font:inherit;font-size:.8rem;font-weight:700;min-width:36px;padding:4px 10px;border:0;border-radius:99px;background:transparent;color:var(--muted);cursor:pointer}
+.fxopt[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg)}
 </style>
 
 <div class="wrap">
@@ -334,7 +328,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-ped" hidden>
-    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div>
       <div class="bar" role="img" aria-label="438 pedidos: 228 entregados, 24 en proceso, 150 en rojo, 36 cancelados">
         <i style="width:52.1%;background:var(--verde)"></i><i style="width:5.5%;background:var(--amar)"></i><i style="width:34.2%;background:var(--rojo)"></i><i style="width:8.2%;background:var(--gris)"></i>
@@ -395,7 +389,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-din" hidden>
-    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div class="grid g4">
       <div class="card kpi"><h3>Venta entregada · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="45103">45.103</span></div><div class="sub">228 pedidos</div></div>
       <div class="card kpi"><h3>Costo del producto · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="13883">13.883</span></div><div class="sub">31% de la venta</div></div>
@@ -415,7 +409,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-lan" hidden>
-    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div>
       <h2>Embudo, últimos 30 días</h2>
       <div class="card fun" id="embudo"></div>
@@ -454,9 +448,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-met" hidden>
-    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Los anuncios ya vienen en <b>soles (PEN)</b>. Aquí convierto tus ventas en quetzales para que las compares con el gasto.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label>
-      <div class="fxcmp"><div><small>Venta entregada (Lumy, todo el periodo)</small><b><span class="mq" data-q="45103"></span> <span class="mc">GTQ</span></b></div><div><small>Ganancia según Lumy (techo)</small><b><span class="mq" data-q="23093"></span> <span class="mc">GTQ</span></b></div></div>
-      <span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div class="card" style="display:flex;flex-direction:column;gap:12px">
       <div class="frow">
         <div class="fld grow"><label for="cta">Cuenta de anuncios</label><select id="cta"></select></div>
@@ -470,9 +462,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-tik" hidden>
-    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Los anuncios ya vienen en <b>soles (PEN)</b>. Aquí convierto tus ventas en quetzales para que las compares con el gasto.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label>
-      <div class="fxcmp"><div><small>Venta entregada (Lumy, todo el periodo)</small><b><span class="mq" data-q="45103"></span> <span class="mc">GTQ</span></b></div><div><small>Ganancia según Lumy (techo)</small><b><span class="mq" data-q="23093"></span> <span class="mc">GTQ</span></b></div></div>
-      <span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div class="card" style="display:flex;flex-direction:column;gap:12px">
       <div class="frow">
         <div class="fld grow"><label for="tt-cta">Cuenta de anuncios</label><select id="tt-cta"></select></div>
@@ -567,7 +557,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-val" hidden>
-    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Lo que escribes se queda en su moneda. Al activar, abajo y en la lista verás el equivalente en <b>soles (PEN)</b>.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
       <div><h2 style="margin:0">Validador manual</h2><span class="sub">Registra productos, mira a la competencia, guarda enlaces y completa la lista de lanzamiento antes de pautar.</span></div>
       <div style="display:flex;gap:8px"><button class="btn" type="button" id="v-limpiar">Limpiar</button><button class="btn vprim" type="button" id="v-guardar">Guardar investigación</button></div>
@@ -652,13 +642,11 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       var cur=st.on?"PEN":"GTQ";
       document.querySelectorAll(".mq").forEach(function(e){var q=+e.getAttribute("data-q");e.textContent=fmt(st.on?q*st.rate:q)});
       document.querySelectorAll(".mc").forEach(function(e){e.textContent=cur});
-      document.querySelectorAll(".fxbtn").forEach(function(b){b.setAttribute("aria-pressed",st.on);b.textContent=st.on?"⇄ Volver a quetzales":"⇄ Convertir a soles"});
-      document.querySelectorAll(".fxin").forEach(function(i){if(document.activeElement!==i)i.value=st.rate});
-      document.querySelectorAll(".fxnote").forEach(function(n){n.textContent=st.on?"Convertido con 1 GTQ = "+st.rate+" PEN (tipo de cambio del "+st.fecha+"). Es una referencia: puedes cambiar la tasa. Las cifras originales siguen siendo en quetzales.":""});
+      document.querySelectorAll(".fxopt").forEach(function(b){b.setAttribute("aria-pressed",(b.getAttribute("data-c")==="PEN")===st.on);b.title="1 Q = "+st.rate+" S/ ("+st.fecha+")"});
       hooks.forEach(function(f){try{f()}catch(e){}});
     }
   };
-  document.addEventListener("click",function(e){var b=e.target.closest(".fxbtn");if(!b)return;st.on=!st.on;save();fx.apply()});
+  document.addEventListener("click",function(e){var b=e.target.closest(".fxopt");if(!b)return;st.on=b.getAttribute("data-c")==="PEN";save();fx.apply()});
   document.addEventListener("input",function(e){var i=e.target.closest&&e.target.closest(".fxin");if(!i)return;var v=parseFloat(i.value);if(v>0){st.rate=v;st.fecha="ajustado por ti";save();fx.apply()}});
   try{fetch("https://open.er-api.com/v6/latest/GTQ").then(function(r){return r.json()}).then(function(d){if(d&&d.rates&&d.rates.PEN>0){if(d.rates.COP>0)R.COP=d.rates.COP;if(d.rates.USD>0)R.USD=d.rates.USD;var saved=false;try{saved=(JSON.parse(localStorage.getItem(KEY)||"{}").fecha==="ajustado por ti")}catch(e){}if(!saved){st.rate=Math.round(d.rates.PEN*10000)/10000;st.fecha=new Date().toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});save();fx.apply()}}}).catch(function(){})}catch(e){}
   setTimeout(fx.apply,0);
