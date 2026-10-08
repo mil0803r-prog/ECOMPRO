@@ -245,14 +245,31 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   #nav-s:not([hidden])::before{content:"Secciones";font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;padding:0 12px 4px}
   #nav-s button{font-size:.86rem;padding:8px 12px 8px 22px;border-radius:8px}
 }
+
+/* Celular: el menú es un panel lateral que se abre con el botón ☰ */
+.mbtn,.mscrim{display:none}
+@media(max-width:899px){
+  .mbtn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;font:inherit;font-size:1.35rem;line-height:1;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer}
+  .wrap>.navwrap{position:fixed;top:0;left:0;bottom:0;width:min(280px,82vw);z-index:30;transform:translateX(-105%);transition:transform .22s ease;background:var(--card);border:0;border-right:1px solid var(--line);padding:max(16px,env(safe-area-inset-top,0px)) 12px 16px;overflow-y:auto;box-shadow:8px 0 30px rgba(0,0,0,.25);backdrop-filter:none;gap:4px}
+  body.menu-open .navwrap{transform:none}
+  .navwrap nav{flex-direction:column;overflow:visible;gap:3px}
+  .navwrap nav button{width:100%;text-align:left;padding:12px 14px;border-radius:10px;font-size:.95rem}
+  #nav-s:not([hidden]){margin-top:8px;padding-top:10px;border-top:1px solid var(--line)}
+  #nav-s:not([hidden])::before{content:"Secciones";font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;padding:0 14px 4px}
+  #nav-s button{font-size:.9rem;padding:10px 14px 10px 24px}
+  .mscrim{position:fixed;inset:0;z-index:20;background:rgba(3,10,16,.55)}
+  body.menu-open .mscrim{display:block}
+  body.menu-open{overflow:hidden}
+}
 </style>
 
 <div class="wrap">
   <header>
-    <div class="brand"><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
+    <div class="brand"><button type="button" class="mbtn" id="mbtn" aria-label="Abrir menú" aria-expanded="false">☰</button><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
     <div class="meta"><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 7 oct 2026 · Dropi sincronizado 7 oct 19:06 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
+  <div class="mscrim" id="mscrim"></div>
   <div class="navwrap">
     <nav id="nav-g" role="tablist" aria-label="Áreas">
       <button type="button" role="tab" data-g="res" aria-selected="true">Resumen</button>
@@ -1169,4 +1186,13 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 function cur(){return r.getAttribute('data-theme')==='dark'?'dark':'light'}
 function paint(){b.textContent=cur()==='dark'?'☀ Claro':'☾ Oscuro'}
 b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('ec_theme',n)}catch(e){}paint()});paint()})();
+</script>
+<script>
+(function(){var b=document.getElementById('mbtn'),s=document.getElementById('mscrim'),nw=document.querySelector('.navwrap');if(!b||!s||!nw)return;
+function set(o){document.body.classList.toggle('menu-open',o);b.setAttribute('aria-expanded',o?'true':'false')}
+b.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
+s.addEventListener('click',function(){set(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
+nw.addEventListener('click',function(e){var sec=!!e.target.closest('#nav-s button'),grp=!!e.target.closest('#nav-g button');setTimeout(function(){if(sec||(grp&&document.getElementById('nav-s').hidden))set(false)},0)},true);
+window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 </script>
