@@ -1006,6 +1006,7 @@ th[class*="m-"]{color:var(--mc);box-shadow:inset 0 2px 0 var(--mc)}
   (async function(){
     var db=null,can=true;
     try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can){var cw=us.can("data.write");if(cw===false)can=false}}}catch(e){}
+    await Promise.resolve();
     czWire(db,can);
     vWire(db,can);
   })();
