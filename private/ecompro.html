@@ -567,6 +567,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-val" hidden>
+    <div class="fxbar fxbar2"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Lo que escribes se queda en su moneda. Al activar, abajo y en la lista verás el equivalente en <b>soles (PEN)</b>.</span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
       <div><h2 style="margin:0">Validador manual</h2><span class="sub">Registra productos, mira a la competencia, guarda enlaces y completa la lista de lanzamiento antes de pautar.</span></div>
       <div style="display:flex;gap:8px"><button class="btn" type="button" id="v-limpiar">Limpiar</button><button class="btn vprim" type="button" id="v-guardar">Guardar investigación</button></div>
@@ -640,12 +641,13 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 
 <script>
 (function(){
-  var KEY="ec_fx",st={on:false,rate:0.4504,fecha:"7 oct 2026"};
+  var KEY="ec_fx",st={on:false,rate:0.4504,fecha:"7 oct 2026"},R={GTQ:1,COP:423.87,USD:0.130952},hooks=[];
   try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){st.on=!!s.on;if(s.rate>0)st.rate=+s.rate;if(s.fecha)st.fecha=s.fecha}}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
   function fmt(n){return Math.round(n).toLocaleString("es")}
   var fx=window.ecFx={
-    st:st,
+    st:st,hooks:hooks,
+    pen:function(n,cur){cur=cur||"GTQ";if(cur==="PEN")return n;var r=R[cur];return r>0?n/r*st.rate:null},
     apply:function(){
       var cur=st.on?"PEN":"GTQ";
       document.querySelectorAll(".mq").forEach(function(e){var q=+e.getAttribute("data-q");e.textContent=fmt(st.on?q*st.rate:q)});
@@ -653,11 +655,12 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       document.querySelectorAll(".fxbtn").forEach(function(b){b.setAttribute("aria-pressed",st.on);b.textContent=st.on?"⇄ Volver a quetzales":"⇄ Convertir a soles"});
       document.querySelectorAll(".fxin").forEach(function(i){if(document.activeElement!==i)i.value=st.rate});
       document.querySelectorAll(".fxnote").forEach(function(n){n.textContent=st.on?"Convertido con 1 GTQ = "+st.rate+" PEN (tipo de cambio del "+st.fecha+"). Es una referencia: puedes cambiar la tasa. Las cifras originales siguen siendo en quetzales.":""});
+      hooks.forEach(function(f){try{f()}catch(e){}});
     }
   };
   document.addEventListener("click",function(e){var b=e.target.closest(".fxbtn");if(!b)return;st.on=!st.on;save();fx.apply()});
   document.addEventListener("input",function(e){var i=e.target.closest&&e.target.closest(".fxin");if(!i)return;var v=parseFloat(i.value);if(v>0){st.rate=v;st.fecha="ajustado por ti";save();fx.apply()}});
-  try{fetch("https://open.er-api.com/v6/latest/GTQ").then(function(r){return r.json()}).then(function(d){if(d&&d.rates&&d.rates.PEN>0){var saved=false;try{saved=(JSON.parse(localStorage.getItem(KEY)||"{}").fecha==="ajustado por ti")}catch(e){}if(!saved){st.rate=Math.round(d.rates.PEN*10000)/10000;st.fecha=new Date().toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});save();fx.apply()}}}).catch(function(){})}catch(e){}
+  try{fetch("https://open.er-api.com/v6/latest/GTQ").then(function(r){return r.json()}).then(function(d){if(d&&d.rates&&d.rates.PEN>0){if(d.rates.COP>0)R.COP=d.rates.COP;if(d.rates.USD>0)R.USD=d.rates.USD;var saved=false;try{saved=(JSON.parse(localStorage.getItem(KEY)||"{}").fecha==="ajustado por ti")}catch(e){}if(!saved){st.rate=Math.round(d.rates.PEN*10000)/10000;st.fecha=new Date().toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});save();fx.apply()}}}).catch(function(){})}catch(e){}
   setTimeout(fx.apply,0);
 })();
 </script>
@@ -1152,8 +1155,16 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
     var c=+vF.costo,p=+vF.pvp,el=$("v-ev");
     if(!(c>0&&p>0)){el.innerHTML="";return}
     var e=evOf(c,1,p),m=pvpObj(c,1);
-    el.innerHTML='A '+g0(p)+' '+vF.mon+' con tu flete ('+g0(PAR.flete)+') y '+g0(PAR.entrega)+'% de entrega, la utilidad esperada es <b class="'+(e>=PAR.objetivo?'tv':(e>=0?'ta':'tr_')+'')+'">'+(e>=0?'+':'')+g1(e)+'</b> por pedido. Precio mínimo para ganar +'+g0(PAR.objetivo)+': <b>'+g0(m)+'</b>.'+(vF.mon!=="GTQ"?' Los cálculos asumen quetzales.':'');
+    el.innerHTML='A '+g0(p)+' '+vF.mon+' con tu flete ('+g0(PAR.flete)+') y '+g0(PAR.entrega)+'% de entrega, la utilidad esperada es <b class="'+(e>=PAR.objetivo?'tv':(e>=0?'ta':'tr_')+'')+'">'+(e>=0?'+':'')+g1(e)+'</b> por pedido. Precio mínimo para ganar +'+g0(PAR.objetivo)+': <b>'+g0(m)+'</b>.'+(vF.mon!=="GTQ"?' Los cálculos asumen quetzales.':'')+vPen(c,p,e,m);
   }
+  function vPen(c,p,e,m){
+    var fx=window.ecFx;if(!fx||!fx.st.on)return"";
+    var pp=fx.pen(p,vF.mon),cc=fx.pen(c,vF.mon);if(pp==null||cc==null)return"";
+    var s='<div style="margin-top:6px"><b>En soles (PEN):</b> precio '+g0(pp)+' · costo '+g0(cc);
+    if(vF.mon==="GTQ"){s+=' · utilidad esperada '+(e>=0?'+':'')+g1(fx.pen(e,"GTQ"))+' · precio mínimo '+g0(fx.pen(m,"GTQ"))}
+    return s+'</div>';
+  }
+  function vPrecio(v){var fx=window.ecFx;if(fx&&fx.st.on){var q=fx.pen(+v.pvp,v.mon||"GTQ");if(q!=null)return g0(q)+' PEN'+((v.mon&&v.mon!=="PEN")?'<div class="sub" style="font-weight:400">'+g0(v.pvp)+' '+esc(v.mon)+'</div>':'')}return g0(v.pvp)+' '+esc(v.mon||"")}
   function vRender(){
     var all=VAL.slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(b.updated||0)-(a.updated||0)});
     var cnt={todos:all.length,falta:0,proceso:0,testeado:0};all.forEach(function(v){cnt[v.estado||"falta"]++});
@@ -1166,7 +1177,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       (v.anuncios||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Anuncio '+(i+1)+'</a>')});
       (v.videos||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Video '+(i+1)+'</a>')});
       var ch=[v.ch&&v.ch.wa?"WhatsApp":"",v.ch&&v.ch.fb?"Facebook":"",v.ch&&v.ch.tt?"TikTok":""].filter(Boolean).join(" · ");
-      return '<tr class="e-'+(v.estado||"falta")+'" data-id="'+esc(v.id)+'"><td style="white-space:nowrap">'+esc(v.date||"")+'</td><td><b>'+esc(v.name||"")+'</b><div class="sub">'+(v.dropi?'ID '+esc(v.dropi)+' · ':'')+(v.prov||0)+' prov.'+(ch?' · '+ch:'')+'</div>'+(v.notas?'<div class="sub" style="font-style:italic">'+esc(v.notas.length>90?v.notas.slice(0,88)+"…":v.notas)+'</div>':'')+'</td><td><span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+(v.pvp?g0(v.pvp)+' '+esc(v.mon||""):'–')+'</td><td class="num">'+((v.cwa||0)+(v.cland||0))+'<div class="sub" style="font-weight:400">WA '+(v.cwa||0)+' · Web '+(v.cland||0)+'</div></td><td>'+(links.join("")||'<span class="sub">–</span>')+'</td><td><div class="vmini"><i><u style="width:'+av+'%"></u></i><span class="sub">'+av+'%</span></div></td><td style="white-space:nowrap"><button type="button" class="btn" data-a="ed">Editar</button> <button type="button" class="btn" data-a="del">Eliminar</button></td></tr>';
+      return '<tr class="e-'+(v.estado||"falta")+'" data-id="'+esc(v.id)+'"><td style="white-space:nowrap">'+esc(v.date||"")+'</td><td><b>'+esc(v.name||"")+'</b><div class="sub">'+(v.dropi?'ID '+esc(v.dropi)+' · ':'')+(v.prov||0)+' prov.'+(ch?' · '+ch:'')+'</div>'+(v.notas?'<div class="sub" style="font-style:italic">'+esc(v.notas.length>90?v.notas.slice(0,88)+"…":v.notas)+'</div>':'')+'</td><td><span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+(v.pvp?vPrecio(v):'–')+'</td><td class="num">'+((v.cwa||0)+(v.cland||0))+'<div class="sub" style="font-weight:400">WA '+(v.cwa||0)+' · Web '+(v.cland||0)+'</div></td><td>'+(links.join("")||'<span class="sub">–</span>')+'</td><td><div class="vmini"><i><u style="width:'+av+'%"></u></i><span class="sub">'+av+'%</span></div></td><td style="white-space:nowrap"><button type="button" class="btn" data-a="ed">Editar</button> <button type="button" class="btn" data-a="del">Eliminar</button></td></tr>';
     }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Todavía no hay investigaciones. Llena el formulario y toca "Guardar investigación".</td></tr>';
   }
   function vWire(db,canWrite){
@@ -1223,6 +1234,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       try{await dl.save({filename:"investigaciones-ecompro.csv",data:"﻿"+rows.map(function(r){return r.map(q).join(",")}).join("\n")});msg.textContent="Archivo listo."}catch(e){msg.textContent=(e&&e.code==="declined")?"Descarga cancelada.":"No se pudo descargar."}
     });
     vSync();vRender();
+    if(window.ecFx)window.ecFx.hooks.push(function(){vEv();vRender()});
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
