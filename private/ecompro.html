@@ -340,6 +340,27 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .tbl.cards td[colspan]{display:block;text-align:left}
 .tbl.cards td[colspan]::before{display:none}
 .tbl.cards td.num{text-align:right}
+
+/* Efectividad por zona */
+.zbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin-bottom:10px}
+.zbar .vsw{margin:0}
+.zbar .fld{flex:1 1 200px}
+#z-body tr{cursor:pointer}
+#z-body tr:hover td{background:color-mix(in srgb,var(--cel) 10%,transparent)}
+.zrate{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.zrate i{display:block;width:64px;height:8px;border-radius:4px;background:var(--gris-bg);overflow:hidden;position:relative}
+.zrate i u{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--verde)}
+.zrate i.a u{background:var(--amar)}.zrate i.r u{background:var(--rojo)}.zrate i.g u{background:var(--gris)}
+.zcard{border:1px solid var(--line);border-left:5px solid var(--gris);border-radius:12px;background:var(--card);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.zcard.v{border-left-color:var(--verde)}.zcard.a{border-left-color:var(--amar)}.zcard.r{border-left-color:var(--rojo)}
+.zcard .zh{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;justify-content:space-between}
+.zcard .zh h3{margin:0;font-size:.82rem}
+.zcard .zbig{font-family:var(--display);font-weight:700;font-size:2.4rem;line-height:1}
+.zcard .zst{display:flex;flex-wrap:wrap;gap:8px 22px}
+.zcard .zst div{display:flex;flex-direction:column}.zcard .zst small{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}.zcard .zst b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.zcard .zmsg{font-size:.9rem}
+.zcard .zsub{display:flex;flex-wrap:wrap;gap:6px}
+.zcard .zsub button{font:inherit;font-size:.78rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:99px;padding:3px 10px;cursor:pointer}
 </style>
 
 <div class="wrap">
@@ -397,6 +418,22 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     </div>
     <div class="alert"><b>De cada 100 pedidos cerrados, 38 volvieron</b><span>Ningún mes con volumen real pasó de 66% de entrega. Marzo no tiene pedidos en Dropi y agosto tuvo 7.</span></div>
 
+    <div id="o-zonas">
+      <h2>Efectividad de entrega por zona</h2>
+      <p class="sub" id="z-sub" style="margin:0 0 10px"></p>
+      <div class="zbar">
+        <div class="vsw" role="group" aria-label="Agrupar por"><button type="button" data-z="dep" aria-pressed="true">Departamentos</button><button type="button" data-z="ciu" aria-pressed="false">Ciudades</button></div>
+        <div class="fld"><label for="z-q">Buscar zona</label><input id="z-q" type="search" placeholder="Ej.: San Marcos, Concepción Tutuapa" autocomplete="off"></div>
+        <div class="fld"><label for="z-ord">Ordenar por</label><select id="z-ord"><option value="t">Más pedidos</option><option value="best">Mejor % de entrega</option><option value="worst">Peor % de entrega</option></select></div>
+      </div>
+      <div class="tbl"><table id="z-tabla" style="min-width:720px">
+        <thead><tr><th>Zona</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">En camino</th><th class="num">Cancelados</th><th class="num">% entrega</th><th>Veredicto</th></tr></thead>
+        <tbody id="z-body"></tbody>
+      </table></div>
+      <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="z-mas" type="button">Ver más zonas</button></div>
+      <p class="foot" id="z-pie"></p>
+    </div>
+
     <div>
       <h2>Todos los pedidos de Dropi</h2>
       <div class="card" id="o-filtros" style="display:flex;flex-direction:column;gap:12px">
@@ -419,6 +456,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         </div>
         <p class="foot" style="margin:0">Transportadora, producto, nombre del cliente y número de guía no los entrega Lumy sobre los pedidos de Dropi, por eso esos filtros están apagados. El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
       </div>
+      <div id="o-zona" style="margin-top:12px" hidden></div>
       <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
       <div class="tbl" style="margin-top:12px"><table id="o-tabla">
         <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Fecha</th><th>Estado</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
@@ -770,7 +808,50 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       if(q){var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")).toLowerCase();if(hay.indexOf(q)<0)return false}
       return true});
   }
+
+  /* Efectividad de entrega por zona (todo el historial, sin filtros de fecha) */
+  var BE=50,GOOD=65,MINC=5,zmode="dep",zlim=15;
+  function zst(arr){var s={t:arr.length,e:0,d:0,c:0,p:0};arr.forEach(function(o){if(o.s==="E")s.e++;else if(o.s==="D"||o.s==="I"||o.s==="J")s.d++;else if(o.s==="C")s.c++;else s.p++});s.res=s.e+s.d;s.r=s.res?Math.round(s.e/s.res*100):null;return s}
+  function zver(s){if(s.res<MINC)return["g","Pocos datos"];if(s.r>=GOOD)return["v","Enviar"];if(s.r>=BE)return["a","Con cuidado"];return["r","Evitar"]}
+  function zbar(s){var v=zver(s);return '<span class="zrate"><b>'+(s.r==null?"–":s.r+"%")+'</b><i class="'+v[0]+'"><u style="width:'+(s.r||0)+'%"></u></i></span>'}
+  function zgroups(mode){var m={};ORD.forEach(function(o){var k=mode==="dep"?o.dep:o.c;(m[k]=m[k]||[]).push(o)});return Object.keys(m).map(function(k){var s=zst(m[k]);s.k=k;s.dep=mode==="ciu"?m[k][0].dep:"";return s})}
+  function norm(t){return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+  function zrows(){
+    var q=norm($("z-q").value.trim()),o=$("z-ord").value,L=zgroups(zmode).filter(function(s){return !q||norm(s.k).indexOf(q)>-1||norm(s.dep).indexOf(q)>-1});
+    L.sort(function(a,b){if(o==="best"||o==="worst"){var ka=a.res<MINC?-1:a.r,kb=b.res<MINC?-1:b.r;if(ka!==kb)return o==="best"?kb-ka:(ka<0?1:kb<0?-1:ka-kb)}return b.t-a.t||a.k.localeCompare(b.k)});
+    return L}
+  function zrender(){
+    var L=zrows(),all=zst(ORD),show=L.slice(0,zlim);
+    $("z-sub").textContent="Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): "+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
+    $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(zmode==="dep"?s.k:s.k)+'</b>'+(zmode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
+    $("z-mas").hidden=L.length<=zlim;$("z-mas").textContent="Ver más zonas ("+(L.length-zlim)+" restantes)";
+    $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con tu flete de unos 68 GTQ y ~69 GTQ de ganancia por entrega, bajo ~"+BE+"% se pierde dinero). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
+  }
+  function zonaCard(){
+    var box=$("o-zona"),dp=odep.value,ci=ociu.value;
+    if(!dp&&!ci){box.hidden=true;box.innerHTML="";return}
+    var arr=ORD.filter(function(o){return (!dp||o.dep===dp)&&(!ci||o.c===ci)}),s=zst(arr),v=zver(s);
+    var name=ci?ci+(dp?" ("+dp+")":""):dp;
+    var msg=s.res<MINC?"Aún hay muy pocos pedidos resueltos en esta zona para decidir ("+s.res+"). Puedes probar con pocos envíos y medir.":
+      s.r>=GOOD?"Buena zona: "+s.r+"% de entrega. Sí conviene enviar.":
+      s.r>=BE?"Zona regular: "+s.r+"% de entrega. Rinde poco; envía con cuidado (confirma bien la dirección y el teléfono).":
+      "Zona de riesgo: "+s.r+"% de entrega, por debajo del punto de equilibrio (~"+BE+"%). Cada envío tiende a perder dinero; mejor no enviar o pedir pago adelantado.";
+    var extra="";
+    if(ci&&dp){var sd=zst(ORD.filter(function(o){return o.dep===dp}));extra='<div class="sub">Todo el departamento de '+esc(dp)+': '+sd.t+' pedidos, '+(sd.r==null?"–":sd.r+"%")+' de entrega.</div>'}
+    if(dp&&!ci){var cs=zgroups("ciu").filter(function(x){return x.dep===dp}).sort(function(a,b){return b.t-a.t});extra='<div class="sub">Ciudades de '+esc(dp)+' (toca una para verla sola):</div><div class="zsub">'+cs.map(function(x){return '<button type="button" data-c="'+esc(x.k)+'">'+esc(x.k)+' · '+x.t+' · '+(x.r==null?"–":x.r+"%")+'</button>'}).join("")+'</div>'}
+    box.hidden=false;
+    box.innerHTML='<div class="zcard '+v[0]+'"><div class="zh"><h3>Historial completo de la zona</h3><span class="pill '+v[0]+'">'+v[1]+'</span></div><div class="zh"><b style="font-size:1.1rem">'+esc(name)+'</b><span class="zbig">'+(s.r==null?"–":s.r+"%")+'<small style="font-size:.8rem;font-weight:500;color:var(--muted)"> de entrega</small></span></div><div class="zst"><div><small>Pedidos</small><b>'+s.t+'</b></div><div><small>Entregados</small><b class="tv">'+s.e+'</b></div><div><small>Devueltos e incidencias</small><b class="tr_">'+s.d+'</b></div><div><small>En camino o proceso</small><b class="ta">'+s.p+'</b></div><div><small>Cancelados</small><b>'+s.c+'</b></div></div><div class="zmsg">'+msg+'</div>'+extra+'</div>';
+  }
+  $("o-zona").addEventListener("click",function(ev){var b=ev.target.closest("button[data-c]");if(!b)return;ociu.value=b.getAttribute("data-c");lim=50;rOrd()});
+  document.querySelectorAll("#o-zonas .vsw button").forEach(function(b){b.addEventListener("click",function(){zmode=b.getAttribute("data-z");zlim=15;document.querySelectorAll("#o-zonas .vsw button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});zrender()})});
+  $("z-q").addEventListener("input",function(){zlim=15;zrender()});$("z-ord").addEventListener("change",function(){zlim=15;zrender()});
+  $("z-mas").addEventListener("click",function(){zlim+=20;zrender()});
+  $("z-body").addEventListener("click",function(ev){var tr=ev.target.closest("tr[data-k]");if(!tr)return;var k=tr.getAttribute("data-k");
+    if(zmode==="dep"){odep.value=k;ciudades();ociu.value=""}else{var o=ORD.filter(function(x){return x.c===k})[0];odep.value=o?o.dep:"";ciudades();ociu.value=k}
+    lim=50;rOrd();$("o-filtros").scrollIntoView({behavior:"smooth",block:"start"})});
+  zrender();
   function rOrd(keepFocus){
+    zonaCard();
     var F=filtrar(),e=0,dv=0,pr=0,ca=0,val=0;
     F.forEach(function(o){if(o.s==="E"){e++;val+=o.v}else if(o.s==="D"||o.s==="I"||o.s==="J")dv++;else if(o.s==="C")ca++;else pr++});
     var pe=(e+dv)?Math.round(e/(e+dv)*100)+"%":"–";
@@ -783,7 +864,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     obody.innerHTML=sh.length?sh.map(function(o){
       var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
       return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
-        '<td class="num" style="text-align:left">'+o.n+'</td><td style="white-space:nowrap">'+o.d.slice(5).replace("-","/")+(o.t?' '+o.t:'')+'</td>'+
+        '<td class="num" style="text-align:left">'+o.n+'</td><td style="white-space:nowrap">'+o.d.split("-").reverse().join("/")+(o.t?' '+o.t:'')+'</td>'+
         '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
         '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
     }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
@@ -816,7 +897,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   var EP={entregado:"v",despachado:"a",confirmado:"a",pendiente_confirmar:"a",nuevo:"a",lead_wa:"g",abandonado:"g",cancelado:"g",devuelto:"r"};
   function rCrm(){
     var L=CRM.filter(function(r){return (!cp.value||r.p===cp.value)&&(!ce.value||r.e===ce.value)&&(!cd.value||(cd.value==="1")===r.dr)});
-    $("c-body").innerHTML=L.length?L.map(function(r){return '<tr><td class="num" style="text-align:left">'+r.id+'</td><td style="white-space:nowrap">'+r.f.slice(5)+'</td><td>'+r.p+'</td><td><span class="pill '+(EP[r.e]||"g")+'">'+r.e.replace("_"," ")+'</span></td><td class="num"><span class="mq" data-q="'+r.v+'"></span></td><td>'+(r.dr?"Sí":"No")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Sin pedidos con estos filtros.</td></tr>';
+    $("c-body").innerHTML=L.length?L.map(function(r){return '<tr><td class="num" style="text-align:left">'+r.id+'</td><td style="white-space:nowrap">'+r.f.slice(0,10).split("-").reverse().join("/")+r.f.slice(10)+'</td><td>'+r.p+'</td><td><span class="pill '+(EP[r.e]||"g")+'">'+r.e.replace("_"," ")+'</span></td><td class="num"><span class="mq" data-q="'+r.v+'"></span></td><td>'+(r.dr?"Sí":"No")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Sin pedidos con estos filtros.</td></tr>';
     window.ecFx&&window.ecFx.apply();
     $("c-pie").textContent=L.length+" de "+CRM.length+" pedidos de landing. Incluye abandonados y contactos de WhatsApp que aún no son pedido.";
   }
@@ -1344,6 +1425,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   }
   setup(document.getElementById("v-tabla"),"validador");
   setup(document.getElementById("o-tabla"),"pedidos");
+  setup(document.getElementById("z-tabla"),"zonas");
   var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
 })();
 </script>
