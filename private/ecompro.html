@@ -380,6 +380,13 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .nbars .t{position:relative;height:20px;background:var(--gris-bg);border-radius:4px}
 .nbars .t i{position:absolute;top:0;bottom:0;border-radius:4px}
 .nbars .t u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--fg);opacity:.5}
+
+/* Costo administrativo */
+#a-tmes tfoot td{border-top:2px solid var(--line);border-bottom:0;font-weight:700}
+.abars{display:flex;flex-direction:column;gap:8px}
+.abars .r{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:10px;align-items:center;font-size:.85rem}
+@media(max-width:520px){.abars .r{grid-template-columns:96px minmax(0,1fr) 96px}}
+.abars .t{height:18px;background:var(--gris-bg);border-radius:4px;overflow:hidden}.abars .t i{display:block;height:100%;background:var(--azul);border-radius:4px}
 </style>
 
 <div class="wrap">
@@ -767,6 +774,28 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     <p class="foot" id="n-pie"></p>
   </section>
 
+  <section class="pane" id="p-adm" hidden>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
+    <div><h2 style="margin:0">Costo administrativo</h2><span class="sub">Lo que cuesta mantener el negocio funcionando, sacado de los gastos que registraste (sin contar la pauta): cuánto por mes, por categoría, por plataforma y por pedido.</span></div>
+    <div class="grid g4" id="a-kpis"></div>
+    <div>
+      <h2>Por mes</h2>
+      <div class="tbl"><table id="a-tmes" style="min-width:760px">
+        <thead><tr><th>Mes</th><th class="num">Gastos fijos</th><th class="num">Gastos variables</th><th class="num">Costo administrativo</th><th class="num">Por pedido entregado</th><th class="num">% de la venta</th><th class="num">% de la ganancia</th></tr></thead>
+        <tbody id="a-bmes"></tbody><tfoot><tr id="a-fmes"></tr></tfoot>
+      </table></div>
+    </div>
+    <div class="card" id="a-cat"></div>
+    <div>
+      <h2>Por plataforma o concepto</h2>
+      <div class="tbl"><table id="a-tplat" style="min-width:760px">
+        <thead><tr><th>Concepto</th><th>Categoría</th><th>Tipo</th><th class="num">Costo por mes</th><th class="num">Acumulado</th><th class="num">% del total</th></tr></thead>
+        <tbody id="a-bplat"></tbody>
+      </table></div>
+      <p class="foot" id="a-pie"></p>
+    </div>
+  </section>
+
   <section class="pane" id="p-gas" hidden>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
       <div><h2 style="margin:0">Gastos de plataforma</h2><span class="sub">Software, suscripciones, sueldos y costos por venta. Se guardan solos y se calcula el impacto mensual.</span></div>
@@ -912,16 +941,17 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     ((window.__C)||[]).forEach(function(c){(c.rows||[]).forEach(function(x){var k="2026-"+x[0].slice(0,2);m[k]=m[k]||{meta:0,tt:0};m[k].meta+=x[2]})});
     ((window.__TT)||[]).forEach(function(a){if(!a.data)return;a.data.rows.forEach(function(x){var k=x[0].slice(0,7);if(k<"2026-01")return;m[k]=m[k]||{meta:0,tt:0};m[k].tt+=x[2]})});
     return m}
+  function costo(x,mes,ent){
+    var g=window.ecGastos;if(!g)return 0;
+    var a=mes+"-01",z=mes+"-31",ok=(!x.ini||x.ini<=z)&&(!x.fin||x.fin>=a),pen;
+    if(x.tipo==="variable"){
+      if(st.vmod==="una"){if(!(x.ini&&x.ini.slice(0,7)===mes))return 0}else if(!ok)return 0;
+      pen=g.toPen(x.monto*(st.vmod==="venta"?ent:1),x.mon||"PEN");return pen==null?0:pen/rate()}
+    if(x.ciclo==="unico"){if(x.ini&&x.ini.slice(0,7)===mes){pen=g.toPen(x.monto,x.mon||"PEN");return pen==null?0:pen/rate()}return 0}
+    if(!ok)return 0;pen=g.toPen(g.imp(x),x.mon||"PEN");return pen==null?0:pen/rate()}
   function gastos(mes,ent){
-    var g=window.ecGastos;if(!g)return{f:0,v:0};
-    var a=mes+"-01",z=mes+"-31",f=0,v=0;
-    g.get().forEach(function(x){
-      var ok=(!x.ini||x.ini<=z)&&(!x.fin||x.fin>=a),pen;
-      if(x.tipo==="variable"){
-        if(st.vmod==="una"){if(!(x.ini&&x.ini.slice(0,7)===mes))return}else if(!ok)return;
-        pen=g.toPen(x.monto*(st.vmod==="venta"?ent:1),x.mon||"PEN");if(pen!=null)v+=pen/rate();return}
-      if(x.ciclo==="unico"){if(x.ini&&x.ini.slice(0,7)===mes){pen=g.toPen(x.monto,x.mon||"PEN");if(pen!=null)f+=pen/rate()}return}
-      if(!ok)return;pen=g.toPen(g.imp(x),x.mon||"PEN");if(pen!=null)f+=pen/rate()});
+    var g=window.ecGastos,f=0,v=0;if(!g)return{f:0,v:0};
+    g.get().forEach(function(x){var c=costo(x,mes,ent);if(x.tipo==="variable")v+=c;else f+=c});
     return{f:f,v:v}}
   function render(){
     var P=pauta(),rows=MG.map(function(r){
@@ -952,9 +982,50 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   }
   function sv(){try{localStorage.setItem("ec_gan",JSON.stringify(st))}catch(e){}}
   window.ecGanRender=render;
+  window.ecGan={MG:MG,st:st,costo:costo,rate:rate};
   bind();render();
   setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(render);if(window.ecGastos)window.ecGastos.onChange(render)},0);
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="gan"]'))setTimeout(render,0)});
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function num(v,d){return Number(v).toLocaleString("es",{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+  function mq(v,d){return '<span class="amq" data-q="'+v+'" data-d="'+(d||0)+'"></span>'}
+  function pc(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
+  function render(){
+    var A=window.ecGan,G=window.ecGastos;if(!A||!G)return;
+    var fx=window.ecFx,on=!!(fx&&fx.st&&fx.st.on),rt=A.rate();
+    var meses=A.MG.map(function(r){
+      var f=0,v=0;G.get().forEach(function(x){var c=A.costo(x,r[0],r[2]);if(x.tipo==="variable")v+=c;else f+=c});
+      var base=A.st.base==="lumy"?r[6]:r[3]-r[4]-r[5];
+      return{mes:r[1],ent:r[2],venta:r[3],base:base,f:f,v:v,t:f+v}});
+    var T=meses.reduce(function(a,r){["ent","venta","base","f","v","t"].forEach(function(k){a[k]=(a[k]||0)+r[k]});return a},{});
+    // por gasto
+    var per=G.get().map(function(x){var acc=0;A.MG.forEach(function(r){acc+=A.costo(x,r[0],r[2])});
+      var pen=G.toPen(G.imp(x),x.mon||"PEN"),mens=x.tipo==="fijo"&&G.activo(x)&&pen!=null?pen/rt:0;
+      return{x:x,acc:acc,mens:mens}}).filter(function(r){return r.acc>0||r.mens>0}).sort(function(a,b){return b.acc-a.acc});
+    var totAcc=per.reduce(function(s,r){return s+r.acc},0),mensTot=per.reduce(function(s,r){return s+r.mens},0);
+    var cats={};per.forEach(function(r){var k=r.x.cat||"Sin categoría";cats[k]=(cats[k]||0)+r.acc});
+    var mesAct=meses[meses.length-1];
+    $("a-kpis").innerHTML=
+      '<div class="card kpi"><h3>Costo fijo por mes</h3><div class="big">'+mq(mensTot)+'</div><div class="sub"><span class="amc"></span> · lo que cuestan hoy los gastos fijos activos</div></div>'+
+      '<div class="card kpi"><h3>Acumulado de abril a hoy</h3><div class="big ta">'+mq(T.t)+'</div><div class="sub">fijos '+mq(T.f)+' + variables '+mq(T.v)+'</div></div>'+
+      '<div class="card kpi"><h3>Por pedido entregado</h3><div class="big">'+mq(T.ent?T.t/T.ent:0,2)+'</div><div class="sub">'+T.ent+' entregados · <span class="amc"></span> cada uno</div></div>'+
+      '<div class="card kpi"><h3>Peso en el negocio</h3><div class="big '+(T.venta&&T.t/T.venta>0.1?"tr_":"")+'">'+pc(T.t,T.venta)+'</div><div class="sub">de la venta · '+pc(T.t,T.base)+' de la ganancia base</div></div>';
+    $("a-bmes").innerHTML=meses.map(function(r){return '<tr><td><b>'+r.mes+'</b></td><td class="num">'+mq(r.f)+'</td><td class="num">'+mq(r.v)+'</td><td class="num"><b>'+mq(r.t)+'</b></td><td class="num">'+(r.ent?mq(r.t/r.ent,2):"–")+'</td><td class="num">'+pc(r.t,r.venta)+'</td><td class="num">'+pc(r.t,r.base)+'</td>'+'</tr>'}).join("");
+    $("a-fmes").innerHTML='<td>Total</td><td class="num">'+mq(T.f)+'</td><td class="num">'+mq(T.v)+'</td><td class="num">'+mq(T.t)+'</td><td class="num">'+(T.ent?mq(T.t/T.ent,2):"–")+'</td><td class="num">'+pc(T.t,T.venta)+'</td><td class="num">'+pc(T.t,T.base)+'</td>';
+    var ck=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]}),mx=Math.max.apply(null,ck.map(function(k){return cats[k]}).concat([1]));
+    $("a-cat").innerHTML='<h3>Por categoría (acumulado)</h3><div class="abars">'+ck.map(function(k){return '<div class="r"><span>'+k+'</span><div class="t"><i style="width:'+(cats[k]/mx*100)+'%"></i></div><b style="text-align:right">'+mq(cats[k])+' <span class="sub">'+pc(cats[k],totAcc)+'</span></b></div>'}).join("")+'</div>';
+    $("a-bplat").innerHTML=per.map(function(r){return '<tr><td><b>'+r.x.concepto+'</b></td><td>'+(r.x.cat||"–")+'</td><td>'+(r.x.tipo==="fijo"?"Fijo":"Variable")+'</td><td class="num">'+(r.mens?mq(r.mens,2):"–")+'</td><td class="num">'+mq(r.acc,2)+'</td><td class="num">'+pc(r.acc,totAcc)+'</td></tr>'}).join("")||'<tr><td colspan="6" class="sub" style="padding:18px 14px">Aún no hay gastos registrados.</td></tr>';
+    $("a-pie").textContent="Montos en "+(on?"soles (S/)":"quetzales (Q)")+". Sale de los gastos de la sección Gastos de plataforma; la pauta de Meta y TikTok no se cuenta aquí (está en Ganancia por mes). Los variables se cuentan como elegiste en Ganancia por mes ("+({una:"una vez, en su mes de inicio",mes:"cada mes desde su inicio",venta:"por cada pedido entregado"}[A.st.vmod])+"). Los gastos anuales se reparten en 12 meses.";
+    document.querySelectorAll("#p-adm .amq").forEach(function(e){var q=+e.getAttribute("data-q"),d=+e.getAttribute("data-d")||0;e.textContent=num(on?q*rt:q,d)});
+    document.querySelectorAll("#p-adm .amc").forEach(function(e){e.textContent=on?"S/":"Q"});
+  }
+  render();
+  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(render);if(window.ecGastos)window.ecGastos.onChange(render)},0);
+  document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="adm"]')||e.target.closest("#p-adm .fxopt"))setTimeout(render,0)});
 })();
 </script>
 <script>
@@ -1611,7 +1682,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]],fin:[["gan","Ganancia por mes"],["gas","Gastos de plataforma"]]};
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]],fin:[["gan","Ganancia por mes"],["adm","Costo administrativo"],["gas","Gastos de plataforma"]]};
   var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan"};
   function show(g,pane){
     cur[g]=pane;
@@ -1671,6 +1742,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setup(document.getElementById("z-tabla"),"zonas");
   setup(document.getElementById("g-tabla"),"gastos");
   setup(document.getElementById("n-tabla"),"gananciames");
+  setup(document.getElementById("a-tmes"),"admmes");
+  setup(document.getElementById("a-tplat"),"admplat");
   var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
 })();
 </script>
