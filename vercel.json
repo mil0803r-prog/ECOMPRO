@@ -7,7 +7,8 @@
     { "source": "/logout", "destination": "/api/logout" }
   ],
   "functions": {
-    "api/app.js": { "includeFiles": "private/**" }
+    "api/app.js": { "includeFiles": "private/ecompro.html" },
+    "api/db.js": { "includeFiles": "private/seed.json" }
   },
   "headers": [
     { "source": "/(.*)", "headers": [

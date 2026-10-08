@@ -4,7 +4,7 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 
 - Secciones: Resumen, Logística (Pedidos, Dinero), Marketing (Landings, Meta, TikTok) e Investigación de mercado (Caza diaria, Mercado, Validador manual).
 - Los datos de pedidos, Meta y TikTok son una foto al 7 de octubre de 2026 incrustada en el archivo.
-- La Caza diaria, el Validador manual y los parámetros guardan sus datos en la base del artefacto de Claude. Fuera de Claude (por ejemplo en Vercel) esas tres partes no guardan nada.
+- La Caza diaria, el Validador manual y los parámetros guardan sus datos en una base Upstash Redis (`api/db.js`). `api/_shim.js` imita la base del artefacto de Claude para que el tablero funcione igual en Vercel. La primera vez que se abre, la base se llena con lo que había en el artefacto (`private/seed.json`).
 
 ## Cómo está protegido
 
@@ -20,6 +20,7 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 | `GOOGLE_CLIENT_SECRET` | Secreto de cliente OAuth de Google |
 | `SESSION_SECRET` | Texto aleatorio de 32 caracteres o más para firmar la cookie |
 | `ALLOWED_EMAILS` | Correos autorizados, separados por coma (por ejemplo `mil0803r@gmail.com`) |
+| `KV_REST_API_URL` y `KV_REST_API_TOKEN` | Se crean solos al conectar Upstash Redis desde Vercel (Storage → Marketplace → Upstash Redis → conectar al proyecto) |
 | `APP_URL` | Opcional: la dirección pública, por ejemplo `https://ecompro.vercel.app` |
 
 ## Google Cloud (una vez)

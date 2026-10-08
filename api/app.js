@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { session } = require("./_auth");
+const shim = require("./_shim");
 
 const LOGIN = `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ECOMPRO</title>
 <body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0;background:#eef0ee;color:#161a18">
@@ -24,5 +25,5 @@ module.exports = (req, res) => {
   }
   const html = fs.readFileSync(path.join(process.cwd(), "private", "ecompro.html"), "utf8");
   res.statusCode = 200;
-  res.end(html);
+  res.end('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>' + shim + "</script></head><body>" + html + "</body></html>");
 };
