@@ -1,0 +1,1128 @@
+<title>ECOMPRO</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: cabecera con pestañas pegajosas; cada pestaña es una pantalla de tableros. Verde/amarillo/rojo son semántica de estado, no acento. */
+:root{
+  --bg:#eef0ee; --card:#fbfcfb; --fg:#161a18; --muted:#5d6661; --line:#d5dad6; --ink:#24302a;
+  --verde:#1f9d55; --verde-bg:#dff3e6;
+  --amar:#b87d00; --amar-bg:#fbefcf;
+  --rojo:#d33a2c; --rojo-bg:#fadcd8;
+  --gris:#6b736e; --gris-bg:#e3e6e4;
+  --azul:#2b6cb0;
+  --display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101412; --card:#181d1a; --fg:#eaeeea; --muted:#9aa49e; --line:#2a312d; --ink:#dfe6e1;
+  --verde:#3fc97b; --verde-bg:#16301f;
+  --amar:#e9b73a; --amar-bg:#35290a;
+  --rojo:#ff6a5a; --rojo-bg:#3a1713;
+  --gris:#9aa49e; --gris-bg:#242a27; --azul:#6aa8e8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101412; --card:#181d1a; --fg:#eaeeea; --muted:#9aa49e; --line:#2a312d; --ink:#dfe6e1;
+  --verde:#3fc97b; --verde-bg:#16301f;
+  --amar:#e9b73a; --amar-bg:#35290a;
+  --rojo:#ff6a5a; --rojo-bg:#3a1713;
+  --gris:#9aa49e; --gris-bg:#242a27; --azul:#6aa8e8; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;padding-inline:16px;padding-block:20px 40px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:6px 24px}
+h1{font-family:var(--display);font-weight:700;font-size:2.4rem;line-height:1;margin:0;text-wrap:balance}
+.meta{color:var(--muted);font-size:.82rem;font-variant-numeric:tabular-nums}
+.navwrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:6px;display:flex;flex-direction:column;gap:4px}
+nav{display:flex;gap:6px;overflow-x:auto}
+nav button{font:inherit;font-weight:600;font-size:.9rem;color:var(--muted);background:none;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+#nav-s button{font-size:.82rem;padding:6px 12px}
+nav button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+nav button:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.pane{display:flex;flex-direction:column;gap:18px}
+h2{font-family:var(--display);font-size:1.45rem;margin:0 0 8px;letter-spacing:.02em}
+h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0 0 8px;font-weight:600}
+.grid{display:grid;gap:12px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:1000px){.g5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.g3,.g4,.g5{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.g3,.g4,.g2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.light{display:flex;gap:14px;align-items:center}
+.dot{flex:none;width:48px;height:48px;border-radius:50%}
+.big{font-family:var(--display);font-weight:700;font-size:2.6rem;line-height:.95;font-variant-numeric:tabular-nums}
+.kpi .big{font-size:2.1rem}
+.lab{font-weight:600}
+.sub{color:var(--muted);font-size:.83rem}
+.v .dot{background:var(--verde)} .a .dot{background:var(--amar)} .r .dot{background:var(--rojo)}
+.v .big,.tv{color:var(--verde)} .a .big,.ta{color:var(--amar)} .r .big,.tr_{color:var(--rojo)}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--gris-bg)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;color:var(--muted);font-size:.8rem;margin-top:8px}
+.todo{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.todo li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+.todo .pill{grid-row:1/3}
+.todo b{font-weight:600}
+.todo span{color:var(--muted);font-size:.85rem}
+.todo span.pill{color:inherit;font-size:.74rem}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.74rem;font-weight:600;white-space:nowrap}
+.pill.v{background:var(--verde-bg);color:var(--verde)}
+.pill.a{background:var(--amar-bg);color:var(--amar)}
+.pill.r{background:var(--rojo-bg);color:var(--rojo)}
+.pill.g{background:var(--gris-bg);color:var(--gris)}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:480px}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.88rem}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.num{font-weight:600}
+.mrow{display:grid;grid-template-columns:78px minmax(0,1fr) 48px;gap:10px;align-items:center;padding:8px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.mrow:last-child{border-bottom:0}
+.mrow .trk{height:18px;display:flex;border-radius:4px;overflow:hidden}
+.mrow .trk i{display:block;height:100%}
+.mrow .pc{text-align:right;font-weight:600}
+.mrow small{color:var(--muted);display:block;font-size:.72rem}
+.fun{display:flex;flex-direction:column;gap:6px}
+.fun .row{display:grid;grid-template-columns:150px minmax(0,1fr) 64px;gap:10px;align-items:center;font-size:.85rem}
+@media(max-width:520px){.fun .row{grid-template-columns:110px minmax(0,1fr) 54px}}
+.fun .b{display:block;height:20px;border-radius:4px;background:var(--azul);min-width:3px}
+.fun .v2{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.fun .pp{padding-left:160px;margin-top:-2px}
+@media(max-width:520px){.fun .pp{padding-left:120px}}
+.warn{background:var(--amar-bg);border:1px solid var(--amar);border-radius:10px;padding:12px 16px;font-size:.88rem;display:flex;flex-direction:column;gap:4px}
+.warn b{color:var(--amar)}
+.alert{background:var(--rojo-bg);border:1px solid var(--rojo);border-radius:10px;padding:12px 16px;font-size:.88rem;display:flex;flex-direction:column;gap:4px}
+.alert b{color:var(--rojo)}
+.sel{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.sel label{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+.sel select{font:inherit;font-weight:600;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;max-width:100%;flex:1 1 280px}
+.sel select:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.frow{display:flex;flex-wrap:wrap;gap:10px 12px}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 150px}
+.fld.grow{flex:2 1 260px}
+.fld label,.flab{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.fld input,.fld select{font:inherit;font-size:.9rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0;width:100%}
+.fld select:disabled{opacity:.55}
+.fld input:focus-visible,.fld select:focus-visible,.btn:focus-visible,.chip:focus-visible,.star:focus-visible,.tg:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:.8rem;font-weight:600;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.chip.v[aria-pressed="true"]{background:var(--verde);border-color:var(--verde)}
+.chip.a[aria-pressed="true"]{background:var(--amar);border-color:var(--amar)}
+.chip.r[aria-pressed="true"]{background:var(--rojo);border-color:var(--rojo)}
+.btn{font:inherit;font-size:.85rem;font-weight:600;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+.chk{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:500}
+.star{font:inherit;font-size:1.1rem;line-height:1;background:none;border:0;cursor:pointer;color:var(--line);padding:2px 4px}
+.star[aria-pressed="true"]{color:var(--amar)}
+.tagchip{display:inline-block;font-size:.72rem;font-weight:600;background:var(--gris-bg);color:var(--fg);border-radius:99px;padding:2px 8px;margin:0 4px 4px 0;cursor:pointer;white-space:nowrap}
+.tg{font:inherit;font-size:.78rem;color:var(--fg);background:var(--bg);border:1px dashed var(--line);border-radius:6px;padding:3px 6px;width:96px}
+#o-tabla{min-width:760px}
+#o-tabla td{vertical-align:top}
+.czc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.czh{display:flex;gap:14px;align-items:flex-start}
+.czrank{font-family:var(--display);font-weight:700;font-size:2.2rem;line-height:1;color:var(--muted);min-width:34px}
+.czt{flex:1;min-width:0}
+.czt h3{font-family:var(--body);font-size:1.05rem;text-transform:none;letter-spacing:0;color:var(--fg);margin:0 0 4px}
+.czring{flex:none;width:64px;height:64px;position:relative}
+.czring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.5rem}
+.czg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media(max-width:640px){.czg{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.czg div{background:var(--bg);border-radius:8px;padding:8px 10px;min-width:0}
+.czg small{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.czg span{font-family:var(--display);font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums}
+.czan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.czan div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.czan small{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.czan b{font-family:var(--display);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.czbars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media(max-width:640px){.czbars{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.czbars div small{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);font-weight:600}
+.czbars i{display:block;height:6px;border-radius:3px;background:var(--gris-bg);overflow:hidden;margin-top:4px}
+.czbars i u{display:block;height:100%;background:var(--azul);text-decoration:none}
+.czmath{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline}
+.czmath b{font-family:var(--display);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.czp{margin:0;font-size:.88rem}
+.czp em{font-style:normal;font-weight:600;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;display:block}
+.czctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;border-top:1px solid var(--line);padding-top:12px}
+.czctl select,.czctl input[type=number],.czctl textarea{font:inherit;font-size:.85rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:0}
+.czctl textarea{flex:1 1 220px;resize:vertical}
+.czctl label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;display:flex;flex-direction:column;gap:3px}
+.czfav{font-size:1.3rem}
+.czvacio{border:1px dashed var(--line);border-radius:12px;padding:28px 18px;text-align:center;color:var(--muted)}
+.czvacio b{display:block;color:var(--fg);font-size:1.05rem;margin-bottom:4px}
+.fld textarea{font:inherit;font-size:.9rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0;width:100%;resize:vertical}
+.vgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:860px){.vgrid{grid-template-columns:minmax(0,1fr)}}
+.vcol{display:flex;flex-direction:column;gap:14px;min-width:0}
+.vbox{display:flex;flex-direction:column;gap:12px}
+.vbox h3{margin:0}
+.vbox>.fld,.vbox .frow .fld{flex:0 1 auto}
+.vbox .frow .fld{flex:1 1 150px}
+.vbox .chips:empty{display:none}
+.vbox textarea{font:inherit;font-size:.9rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%;resize:vertical;min-width:0}
+.vprim{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.step{display:flex;align-items:center;gap:10px}
+.step b{font-family:var(--display);font-size:1.4rem;min-width:24px;text-align:center;font-variant-numeric:tabular-nums}
+.step .btn{padding:4px 12px;font-size:1rem}
+.addrow{display:flex;gap:8px}
+.addrow input{flex:1;min-width:0}
+.vev{font-size:.88rem;border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
+.vev:empty{display:none}
+.vbar{height:8px;border-radius:4px;background:var(--gris-bg);overflow:hidden}
+.vbar u{display:block;height:100%;background:var(--verde);text-decoration:none}
+.vck{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.vck:last-child{border-bottom:0}
+.vck input{margin-top:3px;width:18px;height:18px;flex:none}
+.vck div{flex:1;min-width:0}
+.vck b{display:block;font-size:.9rem;font-weight:600}
+.vck span{font-size:.8rem;color:var(--muted)}
+.vck button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem;padding:0 4px}
+.vq{font:inherit;font-size:.85rem;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0;width:190px}
+#v-body td{vertical-align:top}
+.vlink{color:var(--azul);font-weight:600;text-decoration:none;font-size:.78rem;margin-right:6px;white-space:nowrap}
+.vmini{display:flex;align-items:center;gap:8px}
+.vmini i{display:block;height:6px;width:70px;border-radius:3px;background:var(--gris-bg);overflow:hidden}
+.vmini u{display:block;height:100%;background:var(--verde);text-decoration:none}
+.pill.az{background:color-mix(in srgb,var(--azul) 16%,transparent);color:var(--azul)}
+#v-body tr.e-falta{background:color-mix(in srgb,var(--amar) 7%,transparent);box-shadow:inset 3px 0 0 var(--amar)}
+#v-body tr.e-proceso{background:color-mix(in srgb,var(--azul) 7%,transparent);box-shadow:inset 3px 0 0 var(--azul)}
+#v-body tr.e-testeado{background:color-mix(in srgb,var(--verde) 7%,transparent);box-shadow:inset 3px 0 0 var(--verde)}
+#v-filtros .chip[data-f=falta]::before,#v-filtros .chip[data-f=proceso]::before,#v-filtros .chip[data-f=testeado]::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+#v-filtros .chip[data-f=falta]::before{background:var(--amar)}#v-filtros .chip[data-f=proceso]::before{background:var(--azul)}#v-filtros .chip[data-f=testeado]::before{background:var(--verde)}
+.foot{color:var(--muted);font-size:.8rem;margin:8px 0 0}
+#cta-view .tbl table{min-width:1180px}
+#cta-view .tbl th,#cta-view .tbl td{padding:8px 11px;white-space:nowrap}
+#cta-view .tbl th:first-child,#cta-view .tbl td:first-child{position:sticky;left:0;z-index:1;background:var(--card);min-width:210px;max-width:260px;white-space:normal;box-shadow:1px 0 0 var(--line)}
+.tscroll{display:flex;gap:6px;justify-content:flex-end;align-items:center;margin:0 0 6px}
+.tscroll .sub{margin-right:auto}
+.tscroll button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;padding:4px 12px;font:inherit;font-weight:600;cursor:pointer}
+.tscroll button:disabled{opacity:.35;cursor:default}
+.mt-cp,.m-cp{--mc:var(--azul)}.mt-e,.m-e{--mc:var(--verde)}.mt-d,.m-d{--mc:var(--rojo)}.mt-c,.m-c{--mc:var(--gris)}.mt-t,.m-t{--mc:var(--amar)}
+.card.kpi[class*="mt-"]{background:color-mix(in srgb,var(--mc) 8%,var(--card));border-color:color-mix(in srgb,var(--mc) 35%,var(--line));box-shadow:inset 3px 0 0 var(--mc)}
+th[class*="m-"],td[class*="m-"]{background:color-mix(in srgb,var(--mc) 7%,var(--card))}
+th[class*="m-"]{color:var(--mc);box-shadow:inset 0 2px 0 var(--mc)}
+.pill.mp{background:color-mix(in srgb,var(--mc) 16%,transparent);color:var(--mc)}
+.mtlh{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-top:4px}
+.mtl{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.mtl>div{border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:var(--bg);display:flex;flex-direction:column;gap:1px}
+.mtl small{font-size:.72rem;color:var(--muted)}.mtl b{font-size:1.15rem;font-variant-numeric:tabular-nums}.mtl span{font-size:.7rem;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1>
+    <div class="meta">1 mar – 7 oct 2026 · Dropi sincronizado 7 oct 19:06 · montos en GTQ salvo Meta (PEN)</div>
+  </header>
+
+  <div class="navwrap">
+    <nav id="nav-g" role="tablist" aria-label="Áreas">
+      <button type="button" role="tab" data-g="res" aria-selected="true">Resumen</button>
+      <button type="button" role="tab" data-g="log" aria-selected="false">Logística</button>
+      <button type="button" role="tab" data-g="mkt" aria-selected="false">Marketing</button>
+      <button type="button" role="tab" data-g="inv" aria-selected="false">Investigación de mercado</button>
+    </nav>
+    <nav id="nav-s" role="tablist" aria-label="Secciones" hidden></nav>
+  </div>
+
+  <section class="pane" id="p-res">
+    <div class="grid g3">
+      <div class="card light v"><div class="dot"></div><div><div class="big">228</div><div class="lab">Entregados</div><div class="sub">52% de 438 pedidos</div></div></div>
+      <div class="card light a"><div class="dot"></div><div><div class="big">24</div><div class="lab">En proceso</div><div class="sub">ruta, guía y por confirmar</div></div></div>
+      <div class="card light r"><div class="dot"></div><div><div class="big">150</div><div class="lab">En rojo</div><div class="sub">143 devoluciones, 7 incidencias</div></div></div>
+    </div>
+    <div class="grid g4">
+      <div class="card kpi"><h3>Tasa de entrega</h3><div class="big tr_">61%</div><div class="sub">228 llegaron, 143 volvieron</div></div>
+      <div class="card kpi"><h3>Ganancia según Lumy</h3><div class="big">23.093</div><div class="sub">margen 51% · ver pestaña Dinero</div></div>
+      <div class="card kpi"><h3>Conversión landings</h3><div class="big tr_">0,3%</div><div class="sub">12 pedidos en 3.754 visitas (30 días)</div></div>
+      <div class="card kpi"><h3>Chats esperando</h3><div class="big ta">6</div><div class="sub">de 25 conversaciones abiertas</div></div>
+    </div>
+    <div>
+      <h2>Qué atender hoy</h2>
+      <ul class="todo">
+        <li><span class="pill r">Urgente</span><b>2 pedidos parados por color que no existe en Dropi</b><span>Los clientes pidieron PLATEADO y DORADO. Confirma otro color por WhatsApp y toca "Enviar a Dropi". No se despacharon.</span></li>
+        <li><span class="pill r">Urgente</span><b>4 incidencias abiertas con la transportadora</b><span>3 validadas y 1 en ruta. Cada una puede terminar en devolución.</span></li>
+        <li><span class="pill a">Hoy</span><b>6 pedidos sin guía esperando confirmación</b><span>Siguen en PENDIENTE CONFIRMACION. Entre más tarden, más probable que se enfríen.</span></li>
+        <li><span class="pill a">Hoy</span><b>6 chats de WhatsApp esperan tu respuesta</b><span>25 conversaciones abiertas, ninguna con mensajes sin leer.</span></li>
+        <li><span class="pill r">Revisar</span><b>1.874 visitas de TikTok sin medir</b><span>Llegan con la campaña "__CAMPAIGN_NAME__", la variable del anuncio sin reemplazar. Cero formularios abiertos y cero pedidos. Puede ser un enlace mal armado o tráfico que no es de personas.</span></li>
+        <li><span class="pill r">Revisar</span><b>Dos cuentas de anuncios de Meta con pago pendiente</b><span>GUATEMALA 2 (la única en quetzales) y Naturly 01 figuran como UNSETTLED. Mientras no se pague, no entregan anuncios.</span></li>
+        <li><span class="pill a">Revisar</span><b>Las 5 cuentas de TikTok tienen saldo 0</b><span>Sin recarga no hay anuncios nuevos.</span></li>
+        <li><span class="pill a">Revisar</span><b>La cartera de Dropi está sin sincronizar</b><span>Lumy ve 0 abonos pagados, así que no sabe cuáles de los 228 entregados ya te pagaron.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pane" id="p-ped" hidden>
+    <div>
+      <div class="bar" role="img" aria-label="438 pedidos: 228 entregados, 24 en proceso, 150 en rojo, 36 cancelados">
+        <i style="width:52.1%;background:var(--verde)"></i><i style="width:5.5%;background:var(--amar)"></i><i style="width:34.2%;background:var(--rojo)"></i><i style="width:8.2%;background:var(--gris)"></i>
+      </div>
+      <div class="legend"><span class="tv">■ Entregado 228</span><span class="ta">■ En proceso 24</span><span class="tr_">■ Devolución e incidencia 150</span><span>■ Cancelado 36</span></div>
+    </div>
+    <div class="alert"><b>De cada 100 pedidos cerrados, 38 volvieron</b><span>Ningún mes con volumen real pasó de 66% de entrega. Marzo no tiene pedidos en Dropi y agosto tuvo 7.</span></div>
+
+    <div>
+      <h2>Todos los pedidos de Dropi</h2>
+      <div class="card" id="o-filtros" style="display:flex;flex-direction:column;gap:12px">
+        <div class="frow">
+          <div class="fld grow"><label for="o-q">Buscar</label><input id="o-q" type="search" placeholder="Número de pedido, ciudad, departamento o etiqueta" autocomplete="off"></div>
+          <div class="fld"><label for="o-desde">Desde</label><input id="o-desde" type="date" min="2026-04-01" max="2026-10-07"></div>
+          <div class="fld"><label for="o-hasta">Hasta</label><input id="o-hasta" type="date" min="2026-04-01" max="2026-10-07"></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="o-dep">Departamento</label><select id="o-dep"></select></div>
+          <div class="fld"><label for="o-ciu">Ciudad</label><select id="o-ciu"></select></div>
+          <div class="fld"><label for="o-tag">Etiqueta</label><select id="o-tag"></select></div>
+          <div class="fld"><label for="o-trans">Transportadora</label><select id="o-trans" disabled><option>No disponible</option></select></div>
+          <div class="fld"><label for="o-prod">Producto</label><select id="o-prod" disabled><option>No disponible</option></select></div>
+        </div>
+        <div><div class="flab">Estado</div><div class="chips" id="o-estados"></div></div>
+        <div class="frow" style="align-items:center">
+          <label class="chk"><input id="o-fav" type="checkbox"> Solo favoritos ★</label>
+          <button class="btn" id="o-limpiar" type="button">Limpiar filtros</button>
+        </div>
+        <p class="foot" style="margin:0">Transportadora, producto, nombre del cliente y número de guía no los entrega Lumy sobre los pedidos de Dropi, por eso esos filtros están apagados. El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
+      </div>
+      <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
+      <div class="tbl" style="margin-top:12px"><table id="o-tabla">
+        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Fecha</th><th>Estado</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor</th><th>Etiquetas</th></tr></thead>
+        <tbody id="o-body"></tbody>
+      </table></div>
+      <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="o-mas" type="button">Mostrar más</button></div>
+    </div>
+
+    <div>
+      <h2>Pedidos de las landings (CRM)</h2>
+      <div class="card" style="display:flex;flex-wrap:wrap;gap:12px">
+        <div class="fld"><label for="c-prod">Producto</label><select id="c-prod"></select></div>
+        <div class="fld"><label for="c-etapa">Etapa</label><select id="c-etapa"></select></div>
+        <div class="fld"><label for="c-dropi">En Dropi</label><select id="c-dropi"><option value="">Todos</option><option value="1">Sí</option><option value="0">No</option></select></div>
+      </div>
+      <div class="tbl" style="margin-top:12px"><table>
+        <thead><tr><th>Pedido</th><th>Fecha</th><th>Producto</th><th>Etapa</th><th class="num">Valor</th><th>En Dropi</th></tr></thead>
+        <tbody id="c-body"></tbody>
+      </table></div>
+      <p class="foot" id="c-pie"></p>
+    </div>
+
+    <div>
+      <h2>Mes a mes</h2>
+      <div class="tbl" id="meses"></div>
+      <div class="legend"><span class="tv">■ Entregado</span><span class="tr_">■ Devolución e incidencia</span><span class="ta">■ En proceso</span><span>■ Cancelado</span><span>% = entregados sobre entregados + devueltos</span></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-din" hidden>
+    <div class="grid g4">
+      <div class="card kpi"><h3>Venta entregada</h3><div class="big">45.103</div><div class="sub">228 pedidos</div></div>
+      <div class="card kpi"><h3>Costo del producto</h3><div class="big">13.883</div><div class="sub">31% de la venta</div></div>
+      <div class="card kpi"><h3>Flete</h3><div class="big">15.412</div><div class="sub">34% de la venta</div></div>
+      <div class="card kpi"><h3>Perdido en devoluciones</h3><div class="big tr_">29.901</div><div class="sub">venta de 143 pedidos</div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Ganancia según Lumy</h3><div class="big tv">23.093</div><div class="sub">margen de 51,4%. Es lo que Lumy marca como "por cobrar".</div></div>
+      <div class="card"><h3>Cálculo simple</h3><div class="big ta">15.627</div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
+    </div>
+    <div class="warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de 7.466 GTQ. Además, Lumy muestra 0 de flete de devoluciones aunque hay 143 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata 23.093 como un techo y no como la ganancia real. Con 141 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
+    <div class="grid g3">
+      <div class="card"><h3>Por cobrar</h3><div class="big">23.093</div><div class="sub">cartera de Lumy</div></div>
+      <div class="card"><h3>Ya abonado</h3><div class="big ta">0</div><div class="sub">sin cartera sincronizada</div></div>
+      <div class="card"><h3>Devoluciones por descontar</h3><div class="big ta">0</div><div class="sub">143 pedidos, valor no disponible</div></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-lan" hidden>
+    <div>
+      <h2>Embudo, últimos 30 días</h2>
+      <div class="card fun" id="embudo"></div>
+    </div>
+    <div class="alert"><b>El cuello de botella está al inicio</b><span>Solo 3,3% abre el formulario, y de esos 9,7% deja pedido. Con 3.754 visitas y 0,3% de conversión, antes de subir presupuesto revisa la primera pantalla, la oferta y el precio visible.</span></div>
+    <div>
+      <h2>Por página</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Página</th><th class="num">Visitas</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas</th><th class="num">Conv.</th></tr></thead>
+        <tbody>
+          <tr><td>Dúo Mágico (copia)</td><td class="num">2.590</td><td class="num">8</td><td class="num">4</td><td class="num">1.530</td><td class="num">0,3%</td></tr>
+          <tr><td>Ejercitador de piso pélvico</td><td class="num">310</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
+          <tr><td>Dúo Mágico (copia x3)</td><td class="num">227</td><td class="num">3</td><td class="num">0</td><td class="num">284</td><td class="num">1,3%</td></tr>
+          <tr><td>Spray dental GT</td><td class="num">91</td><td class="num">1</td><td class="num">0</td><td class="num">229</td><td class="num">1,1%</td></tr>
+          <tr><td>Pastilla limpiador de lavadora (2 páginas)</td><td class="num">89</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
+          <tr><td>Otras 9 páginas</td><td class="num">334</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="foot">Menos de 200 visitas no alcanza para juzgar una página.</p>
+    </div>
+    <div>
+      <h2>De dónde llegan</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Campaña</th><th class="num">Visitas</th><th class="num">Formul.</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas</th></tr></thead>
+        <tbody>
+          <tr><td>TikTok · Testeo 10-09</td><td class="num">236</td><td class="num">11</td><td class="num">5</td><td class="num">3</td><td class="num">949</td></tr>
+          <tr><td>TikTok · Ventas 13-09</td><td class="num">282</td><td class="num">19</td><td class="num">3</td><td class="num">1</td><td class="num">581</td></tr>
+          <tr><td>TikTok · Testeo collar 07-10</td><td class="num">153</td><td class="num">7</td><td class="num">2</td><td class="num">0</td><td class="num">284</td></tr>
+          <tr><td>Directo</td><td class="num">1.013</td><td class="num">84</td><td class="num">2</td><td class="num">0</td><td class="num">229</td></tr>
+          <tr><td>TikTok · "__CAMPAIGN_NAME__"</td><td class="num tr_">1.874</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>Meta / Facebook / Instagram</td><td class="num">≈ 100</td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+        </tbody>
+      </table></div>
+      <p class="foot">Las campañas de TikTok con nombre real dejaron 2,1% y 1,1% de conversión, las mejores. Lumy no tiene TikTok Ads conectado, así que aquí no hay gasto de TikTok.</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p-met" hidden>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="frow">
+        <div class="fld grow"><label for="cta">Cuenta de anuncios</label><select id="cta"></select></div>
+        <div class="fld"><label for="m-desde">Desde</label><input id="m-desde" type="date" min="2026-03-01" max="2026-10-07"></div>
+        <div class="fld"><label for="m-hasta">Hasta</label><input id="m-hasta" type="date" min="2026-03-01" max="2026-10-07"></div>
+        <div class="fld"><label for="m-dia">Un solo día</label><input id="m-dia" type="date" min="2026-03-01" max="2026-10-07"></div>
+      </div>
+      <div class="chips" id="m-presets"></div>
+    </div>
+    <div class="pane" id="cta-view"></div>
+  </section>
+
+  <section class="pane" id="p-tik" hidden>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="frow">
+        <div class="fld grow"><label for="tt-cta">Cuenta de anuncios</label><select id="tt-cta"></select></div>
+        <div class="fld"><label for="tt-desde">Desde</label><input id="tt-desde" type="date" min="2025-04-01" max="2026-10-07"></div>
+        <div class="fld"><label for="tt-hasta">Hasta</label><input id="tt-hasta" type="date" min="2025-04-01" max="2026-10-07"></div>
+        <div class="fld"><label for="tt-dia">Un solo día</label><input id="tt-dia" type="date" min="2025-04-01" max="2026-10-07"></div>
+      </div>
+      <div class="chips" id="tt-presets"></div>
+    </div>
+    <div class="pane" id="tt-view"></div>
+    <div class="alert"><b>1.874 de las 2.639 visitas de TikTok no vienen de tus anuncios medidos</b><span>Las cuentas de TikTok registran 897 clics en total, y las campañas identificadas en las landings suman unas 764 visitas. Las 1.874 restantes llegan con la campaña "__CAMPAIGN_NAME__" sin reemplazar, sin abrir ni un formulario. Puede ser un enlace mal configurado en algún anuncio, tráfico de bots o visitas de otra cuenta de TikTok. Revísalo antes de confiar en la conversión de 0,3%.</span></div>
+    <div>
+      <h2>Lo que gastó TikTok contra lo que llegó a pedido</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Campaña</th><th class="num">Gasto PEN</th><th class="num">Conv. TikTok</th><th class="num">Pedidos landing</th><th class="num">Entregados</th><th class="num">Costo por pedido</th></tr></thead>
+        <tbody>
+          <tr><td>Testeo 10-09-2026</td><td class="num">36,17</td><td class="num">7</td><td class="num">5</td><td class="num">3</td><td class="num">7,23</td></tr>
+          <tr><td>Ventas 13-09-2026</td><td class="num">27,44</td><td class="num">3</td><td class="num">3</td><td class="num">1</td><td class="num">9,15</td></tr>
+          <tr><td>TST-07-10 Collar</td><td class="num">12,74</td><td class="num">5</td><td class="num">2</td><td class="num">0</td><td class="num">6,37</td></tr>
+          <tr><td>Testeo ejercitador 13-09</td><td class="num">12,56</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num tr_">sin pedidos</td></tr>
+          <tr><td>Testeo pastilla 26-08</td><td class="num">16,89</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num tr_">sin pedidos</td></tr>
+        </tbody>
+      </table></div>
+      <p class="foot">TikTok gasta en soles (PEN) y las ventas están en quetzales (GTQ), así que no calculé ROAS. Las campañas de testeo del 10-09 y del collar son las más baratas por pedido.</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p-mer" hidden>
+    <div class="grid g3">
+      <div class="card kpi"><h3>Mercado</h3><div class="big">GT · Dropi</div><div class="sub">productos con venta y stock</div></div>
+      <div class="card kpi"><h3>Líder en 7 días</h3><div class="big">887</div><div class="sub">unidades de Glucora control de glucosa</div></div>
+      <div class="card kpi"><h3>Nichos dominantes</h3><div class="big">11 de 12</div><div class="sub">son salud, bienestar o belleza</div></div>
+    </div>
+    <div class="warn"><b>Lo que más se vende en Guatemala hoy es salud y bienestar</b><span>El drenaje linfático aparece tres veces con proveedores distintos (Auré y Altamira), señal de que ya está competido. Ninguno de estos productos es joyería ni regalos, que es lo que vendes con el Dúo Mágico y el collar.</span></div>
+    <div>
+      <h2>Productos ganadores, últimos 7 días</h2>
+      <div class="tbl"><table style="min-width:760px">
+        <thead><tr><th>Producto</th><th>Proveedor</th><th class="num">Precio Dropi</th><th class="num">Sugerido</th><th class="num">Vend. 7 d</th><th class="num">Vend. 30 d</th><th class="num">Stock</th><th>Enlace</th></tr></thead>
+        <tbody><tr><td>Glucora control de glucosa<div class="sub">bienestar</div></td><td>Nexus</td><td class="num">55</td><td class="num">100</td><td class="num">887</td><td class="num">2.194</td><td class="num">2.306</td><td><a href="https://app.dropi.gt/dashboard/search?search=20595&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Mistery box 3<div class="sub">tecnología</div></td><td>Blue Guatemala</td><td class="num">77</td><td class="num">77</td><td class="num">623</td><td class="num">1.546</td><td class="num">39</td><td><a href="https://app.dropi.gt/dashboard/search?search=460&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Gotas de drenaje linfático<div class="sub">salud</div></td><td>Auré</td><td class="num">35</td><td class="num">75</td><td class="num">572</td><td class="num">3.129</td><td class="num">3.557</td><td><a href="https://app.dropi.gt/dashboard/search?search=14722&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Drenaje linfático en gotas<div class="sub">bienestar</div></td><td>Altamira</td><td class="num">55</td><td class="num">55</td><td class="num">567</td><td class="num">894</td><td class="num">4.056</td><td><a href="https://app.dropi.gt/dashboard/search?search=18778&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Ethiopian J<div class="sub">salud</div></td><td>Laboratorio Luna</td><td class="num">49</td><td class="num">150</td><td class="num">403</td><td class="num">728</td><td class="num">4.998</td><td><a href="https://app.dropi.gt/dashboard/search?search=24310&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Gomitas creatine women's<div class="sub">bienestar</div></td><td>Sicommer Lab</td><td class="num">57</td><td class="num">110</td><td class="num">351</td><td class="num">1.319</td><td class="num">817</td><td><a href="https://app.dropi.gt/dashboard/search?search=12341&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Dr Melaxin TX-cream<div class="sub">bienestar, salud</div></td><td>Natural Labs Organic</td><td class="num">50</td><td class="num">99</td><td class="num">341</td><td class="num">1.572</td><td class="num">2.451</td><td><a href="https://app.dropi.gt/dashboard/search?search=17675&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Shilajit ultra top<div class="sub">bienestar, salud</div></td><td>Natural Labs Organic</td><td class="num">45</td><td class="num">149</td><td class="num">327</td><td class="num">1.315</td><td class="num">1.360</td><td><a href="https://app.dropi.gt/dashboard/search?search=7360&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Crema Apolo<div class="sub">salud</div></td><td>Nibresma</td><td class="num">55</td><td class="num">110</td><td class="num">313</td><td class="num">1.035</td><td class="num">1.665</td><td><a href="https://app.dropi.gt/dashboard/search?search=14534&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Té 18 flavors (té chino)<div class="sub">bienestar</div></td><td>Natural Labs Organic</td><td class="num">45</td><td class="num">120</td><td class="num">303</td><td class="num">1.054</td><td class="num">6.459</td><td><a href="https://app.dropi.gt/dashboard/search?search=4749&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Shampoo batana oil<div class="sub">belleza, salud</div></td><td>Natural Labs Organic</td><td class="num">60</td><td class="num">120</td><td class="num">280</td><td class="num">1.361</td><td class="num">827</td><td><a href="https://app.dropi.gt/dashboard/search?search=4600&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr><tr><td>Máquina de boxeo smart<div class="sub">juguetería</div></td><td>Grupo Luna</td><td class="num">147</td><td class="num">190</td><td class="num">272</td><td class="num">807</td><td class="num">138</td><td><a href="https://app.dropi.gt/dashboard/search?search=92&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a></td></tr></tbody>
+      </table></div>
+      <p class="foot">Datos de DropKiller al 7 de octubre de 2026, Dropi Guatemala, precios en GTQ. Se excluyen ventas que parecen ajustes de inventario y productos con stock menor a 5.</p>
+    </div>
+    <div>
+      <h2>Los que recién empiezan a moverse</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Producto</th><th class="num">Vend. 7 d</th><th class="num">Vend. 30 d</th><th class="num">Precio Dropi</th><th class="num">Sugerido</th></tr></thead>
+        <tbody>
+          <tr><td>Gotas de drenaje linfático (Auré, otro listado)</td><td class="num">227</td><td class="num">476</td><td class="num">35</td><td class="num">80</td></tr>
+          <tr><td>Faja reductora de cintura</td><td class="num">186</td><td class="num">509</td><td class="num">85</td><td class="num">150</td></tr>
+          <tr><td>Antena para televisión</td><td class="num">176</td><td class="num">490</td><td class="num">49</td><td class="num">90</td></tr>
+          <tr><td>Almohada ortopédica cervical</td><td class="num">116</td><td class="num">323</td><td class="num">80</td><td class="num">150</td></tr>
+        </tbody>
+      </table></div>
+      <p class="foot">Es el ranking de tendencia de DropKiller, que pondera crecimiento. Los otros cuatro de esa lista ya están arriba. Antes de lanzar uno, valida competencia y margen con tu flete real.</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p-inv" hidden>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline">
+        <h2 style="margin:0">Caza diaria de productos ganadores</h2>
+        <span class="sub">5 productos por día: los elige la IA con datos de DropKiller y tú los validas, calificas y anotas.</span>
+      </div>
+      <div class="frow">
+        <div class="fld"><label for="cz-flete">Flete por entrega (GTQ)</label><input id="cz-flete" type="number" min="0" step="1" inputmode="decimal"></div>
+        <div class="fld"><label for="cz-ent">Entrega (%)</label><input id="cz-ent" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
+        <div class="fld"><label for="cz-obj">Utilidad objetivo por pedido (GTQ)</label><input id="cz-obj" type="number" min="0" step="1" inputmode="decimal"></div>
+      </div>
+      <p class="foot" style="margin:0" id="cz-pie-par">Con tus números reales: 68 GTQ de flete promedio por entrega y 61% de entrega (228 entregados, 143 devueltos). Asumo que cada devolución cuesta un flete. La caza diaria usa estos valores.</p>
+    </div>
+    <div class="chips" id="cz-fechas" aria-label="Fechas con productos"></div>
+    <div class="pane" id="cz-lista"></div>
+    <details class="card" id="cz-manual">
+      <summary style="cursor:pointer;font-weight:600">Agregar un producto a mano</summary>
+      <form id="cz-form" style="display:flex;flex-direction:column;gap:12px;margin-top:12px" autocomplete="off">
+        <div class="frow">
+          <div class="fld grow"><label for="cz-n">Producto</label><input id="cz-n" required maxlength="120" placeholder="Nombre del producto"></div>
+          <div class="fld"><label for="cz-fecha">Fecha</label><input id="cz-fecha" type="date" min="2026-03-01" max="2026-12-31"></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="cz-c">Costo Dropi (GTQ)</label><input id="cz-c" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="cz-p">Precio de venta (GTQ)</label><input id="cz-p" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="cz-v">Vendidos en 7 días</label><input id="cz-v" type="number" min="0" step="1" inputmode="numeric"></div>
+        </div>
+        <div class="frow">
+          <div class="fld grow"><label for="cz-l">Enlace (Dropi, anuncio o tienda)</label><input id="cz-l" type="url" placeholder="https://"></div>
+        </div>
+        <div class="fld"><label for="cz-nt">Nota</label><textarea id="cz-nt" rows="2" maxlength="600" placeholder="Por qué lo viste, ángulo, proveedor"></textarea></div>
+        <div><button class="btn" type="submit" id="cz-add">Guardar producto</button> <span class="sub" id="cz-msg" role="status"></span></div>
+      </form>
+    </details>
+  </section>
+
+  <section class="pane" id="p-val" hidden>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
+      <div><h2 style="margin:0">Validador manual</h2><span class="sub">Registra productos, mira a la competencia, guarda enlaces y completa la lista de lanzamiento antes de pautar.</span></div>
+      <div style="display:flex;gap:8px"><button class="btn" type="button" id="v-limpiar">Limpiar</button><button class="btn vprim" type="button" id="v-guardar">Guardar investigación</button></div>
+    </div>
+    <p class="sub" id="v-msg" role="status" style="margin:0"></p>
+    <div class="vgrid">
+      <div class="vcol">
+        <div class="card vbox">
+          <h3>Datos básicos del producto</h3>
+          <div class="fld"><label for="v-pick">Traer desde la caza diaria</label><select id="v-pick"></select></div>
+          <div class="fld"><label for="v-name">Nombre del producto u oferta</label><input id="v-name" maxlength="120" placeholder="Ej.: Gel para dolor, combo x2"></div>
+          <div class="frow">
+            <div class="fld"><label for="v-pvp">Precio de venta</label><input id="v-pvp" type="number" min="0" step="0.01" inputmode="decimal" placeholder="199"></div>
+            <div class="fld"><label for="v-costo">Costo Dropi</label><input id="v-costo" type="number" min="0" step="0.01" inputmode="decimal" placeholder="49"></div>
+            <div class="fld"><label for="v-mon">Moneda</label><select id="v-mon"><option>GTQ</option><option>PEN</option><option>COP</option><option>USD</option></select></div>
+          </div>
+          <div class="frow">
+            <div class="fld"><label for="v-dropi">ID de Dropi</label><input id="v-dropi" maxlength="20" placeholder="16106"></div>
+            <div class="fld"><label for="v-prov">Proveedores validados</label><div class="step"><button type="button" class="btn" data-s="prov" data-d="-1" aria-label="Menos proveedores">−</button><b id="v-prov">1</b><button type="button" class="btn" data-s="prov" data-d="1" aria-label="Más proveedores">+</button></div></div>
+            <div class="fld"><label for="v-estado">Estado de testeo</label><select id="v-estado"><option value="falta">Falta de testear</option><option value="proceso">En proceso</option><option value="testeado">Testeado</option></select></div>
+          </div>
+          <div class="vev" id="v-ev"></div>
+        </div>
+        <div class="card vbox">
+          <h3>Canales de venta y competidores</h3>
+          <div class="chips" id="v-canales"><button type="button" class="chip" data-c="wa" aria-pressed="true">WhatsApp Meta</button><button type="button" class="chip" data-c="fb" aria-pressed="false">Web Facebook</button><button type="button" class="chip" data-c="tt" aria-pressed="false">Web TikTok</button></div>
+          <div class="frow">
+            <div class="fld"><label>Competidores en WhatsApp</label><div class="step"><button type="button" class="btn" data-s="cwa" data-d="-1" aria-label="Menos">−</button><b id="v-cwa">0</b><button type="button" class="btn" data-s="cwa" data-d="1" aria-label="Más">+</button></div></div>
+            <div class="fld"><label>Competidores con landing o tienda</label><div class="step"><button type="button" class="btn" data-s="cland" data-d="-1" aria-label="Menos">−</button><b id="v-cland">0</b><button type="button" class="btn" data-s="cland" data-d="1" aria-label="Más">+</button></div></div>
+          </div>
+          <p class="sub" style="margin:0" id="v-ctot"></p>
+          <div class="fld"><label for="v-i-tiendas">Tiendas de la competencia</label><div class="addrow"><input id="v-i-tiendas" type="url" placeholder="Pega el enlace de la tienda de un competidor"><button type="button" class="btn" data-add="tiendas">Agregar</button></div><div class="chips" id="v-l-tiendas"></div></div>
+          <div class="fld"><label for="v-i-anuncios">Anuncios</label><div class="addrow"><input id="v-i-anuncios" type="url" placeholder="Enlace del anuncio (Biblioteca de Meta, TikTok Creative)"><button type="button" class="btn" data-add="anuncios">Agregar</button></div><div class="chips" id="v-l-anuncios"></div></div>
+          <div class="fld"><label for="v-i-videos">Videos y creativos</label><div class="addrow"><input id="v-i-videos" type="url" placeholder="Enlace de un video de referencia (TikTok, Reels, Drive)"><button type="button" class="btn" data-add="videos">Agregar</button></div><div class="chips" id="v-l-videos"></div></div>
+        </div>
+        <div class="card vbox">
+          <h3>Notas de investigación y estrategia</h3>
+          <textarea id="v-notas" rows="4" maxlength="1500" placeholder="Ej.: Viral en TikTok con alta demanda. Los competidores venden entre Q189 y Q250 con envío gratis."></textarea>
+        </div>
+        <div class="card vbox">
+          <h3>Ángulos de venta</h3>
+          <div class="addrow"><input id="v-i-angulos" maxlength="160" placeholder="Escribe un ángulo de venta para agregar"><button type="button" class="btn" data-add="angulos">Agregar</button></div>
+          <div class="chips" id="v-l-angulos"></div>
+        </div>
+      </div>
+      <div class="vcol">
+        <div class="card vbox">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0">Lista de lanzamiento</h3><span class="pill g" id="v-av">0%</span></div>
+          <div class="vbar"><u id="v-avb" style="width:0"></u></div>
+          <div id="v-check"></div>
+          <div class="fld"><label for="v-t-n">Agregar tarea personalizada</label><input id="v-t-n" maxlength="80" placeholder="Nombre de la tarea (ej.: comprar dominio)"><input id="v-t-d" maxlength="160" placeholder="Descripción (opcional)" style="margin-top:6px"><div style="margin-top:6px"><button type="button" class="btn" id="v-t-add">Agregar tarea</button></div></div>
+        </div>
+        <div class="warn"><b>Consejo para espiar a la competencia</b><span>Busca el nombre exacto del producto en la Biblioteca de anuncios de Facebook o en el Creative Center de TikTok, filtrado por conversión. Verás los creativos que se están vendiendo ahora. Guarda aquí los enlaces.</span></div>
+      </div>
+    </div>
+    <div>
+      <h2>Historial de investigaciones</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="chips" id="v-filtros"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="v-q" type="search" placeholder="Buscar producto" class="vq" aria-label="Buscar producto"><button class="btn" type="button" id="v-csv">Exportar CSV</button></div>
+      </div>
+      <div class="tbl"><table id="v-tabla" style="min-width:820px">
+        <thead><tr><th>Fecha</th><th>Producto investigado</th><th>Estado de testeo</th><th class="num">Precio público</th><th class="num">Competidores</th><th>Enlaces</th><th>Avance</th><th></th></tr></thead>
+        <tbody id="v-body"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <p class="foot">Foto de datos de Lumy y Dropi al 7 de octubre de 2026. Pídele a Claude que la actualice cuando quieras verla al día.</p>
+</div>
+
+<script>
+(function(){
+  var M=[["Mar",0,0,0,0],["Abr",27,17,0,1],["May",20,13,0,7],["Jun",39,29,0,14],["Jul",82,42,10,6],["Ago",3,1,0,3],["Sep",51,39,6,4],["Oct 1-7",5,5,13,1]];
+  var mx=140,h="";
+  M.forEach(function(m){var t=m[1]+m[2]+m[3]+m[4];
+    var pc=(m[1]+m[2])?Math.round(m[1]/(m[1]+m[2])*100)+"%":"–";
+    function seg(v,c){return v?'<i style="width:'+(v/t*100)+'%;background:var(--'+c+')"></i>':''}
+    var bar=t?'<div class="trk" style="width:'+(t/mx*100)+'%">'+seg(m[1],'verde')+seg(m[2],'rojo')+seg(m[3],'amar')+seg(m[4],'gris')+'</div>':'<span class="sub">sin pedidos</span>';
+    h+='<div class="mrow"><div>'+m[0]+'<small>'+t+' pedidos</small></div><div>'+bar+'</div><div class="pc">'+pc+'</div></div>';
+  });
+  document.getElementById("meses").innerHTML=h;
+
+  var F=[["Vieron la página",3754],["Abrieron el formulario",124],["Dejaron pedido",12],["Confirmados",6],["Entregados",4]],f="";
+  F.forEach(function(r,i){var w=Math.max(r[1]/3754*100,1.2);
+    f+='<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+w+'%"></span></span><span class="v2">'+r[1].toLocaleString("es")+'</span></div>';
+    if(i<F.length-1){var q=(F[i+1][1]/r[1]*100).toFixed(1).replace(".",",");f+='<div class="pp sub">↓ '+q+'% pasa al siguiente paso</div>';}
+  });
+  document.getElementById("embudo").innerHTML=f;
+
+
+  var DEP={"CHAHAL":"Alta Verapaz","CHISEC":"Alta Verapaz","COBAN":"Alta Verapaz","FRAY BARTOLOME DE LAS CASAS":"Alta Verapaz","PANZOS":"Alta Verapaz","RAXRUHA":"Alta Verapaz","SAN CRISTOBAL VERAPAZ":"Alta Verapaz","SAN JUAN CHAMELCO":"Alta Verapaz","SAN PEDRO CARCHA":"Alta Verapaz","SANTA CATALINA LA TINTA":"Alta Verapaz","SANTA CRUZ VERAPAZ":"Alta Verapaz","SENAHU":"Alta Verapaz","TAMAHU":"Alta Verapaz","TUCURU":"Alta Verapaz","CUBULCO":"Baja Verapaz","PURULHA":"Baja Verapaz","RABINAL":"Baja Verapaz","SALAMA":"Baja Verapaz","SAN JERONIMO":"Baja Verapaz","SANTA CRUZ EL CHOL":"Baja Verapaz","ACATENANGO":"Chimaltenango","CHIMALTENANGO":"Chimaltenango","SAN ANDRES ITZAPA":"Chimaltenango","SAN MARTIN JILOTEPEQUE":"Chimaltenango","TECPAN":"Chimaltenango","CAMOTAN":"Chiquimula","CHIQUIMULA":"Chiquimula","ESQUIPULAS":"Chiquimula","IPALA":"Chiquimula","JOCOTAN":"Chiquimula","OLOPA":"Chiquimula","GUASTATOYA":"El Progreso","SAN AGUSTIN ACASAGUASTLAN":"El Progreso","SAN ANTONIO LA PAZ":"El Progreso","ESCUINTLA":"Escuintla","LA DEMOCRACIA":"Escuintla","LA GOMERA":"Escuintla","MASAGUA":"Escuintla","NUEVA CONCEPCION":"Escuintla","PALIN":"Escuintla","PUERTO SAN JOSE":"Escuintla","SANTA LUCIA COTZUMALGUAPA":"Escuintla","SIPACATE":"Escuintla","SIQUINALA":"Escuintla","FRAIJANES":"Guatemala","GUATEMALA":"Guatemala","MIXCO":"Guatemala","PALENCIA":"Guatemala","SAN JOSE PINULA":"Guatemala","SAN JUAN SACATEPEQUEZ":"Guatemala","SAN MIGUEL PETAPA":"Guatemala","SAN RAYMUNDO":"Guatemala","VILLA CANALES":"Guatemala","VILLA NUEVA":"Guatemala","AGUACATAN":"Huehuetenango","CHIANTLA":"Huehuetenango","COLOTENANGO":"Huehuetenango","CONCEPCION HUISTA":"Huehuetenango","CUILCO":"Huehuetenango","HUEHUETENANGO":"Huehuetenango","JACALTENANGO":"Huehuetenango","LA DEMOCRACIA HUEHUETENANGO":"Huehuetenango","NENTON":"Huehuetenango","SAN ANTONIO HUISTA":"Huehuetenango","SAN GASPAR IXCHIL":"Huehuetenango","SAN ILDEFONSO IXTAHUACAN":"Huehuetenango","SAN JUAN ATITAN":"Huehuetenango","SAN JUAN IXCOY":"Huehuetenango","SAN MATEO IXTATAN":"Huehuetenango","SAN MIGUEL ACATAN":"Huehuetenango","SAN PEDRO SOLOMA":"Huehuetenango","SAN SEBASTIAN COATAN":"Huehuetenango","SAN SEBASTIAN HUEHUETENANGO":"Huehuetenango","SANTA CRUZ BARILLAS":"Huehuetenango","SANTA EULALIA":"Huehuetenango","TECTITAN":"Huehuetenango","TODOS SANTOS CUCHUMATANES":"Huehuetenango","EL ESTOR":"Izabal","LIVINGSTON":"Izabal","MORALES":"Izabal","PUERTO BARRIOS":"Izabal","JALAPA":"Jalapa","MATAQUESCUINTLA":"Jalapa","MONJAS":"Jalapa","SAN PEDRO PINULA":"Jalapa","AGUA BLANCA":"Jutiapa","CONGUACO":"Jutiapa","JALPATAGUA":"Jutiapa","JUTIAPA":"Jutiapa","MOYUTA":"Jutiapa","PASACO":"Jutiapa","QUESADA":"Jutiapa","YUPILTEPEQUE":"Jutiapa","FLORES":"Petén","LAS CRUCES":"Petén","MELCHOR DE MENCOS":"Petén","POPTUN":"Petén","SAN ANDRES":"Petén","SAN BENITO":"Petén","SAN LUIS":"Petén","SAYAXCHE":"Petén","SAN JOSE":"Petén","COATEPEQUE":"Quetzaltenango","COLOMBA":"Quetzaltenango","CONCEPCION CHIQUIRICHAPA":"Quetzaltenango","EL PALMAR":"Quetzaltenango","FLORES COSTA CUCA":"Quetzaltenango","GENOVA":"Quetzaltenango","OLINTEPEQUE":"Quetzaltenango","PALESTINA DE LOS ALTOS":"Quetzaltenango","QUETZALTENANGO":"Quetzaltenango","SAN CARLOS SIJA":"Quetzaltenango","SAN JUAN OSTUNCALCO":"Quetzaltenango","SAN MARTIN SACATEPEQUEZ":"Quetzaltenango","SAN MIGUEL SIGUILA":"Quetzaltenango","CANILLA":"Quiché","CHAJUL":"Quiché","CHICAMAN":"Quiché","IXCAN":"Quiché","JOYABAJ":"Quiché","NEBAJ":"Quiché","SACAPULAS":"Quiché","SAN ANDRES SAJCABAJA":"Quiché","SAN JUAN COTZAL":"Quiché","SAN PEDRO JOCOPILAS":"Quiché","SANTA CRUZ DEL QUICHE":"Quiché","USPANTAN":"Quiché","ZACUALPA":"Quiché","CHAMPERICO":"Retalhuleu","EL ASINTAL":"Retalhuleu","NUEVO SAN CARLOS":"Retalhuleu","SAN ANDRES VILLA SECA":"Retalhuleu","CATARINA":"San Marcos","COMITANCILLO":"San Marcos","CONCEPCION TUTUAPA":"San Marcos","EL RODEO":"San Marcos","EL TUMBADOR":"San Marcos","LA BLANCA":"San Marcos","MALACATAN":"San Marcos","PAJAPITA":"San Marcos","SAN CRISTOBAL CUCHO":"San Marcos","SAN MARCOS":"San Marcos","SAN MIGUEL IXTAHUACAN":"San Marcos","SIBINAL":"San Marcos","TACANA":"San Marcos","TEJUTLA":"San Marcos","BARBERENA":"Santa Rosa","CHIQUIMULILLA":"Santa Rosa","CUILAPA":"Santa Rosa","NUEVA SANTA ROSA":"Santa Rosa","ORATORIO":"Santa Rosa","SAN RAFAEL LAS FLORES":"Santa Rosa","SANTA MARIA IXHUATAN":"Santa Rosa","SANTA ROSA DE LIMA":"Santa Rosa","TAXISCO":"Santa Rosa","SAN ANDRES SEMETABAJ":"Sololá","SAN ANTONIO PALOPO":"Sololá","SAN JOSE CHACAYA":"Sololá","SAN PEDRO LA LAGUNA":"Sololá","SANTA CATARINA IXTAHUACAN":"Sololá","CHICACAO":"Suchitepéquez","MAZATENANGO":"Suchitepéquez","RIO BRAVO":"Suchitepéquez","SAN JOSE EL IDOLO":"Suchitepéquez","SAN JOSE LA MAQUINA":"Suchitepéquez","SANTO TOMAS LA UNION":"Suchitepéquez","SAN ANDRES XECUL":"Totonicapán","SAN CRISTOBAL TOTONICAPAN":"Totonicapán","SAN FRANCISCO EL ALTO":"Totonicapán","SANTA MARIA CHIQUIMULA":"Totonicapán","ESTANZUELA":"Zacapa","GUALAN":"Zacapa","HUITE":"Zacapa","LA UNION":"Zacapa","SAN DIEGO":"Zacapa"};
+  var ORAW="1566320|2026-10-07|10:32|G|AGUA BLANCA|195\n1562178|2026-10-06|18:32|G|SAN MATEO IXTATAN|195\n1562587|2026-10-06|08:08|G|CONCEPCION TUTUAPA|195\n1557663|2026-10-06|08:08|F|CONCEPCION TUTUAPA|195\n1557632|2026-10-06|08:02|E|JUTIAPA|181\n1557591|2026-10-06|07:54|J|SAN PEDRO SOLOMA|181\n1557496|2026-10-06|07:45|K|PUERTO BARRIOS|195\n1554483|2026-10-05|18:16|R|SANTA CATARINA IXTAHUACAN|195\n1554450|2026-10-05|18:16|F|SANTA CATARINA IXTAHUACAN|195\n1543788|2026-10-04|13:46|R|JALAPA|181\n1542311|2026-10-04|10:03|J|SAYAXCHE|195\n1542300|2026-10-04|10:00|R|SANTA CRUZ BARILLAS|195\n1539210|2026-10-03|18:46|C|NUEVA CONCEPCION|191\n1534167|2026-10-02|23:57|I|SAN LORENZO|181\n1534163|2026-10-02|23:55|E|EL ESTOR|195\n1530784|2026-10-02|13:38|E|CHISEC|181\n1528712|2026-10-02|08:58|R|PUERTO SAN JOSE|195\n1525864|2026-10-01|20:07|D|NENTON|181\n1524956|2026-10-01|16:57|E|SALAMA|195\n1523223|2026-10-01|12:08|E|TAXISCO|195\n1522942|2026-10-01|11:22|I|GUATEMALA|195\n1522929|2026-10-01|11:17|I|CHIANTLA|195\n1521910|2026-10-01|09:01|E|JOYABAJ|195\n1521941|2026-10-01|08:59|D|CHIANTLA|195\n1519383|2026-09-30|21:33|E|SAN ANDRES ITZAPA|195\n1517570|2026-09-30|16:37|D|SAN JUAN SACATEPEQUEZ|195\n1517567|2026-09-30|16:36|E|CONCEPCION CHIQUIRICHAPA|195\n1514170|2026-09-30|08:52|E|CHAHAL|195\n1514103|2026-09-30|08:44|E|NUEVA SANTA ROSA|195\n1511761|2026-09-29|20:55|E|HUEHUETENANGO|195\n1511715|2026-09-29|20:51|D|GUATEMALA|195\n1511703|2026-09-29|20:45|E|SAN ANTONIO LA PAZ|195\n1504534|2026-09-28|21:29|D|JALAPA|195\n1467130|2026-09-23|11:14|D|EL ESTOR|195\n1467106|2026-09-23|11:07|E|OLOPA|195\n1467062|2026-09-23|11:07|F|OLOPA|279\n1463309|2026-09-22|19:57|C|SAN MIGUEL PETAPA|195\n1463273|2026-09-22|19:50|D|JOCOTAN|195\n1463270|2026-09-22|19:48|E|SENAHU|195\n1463234|2026-09-22|19:45|D|SAN JUAN CHAMELCO|279\n1460963|2026-09-22|12:41|E|COBAN|195\n1460864|2026-09-22|12:24|C|SAN PEDRO CARCHA|195\n1460845|2026-09-22|12:20|D|CUILCO|181\n1460833|2026-09-22|12:13|E|JALPATAGUA|195\n1458801|2026-09-22|07:31|E|LA DEMOCRACIA HUEHUETENANGO|195\n1458761|2026-09-22|07:27|E|TECTITAN|195\n1456208|2026-09-21|17:08|E|NUEVA CONCEPCION|195\n1454902|2026-09-21|13:40|E|SAN BENITO|195\n1454880|2026-09-21|13:36|D|CUBULCO|195\n1454835|2026-09-21|13:24|D|SANTA BARBARA|181\n1449555|2026-09-20|20:38|D|NEBAJ|195\n1449496|2026-09-20|20:29|D|EL TUMBADOR|195\n1449483|2026-09-20|20:16|E|FLORES|195\n1449312|2026-09-20|19:59|C|SAN PEDRO SOLOMA|195\n1449310|2026-09-20|19:57|D|PALESTINA DE LOS ALTOS|195\n1449287|2026-09-20|19:49|E|SAN ANDRES XECUL|195\n1449241|2026-09-20|19:47|D|TACANA|195\n1446756|2026-09-20|11:59|D|VILLA CANALES|195\n1446713|2026-09-20|11:52|D|RAXRUHA|195\n1445668|2026-09-20|08:45|D|IXCAN|279\n1444259|2026-09-19|20:00|E|SAN MIGUEL SIGUILA|191\n1443895|2026-09-19|20:00|F|GUATEMALA|191\n1443871|2026-09-19|19:52|J|CONCEPCION TUTUAPA|279\n1442591|2026-09-19|14:56|D|IXCAN|191\n1442518|2026-09-19|14:43|E|CUILAPA|191\n1442503|2026-09-19|14:38|D|GUATEMALA|191\n1439823|2026-09-19|07:50|E|JALAPA|181\n1437834|2026-09-18|19:54|D|GUASTATOYA|181\n1435693|2026-09-18|12:33|E|SAN CRISTOBAL CUCHO|191\n1435649|2026-09-18|12:25|E|SAN AGUSTIN ACASAGUASTLAN|191\n1426898|2026-09-17|08:12|D|HUEHUETENANGO|191\n1423456|2026-09-16|16:41|E|GUATEMALA|191\n1423419|2026-09-16|16:36|D|COLOTENANGO|191\n1422591|2026-09-16|14:18|D|SANTA CRUZ DEL QUICHE|199\n1421459|2026-09-16|11:39|E|TECPAN|191\n1421337|2026-09-16|11:21|D|MORALES|191\n1421293|2026-09-16|11:21|F|MORALES|191\n1418511|2026-09-15|22:17|E|SANTA CRUZ DEL QUICHE|191\n1418489|2026-09-15|22:17|F|SANTA CRUZ DEL QUICHE|279\n1418200|2026-09-15|21:17|D|MIXCO|191\n1413536|2026-09-15|07:20|E|SAN CRISTOBAL TOTONICAPAN|191\n1412243|2026-09-14|20:12|E|POPTUN|191\n1410207|2026-09-14|13:07|D|TACANA|191\n1410183|2026-09-14|12:59|E|POPTUN|191\n1410165|2026-09-14|12:57|C|SANTA MARIA IXHUATAN|191\n1401943|2026-09-13|12:08|E|GUATEMALA|191\n1401201|2026-09-13|11:08|D|CHIMALTENANGO|189\n1401157|2026-09-13|11:02|E|SAN ANDRES SEMETABAJ|189\n1401092|2026-09-13|10:51|D|GUATEMALA|348\n1397331|2026-09-12|10:55|E|LIVINGSTON|191\n1397244|2026-09-12|10:27|E|SAN MARCOS|191\n1394592|2026-09-11|21:13|E|EL ASINTAL|191\n1393646|2026-09-11|17:35|E|LIVINGSTON|191\n1390082|2026-09-11|07:40|E|MATAQUESCUINTLA|191\n1388975|2026-09-10|22:23|D|SAN MARCOS|191\n1388051|2026-09-10|18:58|E|CHISEC|191\n1388037|2026-09-10|18:50|D|SAN MATEO IXTATAN|191\n1388016|2026-09-10|18:48|E|SANTO TOMAS LA UNION|191\n1386622|2026-09-10|14:19|E|SAN JOSE LA MAQUINA|191\n1384687|2026-09-10|09:17|D|LIVINGSTON|191\n1384576|2026-09-10|08:56|E|CHISEC|191\n1384283|2026-09-10|08:23|D|SAN PEDRO PINULA|191\n1378461|2026-09-09|10:14|E|SAN PEDRO CARCHA|279\n1375301|2026-09-08|20:07|D|LA DEMOCRACIA HUEHUETENANGO|191\n1375264|2026-09-08|20:01|E|SALAMA|191\n1371998|2026-09-08|10:22|E|JOYABAJ|191\n1366806|2026-09-07|14:03|E|LA GOMERA|191\n1366624|2026-09-07|13:39|D|FRAIJANES|191\n1366604|2026-09-07|13:37|E|SANTA MARIA CHIQUIMULA|279\n1359678|2026-09-06|16:08|D|SANTA CRUZ DEL QUICHE|191\n1359646|2026-09-06|15:57|D|TUCURU|191\n1356941|2026-09-06|08:34|D|COLOTENANGO|191\n1355778|2026-09-05|20:49|E|SAN GASPAR IXCHIL|191\n1352119|2026-09-05|09:06|D|CHIANTLA|191\n1349951|2026-09-04|22:07|E|COMITANCILLO|191\n1348746|2026-09-04|17:23|E|MOYUTA|191\n1345563|2026-09-04|09:40|D|GUALAN|191\n1345525|2026-09-04|09:36|D|SAN PEDRO CARCHA|191\n1344287|2026-09-04|06:01|E|CHIQUIMULA|191\n1344257|2026-09-04|05:59|E|SANTA CATALINA LA TINTA|191\n1344228|2026-09-04|05:53|E|MONJAS|279\n1342088|2026-09-03|17:04|D|MALACATAN|191\n1329186|2026-09-01|19:12|E|QUESADA|195\n1328611|2026-09-01|17:01|E|TEJUTLA|195\n1281589|2026-08-25|19:02|C|MASAGUA|199\n1281197|2026-08-25|17:46|C|CHAMPERICO|191\n1267519|2026-08-23|20:29|E|SAN CRISTOBAL CUCHO|191\n1261337|2026-08-22|18:32|E|BARBERENA|191\n1260957|2026-08-22|17:10|C|SANTA CATALINA LA TINTA|191\n1221839|2026-08-17|05:38|E|FLORES COSTA CUCA|197\n1131555|2026-08-03|11:26|D|PALESTINA DE LOS ALTOS|189\n1095151|2026-07-28|10:54|E|SAN MARCOS|191\n1088802|2026-07-27|10:39|D|SALAMA|191\n1088467|2026-07-27|09:49|D|SAN LUIS|191\n1088398|2026-07-27|09:38|E|SANTA CRUZ DEL QUICHE|191\n1082047|2026-07-26|10:33|D|COLOMBA|191\n1082005|2026-07-26|10:28|D|IPALA|191\n1074113|2026-07-24|20:31|C|PANZOS|191\n1074096|2026-07-24|20:29|E|PANZOS|191\n1074056|2026-07-24|20:18|D|LAS CRUCES|191\n1074037|2026-07-24|20:13|E|SAN MARTIN JILOTEPEQUE|191\n1071965|2026-07-24|13:28|E|TAMAHU|191\n1071238|2026-07-24|11:38|E|SANTA CATARINA IXTAHUACAN|191\n1071212|2026-07-24|11:34|E|SALAMA|191\n1069774|2026-07-24|08:21|D|MELCHOR DE MENCOS|191\n1069769|2026-07-24|08:20|D|SAYAXCHE|191\n1069724|2026-07-24|08:11|D|ESCUINTLA|191\n1068109|2026-07-23|21:57|E|SANTA CRUZ VERAPAZ|191\n1068064|2026-07-23|21:51|E|SANTA CRUZ DEL QUICHE|191\n1068046|2026-07-23|21:48|E|SAN JUAN ATITAN|191\n1065948|2026-07-23|15:11|D|SAN ANDRES SAJCABAJA|279\n1064508|2026-07-23|11:58|E|POPTUN|191\n1064489|2026-07-23|11:55|D|SAN JOSE PINULA|191\n1064480|2026-07-23|11:53|E|SAN ILDEFONSO IXTAHUACAN|191\n1058433|2026-07-22|12:40|E|CHISEC|191\n1057625|2026-07-22|10:59|E|CHIQUIMULA|191\n1054226|2026-07-21|19:58|D|SAN RAFAEL LAS FLORES|191\n1054103|2026-07-21|19:36|E|SAN PEDRO JOCOPILAS|191\n1054042|2026-07-21|19:25|E|MORALES|191\n1054022|2026-07-21|19:22|E|SANTA CATARINA IXTAHUACAN|279\n1049649|2026-07-21|07:46|E|SAN JUAN OSTUNCALCO|191\n1047831|2026-07-20|19:54|D|SAN JOSE|191\n1047814|2026-07-20|19:49|E|SAN ANDRES SAJCABAJA|191\n1047806|2026-07-20|19:46|E|CAMOTAN|191\n1047052|2026-07-20|16:51|E|SAN PEDRO LA LAGUNA|189\n1046993|2026-07-20|16:38|E|CATARINA|191\n1046976|2026-07-20|16:34|D|SANTA CATALINA LA TINTA|191\n1046947|2026-07-20|16:30|E|SAYAXCHE|191\n1045875|2026-07-20|13:53|D|CONCEPCION TUTUAPA|181\n1045449|2026-07-20|13:01|E|LA DEMOCRACIA HUEHUETENANGO|191\n1045430|2026-07-20|12:56|D|MAZATENANGO|191\n1045369|2026-07-20|12:52|C|VILLA CANALES|191\n1045359|2026-07-20|12:49|E|SANTA CATALINA LA TINTA|191\n1045326|2026-07-20|12:46|D|SAN JOSE|191\n1045290|2026-07-20|12:43|E|NUEVO SAN CARLOS|191\n1040845|2026-07-19|18:36|E|SAN DIEGO|191\n1040857|2026-07-19|17:50|D|EL ASINTAL|191\n1040624|2026-07-19|17:48|E|EL PALMAR|191\n1040606|2026-07-19|17:45|E|JALAPA|191\n1040600|2026-07-19|17:43|D|CHICACAO|191\n1040591|2026-07-19|17:34|E|JOCOTAN|279\n1040521|2026-07-19|17:32|D|GUATEMALA|191\n1040466|2026-07-19|17:21|E|AGUACATAN|191\n1040641|2026-07-19||P|EL ASINTAL|191\n1040532|2026-07-19||F|JOCOTAN|279\n1036372|2026-07-18|20:20|E|SAN CARLOS SIJA|191\n1036366|2026-07-18|20:20|F|SAN MARCOS|191\n1036336|2026-07-18|20:17|E|COBAN|191\n1033979|2026-07-18|11:39|E|GUATEMALA|191\n1033958|2026-07-18|11:31|D|GUATEMALA|191\n1032400|2026-07-18|07:42|E|COATEPEQUE|191\n1032364|2026-07-18|07:40|E|YUPILTEPEQUE|191\n1032356|2026-07-18|07:38|D|MASAGUA|191\n1033925|2026-07-18||F|GUATEMALA|191\n1029093|2026-07-17|15:35|E|ACATENANGO|191\n1029085|2026-07-17|15:33|D|TEJUTLA|191\n1028139|2026-07-17|13:22|D|MORALES|191\n1028083|2026-07-17|13:13|E|SAN RAYMUNDO|191\n1025930|2026-07-17|07:39|E|VILLA NUEVA|279\n1025886|2026-07-17|07:39|F|SAN JOSE PINULA|279\n1025849|2026-07-17|07:31|E|GUATEMALA|191\n1025831|2026-07-17|07:30|E|MALACATAN|191\n1025808|2026-07-17|07:24|E|CAMOTAN|191\n1025798|2026-07-17|07:22|E|SAN MARTIN SACATEPEQUEZ|191\n1023834|2026-07-16|19:50|C|SAN PEDRO SACATEPEQUEZ|191\n1023813|2026-07-16|19:47|D|CUILCO|191\n1023567|2026-07-16|19:12|E|TECTITAN|191\n1023523|2026-07-16|19:05|E|LIVINGSTON|191\n1023502|2026-07-16|19:02|D|USPANTAN|191\n1023484|2026-07-16|18:59|E|SAN AGUSTIN ACASAGUASTLAN|191\n1023478|2026-07-16|18:56|E|TODOS SANTOS CUCHUMATANES|191\n1023451|2026-07-16|18:40|D|SAN MARCOS|191\n1023361|2026-07-16|18:40|P|SAN MARCOS|191\n1022371|2026-07-16|15:11|E|LA BLANCA|191\n1021069|2026-07-16|12:07|E|FRAIJANES|191\n1020774|2026-07-16|11:13|E|GUALAN|191\n1017442|2026-07-15|21:24|D|COBAN|191\n1015489|2026-07-15|15:23|E|FRAIJANES|191\n1014519|2026-07-15|13:00|E|SAN PEDRO SACATEPEQUEZ|191\n1013521|2026-07-15|10:37|E|SANTA CATARINA IXTAHUACAN|279\n1012444|2026-07-15|08:16|D|MAZATENANGO|191\n1014499|2026-07-15||P|SAN PEDRO SACATEPEQUEZ|191\n1010274|2026-07-14|19:46|D|SAN ANTONIO HUISTA|191\n1006791|2026-07-14|11:09|D|IXCAN|191\n1005405|2026-07-14|07:45|E|TACANA|191\n1005389|2026-07-14|07:42|E|JOYABAJ|191\n1004058|2026-07-13|21:10|E|QUETZALTENANGO|179\n1001491|2026-07-13|13:21|E|PAJAPITA|191\n998903|2026-07-13|06:55|E|JUTIAPA|179\n998874|2026-07-13|06:49|E|SANTA EULALIA|279\n990015|2026-07-11|11:19|E|SANTA EULALIA|191\n987010|2026-07-10|20:33|E|LA GOMERA|191\n987004|2026-07-10|20:31|E|JACALTENANGO|191\n986962|2026-07-10|20:28|E|SANTA BARBARA|191\n984692|2026-07-10|12:53|E|CUBULCO|278\n982392|2026-07-10|07:31|D|MALACATAN|191\n982382|2026-07-10|07:24|E|VILLA NUEVA|191\n982364|2026-07-10||P|SAN JOSE PINULA|191\n979916|2026-07-09|17:52|E|MALACATAN|191\n979875|2026-07-09|17:41|E|JALAPA|191\n979850|2026-07-09|17:39|C|PAJAPITA|191\n979846|2026-07-09|17:33|D|MONJAS|191\n977441|2026-07-09|11:32|E|ORATORIO|191\n979858|2026-07-09||P|JALAPA|191\n979829|2026-07-09||P|SAN MARCOS|191\n970884|2026-07-08|10:38|E|GUATEMALA|191\n970879|2026-07-08|10:33|D|PURULHA|191\n970835|2026-07-08|10:30|D|SAN PEDRO PINULA|191\n970812|2026-07-08|10:28|E|GUASTATOYA|191\n966785|2026-07-07|16:24|E|OLINTEPEQUE|191\n965355|2026-07-07|13:51|D|SAN ANDRES VILLA SECA|189\n965332|2026-07-07|13:47|E|TODOS SANTOS CUCHUMATANES|191\n964708|2026-07-07|08:21|D|FRAY BARTOLOME DE LAS CASAS|199\n962771|2026-07-06|20:23|D|CONGUACO|191\n961580|2026-07-06|16:24|E|ESTANZUELA|191\n960000|2026-07-06|13:15|D|SANTO DOMINGO|191\n959878|2026-07-06|13:06|E|HUEHUETENANGO|191\n959748|2026-07-06|12:51|E|CONCEPCION TUTUAPA|181\n953808|2026-07-05|17:27|E|SAN MIGUEL IXTAHUACAN|279\n953801|2026-07-05|17:24|E|JUTIAPA|189\n949210|2026-07-04|15:39|E|SANTA CRUZ DEL QUICHE|191\n948712|2026-07-04|13:47|D|JOYABAJ|191\n948076|2026-07-04|11:58|E|SIPACATE|191\n946189|2026-07-04|06:49|D|LA UNION|199\n942991|2026-07-03|14:40|E|SANTA CRUZ EL CHOL|191\n942946|2026-07-03|14:33|C|SANTA ROSA DE LIMA|191\n938087|2026-07-02|18:47|D|SANTA CATALINA LA TINTA|191\n935311|2026-07-02|10:06|D|GUATEMALA|191\n931039|2026-07-01|15:13|E|SENAHU|191\n931015|2026-07-01|15:10|C|SANTA CRUZ VERAPAZ|191\n928779|2026-07-01|09:18|E|VILLA NUEVA|191\n926677|2026-06-30|20:12|D|CHIANTLA|191\n924580|2026-06-30|12:25|E|MATAQUESCUINTLA|191\n922758|2026-06-30|07:59|E|SAYAXCHE|191\n921090|2026-06-29|21:19|E|PANZOS|191\n910504|2026-06-27|16:22|D|COLOTENANGO|191\n910279|2026-06-27|14:46|C|PANZOS|199\n910090|2026-06-27|13:58|C|COLOTENANGO|191\n900763|2026-06-25|18:08|D|LIVINGSTON|189\n900751|2026-06-25|18:04|E|SAN PEDRO PINULA|189\n900673|2026-06-25|17:44|C|CHAMPERICO|191\n897461|2026-06-25|07:08|D|CHAHAL|189\n893523|2026-06-24|12:06|E|SACAPULAS|189\n893002|2026-06-24|10:34|E|QUETZALTENANGO|189\n890372|2026-06-23|20:08|D|SAN ILDEFONSO IXTAHUACAN|191\n890174|2026-06-23|19:06|D|SAN MARTIN SACATEPEQUEZ|191\n890075|2026-06-23|18:31|E|RAXRUHA|279\n890027|2026-06-23|18:13|C|RAXRUHA|382\n890017|2026-06-23|18:10|D|SAN JERONIMO|189\n888588|2026-06-23|12:53|E|CHIANTLA|189\n888437|2026-06-23|12:23|D|SAN MARCOS|191\n888394|2026-06-23|12:15|E|SAN JUAN IXCOY|191\n887701|2026-06-23|10:01|C|SAN MARCOS|191\n882798|2026-06-22|12:50|E|MIXCO|191\n882767|2026-06-22|12:43|C|MIXCO|191\n879447|2026-06-21|21:31|C|NUEVA CONCEPCION|191\n874582|2026-06-20|22:09|C|PALENCIA|191\n874453|2026-06-20|21:41|C|GUATEMALA|191\n871681|2026-06-20|09:49|E|PALESTINA DE LOS ALTOS|191\n868761|2026-06-19|18:09|E|NUEVA CONCEPCION|191\n862631|2026-06-18|14:12|D|ESQUIPULAS|189\n858259|2026-06-17|17:03|E|SAYAXCHE|181\n854275|2026-06-16|20:15|E|SANTA CRUZ VERAPAZ|189\n854184|2026-06-16|19:48|C|SAN AGUSTIN ACASAGUASTLAN|191\n854037|2026-06-16|19:02|E|QUETZALTENANGO|189\n853926|2026-06-16|18:33|E|SAN SEBASTIAN HUEHUETENANGO|191\n849465|2026-06-15|21:36|D|PUERTO SAN JOSE|191\n849463|2026-06-15|21:34|E|CHIQUIMULILLA|198\n848728|2026-06-15|18:13|D|GENOVA|189\n848689|2026-06-15|18:00|E|CHIQUIMULA|191\n848485|2026-06-15|17:08|E|IXCAN|191\n843710|2026-06-14|19:45|D|SAN ILDEFONSO IXTAHUACAN|189\n843708|2026-06-14|19:44|C|PALIN|191\n843697|2026-06-14|19:42|E|SAN LUIS|189\n843669|2026-06-14|19:33|C|LA DEMOCRACIA HUEHUETENANGO|191\n843482|2026-06-14|18:53|C|PALIN|191\n841976|2026-06-14|11:53|D|POPTUN|191\n841969|2026-06-14|11:50|D|SAN CRISTOBAL VERAPAZ|191\n841296|2026-06-14|08:47|D|MORALES|189\n838094|2026-06-13|12:59|E|CHIANTLA|189\n838010|2026-06-13|12:39|D|VILLA NUEVA|191\n837659|2026-06-13|11:17|D|COBAN|198\n837609|2026-06-13|11:07|D|HUITE|191\n837251|2026-06-13|09:45|D|TECPAN|198\n835085|2026-06-12|21:35|E|CHISEC|286\n834361|2026-06-12|18:21|E|SAN PEDRO PINULA|189\n833911|2026-06-12|16:27|D|SANTA LUCIA COTZUMALGUAPA|191\n832707|2026-06-12|12:16|E|GUATEMALA|198\n832623|2026-06-12|11:58|D|SAN PEDRO CARCHA|191\n828640|2026-06-11|14:54|D|CHICAMAN|198\n828135|2026-06-11|12:50|E|CHICACAO|191\n827198|2026-06-11|10:05|E|SAYAXCHE|191\n823664|2026-06-10|16:35|E|SAN JUAN CHAMELCO|191\n823625|2026-06-10|16:27|D|COBAN|189\n819709|2026-06-09|21:40|D|SANTA CRUZ DEL QUICHE|189\n819677|2026-06-09|21:36|D|MONJAS|191\n817294|2026-06-09|12:09|E|ZACUALPA|191\n815083|2026-06-08|21:45|C|RABINAL|191\n812767|2026-06-08|12:44|E|ESCUINTLA|198\n809261|2026-06-07|20:45|D|GUATEMALA|191\n809240|2026-06-07|20:40|E|EL RODEO|279\n809185|2026-06-07|20:28|E|ESCUINTLA|191\n805086|2026-06-06|19:59|E|SAN ANDRES|191\n805063|2026-06-06|19:52|D|GUATEMALA|191\n804371|2026-06-06|16:14|E|SAN LORENZO|198\n793487|2026-06-04|13:42|D|IXCAN|198\n790704|2026-06-03|22:09|D|SAN JOSE CHACAYA|191\n790188|2026-06-03|20:09|E|SAYAXCHE|179\n789744|2026-06-03|18:15|E|SAYAXCHE|191\n789674|2026-06-03|17:57|E|SAN SEBASTIAN COATAN|279\n789656|2026-06-03|17:54|E|EL ESTOR|179\n789654|2026-06-03|17:52|E|SAYAXCHE|191\n788414|2026-06-03|13:10|E|LA DEMOCRACIA|198\n775044|2026-05-31|19:42|C|PURULHA|199\n731314|2026-05-22|16:10|E|HUEHUETENANGO|191\n731299|2026-05-22|16:06|E|CANILLA|191\n729994|2026-05-22|11:30|E|LA DEMOCRACIA|191\n729984|2026-05-22|11:27|E|CANILLA|191\n727058|2026-05-21|18:50|D|TECPAN|198\n727040|2026-05-21|18:45|D|CANILLA|279\n727023|2026-05-21|18:40|D|COBAN|191\n724599|2026-05-21|09:09|D|SIBINAL|189\n724580|2026-05-21|09:04|D|CHISEC|191\n724567|2026-05-21|09:01|E|GUATEMALA|191\n720663|2026-05-20|11:45|E|ESCUINTLA|189\n716616|2026-05-19|14:36|D|CONCEPCION HUISTA|191\n715941|2026-05-19|12:13|D|SAN MIGUEL IXTAHUACAN|1998\n715934|2026-05-19|12:11|E|SAYAXCHE|191\n712002|2026-05-18|14:27|J|SANTA CRUZ BARILLAS|189\n711653|2026-05-18|13:06|E|JACALTENANGO|191\n711636|2026-05-18|13:02|E|GUATEMALA|191\n711629|2026-05-18|13:00|D|COBAN|279\n708330|2026-05-17|19:47|E|RAXRUHA|189\n708249|2026-05-17|19:17|D|SAN PEDRO CARCHA|198\n707305|2026-05-17|15:49|C|SAN ANTONIO PALOPO|198\n707264|2026-05-17|15:41|D|SANTA BARBARA|191\n694393|2026-05-14||E|CUILCO|179\n694465|2026-05-14||E|SAN MIGUEL SIGUILA|179\n694490|2026-05-14||E|PALESTINA DE LOS ALTOS|179\n694567|2026-05-14||E|HUEHUETENANGO|179\n688542|2026-05-13|11:54|D|SANTO DOMINGO|198\n687844|2026-05-13|09:45|E|SIQUINALA|191\n687046|2026-05-13||C|ESCUINTLA|191\n687049|2026-05-13||C|ESCUINTLA|191\n687275|2026-05-13||C|CHISEC|191\n687892|2026-05-13||E|CHISEC|191\n689370|2026-05-13||D|CUILCO|179\n689386|2026-05-13||E|JALAPA|179\n675484|2026-05-10||C|LAS CRUCES|198\n675857|2026-05-10||C|GUATEMALA|191\n634287|2026-05-01||E|PASACO|191\n634314|2026-05-01||E|SAN PEDRO CARCHA|189\n634337|2026-05-01||E|SAN JUAN CHAMELCO|189\n630871|2026-04-30||E|JUTIAPA|189\n631027|2026-04-30||D|JUTIAPA|279\n631429|2026-04-30||E|TEJUTLA|189\n631456|2026-04-30||D|GUATEMALA|189\n625959|2026-04-29||E|CHISEC|279\n626038|2026-04-29||D|PUERTO SAN JOSE|189\n627772|2026-04-29||E|PUERTO SAN JOSE|198\n627792|2026-04-29||E|QUETZALTENANGO|191\n623118|2026-04-28||E|LA DEMOCRACIA|198\n623135|2026-04-28||E|SAN JOSE LA MAQUINA|189\n623149|2026-04-28||C|SAN JUAN COTZAL|186\n624040|2026-04-28||D|SANTA CRUZ VERAPAZ|191\n618522|2026-04-27|17:34|D|EL ESTOR|259\n617457|2026-04-27||E|SAYAXCHE|191\n617461|2026-04-27||E|SANTA CRUZ EL CHOL|198\n618427|2026-04-27||D|SAN MARCOS|191\n618433|2026-04-27||E|PASACO|191\n618453|2026-04-27||D|SAN CRISTOBAL VERAPAZ|179\n618583|2026-04-27||D|LA GOMERA|189\n611254|2026-04-26||E|CHAJUL|191\n611273|2026-04-26||D|RAXRUHA|198\n612621|2026-04-26||D|CUBULCO|191\n612672|2026-04-26||D|SANTA CATARINA IXTAHUACAN|191\n606860|2026-04-25||E|LA DEMOCRACIA HUEHUETENANGO|179\n606893|2026-04-25||E|GUATEMALA|186\n607116|2026-04-25||E|SALAMA|179\n608441|2026-04-25||E|SAN BENITO|198\n608455|2026-04-25||E|SAN PEDRO CARCHA|191\n608462|2026-04-25||D|SAYAXCHE|198\n608466|2026-04-25||E|CUILCO|191\n609048|2026-04-25||D|PUERTO BARRIOS|198\n609065|2026-04-25||E|NEBAJ|198\n609072|2026-04-25||E|SAN FRANCISCO EL ALTO|191\n602735|2026-04-24||E|TEJUTLA|191\n604889|2026-04-24||E|SAN MIGUEL ACATAN|179\n604895|2026-04-24||E|USPANTAN|191\n605407|2026-04-24||D|TAXISCO|191\n597681|2026-04-23||E|PUERTO SAN JOSE|191\n599408|2026-04-23||E|SANTA CATARINA IXTAHUACAN|198\n599429|2026-04-23||D|JOYABAJ|191\n599443|2026-04-23||D|SAN JOSE EL IDOLO|191\n599463|2026-04-23||E|SANTA CATALINA LA TINTA|191\n599697|2026-04-23||D|POPTUN|179\n600429|2026-04-23||E|SAN PEDRO CARCHA|479\n600595|2026-04-23||E|RIO BRAVO|198";
+  var CRMRAW="8542|2026-10-07 11:16|D|abandonado|279|0\n8541|2026-10-07 11:15|D|abandonado|203|0\n8540|2026-10-07 11:13|D|abandonado|203|0\n8539|2026-10-07 11:12|D|cancelado|292|0\n8538|2026-10-07 11:11|D|despachado|284|1\n8536|2026-10-07 10:52|D|abandonado|195|0\n8535|2026-10-07 10:48|D|abandonado|195|0\n7955|2026-10-03 20:10|S|confirmado|229|0\n7951|2026-10-03 19:46|D|cancelado|191|1\n5422|2026-09-13 23:51|D|abandonado|0|0\n5401|2026-09-13 21:02|D|abandonado|0|0\n5371|2026-09-13 16:29|D|devuelto|199|1\n5355|2026-09-13 13:13|D|nuevo|191|0\n5350|2026-09-13 12:58|D|entregado|191|1\n5088|2026-09-10 22:59|D|devuelto|191|1\n5063|2026-09-10 20:26|D|nuevo|191|0\n5035|2026-09-10 15:29|D|abandonado|0|0\n5033|2026-09-10 15:15|D|entregado|191|1\n5028|2026-09-10 14:38|D|entregado|185|1\n5022|2026-09-10 13:47|D|lead_wa|191|0\n5017|2026-09-10 13:11|D|lead_wa|191|0\n5012|2026-09-10 11:49|D|lead_wa|191|0\n5007|2026-09-10 10:55|D|lead_wa|191|0\n4999|2026-09-10 10:06|D|lead_wa|191|0\n4992|2026-09-10 09:03|D|entregado|191|1\n4989|2026-09-10 08:28|D|lead_wa|191|0\n4928|2026-09-09 17:23|D|lead_wa|191|0\n3204|2026-08-25 20:02|P|cancelado|199|1\n3194|2026-08-25 18:46|P|cancelado|191|1\n2974|2026-08-22 18:10|P|cancelado|191|1\n321|2026-07-07 11:32|D|pendiente_confirmar|191|0\n319|2026-07-07 10:49|D|abandonado|191|0\n312|2026-07-06 22:43|D|abandonado|191|0\n311|2026-07-06 22:30|D|pendiente_confirmar|191|0\n310|2026-07-06 22:30|D|abandonado|191|0\n309|2026-07-06 22:01|D|devuelto|199|1";
+  var C1={"names":["06-07-2026 CAMPAÑA  DE VENTAS WHATSAP CBO","Otras campañas (eliminadas o sin detalle)","ABO 29-092026 COLLAR LLAVE TESTEO","15-07-2026 CAMPAÑA  DE VENTAS WHATSAP  ABO","04-09-2025 CAMPAÑA DE TESTEO CBO","11-09-2026 CAMPAÑA DE MENSAJES","09-07-2026 CAMPAÑA  DE VENTAS WHATSAP ABO","29-09-2026  CBO COLLAR LLAVE ESCALADO","🟢14-09-2026 CAMPAÑA DE TESTEO","12-08-2026 CAMPAÑA DE TESTEO TREBOL","21-07-2026  CAMPAÑA 1  VENTAS","ABO PUBLICO SIMILAR 1-11-2026","14-07-2026  KIT LIBROS CAMPAÑA  DE TESTEO  X 4 WHATSAP ABO","07-07-2026 CAMPAÑA  DE VENTAS WHATSAP CBO","08-09-202 CAMPAÑA SITIO WED TESTEO","🟢17-09-2026 CAMPAÑA DE TESTEO","CAMPAÑA  DE VENTAS WHATSAP"],"rows":[["06-23",10,17.8,4256,93,18],["06-23",16,5.56,1404,49,6],["06-23",1,5.41,1496,47,0],["06-24",1,5.06,1279,61,0],["06-25",1,10.76,2348,100,0],["06-26",1,1.28,267,9,0],["06-27",1,13.58,2927,112,0],["06-28",1,1.86,362,15,0],["06-29",1,15.05,2952,143,0],["06-30",1,6.58,1140,54,0],["07-01",1,7.07,1303,101,0],["07-02",1,5.23,1001,77,0],["07-03",1,4.24,783,64,0],["07-04",1,2.97,576,60,0],["07-05",0,8.11,2127,86,13],["07-05",1,5.39,1140,69,0],["07-06",0,11.95,3291,159,29],["07-06",1,2.82,735,25,0],["07-07",0,9.84,2328,130,18],["07-07",13,1.45,262,24,7],["07-08",0,8.34,1993,99,18],["07-08",13,6.11,1502,102,20],["07-09",0,5.69,1653,66,14],["07-09",13,0.52,164,6,2],["07-09",6,14.57,4136,167,32],["07-09",1,16.52,4863,186,0],["07-10",0,6.98,2253,90,19],["07-10",6,7.46,1843,64,14],["07-10",1,9.97,2657,83,0],["07-11",0,8.38,2292,82,14],["07-11",6,10.05,2052,109,27],["07-11",1,5.58,3168,45,0],["07-12",0,1.03,249,10,2],["07-12",6,0.61,148,6,1],["07-13",0,2.78,880,28,4],["07-13",12,0.0,1,0,0],["07-13",6,6.21,1466,63,13],["07-13",1,1.25,303,7,0],["07-14",0,6.64,1968,78,13],["07-14",12,5.51,728,38,8],["07-14",6,8.28,1530,77,14],["07-14",1,5.32,989,48,0],["07-15",0,6.16,2082,68,13],["07-15",12,2.65,256,24,3],["07-15",3,5.62,1952,47,8],["07-15",1,5.63,1345,55,0],["07-16",0,20.02,5884,168,37],["07-16",3,5.75,1213,51,12],["07-16",1,5.5,1233,44,0],["07-17",0,24.54,6424,202,43],["07-17",3,4.57,1035,23,4],["07-17",1,4.2,1124,30,0],["07-18",0,21.97,5912,207,37],["07-18",3,4.0,1245,33,10],["07-18",1,4.29,1276,29,0],["07-19",0,27.2,8556,247,41],["07-19",3,5.7,1564,37,13],["07-19",1,5.49,1562,51,0],["07-20",0,29.65,9413,295,58],["07-20",3,5.9,1432,33,12],["07-20",1,5.64,1913,52,0],["07-21",0,24.17,6590,225,51],["07-21",3,4.64,1087,25,4],["07-21",1,4.76,1269,36,0],["07-22",0,20.66,6411,211,36],["07-22",3,3.9,954,40,9],["07-22",1,3.95,1128,36,0],["07-23",0,24.81,6650,233,62],["07-23",3,19.48,4708,122,13],["07-23",1,1.93,381,20,0],["07-24",0,21.23,5905,191,40],["07-24",3,5.71,2666,43,13],["07-25",0,4.95,1200,65,17],["07-25",3,3.57,997,35,7],["07-26",0,6.5,1666,79,16],["07-26",3,5.89,1476,38,9],["07-27",0,1.63,426,18,7],["07-27",3,2.4,701,28,8],["08-12",9,9.75,2518,88,11],["08-13",9,13.66,3377,124,34],["08-14",9,1.33,502,14,3],["08-22",1,17.06,4326,139,0],["08-23",1,18.4,3673,163,0],["08-24",1,6.92,1185,41,0],["08-25",1,7.91,1283,56,0],["09-01",0,13.86,3368,100,20],["09-01",6,5.66,1515,44,8],["09-01",3,3.16,851,17,1],["09-02",0,13.34,5178,114,22],["09-02",6,3.47,1235,23,2],["09-02",3,1.09,277,5,1],["09-03",0,22.58,7420,168,25],["09-04",0,15.4,5035,150,31],["09-05",0,16.05,5483,151,28],["09-06",0,39.46,14153,341,48],["09-07",0,34.41,11281,297,37],["09-08",0,33.17,8845,252,50],["09-09",0,19.85,5631,139,23],["09-09",14,6.26,989,53,0],["09-10",0,13.91,4273,117,20],["09-10",5,4.5,1185,25,1],["09-11",0,10.55,3693,103,23],["09-11",5,8.95,2592,58,9],["09-12",0,13.92,4392,143,24],["09-12",5,11.02,3017,58,11],["09-13",0,12.04,3852,77,7],["09-13",5,8.86,2215,34,7],["09-14",0,10.0,4081,82,8],["09-14",5,11.09,2887,61,9],["09-14",8,4.3,858,25,7],["09-15",0,6.44,2341,51,8],["09-15",5,7.83,2394,58,8],["09-15",8,13.53,3199,86,11],["09-16",0,2.23,813,16,3],["09-16",5,6.94,1850,46,5],["09-16",8,13.15,3223,96,21],["09-17",5,2.93,949,29,1],["09-17",8,9.18,2413,71,18],["09-17",15,5.75,1524,45,3],["09-18",8,5.55,1677,52,9],["09-19",4,0.0,3,1,0],["09-20",4,12.87,2949,62,11],["09-21",4,9.26,2069,67,9],["09-22",4,12.14,2396,55,10],["09-30",7,12.59,2797,75,18],["09-30",2,19.51,3933,128,19],["10-01",7,11.19,2898,87,18],["10-01",2,16.69,4375,219,22],["10-01",11,1.44,389,8,1],["10-02",7,10.6,2761,83,23],["10-02",2,13.77,3905,167,11],["10-02",11,5.59,1403,50,13],["10-03",7,7.19,2571,57,12],["10-03",2,15.7,4764,123,22],["10-03",11,4.24,1167,29,8],["10-04",4,6.73,2456,108,6],["10-04",7,11.95,4585,118,42],["10-04",2,14.71,4417,134,13],["10-05",4,15.51,4695,147,23],["10-05",2,7.98,1799,57,9],["10-06",4,9.53,3379,101,13],["10-06",2,15.52,4210,131,11],["10-07",2,6.07,1520,41,4]]};
+  var C3={"names":["17-09-2026 Campaña de testeo","20-09-2026 Campaña de ventas CBO"],"rows":[["09-17",0,7.57,1591,37,3],["09-18",0,24.61,5439,217,38],["09-19",0,13.21,3475,128,42],["09-19",1,0.02,20,1,0],["09-20",0,27.08,9079,301,68],["09-20",1,12.52,3422,109,20],["09-21",0,21.48,7271,194,49],["09-21",1,9.14,2432,77,15],["09-22",0,14.89,4762,116,30],["09-22",1,10.15,2621,90,9],["09-23",0,12.34,3914,98,23],["09-23",1,3.52,870,29,1],["09-24",1,0,0,0,3],["09-28",0,6.21,1322,65,14],["09-29",0,11.64,2084,99,26],["09-30",0,8.69,2131,80,18],["10-01",0,3.66,1781,36,14]]};
+  C1.est={"0":"A","1":"X","2":"A","3":"P","4":"P","5":"A","6":"P","7":"A","8":"P","9":"P","10":"A","11":"P","12":"P","13":"A","14":"P","15":"P","16":"A"};C3.est={"0":"A","1":"P"};
+  C1.cbuy={"0":{"07-05":1,"07-07":3,"07-08":2,"07-09":3,"07-10":3,"07-12":1,"07-13":1,"07-14":2,"07-15":2,"07-16":7,"07-17":7,"07-18":6,"07-19":4,"07-20":14,"07-21":6,"07-22":3,"07-23":9,"07-24":6,"07-25":3,"07-26":1,"07-27":2,"09-01":2,"09-03":3,"09-04":5,"09-05":1,"09-06":4,"09-07":3,"09-08":5,"09-09":1,"09-10":2,"09-11":2,"09-12":2,"09-14":2},"1":{"07-09":4,"07-10":2,"07-14":1,"07-15":2,"07-16":2,"07-17":1,"07-18":1,"07-19":3,"07-23":1,"08-22":1,"08-23":1},"2":{"09-30":2,"10-01":4,"10-02":1,"10-06":3},"3":{"07-16":2,"07-17":1,"07-18":3,"07-19":1,"07-20":2,"07-23":2,"07-24":2,"07-26":1,"07-27":2},"4":{"09-20":1,"09-22":1,"09-24":1,"10-05":3},"5":{"09-11":2,"09-12":1,"09-13":1,"09-14":1,"09-16":1},"6":{"07-10":2,"07-11":1,"07-13":2,"07-14":1},"7":{"09-30":2,"10-01":2,"10-02":1,"10-03":1,"10-04":1},"8":{"09-14":1,"09-15":1,"09-16":2,"09-17":1,"09-19":1},"11":{"10-03":1},"12":{"07-14":1},"13":{"07-07":1}};C3.cbuy={"0":{"09-18":5,"09-19":4,"09-20":9,"09-21":8,"09-22":3,"09-23":3,"09-28":1,"09-29":6,"10-01":2},"1":{"09-21":1,"09-22":2}};
+  C1.buy={"07-05":1,"07-07":4,"07-08":2,"07-09":7,"07-10":7,"07-11":1,"07-12":1,"07-13":3,"07-14":5,"07-15":4,"07-16":11,"07-17":9,"07-18":10,"07-19":8,"07-20":16,"07-21":6,"07-22":3,"07-23":12,"07-24":8,"07-25":3,"07-26":2,"07-27":4,"08-22":1,"08-23":1,"09-01":2,"09-03":3,"09-04":5,"09-05":1,"09-06":4,"09-07":3,"09-08":5,"09-09":1,"09-10":2,"09-11":4,"09-12":3,"09-13":1,"09-14":4,"09-15":1,"09-16":3,"09-17":1,"09-19":1,"09-20":1,"09-22":1,"09-24":1,"09-30":4,"10-01":6,"10-02":2,"10-03":2,"10-04":1,"10-05":3,"10-06":3};C3.buy={"09-18":5,"09-19":4,"09-20":9,"09-21":9,"09-22":5,"09-23":3,"09-28":1,"09-29":6,"10-01":2};
+  /* ===== Pedidos de Dropi ===== */
+  var ST={E:["Entregado","v"],D:["Devolución","r"],C:["Cancelado","g"],R:["En ruta","a"],G:["Guía generada","a"],K:["Recolectado","a"],P:["Pendiente","a"],F:["Pend. confirmación","a"],I:["Incidencia validada","r"],J:["Incidencia en ruta","r"]};
+  var ORD=ORAW.split("\n").filter(Boolean).map(function(l){var p=l.split("|");return{n:p[0],d:p[1],t:p[2],s:p[3],c:p[4],v:+p[5],dep:DEP[p[4]]||"Sin determinar"}});
+  ORD.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)});
+  var store={tags:{},favs:{}};
+  try{var s1=localStorage.getItem("sem_tags");if(s1)store.tags=JSON.parse(s1);var s2=localStorage.getItem("sem_favs");if(s2)store.favs=JSON.parse(s2)}catch(e){}
+  function save(){try{localStorage.setItem("sem_tags",JSON.stringify(store.tags));localStorage.setItem("sem_favs",JSON.stringify(store.favs))}catch(e){}}
+  function $(i){return document.getElementById(i)}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var oq=$("o-q"),od=$("o-desde"),oh=$("o-hasta"),odep=$("o-dep"),ociu=$("o-ciu"),otag=$("o-tag"),ofav=$("o-fav"),obody=$("o-body"),omas=$("o-mas");
+  var selS={},lim=50;
+  function opts(sel,first,vals,cur){sel.innerHTML='<option value="">'+first+'</option>'+vals.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>'}).join("");if(cur&&vals.indexOf(cur)>-1)sel.value=cur}
+  var deps=Array.from(new Set(ORD.map(function(o){return o.dep}))).sort();
+  function ciudades(){var dp=odep.value,c=ociu.value;var l=Array.from(new Set(ORD.filter(function(o){return !dp||o.dep===dp}).map(function(o){return o.c}))).sort();opts(ociu,"Todas",l,c)}
+  function etiquetas(){var cur=otag.value;var all={};Object.keys(store.tags).forEach(function(k){store.tags[k].forEach(function(t){all[t]=1})});opts(otag,"Todas",Object.keys(all).sort(),cur)}
+  opts(odep,"Todos",deps);ciudades();etiquetas();
+  $("o-estados").innerHTML=Object.keys(ST).map(function(k){return '<button type="button" class="chip '+ST[k][1]+'" data-s="'+k+'" aria-pressed="false">'+ST[k][0]+'</button>'}).join("");
+  function filtrar(){
+    var q=oq.value.trim().toLowerCase(),d=od.value,h=oh.value,dp=odep.value,ci=ociu.value,tg=otag.value,fv=ofav.checked,ks=Object.keys(selS).filter(function(k){return selS[k]});
+    return ORD.filter(function(o){
+      if(ks.length&&ks.indexOf(o.s)<0)return false;
+      if(d&&o.d<d)return false;if(h&&o.d>h)return false;
+      if(dp&&o.dep!==dp)return false;if(ci&&o.c!==ci)return false;
+      if(fv&&!store.favs[o.n])return false;
+      var tags=store.tags[o.n]||[];
+      if(tg&&tags.indexOf(tg)<0)return false;
+      if(q){var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")).toLowerCase();if(hay.indexOf(q)<0)return false}
+      return true});
+  }
+  function rOrd(keepFocus){
+    var F=filtrar(),e=0,dv=0,pr=0,ca=0,val=0;
+    F.forEach(function(o){if(o.s==="E"){e++;val+=o.v}else if(o.s==="D"||o.s==="I"||o.s==="J")dv++;else if(o.s==="C")ca++;else pr++});
+    var pe=(e+dv)?Math.round(e/(e+dv)*100)+"%":"–";
+    $("o-resumen").innerHTML=
+      '<div class="card kpi"><h3>Pedidos</h3><div class="big">'+F.length+'</div><div class="sub">'+ca+' cancelados</div></div>'+
+      '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+e+'</div><div class="sub">'+val.toLocaleString("es")+' GTQ · '+pe+' de entrega</div></div>'+
+      '<div class="card kpi"><h3>En rojo</h3><div class="big tr_">'+dv+'</div><div class="sub">devoluciones e incidencias</div></div>'+
+      '<div class="card kpi"><h3>En proceso</h3><div class="big ta">'+pr+'</div><div class="sub">ruta, guía y por confirmar</div></div>';
+    var sh=F.slice(0,lim);
+    obody.innerHTML=sh.length?sh.map(function(o){
+      var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
+      return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
+        '<td class="num" style="text-align:left">'+o.n+'</td><td style="white-space:nowrap">'+o.d.slice(5).replace("-","/")+(o.t?' '+o.t:'')+'</td>'+
+        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num">'+o.v+'</td>'+
+        '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
+    }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
+    omas.hidden=F.length<=lim;omas.textContent="Mostrar más ("+(F.length-lim)+" restantes)";
+    if(keepFocus){var el=obody.querySelector('.tg[data-n="'+keepFocus+'"]');if(el)el.focus()}
+  }
+  [oq,od,oh,ociu,otag,ofav].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
+  odep.addEventListener("change",function(){ciudades();lim=50;rOrd()});
+  $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
+  omas.addEventListener("click",function(){lim+=50;rOrd()});
+  $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
+  obody.addEventListener("click",function(ev){
+    var st=ev.target.closest(".star");if(st){var n=st.dataset.n;if(store.favs[n])delete store.favs[n];else store.favs[n]=1;save();rOrd();return}
+    var tc=ev.target.closest(".tagchip");if(tc){var n2=tc.dataset.n;store.tags[n2]=(store.tags[n2]||[]).filter(function(t){return t!==tc.dataset.t});if(!store.tags[n2].length)delete store.tags[n2];save();etiquetas();rOrd()}
+  });
+  obody.addEventListener("keydown",function(ev){
+    if(ev.key!=="Enter"||!ev.target.classList.contains("tg"))return;
+    var v=ev.target.value.trim();if(!v)return;var n=ev.target.dataset.n;
+    store.tags[n]=store.tags[n]||[];if(store.tags[n].indexOf(v)<0)store.tags[n].push(v);save();etiquetas();rOrd(n);
+  });
+  rOrd();
+
+  /* CRM */
+  var PR={D:"Dúo Mágico (Expresa tu amor)",S:"Spray dental para molestias bucales",P:"Pastillas limpiadoras de lavadora"};
+  var CRM=CRMRAW.split("\n").filter(Boolean).map(function(l){var p=l.split("|");return{id:p[0],f:p[1],p:PR[p[2]],e:p[3],v:+p[4],dr:p[5]==="1"}});
+  var cp=$("c-prod"),ce=$("c-etapa"),cd=$("c-dropi");
+  opts(cp,"Todos",Object.keys(PR).map(function(k){return PR[k]}));
+  opts(ce,"Todas",Array.from(new Set(CRM.map(function(r){return r.e}))).sort());
+  var EP={entregado:"v",despachado:"a",confirmado:"a",pendiente_confirmar:"a",nuevo:"a",lead_wa:"g",abandonado:"g",cancelado:"g",devuelto:"r"};
+  function rCrm(){
+    var L=CRM.filter(function(r){return (!cp.value||r.p===cp.value)&&(!ce.value||r.e===ce.value)&&(!cd.value||(cd.value==="1")===r.dr)});
+    $("c-body").innerHTML=L.length?L.map(function(r){return '<tr><td class="num" style="text-align:left">'+r.id+'</td><td style="white-space:nowrap">'+r.f.slice(5)+'</td><td>'+r.p+'</td><td><span class="pill '+(EP[r.e]||"g")+'">'+r.e.replace("_"," ")+'</span></td><td class="num">'+r.v+'</td><td>'+(r.dr?"Sí":"No")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Sin pedidos con estos filtros.</td></tr>';
+    $("c-pie").textContent=L.length+" de "+CRM.length+" pedidos de landing. Incluye abandonados y contactos de WhatsApp que aún no son pedido.";
+  }
+  [cp,ce,cd].forEach(function(el){el.addEventListener("change",rCrm)});rCrm();
+
+  /* ===== Meta ===== */
+  var HOY="2026-10-07",INI="2026-03-01";
+  var CT=[
+   {n:"CUENTA 1",id:"1345913420795708",bm:"BM cuentas publicitarias millora",mo:"PEN",st:"ACTIVE",pago:true,data:C1,nota:"Primer gasto el 23 de junio. Casi todas las campañas optimizan conversaciones de mensajes."},
+   {n:"CUENTA 3",id:"27517283797940921",bm:"BM cuentas publicitarias millora",mo:"PEN",st:"ACTIVE",pago:true,data:C3,nota:"Todo el gasto es de septiembre."},
+   {n:"GUATEMALA 3",id:"24945736065120551",bm:"BM cuentas publicitarias",mo:"COP",st:"ACTIVE",pago:false,cero:true,nota:"Activa, sin gasto desde marzo y sin método de pago."},
+   {n:"GUATEMALA 2",id:"1533623667776634",bm:"BM cuentas publicitarias",mo:"GTQ",st:"UNSETTLED",pago:true,off:"Meta no deja consultarla porque tiene un pago pendiente.",nota:"Es la única cuenta en quetzales. Si ahí corría tu pauta de Guatemala, está frenada hasta pagar el saldo."},
+   {n:"Naturly 01",id:"27172810955691832",bm:"NaturLy Guatemala",mo:"PEN",st:"UNSETTLED",pago:true,off:"Meta no deja consultarla porque tiene un pago pendiente.",nota:"Mientras no se pague, no entrega anuncios."},
+   {n:"NaturLy Guatemala (solo lectura)",id:"27728323580109106",bm:"NaturLy Guatemala",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo."},
+   {n:"Millora (solo lectura) · USD",id:"3417110235115151",bm:"Millora",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo. Tiene catálogo de productos asociado."},
+   {n:"Millora (solo lectura) · PEN",id:"1414841834122354",bm:"Millora",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo y sin método de pago."},
+   {n:"Milora (solo lectura)",id:"982827797866665",bm:"Respaldo",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo."},
+   {n:"MILORA",id:"1003297795617924",bm:"Respaldo",mo:"PEN",st:"ACTIVE",pago:false,off:"Meta aún no habilita esta cuenta para consultarla desde aquí.",nota:"Cuenta de respaldo sin método de pago."},
+   {n:"NAR O1",id:"3444431272383870",bm:"BM cuenta",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo y sin método de pago."},
+   {n:"Sin nombre",id:"1821680385202185",bm:"Sin Business Manager",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo, sin método de pago y sin Business Manager."}
+  ];
+  var msel=$("cta"),mview=$("cta-view"),md=$("m-desde"),mh=$("m-hasta");
+  msel.innerHTML='<option value="all">Todas las cuentas (12)</option>'+CT.map(function(c,i){return '<option value="'+i+'">'+esc(c.n)+' · '+c.mo+' · '+c.id.slice(-6)+(c.off?' · no consultable':'')+'</option>'}).join("");
+  var PRE=[["Hoy",HOY,HOY],["Ayer","2026-10-06","2026-10-06"],["Todo el periodo",INI,HOY],["Últimos 7 días","2026-10-01",HOY],["Últimos 30 días","2026-09-08",HOY],["Septiembre","2026-09-01","2026-09-30"],["Agosto","2026-08-01","2026-08-31"],["Julio","2026-07-01","2026-07-31"],["Junio","2026-06-01","2026-06-30"]];
+  $("m-presets").innerHTML=PRE.map(function(p,i){return '<button type="button" class="chip" data-i="'+i+'" aria-pressed="false">'+p[0]+'</button>'}).join("");
+  md.value=INI;mh.value=HOY;
+  function rango(){var d=md.value||INI,h=mh.value||HOY;if(d>h){var t=d;d=h;h=t}return [d,h]}
+  function marcar(){var r=rango();$("m-dia").value=r[0]===r[1]?r[0]:"";document.querySelectorAll("#m-presets .chip").forEach(function(b){var p=PRE[+b.dataset.i];b.setAttribute("aria-pressed",p[1]===r[0]&&p[2]===r[1])})}
+  function fm(v,d){return v==null?"–":Number(v).toLocaleString("es",{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d})}
+  function fi(v){return v==null?"–":Number(v).toLocaleString("es")}
+  function pill(c){var u=c.st==="UNSETTLED";return '<span class="pill '+(u?'r':'v')+'">'+(u?'Pago pendiente':'Activa')+'</span>'}
+  function kpi(t,b,sub,cls){return '<div class="card kpi"><h3>'+t+'</h3><div class="big '+(cls||'')+'">'+b+'</div><div class="sub">'+sub+'</div></div>'}
+  function agg(c){
+    var r=rango(),o={sp:0,im:0,cl:0,cv:0,cp:0,camp:{},dias:{}};
+    if(!c.data)return o;
+    Object.keys(c.data.buy||{}).forEach(function(k){var dt="2026-"+k;if(dt>=r[0]&&dt<=r[1])o.cp+=c.data.buy[k]});
+    c.data.rows.forEach(function(x){var dt="2026-"+x[0];if(dt<r[0]||dt>r[1])return;
+      o.sp+=x[2];o.im+=x[3];o.cl+=x[4];o.cv+=x[5];
+      var k=o.camp[x[1]]||(o.camp[x[1]]={sp:0,im:0,cl:0,cv:0});k.sp+=x[2];k.im+=x[3];k.cl+=x[4];k.cv+=x[5];
+      o.dias[dt]=(o.dias[dt]||0)+x[2]});
+    Object.keys(c.data.cbuy||{}).forEach(function(ci){Object.keys(c.data.cbuy[ci]).forEach(function(k){var dt="2026-"+k;if(dt<r[0]||dt>r[1])return;var q=o.camp[ci]||(o.camp[ci]={sp:0,im:0,cl:0,cv:0});q.cp=(q.cp||0)+c.data.cbuy[ci][k]})});
+    return o;
+  }
+  function ctr(a){return a.im?fm(a.cl/a.im*100)+"%":"–"}
+  function grafico(o){
+    var r=rango(),days=[],d=new Date(r[0]+"T00:00:00Z"),end=new Date(r[1]+"T00:00:00Z");
+    while(d<=end){days.push(d.toISOString().slice(0,10));d=new Date(d.getTime()+864e5)}
+    if(!days.length)return "";
+    var mx=Math.max.apply(null,days.map(function(x){return o.dias[x]||0}));if(!mx)return "";
+    var W=600,H=110,pb=18,bw=W/days.length,s='<svg viewBox="0 0 '+W+' '+(H+pb)+'" width="100%" role="img" aria-label="Gasto diario" style="display:block"><line x1="0" y1="'+H+'" x2="'+W+'" y2="'+H+'" stroke="var(--line)"/>';
+    days.forEach(function(x,i){var v=o.dias[x]||0;if(!v)return;var h=Math.max(1,v/mx*(H-10));s+='<rect x="'+(i*bw+bw*0.12)+'" y="'+(H-h)+'" width="'+Math.max(bw*0.76,0.8)+'" height="'+h+'" rx="1" fill="var(--azul)"><title>'+x+': '+fm(v)+'</title></rect>'});
+    s+='<text x="0" y="'+(H+13)+'" font-size="10" fill="var(--muted)">'+days[0]+'</text><text x="'+W+'" y="'+(H+13)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+days[days.length-1]+'</text><text x="'+W+'" y="9" font-size="10" text-anchor="end" fill="var(--muted)">máx '+fm(mx)+'/día</text></svg>';
+    return s;
+  }
+  var MM={cp:1,e:1,d:1,c:1,t:1};try{var mm0=JSON.parse(localStorage.getItem("mm")||"null");if(mm0)MM=Object.assign(MM,mm0)}catch(e){}
+  var MDEF=[["cp","Compras (Meta)"],["e","Pedidos entregados"],["d","Pedidos devueltos"],["c","Pedidos cancelados"],["t","Pedidos en camino"]];
+  function dropiCnt(r){var o={e:0,d:0,c:0,t:0};ORD.forEach(function(x){if(x.d<r[0]||x.d>r[1])return;if(x.s==="E")o.e++;else if(x.s==="D")o.d++;else if(x.s==="C")o.c++;else if(x.s==="R"||x.s==="K"||x.s==="G")o.t++});return o}
+  function metricas(sp,cp,mo,single){
+    var r=rango(),n=dropiCnt(r),v={cp:cp,e:n.e,d:n.d,c:n.c,t:n.t};
+    var chips=MDEF.map(function(m){return '<button type="button" class="chip m-'+m[0]+'" style="color:'+(MM[m[0]]?'var(--fg)':'var(--muted)')+';background:'+(MM[m[0]]?'color-mix(in srgb,var(--mc) 18%,var(--card))':'var(--card)')+';border-color:color-mix(in srgb,var(--mc) 45%,var(--line))" data-m="'+m[0]+'" aria-pressed="'+!!MM[m[0]]+'">'+m[1]+'</button>'}).join("");
+    var tiles=MDEF.filter(function(m){return MM[m[0]]}).map(function(m){var k=m[0],x=v[k],money=(k==="cp"||!single);
+      return kpi(m[1],fi(x),money&&x?fm(sp/x)+" "+mo+" por "+(k==="cp"?"compra":"pedido"):(k==="cp"?"sin compras":(single?"todas las fuentes":"sin pedidos"))).replace("card kpi","card kpi mt-"+k)}).join("");
+    return '<div class="card" style="display:flex;flex-direction:column;gap:10px"><div><h3 style="margin:0">Métricas personalizadas</h3><div class="sub">Elige qué ver. Compras viene de Meta; entregado, devuelto, cancelado y en camino vienen del estado que Lumy lee en Dropi (pedidos creados en el rango). En camino = en ruta + recolectado + guía generada. Devuelto = devolución, sin incidencias.</div></div><div class="chips" id="m-metricas">'+chips+'</div>'+(tiles?'<div class="grid g5">'+tiles+'</div>':'<div class="sub">Activa al menos una métrica.</div>')+(single?'<div class="sub">En una cuenta suelta, Dropi no dice de qué anuncio vino cada pedido: esos conteos son de todas las fuentes y no llevan costo. Elige "Todas las cuentas" para ver el costo por pedido.</div>':'')+'</div>'}
+  mview.addEventListener("click",function(ev){var b=ev.target.closest("#m-metricas .chip");if(!b)return;MM[b.dataset.m]=MM[b.dataset.m]?0:1;try{localStorage.setItem("mm",JSON.stringify(MM))}catch(e){}renderMeta()});
+  var CF="todas";try{CF=localStorage.getItem("cf")||"todas"}catch(e){}
+  var EST_L={A:["Activa","v"],P:["Pausada","g"],X:["Eliminada","r"]};
+  mview.addEventListener("click",function(ev){var b=ev.target.closest("#m-estado .chip");if(!b)return;CF=b.dataset.f;try{localStorage.setItem("cf",CF)}catch(e){}renderMeta()});
+  function asig(r){
+    var P={};
+    [CT[0],CT[1]].forEach(function(c,ai){Object.keys(c.data.cbuy||{}).forEach(function(ci){Object.keys(c.data.cbuy[ci]).forEach(function(k){var dt="2026-"+k;if(dt<r[0]||dt>r[1])return;(P[dt]=P[dt]||[]).push({a:ai,ci:ci,n:c.data.cbuy[ci][k]})})})});
+    var out=[{},{}];
+    ORD.forEach(function(o){if(o.d<r[0]||o.d>r[1])return;var key=o.s==="E"?"e":o.s==="D"?"d":o.s==="C"?"c":(o.s==="R"||o.s==="K"||o.s==="G")?"t":null;if(!key)return;var L=P[o.d];if(!L)return;var tot=L.reduce(function(q,x){return q+x.n},0);L.forEach(function(x){var m=out[x.a][x.ci]=out[x.a][x.ci]||{e:0,d:0,c:0,t:0};m[key]+=x.n/tot})});
+    return out}
+  function renderAll(){
+    var r=rango(),a1=agg(CT[0]),a3=agg(CT[1]),ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
+    var rows=CT.map(function(c,i){var a=agg(c);var g=c.off?'<span class="sub">no consultable</span>':(c.data?fm(a.sp):'0,00');
+      return '<tr><td><a href="#" data-i="'+i+'" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(c.n)+'</a><div class="sub">'+c.id+'</div></td><td>'+c.mo+'</td><td>'+pill(c)+'</td><td class="num">'+g+'</td><td class="num">'+(c.data?fi(a.cl):'–')+'</td><td class="num">'+(c.data?fi(a.cv):'–')+'</td></tr>'}).join("");
+    mview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(a1.sp+a3.sp,0)+' <small style="font-size:1rem">PEN</small>',"Cuenta 1 más Cuenta 3")+kpi("Clics",fi(a1.cl+a3.cl),"CTR "+ctr({im:a1.im+a3.im,cl:a1.cl+a3.cl}))+kpi("Conversaciones",fi(a1.cv+a3.cv),(a1.cv+a3.cv)?fm((a1.sp+a3.sp)/(a1.cv+a3.cv))+" PEN cada una":"sin datos")+kpi("Compras (según Meta)",fi(a1.cp+a3.cp),(a1.cp+a3.cp)?fm((a1.sp+a3.sp)/(a1.cp+a3.cp))+" PEN cada una":"sin compras")+kpi("Entregados (estado de Lumy)",fi(ent),"pedidos del rango · "+ORD.filter(function(o){return o.d>=r[0]&&o.d<=r[1]}).length+" en total")+kpi("CPA real (por entregado)",ent?fm((a1.sp+a3.sp)/ent)+' <small style="font-size:1rem">PEN</small>':"–",ent?"gasto de Cuenta 1 y 3 ÷ entregados":"sin entregados en el rango")+kpi("Cuentas con gasto",(a1.sp>0?1:0)+(a3.sp>0?1:0)+" de 12","2 con pago pendiente","ta")+'</div>'+
+     metricas(a1.sp+a3.sp,a1.cp+a3.cp,"PEN",false)+'<div class="warn"><b>Tu pauta compra conversaciones de WhatsApp, no visitas a la página</b><span>Casi todas las campañas optimizan "conversaciones iniciadas". Por eso las landings casi no reciben visitas de Meta. Lo que falta medir es cuántas conversaciones terminan en pedido.</span></div>'+
+     '<div><h2>Todas las cuentas · '+r[0]+' a '+r[1]+'</h2><div class="tbl"><table><thead><tr><th>Cuenta</th><th>Moneda</th><th>Estado</th><th class="num">Gasto</th><th class="num">Clics</th><th class="num">Conversaciones</th><th class="num">Compras</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot">Toca el nombre de una cuenta, o elige una en el desplegable, para ver su detalle. El CPA real es el gasto de Meta (soles, Cuentas 1 y 3) entre los pedidos que Lumy marca como entregados en Dropi que se crearon en ese rango; no separa pedidos que no vienen de Meta. Las compras son los eventos de compra que Meta atribuye a los anuncios (no son pedidos entregados). Los gastos están en la moneda de cada cuenta y no se suman entre monedas distintas. El total de arriba es solo Cuenta 1 más Cuenta 3, ambas en soles.</p></div>';
+    mview.querySelectorAll("a[data-i]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();msel.value=a.dataset.i;renderMeta()})});
+  }
+  function renderOne(c){
+    var r=rango(),h='<div class="card" style="display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center"><div style="min-width:0"><div class="lab">'+esc(c.n)+'</div><div class="sub">ID '+c.id+' · '+c.bm+'</div></div><div style="display:flex;gap:8px;flex-wrap:wrap">'+pill(c)+'<span class="pill g">'+c.mo+'</span><span class="pill '+(c.pago?'g':'a')+'">'+(c.pago?'Con método de pago':'Sin método de pago')+'</span></div></div>';
+    if(c.off){h+='<div class="alert"><b>No se puede consultar</b><span>'+c.off+'</span></div>'}
+    else if(!c.data){h+='<div class="grid g3">'+kpi("Gasto en el rango","0 <small style=\"font-size:1rem\">"+c.mo+"</small>","sin actividad")+kpi("Clics","0","sin actividad")+kpi("Campañas con gasto","0","en todo el periodo")+'</div>'}
+    else{
+      var a=agg(c);
+      h+='<div class="grid g5">'+kpi("Gasto en el rango",fm(a.sp)+' <small style="font-size:1rem">'+c.mo+'</small>',r[0]+" a "+r[1])+kpi("Impresiones",fi(a.im),"CTR "+ctr(a))+kpi("Clics",fi(a.cl),"CPC "+(a.cl?fm(a.sp/a.cl):"–")+" "+c.mo)+kpi("Conversaciones",fi(a.cv),a.cv?fm(a.sp/a.cv)+" "+c.mo+" cada una":"sin datos")+kpi("Compras (según Meta)",fi(a.cp),a.cp?fm(a.sp/a.cp)+" "+c.mo+" cada una":"sin compras")+'</div>';
+      h+=metricas(a.sp,a.cp,c.mo,true);
+      var g=grafico(a);
+      if(g)h+='<div class="card"><h3>Gasto por día</h3>'+g+'</div>';
+      var ks=Object.keys(a.camp).sort(function(x,y){return a.camp[y].sp-a.camp[x].sp});
+      var kAll=ks.slice(),cnt={todas:kAll.length,act:0,off:0};kAll.forEach(function(k){if((c.data.est||{})[k]==="A")cnt.act++;else cnt.off++});
+      ks=ks.filter(function(k){var e=(c.data.est||{})[k]==="A";return CF==="todas"||(CF==="act"?e:!e)});
+      var ta={sp:0,im:0,cl:0,cv:0,cp:0};ks.forEach(function(k){var x=a.camp[k];ta.sp+=x.sp;ta.im+=x.im;ta.cl+=x.cl;ta.cv+=x.cv;ta.cp+=(x.cp||0)});
+      var fch='<div class="chips" id="m-estado">'+[["todas","Todas ("+cnt.todas+")"],["act","Activas ("+cnt.act+")"],["off","Desactivadas ("+cnt.off+")"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(CF===f[0])+'">'+f[1]+'</button>'}).join("")+'</div>';
+      if(kAll.length){
+        var dn=dropiCnt(r),est=asig(r)[CT.indexOf(c)]||{},xc=[["e","Entregados"],["d","Devueltos"],["c","Cancelados"],["t","En camino"]].filter(function(m){return MM[m[0]]});
+        var xh=(MM.cp?'<th class="num m-cp">Compras</th><th class="num m-cp">Costo/compra</th>':'')+xc.map(function(m){return '<th class="num m-'+m[0]+'" title="En 0 hasta encontrar cómo ligar los pedidos de Dropi con cada campaña">'+m[1]+'</th>'}).join("");
+        var sumE={e:0,d:0,c:0,t:0};
+        h+='<div><h2>Campañas en el rango</h2>'+fch+(ks.length?'':'<div class="sub" style="margin:8px 0">No hay campañas con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>Campaña</th><th class="num">Gasto</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Conv.</th><th class="num">Costo/conv.</th>'+xh+'</tr></thead><tbody>'+
+         ks.map(function(k){var x=a.camp[k],cp=x.cp||0,m=est[k];if(m)xc.forEach(function(q){sumE[q[0]]+=m[q[0]]});var es=EST_L[(c.data.est||{})[k]]||EST_L.X;return '<tr><td>'+esc(c.data.names[k])+' <span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+fm(x.sp)+'</td><td class="num">'+fi(x.im)+'</td><td class="num">'+fi(x.cl)+'</td><td class="num">'+ctr(x)+'</td><td class="num">'+fi(x.cv)+'</td><td class="num">'+(x.cv?fm(x.sp/x.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(cp)+'</td><td class="num m-cp">'+(cp?fm(x.sp/cp):"–")+'</td>':'')+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'}).join("")+
+         '<tr><td class="lab">Total</td><td class="num">'+fm(ta.sp)+'</td><td class="num">'+fi(ta.im)+'</td><td class="num">'+fi(ta.cl)+'</td><td class="num">'+ctr(ta)+'</td><td class="num">'+fi(ta.cv)+'</td><td class="num">'+(ta.cv?fm(ta.sp/ta.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(ta.cp)+'</td><td class="num m-cp">'+(ta.cp?fm(ta.sp/ta.cp):"–")+'</td>':'')+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'+
+         (xc.length?'<tr><td class="lab">Total Dropi, todas las fuentes</td><td class="num sub" colspan="'+(6+(MM.cp?2:0))+'"></td>'+xc.map(function(q){return '<td class="num m-'+q[0]+'">'+fi(dn[q[0]])+'</td>'}).join("")+'</tr>':'')+'</tbody></table></div>'+(xc.length?'<p class="foot">Entregados, devueltos, cancelados y en camino por campaña están en 0 por ahora: Lumy y Dropi no dicen de qué campaña vino cada pedido y todavía no hay forma de ligarlos. La fila de abajo es el total real de Dropi según Lumy, de todas las fuentes.</p>':'')+'</div>';
+      } else h+='<div class="warn"><b>Sin gasto en este rango</b><span>Prueba con otras fechas o con "Todo el periodo".</span></div>';
+    }
+    h+='<p class="foot">'+c.nota+'</p>';
+    mview.innerHTML=h;
+  }
+  function tscroll(){mview.querySelectorAll(".tbl").forEach(function(t){
+    if(t.previousElementSibling&&t.previousElementSibling.classList.contains("tscroll"))return;
+    if(t.scrollWidth<=t.clientWidth+4)return;
+    var bar=document.createElement("div");bar.className="tscroll";
+    bar.innerHTML='<span class="sub">Desliza o usa los botones para ver todas las columnas</span><button type="button" aria-label="Desplazar a la izquierda" data-d="-1">◀</button><button type="button" aria-label="Desplazar a la derecha" data-d="1">▶</button>';
+    t.parentNode.insertBefore(bar,t);
+    var bl=bar.querySelector('[data-d="-1"]'),br=bar.querySelector('[data-d="1"]');
+    function est(){bl.disabled=t.scrollLeft<=2;br.disabled=t.scrollLeft+t.clientWidth>=t.scrollWidth-2}
+    bar.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;t.scrollBy({left:+b.dataset.d*Math.max(260,t.clientWidth*0.6),behavior:"smooth"})});
+    t.addEventListener("scroll",est);est();
+  })}
+  function renderMeta(){marcar();if(msel.value==="all")renderAll();else renderOne(CT[+msel.value]);tscroll();try{sessionStorage.setItem("cta",msel.value)}catch(e){}}
+  msel.addEventListener("change",renderMeta);md.addEventListener("change",renderMeta);mh.addEventListener("change",renderMeta);$("m-dia").addEventListener("change",function(e){if(!e.target.value)return;md.value=e.target.value;mh.value=e.target.value;renderMeta()});
+  $("m-presets").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var p=PRE[+b.dataset.i];md.value=p[1];mh.value=p[2];renderMeta()});
+  try{var sv=sessionStorage.getItem("cta");if(sv&&(sv==="all"||CT[+sv]))msel.value=sv}catch(e){}
+  renderMeta();
+  (function(){
+    var TT=[
+     {n:"MILTIENDASTORE090426",id:"7497669426469650433",mo:"PEN",nota:"Cuenta habilitada, saldo 0. Sus campañas de abril y mayo de 2025 gastaron 491 PEN; las demás del historial son de 2026.",data:{names:["CAMPAÑA DE TESTEO 10-09-2026","CAMPAÑA DE TESTEO PASTILLA 26-08-2026","05-07 campaña de testeo","27-06-2026 CAMPAÑA DE TESTEO","campaña de esca  2-05-2025","campaña de escalamiento   2-05-2025","campaña de escalamiento 27-04-2025","campaña de escalamiento 45 pen 27-04-2025","campaña de testeo  1-05-2025","campaña de testeo 2   1-05-2025","campaña de testeo 2  3-05-2025","campaña de testeo 2 30-04-2025","campaña de testeo 3  1-05-2025","campaña de testeo 3  3-05-2025","campaña de testeo 3-05-2025","campaña de testeo 30-04-2025","campaña de testeo 4  3-05-2025","campaña smart 60"],est:{"0":"A","1":"P","2":"P","3":"P","4":"A","5":"A","6":"A","7":"P","8":"A","9":"B","10":"A","11":"A","12":"A","13":"A","14":"A","15":"A","16":"P","17":"P"},rows:[["2025-04-27",6,50.04,53283,345,16,51957,39,0,86,201,0,52017,12163,4848,3410,1478,7599,254,6,27,0,0],["2025-04-27",7,45.04,32985,225,9,32122,39,0,77,160,0,32261,6432,3800,2550,1828,3070,134,8,9,0,0],["2025-04-28",6,54.52,61179,339,16,60466,57,0,73,262,0,59740,14643,6058,4162,1815,9260,272,2,36,0,0],["2025-04-28",7,53.76,39860,283,17,38577,53,0,69,214,0,38985,8186,4862,3167,2340,3892,140,8,12,0,0],["2025-04-28",17,49.99,23227,203,12,22175,40,0,59,176,0,22723,5445,2496,1806,862,3687,128,8,17,0,0],["2025-04-29",6,50.11,41818,264,13,40413,42,0,68,223,0,40793,8972,3765,2610,1267,5819,154,4,29,0,0],["2025-04-29",7,14.71,8795,44,2,8666,11,0,18,38,0,8588,2054,1243,834,631,1005,35,1,2,0,0],["2025-04-29",17,12.54,6932,87,2,5649,19,0,17,63,0,6771,1672,1033,807,532,974,54,3,2,0,0],["2025-04-30",6,10.23,7626,53,1,7551,9,0,20,38,0,7458,1664,754,542,255,1118,24,1,3,0,0],["2025-04-30",15,12.01,9287,83,3,9280,14,0,15,65,0,9029,1808,1041,756,439,984,57,5,7,0,0],["2025-04-30",11,6.45,4292,24,1,4285,3,0,7,16,0,4199,610,432,297,201,508,15,2,1,0,0],["2025-05-01",8,30.04,44475,233,8,42773,41,0,56,174,0,43249,12154,7596,5117,3619,5921,148,7,14,0,0],["2025-05-01",9,8.38,9752,65,0,9659,6,0,13,38,0,9494,3678,1933,1246,805,1477,40,0,1,0,0],["2025-05-01",12,30.09,47892,312,9,46868,45,0,66,191,0,46796,12193,10075,9353,3273,12764,318,14,14,0,0],["2025-05-02",8,15.66,10004,60,3,9867,11,0,13,49,0,9734,2925,1867,1307,980,1528,34,0,1,0,0],["2025-05-02",12,15.81,39089,215,5,38662,32,0,48,149,0,38441,9642,7936,7378,2556,10094,220,7,15,0,0],["2025-05-02",5,2.22,4516,27,0,4527,3,0,7,19,0,4445,1177,960,898,368,1237,27,1,4,0,0],["2025-05-02",4,2.26,2623,13,0,2611,1,0,4,5,0,2568,795,502,373,261,414,14,0,0,0,0],["2025-05-03",14,6.03,2078,9,0,2057,2,0,3,7,0,2004,177,66,31,20,99,5,0,0,0,0],["2025-05-03",10,8.3,2497,12,0,2472,1,0,4,8,0,2415,204,77,37,26,93,4,0,0,0,0],["2025-05-03",13,5.7,3203,7,0,3159,0,0,2,4,0,3117,617,263,135,100,181,4,0,0,0,0],["2025-05-03",16,7.36,1681,11,0,1656,1,0,5,7,0,1603,220,96,63,42,75,2,0,0,0,0],["2026-09-10",0,35.94,22734,194,7,17413,11,0,34,108,0,22002,4673,2494,1782,1367,1781,151,2,2,8,13],["2026-09-11",0,0.23,300,0,0,296,0,0,0,0,0,279,60,30,17,10,13,1,0,0,0,0],["2026-09-12",0,0,5,0,0,5,0,0,0,0,0,5,4,1,1,1,1,0,0,0,0,0],["2026-09-13",0,0,2,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0],["2026-08-26",1,16.89,18958,181,0,16476,1,0,70,173,0,8161,927,453,305,172,823,28,1,0,3,33],["2026-07-05",2,10.52,6056,79,0,5228,14,0,53,72,0,5239,1024,610,428,328,496,68,4,0,4,28],["2026-07-06",2,8.68,5229,46,5,5192,10,0,34,43,0,5012,881,509,343,246,380,63,7,4,9,6],["2026-07-07",2,12.08,5056,44,6,4686,4,0,25,41,0,3529,731,423,274,203,305,41,1,0,1,13],["2026-06-27",3,7.57,11474,37,2,11161,6,0,20,42,0,11239,794,302,202,151,441,33,0,0,4,23]]}},
+     {n:"MILTIENDASSTORE 02",id:"7684773660925935624",mo:"PEN",nota:"Cuenta habilitada, saldo 0. Sus dos campañas están activas pero sin presupuesto disponible.",data:{names:["CAMPAÑA DE VENTAS 13-09-2026","CAMPAÑA DE TESTEO EJERCITADOR 13-09-2026"],est:{"0":"B","1":"B"},rows:[["2026-09-13",0,20.07,21758,172,3,17420,18,0,32,121,0,21036,4372,2192,1499,1096,1611,115,2,1,6,6],["2026-09-14",0,7.37,5068,43,0,4599,0,0,10,33,0,4946,1061,585,432,308,460,44,1,0,5,1],["2026-09-15",0,0,3,0,0,3,0,0,0,0,0,3,1,0,0,0,0,0,0,0,0,0],["2026-09-16",0,0,5,1,0,5,0,0,0,0,0,5,2,2,2,1,2,0,0,0,0,0],["2026-09-19",0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],["2026-09-13",1,12.56,9653,51,0,8606,0,0,8,38,0,9297,616,235,122,74,884,25,1,0,2,4]]}},
+     {n:"MILLORA 21005",id:"7692973586197299201",mo:"PEN",nota:"Cuenta habilitada, saldo 0. Su única campaña es la del collar del 7 de octubre.",data:{names:["TST-07-10-2026 COLLAR"],est:{"0":"A"},rows:[["2026-10-07",0,13.26,12094,92,5,5534,12,0,12,57,0,11786,2490,1349,955,699,971,91,2,1,2,5]]}},
+     {n:"MILLORA 02_3h23ch",id:"7693945944531501062",mo:"PEN",nota:"Cuenta habilitada, saldo 0 y sin campañas."},
+     {n:"MILTEINDASTORE03",id:"7693748572751773704",mo:"PEN",nota:"Cuenta habilitada, saldo 0 y sin campañas."}
+    ];
+    var tsel=$("tt-cta"),tview=$("tt-view"),td=$("tt-desde"),th=$("tt-hasta");
+    tsel.innerHTML='<option value="all">Todas las cuentas (5)</option>'+TT.map(function(c,i){return '<option value="'+i+'">'+esc(c.n)+' · '+c.mo+' · '+c.id.slice(-6)+'</option>'}).join("");
+    var TPRE=[["Hoy",HOY,HOY],["Ayer","2026-10-06","2026-10-06"],["Todo el periodo","2025-04-01",HOY],["Últimos 7 días","2026-10-01",HOY],["Últimos 30 días","2026-09-08",HOY],["Septiembre","2026-09-01","2026-09-30"],["Agosto","2026-08-01","2026-08-31"],["Julio","2026-07-01","2026-07-31"],["Junio","2026-06-01","2026-06-30"],["Abril y mayo 2025","2025-04-01","2025-05-31"]];
+    $("tt-presets").innerHTML=TPRE.map(function(p,i){return '<button type="button" class="chip" data-i="'+i+'" aria-pressed="false">'+p[0]+'</button>'}).join("");
+    td.value="2025-04-01";th.value=HOY;
+    function rg(){var d=td.value||"2025-04-01",h=th.value||HOY;if(d>h){var t=d;d=h;h=t}return [d,h]}
+    function mk(){var r=rg();$("tt-dia").value=r[0]===r[1]?r[0]:"";document.querySelectorAll("#tt-presets .chip").forEach(function(b){var p=TPRE[+b.dataset.i];b.setAttribute("aria-pressed",p[1]===r[0]&&p[2]===r[1])})}
+    var MT={cp:1,e:1,d:1,c:1,t:1};try{var m0=JSON.parse(localStorage.getItem("mmt")||"null");if(m0)MT=Object.assign(MT,m0)}catch(e){}
+    var TDEF=[["cp","Conversiones (compras)"],["e","Pedidos entregados"],["d","Pedidos devueltos"],["c","Pedidos cancelados"],["t","Pedidos en camino"]];
+    var TCF="todas";try{TCF=localStorage.getItem("tcf")||"todas"}catch(e){}
+    var TEL={A:["Activa","v"],B:["Sin presupuesto","a"],P:["Desactivada","g"]};
+    var KS=["sp","im","cl","cp","re","ck","bl","lp","pv","ct","vp","v25","v50","v75","v100","en","li","co","sh","fo","pf"];
+    function z(){var o={};KS.forEach(function(k){o[k]=0});return o}
+    function ag(c){
+      var r=rg(),o=z();o.camp={};o.dias={};
+      if(!c.data)return o;
+      c.data.rows.forEach(function(x){var dt=x[0];if(dt<r[0]||dt>r[1])return;
+        var k=o.camp[x[1]]||(o.camp[x[1]]=z());
+        KS.forEach(function(q,i){o[q]+=x[2+i];k[q]+=x[2+i]});
+        o.dias[dt]=(o.dias[dt]||0)+x[2]});
+      return o;
+    }
+    function dv(a,b,d){return b?fm(a/b,d):"–"}
+    function pc(a,b){return b?fm(a/b*100)+"%":"–"}
+    function gr(o){
+      var r=rg(),days=[],d=new Date(r[0]+"T00:00:00Z"),end=new Date(r[1]+"T00:00:00Z");
+      while(d<=end){days.push(d.toISOString().slice(0,10));d=new Date(d.getTime()+864e5)}
+      if(!days.length)return "";
+      var mx=Math.max.apply(null,days.map(function(x){return o.dias[x]||0}));if(!mx)return "";
+      var W=600,H=110,pb=18,bw=W/days.length,s='<svg viewBox="0 0 '+W+' '+(H+pb)+'" width="100%" role="img" aria-label="Gasto diario" style="display:block"><line x1="0" y1="'+H+'" x2="'+W+'" y2="'+H+'" stroke="var(--line)"/>';
+      days.forEach(function(x,i){var v=o.dias[x]||0;if(!v)return;var h=Math.max(1,v/mx*(H-10));s+='<rect x="'+(i*bw+bw*0.12)+'" y="'+(H-h)+'" width="'+Math.max(bw*0.76,0.8)+'" height="'+h+'" rx="1" fill="var(--azul)"><title>'+x+': '+fm(v)+'</title></rect>'});
+      s+='<text x="0" y="'+(H+13)+'" font-size="10" fill="var(--muted)">'+days[0]+'</text><text x="'+W+'" y="'+(H+13)+'" font-size="10" text-anchor="end" fill="var(--muted)">'+days[days.length-1]+'</text><text x="'+W+'" y="9" font-size="10" text-anchor="end" fill="var(--muted)">máx '+fm(mx)+'/día</text></svg>';
+      return s;
+    }
+    function mt(sp,cp,single){
+      var r=rg(),n=dropiCnt(r),v={cp:cp,e:n.e,d:n.d,c:n.c,t:n.t};
+      var chips=TDEF.map(function(m){return '<button type="button" class="chip m-'+m[0]+'" style="color:'+(MT[m[0]]?'var(--fg)':'var(--muted)')+';background:'+(MT[m[0]]?'color-mix(in srgb,var(--mc) 18%,var(--card))':'var(--card)')+';border-color:color-mix(in srgb,var(--mc) 45%,var(--line))" data-m="'+m[0]+'" aria-pressed="'+!!MT[m[0]]+'">'+m[1]+'</button>'}).join("");
+      var tiles=TDEF.filter(function(m){return MT[m[0]]}).map(function(m){var k=m[0],x=v[k],money=(k==="cp"||!single);
+        return kpi(m[1],fi(x),money&&x?fm(sp/x)+" PEN por "+(k==="cp"?"compra":"pedido"):(k==="cp"?"sin compras":(single?"todas las fuentes":"sin pedidos"))).replace("card kpi","card kpi mt-"+k)}).join("");
+      return '<div class="card" style="display:flex;flex-direction:column;gap:10px"><div><h3 style="margin:0">Métricas personalizadas</h3><div class="sub">Elige qué ver. Compras viene de TikTok; entregado, devuelto, cancelado y en camino vienen del estado que Lumy lee en Dropi (pedidos creados en el rango). En camino = en ruta + recolectado + guía generada. Devuelto = devolución, sin incidencias.</div></div><div class="chips" id="tt-metricas">'+chips+'</div>'+(tiles?'<div class="grid g5">'+tiles+'</div>':'<div class="sub">Activa al menos una métrica.</div>')+'<div class="sub">Dropi no dice de qué plataforma ni de qué campaña vino cada pedido: esos conteos son de todas las fuentes'+(single?' y no llevan costo. Elige "Todas las cuentas" para ver el costo por pedido.':', incluidos los de Meta, así que el costo por pedido es solo una referencia.')+'</div></div>'}
+    function tl(l,v,s){return '<div><small>'+l+'</small><b>'+v+'</b>'+(s?'<span>'+s+'</span>':'')+'</div>'}
+    function panel(a){
+      var g=function(t,x,n){return '<div class="mtlh">'+t+(n?' <span style="text-transform:none;letter-spacing:0;font-weight:400">'+n+'</span>':'')+'</div><div class="mtl">'+x.join("")+'</div>'};
+      return '<details class="card" open><summary style="cursor:pointer;font-weight:700">Todas las métricas de TikTok</summary><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">'+
+        g("Como las muestra TikTok",[tl("Gasto",fm(a.sp)+" PEN"),tl("CPC (destino)",dv(a.sp,a.cl)+" PEN"),tl("CPM",dv(a.sp,a.im/1000)+" PEN"),tl("Impresiones",fi(a.im)),tl("Clics (destino)",fi(a.cl)),tl("CTR (destino)",pc(a.cl,a.im)),tl("Visualizaciones de la página (sitio web)",fi(a.pv)),tl("Pagos iniciados (sitio web)",fi(a.ck)),tl("Conversiones",fi(a.cp)),tl("Coste por conversión",dv(a.sp,a.cp)+" PEN")],"mismo orden que el Administrador de anuncios")+
+        g("Más de entrega y página",[tl("Alcance",fi(a.re),"suma de los días"),tl("Frecuencia",dv(a.im,a.re),"aproximada"),tl("Vistas de la página de destino",fi(a.lp),"landing page views"),tl("% de carga de la página",pc(a.lp,a.cl),"vistas de destino ÷ clics"),tl("Costo por vista de destino",dv(a.sp,a.lp)+" PEN"),tl("Costo por pago iniciado",dv(a.sp,a.ck)+" PEN"),tl("Añadidos al carrito",fi(a.ct)),tl("Info de pago añadida",fi(a.bl)),tl("Tasa de conversión",pc(a.cp,a.cl),"conversiones ÷ clics")])+
+        g("Video",[tl("Reproducciones",fi(a.vp)),tl("Hasta el 25%",pc(a.v25,a.vp)),tl("Hasta el 50%",pc(a.v50,a.vp)),tl("Hasta el 75%",pc(a.v75,a.vp)),tl("Completo (100%)",pc(a.v100,a.vp)),tl("Vistas con interacción",fi(a.en))])+
+        g("Interacción",[tl("Me gusta",fi(a.li)),tl("Comentarios",fi(a.co)),tl("Compartidos",fi(a.sh)),tl("Seguidores nuevos",fi(a.fo)),tl("Visitas al perfil",fi(a.pf))])+
+      '</div></details>'}
+    tview.addEventListener("click",function(ev){var b=ev.target.closest("#tt-metricas .chip");if(b){MT[b.dataset.m]=MT[b.dataset.m]?0:1;try{localStorage.setItem("mmt",JSON.stringify(MT))}catch(e){}rt();return}
+      b=ev.target.closest("#tt-estado .chip");if(b){TCF=b.dataset.f;try{localStorage.setItem("tcf",TCF)}catch(e){}rt()}});
+    function rAll(){
+      var r=rg(),ags=TT.map(ag),T=z(),con=0;ags.forEach(function(a){KS.forEach(function(q){T[q]+=a[q]});if(a.sp>0)con++});var sp=T.sp,im=T.im,cl=T.cl,cp=T.cp;
+      var ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
+      var rows=TT.map(function(c,i){var a=ags[i],d=c.data;return '<tr><td><a href="#" data-i="'+i+'" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(c.n)+'</a><div class="sub">'+c.id+'</div></td><td>PEN</td><td><span class="pill a">Saldo 0</span></td><td class="num">'+(d?fm(a.sp):'–')+'</td><td class="num">'+(d?dv(a.sp,a.cl):'–')+'</td><td class="num">'+(d?dv(a.sp,a.im/1000):'–')+'</td><td class="num">'+(d?fi(a.im):'–')+'</td><td class="num">'+(d?fi(a.cl):'–')+'</td><td class="num">'+(d?pc(a.cl,a.im):'–')+'</td><td class="num">'+(d?fi(a.pv):'–')+'</td><td class="num">'+(d?fi(a.ck):'–')+'</td><td class="num m-cp">'+(d?fi(a.cp):'–')+'</td><td class="num m-cp">'+(d&&a.cp?fm(a.sp/a.cp):'–')+'</td></tr>'}).join("");
+      tview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(sp,0)+' <small style="font-size:1rem">PEN</small>',"5 cuentas en soles")+kpi("Clics",fi(cl),"CTR "+ctr({im:im,cl:cl})+" · CPC "+(cl?fm(sp/cl):"–")+" PEN")+kpi("Conversiones (compras)",fi(cp),cp?fm(sp/cp)+" PEN cada una":"sin compras")+kpi("Cuentas con gasto",con+" de 5","las 5 con saldo 0","ta")+'</div>'+
+       mt(sp,cp,false)+panel(T)+
+       '<div><h2>Todas las cuentas · '+r[0]+' a '+r[1]+'</h2><div class="tbl"><table><thead><tr><th>Cuenta</th><th>Moneda</th><th>Saldo</th><th class="num">Gasto</th><th class="num">CPC (destino)</th><th class="num">CPM</th><th class="num">Impresiones</th><th class="num">Clics (destino)</th><th class="num">CTR (destino)</th><th class="num">Visualizaciones de la página</th><th class="num">Pagos iniciados</th><th class="num m-cp">Conversiones</th><th class="num m-cp">Coste por conversión</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot">Las cinco cuentas están habilitadas, en soles peruanos, y todas con saldo 0: para pautar hay que recargar. Toca el nombre de una cuenta, o elige una en el desplegable, para ver sus campañas. Las compras son las "complete payment" que TikTok atribuye a los anuncios, no pedidos entregados.</p></div>';
+      tview.querySelectorAll("a[data-i]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();tsel.value=a.dataset.i;rt()})});
+    }
+    function rOne(c){
+      var r=rg(),h='<div class="card" style="display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center"><div style="min-width:0"><div class="lab">'+esc(c.n)+'</div><div class="sub">ID '+c.id+'</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill v">Habilitada</span><span class="pill g">PEN</span><span class="pill a">Saldo 0</span></div></div>';
+      if(!c.data){h+='<div class="grid g3">'+kpi("Gasto en el rango","0 <small style=\"font-size:1rem\">PEN</small>","sin actividad")+kpi("Clics","0","sin actividad")+kpi("Campañas","0","esta cuenta no tiene campañas")+'</div>'+mt(0,0,true)}
+      else{
+        var a=ag(c);
+        h+='<div class="grid g4">'+kpi("Gasto en el rango",fm(a.sp)+' <small style="font-size:1rem">PEN</small>',r[0]+" a "+r[1])+kpi("Impresiones",fi(a.im),"CTR "+ctr(a))+kpi("Clics",fi(a.cl),"CPC "+(a.cl?fm(a.sp/a.cl):"–")+" PEN")+kpi("Conversiones (compras)",fi(a.cp),a.cp?fm(a.sp/a.cp)+" PEN cada una":"sin compras")+'</div>';
+        h+=mt(a.sp,a.cp,true)+panel(a);
+        var g=gr(a);if(g)h+='<div class="card"><h3>Gasto por día</h3>'+g+'</div>';
+        var ks=Object.keys(a.camp).sort(function(x,y){return a.camp[y].sp-a.camp[x].sp});
+        var cnt={todas:ks.length,act:0,off:0};ks.forEach(function(k){var e=c.data.est[k];if(e==="A"||e==="B")cnt.act++;else cnt.off++});
+        ks=ks.filter(function(k){var e=c.data.est[k]!=="P";return TCF==="todas"||(TCF==="act"?e:!e)});
+        var ta=z();ks.forEach(function(k){var x=a.camp[k];KS.forEach(function(q){ta[q]+=x[q]})});
+        var fch='<div class="chips" id="tt-estado">'+[["todas","Todas ("+cnt.todas+")"],["act","Activas ("+cnt.act+")"],["off","Desactivadas ("+cnt.off+")"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(TCF===f[0])+'">'+f[1]+'</button>'}).join("")+'</div>';
+        if(cnt.todas){
+          var dn=dropiCnt(r),xc=[["e","Entregados"],["d","Devueltos"],["c","Cancelados"],["t","En camino"]].filter(function(m){return MT[m[0]]});
+          var cA=function(x){return '<td class="num">'+fm(x.sp)+'</td><td class="num">'+dv(x.sp,x.cl)+'</td><td class="num">'+dv(x.sp,x.im/1000)+'</td><td class="num">'+fi(x.im)+'</td><td class="num">'+fi(x.cl)+'</td><td class="num">'+ctr(x)+'</td><td class="num">'+fi(x.pv)+'</td><td class="num">'+fi(x.ck)+'</td>'+(MT.cp?'<td class="num m-cp">'+fi(x.cp)+'</td><td class="num m-cp">'+(x.cp?fm(x.sp/x.cp):"–")+'</td>':'')+'<td class="num">'+fi(x.re)+'</td><td class="num">'+fi(x.lp)+'</td><td class="num">'+pc(x.lp,x.cl)+'</td><td class="num">'+dv(x.sp,x.lp)+'</td><td class="num">'+pc(x.cp,x.cl)+'</td>'};
+          var xh='<th class="num">Gasto</th><th class="num">CPC (destino)</th><th class="num">CPM</th><th class="num">Impresiones</th><th class="num">Clics (destino)</th><th class="num">CTR (destino)</th><th class="num">Visualizaciones de la página</th><th class="num">Pagos iniciados</th>'+(MT.cp?'<th class="num m-cp">Conversiones</th><th class="num m-cp">Coste por conversión</th>':'')+'<th class="num">Alcance</th><th class="num">Vistas de destino</th><th class="num">% carga página</th><th class="num">Costo/vista destino</th><th class="num">Tasa de conversión</th>'+xc.map(function(m){return '<th class="num m-'+m[0]+'" title="En 0 hasta encontrar cómo ligar los pedidos de Dropi con cada campaña">'+m[1]+'</th>'}).join("");
+          h+='<div><h2>Campañas en el rango</h2>'+fch+(ks.length?'':'<div class="sub" style="margin:8px 0">No hay campañas con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>Campaña</th>'+xh+'</tr></thead><tbody>'+
+           ks.map(function(k){var x=a.camp[k],es=TEL[c.data.est[k]]||TEL.P;return '<tr><td>'+esc(c.data.names[k])+' <span class="pill '+es[1]+'">'+es[0]+'</span></td>'+cA(x)+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'}).join("")+
+           '<tr><td class="lab">Total</td>'+cA(ta)+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'+
+           (xc.length?'<tr><td class="lab">Total Dropi, todas las fuentes</td><td class="num sub" colspan="'+(13+(MT.cp?2:0))+'"></td>'+xc.map(function(q){return '<td class="num m-'+q[0]+'">'+fi(dn[q[0]])+'</td>'}).join("")+'</tr>':'')+'</tbody></table></div>'+(xc.length?'<p class="foot">Las columnas siguen el orden del Administrador de anuncios de TikTok. Entregados, devueltos, cancelados y en camino por campaña están en 0 por ahora: Lumy y Dropi no dicen de qué campaña vino cada pedido y todavía no hay forma de ligarlos. La fila de abajo es el total real de Dropi según Lumy, de todas las fuentes.</p>':'')+'</div>';
+        } else h+='<div class="warn"><b>Sin gasto en este rango</b><span>Prueba con otras fechas o con "Todo el periodo".</span></div>';
+      }
+      h+='<p class="foot">'+c.nota+' El estado de las campañas es el que TikTok marca hoy, 7 de octubre.</p>';
+      tview.innerHTML=h;
+    }
+    function tsc(){tview.querySelectorAll(".tbl").forEach(function(t){
+      if(t.previousElementSibling&&t.previousElementSibling.classList.contains("tscroll"))return;
+      if(t.scrollWidth<=t.clientWidth+4)return;
+      var bar=document.createElement("div");bar.className="tscroll";
+      bar.innerHTML='<span class="sub">Desliza o usa los botones para ver todas las columnas</span><button type="button" aria-label="Desplazar a la izquierda" data-d="-1">◀</button><button type="button" aria-label="Desplazar a la derecha" data-d="1">▶</button>';
+      t.parentNode.insertBefore(bar,t);
+      var bl=bar.querySelector('[data-d="-1"]'),br=bar.querySelector('[data-d="1"]');
+      function est(){bl.disabled=t.scrollLeft<=2;br.disabled=t.scrollLeft+t.clientWidth>=t.scrollWidth-2}
+      bar.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;t.scrollBy({left:+b.dataset.d*Math.max(260,t.clientWidth*0.6),behavior:"smooth"})});
+      t.addEventListener("scroll",est);est();
+    })}
+    function rt(){mk();if(tsel.value==="all")rAll();else rOne(TT[+tsel.value]);tsc();try{sessionStorage.setItem("tcta",tsel.value)}catch(e){}}
+    window.__rt=rt;
+    tsel.addEventListener("change",rt);td.addEventListener("change",rt);th.addEventListener("change",rt);$("tt-dia").addEventListener("change",function(e){if(!e.target.value)return;td.value=e.target.value;th.value=e.target.value;rt()});
+    $("tt-presets").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var p=TPRE[+b.dataset.i];td.value=p[1];th.value=p[2];rt()});
+    try{var sv=sessionStorage.getItem("tcta");if(sv&&(sv==="all"||TT[+sv]))tsel.value=sv}catch(e){}
+    rt();
+  })();
+
+  /* ===== Caza diaria ===== */
+  var PAR={flete:68,entrega:62,objetivo:30},W=[],czDate=null,czDb=null,czWrite=true,czPend=false,czDelArm=null;
+  var MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  function fd(d){var p=d.split("-");return p[2]+" "+MES[+p[1]-1]+" "+p[0]}
+  function g0(v){return Number(v).toLocaleString("es",{maximumFractionDigits:0})}
+  function g1(v){return Number(v).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function evOf(c,u,pr){var p=PAR.entrega/100,F=PAR.flete;return p*(pr-u*c-F)-(1-p)*F}
+  function pvpObj(c,u){var p=PAR.entrega/100,F=PAR.flete;return u*c+F+(PAR.objetivo+(1-p)*F)/p}
+  var COMP=[["demanda","Demanda"],["traccion","Tracción"],["margen","Margen"],["competencia","Competencia"],["riesgo","Riesgo"]];
+  var STS=[["nuevo","Nuevo"],["validando","Validando"],["lanzado","Lanzado"],["descartado","Descartado"]];
+  function ring(n){var r=26,c=2*Math.PI*r,col=n>=70?"var(--verde)":(n>=55?"var(--amar)":"var(--rojo)");
+    return '<div class="czring"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><circle cx="32" cy="32" r="'+r+'" fill="none" stroke="var(--gris-bg)" stroke-width="6"/><circle cx="32" cy="32" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+(c*n/100).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 32 32)"/></svg><b>'+n+'</b></div>'}
+  function final(w){var ia=w.score,m=(typeof w.manual==="number")?w.manual:null;return m==null?ia:(ia==null?m:Math.round((ia+m)/2))}
+  function refHtml(w){
+    function lk(u,t){return u?'<a href="'+esc(u)+'" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">'+t+'</a>':''}
+    function sb(k,u){return u?' <button type="button" class="btn" style="padding:2px 8px;font-size:12px" data-a="sv" data-k="'+k+'" data-u="'+esc(u)+'">Enviar a Validador manual</button>':''}
+    function sec(t,arr,kind){
+      arr=Array.isArray(arr)?arr:[];
+      var body=arr.length?'<ol style="margin:6px 0 0;padding-left:20px;font-size:13px;line-height:1.5">'+arr.map(function(x){
+        if(kind==="t"){
+          var host=String(x.url||"").replace(/^https?:\/\//,"").split("/")[0];
+          return '<li>'+lk(x.url,esc(host||x.adv||"Tienda"))+' · '+esc(x.adv||"")+' · '+esc(x.pais||"")+(x.dias!=null?' · '+esc(x.dias)+' d activo':'')+sb("tiendas",x.url)+(x.nota?'<br><span class="sub">'+esc(x.nota)+'</span>':'')+'</li>';
+        }
+        return '<li>'+esc(x.adv||"Anunciante")+' · '+esc(x.pais||"")+(x.dias!=null?' · '+esc(x.dias)+' d activo':'')+(x.score!=null?' · puntaje '+esc(x.score):'')+' · '+[lk(x.ver,"Ver anuncio"),lk(x.dk,"DropKiller")].filter(Boolean).join(" · ")+sb(kind==="i"?"anuncios":"videos",x.ver)+(x.nota?'<br><span class="sub">'+esc(x.nota)+'</span>':'')+'</li>';
+      }).join("")+'</ol>':'<div class="sub" style="margin-top:6px">Sin resultados relevantes.</div>';
+      return '<details style="margin:6px 0"><summary style="cursor:pointer;font-weight:600">'+t+' ('+arr.length+'/5)</summary>'+body+'</details>';
+    }
+    if(!w.tiendas&&!w.imgs&&!w.vids)return "";
+    return '<div class="czref">'+sec("Tiendas que más venden (fuera de Guatemala)",w.tiendas,"t")+sec("Creativos de imagen (fuera de Guatemala)",w.imgs,"i")+sec("Creativos de video (fuera de Guatemala)",w.vids,"v")+'<div class="sub">Son enlaces: la página no puede incrustar imágenes ni videos externos. «Más venden» se estima por antigüedad y cantidad de anuncios activos.</div></div>';
+  }
+  function cardHtml(w){
+    var ia=w.source!=="manual",c=+w.costo||0,u=(w.oferta&&w.oferta.u)||1,pr=(w.oferta&&w.oferta.precio)||+w.pvp||0,ev=(c&&pr)?evOf(c,u,pr):null,fin=final(w);
+    var h='<article class="czc" data-id="'+esc(w.id)+'"><div class="czh"><div class="czrank">'+(ia?'#'+w.rank:'M')+'</div><div class="czt"><h3>'+esc(w.name)+'</h3><div class="sub">'+(ia?'Elegido por IA':'Agregado a mano')+(w.provider?' · '+esc(w.provider)+(w.verificado?' (verificado)':''):'')+(w.cats?' · '+esc(w.cats):'')+'</div></div>'+(fin!=null?ring(fin):'')+'</div>';
+    h+='<div class="czg"><div><small>Costo Dropi</small><span>'+(c?g0(c):'–')+'</span></div><div><small>Precio venta</small><span>'+(w.pvp?g0(w.pvp):'–')+'</span></div><div><small>Vend. 7 d</small><span>'+(w.v7!=null?g0(w.v7):'–')+'</span></div><div><small>Vend. 30 d</small><span>'+(w.v30!=null?g0(w.v30):'–')+'</span></div><div><small>Stock</small><span>'+(w.stock!=null?g0(w.stock):'–')+'</span></div></div>';
+    if(w.anTotal!=null){h+='<div class="czan"><div><small>En Guatemala por WhatsApp</small><b>'+g0(w.anWA||0)+'</b></div><div><small>En Guatemala con landing o tienda</small><b>'+g0(w.anLand||0)+'</b></div><div><small>Total en Guatemala</small><b>'+g0(w.anTotal)+'</b></div></div>'+(w.anNota?'<p class="czp" style="margin-top:-6px"><span class="sub">'+esc(w.anNota)+'</span></p>':'')}
+    if(w.scores){h+='<div class="czbars">'+COMP.map(function(k){var v=w.scores[k[0]]||0;return '<div><small><span>'+k[1]+'</span><span>'+v+'/10</span></small><i><u style="width:'+v*10+'%"></u></i></div>'}).join("")+'</div>'}
+    if(ev!=null){h+='<div class="czmath"><div><small class="sub">Oferta</small><br><b>'+u+' × '+g0(pr)+' GTQ</b></div><div><small class="sub">Utilidad esperada por pedido</small><br><b class="'+(ev>=PAR.objetivo?'tv':(ev>=0?'ta':'tr_'))+'">'+(ev>=0?'+':'')+g1(ev)+' GTQ</b></div><div><small class="sub">Precio mínimo para +'+g0(PAR.objetivo)+'</small><br><b>'+g0(pvpObj(c,u))+' GTQ</b></div></div>'}
+    if(w.verdict)h+='<p class="czp"><em>Por qué</em>'+esc(w.verdict)+'</p>';
+    if(w.angle)h+='<p class="czp"><em>Ángulo de venta</em>'+esc(w.angle)+'</p>';
+    if(w.competition)h+='<p class="czp"><em>Competencia</em>'+esc(w.competition)+'</p>';
+    if(w.risk)h+='<p class="czp"><em>Riesgos</em>'+esc(w.risk)+'</p>';
+    if(w.nota0)h+='<p class="czp"><em>Nota</em>'+esc(w.nota0)+'</p>';
+    h+=refHtml(w);
+    if(w.foto&&/^https:\/\//.test(w.foto))h+='<div class="czref" style="display:flex;gap:10px;align-items:center"><img src="'+esc(w.foto)+'" alt="Foto de '+esc(w.name)+'" width="96" height="96" style="object-fit:cover;border-radius:8px;background:var(--linea,#ddd)" onerror="this.style.display=\'none\'"><a href="'+esc(w.foto)+'" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Ver foto del producto en Dropi</a></div>';
+    if(Array.isArray(w.provs)&&w.provs.length){h+='<div class="czref"><details open style="margin:6px 0"><summary style="cursor:pointer;font-weight:600">ID de Dropi por proveedor ('+w.provs.length+')</summary><ol style="margin:6px 0 0;padding-left:20px;font-size:13px;line-height:1.5">'+w.provs.map(function(p){return '<li><b>'+esc(p.prov)+'</b> · ID <a href="https://app.dropi.gt/dashboard/search?search='+encodeURIComponent(p.id)+'&search_type=id" target="_blank" rel="noopener" style="color:var(--azul);font-weight:700;text-decoration:none">'+esc(p.id)+'</a> · costo '+g0(p.costo)+' · stock '+g0(p.stock)+' · vend. 7 d '+g0(p.v7)+' · 30 d '+g0(p.v30)+'<br><span class="sub">'+esc(p.nombre)+(p.alt?' · '+esc(p.alt):'')+'</span></li>'}).join("")+'</ol><div class="sub">Mismo producto por nombre en Dropi GT; confirma la foto en Dropi antes de elegir proveedor.</div></details></div>';}
+    var links=[];if(w.dropi)links.push('<a href="'+esc(w.dropi)+'" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Dropi</a>');if(w.dk)links.push('<a href="'+esc(w.dk)+'" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">DropKiller</a>');if(w.link)links.push('<a href="'+esc(w.link)+'" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600;text-decoration:none">Enlace</a>');
+    if(links.length)h+='<div class="sub">'+links.join(" · ")+'</div>';
+    var dis=czWrite?'':' disabled';
+    h+='<div class="czctl"><button type="button" class="star czfav" data-a="fav" aria-pressed="'+!!w.fav+'" aria-label="Favorito"'+dis+'>★</button>'+
+      '<label>Estado<select data-a="st"'+dis+'>'+STS.map(function(s){return '<option value="'+s[0]+'"'+((w.status||"nuevo")===s[0]?' selected':'')+'>'+s[1]+'</option>'}).join("")+'</select></label>'+
+      '<label>Tu puntaje (0–100)<input data-a="man" type="number" min="0" max="100" step="1" style="width:92px" value="'+(typeof w.manual==="number"?w.manual:'')+'"'+dis+'></label>'+
+      '<label style="flex:1 1 220px">Tus notas<textarea data-a="nota" rows="2" maxlength="600"'+dis+'>'+esc(w.nota||'')+'</textarea></label>'+
+      (ia?'':'<button type="button" class="btn" data-a="del"'+dis+'>Eliminar</button>')+'</div></article>';
+    return h;
+  }
+  function czRender(){
+    var dates=Array.from(new Set(W.map(function(w){return w.date}))).sort().reverse();
+    if(!czDate||dates.indexOf(czDate)<0)czDate=dates[0]||null;
+    $("cz-fechas").innerHTML=dates.map(function(d){var n=W.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    var L=$("cz-lista");
+    if(!czDate){L.innerHTML='<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';return}
+    var day=W.filter(function(w){return w.date===czDate});
+    var ai=day.filter(function(w){return w.source!=="manual"}).sort(function(a,b){return a.rank-b.rank}),mn=day.filter(function(w){return w.source==="manual"});
+    var r=ai.map(cardHtml).join("");
+    if(mn.length)r+='<h2 style="margin-top:6px">Agregados a mano</h2>'+mn.map(cardHtml).join("");
+    L.innerHTML=r||'<div class="czvacio"><b>Sin productos este día</b></div>';
+  }
+  function czWire(db,canWrite){
+    czDb=db;czWrite=canWrite;
+    $("cz-flete").value=PAR.flete;$("cz-ent").value=PAR.entrega;$("cz-obj").value=PAR.objetivo;
+    if(!db){$("cz-pie-par").textContent+=" La base de la página no está disponible en esta vista, por eso no se guardan cambios.";}
+    ["cz-flete","cz-ent","cz-obj"].forEach(function(id){$(id).addEventListener("change",function(){
+      var f=+$("cz-flete").value,e=+$("cz-ent").value,o=+$("cz-obj").value;
+      if(!(f>=0)||!(e>=1&&e<=100)||!(o>=0))return;
+      PAR={flete:f,entrega:e,objetivo:o};czRender();
+      if(czDb&&czWrite)czDb.doc("settings/params").set(PAR).catch(function(){});
+    })});
+    $("cz-fechas").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;czDate=b.dataset.d;czRender()});
+    var L=$("cz-lista");
+    function upd(id,patch){if(!czDb||!czWrite)return;czDb.doc("winners/"+id).update(patch).catch(function(){})}
+    L.addEventListener("click",function(ev){
+      var b=ev.target.closest("[data-a]");if(!b)return;var a=b.dataset.a,id=b.closest(".czc").dataset.id,w=W.filter(function(x){return x.id===id})[0];if(!w)return;
+      if(a==="sv"){var k=b.dataset.k,u=b.dataset.u;if(window.__vAdd&&u){window.__vAdd(w,k,u);b.textContent="Enviado ✓";b.disabled=true}return}
+      if(a==="fav"){upd(id,{fav:!w.fav})}
+      if(a==="del"){if(czDelArm===id){czDelArm=null;czDb.doc("winners/"+id).delete().catch(function(){})}else{czDelArm=id;b.textContent="¿Seguro? Toca otra vez"}}
+    });
+    L.addEventListener("change",function(ev){
+      var b=ev.target.closest("[data-a]");if(!b)return;var a=b.dataset.a,id=b.closest(".czc").dataset.id;
+      if(a==="st")upd(id,{status:b.value});
+      if(a==="man"){var v=b.value===""?null:Math.max(0,Math.min(100,Math.round(+b.value)));upd(id,{manual:v})}
+      if(a==="nota")upd(id,{nota:b.value.slice(0,600)});
+    });
+    L.addEventListener("focusout",function(){setTimeout(function(){if(czPend&&!L.contains(document.activeElement)){czPend=false;czRender()}},0)});
+    $("cz-fecha").value="2026-10-07";
+    $("cz-form").addEventListener("submit",function(ev){
+      ev.preventDefault();var msg=$("cz-msg"),n=$("cz-n").value.trim();
+      if(!n){msg.textContent="Escribe el nombre del producto.";return}
+      if(!czDb||!czWrite){msg.textContent="No se puede guardar en esta vista.";return}
+      var d=$("cz-fecha").value||"2026-10-07",c=$("cz-c").value,p=$("cz-p").value,v=$("cz-v").value,l=$("cz-l").value.trim();
+      var doc={date:d,source:"manual",name:n,status:"nuevo",fav:false,nota0:$("cz-nt").value.trim().slice(0,600)};
+      if(c!=="")doc.costo=+c;if(p!=="")doc.pvp=+p;if(v!=="")doc.v7=+v;if(l)doc.link=l;
+      msg.textContent="Guardando…";
+      czDb.doc("winners/"+d+"_m_"+Date.now().toString(36)).set(doc).then(function(){msg.textContent="Guardado.";$("cz-form").reset();$("cz-fecha").value=d;czDate=d;czRender()}).catch(function(){msg.textContent="No se pudo guardar. Intenta de nuevo."});
+    });
+    if(!db){czRender();return}
+    db.doc("settings/params").onSnapshot(function(s){var d=s.exists&&s.data();if(d&&d.flete>=0&&d.entrega>=1&&d.objetivo>=0){PAR={flete:d.flete,entrega:d.entrega,objetivo:d.objetivo};$("cz-flete").value=PAR.flete;$("cz-ent").value=PAR.entrega;$("cz-obj").value=PAR.objetivo;czRender()}},function(){});
+    db.collection("winners").orderBy("date","desc").limit(600).onSnapshot(function(snap){
+      W=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});
+      var ae=document.activeElement;if(ae&&$("cz-lista").contains(ae)&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName)){czPend=true;return}
+      czRender();if(window.__vFill)window.__vFill();
+    },function(){W=[];czRender()});
+  }
+  czRender();
+  (async function(){
+    var db=null,can=true;
+    try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can){var cw=us.can("data.write");if(cw===false)can=false}}}catch(e){}
+    czWire(db,can);
+    vWire(db,can);
+  })();
+
+  /* ===== Validador manual ===== */
+  var VAL=[],vEdit=null,vDb=null,vWrite=true,vDelArm=null,vFiltro="todos";
+  var CHK0=[["Proveedor validado","Encontrar un proveedor local viable con stock garantizado."],["Videos de ads listos","Descargar creativos ganadores y editar ganchos principales."],["Embudo configurado","Crear una landing atractiva o configurar el enlace de WhatsApp."],["Precio de venta definido","Establecer un precio competitivo basado en el mercado."],["Estrategia y copys listos","Redactar ofertas (1+1, 2+1) y preparar las campañas de anuncios."],["Stock asegurado con el importador","Validar la disponibilidad con el importador para evitar quiebres."]];
+  function vNew(){return{cauto:false,name:"",dropi:"",pvp:"",costo:"",mon:"GTQ",prov:1,estado:"falta",ch:{wa:true,fb:false,tt:false},cwa:0,cland:0,tiendas:[],anuncios:[],videos:[],angulos:[],notas:"",check:CHK0.map(function(c){return{t:c[0],d:c[1],x:false}})}}
+  var vF=vNew();
+  var EST={falta:["Falta de testear","a"],proceso:["En proceso","az"],testeado:["Testeado","v"]};
+  function vAv(f){var n=f.check.length,d=f.check.filter(function(c){return c.x}).length;return n?Math.round(d/n*100):0}
+  function vToday(){try{return new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})}catch(e){return "2026-10-07"}}
+  function vSync(){
+    $("v-name").value=vF.name;$("v-pvp").value=vF.pvp;$("v-costo").value=vF.costo;$("v-mon").value=vF.mon;$("v-dropi").value=vF.dropi;$("v-estado").value=vF.estado;$("v-notas").value=vF.notas;
+    $("v-prov").textContent=vF.prov;$("v-cwa").textContent=vF.cwa;$("v-cland").textContent=vF.cland;
+    $("v-ctot").textContent="Total de competidores: "+(vF.cwa+vF.cland)+" ("+vF.cwa+" en WhatsApp y "+vF.cland+" con landing o tienda). "+(vF.cauto?"Valores iniciales de la caza diaria (solo anunciantes en Guatemala, anuncios activos en los últimos 7 días). Cámbialos con tu investigación manual.":"Valores tuyos.");
+    document.querySelectorAll("#v-canales .chip").forEach(function(b){b.setAttribute("aria-pressed",!!vF.ch[b.dataset.c])});
+    ["tiendas","anuncios","videos","angulos"].forEach(function(k){
+      $("v-l-"+k).innerHTML=vF[k].map(function(x,i){return '<span class="tagchip" data-k="'+k+'" data-i="'+i+'" title="Quitar">'+esc(x.length>46?x.slice(0,44)+"…":x)+' ×</span>'}).join("");
+    });
+    vChecks();vEv();
+    $("v-guardar").textContent=vEdit?"Guardar cambios":"Guardar investigación";
+  }
+  function vChecks(){
+    var av=vAv(vF);$("v-av").textContent=av+"%";$("v-av").className="pill "+(av>=100?"v":(av>0?"a":"g"));$("v-avb").style.width=av+"%";
+    $("v-check").innerHTML=vF.check.map(function(c,i){return '<div class="vck"><input type="checkbox" data-ck="'+i+'" id="v-ck'+i+'"'+(c.x?' checked':'')+' aria-label="'+esc(c.t)+'"><div><b>'+esc(c.t)+'</b>'+(c.d?'<span>'+esc(c.d)+'</span>':'')+'</div><button type="button" data-rm="'+i+'" aria-label="Quitar tarea" title="Quitar tarea">×</button></div>'}).join("");
+  }
+  function vEv(){
+    var c=+vF.costo,p=+vF.pvp,el=$("v-ev");
+    if(!(c>0&&p>0)){el.innerHTML="";return}
+    var e=evOf(c,1,p),m=pvpObj(c,1);
+    el.innerHTML='A '+g0(p)+' '+vF.mon+' con tu flete ('+g0(PAR.flete)+') y '+g0(PAR.entrega)+'% de entrega, la utilidad esperada es <b class="'+(e>=PAR.objetivo?'tv':(e>=0?'ta':'tr_')+'')+'">'+(e>=0?'+':'')+g1(e)+'</b> por pedido. Precio mínimo para ganar +'+g0(PAR.objetivo)+': <b>'+g0(m)+'</b>.'+(vF.mon!=="GTQ"?' Los cálculos asumen quetzales.':'');
+  }
+  function vRender(){
+    var all=VAL.slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(b.updated||0)-(a.updated||0)});
+    var cnt={todos:all.length,falta:0,proceso:0,testeado:0};all.forEach(function(v){cnt[v.estado||"falta"]++});
+    $("v-filtros").innerHTML=[["todos","Todos"],["falta","Falta de testear"],["proceso","En proceso"],["testeado","Testeado"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(vFiltro===f[0])+'">'+f[1]+' ('+cnt[f[0]]+')</button>'}).join("");
+    var q=$("v-q").value.trim().toLowerCase();
+    var L=all.filter(function(v){return (vFiltro==="todos"||(v.estado||"falta")===vFiltro)&&(!q||((v.name||"")+" "+(v.dropi||"")).toLowerCase().indexOf(q)>-1)});
+    $("v-body").innerHTML=L.length?L.map(function(v){
+      var es=EST[v.estado||"falta"],av=vAv({check:v.check||[]}),links=[];
+      (v.tiendas||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Tienda '+(i+1)+'</a>')});
+      (v.anuncios||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Anuncio '+(i+1)+'</a>')});
+      (v.videos||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Video '+(i+1)+'</a>')});
+      var ch=[v.ch&&v.ch.wa?"WhatsApp":"",v.ch&&v.ch.fb?"Facebook":"",v.ch&&v.ch.tt?"TikTok":""].filter(Boolean).join(" · ");
+      return '<tr class="e-'+(v.estado||"falta")+'" data-id="'+esc(v.id)+'"><td style="white-space:nowrap">'+esc(v.date||"")+'</td><td><b>'+esc(v.name||"")+'</b><div class="sub">'+(v.dropi?'ID '+esc(v.dropi)+' · ':'')+(v.prov||0)+' prov.'+(ch?' · '+ch:'')+'</div>'+(v.notas?'<div class="sub" style="font-style:italic">'+esc(v.notas.length>90?v.notas.slice(0,88)+"…":v.notas)+'</div>':'')+'</td><td><span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+(v.pvp?g0(v.pvp)+' '+esc(v.mon||""):'–')+'</td><td class="num">'+((v.cwa||0)+(v.cland||0))+'<div class="sub" style="font-weight:400">WA '+(v.cwa||0)+' · Web '+(v.cland||0)+'</div></td><td>'+(links.join("")||'<span class="sub">–</span>')+'</td><td><div class="vmini"><i><u style="width:'+av+'%"></u></i><span class="sub">'+av+'%</span></div></td><td style="white-space:nowrap"><button type="button" class="btn" data-a="ed">Editar</button> <button type="button" class="btn" data-a="del">Eliminar</button></td></tr>';
+    }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Todavía no hay investigaciones. Llena el formulario y toca "Guardar investigación".</td></tr>';
+  }
+  function vWire(db,canWrite){
+    vDb=db;vWrite=canWrite;
+    var pick=$("v-pick");
+    function vFill(){
+      var ia=W.filter(function(w){return w.source!=="manual"}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||a.rank-b.rank}).slice(0,30);
+      pick.innerHTML='<option value="">Elegir de la caza diaria (opcional)</option>'+ia.map(function(w){return '<option value="'+esc(w.id)+'">'+esc(w.date)+' · #'+w.rank+' · '+esc(w.name)+'</option>'}).join("");
+    }
+    window.__vFill=vFill;vFill();
+    function vLoad(w,full){vF.name=w.name;vF.pvp=(w.oferta&&w.oferta.precio)||w.pvp||"";vF.costo=w.costo?(w.oferta&&w.oferta.u>1?w.costo*w.oferta.u:w.costo):"";var m=/search=(\d+)/.exec(w.dropi||"");vF.dropi=m?m[1]:"";vF.prov=1;if(w.anTotal!=null){vF.cwa=w.anWA||0;vF.cland=w.anLand||0;vF.cauto=true}if(w.angle&&vF.angulos.indexOf(w.angle)<0)vF.angulos.push(w.angle);if(w.dk&&vF.anuncios.indexOf(w.dk)<0&&false)vF.anuncios.push(w.dk);if(full){vF.tiendas=(w.tiendas||[]).map(function(x){return x.url}).filter(Boolean).slice(0,5);vF.anuncios=(w.imgs||[]).map(function(x){return x.ver}).filter(Boolean).slice(0,5);vF.videos=(w.vids||[]).map(function(x){return x.ver}).filter(Boolean).slice(0,5)}vSync()}
+    window.__vAdd=function(w,k,u){if(vF.name!==w.name){vEdit=null;vF=vNew();pick.value=w.id;vLoad(w,false)}if(vF[k].indexOf(u)<0)vF[k].push(u);vSync()};
+    pick.addEventListener("change",function(){var w=W.filter(function(x){return x.id===pick.value})[0];if(!w)return;vLoad(w,false)});
+    $("v-name").addEventListener("input",function(e){vF.name=e.target.value});
+    $("v-pvp").addEventListener("input",function(e){vF.pvp=e.target.value;vEv()});
+    $("v-costo").addEventListener("input",function(e){vF.costo=e.target.value;vEv()});
+    $("v-mon").addEventListener("change",function(e){vF.mon=e.target.value;vEv()});
+    $("v-dropi").addEventListener("input",function(e){vF.dropi=e.target.value});
+    $("v-estado").addEventListener("change",function(e){vF.estado=e.target.value});
+    $("v-notas").addEventListener("input",function(e){vF.notas=e.target.value});
+    $("p-val").addEventListener("click",function(ev){
+      var s=ev.target.closest("[data-s]");if(s){var k=s.dataset.s,d=+s.dataset.d;vF[k]=Math.max(0,(vF[k]||0)+d);if(k==="cwa"||k==="cland")vF.cauto=false;vSync();return}
+      var c=ev.target.closest("#v-canales .chip");if(c){vF.ch[c.dataset.c]=!vF.ch[c.dataset.c];vSync();return}
+      var a=ev.target.closest("[data-add]");if(a){var k2=a.dataset.add,inp=$("v-i-"+k2),v=inp.value.trim();if(v&&vF[k2].indexOf(v)<0){vF[k2].push(v);inp.value="";vSync()}return}
+      var t=ev.target.closest(".tagchip[data-k]");if(t){vF[t.dataset.k].splice(+t.dataset.i,1);vSync();return}
+      var rm=ev.target.closest("[data-rm]");if(rm){vF.check.splice(+rm.dataset.rm,1);vChecks();return}
+      var fl=ev.target.closest("#v-filtros .chip");if(fl){vFiltro=fl.dataset.f;vRender();return}
+    });
+    $("p-val").addEventListener("change",function(ev){var ck=ev.target.closest("[data-ck]");if(ck){vF.check[+ck.dataset.ck].x=ck.checked;vChecks()}});
+    $("v-t-add").addEventListener("click",function(){var n=$("v-t-n").value.trim();if(!n)return;vF.check.push({t:n,d:$("v-t-d").value.trim(),x:false});$("v-t-n").value="";$("v-t-d").value="";vChecks()});
+    ["tiendas","anuncios","videos","angulos"].forEach(function(k){$("v-i-"+k).addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();var v=e.target.value.trim();if(v&&vF[k].indexOf(v)<0){vF[k].push(v);e.target.value="";vSync()}}})});
+    $("v-q").addEventListener("input",vRender);
+    $("v-limpiar").addEventListener("click",function(){vEdit=null;vF=vNew();$("v-msg").textContent="";vSync()});
+    $("v-guardar").addEventListener("click",function(){
+      var msg=$("v-msg");
+      if(!vF.name.trim()){msg.textContent="Escribe el nombre del producto para guardar.";return}
+      if(!vDb||!vWrite){msg.textContent="No se puede guardar en esta vista.";return}
+      var doc=JSON.parse(JSON.stringify(vF));doc.name=doc.name.trim();doc.pvp=doc.pvp===""?null:+doc.pvp;doc.costo=doc.costo===""?null:+doc.costo;doc.avance=vAv(vF);doc.updated=Date.now();
+      var id=vEdit||("v_"+Date.now().toString(36));var prev=VAL.filter(function(x){return x.id===id})[0];doc.date=prev?prev.date:vToday();
+      msg.textContent="Guardando…";
+      vDb.doc("validations/"+id).set(doc).then(function(){msg.textContent=vEdit?"Cambios guardados.":"Investigación guardada en el historial.";vEdit=null;vF=vNew();vSync()}).catch(function(){msg.textContent="No se pudo guardar. Intenta de nuevo."});
+    });
+    $("v-body").addEventListener("click",function(ev){
+      var b=ev.target.closest("[data-a]");if(!b)return;var id=b.closest("tr").dataset.id,v=VAL.filter(function(x){return x.id===id})[0];if(!v)return;
+      if(b.dataset.a==="ed"){vEdit=id;vF=Object.assign(vNew(),JSON.parse(JSON.stringify(v)));vF.pvp=v.pvp==null?"":v.pvp;vF.costo=v.costo==null?"":v.costo;if(!vF.check||!vF.check.length)vF.check=vNew().check;vSync();$("v-name").scrollIntoView({behavior:"smooth",block:"center"});$("v-msg").textContent="Editando: "+v.name}
+      if(b.dataset.a==="del"){if(!vWrite||!vDb)return;if(vDelArm===id){vDelArm=null;vDb.doc("validations/"+id).delete().catch(function(){})}else{vDelArm=id;b.textContent="¿Seguro?"}}
+    });
+    $("v-csv").addEventListener("click",async function(){
+      var msg=$("v-msg"),dl=null;try{dl=await window.claude.use("downloads")}catch(e){}
+      if(!dl){msg.textContent="La descarga no está disponible en esta vista.";return}
+      function q(x){x=x==null?"":String(x);return '"'+x.replace(/"/g,'""')+'"'}
+      var rows=[["Fecha","Producto","ID Dropi","Estado","Precio","Moneda","Costo","Proveedores","Competidores WhatsApp","Competidores landing","Tiendas","Anuncios","Videos","Angulos","Avance %","Notas"]];
+      VAL.slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")}).forEach(function(v){rows.push([v.date,v.name,v.dropi,EST[v.estado||"falta"][0],v.pvp,v.mon,v.costo,v.prov,v.cwa,v.cland,(v.tiendas||[]).join(" | "),(v.anuncios||[]).join(" | "),(v.videos||[]).join(" | "),(v.angulos||[]).join(" | "),vAv({check:v.check||[]}),v.notas])});
+      try{await dl.save({filename:"investigaciones-ecompro.csv",data:"﻿"+rows.map(function(r){return r.map(q).join(",")}).join("\n")});msg.textContent="Archivo listo."}catch(e){msg.textContent=(e&&e.code==="declined")?"Descarga cancelada.":"No se pudo descargar."}
+    });
+    vSync();vRender();
+    if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
+  }
+
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]]};
+  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv"};
+  function show(g,pane){
+    cur[g]=pane;
+    gb.forEach(function(b){b.setAttribute("aria-selected",b.dataset.g===g)});
+    Object.keys(GR).forEach(function(k){GR[k].forEach(function(x){$("p-"+x[0]).hidden=!(k===g&&x[0]===pane)})});
+    var subs=GR[g];ns.hidden=subs.length<2;
+    ns.innerHTML=subs.map(function(x){return '<button type="button" role="tab" id="t-'+x[0]+'" data-p="'+x[0]+'" aria-selected="'+(x[0]===pane)+'">'+x[1]+'</button>'}).join("");
+    try{sessionStorage.setItem("nav",g+"|"+pane)}catch(e){}
+  }
+  gb.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.g,cur[b.dataset.g])})});
+  ns.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var g=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0].dataset.g;show(g,b.dataset.p)});
+  try{var sn=(sessionStorage.getItem("nav")||"").split("|");if(GR[sn[0]]&&GR[sn[0]].some(function(x){return x[0]===sn[1]}))show(sn[0],sn[1]);else show("res","res")}catch(e){show("res","res")}
+})();
+</script>
