@@ -3,7 +3,7 @@ const path = require("path");
 const { session } = require("./_auth");
 const shim = require("./_shim");
 
-const ICONS = '<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#0b1f2e">';
+const ICONS = '<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#edf4f8"><meta name="color-scheme" content="light">';
 
 const LOGIN = `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ECOMPRO</title>${ICONS}
 <body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0;background:#041018;color:#e9fcff">
@@ -27,5 +27,5 @@ module.exports = (req, res) => {
   }
   const html = fs.readFileSync(path.join(process.cwd(), "private", "ecompro.html"), "utf8");
   res.statusCode = 200;
-  res.end('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ICONS + '<script>' + shim + "</script></head><body>" + html + "</body></html>");
+  res.end('<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ICONS + '<script>' + shim + "</script></head><body>" + html + "</body></html>");
 };
