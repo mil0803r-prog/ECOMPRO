@@ -3,27 +3,27 @@
 <style>
 /* Layout: cabecera con pestañas pegajosas; cada pestaña es una pantalla de tableros. Verde/amarillo/rojo son semántica de estado, no acento. */
 :root{
-  --bg:#eef0ee; --card:#fbfcfb; --fg:#161a18; --muted:#5d6661; --line:#d5dad6; --ink:#24302a;
+  --bg:#edf4f8; --card:#fbfdfe; --fg:#122029; --muted:#546a77; --line:#d2e0e9; --ink:#0d6d99; --cel:#38c6f4; --cel2:#7defff;
   --verde:#1f9d55; --verde-bg:#dff3e6;
   --amar:#b87d00; --amar-bg:#fbefcf;
   --rojo:#d33a2c; --rojo-bg:#fadcd8;
   --gris:#6b736e; --gris-bg:#e3e6e4;
-  --azul:#2b6cb0;
+  --azul:#0f8fc7;
   --display:'Barlow Condensed','Arial Narrow',sans-serif;
   --body:'IBM Plex Sans',system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#101412; --card:#181d1a; --fg:#eaeeea; --muted:#9aa49e; --line:#2a312d; --ink:#dfe6e1;
+  --bg:#08121a; --card:#102030; --fg:#e8f3f8; --muted:#8fa9b8; --line:#1d3345; --ink:#38c6f4; --cel:#38c6f4; --cel2:#7defff;
   --verde:#3fc97b; --verde-bg:#16301f;
   --amar:#e9b73a; --amar-bg:#35290a;
   --rojo:#ff6a5a; --rojo-bg:#3a1713;
-  --gris:#9aa49e; --gris-bg:#242a27; --azul:#6aa8e8; color-scheme:dark}}
+  --gris:#8fa9b8; --gris-bg:#17293a; --azul:#38c6f4; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#101412; --card:#181d1a; --fg:#eaeeea; --muted:#9aa49e; --line:#2a312d; --ink:#dfe6e1;
+  --bg:#08121a; --card:#102030; --fg:#e8f3f8; --muted:#8fa9b8; --line:#1d3345; --ink:#38c6f4; --cel:#38c6f4; --cel2:#7defff;
   --verde:#3fc97b; --verde-bg:#16301f;
   --amar:#e9b73a; --amar-bg:#35290a;
   --rojo:#ff6a5a; --rojo-bg:#3a1713;
-  --gris:#9aa49e; --gris-bg:#242a27; --azul:#6aa8e8; color-scheme:dark}
+  --gris:#8fa9b8; --gris-bg:#17293a; --azul:#38c6f4; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;padding-inline:16px;padding-block:20px 40px}
@@ -208,11 +208,34 @@ th[class*="m-"]{color:var(--mc);box-shadow:inset 0 2px 0 var(--mc)}
 .mtl{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .mtl>div{border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:var(--bg);display:flex;flex-direction:column;gap:1px}
 .mtl small{font-size:.72rem;color:var(--muted)}.mtl b{font-size:1.15rem;font-variant-numeric:tabular-nums}.mtl span{font-size:.7rem;color:var(--muted)}
+
+/* Pulido visual (paleta celeste): solo estilos, la estructura no cambia */
+body{background:radial-gradient(1200px 420px at 50% -120px,rgba(56,198,244,.14),transparent 70%),var(--bg);background-repeat:no-repeat}
+header{padding-bottom:14px;border-bottom:1px solid var(--line);align-items:center}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand img{width:54px;height:54px;border-radius:14px;flex:none;box-shadow:0 6px 18px rgba(13,109,153,.28)}
+h1{letter-spacing:.03em}
+h1 small{color:var(--ink)!important;font-weight:600!important;letter-spacing:.04em}
+.navwrap{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav button{transition:background .15s,color .15s}
+nav button:hover{color:var(--fg);background:color-mix(in srgb,var(--cel) 14%,transparent)}
+nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));box-shadow:0 2px 10px rgba(56,198,244,.25)}
+.card,.tbl,.todo li{box-shadow:0 1px 2px rgba(10,40,60,.06),0 6px 16px -10px rgba(10,60,90,.18);border-color:var(--line)}
+.card{border-radius:12px}
+h2{position:relative;padding-left:12px}
+h2::before{content:"";position:absolute;left:0;top:.2em;bottom:.2em;width:4px;border-radius:2px;background:linear-gradient(var(--cel2),var(--cel))}
+h3{color:var(--ink)}
+th{background:color-mix(in srgb,var(--cel) 7%,transparent)}
+tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
+.chip:hover{border-color:var(--cel)}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));border-color:transparent}
+.fld input:focus,.fld select:focus,.fld textarea:focus,.sel select:focus{outline:2px solid var(--cel);outline-offset:1px;border-color:var(--cel)}
+@media(max-width:520px){.brand img{width:44px;height:44px;border-radius:12px}h1{font-size:2rem}}
 </style>
 
 <div class="wrap">
   <header>
-    <h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1>
+    <div class="brand"><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
     <div class="meta">1 mar – 7 oct 2026 · Dropi sincronizado 7 oct 19:06 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
