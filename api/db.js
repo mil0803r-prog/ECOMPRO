@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const { session } = require("./_auth");
 
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -18,20 +19,35 @@ async function redis(cmd) {
   return j.result;
 }
 
-async function seedOnce() {
-  const first = await redis(["SET", "ec:seeded", "1", "NX"]);
-  if (first !== "OK") return;
-  let seed = {};
+// Siembra por versión: agrega a la base los documentos nuevos de private/seed.json
+// (sin pisar los que ya existen ni volver a crear los que borraste).
+async function seedSync() {
+  let raw;
   try {
-    seed = JSON.parse(fs.readFileSync(path.join(process.cwd(), "private", "seed.json"), "utf8"));
+    raw = fs.readFileSync(path.join(process.cwd(), "private", "seed.json"), "utf8");
   } catch (e) {
     return;
   }
-  for (const col of Object.keys(seed)) {
-    const args = ["HSET", "ec:" + col];
-    for (const id of Object.keys(seed[col])) args.push(id, JSON.stringify(seed[col][id]));
-    if (args.length > 2) await redis(args);
+  const hash = crypto.createHash("sha1").update(raw).digest("hex");
+  if ((await redis(["GET", "ec:seedhash"])) === hash) return;
+  let seed = {};
+  try {
+    seed = JSON.parse(raw);
+  } catch (e) {
+    return;
   }
+  const done = new Set((await redis(["SMEMBERS", "ec:seeded_ids"])) || []);
+  const legacy = (await redis(["GET", "ec:seeded"])) === "1" && done.size === 0;
+  for (const col of Object.keys(seed)) {
+    for (const id of Object.keys(seed[col])) {
+      const tag = col + "/" + id;
+      if (done.has(tag)) continue;
+      await redis(["HSETNX", "ec:" + col, id, JSON.stringify(seed[col][id])]);
+      await redis(["SADD", "ec:seeded_ids", tag]);
+    }
+  }
+  if (legacy) await redis(["SET", "ec:seeded", "1"]);
+  await redis(["SET", "ec:seedhash", hash]);
 }
 
 function split(p) {
@@ -59,7 +75,7 @@ module.exports = async (req, res) => {
   if (!URL_ || !TOKEN) return send(503, { error: "Falta conectar la base (Upstash Redis) en Vercel." });
   const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
   try {
-    await seedOnce();
+    await seedSync();
     if (b.op === "list") {
       if (!COL.test(String(b.col))) return send(400, { error: "col" });
       const flat = (await redis(["HGETALL", "ec:" + b.col])) || [];
