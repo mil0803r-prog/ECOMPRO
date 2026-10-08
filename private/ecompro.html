@@ -273,6 +273,15 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .sg:is(.sgsolo,.sgsub):not([aria-current="true"]):hover{color:var(--fg);background:color-mix(in srgb,var(--cel) 14%,transparent)}
 .sg[aria-current="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg);box-shadow:0 2px 10px rgba(56,198,244,.25)}
 .sgrp{display:flex;flex-direction:column;gap:2px}
+
+/* Convertidor de moneda (Logística) */
+.fxbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.fxbtn{font:inherit;font-weight:600;font-size:.88rem;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:99px;padding:7px 16px;cursor:pointer}
+.fxbtn[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg);border-color:transparent}
+.fxinfo{font-size:.85rem;color:var(--muted)}.fxinfo b{color:var(--fg)}
+.fxrate{font-size:.8rem;color:var(--muted);display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.fxin{font:inherit;font-size:.85rem;width:84px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
+.fxnote{flex-basis:100%;font-size:.74rem;color:var(--muted)}
 </style>
 
 <div class="wrap">
@@ -321,6 +330,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-ped" hidden>
+    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
     <div>
       <div class="bar" role="img" aria-label="438 pedidos: 228 entregados, 24 en proceso, 150 en rojo, 36 cancelados">
         <i style="width:52.1%;background:var(--verde)"></i><i style="width:5.5%;background:var(--amar)"></i><i style="width:34.2%;background:var(--rojo)"></i><i style="width:8.2%;background:var(--gris)"></i>
@@ -353,7 +363,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       </div>
       <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
       <div class="tbl" style="margin-top:12px"><table id="o-tabla">
-        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Fecha</th><th>Estado</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor</th><th>Etiquetas</th></tr></thead>
+        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Fecha</th><th>Estado</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
         <tbody id="o-body"></tbody>
       </table></div>
       <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="o-mas" type="button">Mostrar más</button></div>
@@ -367,7 +377,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
         <div class="fld"><label for="c-dropi">En Dropi</label><select id="c-dropi"><option value="">Todos</option><option value="1">Sí</option><option value="0">No</option></select></div>
       </div>
       <div class="tbl" style="margin-top:12px"><table>
-        <thead><tr><th>Pedido</th><th>Fecha</th><th>Producto</th><th>Etapa</th><th class="num">Valor</th><th>En Dropi</th></tr></thead>
+        <thead><tr><th>Pedido</th><th>Fecha</th><th>Producto</th><th>Etapa</th><th class="num">Valor <span class="mc">GTQ</span></th><th>En Dropi</th></tr></thead>
         <tbody id="c-body"></tbody>
       </table></div>
       <p class="foot" id="c-pie"></p>
@@ -381,21 +391,22 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   </section>
 
   <section class="pane" id="p-din" hidden>
+    <div class="fxbar"><button type="button" class="fxbtn" aria-pressed="false">⇄ Convertir a soles</button><span class="fxinfo">Mostrando en <b class="mc">GTQ</b></span><label class="fxrate">1 GTQ = <input type="number" class="fxin" min="0.01" step="0.0001" inputmode="decimal" aria-label="Tipo de cambio GTQ a PEN"> PEN</label><span class="fxnote"></span></div>
     <div class="grid g4">
-      <div class="card kpi"><h3>Venta entregada</h3><div class="big">45.103</div><div class="sub">228 pedidos</div></div>
-      <div class="card kpi"><h3>Costo del producto</h3><div class="big">13.883</div><div class="sub">31% de la venta</div></div>
-      <div class="card kpi"><h3>Flete</h3><div class="big">15.412</div><div class="sub">34% de la venta</div></div>
-      <div class="card kpi"><h3>Perdido en devoluciones</h3><div class="big tr_">29.901</div><div class="sub">venta de 143 pedidos</div></div>
+      <div class="card kpi"><h3>Venta entregada · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="45103">45.103</span></div><div class="sub">228 pedidos</div></div>
+      <div class="card kpi"><h3>Costo del producto · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="13883">13.883</span></div><div class="sub">31% de la venta</div></div>
+      <div class="card kpi"><h3>Flete · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="15412">15.412</span></div><div class="sub">34% de la venta</div></div>
+      <div class="card kpi"><h3>Perdido en devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" data-q="29901">29.901</span></div><div class="sub">venta de 143 pedidos</div></div>
     </div>
     <div class="grid g2">
-      <div class="card"><h3>Ganancia según Lumy</h3><div class="big tv">23.093</div><div class="sub">margen de 51,4%. Es lo que Lumy marca como "por cobrar".</div></div>
-      <div class="card"><h3>Cálculo simple</h3><div class="big ta">15.627</div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
+      <div class="card"><h3>Ganancia según Lumy · <span class="mc">GTQ</span></h3><div class="big tv"><span class="mq" data-q="23093">23.093</span></div><div class="sub">margen de 51,4%. Es lo que Lumy marca como "por cobrar".</div></div>
+      <div class="card"><h3>Cálculo simple · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="15627">15.627</span></div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
     </div>
-    <div class="warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de 7.466 GTQ. Además, Lumy muestra 0 de flete de devoluciones aunque hay 143 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata 23.093 como un techo y no como la ganancia real. Con 141 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
+    <div class="warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de <span class="mq" data-q="7466">7.466</span> <span class="mc">GTQ</span>. Además, Lumy muestra 0 de flete de devoluciones aunque hay 143 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata <span class="mq" data-q="23093">23.093</span> <span class="mc">GTQ</span> como un techo y no como la ganancia real. Con 141 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
     <div class="grid g3">
-      <div class="card"><h3>Por cobrar</h3><div class="big">23.093</div><div class="sub">cartera de Lumy</div></div>
-      <div class="card"><h3>Ya abonado</h3><div class="big ta">0</div><div class="sub">sin cartera sincronizada</div></div>
-      <div class="card"><h3>Devoluciones por descontar</h3><div class="big ta">0</div><div class="sub">143 pedidos, valor no disponible</div></div>
+      <div class="card"><h3>Por cobrar · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="23093">23.093</span></div><div class="sub">cartera de Lumy</div></div>
+      <div class="card"><h3>Ya abonado · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="0">0</span></div><div class="sub">sin cartera sincronizada</div></div>
+      <div class="card"><h3>Devoluciones por descontar · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="0">0</span></div><div class="sub">143 pedidos, valor no disponible</div></div>
     </div>
   </section>
 
@@ -618,6 +629,29 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 
 <script>
 (function(){
+  var KEY="ec_fx",st={on:false,rate:0.4504,fecha:"7 oct 2026"};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){st.on=!!s.on;if(s.rate>0)st.rate=+s.rate;if(s.fecha)st.fecha=s.fecha}}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  function fmt(n){return Math.round(n).toLocaleString("es")}
+  var fx=window.ecFx={
+    st:st,
+    apply:function(){
+      var cur=st.on?"PEN":"GTQ";
+      document.querySelectorAll(".mq").forEach(function(e){var q=+e.getAttribute("data-q");e.textContent=fmt(st.on?q*st.rate:q)});
+      document.querySelectorAll(".mc").forEach(function(e){e.textContent=cur});
+      document.querySelectorAll(".fxbtn").forEach(function(b){b.setAttribute("aria-pressed",st.on);b.textContent=st.on?"⇄ Volver a quetzales":"⇄ Convertir a soles"});
+      document.querySelectorAll(".fxin").forEach(function(i){if(document.activeElement!==i)i.value=st.rate});
+      document.querySelectorAll(".fxnote").forEach(function(n){n.textContent=st.on?"Convertido con 1 GTQ = "+st.rate+" PEN (tipo de cambio del "+st.fecha+"). Es una referencia: puedes cambiar la tasa. Las cifras originales siguen siendo en quetzales.":""});
+    }
+  };
+  document.addEventListener("click",function(e){var b=e.target.closest(".fxbtn");if(!b)return;st.on=!st.on;save();fx.apply()});
+  document.addEventListener("input",function(e){var i=e.target.closest&&e.target.closest(".fxin");if(!i)return;var v=parseFloat(i.value);if(v>0){st.rate=v;st.fecha="ajustado por ti";save();fx.apply()}});
+  try{fetch("https://open.er-api.com/v6/latest/GTQ").then(function(r){return r.json()}).then(function(d){if(d&&d.rates&&d.rates.PEN>0){var saved=false;try{saved=(JSON.parse(localStorage.getItem(KEY)||"{}").fecha==="ajustado por ti")}catch(e){}if(!saved){st.rate=Math.round(d.rates.PEN*10000)/10000;st.fecha=new Date().toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});save();fx.apply()}}}).catch(function(){})}catch(e){}
+  setTimeout(fx.apply,0);
+})();
+</script>
+<script>
+(function(){
   var M=[["Mar",0,0,0,0],["Abr",27,17,0,1],["May",20,13,0,7],["Jun",39,29,0,14],["Jul",82,42,10,6],["Ago",3,1,0,3],["Sep",51,39,6,4],["Oct 1-7",5,5,13,1]];
   var mx=140,h="";
   M.forEach(function(m){var t=m[1]+m[2]+m[3]+m[4];
@@ -679,7 +713,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
     var pe=(e+dv)?Math.round(e/(e+dv)*100)+"%":"–";
     $("o-resumen").innerHTML=
       '<div class="card kpi"><h3>Pedidos</h3><div class="big">'+F.length+'</div><div class="sub">'+ca+' cancelados</div></div>'+
-      '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+e+'</div><div class="sub">'+val.toLocaleString("es")+' GTQ · '+pe+' de entrega</div></div>'+
+      '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+e+'</div><div class="sub"><span class="mq" data-q="'+val+'"></span> <span class="mc">GTQ</span> · '+pe+' de entrega</div></div>'+
       '<div class="card kpi"><h3>En rojo</h3><div class="big tr_">'+dv+'</div><div class="sub">devoluciones e incidencias</div></div>'+
       '<div class="card kpi"><h3>En proceso</h3><div class="big ta">'+pr+'</div><div class="sub">ruta, guía y por confirmar</div></div>';
     var sh=F.slice(0,lim);
@@ -687,10 +721,11 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
       var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
       return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
         '<td class="num" style="text-align:left">'+o.n+'</td><td style="white-space:nowrap">'+o.d.slice(5).replace("-","/")+(o.t?' '+o.t:'')+'</td>'+
-        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num">'+o.v+'</td>'+
+        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
         '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
     }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
     omas.hidden=F.length<=lim;omas.textContent="Mostrar más ("+(F.length-lim)+" restantes)";
+    window.ecFx&&window.ecFx.apply();
     if(keepFocus){var el=obody.querySelector('.tg[data-n="'+keepFocus+'"]');if(el)el.focus()}
   }
   [oq,od,oh,ociu,otag,ofav].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
@@ -718,7 +753,8 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   var EP={entregado:"v",despachado:"a",confirmado:"a",pendiente_confirmar:"a",nuevo:"a",lead_wa:"g",abandonado:"g",cancelado:"g",devuelto:"r"};
   function rCrm(){
     var L=CRM.filter(function(r){return (!cp.value||r.p===cp.value)&&(!ce.value||r.e===ce.value)&&(!cd.value||(cd.value==="1")===r.dr)});
-    $("c-body").innerHTML=L.length?L.map(function(r){return '<tr><td class="num" style="text-align:left">'+r.id+'</td><td style="white-space:nowrap">'+r.f.slice(5)+'</td><td>'+r.p+'</td><td><span class="pill '+(EP[r.e]||"g")+'">'+r.e.replace("_"," ")+'</span></td><td class="num">'+r.v+'</td><td>'+(r.dr?"Sí":"No")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Sin pedidos con estos filtros.</td></tr>';
+    $("c-body").innerHTML=L.length?L.map(function(r){return '<tr><td class="num" style="text-align:left">'+r.id+'</td><td style="white-space:nowrap">'+r.f.slice(5)+'</td><td>'+r.p+'</td><td><span class="pill '+(EP[r.e]||"g")+'">'+r.e.replace("_"," ")+'</span></td><td class="num"><span class="mq" data-q="'+r.v+'"></span></td><td>'+(r.dr?"Sí":"No")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Sin pedidos con estos filtros.</td></tr>';
+    window.ecFx&&window.ecFx.apply();
     $("c-pie").textContent=L.length+" de "+CRM.length+" pedidos de landing. Incluye abandonados y contactos de WhatsApp que aún no son pedido.";
   }
   [cp,ce,cd].forEach(function(el){el.addEventListener("change",rCrm)});rCrm();
