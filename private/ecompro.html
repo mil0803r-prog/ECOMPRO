@@ -261,6 +261,18 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
   body.menu-open .mscrim{display:block}
   body.menu-open{overflow:hidden}
 }
+
+/* Menú lateral con todas las secciones visibles */
+.side{display:flex;flex-direction:column;gap:2px}
+.navwrap #nav-g,.navwrap #nav-s{display:none!important}
+.sg{font:inherit;display:block;width:100%;text-align:left;border:0;background:none;color:var(--muted);border-radius:10px}
+.sgsolo{font-weight:600;font-size:.92rem;padding:10px 12px;cursor:pointer}
+.sghead{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--muted);padding:14px 12px 4px}
+.sghead.on{color:var(--ink)}
+.sgsub{font-weight:600;font-size:.9rem;padding:9px 12px 9px 22px;cursor:pointer}
+.sg:is(.sgsolo,.sgsub):not([aria-current="true"]):hover{color:var(--fg);background:color-mix(in srgb,var(--cel) 14%,transparent)}
+.sg[aria-current="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg);box-shadow:0 2px 10px rgba(56,198,244,.25)}
+.sgrp{display:flex;flex-direction:column;gap:2px}
 </style>
 
 <div class="wrap">
@@ -271,6 +283,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 
   <div class="mscrim" id="mscrim"></div>
   <div class="navwrap">
+    <div id="side" class="side" aria-label="Menú"></div>
     <nav id="nav-g" role="tablist" aria-label="Áreas">
       <button type="button" role="tab" data-g="res" aria-selected="true">Resumen</button>
       <button type="button" role="tab" data-g="log" aria-selected="false">Logística</button>
@@ -1175,7 +1188,17 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
     var subs=GR[g];ns.hidden=subs.length<2;
     ns.innerHTML=subs.map(function(x){return '<button type="button" role="tab" id="t-'+x[0]+'" data-p="'+x[0]+'" aria-selected="'+(x[0]===pane)+'">'+x[1]+'</button>'}).join("");
     try{sessionStorage.setItem("nav",g+"|"+pane)}catch(e){}
+    side(g,pane);
   }
+  function side(g,pane){
+    var sd=$("side");if(!sd)return;
+    sd.innerHTML=Array.prototype.map.call(gb,function(b){
+      var k=b.dataset.g,subs=GR[k],on=k===g;
+      if(subs.length<2)return '<button type="button" class="sg sgsolo" data-g="'+k+'" data-p="'+subs[0][0]+'" aria-current="'+on+'">'+b.textContent+'</button>';
+      return '<div class="sgrp"><div class="sg sghead'+(on?' on':'')+'">'+b.textContent+'</div>'+subs.map(function(x){return '<button type="button" class="sg sgsub" data-g="'+k+'" data-p="'+x[0]+'" aria-current="'+(on&&x[0]===pane)+'">'+x[1]+'</button>'}).join("")+'</div>';
+    }).join("");
+  }
+  $("side")&&$("side").addEventListener("click",function(ev){var b=ev.target.closest("button[data-g]");if(b)show(b.dataset.g,b.dataset.p)});
   gb.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.g,cur[b.dataset.g])})});
   ns.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var g=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0].dataset.g;show(g,b.dataset.p)});
   try{var sn=(sessionStorage.getItem("nav")||"").split("|");if(GR[sn[0]]&&GR[sn[0]].some(function(x){return x[0]===sn[1]}))show(sn[0],sn[1]);else show("res","res")}catch(e){show("res","res")}
@@ -1193,6 +1216,6 @@ function set(o){document.body.classList.toggle('menu-open',o);b.setAttribute('ar
 b.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
 s.addEventListener('click',function(){set(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
-nw.addEventListener('click',function(e){var sec=!!e.target.closest('#nav-s button'),grp=!!e.target.closest('#nav-g button');setTimeout(function(){if(sec||(grp&&document.getElementById('nav-s').hidden))set(false)},0)},true);
+nw.addEventListener('click',function(e){if(e.target.closest('#side button'))setTimeout(function(){set(false)},0)},true);
 window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 </script>
