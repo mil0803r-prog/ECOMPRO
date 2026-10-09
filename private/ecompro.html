@@ -456,6 +456,11 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cgc .cgk{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
 .cgc .cgk div{display:flex;flex-direction:column}.cgc .cgk small{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}.cgc .cgk b{font-size:1.05rem;font-variant-numeric:tabular-nums}
 .cgc .cgb{display:flex;gap:6px;flex-wrap:wrap}.cgc .cgb .btn{padding:4px 10px;font-size:.78rem;min-height:0}
+
+.mnum{display:flex;flex-wrap:wrap;gap:2px 12px;margin-top:6px;font-size:.78rem;font-weight:600;font-variant-numeric:tabular-nums}
+.mnum span:not([class]){color:var(--muted)}
+.mtot{background:color-mix(in srgb,var(--cel) 8%,transparent);border-top:2px solid var(--line)}
+.mtot b{font-size:.95rem}
 </style>
 
 <div class="wrap">
@@ -1194,8 +1199,11 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     var pc=(m[1]+m[2])?Math.round(m[1]/(m[1]+m[2])*100)+"%":"–";
     function seg(v,c){return v?'<i style="width:'+(v/t*100)+'%;background:var(--'+c+')"></i>':''}
     var bar=t?'<div class="trk" style="width:'+(t/mx*100)+'%">'+seg(m[1],'verde')+seg(m[2],'rojo')+seg(m[3],'amar')+seg(m[4],'gris')+'</div>':'<span class="sub">sin pedidos</span>';
-    h+='<div class="mrow"><div>'+m[0]+'<small>'+t+' pedidos</small></div><div>'+bar+'</div><div class="pc">'+pc+'</div></div>';
+    var nums=t?'<div class="mnum"><span class="tv">'+m[1]+' entregados</span><span class="tr_">'+m[2]+' devueltos</span>'+(m[3]?'<span class="ta">'+m[3]+' en proceso</span>':'')+(m[4]?'<span>'+m[4]+' cancelados</span>':'')+'</div>':'';
+    h+='<div class="mrow"><div>'+m[0]+'<small>'+t+' pedidos</small></div><div>'+bar+nums+'</div><div class="pc">'+pc+'</div></div>';
   });
+  var TT_=M.reduce(function(a,m){return [a[0]+m[1],a[1]+m[2],a[2]+m[3],a[3]+m[4]]},[0,0,0,0]),TN=TT_[0]+TT_[1]+TT_[2]+TT_[3];
+  h+='<div class="mrow mtot"><div><b>Hasta el momento</b><small>'+TN+' pedidos</small></div><div><div class="mnum"><span class="tv">'+TT_[0]+' entregados</span><span class="tr_">'+TT_[1]+' devueltos</span><span class="ta">'+TT_[2]+' en proceso</span><span>'+TT_[3]+' cancelados</span></div></div><div class="pc">'+((TT_[0]+TT_[1])?Math.round(TT_[0]/(TT_[0]+TT_[1])*100)+"%":"–")+'</div></div>';
   document.getElementById("meses").innerHTML=h;
 
   var F=[["Vieron la página",7819],["Abrieron el formulario",138],["Dejaron pedido",19],["Confirmados",10],["Entregados",6]],f="";
