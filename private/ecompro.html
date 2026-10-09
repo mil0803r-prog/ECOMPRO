@@ -806,8 +806,9 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   </section>
 
   <section class="pane" id="p-cal" hidden>
+    <div class="fxmini" role="group" aria-label="Moneda de los resultados"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
-      <div><h2 style="margin:0">Calculadora de precios</h2><span class="sub">Pon los costos de un producto y te digo a cuánto venderlo para ganar lo que quieres, con devoluciones y publicidad incluidas.</span></div>
+      <div><h2 style="margin:0">Calculadora de precios</h2><span class="sub">Pon los costos de un producto y te digo a cuánto venderlo para ganar lo que quieres, con devoluciones y publicidad incluidas. Escribe los costos en la moneda que elijas y mira los resultados en quetzales (Q) o soles (S/) con el interruptor de arriba.</span></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="c-real">Usar mis datos reales</button><button class="btn" type="button" id="c-reset">Limpiar</button></div>
     </div>
     <p class="sub" id="c-msg" role="status" style="margin:0"></p>
@@ -851,7 +852,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <div class="card vbox">
         <h3>Opción 2 · Quiero ganar tanto, ¿cuánto vendo?</h3>
         <div class="frow">
-          <div class="fld"><label for="c-meta">Cuánto quiero ganar</label><input id="c-meta" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="fld"><label for="c-meta">Cuánto quiero ganar (moneda elegida)</label><input id="c-meta" type="number" min="0" step="1" inputmode="decimal"></div>
           <div class="fld"><label for="c-per">Por</label><select id="c-per"><option value="mes">Mes</option><option value="dia">Día</option></select></div>
           <div class="fld"><label for="c-pp2">% de entrega</label><input id="c-pp2" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
         </div>
@@ -1938,7 +1939,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function n(v){v=parseFloat(v);return isFinite(v)?v:0}
   function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function f0(x){return Number(x).toLocaleString("es",{maximumFractionDigits:0})}
-  function m(x){return (SYM[S.mon]||"")+" "+f2(x)}
+  function on(){var fx=window.ecFx;return !!(fx&&fx.st&&fx.st.on)}
+  function m(x){var e=eq(x);return (on()?"S/":"Q")+" "+f2(on()?e.pen:e.gtq)}
   function pct(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
   function eq(x){
     var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,R={USD:0.130952};
