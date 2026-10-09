@@ -773,7 +773,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         <div class="fld"><label for="cz-ent">Entrega (%)</label><input id="cz-ent" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
         <div class="fld"><label for="cz-obj">Utilidad objetivo por pedido (GTQ)</label><input id="cz-obj" type="number" min="0" step="1" inputmode="decimal"></div>
       </div>
-      <p class="foot" style="margin:0" id="cz-pie-par">Con tus números reales: 68 GTQ de flete promedio por entrega y 61% de entrega (232 entregados, 144 devueltos). Asumo que cada devolución cuesta un flete. La caza diaria usa estos valores.</p>
+      <p class="foot" style="margin:0" id="cz-pie-par">Con tus números reales: 68 GTQ de flete promedio por entrega y 61% de entrega (232 entregados, 144 devueltos). Cada devolución cuesta 30 GTQ. La caza diaria usa estos valores.</p>
     </div>
     <div class="chips" id="cz-fechas" aria-label="Fechas con productos"></div>
     <div class="pane" id="cz-lista"></div>
@@ -887,6 +887,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         <div class="frow">
           <div class="fld"><label for="c-cos">Costo por unidad (proveedor)</label><input id="c-cos" type="number" min="0" step="0.01" inputmode="decimal"></div>
           <div class="fld"><label for="c-fle">Flete base (ida)</label><input id="c-fle" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="c-dev">Costo por devolución</label><input id="c-dev" type="number" min="0" step="0.01" inputmode="decimal"><span class="sub">lo que cuesta cada pedido que regresa</span></div>
         </div>
         <div class="frow">
           <div class="fld"><label for="c-ed">% entrega despacho</label><input id="c-ed" type="number" min="1" max="100" step="1" inputmode="decimal"><span class="sub">entregados ÷ enviados (para el flete de devolución)</span></div>
@@ -1327,7 +1328,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     $("z-sub").textContent="Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): "+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
     $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(s.k)+'</b>'+(emode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
     $("z-mas").hidden=L.length<=zlim;$("z-mas").textContent="Ver más zonas ("+(L.length-zlim)+" restantes)";
-    $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con tu flete de unos 68 GTQ y ~69 GTQ de ganancia por entrega, bajo ~"+BE+"% se pierde dinero). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
+    $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con ~69 GTQ de ganancia por entrega y 30 GTQ por devolución, el equilibrio sin pauta está en ~30%; el umbral es más alto porque falta la pauta). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
   }
   function zonaCard(){
     var box=$("o-zona"),dp=odep.value,ci=ociu.value;
@@ -1651,13 +1652,13 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   })();
 
   /* ===== Caza diaria ===== */
-  var PAR={flete:68,entrega:62,objetivo:30},W=[],czDate=null,czDb=null,czWrite=true,czPend=false,czDelArm=null;
+  var PAR={flete:68,entrega:62,objetivo:30,dev:30},W=[],czDate=null,czDb=null,czWrite=true,czPend=false,czDelArm=null;
   var MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
   function fd(d){var p=d.split("-");return p[2]+" "+MES[+p[1]-1]+" "+p[0]}
   function g0(v){return Number(v).toLocaleString("es",{maximumFractionDigits:0})}
   function g1(v){return Number(v).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
-  function evOf(c,u,pr){var p=PAR.entrega/100,F=PAR.flete;return p*(pr-u*c-F)-(1-p)*F}
-  function pvpObj(c,u){var p=PAR.entrega/100,F=PAR.flete;return u*c+F+(PAR.objetivo+(1-p)*F)/p}
+  function evOf(c,u,pr){var p=PAR.entrega/100,F=PAR.flete;return p*(pr-u*c-F)-(1-p)*PAR.dev}
+  function pvpObj(c,u){var p=PAR.entrega/100,F=PAR.flete;return u*c+F+(PAR.objetivo+(1-p)*PAR.dev)/p}
   var COMP=[["demanda","Demanda"],["traccion","Tracción"],["margen","Margen"],["competencia","Competencia"],["riesgo","Riesgo"]];
   var STS=[["nuevo","Nuevo"],["validando","Validando"],["lanzado","Lanzado"],["descartado","Descartado"]];
   function ring(n){var r=26,c=2*Math.PI*r,col=n>=70?"var(--verde)":(n>=55?"var(--amar)":"var(--rojo)");
@@ -1755,7 +1756,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       czDb.doc("winners/"+d+"_m_"+Date.now().toString(36)).set(doc).then(function(){msg.textContent="Guardado.";$("cz-form").reset();$("cz-fecha").value=d;czDate=d;czRender()}).catch(function(){msg.textContent="No se pudo guardar. Intenta de nuevo."});
     });
     if(!db){czRender();return}
-    db.doc("settings/params").onSnapshot(function(s){var d=s.exists&&s.data();if(d&&d.flete>=0&&d.entrega>=1&&d.objetivo>=0){PAR={flete:d.flete,entrega:d.entrega,objetivo:d.objetivo};$("cz-flete").value=PAR.flete;$("cz-ent").value=PAR.entrega;$("cz-obj").value=PAR.objetivo;czRender()}},function(){});
+    db.doc("settings/params").onSnapshot(function(s){var d=s.exists&&s.data();if(d&&d.flete>=0&&d.entrega>=1&&d.objetivo>=0){PAR={flete:d.flete,entrega:d.entrega,objetivo:d.objetivo,dev:30};$("cz-flete").value=PAR.flete;$("cz-ent").value=PAR.entrega;$("cz-obj").value=PAR.objetivo;czRender()}},function(){});
     db.collection("winners").orderBy("date","desc").limit(600).onSnapshot(function(snap){
       W=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});
       var ae=document.activeElement;if(ae&&$("cz-lista").contains(ae)&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName)){czPend=true;return}
@@ -1963,7 +1964,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function contexto(){
     var o=[],ORD=window.__ORD||[],ST=window.__ST||{},E=window.__EC2?window.__EC2():{W:[],PAR:{},VAL:[]};
     var fx=window.ecFx,rate=fx&&fx.st?fx.st.rate:0.4504;
-    o.push("FECHA: "+new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})+". Tipo de cambio: 1 GTQ = "+rate+" PEN. Parámetros: flete "+(E.PAR.flete||68)+" GTQ, entrega esperada "+(E.PAR.entrega||62)+"%, utilidad objetivo "+(E.PAR.objetivo||30)+" GTQ por pedido.");
+    o.push("FECHA: "+new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})+". Tipo de cambio: 1 GTQ = "+rate+" PEN. Parámetros: flete "+(E.PAR.flete||68)+" GTQ, entrega esperada "+(E.PAR.entrega||62)+"%, utilidad objetivo "+(E.PAR.objetivo||30)+" GTQ por pedido. Cada pedido devuelto cuesta 30 GTQ.");
     // pedidos
     var c={};ORD.forEach(function(x){c[x.s]=(c[x.s]||0)+1});
     o.push("\nPEDIDOS DROPI (todo el historial, "+ORD.length+"): "+Object.keys(c).map(function(k){return (ST[k]?ST[k][0]:k)+" "+c[k]}).join(", "));
@@ -2030,11 +2031,11 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 (function(){
   var $=function(i){return document.getElementById(i)};
   var SYM={GTQ:"Q",PEN:"S/",USD:"$"},KEY="ec_calc";
-  var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20,aut:true,pd:10,pp:"",meta:5000,per:"mes",pp2:""};
+  var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,dev:30,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20,aut:true,pd:10,pp:"",meta:5000,per:"mes",pp2:""};
   var S=Object.assign({},DEF);
   try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
   var last=null,saved=[],cDb=null,cWrite=true,loadedId=null,cDel=null;
-  var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar","pd","pp","meta","per","pp2"];
+  var F=["nom","uni","mon","cos","fle","dev","ed","ef","cpa","adm","ful","mar","pd","pp","meta","per","pp2"];
   function n(v){v=parseFloat(v);return isFinite(v)?v:0}
   function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function f0(x){return Number(x).toLocaleString("es",{maximumFractionDigits:0})}
@@ -2052,7 +2053,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var v=S.mon==="GTQ"?gtq:S.mon==="PEN"?gtq*rt:gtq*0.130952;return Math.round(v*100)/100}
   function calc(u){
     var ed=Math.max(.01,n(S.ed)/100),ef=Math.max(.01,n(S.ef)/100),mr=Math.min(.9,n(S.mar)/100);
-    var c=n(S.cos)*u,fl=n(S.fle)/ed,cp=n(S.cpa)/ef,ad=n(S.adm),fu=n(S.ful);
+    var c=n(S.cos)*u,fl=n(S.fle)+(1-ed)/ed*(S.dev==null||S.dev===""?30:n(S.dev)),cp=n(S.cpa)/ef,ad=n(S.adm),fu=n(S.ful);
     var ct=c+fl+cp+ad+fu,pv=ct/(1-mr);
     return{c:c,fl:fl,cp:cp,ad:ad,fu:fu,ct:ct,pv:pv,ut:pv-ct,mr:mr}}
   function ver(mr){return mr>=0.2?["v","Óptimo: margen saludable para escalar"]:mr>=0.1?["a","Ajustado: deja poco colchón si suben los anuncios o las devoluciones"]:["r","Riesgo: con este margen una mala semana te hace perder dinero"]}
@@ -2094,7 +2095,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var esc=[1,2,3].map(function(u){var q=calc(u),p=Math.ceil(q.pv/10)*10-1;if(p<q.pv)p+=10;var ut=p-q.ct;return '<tr><td>x'+u+'</td><td>'+m(q.ct)+'</td><td><b>'+m(p)+'</b></td><td>'+m(ut)+'</td><td>'+pct(ut,p)+'</td></tr>'}).join("");
     $("c-a").innerHTML=
       '<h3>Resultados del análisis</h3>'+
-      row("Proveedor",'x'+(S.uni||1),r.c,r.pv,r.ct)+row("Flete con devoluciones","÷ "+n(S.ed)+"% entrega",r.fl,r.pv,r.ct)+row("CPA costeado","÷ "+n(S.ef)+"% entrega final",r.cp,r.pv,r.ct)+row("Costo administrativo","",r.ad,r.pv,r.ct)+row("Fulfillment","",r.fu,r.pv,r.ct)+
+      row("Proveedor",'x'+(S.uni||1),r.c,r.pv,r.ct)+row("Flete con devoluciones","con "+n(S.ed)+"% de entrega",r.fl,r.pv,r.ct)+row("CPA costeado","÷ "+n(S.ef)+"% entrega final",r.cp,r.pv,r.ct)+row("Costo administrativo","",r.ad,r.pv,r.ct)+row("Fulfillment","",r.fu,r.pv,r.ct)+
       '<div class="cbar">'+seg.map(function(s){return '<i title="'+s[0]+'" style="width:'+(r.pv?Math.max(0,s[1])/r.pv*100:0)+'%;background:'+s[2]+'"></i>'}).join("")+'</div>'+
       '<div class="cleg">'+seg.map(function(s){return '<span style="--cc:'+s[2]+'">'+s[0]+'</span>'}).join("")+'</div>'+
       '<div class="ctot" style="margin-top:12px"><b>Costos totales</b><span><span class="sub">'+pct(r.ct,r.pv)+' del precio</span> &nbsp;<b>'+m(r.ct)+'</b></span></div>'+
@@ -2112,7 +2113,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
         '<div class="ck r"><small>Punto de equilibrio</small><b>'+m(r.ct)+'</b><span>por debajo de esto pierdes</span></div>'+
       '</div>'+
       '<h3 style="margin-top:12px">Escalera de precios por cantidad</h3><table class="cesc"><thead><tr><th>Pack</th><th>Costo total</th><th>Precio</th><th>Ganas</th><th>Margen</th></tr></thead><tbody>'+esc+'</tbody></table>'+
-      '<p class="foot" style="margin:6px 0 0">Con el flete de '+m(n(S.fle))+' y '+n(S.ed)+'% de entrega, cada pedido entregado carga '+m(r.fl)+' de flete (incluye los que vuelven). Los costos del proveedor solo se pagan cuando se entrega. Cambia los números a la izquierda y se recalcula al instante.</p>';
+      '<p class="foot" style="margin:6px 0 0">Con el flete de '+m(n(S.fle))+', '+n(S.ed)+'% de entrega y '+m(S.dev==null||S.dev===""?30:n(S.dev))+' por cada devolución, cada pedido entregado carga '+m(r.fl)+' de flete (incluye lo que cuestan los que vuelven). Los costos del proveedor solo se pagan cuando se entrega. Cambia los números a la izquierda y se recalcula al instante.</p>';
     var sl=$("c-sl");if(+sl.value!==Math.min(40,Math.round(r.mr*100))&&document.activeElement!==sl)sl.value=Math.min(40,Math.round(r.mr*100));
   }
   function sv(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
