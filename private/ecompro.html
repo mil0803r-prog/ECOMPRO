@@ -447,6 +447,15 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cver{margin-top:12px}
 @media(max-width:420px){.cgrid{grid-template-columns:1fr}}
 .cgrid + h3{margin-top:20px!important}
+
+.cgl{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.cgc{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(10,40,60,.06)}
+.cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
+.cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
+.cgc .sub{font-size:.76rem}
+.cgc .cgk{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+.cgc .cgk div{display:flex;flex-direction:column}.cgc .cgk small{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}.cgc .cgk b{font-size:1.05rem;font-variant-numeric:tabular-nums}
+.cgc .cgb{display:flex;gap:6px;flex-wrap:wrap}.cgc .cgb .btn{padding:4px 10px;font-size:.78rem;min-height:0}
 </style>
 
 <div class="wrap">
@@ -825,7 +834,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     <div class="fxmini" role="group" aria-label="Moneda de los resultados"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
       <div><h2 style="margin:0">Calculadora de precios</h2><span class="sub">Pon los costos de un producto y te digo a cuánto venderlo para ganar lo que quieres, con devoluciones y publicidad incluidas. Escribe los costos en la moneda que elijas y mira los resultados en quetzales (Q) o soles (S/) con el interruptor de arriba.</span></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="c-real">Usar mis datos reales</button><button class="btn" type="button" id="c-reset">Limpiar</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="c-real">Usar mis datos reales</button><button class="btn" type="button" id="c-reset">Limpiar</button><button class="btn" type="button" id="c-new" hidden>Guardar como nuevo</button><button class="btn vprim" type="button" id="c-save">Guardar cálculo</button></div>
     </div>
     <p class="sub" id="c-msg" role="status" style="margin:0"></p>
     <div class="ccols">
@@ -874,6 +883,10 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         </div>
         <div id="c-r2"></div>
       </div>
+    </div>
+    <div id="c-saved">
+      <h2>Cálculos guardados</h2>
+      <div class="cgl" id="c-gl"></div>
     </div>
   </section>
 
@@ -1693,7 +1706,9 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     await Promise.resolve();
     czWire(db,can);
     vWire(db,can);
+    window.__dbw={db:db,can:can};
     if(window.gWire)window.gWire(db,can);
+    if(window.calcWire)window.calcWire(db,can);
   })();
 
   /* ===== Validador manual ===== */
@@ -1907,6 +1922,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     // caza diaria y validador
     var W=(E.W||[]).slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(a.rank||9)-(b.rank||9)}).slice(0,12);
     o.push("\nCAZA DIARIA (más recientes):\n"+W.map(function(w){return (w.date||"")+" #"+w.rank+" "+w.name+" · puntaje "+w.score+" · costo "+w.costo+" · oferta "+(w.oferta?w.oferta.u+"x"+w.oferta.precio:"-")+" · ventas 7d "+w.v7+" · stock "+w.stock+" · anunciantes GT "+w.anTotal+" · "+(w.verdict||"").slice(0,170)+" · riesgo: "+(w.risk||"").slice(0,120)}).join("\n"));
+    o.push("\nCÁLCULOS DE PRECIO GUARDADOS:\n"+((window.__calcs?window.__calcs():[]).slice(0,15).map(function(g){var r=g.res||{},i=g.inp||{};return g.nombre+" · costo "+i.cos+" x"+i.uni+" · entrega "+i.ed+"% · precio recomendado "+Math.round(r.pv||0)+" "+r.mon+" · para publicar "+r.sell+" · ganas "+Math.round(r.ut9||0)+" ("+Math.round((r.mr9||0)*100)+"%)"}).join("\n")));
     o.push("\nVALIDADOR MANUAL (investigaciones):\n"+(E.VAL||[]).slice(0,20).map(function(v){return v.date+" "+v.name+" · "+v.estado+" · precio "+v.pvp+" "+v.mon+" · costo "+v.costo+" · competidores WA "+v.cwa+", landing "+v.cland}).join("\n"));
     return o.join("\n").slice(0,58000);
   }
@@ -1951,6 +1967,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20,aut:true,pd:10,pp:"",meta:5000,per:"mes",pp2:""};
   var S=Object.assign({},DEF);
   try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
+  var last=null,saved=[],cDb=null,cWrite=true,loadedId=null,cDel=null;
   var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar","pd","pp","meta","per","pp2"];
   function n(v){v=parseFloat(v);return isFinite(v)?v:0}
   function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
@@ -2016,6 +2033,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       '<div class="cleg">'+seg.map(function(s){return '<span style="--cc:'+s[2]+'">'+s[0]+'</span>'}).join("")+'</div>'+
       '<div class="ctot" style="margin-top:12px"><b>Costos totales</b><span><span class="sub">'+pct(r.ct,r.pv)+' del precio</span> &nbsp;<b>'+m(r.ct)+'</b></span></div>'+
       '<div class="ctot"><b>Utilidad ('+(r.mr*100).toFixed(0)+'%)</b><b class="tv">'+m(r.ut)+'</b></div>';
+    last={r:r,sell:sell,ut9:ut9,mr9:mr9};
     metas(r,sell);
     $("c-b").innerHTML=
       '<div class="cver '+v[0]+'">'+v[1]+'</div>'+
@@ -2054,10 +2072,44 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   F.forEach(function(k){var e=$("c-"+k);if(!e)return;e.addEventListener("input",function(){S[k]=e.type==="number"?e.value:e.value;sv();render()});e.addEventListener("change",function(){S[k]=e.value;sv();render()})});
   $("c-pick").addEventListener("change",function(){var w=(window.__calcW||[]).filter(function(x){return x.id===$("c-pick").value})[0];if(!w)return;
     S.nom=w.name;S.cos=w.costo;S.uni=(w.oferta&&w.oferta.u)||1;S.mon="GTQ";sv();fill();render();msg("Traje "+w.name+" con costo "+w.costo+" por unidad.")});
+
+  function conv(x,mon){var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,gtq=mon==="GTQ"?x:mon==="PEN"?x/rt:x/0.130952;return (on()?"S/":"Q")+" "+f2(on()?gtq*rt:gtq)}
+  function cmsg(t){msg(t)}
+  function renderSaved(){
+    var L=saved.slice().sort(function(a,b){return (b.ts||0)-(a.ts||0)});
+    $("c-saved").hidden=false;
+    $("c-gl").innerHTML=L.length?L.map(function(g){var i=g.inp||{},res=g.res||{},d=new Date(g.ts||0).toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});
+      return '<div class="cgc'+(g.id===loadedId?" on":"")+'" data-id="'+g.id+'"><div><h4>'+String(g.nombre||"Sin nombre").replace(/[<>&]/g,"")+'</h4><div class="sub">'+d+' · x'+(i.uni||1)+' · entrega '+(i.ed||"–")+'%</div></div>'+
+        '<div class="cgk"><div><small>Precio recomendado</small><b>'+conv(res.pv||0,res.mon)+'</b></div><div><small>Para publicar</small><b>'+conv(res.sell||0,res.mon)+'</b></div><div><small>Ganas por venta</small><b class="tv">'+conv(res.ut9||0,res.mon)+'</b></div><div><small>Margen</small><b>'+(res.mr9!=null?Math.round(res.mr9*100):"–")+'%</b></div></div>'+
+        '<div class="cgb"><button type="button" class="btn" data-a="load">Cargar</button><button type="button" class="btn" data-a="del">Eliminar</button></div></div>'}).join(""):'<p class="sub">Todavía no guardaste ningún cálculo. Llena los datos de un producto y toca "Guardar cálculo".</p>';
+  }
+  window.calcWire=function(db,can){
+    cDb=db;cWrite=can;
+    if(db){db.collection("calculos").limit(300).onSnapshot(function(snap){saved=snap.docs.map(function(d){var x=d.data();x.id=x.id||d.id;return x});renderSaved()},function(){saved=[];renderSaved()})}
+    renderSaved();
+  };
+  function doSave(asNew){
+    if(!cDb||!cWrite){msg("No tienes permiso para guardar.");return}
+    if(!last||!(n(S.cos)>0)){msg("Escribe primero el costo del producto para guardar el cálculo.");return}
+    var nombre=(S.nom||"").trim()||"Sin nombre",id=(!asNew&&loadedId)?loadedId:("c"+Date.now().toString(36)+Math.random().toString(36).slice(2,5));
+    var inp={};F.forEach(function(k){inp[k]=S[k]});inp.aut=S.aut;
+    var doc={id:id,nombre:nombre,ts:Date.now(),inp:inp,res:{mon:S.mon,pv:last.r.pv,sell:last.sell,ut9:last.ut9,mr9:last.mr9,ct:last.r.ct}};
+    cDb.doc("calculos/"+id).set(doc).then(function(){loadedId=id;$("c-new").hidden=false;$("c-save").textContent="Guardar cambios";msg(asNew||!loadedId?"Cálculo guardado.":"Cambios guardados.");renderSaved()}).catch(function(){msg("No se pudo guardar. Intenta otra vez.")});
+  }
+  $("c-save").addEventListener("click",function(){doSave(false)});
+  $("c-new").addEventListener("click",function(){doSave(true)});
+  $("c-gl").addEventListener("click",function(ev){
+    var b=ev.target.closest("button[data-a]");if(!b)return;var id=b.closest(".cgc").getAttribute("data-id"),g=saved.filter(function(x){return x.id===id})[0];if(!g)return;
+    if(b.dataset.a==="load"){S=Object.assign({},DEF,g.inp||{});loadedId=id;sv();fill();render();$("c-new").hidden=false;$("c-save").textContent="Guardar cambios";renderSaved();msg("Cargué «"+(g.nombre||"")+"». Cambia lo que quieras y toca Guardar cambios.");window.scrollTo({top:0,behavior:"smooth"})}
+    if(b.dataset.a==="del"){if(!cWrite||!cDb)return;if(cDel===id){cDel=null;cDb.doc("calculos/"+id).delete().then(function(){if(loadedId===id){loadedId=null;$("c-new").hidden=true;$("c-save").textContent="Guardar cálculo"}}).catch(function(){msg("No se pudo eliminar.")})}else{cDel=id;b.textContent="¿Seguro?";setTimeout(function(){if(cDel===id){cDel=null;b.textContent="Eliminar"}},4000)}}
+  });
+  $("c-reset").addEventListener("click",function(){loadedId=null;$("c-new").hidden=true;$("c-save").textContent="Guardar cálculo";renderSaved()});
+  window.__calcs=function(){return saved};
+  if(window.__dbw&&!cDb)window.calcWire(window.__dbw.db,window.__dbw.can);
   $("c-real").addEventListener("click",real);
   $("c-reset").addEventListener("click",function(){S=Object.assign({},DEF);sv();fill();render();msg("")});
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="cal"]')){pick();fill();render()}});
   pick();fill();render();
-  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(function(){render();fill()});if(window.ecGastos)window.ecGastos.onChange(function(){render();fill()});pick()},0);
+  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(function(){render();fill();renderSaved()});if(window.ecGastos)window.ecGastos.onChange(function(){render();fill()});pick()},0);
 })();
 </script>
