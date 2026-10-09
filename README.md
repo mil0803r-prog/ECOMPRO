@@ -29,3 +29,13 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 2. Credenciales → Crear credenciales → ID de cliente de OAuth → Aplicación web.
 3. URI de redireccionamiento autorizado: `https://TU-DOMINIO.vercel.app/auth/callback`.
 4. Copia el ID y el secreto a las variables de Vercel. No los pegues en el chat ni en el código.
+
+## Asistente IA (opcional)
+
+El botón "Asistente IA" del tablero usa `api/asistente.js`. Para activarlo agrega en Vercel (Settings → Environment Variables, tipo Sensible):
+
+- `ANTHROPIC_API_KEY`: clave de la API de Anthropic (console.anthropic.com).
+- `ASSISTANT_MODEL`: nombre del modelo a usar.
+- `ASSISTANT_LIMIT` (opcional): preguntas por correo al día. Por defecto 80.
+
+Cada pregunta envía solo un resumen compacto de los datos del tablero; la clave nunca llega al navegador.

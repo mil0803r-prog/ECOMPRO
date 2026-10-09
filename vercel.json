@@ -1,19 +1,44 @@
 {
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/", "destination": "/api/app" },
-    { "source": "/login", "destination": "/api/login" },
-    { "source": "/auth/callback", "destination": "/api/callback" },
-    { "source": "/logout", "destination": "/api/logout" }
+    {
+      "source": "/",
+      "destination": "/api/app"
+    },
+    {
+      "source": "/login",
+      "destination": "/api/login"
+    },
+    {
+      "source": "/auth/callback",
+      "destination": "/api/callback"
+    },
+    {
+      "source": "/logout",
+      "destination": "/api/logout"
+    }
   ],
   "functions": {
-    "api/app.js": { "includeFiles": "private/ecompro.html" },
-    "api/db.js": { "includeFiles": "private/seed.json" }
+    "api/app.js": {
+      "includeFiles": "private/ecompro.html"
+    },
+    "api/db.js": {
+      "includeFiles": "private/seed.json"
+    }
   },
   "headers": [
-    { "source": "/(.*)", "headers": [
-      { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-      { "key": "Cache-Control", "value": "no-store" }
-    ] }
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
   ]
 }

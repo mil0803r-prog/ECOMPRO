@@ -387,6 +387,29 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .abars .r{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:10px;align-items:center;font-size:.85rem}
 @media(max-width:520px){.abars .r{grid-template-columns:96px minmax(0,1fr) 96px}}
 .abars .t{height:18px;background:var(--gris-bg);border-radius:4px;overflow:hidden}.abars .t i{display:block;height:100%;background:var(--azul);border-radius:4px}
+
+/* Asistente IA */
+.aibtn{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:40;display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:.9rem;color:#04202c;background:linear-gradient(135deg,var(--cel2),var(--cel));border:0;border-radius:99px;padding:12px 18px;cursor:pointer;box-shadow:0 8px 24px rgba(10,60,90,.35)}
+.aibtn svg{width:18px;height:18px}
+.aip{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(76px,calc(env(safe-area-inset-bottom) + 64px));z-index:41;width:min(440px,calc(100vw - 32px));height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden}
+.aip.open{display:flex}
+.aih{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,color-mix(in srgb,var(--cel) 16%,transparent),transparent)}
+.aih b{flex:1;font-family:var(--display);font-size:1.15rem;letter-spacing:.03em}
+.aih button{font:inherit;font-size:.78rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:99px;padding:4px 10px;cursor:pointer}
+.aim{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain}
+.aib{max-width:92%;padding:9px 12px;border-radius:12px;font-size:.88rem;line-height:1.45;overflow-wrap:anywhere}
+.aib.u{align-self:flex-end;background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));color:var(--bg)}
+.aib.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.aib.a ul{margin:4px 0 4px 18px;padding:0}.aib.a p{margin:0 0 6px}.aib.a p:last-child{margin:0}
+.aib.e{align-self:flex-start;background:var(--rojo-bg);color:var(--rojo);border:1px solid var(--rojo)}
+.aisg{display:flex;flex-wrap:wrap;gap:6px}
+.aisg button{font:inherit;font-size:.78rem;font-weight:600;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:5px 11px;cursor:pointer;text-align:left}
+.aisg button:hover{border-color:var(--cel)}
+.aif{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.aif textarea{flex:1;font:inherit;font-size:.9rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;resize:none;min-width:0;max-height:110px}
+.aif button{font:inherit;font-weight:700;font-size:.85rem;color:#04202c;background:linear-gradient(135deg,var(--cel2),var(--cel));border:0;border-radius:10px;padding:0 14px;cursor:pointer}
+.aif button:disabled{opacity:.5;cursor:default}
+@media(max-width:520px){.aip{right:8px;left:8px;width:auto;bottom:max(72px,calc(env(safe-area-inset-bottom) + 64px));height:calc(100vh - 100px)}.aibtn span{display:none}.aibtn{padding:13px}}
 </style>
 
 <div class="wrap">
@@ -395,7 +418,13 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     <div class="meta"><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 8 oct 2026 · Dropi sincronizado 8 oct 23:35 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
-  <div class="mscrim" id="mscrim"></div>
+  <button type="button" class="aibtn" id="ai-btn" aria-label="Abrir asistente IA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span>Asistente IA</span></button>
+<div class="aip" id="ai-panel" role="dialog" aria-label="Asistente IA">
+  <div class="aih"><b>Asistente ECOMPRO</b><button type="button" id="ai-clear">Nueva</button><button type="button" id="ai-close" aria-label="Cerrar">✕</button></div>
+  <div class="aim" id="ai-msgs"></div>
+  <form class="aif" id="ai-form"><textarea id="ai-in" rows="1" maxlength="1500" placeholder="Pregúntame lo que quieras de tu plataforma" aria-label="Escribe tu pregunta"></textarea><button type="submit" id="ai-send">Enviar</button></form>
+</div>
+<div class="mscrim" id="mscrim"></div>
   <div class="navwrap">
     <div id="side" class="side" aria-label="Menú"></div>
     <nav id="nav-g" role="tablist" aria-label="Áreas">
@@ -1082,6 +1111,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   /* ===== Pedidos de Dropi ===== */
   var ST={E:["Entregado","v"],D:["Devolución","r"],C:["Cancelado","g"],R:["En ruta","a"],G:["Guía generada","a"],K:["Recolectado","a"],P:["Pendiente","a"],F:["Pend. confirmación","a"],I:["Incidencia validada","r"],J:["Incidencia en ruta","r"]};
   var ORD=ORAW.split("\n").filter(Boolean).map(function(l){var p=l.split("|");return{n:p[0],d:p[1],t:(p[2]==="00:00"?"":p[2]),s:p[3],c:p[4],v:+p[5],dep:DEP[p[4]]||"Sin determinar"}});
+  window.__ORD=ORD;window.__ST=ST;
   ORD.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)});
   var store={tags:{},favs:{}};
   try{var s1=localStorage.getItem("sem_tags");if(s1)store.tags=JSON.parse(s1);var s2=localStorage.getItem("sem_favs");if(s2)store.favs=JSON.parse(s2)}catch(e){}
@@ -1563,6 +1593,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     },function(){W=[];czRender()});
   }
   czRender();
+  window.__EC2=function(){return{W:W,PAR:PAR,VAL:VAL}};
   (async function(){
     var db=null,can=true;
     try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can){var cw=us.can("data.write");if(cw===false)can=false}}}catch(e){}
@@ -1745,5 +1776,78 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setup(document.getElementById("a-tmes"),"admmes");
   setup(document.getElementById("a-tplat"),"admplat");
   var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var SUG=["¿Qué zonas me conviene evitar enviar?","¿Cuánto gané neto este mes y por qué?","¿Cuál producto de la caza diaria pauto primero?","¿Dónde se me va más dinero?","Resúmeme cómo voy hoy"];
+  var H=[],busy=false;
+  try{H=JSON.parse(sessionStorage.getItem("ec_ai")||"[]")}catch(e){}
+  function tx(sel){var out=[];document.querySelectorAll(sel).forEach(function(tr){out.push(Array.prototype.map.call(tr.children,function(c){return c.textContent.replace(/\s+/g," ").trim()}).join(" | "))});return out.join("\n")}
+  function bloque(id,lim){var e=$(id);return e?e.textContent.replace(/\s+/g," ").trim().slice(0,lim||2500):""}
+  function contexto(){
+    var o=[],ORD=window.__ORD||[],ST=window.__ST||{},E=window.__EC2?window.__EC2():{W:[],PAR:{},VAL:[]};
+    var fx=window.ecFx,rate=fx&&fx.st?fx.st.rate:0.4504;
+    o.push("FECHA: "+new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})+". Tipo de cambio: 1 GTQ = "+rate+" PEN. Parámetros: flete "+(E.PAR.flete||68)+" GTQ, entrega esperada "+(E.PAR.entrega||62)+"%, utilidad objetivo "+(E.PAR.objetivo||30)+" GTQ por pedido.");
+    // pedidos
+    var c={};ORD.forEach(function(x){c[x.s]=(c[x.s]||0)+1});
+    o.push("\nPEDIDOS DROPI (todo el historial, "+ORD.length+"): "+Object.keys(c).map(function(k){return (ST[k]?ST[k][0]:k)+" "+c[k]}).join(", "));
+    var dep={};ORD.forEach(function(x){var d=dep[x.dep]=dep[x.dep]||{t:0,e:0,d:0};d.t++;if(x.s==="E")d.e++;else if(x.s==="D"||x.s==="I"||x.s==="J")d.d++});
+    o.push("POR DEPARTAMENTO (pedidos, entregados, devueltos+incidencias, % entrega):\n"+Object.keys(dep).sort(function(a,b){return dep[b].t-dep[a].t}).map(function(k){var d=dep[k],r=d.e+d.d;return k+": "+d.t+", "+d.e+", "+d.d+", "+(r?Math.round(d.e/r*100)+"%":"s/d")}).join("\n"));
+    var ci={};ORD.forEach(function(x){var d=ci[x.c]=ci[x.c]||{t:0,e:0,d:0,dep:x.dep};d.t++;if(x.s==="E")d.e++;else if(x.s==="D"||x.s==="I"||x.s==="J")d.d++});
+    o.push("POR CIUDAD con 3 o más pedidos (ciudad (depto): pedidos, entregados, devueltos+incid., % entrega):\n"+Object.keys(ci).filter(function(k){return ci[k].t>=3}).sort(function(a,b){return ci[b].t-ci[a].t}).map(function(k){var d=ci[k],r=d.e+d.d;return k+" ("+d.dep+"): "+d.t+", "+d.e+", "+d.d+", "+(r?Math.round(d.e/r*100)+"%":"s/d")}).join("\n"));
+    // resumen y finanzas
+    o.push("\nRESUMEN Y QUÉ ATENDER HOY:\n"+bloque("p-res",3500));
+    o.push("\nDINERO (Lumy, GTQ):\n"+bloque("p-din",1800));
+    o.push("\nGANANCIA POR MES (GTQ; columnas: mes | entregados | venta | ganancia base | pauta Meta | pauta TikTok | gastos fijos | gastos variables | neta | margen):\n"+tx("#n-body tr")+"\nTOTAL: "+tx("#n-foot"));
+    o.push("\nCOSTO ADMINISTRATIVO POR MES (mes | fijos | variables | total | por pedido | % venta | % ganancia):\n"+tx("#a-bmes tr")+"\nPOR PLATAFORMA (concepto | categoría | tipo | costo mes | acumulado | %):\n"+tx("#a-bplat tr"));
+    var G=window.ecGastos?window.ecGastos.get():[];
+    o.push("\nGASTOS REGISTRADOS:\n"+G.map(function(g){return g.tipo+" · "+g.concepto+" · "+g.cat+" · "+g.monto+" "+g.mon+" · "+g.ciclo+" · desde "+g.ini+(g.fin?" hasta "+g.fin:"")}).join("\n"));
+    // pauta
+    var m={};((window.__C)||[]).forEach(function(cc){(cc.rows||[]).forEach(function(x){var k="2026-"+x[0].slice(0,2);(m[k]=m[k]||{meta:0,tt:0,cm:0,ct:0}).meta+=x[2];m[k].cm+=x[5]})});
+    ((window.__TT)||[]).forEach(function(a){if(!a.data)return;a.data.rows.forEach(function(x){var k=x[0].slice(0,7);if(k<"2026-01")return;(m[k]=m[k]||{meta:0,tt:0,cm:0,ct:0}).tt+=x[2];m[k].ct+=x[5]})});
+    o.push("\nPAUTA POR MES (soles PEN): "+Object.keys(m).sort().map(function(k){return k+": Meta "+m[k].meta.toFixed(0)+" ("+m[k].cm+" conv.), TikTok "+m[k].tt.toFixed(0)+" ("+m[k].ct+" compras)"}).join(" | "));
+    o.push("\nLANDINGS (30 días):\n"+tx("#p-lan table tr"));
+    o.push("\nMETA (resumen):\n"+bloque("cta-view",1800));
+    o.push("\nTIKTOK (resumen):\n"+bloque("tt-view",1800));
+    // caza diaria y validador
+    var W=(E.W||[]).slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(a.rank||9)-(b.rank||9)}).slice(0,12);
+    o.push("\nCAZA DIARIA (más recientes):\n"+W.map(function(w){return (w.date||"")+" #"+w.rank+" "+w.name+" · puntaje "+w.score+" · costo "+w.costo+" · oferta "+(w.oferta?w.oferta.u+"x"+w.oferta.precio:"-")+" · ventas 7d "+w.v7+" · stock "+w.stock+" · anunciantes GT "+w.anTotal+" · "+(w.verdict||"").slice(0,170)+" · riesgo: "+(w.risk||"").slice(0,120)}).join("\n"));
+    o.push("\nVALIDADOR MANUAL (investigaciones):\n"+(E.VAL||[]).slice(0,20).map(function(v){return v.date+" "+v.name+" · "+v.estado+" · precio "+v.pvp+" "+v.mon+" · costo "+v.costo+" · competidores WA "+v.cwa+", landing "+v.cland}).join("\n"));
+    return o.join("\n").slice(0,58000);
+  }
+  function md(t){
+    var e=String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]});
+    var lines=e.split("\n"),out="",ul=false;
+    lines.forEach(function(l){var m=/^\s*[-*•]\s+(.*)/.exec(l);if(m){if(!ul){out+="<ul>";ul=true}out+="<li>"+m[1]+"</li>"}else{if(ul){out+="</ul>";ul=false}if(l.trim())out+="<p>"+l+"</p>"}});
+    if(ul)out+="</ul>";
+    return out.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  }
+  function draw(){
+    var box=$("ai-msgs");
+    if(!H.length){box.innerHTML='<div class="aib a"><p>Hola, soy el asistente de tu plataforma. Conozco tus pedidos, zonas, ganancia, gastos, pauta, caza diaria y validador. Pregúntame lo que quieras.</p></div><div class="aisg">'+SUG.map(function(s){return '<button type="button">'+s+'</button>'}).join("")+'</div>';return}
+    box.innerHTML=H.map(function(m){return '<div class="aib '+(m.r==="u"?"u":m.r==="e"?"e":"a")+'">'+(m.r==="u"?String(m.t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]}):m.r==="e"?String(m.t).replace(/[&<>]/g,"") :md(m.t))+'</div>'}).join("")+(busy?'<div class="aib a"><p>Pensando…</p></div>':"");
+    box.scrollTop=box.scrollHeight;
+  }
+  function save(){try{sessionStorage.setItem("ec_ai",JSON.stringify(H.slice(-30)))}catch(e){}}
+  function ask(q){
+    q=q.trim();if(!q||busy)return;
+    H.push({r:"u",t:q});busy=true;$("ai-send").disabled=true;draw();
+    var msgs=H.filter(function(m){return m.r==="u"||m.r==="a"}).map(function(m){return{role:m.r==="u"?"user":"assistant",content:m.t}});
+    fetch("/api/asistente",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:msgs,contexto:contexto()})})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
+      .then(function(x){H.push(x.ok?{r:"a",t:x.j.text}:{r:"e",t:(x.j&&x.j.error)||"No se pudo responder."})})
+      .catch(function(){H.push({r:"e",t:"No hay conexión con el asistente."})})
+      .then(function(){busy=false;$("ai-send").disabled=false;save();draw()});
+  }
+  $("ai-btn").addEventListener("click",function(){var p=$("ai-panel");p.classList.toggle("open");if(p.classList.contains("open")){draw();$("ai-in").focus()}});
+  $("ai-close").addEventListener("click",function(){$("ai-panel").classList.remove("open")});
+  $("ai-clear").addEventListener("click",function(){H=[];save();draw()});
+  $("ai-form").addEventListener("submit",function(e){e.preventDefault();var t=$("ai-in");var q=t.value;t.value="";ask(q)});
+  $("ai-in").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("ai-form").requestSubmit()}});
+  $("ai-msgs").addEventListener("click",function(e){var b=e.target.closest(".aisg button");if(b)ask(b.textContent)});
+  window.ecAiContext=contexto;
+  draw();
 })();
 </script>
