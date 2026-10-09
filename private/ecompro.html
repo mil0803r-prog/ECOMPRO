@@ -429,6 +429,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cprice .big{font-size:clamp(2rem,6vw,2.8rem);color:var(--verde)}
 .ceq{font-size:.82rem;color:var(--muted)}.ceq b{color:var(--fg)}
 .cesc{width:100%;border-collapse:collapse;font-size:.85rem}.cesc th,.cesc td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line)}.cesc th:first-child,.cesc td:first-child{text-align:left}
+.fld label.chk{text-transform:none;letter-spacing:0;font-weight:500;font-size:.78rem;display:flex;gap:6px;align-items:flex-start;line-height:1.3}
+.fld label.chk input{width:auto;flex:none;padding:0;margin-top:2px}
 </style>
 
 <div class="wrap">
@@ -828,7 +830,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         </div>
         <div class="frow">
           <div class="fld"><label for="c-cpa">CPA de anuncios (por pedido)</label><input id="c-cpa" type="number" min="0" step="0.01" inputmode="decimal"></div>
-          <div class="fld"><label for="c-adm">Costo administrativo (por venta)</label><input id="c-adm" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="c-adm">Costo administrativo (por venta)</label><input id="c-adm" type="number" min="0" step="0.01" inputmode="decimal"><label class="chk" style="font-size:.75rem;color:var(--muted)"><input type="checkbox" id="c-aut"> Automático: lo tomo de tu sección Costo administrativo</label></div>
         </div>
         <div class="frow">
           <div class="fld"><label for="c-ful">Fulfillment / empaque (por venta)</label><input id="c-ful" type="number" min="0" step="0.01" inputmode="decimal"></div>
@@ -836,6 +838,25 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         </div>
       </div>
       <div class="card vbox" id="c-out"><div id="c-a"></div><div id="c-sw"><div class="sub" style="margin-top:2px">Semáforo de rentabilidad · arrastra para ajustar tu utilidad deseada</div><input class="cslide" id="c-sl" type="range" min="0" max="40" step="1" value="20" aria-label="Utilidad deseada"><div class="cscale"><span>0%</span><span>10%</span><span>20%</span><span>30%</span><span>40%+</span></div></div><div id="c-b"></div></div>
+    </div>
+    <div class="ccols" id="c-metas">
+      <div class="card vbox">
+        <h3>Opción 1 · Tengo pedidos al día, ¿cuánto gano?</h3>
+        <div class="frow">
+          <div class="fld"><label for="c-pd">Pedidos por día</label><input id="c-pd" type="number" min="0" step="1" inputmode="numeric"></div>
+          <div class="fld"><label for="c-pp">% de entrega</label><input id="c-pp" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
+        </div>
+        <div id="c-r1"></div>
+      </div>
+      <div class="card vbox">
+        <h3>Opción 2 · Quiero ganar tanto, ¿cuánto vendo?</h3>
+        <div class="frow">
+          <div class="fld"><label for="c-meta">Cuánto quiero ganar</label><input id="c-meta" type="number" min="0" step="1" inputmode="decimal"></div>
+          <div class="fld"><label for="c-per">Por</label><select id="c-per"><option value="mes">Mes</option><option value="dia">Día</option></select></div>
+          <div class="fld"><label for="c-pp2">% de entrega</label><input id="c-pp2" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
+        </div>
+        <div id="c-r2"></div>
+      </div>
     </div>
   </section>
 
@@ -1910,10 +1931,10 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 (function(){
   var $=function(i){return document.getElementById(i)};
   var SYM={GTQ:"Q",PEN:"S/",USD:"$"},KEY="ec_calc";
-  var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20};
+  var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20,aut:true,pd:10,pp:"",meta:5000,per:"mes",pp2:""};
   var S=Object.assign({},DEF);
   try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
-  var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar"];
+  var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar","pd","pp","meta","per","pp2"];
   function n(v){v=parseFloat(v);return isFinite(v)?v:0}
   function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function f0(x){return Number(x).toLocaleString("es",{maximumFractionDigits:0})}
@@ -1923,6 +1944,11 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,R={USD:0.130952};
     var gtq=S.mon==="GTQ"?x:S.mon==="PEN"?x/rt:x/R.USD;
     return {gtq:gtq,pen:gtq*rt}}
+  function admAuto(){
+    var A=window.ecGan,G=window.ecGastos;if(!A||!G)return null;
+    var f=0,ent=0;A.MG.forEach(function(x){ent+=x[2];G.get().forEach(function(g){f+=A.costo(g,x[0],x[2])})});
+    if(!ent)return null;var gtq=f/ent,rt=window.ecFx&&window.ecFx.st&&window.ecFx.st.rate>0?window.ecFx.st.rate:0.4504;
+    var v=S.mon==="GTQ"?gtq:S.mon==="PEN"?gtq*rt:gtq*0.130952;return Math.round(v*100)/100}
   function calc(u){
     var ed=Math.max(.01,n(S.ed)/100),ef=Math.max(.01,n(S.ef)/100),mr=Math.min(.9,n(S.mar)/100);
     var c=n(S.cos)*u,fl=n(S.fle)/ed,cp=n(S.cpa)/ef,ad=n(S.adm),fu=n(S.ful);
@@ -1930,7 +1956,37 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     return{c:c,fl:fl,cp:cp,ad:ad,fu:fu,ct:ct,pv:pv,ut:pv-ct,mr:mr}}
   function ver(mr){return mr>=0.2?["v","Óptimo: margen saludable para escalar"]:mr>=0.1?["a","Ajustado: deja poco colchón si suben los anuncios o las devoluciones"]:["r","Riesgo: con este margen una mala semana te hace perder dinero"]}
   function row(l,sub,v,pv,ct,col){return '<div class="crow"><span>'+l+(sub?' <span class="sub">'+sub+'</span>':'')+'</span><span class="p">'+pct(v,pv)+' PV</span><b class="m">'+m(v)+'</b><span class="ct">'+pct(v,ct)+' CT</span></div>'}
+  function metas(r,sell){
+    var ed=Math.max(.01,n(S.ed)/100),c=r.c,fl=r.fl,ad=r.ad,fu=r.fu,cpaO=n(S.cpa);
+    function unit(p){var pr=Math.max(.01,p/100);return sell-(c+fl+cpaO/pr+ad+fu)}
+    var p1=n(S.pp)||n(S.ef),p2=n(S.pp2)||n(S.ef),pd=n(S.pd);
+    var u1=unit(p1),ent1=pd*p1/100,gd=ent1*u1;
+    var h1='<div class="crow"><span>Entregas por día</span><span></span><b class="m">'+f2(ent1)+'</b><span></span></div>'+
+      '<div class="crow"><span>Ganancia por entrega</span><span></span><b class="m '+(u1>=0?"tv":"tr_")+'">'+m(u1)+'</b><span></span></div>'+
+      '<div class="crow"><span>Ganancia por día</span><span></span><b class="m '+(gd>=0?"tv":"tr_")+'">'+m(gd)+'</b><span></span></div>'+
+      '<div class="crow"><span>Ganancia por mes <span class="sub">(30 días)</span></span><span></span><b class="m '+(gd>=0?"tv":"tr_")+'">'+m(gd*30)+'</b><span></span></div>'+
+      '<div class="crow"><span>Venta por mes</span><span></span><b class="m">'+m(ent1*sell*30)+'</b><span></span></div>'+
+      '<div class="crow"><span>Pauta por día <span class="sub">(pedidos × CPA)</span></span><span></span><b class="m">'+m(pd*cpaO)+'</b><span></span></div>'+
+      '<p class="foot" style="margin:6px 0 0">Con precio '+m(sell)+', '+f0(pd)+' pedidos al día y '+p1+'% de entrega. '+(u1<0?"Con este precio y esa entrega pierdes en cada pedido entregado.":"")+'</p>';
+    $("c-r1").innerHTML=h1;
+    var u2=unit(p2),metaD=S.per==="dia"?n(S.meta):n(S.meta)/30;
+    var h2;
+    if(u2<=0)h2='<div class="cver r">Con este precio y '+p2+'% de entrega no ganas por pedido ('+m(u2)+'). Sube el precio o mejora la entrega.</div>';
+    else{var entD=metaD/u2,pedD=entD/(p2/100);
+      h2='<div class="crow"><span>Ganancia por entrega</span><span></span><b class="m tv">'+m(u2)+'</b><span></span></div>'+
+        '<div class="crow"><span>Entregas necesarias por día</span><span></span><b class="m">'+f2(entD)+'</b><span></span></div>'+
+        '<div class="crow"><span><b>Pedidos necesarios por día</b></span><span></span><b class="m" style="font-size:1.2rem">'+f2(pedD)+'</b><span></span></div>'+
+        '<div class="crow"><span>Pedidos necesarios por mes</span><span></span><b class="m">'+f0(pedD*30)+'</b><span></span></div>'+
+        '<div class="crow"><span>Entregas necesarias por mes</span><span></span><b class="m">'+f0(entD*30)+'</b><span></span></div>'+
+        '<div class="crow"><span>Venta necesaria por mes</span><span></span><b class="m">'+m(entD*30*sell)+'</b><span></span></div>'+
+        '<div class="crow"><span>Pauta por día <span class="sub">(pedidos × CPA)</span></span><span></span><b class="m">'+m(pedD*cpaO)+'</b><span></span></div>'+
+        '<p class="foot" style="margin:6px 0 0">Para ganar '+m(n(S.meta))+' por '+(S.per==="dia"?"día":"mes")+' con '+p2+'% de entrega y precio '+m(sell)+'.</p>'}
+    $("c-r2").innerHTML=h2;
+  }
   function render(){
+    if(S.aut){var aa=admAuto();if(aa!=null)S.adm=aa}
+    $("c-aut").checked=!!S.aut;
+    if(S.aut&&document.activeElement!==$("c-adm"))$("c-adm").value=S.adm;
     var r=calc(Math.max(1,n(S.uni)||1)),v=ver(r.mr),e=eq(r.pv),sell=Math.ceil(r.pv/10)*10-1;if(sell<r.pv)sell+=10;
     var ut9=sell-r.ct,mr9=sell?ut9/sell:0;
     var seg=[["Proveedor",r.c,"#e9b73a"],["Flete c/dev",r.fl,"#d33a2c"],["CPA",r.cp,"#ff9f43"],["Admin",r.ad,"#8a95a0"],["Fulfillment",r.fu,"#5c6b78"],["Utilidad",r.ut,"#1f9d55"]];
@@ -1942,6 +1998,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       '<div class="cleg">'+seg.map(function(s){return '<span style="--cc:'+s[2]+'">'+s[0]+'</span>'}).join("")+'</div>'+
       '<div class="ctot" style="margin-top:12px"><b>Costos totales</b><span><span class="sub">'+pct(r.ct,r.pv)+' del precio</span> &nbsp;<b>'+m(r.ct)+'</b></span></div>'+
       '<div class="ctot"><b>Utilidad ('+(r.mr*100).toFixed(0)+'%)</b><b class="tv">'+m(r.ut)+'</b></div>';
+    metas(r,sell);
     $("c-b").innerHTML=
       '<div class="cver '+v[0]+'" style="margin-top:8px">'+v[1]+'</div>'+
       '<div class="cprice" style="margin-top:6px"><div class="sub" style="font-weight:700;letter-spacing:.08em;text-transform:uppercase">Precio de venta recomendado</div><div class="big">'+m(r.pv)+'</div>'+
@@ -1952,7 +2009,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var sl=$("c-sl");if(+sl.value!==Math.min(40,Math.round(r.mr*100))&&document.activeElement!==sl)sl.value=Math.min(40,Math.round(r.mr*100));
   }
   function sv(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-  function fill(){F.forEach(function(k){var e=$("c-"+k);if(e&&document.activeElement!==e)e.value=S[k]})}
+  function fill(){F.forEach(function(k){var e=$("c-"+k);if(e&&document.activeElement!==e)e.value=S[k]});$("c-pp").placeholder=S.ef;$("c-pp2").placeholder=S.ef;$("c-aut").checked=!!S.aut}
   function msg(t){$("c-msg").textContent=t;if(t)setTimeout(function(){if($("c-msg").textContent===t)$("c-msg").textContent=""},6000)}
   function pick(){
     var E=window.__EC2?window.__EC2():{W:[]},W=(E.W||[]).filter(function(w){return w.costo}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(a.rank||9)-(b.rank||9)}).slice(0,40);
@@ -1963,11 +2020,13 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var e=0,d=0;ORD.forEach(function(x){if(x.s==="E")e++;else if(x.s==="D"||x.s==="I"||x.s==="J")d++});
     if(e+d){var r=Math.round(e/(e+d)*100);S.ed=r;S.ef=r;notes.push("entrega "+r+"%")}
     S.fle=(E.PAR&&E.PAR.flete)||S.fle;notes.push("flete "+S.fle);
-    if(A&&G){var f=0,ent=0;A.MG.forEach(function(x){ent+=x[2];G.get().forEach(function(g){f+=A.costo(g,x[0],x[2])})});if(ent){S.adm=Math.round(f/ent*100)/100;notes.push("administrativo "+S.adm+" por pedido entregado")}
+    if(A&&G){var f=0,ent=0;A.MG.forEach(function(x){ent+=x[2];G.get().forEach(function(g){f+=A.costo(g,x[0],x[2])})});if(ent){S.aut=true;notes.push("administrativo automático "+(Math.round(f/ent*100)/100)+" por pedido entregado")}
       var P={meta:0,tt:0};((window.__C)||[]).forEach(function(c){(c.rows||[]).forEach(function(x){P.meta+=x[2]})});((window.__TT)||[]).forEach(function(a){if(a.data)a.data.rows.forEach(function(x){if(x[0]>="2026-01")P.tt+=x[2]})});
       var rate=window.ecFx&&window.ecFx.st?window.ecFx.st.rate:0.4504,pg=(P.meta+P.tt)/rate;
       if(pg&&ORD.length){S.cpa=Math.round(pg/ORD.length*100)/100;notes.push("CPA "+S.cpa+" (pauta total ÷ "+ORD.length+" pedidos)")}}
     S.mon="GTQ";sv();fill();render();msg("Usé tus datos reales: "+notes.join(", ")+". Cámbialos si quieres.")}
+  $("c-aut").addEventListener("change",function(){S.aut=this.checked;sv();render();fill()});
+  $("c-adm").addEventListener("input",function(){S.aut=false;$("c-aut").checked=false});
   $("c-sl").addEventListener("input",function(){S.mar=+this.value;$("c-mar").value=S.mar;sv();render()});
   F.forEach(function(k){var e=$("c-"+k);if(!e)return;e.addEventListener("input",function(){S[k]=e.type==="number"?e.value:e.value;sv();render()});e.addEventListener("change",function(){S[k]=e.value;sv();render()})});
   $("c-pick").addEventListener("change",function(){var w=(window.__calcW||[]).filter(function(x){return x.id===$("c-pick").value})[0];if(!w)return;
@@ -1976,6 +2035,6 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   $("c-reset").addEventListener("click",function(){S=Object.assign({},DEF);sv();fill();render();msg("")});
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="cal"]')){pick();fill();render()}});
   pick();fill();render();
-  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(render);pick()},0);
+  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(function(){render();fill()});if(window.ecGastos)window.ecGastos.onChange(function(){render();fill()});pick()},0);
 })();
 </script>
