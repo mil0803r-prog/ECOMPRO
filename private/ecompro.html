@@ -372,7 +372,30 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 #g-body .btn{padding:4px 10px;font-size:.78rem;min-height:0}
 #g-tabla tfoot td[colspan]{white-space:normal}
 
-/* Ganancia por mes */
+/* Utilidad neta + calendario de pedidos */
+.cal-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.cal-nav{display:flex;align-items:center;gap:8px}
+.cal-nav b{min-width:130px;text-align:center;font-family:var(--display);font-size:1.15rem;letter-spacing:.03em;text-transform:capitalize}
+.cal-nav button{font:inherit;font-weight:700;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;width:34px;height:34px;cursor:pointer}
+.cal-nav button:disabled{opacity:.35;cursor:default}
+.cal-leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted)}
+.cal-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal-grid .h{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding:2px 0}
+.cal-d{min-height:74px;border:1px solid var(--line);border-radius:8px;padding:4px 5px;background:var(--bg);display:flex;flex-direction:column;gap:2px;font-size:.72rem;overflow:hidden}
+.cal-d.o{opacity:.4;background:transparent;border-style:dashed}
+.cal-d .n{color:var(--muted);font-weight:700}
+.cal-d .t{font-weight:800;font-size:.95rem;line-height:1}
+.cal-d .p{display:flex;flex-wrap:wrap;gap:2px 5px;font-weight:700}
+.cal-d.hoy{border-color:var(--cel);box-shadow:0 0 0 1px var(--cel)}
+.cal-cols{display:flex;align-items:flex-end;gap:3px;height:170px;padding-top:6px}
+.cal-cols .c{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:0}
+.cal-cols .c .s{display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden}
+.cal-lab{display:flex;gap:3px;margin-top:4px}
+.cal-lab span{flex:1 1 0;min-width:0;text-align:center;font-size:.64rem;color:var(--muted);overflow:hidden;white-space:nowrap}
+.cards #cal-tabla tfoot{display:none}
+#cal-tabla tfoot td{border-top:2px solid var(--line);border-bottom:0;font-weight:700}
+@media(max-width:520px){.cal-d{min-height:58px;padding:3px}.cal-d .t{font-size:.85rem}.cal-d .p{font-size:.62rem}}
 #n-tabla tfoot td{border-top:2px solid var(--line);border-bottom:0;font-weight:700}
 .nneg{color:var(--rojo)}.npos{color:var(--verde)}
 .nbars{display:flex;flex-direction:column;gap:8px}
@@ -906,7 +929,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 
   <section class="pane" id="p-gan" hidden>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
-    <div><h2 style="margin:0">Ganancia por mes</h2><span class="sub">Lo que dejó cada mes según Lumy, y cuánto queda al restar la pauta y los gastos de plataforma. Marca qué quieres restar.</span></div>
+    <div><h2 style="margin:0">Utilidad neta</h2><span class="sub">Lo que dejó cada mes según Lumy, y cuánto queda al restar la pauta y los gastos de plataforma. Marca qué quieres restar.</span></div>
     <div class="card" style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center">
       <label class="chk"><input type="checkbox" id="n-pauta" checked> Restar pauta (Meta + TikTok)</label>
       <label class="chk"><input type="checkbox" id="n-fijos" checked> Restar gastos fijos</label>
@@ -921,6 +944,21 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <tbody id="n-body"></tbody><tfoot><tr id="n-foot"></tr></tfoot>
     </table></div>
     <p class="foot" id="n-pie"></p>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px" id="cal-box">
+      <div class="cal-top">
+        <div><h2 style="margin:0">Calendario de pedidos</h2><span class="sub">Todos los pedidos de Dropi por día, semana y mes: entregados, devueltos y el resto.</span></div>
+        <div class="chips" id="cal-modo"><button type="button" class="chip" data-m="dia" aria-pressed="true">Día</button><button type="button" class="chip" data-m="semana" aria-pressed="false">Semana</button><button type="button" class="chip" data-m="mes" aria-pressed="false">Mes</button></div>
+      </div>
+      <div class="cal-top"><div class="cal-nav" id="cal-nav"><button type="button" id="cal-prev" aria-label="Mes anterior">‹</button><b id="cal-tit"></b><button type="button" id="cal-next" aria-label="Mes siguiente">›</button></div><div class="cal-leg" id="cal-leg"></div></div>
+      <div class="grid g4" id="cal-kpis"></div>
+      <div id="cal-grid-w"></div>
+      <div id="cal-graf"></div>
+      <div class="tbl"><table id="cal-tabla" style="min-width:720px">
+        <thead><tr><th id="cal-th">Día</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">Cancelados</th><th class="num">Incidencias</th><th class="num">En proceso</th><th class="num">% entrega</th></tr></thead>
+        <tbody id="cal-body"></tbody><tfoot><tr id="cal-foot"></tr></tfoot>
+      </table></div>
+      <p class="foot">% entrega = entregados ÷ (entregados + devueltos): solo cuenta pedidos que ya tuvieron resultado. Incidencias = incidencia validada o en ruta. En proceso = pendiente de confirmar, pendiente, guía generada, recolectado o en ruta. Se actualiza cuando me pides "actualiza".</p>
+    </div>
   </section>
 
   <section class="pane" id="p-adm" hidden>
@@ -1168,7 +1206,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     var ck=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]}),mx=Math.max.apply(null,ck.map(function(k){return cats[k]}).concat([1]));
     $("a-cat").innerHTML='<h3>Por categoría (acumulado)</h3><div class="abars">'+ck.map(function(k){return '<div class="r"><span>'+k+'</span><div class="t"><i style="width:'+(cats[k]/mx*100)+'%"></i></div><b style="text-align:right">'+mq(cats[k])+' <span class="sub">'+pc(cats[k],totAcc)+'</span></b></div>'}).join("")+'</div>';
     $("a-bplat").innerHTML=per.map(function(r){return '<tr><td><b>'+r.x.concepto+'</b></td><td>'+(r.x.cat||"–")+'</td><td>'+(r.x.tipo==="fijo"?"Fijo":"Variable")+'</td><td class="num">'+(r.mens?mq(r.mens,2):"–")+'</td><td class="num">'+mq(r.acc,2)+'</td><td class="num">'+pc(r.acc,totAcc)+'</td></tr>'}).join("")||'<tr><td colspan="6" class="sub" style="padding:18px 14px">Aún no hay gastos registrados.</td></tr>';
-    $("a-pie").textContent="Montos en "+(on?"soles (S/)":"quetzales (Q)")+". Sale de los gastos de la sección Gastos de plataforma; la pauta de Meta y TikTok no se cuenta aquí (está en Ganancia por mes). Los variables se cuentan como elegiste en Ganancia por mes ("+({una:"una vez, en su mes de inicio",mes:"cada mes desde su inicio",venta:"por cada pedido entregado"}[A.st.vmod])+"). Los gastos anuales se reparten en 12 meses.";
+    $("a-pie").textContent="Montos en "+(on?"soles (S/)":"quetzales (Q)")+". Sale de los gastos de la sección Gastos de plataforma; la pauta de Meta y TikTok no se cuenta aquí (está en Utilidad neta). Los variables se cuentan como elegiste en Utilidad neta ("+({una:"una vez, en su mes de inicio",mes:"cada mes desde su inicio",venta:"por cada pedido entregado"}[A.st.vmod])+"). Los gastos anuales se reparten en 12 meses.";
     document.querySelectorAll("#p-adm .amq").forEach(function(e){var q=+e.getAttribute("data-q"),d=+e.getAttribute("data-d")||0;e.textContent=num(on?q*rt:q,d)});
     document.querySelectorAll("#p-adm .amc").forEach(function(e){e.textContent=on?"S/":"Q"});
   }
@@ -1838,7 +1876,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora de precios"]],fin:[["gan","Ganancia por mes"],["adm","Costo administrativo"],["gas","Gastos de plataforma"]]};
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora de precios"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos de plataforma"]]};
   var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan"};
   function show(g,pane){
     cur[g]=pane;
@@ -1899,6 +1937,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setup(document.getElementById("n-nichos"),"nichos");
   setup(document.getElementById("g-tabla"),"gastos");
   setup(document.getElementById("n-tabla"),"gananciames");
+  setup(document.getElementById("cal-tabla"),"calpedidos");
   setup(document.getElementById("a-tmes"),"admmes");
   setup(document.getElementById("a-tplat"),"admplat");
   var cb=document.getElementById("c-body");if(cb)setup(cb.closest("table"),"crm");
@@ -2017,7 +2056,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var h1='<div class="crow"><span>Entregas por día</span><span></span><b class="m">'+f2(ent1)+'</b><span></span></div>'+
       '<div class="crow"><span>Ganancia por entrega</span><span></span><b class="m '+(u1>=0?"tv":"tr_")+'">'+m(u1)+'</b><span></span></div>'+
       '<div class="crow"><span>Ganancia por día</span><span></span><b class="m '+(gd>=0?"tv":"tr_")+'">'+m(gd)+'</b><span></span></div>'+
-      '<div class="crow"><span>Ganancia por mes <span class="sub">(30 días)</span></span><span></span><b class="m '+(gd>=0?"tv":"tr_")+'">'+m(gd*30)+'</b><span></span></div>'+
+      '<div class="crow"><span>Utilidad neta <span class="sub">(30 días)</span></span><span></span><b class="m '+(gd>=0?"tv":"tr_")+'">'+m(gd*30)+'</b><span></span></div>'+
       '<div class="crow"><span>Venta por mes</span><span></span><b class="m">'+m(ent1*sell*30)+'</b><span></span></div>'+
       '<div class="crow"><span>Pauta por día <span class="sub">(pedidos × CPA)</span></span><span></span><b class="m">'+m(pd*cpaO)+'</b><span></span></div>'+
       '<p class="foot" style="margin:6px 0 0">Con precio '+m(sell)+', '+f0(pd)+' pedidos al día y '+p1+'% de entrega. '+(u1<0?"Con este precio y esa entrega pierdes en cada pedido entregado.":"")+'</p>';
@@ -2131,3 +2170,75 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(function(){render();fill();renderSaved()});if(window.ecGastos)window.ecGastos.onChange(function(){render();fill()});pick()},0);
 })();
 </script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var NM={e:["Entregado","var(--verde)"],d:["Devuelto","var(--rojo)"],c:["Cancelado","var(--gris)"],i:["Incidencia","#e08a00"],p:["En proceso","var(--azul)"]},KS=["e","d","c","i","p"];
+  var MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],DIA=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+  var S={m:"dia",mes:null};try{var sv=JSON.parse(localStorage.getItem("ec_cal")||"null");if(sv&&sv.m)S.m=sv.m}catch(e){}
+  function grp(s){return s==="E"?"e":s==="D"?"d":s==="C"?"c":(s==="I"||s==="J")?"i":"p"}
+  function dt(d){return new Date(d+"T00:00:00Z")}
+  function iso(x){return x.toISOString().slice(0,10)}
+  function lunes(d){var x=dt(d);x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return iso(x)}
+  function sumar(d,n){var x=dt(d);x.setUTCDate(x.getUTCDate()+n);return iso(x)}
+  function agg(fn){var M={};(window.__ORD||[]).forEach(function(o){if(!o.d)return;var k=fn(o.d),r=M[k]||(M[k]={e:0,d:0,c:0,i:0,p:0,t:0});r[grp(o.s)]++;r.t++});return M}
+  function ef(r){var z=r.e+r.d;return z?Math.round(r.e/z*100)+"%":"–"}
+  function tot(rs){return rs.reduce(function(a,r){KS.concat("t").forEach(function(k){a[k]=(a[k]||0)+r[k]});return a},{e:0,d:0,c:0,i:0,p:0,t:0})}
+  function f0(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")}
+  function etSem(k){var a=dt(k),b=dt(sumar(k,6));return a.getUTCDate()+" "+MES[a.getUTCMonth()].slice(0,3)+" – "+b.getUTCDate()+" "+MES[b.getUTCMonth()].slice(0,3)}
+  function chart(items,small){
+    var mx=Math.max.apply(null,items.map(function(x){return x.r.t}).concat([1]));
+    $("cal-graf").innerHTML='<div class="cal-cols">'+items.map(function(x){
+      var tip=x.tip+": "+x.r.t+" pedidos · "+x.r.e+" entregados · "+x.r.d+" devueltos";
+      return '<div class="c" title="'+tip+'"><div class="s" style="height:'+(x.r.t/mx*100)+'%">'+KS.map(function(k){return x.r[k]?'<i style="display:block;background:'+NM[k][1]+';height:'+(x.r[k]/x.r.t*100)+'%"></i>':""}).join("")+'</div></div>'}).join("")+'</div>'+
+      '<div class="cal-lab">'+items.map(function(x,i){return '<span>'+(small&&items.length>16&&i%(innerWidth<=520?4:2)?"":x.lab)+'</span>'}).join("")+'</div>'}
+  function render(){
+    if(!$("cal-box"))return;var ORD=window.__ORD||[];
+    $("cal-modo").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===S.m)});
+    $("cal-leg").innerHTML=KS.map(function(k){return '<span><i style="background:'+NM[k][1]+'"></i>'+NM[k][0]+'</span>'}).join("");
+    if(!ORD.length){$("cal-body").innerHTML='<tr><td colspan="8">Aún no hay pedidos cargados.</td></tr>';return}
+    var rows=[],items=[],tit="",th="Día",hoy=iso(new Date());
+    var days=agg(function(d){return d}),all=Object.keys(days).sort(),maxM=all[all.length-1].slice(0,7),minM=all[0].slice(0,7);
+    if(!S.mes||S.mes>maxM||S.mes<minM)S.mes=maxM;
+    $("cal-nav").style.display=S.m==="dia"?"":"none";
+    if(S.m==="dia"){
+      var y=+S.mes.slice(0,4),mo=+S.mes.slice(5,7)-1,n=new Date(Date.UTC(y,mo+1,0)).getUTCDate();
+      tit=MES[mo]+" "+y;th="Día";
+      for(var d=1;d<=n;d++){var k=S.mes+"-"+(d<10?"0":"")+d,r=days[k]||{e:0,d:0,c:0,i:0,p:0,t:0};rows.push({k:k,lab:d+" de "+MES[mo],r:r});items.push({r:r,lab:String(d),tip:d+" de "+MES[mo]})}
+      var first=(dt(S.mes+"-01").getUTCDay()+6)%7,g='<div class="cal-grid">'+DIA.map(function(x){return '<div class="h">'+x+'</div>'}).join("");
+      for(var i=0;i<first;i++)g+='<div class="cal-d o"></div>';
+      rows.forEach(function(x,i){var r=x.r;g+='<div class="cal-d'+(x.k===hoy?" hoy":"")+'"><span class="n">'+(i+1)+'</span>'+(r.t?'<span class="t">'+r.t+'</span><span class="p">'+(r.e?'<span style="color:var(--verde)">'+r.e+'E</span>':"")+(r.d?'<span style="color:var(--rojo)">'+r.d+'D</span>':"")+(r.c?'<span style="color:var(--gris)">'+r.c+'C</span>':"")+(r.i+r.p?'<span style="color:var(--azul)">'+(r.i+r.p)+'P</span>':"")+'</span>':"")+'</div>'});
+      $("cal-grid-w").innerHTML=g+'</div><p class="sub" style="margin:6px 0 0">E entregados · D devueltos · C cancelados · P en proceso o con incidencia</p>';
+      $("cal-prev").disabled=S.mes<=minM;$("cal-next").disabled=S.mes>=maxM;
+      rows=rows.filter(function(x){return x.r.t}).reverse();
+    }else{
+      $("cal-grid-w").innerHTML="";
+      if(S.m==="semana"){
+        var W=agg(lunes),ks=Object.keys(W).sort().slice(-16);th="Semana";tit="Últimas "+ks.length+" semanas";
+        ks.forEach(function(k){items.push({r:W[k],lab:dt(k).getUTCDate()+"/"+(dt(k).getUTCMonth()+1),tip:"Semana "+etSem(k)});});
+        rows=ks.slice().reverse().map(function(k){return{k:k,lab:etSem(k),r:W[k]}});
+      }else{
+        var Mm=agg(function(d){return d.slice(0,7)}),km=Object.keys(Mm).sort();th="Mes";tit="Todos los meses";
+        km.forEach(function(k){var m=+k.slice(5,7)-1;items.push({r:Mm[k],lab:MES[m].slice(0,3),tip:MES[m]+" "+k.slice(0,4)})});
+        rows=km.slice().reverse().map(function(k){var m=+k.slice(5,7)-1;return{k:k,lab:MES[m]+" "+k.slice(0,4),r:Mm[k]}});
+      }
+    }
+    $("cal-tit").textContent=S.m==="dia"?tit:"";$("cal-th").textContent=th;
+    var T=tot(S.m==="dia"?items.map(function(x){return x.r}):rows.map(function(x){return x.r}));
+    $("cal-kpis").innerHTML='<div class="card kpi"><h3>Pedidos</h3><div class="big">'+f0(T.t)+'</div><div class="sub">'+(S.m==="dia"?tit:S.m==="semana"?tit:"desde el inicio")+'</div></div>'+
+      '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+f0(T.e)+'</div><div class="sub">'+(T.t?Math.round(T.e/T.t*100):0)+'% del total</div></div>'+
+      '<div class="card kpi"><h3>Devueltos</h3><div class="big tr_">'+f0(T.d)+'</div><div class="sub">'+(T.t?Math.round(T.d/T.t*100):0)+'% del total</div></div>'+
+      '<div class="card kpi"><h3>% de entrega</h3><div class="big">'+ef(T)+'</div><div class="sub">entregados ÷ (entregados + devueltos)</div></div>';
+    chart(items,true);
+    $("cal-body").innerHTML=rows.length?rows.map(function(x){var r=x.r;return '<tr><td><b>'+x.lab+'</b></td><td class="num">'+r.t+'</td><td class="num npos">'+r.e+'</td><td class="num nneg">'+r.d+'</td><td class="num">'+r.c+'</td><td class="num">'+r.i+'</td><td class="num">'+r.p+'</td><td class="num">'+ef(r)+'</td></tr>'}).join(""):'<tr><td colspan="8">Sin pedidos en este mes.</td></tr>';
+    $("cal-foot").innerHTML='<td>Total</td><td class="num">'+T.t+'</td><td class="num npos">'+T.e+'</td><td class="num nneg">'+T.d+'</td><td class="num">'+T.c+'</td><td class="num">'+T.i+'</td><td class="num">'+T.p+'</td><td class="num">'+ef(T)+'</td>';
+  }
+  function sv2(){try{localStorage.setItem("ec_cal",JSON.stringify({m:S.m}))}catch(e){}}
+  $("cal-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;sv2();render()});
+  function mover(n){var y=+S.mes.slice(0,4),m=+S.mes.slice(5,7)-1+n,x=new Date(Date.UTC(y,m,1));S.mes=x.getUTCFullYear()+"-"+("0"+(x.getUTCMonth()+1)).slice(-2);render()}
+  $("cal-prev").addEventListener("click",function(){mover(-1)});$("cal-next").addEventListener("click",function(){mover(1)});
+  document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="gan"]'))setTimeout(render,0)});
+  window.ecCalRender=render;render();
+})();
+</script>
+
