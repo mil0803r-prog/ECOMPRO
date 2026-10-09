@@ -410,6 +410,25 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .aif button{font:inherit;font-weight:700;font-size:.85rem;color:#04202c;background:linear-gradient(135deg,var(--cel2),var(--cel));border:0;border-radius:10px;padding:0 14px;cursor:pointer}
 .aif button:disabled{opacity:.5;cursor:default}
 @media(max-width:520px){.aip{right:8px;left:8px;width:auto;bottom:max(72px,calc(env(safe-area-inset-bottom) + 64px));height:calc(100vh - 100px)}.aibtn span{display:none}.aibtn{padding:13px}}
+
+/* Calculadora de precios */
+.ccols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start}
+@media(max-width:899px){.ccols{grid-template-columns:1fr}}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:6px 14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.crow b.m{font-variant-numeric:tabular-nums;font-size:1rem}
+.crow .p{font-size:.72rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--amar);min-width:62px;text-align:right}.crow .ct{font-size:.72rem;font-weight:700;color:var(--verde);min-width:62px;text-align:right}
+.cbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--gris-bg);margin:12px 0 6px}.cbar i{display:block;height:100%}
+.cleg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}.cleg span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--cc)}
+.ctot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;font-size:1rem}
+.cslide{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:5px;background:linear-gradient(90deg,#d33a2c,#e9b73a 50%,#1f9d55);outline:none;margin:10px 0 2px}
+.cslide::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--card);border:3px solid var(--fg);cursor:pointer}.cslide::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--card);border:3px solid var(--fg);cursor:pointer}
+.cscale{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);font-weight:700}
+.cver{border-radius:10px;padding:10px 14px;font-weight:700;font-size:.9rem;text-align:center}
+.cver.v{background:var(--verde-bg);color:var(--verde)}.cver.a{background:var(--amar-bg);color:var(--amar)}.cver.r{background:var(--rojo-bg);color:var(--rojo)}
+.cprice{border:1px solid var(--verde);border-radius:12px;padding:14px 16px;background:color-mix(in srgb,var(--verde) 8%,var(--card))}
+.cprice .big{font-size:clamp(2rem,6vw,2.8rem);color:var(--verde)}
+.ceq{font-size:.82rem;color:var(--muted)}.ceq b{color:var(--fg)}
+.cesc{width:100%;border-collapse:collapse;font-size:.85rem}.cesc th,.cesc td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line)}.cesc th:first-child,.cesc td:first-child{text-align:left}
 </style>
 
 <div class="wrap">
@@ -781,6 +800,42 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         <thead><tr><th>Fecha</th><th>Producto investigado</th><th>Estado de testeo</th><th class="num">Precio público</th><th class="num">Competidores</th><th>Enlaces</th><th>Avance</th><th></th></tr></thead>
         <tbody id="v-body"></tbody>
       </table></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-cal" hidden>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:flex-end">
+      <div><h2 style="margin:0">Calculadora de precios</h2><span class="sub">Pon los costos de un producto y te digo a cuánto venderlo para ganar lo que quieres, con devoluciones y publicidad incluidas.</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="c-real">Usar mis datos reales</button><button class="btn" type="button" id="c-reset">Limpiar</button></div>
+    </div>
+    <p class="sub" id="c-msg" role="status" style="margin:0"></p>
+    <div class="ccols">
+      <div class="card vbox">
+        <h3>Producto</h3>
+        <div class="fld"><label for="c-pick">Traer desde la caza diaria</label><select id="c-pick"></select></div>
+        <div class="fld"><label for="c-nom">Nombre del producto</label><input id="c-nom" maxlength="120" placeholder="Ej.: Crema Apolo x 2"></div>
+        <div class="frow">
+          <div class="fld"><label for="c-uni">Unidades por pack</label><input id="c-uni" type="number" min="1" step="1" inputmode="numeric"></div>
+          <div class="fld"><label for="c-mon">Moneda</label><select id="c-mon"><option value="GTQ">Q Quetzal · Guatemala</option><option value="PEN">S/ Sol · Perú</option><option value="USD">$ Dólar</option></select></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="c-cos">Costo por unidad (proveedor)</label><input id="c-cos" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="c-fle">Flete base (ida)</label><input id="c-fle" type="number" min="0" step="0.01" inputmode="decimal"></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="c-ed">% entrega despacho</label><input id="c-ed" type="number" min="1" max="100" step="1" inputmode="decimal"><span class="sub">entregados ÷ enviados (para el flete de devolución)</span></div>
+          <div class="fld"><label for="c-ef">% entrega final</label><input id="c-ef" type="number" min="1" max="100" step="1" inputmode="decimal"><span class="sub">entregados ÷ pedidos confirmados (para la pauta)</span></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="c-cpa">CPA de anuncios (por pedido)</label><input id="c-cpa" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="c-adm">Costo administrativo (por venta)</label><input id="c-adm" type="number" min="0" step="0.01" inputmode="decimal"></div>
+        </div>
+        <div class="frow">
+          <div class="fld"><label for="c-ful">Fulfillment / empaque (por venta)</label><input id="c-ful" type="number" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="fld"><label for="c-mar">Utilidad deseada (% del precio)</label><input id="c-mar" type="number" min="0" max="90" step="1" inputmode="decimal"></div>
+        </div>
+      </div>
+      <div class="card vbox" id="c-out"><div id="c-a"></div><div id="c-sw"><div class="sub" style="margin-top:2px">Semáforo de rentabilidad · arrastra para ajustar tu utilidad deseada</div><input class="cslide" id="c-sl" type="range" min="0" max="40" step="1" value="20" aria-label="Utilidad deseada"><div class="cscale"><span>0%</span><span>10%</span><span>20%</span><span>30%</span><span>40%+</span></div></div><div id="c-b"></div></div>
     </div>
   </section>
 
@@ -1713,7 +1768,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"]],fin:[["gan","Ganancia por mes"],["adm","Costo administrativo"],["gas","Gastos de plataforma"]]};
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora de precios"]],fin:[["gan","Ganancia por mes"],["adm","Costo administrativo"],["gas","Gastos de plataforma"]]};
   var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan"};
   function show(g,pane){
     cur[g]=pane;
@@ -1849,5 +1904,78 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   $("ai-msgs").addEventListener("click",function(e){var b=e.target.closest(".aisg button");if(b)ask(b.textContent)});
   window.ecAiContext=contexto;
   draw();
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var SYM={GTQ:"Q",PEN:"S/",USD:"$"},KEY="ec_calc";
+  var DEF={nom:"",uni:1,mon:"GTQ",cos:"",fle:68,ed:62,ef:62,cpa:"",adm:0,ful:0,mar:20};
+  var S=Object.assign({},DEF);
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
+  var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar"];
+  function n(v){v=parseFloat(v);return isFinite(v)?v:0}
+  function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function f0(x){return Number(x).toLocaleString("es",{maximumFractionDigits:0})}
+  function m(x){return (SYM[S.mon]||"")+" "+f2(x)}
+  function pct(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
+  function eq(x){
+    var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,R={USD:0.130952};
+    var gtq=S.mon==="GTQ"?x:S.mon==="PEN"?x/rt:x/R.USD;
+    return {gtq:gtq,pen:gtq*rt}}
+  function calc(u){
+    var ed=Math.max(.01,n(S.ed)/100),ef=Math.max(.01,n(S.ef)/100),mr=Math.min(.9,n(S.mar)/100);
+    var c=n(S.cos)*u,fl=n(S.fle)/ed,cp=n(S.cpa)/ef,ad=n(S.adm),fu=n(S.ful);
+    var ct=c+fl+cp+ad+fu,pv=ct/(1-mr);
+    return{c:c,fl:fl,cp:cp,ad:ad,fu:fu,ct:ct,pv:pv,ut:pv-ct,mr:mr}}
+  function ver(mr){return mr>=0.2?["v","Óptimo: margen saludable para escalar"]:mr>=0.1?["a","Ajustado: deja poco colchón si suben los anuncios o las devoluciones"]:["r","Riesgo: con este margen una mala semana te hace perder dinero"]}
+  function row(l,sub,v,pv,ct,col){return '<div class="crow"><span>'+l+(sub?' <span class="sub">'+sub+'</span>':'')+'</span><span class="p">'+pct(v,pv)+' PV</span><b class="m">'+m(v)+'</b><span class="ct">'+pct(v,ct)+' CT</span></div>'}
+  function render(){
+    var r=calc(Math.max(1,n(S.uni)||1)),v=ver(r.mr),e=eq(r.pv),sell=Math.ceil(r.pv/10)*10-1;if(sell<r.pv)sell+=10;
+    var ut9=sell-r.ct,mr9=sell?ut9/sell:0;
+    var seg=[["Proveedor",r.c,"#e9b73a"],["Flete c/dev",r.fl,"#d33a2c"],["CPA",r.cp,"#ff9f43"],["Admin",r.ad,"#8a95a0"],["Fulfillment",r.fu,"#5c6b78"],["Utilidad",r.ut,"#1f9d55"]];
+    var esc=[1,2,3].map(function(u){var q=calc(u),p=Math.ceil(q.pv/10)*10-1;if(p<q.pv)p+=10;var ut=p-q.ct;return '<tr><td>x'+u+'</td><td>'+m(q.ct)+'</td><td><b>'+m(p)+'</b></td><td>'+m(ut)+'</td><td>'+pct(ut,p)+'</td></tr>'}).join("");
+    $("c-a").innerHTML=
+      '<h3>Resultados del análisis</h3>'+
+      row("Proveedor",'x'+(S.uni||1),r.c,r.pv,r.ct)+row("Flete con devoluciones","÷ "+n(S.ed)+"% entrega",r.fl,r.pv,r.ct)+row("CPA costeado","÷ "+n(S.ef)+"% entrega final",r.cp,r.pv,r.ct)+row("Costo administrativo","",r.ad,r.pv,r.ct)+row("Fulfillment","",r.fu,r.pv,r.ct)+
+      '<div class="cbar">'+seg.map(function(s){return '<i title="'+s[0]+'" style="width:'+(r.pv?Math.max(0,s[1])/r.pv*100:0)+'%;background:'+s[2]+'"></i>'}).join("")+'</div>'+
+      '<div class="cleg">'+seg.map(function(s){return '<span style="--cc:'+s[2]+'">'+s[0]+'</span>'}).join("")+'</div>'+
+      '<div class="ctot" style="margin-top:12px"><b>Costos totales</b><span><span class="sub">'+pct(r.ct,r.pv)+' del precio</span> &nbsp;<b>'+m(r.ct)+'</b></span></div>'+
+      '<div class="ctot"><b>Utilidad ('+(r.mr*100).toFixed(0)+'%)</b><b class="tv">'+m(r.ut)+'</b></div>';
+    $("c-b").innerHTML=
+      '<div class="cver '+v[0]+'" style="margin-top:8px">'+v[1]+'</div>'+
+      '<div class="cprice" style="margin-top:6px"><div class="sub" style="font-weight:700;letter-spacing:.08em;text-transform:uppercase">Precio de venta recomendado</div><div class="big">'+m(r.pv)+'</div>'+
+        '<div class="ceq">Equivale a <b>Q '+f2(e.gtq)+'</b> · <b>S/ '+f2(e.pen)+'</b></div>'+
+        '<div class="ceq" style="margin-top:4px">Redondeado para publicar: <b>'+m(sell)+'</b> → ganas <b>'+m(ut9)+'</b> ('+(mr9*100).toFixed(0)+'%). Precio tachado (comparación x2): <b>'+m(sell*2)+'</b>. Para no perder: <b>'+m(r.ct)+'</b>.</div></div>'+
+      '<h3 style="margin-top:12px">Escalera de precios por cantidad</h3><table class="cesc"><thead><tr><th>Pack</th><th>Costo total</th><th>Precio</th><th>Ganas</th><th>Margen</th></tr></thead><tbody>'+esc+'</tbody></table>'+
+      '<p class="foot" style="margin:6px 0 0">Con el flete de '+m(n(S.fle))+' y '+n(S.ed)+'% de entrega, cada pedido entregado carga '+m(r.fl)+' de flete (incluye los que vuelven). Los costos del proveedor solo se pagan cuando se entrega. Cambia los números a la izquierda y se recalcula al instante.</p>';
+    var sl=$("c-sl");if(+sl.value!==Math.min(40,Math.round(r.mr*100))&&document.activeElement!==sl)sl.value=Math.min(40,Math.round(r.mr*100));
+  }
+  function sv(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+  function fill(){F.forEach(function(k){var e=$("c-"+k);if(e&&document.activeElement!==e)e.value=S[k]})}
+  function msg(t){$("c-msg").textContent=t;if(t)setTimeout(function(){if($("c-msg").textContent===t)$("c-msg").textContent=""},6000)}
+  function pick(){
+    var E=window.__EC2?window.__EC2():{W:[]},W=(E.W||[]).filter(function(w){return w.costo}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(a.rank||9)-(b.rank||9)}).slice(0,40);
+    $("c-pick").innerHTML='<option value="">Elegir producto (opcional)</option>'+W.map(function(w){return '<option value="'+w.id+'">'+w.date+' · #'+w.rank+' · '+String(w.name).replace(/</g,"")+'</option>'}).join("");
+    window.__calcW=W}
+  function real(){
+    var A=window.ecGan,G=window.ecGastos,E=window.__EC2?window.__EC2():{PAR:{}},ORD=window.__ORD||[],o={},notes=[];
+    var e=0,d=0;ORD.forEach(function(x){if(x.s==="E")e++;else if(x.s==="D"||x.s==="I"||x.s==="J")d++});
+    if(e+d){var r=Math.round(e/(e+d)*100);S.ed=r;S.ef=r;notes.push("entrega "+r+"%")}
+    S.fle=(E.PAR&&E.PAR.flete)||S.fle;notes.push("flete "+S.fle);
+    if(A&&G){var f=0,ent=0;A.MG.forEach(function(x){ent+=x[2];G.get().forEach(function(g){f+=A.costo(g,x[0],x[2])})});if(ent){S.adm=Math.round(f/ent*100)/100;notes.push("administrativo "+S.adm+" por pedido entregado")}
+      var P={meta:0,tt:0};((window.__C)||[]).forEach(function(c){(c.rows||[]).forEach(function(x){P.meta+=x[2]})});((window.__TT)||[]).forEach(function(a){if(a.data)a.data.rows.forEach(function(x){if(x[0]>="2026-01")P.tt+=x[2]})});
+      var rate=window.ecFx&&window.ecFx.st?window.ecFx.st.rate:0.4504,pg=(P.meta+P.tt)/rate;
+      if(pg&&ORD.length){S.cpa=Math.round(pg/ORD.length*100)/100;notes.push("CPA "+S.cpa+" (pauta total ÷ "+ORD.length+" pedidos)")}}
+    S.mon="GTQ";sv();fill();render();msg("Usé tus datos reales: "+notes.join(", ")+". Cámbialos si quieres.")}
+  $("c-sl").addEventListener("input",function(){S.mar=+this.value;$("c-mar").value=S.mar;sv();render()});
+  F.forEach(function(k){var e=$("c-"+k);if(!e)return;e.addEventListener("input",function(){S[k]=e.type==="number"?e.value:e.value;sv();render()});e.addEventListener("change",function(){S[k]=e.value;sv();render()})});
+  $("c-pick").addEventListener("change",function(){var w=(window.__calcW||[]).filter(function(x){return x.id===$("c-pick").value})[0];if(!w)return;
+    S.nom=w.name;S.cos=w.costo;S.uni=(w.oferta&&w.oferta.u)||1;S.mon="GTQ";sv();fill();render();msg("Traje "+w.name+" con costo "+w.costo+" por unidad.")});
+  $("c-real").addEventListener("click",real);
+  $("c-reset").addEventListener("click",function(){S=Object.assign({},DEF);sv();fill();render();msg("")});
+  document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="cal"]')){pick();fill();render()}});
+  pick();fill();render();
+  setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(render);pick()},0);
 })();
 </script>
