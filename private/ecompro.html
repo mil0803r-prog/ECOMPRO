@@ -519,7 +519,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     </div>
     <div class="grid g4">
       <div class="card kpi"><h3>Tasa de entrega</h3><div class="big tr_">62%</div><div class="sub">232 llegaron, 144 volvieron</div></div>
-      <div class="card kpi"><h3>Ganancia según Lumy</h3><div class="big">23.591</div><div class="sub">margen 51% · ver pestaña Dinero</div></div>
+      <div class="card kpi"><h3>Ganancia según Lumy</h3><div class="big">23.591</div><div class="sub">margen 51% · sin restar devoluciones · ver Dinero</div></div>
       <div class="card kpi"><h3>Conversión landings</h3><div class="big tr_">0,2%</div><div class="sub">19 pedidos en 7.819 visitas (30 días)</div></div>
       <div class="card kpi"><h3>Chats esperando</h3><div class="big ta">12</div><div class="sub">de 33 conversaciones abiertas</div></div>
     </div>
@@ -627,15 +627,16 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <div class="card kpi"><h3>Flete · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="15676">15.676</span></div><div class="sub">34% de la venta</div></div>
       <div class="card kpi"><h3>Perdido en devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" data-q="30096">30.096</span></div><div class="sub">venta de 144 pedidos</div></div>
     </div>
-    <div class="grid g2">
+    <div class="grid g3">
       <div class="card"><h3>Ganancia según Lumy · <span class="mc">GTQ</span></h3><div class="big tv"><span class="mq" data-q="23591">23.591</span></div><div class="sub">margen de 51,4%. Es lo que Lumy marca como "por cobrar".</div></div>
-      <div class="card"><h3>Cálculo simple · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="16037">16.037</span></div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
+      <div class="card"><h3>Cálculo simple · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" id="din-cs-base" data-q="16037">16.037</span></div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
+      <div class="card"><h3>Cálculo simple con devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" id="din-cs" data-q="0">0</span></div><div class="sub" id="din-cs-s">cálculo simple menos el flete de regreso</div></div>
     </div>
     <div class="warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de <span class="mq" data-q="7554">7.554</span> <span class="mc">GTQ</span>. Además, Lumy muestra 0 de flete de devoluciones aunque hay 144 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata <span class="mq" data-q="23591">23.591</span> <span class="mc">GTQ</span> como un techo y no como la ganancia real. Con 144 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
     <div class="grid g3">
       <div class="card"><h3>Por cobrar · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="23591">23.591</span></div><div class="sub">cartera de Lumy</div></div>
       <div class="card"><h3>Ya abonado · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="0">0</span></div><div class="sub">sin cartera sincronizada</div></div>
-      <div class="card"><h3>Devoluciones por descontar · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="0">0</span></div><div class="sub">144 pedidos, valor no disponible</div></div>
+      <div class="card"><h3>Flete de devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" id="din-dv" data-q="0">0</span></div><div class="sub" id="din-dv-s">estimado</div></div>
     </div>
   </section>
 
@@ -934,13 +935,14 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <label class="chk"><input type="checkbox" id="n-pauta" checked> Restar pauta (Meta + TikTok)</label>
       <label class="chk"><input type="checkbox" id="n-fijos" checked> Restar gastos fijos</label>
       <label class="chk"><input type="checkbox" id="n-vars" checked> Restar gastos variables</label>
+      <label class="chk"><input type="checkbox" id="n-devs" checked> Restar devoluciones (flete de regreso)</label>
       <div class="fld" style="flex:0 1 250px"><label for="n-vmod">Gastos variables se cuentan</label><select id="n-vmod"><option value="una">Una vez, en su mes de inicio</option><option value="mes">Cada mes desde su inicio</option><option value="venta">Por cada pedido entregado</option></select></div>
       <div class="fld" style="flex:0 1 260px"><label for="n-base">Ganancia base</label><select id="n-base"><option value="lumy">Según Lumy (techo)</option><option value="simple">Cálculo simple (venta − costo − flete)</option></select></div>
     </div>
     <div class="grid g4" id="n-kpis"></div>
     <div class="card" id="n-graf"></div>
     <div class="tbl"><table id="n-tabla" style="min-width:1000px">
-      <thead><tr><th>Mes</th><th class="num">Entregados</th><th class="num">Venta entregada</th><th class="num">Ganancia base</th><th class="num">Pauta Meta</th><th class="num">Pauta TikTok</th><th class="num">Gastos fijos</th><th class="num">Gastos variables</th><th class="num">Ganancia neta</th><th class="num">Margen</th></tr></thead>
+      <thead><tr><th>Mes</th><th class="num">Entregados</th><th class="num">Venta entregada</th><th class="num">Ganancia base</th><th class="num">Pauta Meta</th><th class="num">Pauta TikTok</th><th class="num">Gastos fijos</th><th class="num">Gastos variables</th><th class="num">Devoluciones</th><th class="num">Ganancia neta</th><th class="num">Margen</th></tr></thead>
       <tbody id="n-body"></tbody><tfoot><tr id="n-foot"></tr></tfoot>
     </table></div>
     <p class="foot" id="n-pie"></p>
@@ -1118,7 +1120,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 (function(){
   var $=function(i){return document.getElementById(i)};
   var MG=[["2026-04","Abril",27,5535,1705,1595,2868],["2026-05","Mayo",20,3752,1100,1516,1960],["2026-06","Junio",39,7791,2365,2865,4047],["2026-07","Julio",82,16239,4895,4857,8487],["2026-08","Agosto",3,579,163,245,311],["2026-09","Septiembre",51,10065,3340,3495,4948],["2026-10","Octubre 1-9",10,1930,610,1102,970]];
-  var st={pauta:true,fijos:true,vars:true,base:"lumy",vmod:"una"};
+  var st={pauta:true,fijos:true,vars:true,devs:true,base:"lumy",vmod:"una"};
   try{var s=JSON.parse(localStorage.getItem("ec_gan")||"null");if(s)st=Object.assign(st,s)}catch(e){}
   function f0(n){return Math.round(n).toLocaleString("es")}
   function rate(){var fx=window.ecFx;return fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504}
@@ -1140,30 +1142,35 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     var g=window.ecGastos,f=0,v=0;if(!g)return{f:0,v:0};
     g.get().forEach(function(x){var c=costo(x,mes,ent);if(x.tipo==="variable")v+=c;else f+=c});
     return{f:f,v:v}}
+  function devs(mes){return (window.__ORD||[]).filter(function(o){return o.s==="D"&&o.d&&o.d.slice(0,7)===mes}).length}
+  function FL(){var E=window.__EC2?window.__EC2():null;return (E&&E.PAR&&E.PAR.flete)||68}
   function render(){
     var P=pauta(),rows=MG.map(function(r){
       var ent=r[2],venta=r[3],base=st.base==="lumy"?r[6]:venta-r[4]-r[5];
-      var pm=(P[r[0]]||{meta:0}).meta/rate(),pt=(P[r[0]]||{tt:0}).tt/rate(),gs=gastos(r[0],ent);
-      var neto=base-(st.pauta?pm+pt:0)-(st.fijos?gs.f:0)-(st.vars?gs.v:0);
-      return{mes:r[1],ent:ent,venta:venta,base:base,pm:pm,pt:pt,f:gs.f,v:gs.v,neto:neto,mg:venta?neto/venta*100:null}});
-    var T=rows.reduce(function(a,r){["ent","venta","base","pm","pt","f","v","neto"].forEach(function(k){a[k]=(a[k]||0)+r[k]});return a},{});
+      var pm=(P[r[0]]||{meta:0}).meta/rate(),pt=(P[r[0]]||{tt:0}).tt/rate(),gs=gastos(r[0],ent),nd=devs(r[0]),dv=nd*FL();
+      var neto=base-(st.pauta?pm+pt:0)-(st.fijos?gs.f:0)-(st.vars?gs.v:0)-(st.devs?dv:0);
+      return{mes:r[1],ent:ent,venta:venta,base:base,pm:pm,pt:pt,f:gs.f,v:gs.v,nd:nd,dv:dv,neto:neto,mg:venta?neto/venta*100:null}});
+    var T=rows.reduce(function(a,r){["ent","venta","base","pm","pt","f","v","nd","dv","neto"].forEach(function(k){a[k]=(a[k]||0)+r[k]});return a},{});
     var mejor=rows.slice().sort(function(a,b){return b.neto-a.neto})[0];
     $("n-kpis").innerHTML=
       '<div class="card kpi"><h3>Ganancia base</h3><div class="big">'+mq(T.base)+'</div><div class="sub">'+(st.base==="lumy"?"según Lumy":"venta − costo − flete")+' · <span class="mc">GTQ</span></div></div>'+
-      '<div class="card kpi"><h3>Se resta</h3><div class="big ta">'+mq((st.pauta?T.pm+T.pt:0)+(st.fijos?T.f:0)+(st.vars?T.v:0))+'</div><div class="sub">pauta + gastos marcados · <span class="mc">GTQ</span></div></div>'+
+      '<div class="card kpi"><h3>Se resta</h3><div class="big ta">'+mq((st.pauta?T.pm+T.pt:0)+(st.fijos?T.f:0)+(st.vars?T.v:0)+(st.devs?T.dv:0))+'</div><div class="sub">pauta + gastos + devoluciones marcados · <span class="mc">GTQ</span></div></div>'+
       '<div class="card kpi"><h3>Ganancia neta</h3><div class="big '+(T.neto>=0?"tv":"tr_")+'">'+mq(T.neto)+'</div><div class="sub">de abril a hoy · <span class="mc">GTQ</span></div></div>'+
       '<div class="card kpi"><h3>Mejor mes</h3><div class="big">'+(mejor?mejor.mes.split(" ")[0]:"–")+'</div><div class="sub">'+(mejor?mq(mejor.neto)+' <span class="mc">GTQ</span> netos':"")+'</div></div>';
     var mx=Math.max.apply(null,rows.map(function(r){return Math.abs(r.neto)}).concat([1]));
     $("n-graf").innerHTML='<h3>Ganancia neta por mes</h3><div class="nbars">'+rows.map(function(r){var w=Math.abs(r.neto)/mx*50;return '<div class="r"><span>'+r.mes.split(" ")[0]+'</span><div class="t"><u style="left:50%"></u><i style="'+(r.neto>=0?'left:50%;background:var(--verde)':'right:50%;background:var(--rojo)')+';width:'+w+'%"></i></div><b class="'+(r.neto>=0?"npos":"nneg")+'" style="text-align:right">'+mq(r.neto)+'</b></div>'}).join("")+'</div>';
-    $("n-body").innerHTML=rows.map(function(r){return '<tr><td><b>'+r.mes+'</b></td><td class="num">'+r.ent+'</td><td class="num">'+mq(r.venta)+'</td><td class="num">'+mq(r.base)+'</td><td class="num">'+(st.pauta?'−'+mq(r.pm):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.pauta?'−'+mq(r.pt):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.fijos?'−'+mq(r.f):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.vars?'−'+mq(r.v):'<span class="sub">no resta</span>')+'</td><td class="num '+(r.neto>=0?"npos":"nneg")+'"><b>'+mq(r.neto)+'</b></td><td class="num">'+(r.mg==null?"–":r.mg.toFixed(0)+"%")+'</td></tr>'}).join("");
-    $("n-foot").innerHTML='<td>Total</td><td class="num">'+T.ent+'</td><td class="num">'+mq(T.venta)+'</td><td class="num">'+mq(T.base)+'</td><td class="num">'+(st.pauta?'−':'')+mq(T.pm)+'</td><td class="num">'+(st.pauta?'−':'')+mq(T.pt)+'</td><td class="num">'+(st.fijos?'−':'')+mq(T.f)+'</td><td class="num">'+(st.vars?'−':'')+mq(T.v)+'</td><td class="num '+(T.neto>=0?"npos":"nneg")+'">'+mq(T.neto)+'</td><td class="num">'+(T.venta?(T.neto/T.venta*100).toFixed(0)+"%":"–")+'</td>';
-    $("n-pie").textContent="Montos en "+(window.ecFx&&window.ecFx.st.on?"soles (S/)":"quetzales (Q)")+" con el interruptor Q / S/. La pauta de Meta y TikTok viene en soles y se pasa a quetzales con el tipo de cambio. Los gastos variables se cuentan según la opción que elijas arriba (por defecto, una vez en el mes en que empiezan). Falta la cuenta GUATEMALA 2 (en quetzales), que Meta no deja consultar. Los gastos fijos se reparten por mes desde su fecha de inicio; los anuales entran en 12 partes.";
+    $("n-body").innerHTML=rows.map(function(r){return '<tr><td><b>'+r.mes+'</b></td><td class="num">'+r.ent+'</td><td class="num">'+mq(r.venta)+'</td><td class="num">'+mq(r.base)+'</td><td class="num">'+(st.pauta?'−'+mq(r.pm):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.pauta?'−'+mq(r.pt):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.fijos?'−'+mq(r.f):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.vars?'−'+mq(r.v):'<span class="sub">no resta</span>')+'</td><td class="num">'+(st.devs?'−'+mq(r.dv)+'<div class="sub">'+r.nd+' dev.</div>':'<span class="sub">no resta</span>')+'</td><td class="num '+(r.neto>=0?"npos":"nneg")+'"><b>'+mq(r.neto)+'</b></td><td class="num">'+(r.mg==null?"–":r.mg.toFixed(0)+"%")+'</td></tr>'}).join("");
+    $("n-foot").innerHTML='<td>Total</td><td class="num">'+T.ent+'</td><td class="num">'+mq(T.venta)+'</td><td class="num">'+mq(T.base)+'</td><td class="num">'+(st.pauta?'−':'')+mq(T.pm)+'</td><td class="num">'+(st.pauta?'−':'')+mq(T.pt)+'</td><td class="num">'+(st.fijos?'−':'')+mq(T.f)+'</td><td class="num">'+(st.vars?'−':'')+mq(T.v)+'</td><td class="num">'+(st.devs?'−':'')+mq(T.dv)+'<div class="sub">'+T.nd+' dev.</div></td><td class="num '+(T.neto>=0?"npos":"nneg")+'">'+mq(T.neto)+'</td><td class="num">'+(T.venta?(T.neto/T.venta*100).toFixed(0)+"%":"–")+'</td>';
+    $("n-pie").textContent="Montos en "+(window.ecFx&&window.ecFx.st.on?"soles (S/)":"quetzales (Q)")+" con el interruptor Q / S/. La pauta de Meta y TikTok viene en soles y se pasa a quetzales con el tipo de cambio. Los gastos variables se cuentan según la opción que elijas arriba (por defecto, una vez en el mes en que empiezan). Falta la cuenta GUATEMALA 2 (en quetzales), que Meta no deja consultar. Las devoluciones se cuentan como un flete de regreso por cada pedido devuelto ("+FL()+" Q, tu flete promedio), porque Lumy no descuenta ese flete. Los gastos fijos se reparten por mes desde su fecha de inicio; los anuales entran en 12 partes.";
+    var nD=(window.__ORD||[]).filter(function(o){return o.s==="D"}).length,dvT=nD*FL(),cs0=+(($("din-cs-base")||{}).getAttribute&&$("din-cs-base").getAttribute("data-q"))||0;
+    [["din-dv",dvT],["din-cs",cs0-dvT]].forEach(function(x){var e=$(x[0]);if(e){e.setAttribute("data-q",Math.round(x[1]));e.textContent=f0((window.ecFx&&window.ecFx.st.on?x[1]*rate():x[1]))}});
+    if($("din-dv-s"))$("din-dv-s").textContent=nD+" devueltos × "+FL()+" Q de flete de regreso (estimado)";
     var fx=window.ecFx,on=!!(fx&&fx.st&&fx.st.on),rt=rate();
     document.querySelectorAll("#p-gan .mq").forEach(function(e){var q=+e.getAttribute("data-q");e.textContent=f0(on?q*rt:q)});
     document.querySelectorAll("#p-gan .mc").forEach(function(e){e.textContent=on?"PEN":"GTQ"});
   }
   function bind(){
-    [["n-pauta","pauta"],["n-fijos","fijos"],["n-vars","vars"]].forEach(function(x){var e=$(x[0]);e.checked=!!st[x[1]];e.addEventListener("change",function(){st[x[1]]=e.checked;sv();render()})});
+    [["n-pauta","pauta"],["n-fijos","fijos"],["n-vars","vars"],["n-devs","devs"]].forEach(function(x){var e=$(x[0]);e.checked=!!st[x[1]];e.addEventListener("change",function(){st[x[1]]=e.checked;sv();render()})});
     var vm=$("n-vmod");vm.value=st.vmod;vm.addEventListener("change",function(){st.vmod=vm.value;sv();render()});
     var b=$("n-base");b.value=st.base;b.addEventListener("change",function(){st.base=b.value;sv();render()});
   }
@@ -1965,7 +1972,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     // resumen y finanzas
     o.push("\nRESUMEN Y QUÉ ATENDER HOY:\n"+bloque("p-res",3500));
     o.push("\nDINERO (Lumy, GTQ):\n"+bloque("p-din",1800));
-    o.push("\nGANANCIA POR MES (GTQ; columnas: mes | entregados | venta | ganancia base | pauta Meta | pauta TikTok | gastos fijos | gastos variables | neta | margen):\n"+tx("#n-body tr")+"\nTOTAL: "+tx("#n-foot"));
+    o.push("\nUTILIDAD NETA POR MES (GTQ; columnas: mes | entregados | venta | ganancia base | pauta Meta | pauta TikTok | gastos fijos | gastos variables | devoluciones | neta | margen):\n"+tx("#n-body tr")+"\nTOTAL: "+tx("#n-foot"));
     o.push("\nCOSTO ADMINISTRATIVO POR MES (mes | fijos | variables | total | por pedido | % venta | % ganancia):\n"+tx("#a-bmes tr")+"\nPOR PLATAFORMA (concepto | categoría | tipo | costo mes | acumulado | %):\n"+tx("#a-bplat tr"));
     var G=window.ecGastos?window.ecGastos.get():[];
     o.push("\nGASTOS REGISTRADOS:\n"+G.map(function(g){return g.tipo+" · "+g.concepto+" · "+g.cat+" · "+g.monto+" "+g.mon+" · "+g.ciclo+" · desde "+g.ini+(g.fin?" hasta "+g.fin:"")}).join("\n"));
