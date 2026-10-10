@@ -452,6 +452,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cprice .big{font-size:clamp(2rem,6vw,2.8rem);color:var(--verde)}
 .ceq{font-size:.82rem;color:var(--muted)}.ceq b{color:var(--fg)}
 .cesc{width:100%;border-collapse:collapse;font-size:.85rem}.cesc th,.cesc td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line)}.cesc th:first-child,.cesc td:first-child{text-align:left}
+.cesc{table-layout:fixed;min-width:0}.cesc th{white-space:normal}
+@media(max-width:520px){.cesc{font-size:.78rem}.cesc th{font-size:.6rem;letter-spacing:.02em;padding:6px 4px}.cesc td{padding:7px 4px;white-space:nowrap}.cesc th:first-child{width:13%}}
 .fld label.chk{text-transform:none;letter-spacing:0;font-weight:500;font-size:.78rem;display:flex;gap:6px;align-items:flex-start;line-height:1.3}
 .fld label.chk input{width:auto;flex:none;padding:0;margin-top:2px}
 
@@ -931,14 +933,18 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   <section class="pane" id="p-gan" hidden>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div><h2 style="margin:0">Utilidad neta</h2><span class="sub">Lo que dejó cada mes según Lumy, y cuánto queda al restar la pauta y los gastos de plataforma. Marca qué quieres restar.</span></div>
-    <div class="card" style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center">
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;flex-wrap:wrap;gap:10px 22px"><b class="sub" style="width:100%;text-transform:uppercase;letter-spacing:.08em;font-size:.7rem">Qué restar</b>
       <label class="chk"><input type="checkbox" id="n-pauta" checked> Restar pauta (Meta + TikTok)</label>
       <label class="chk"><input type="checkbox" id="n-fijos" checked> Restar gastos fijos</label>
       <label class="chk"><input type="checkbox" id="n-vars" checked> Restar gastos variables</label>
       <label class="chk"><input type="checkbox" id="n-devs" checked> Restar devoluciones</label>
-      <div class="fld" style="flex:0 1 170px"><label for="n-devq">Costo por devolución (Q)</label><input id="n-devq" type="number" min="0" step="1" inputmode="decimal"></div>
-      <div class="fld" style="flex:0 1 250px"><label for="n-vmod">Gastos variables se cuentan</label><select id="n-vmod"><option value="una">Una vez, en su mes de inicio</option><option value="mes">Cada mes desde su inicio</option><option value="venta">Por cada pedido entregado</option></select></div>
-      <div class="fld" style="flex:0 1 260px"><label for="n-base">Ganancia base</label><select id="n-base"><option value="lumy">Según Lumy (techo)</option><option value="simple">Cálculo simple (venta − costo − flete)</option></select></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;align-items:end">
+      <div class="fld"><label for="n-devq">Costo por devolución (Q)</label><input id="n-devq" type="number" min="0" step="1" inputmode="decimal"></div>
+      <div class="fld"><label for="n-vmod">Gastos variables se cuentan</label><select id="n-vmod"><option value="una">Una vez, en su mes de inicio</option><option value="mes">Cada mes desde su inicio</option><option value="venta">Por cada pedido entregado</option></select></div>
+      <div class="fld"><label for="n-base">Ganancia base</label><select id="n-base"><option value="lumy">Según Lumy (techo)</option><option value="simple">Cálculo simple (venta − costo − flete)</option></select></div>
+      </div>
     </div>
     <div class="grid g4" id="n-kpis"></div>
     <div class="card" id="n-graf"></div>
@@ -1036,8 +1042,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   var SYM={PEN:"S/",GTQ:"Q",USD:"$"};
   var G=[],gDb=null,gWrite=true,gEdit=null,gDel=null,gTipo="todos",gArm=0;
   function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-  function f2(n){return Number(n).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
-  function f0(n){return Number(n).toLocaleString("es",{maximumFractionDigits:0})}
+  function f2(n){return Number(n).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function f0(n){return Number(n).toLocaleString("de-DE",{maximumFractionDigits:0})}
   function money(n,m){return (SYM[m]||m)+" "+(Math.abs(n-Math.round(n))<0.005?f0(n):f2(n))}
   function today(){try{return new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})}catch(e){return new Date().toISOString().slice(0,10)}}
   function imp(g){var c=CIC[g.ciclo]||CIC.mensual;return g.ciclo==="anual"||g.ciclo==="trimestral"||g.ciclo==="semestral"?g.monto/c[1]:g.monto}
@@ -1123,7 +1129,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   var MG=[["2026-04","Abril",27,5535,1705,1595,2868],["2026-05","Mayo",20,3752,1100,1516,1960],["2026-06","Junio",39,7791,2365,2865,4047],["2026-07","Julio",82,16239,4895,4857,8487],["2026-08","Agosto",3,579,163,245,311],["2026-09","Septiembre",51,10065,3340,3495,4948],["2026-10","Octubre 1-9",10,1930,610,1102,970]];
   var st={pauta:true,fijos:true,vars:true,devs:true,devq:30,base:"lumy",vmod:"una"};
   try{var s=JSON.parse(localStorage.getItem("ec_gan")||"null");if(s)st=Object.assign(st,s)}catch(e){}
-  function f0(n){return Math.round(n).toLocaleString("es")}
+  function f0(n){return Math.round(n).toLocaleString("de-DE")}
   function rate(){var fx=window.ecFx;return fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504}
   function mq(v,cls){return '<span class="mq '+(cls||"")+'" data-q="'+Math.round(v)+'"></span>'}
   function pauta(){
@@ -1187,7 +1193,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  function num(v,d){return Number(v).toLocaleString("es",{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+  function num(v,d){return Number(v).toLocaleString("de-DE",{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
   function mq(v,d){return '<span class="amq" data-q="'+v+'" data-d="'+(d||0)+'"></span>'}
   function pc(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
   function render(){
@@ -1229,7 +1235,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   var KEY="ec_fx",st={on:false,rate:0.4504,fecha:"9 oct 2026"},R={GTQ:1,COP:423.87,USD:0.130952},hooks=[];
   try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){st.on=!!s.on;if(s.rate>0)st.rate=+s.rate;if(s.fecha)st.fecha=s.fecha}}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
-  function fmt(n){return Math.round(n).toLocaleString("es")}
+  function fmt(n){return Math.round(n).toLocaleString("de-DE")}
   var fx=window.ecFx={
     st:st,hooks:hooks,
     pen:function(n,cur){cur=cur||"GTQ";if(cur==="PEN")return n;var r=R[cur];return r>0?n/r*st.rate:null},
@@ -1264,7 +1270,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 
   var F=[["Vieron la página",7819],["Abrieron el formulario",138],["Dejaron pedido",19],["Confirmados",10],["Entregados",6]],f="";
   F.forEach(function(r,i){var w=Math.max(r[1]/7819*100,1.2);
-    f+='<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+w+'%"></span></span><span class="v2">'+r[1].toLocaleString("es")+'</span></div>';
+    f+='<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+w+'%"></span></span><span class="v2">'+r[1].toLocaleString("de-DE")+'</span></div>';
     if(i<F.length-1){var q=(F[i+1][1]/r[1]*100).toFixed(1).replace(".",",");f+='<div class="pp sub">↓ '+q+'% pasa al siguiente paso</div>';}
   });
   document.getElementById("embudo").innerHTML=f;
@@ -1438,8 +1444,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   md.value=INI;mh.value=HOY;
   function rango(){var d=md.value||INI,h=mh.value||HOY;if(d>h){var t=d;d=h;h=t}return [d,h]}
   function marcar(){var r=rango();$("m-dia").value=r[0]===r[1]?r[0]:"";document.querySelectorAll("#m-presets .chip").forEach(function(b){var p=PRE[+b.dataset.i];b.setAttribute("aria-pressed",p[1]===r[0]&&p[2]===r[1])})}
-  function fm(v,d){return v==null?"–":Number(v).toLocaleString("es",{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d})}
-  function fi(v){return v==null?"–":Number(v).toLocaleString("es")}
+  function fm(v,d){return v==null?"–":Number(v).toLocaleString("de-DE",{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d})}
+  function fi(v){return v==null?"–":Number(v).toLocaleString("de-DE")}
   function pill(c){var u=c.st==="UNSETTLED";return '<span class="pill '+(u?'r':'v')+'">'+(u?'Pago pendiente':'Activa')+'</span>'}
   function kpi(t,b,sub,cls){return '<div class="card kpi"><h3>'+t+'</h3><div class="big '+(cls||'')+'">'+b+'</div><div class="sub">'+sub+'</div></div>'}
   function agg(c){
@@ -1654,8 +1660,8 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
   var PAR={flete:68,entrega:62,objetivo:30},W=[],czDate=null,czDb=null,czWrite=true,czPend=false,czDelArm=null;
   var MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
   function fd(d){var p=d.split("-");return p[2]+" "+MES[+p[1]-1]+" "+p[0]}
-  function g0(v){return Number(v).toLocaleString("es",{maximumFractionDigits:0})}
-  function g1(v){return Number(v).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function g0(v){return Number(v).toLocaleString("de-DE",{maximumFractionDigits:0})}
+  function g1(v){return Number(v).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function evOf(c,u,pr){var p=PAR.entrega/100,F=PAR.flete;return p*(pr-u*c-F)-(1-p)*F}
   function pvpObj(c,u){var p=PAR.entrega/100,F=PAR.flete;return u*c+F+(PAR.objetivo+(1-p)*F)/p}
   var COMP=[["demanda","Demanda"],["traccion","Tracción"],["margen","Margen"],["competencia","Competencia"],["riesgo","Riesgo"]];
@@ -2036,8 +2042,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   var last=null,saved=[],cDb=null,cWrite=true,loadedId=null,cDel=null;
   var F=["nom","uni","mon","cos","fle","ed","ef","cpa","adm","ful","mar","pd","pp","meta","per","pp2"];
   function n(v){v=parseFloat(v);return isFinite(v)?v:0}
-  function f2(x){return Number(x).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2})}
-  function f0(x){return Number(x).toLocaleString("es",{maximumFractionDigits:0})}
+  function f2(x){return Number(x).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function f0(x){return Number(x).toLocaleString("de-DE",{maximumFractionDigits:0})}
   function on(){var fx=window.ecFx;return !!(fx&&fx.st&&fx.st.on)}
   function m(x){var e=eq(x);return (on()?"S/":"Q")+" "+f2(on()?e.pen:e.gtq)}
   function pct(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
