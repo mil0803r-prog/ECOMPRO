@@ -383,6 +383,9 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 .cal-grid .h{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding:2px 0}
 .cal-d{min-height:74px;border:1px solid var(--line);border-radius:8px;padding:4px 5px;background:var(--bg);display:flex;flex-direction:column;gap:2px;font-size:.72rem;overflow:hidden}
+.cal-d{font:inherit;color:var(--fg);text-align:left;cursor:pointer}.cal-d:hover{border-color:var(--cel)}.cal-d.sel{background:color-mix(in srgb,var(--cel) 18%,var(--bg));border-color:var(--cel)}
+.cdia th,.cdia td{padding:8px 6px}.cdia .pill{white-space:normal;padding:2px 7px;font-size:.68rem}
+@media(max-width:520px){.cdia td,.cdia th{font-size:.74rem}}
 .cal-d.o{opacity:.4;background:transparent;border-style:dashed}
 .cal-d .n{color:var(--muted);font-weight:700}
 .cal-d .t{font-weight:800;font-size:.95rem;line-height:1}
@@ -961,8 +964,9 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
       <div class="cal-top"><div class="cal-nav" id="cal-nav"><button type="button" id="cal-prev" aria-label="Mes anterior">‹</button><b id="cal-tit"></b><button type="button" id="cal-next" aria-label="Mes siguiente">›</button></div><div class="cal-leg" id="cal-leg"></div></div>
       <div class="grid g4" id="cal-kpis"></div>
       <div id="cal-grid-w"></div>
+      <div id="cal-dia"></div>
       <div id="cal-graf"></div>
-      <div class="tbl"><table id="cal-tabla" style="min-width:720px">
+      <div class="tbl" id="cal-tw"><table id="cal-tabla" style="min-width:720px">
         <thead><tr><th id="cal-th">Día</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">Cancelados</th><th class="num">Incidencias</th><th class="num">En proceso</th><th class="num">% entrega</th></tr></thead>
         <tbody id="cal-body"></tbody><tfoot><tr id="cal-foot"></tr></tfoot>
       </table></div>
@@ -2207,6 +2211,14 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       var tip=x.tip+": "+x.r.t+" pedidos · "+x.r.e+" entregados · "+x.r.d+" devueltos";
       return '<div class="c" title="'+tip+'"><div class="s" style="height:'+(x.r.t/mx*100)+'%">'+KS.map(function(k){return x.r[k]?'<i style="display:block;background:'+NM[k][1]+';height:'+(x.r[k]/x.r.t*100)+'%"></i>':""}).join("")+'</div></div>'}).join("")+'</div>'+
       '<div class="cal-lab">'+items.map(function(x,i){return '<span>'+(small&&items.length>16&&i%(innerWidth<=520?4:2)?"":x.lab)+'</span>'}).join("")+'</div>'}
+  function diaPanel(){
+    var el=$("cal-dia"),ST=window.__ST||{};
+    if(!S.dia||S.dia.slice(0,7)!==S.mes){el.innerHTML="";return}
+    var L=(window.__ORD||[]).filter(function(o){return o.d===S.dia}),a=dt(S.dia);
+    L.sort(function(x,y){return (y.t||"").localeCompare(x.t||"")||(+y.n)-(+x.n)});
+    var t=a.getUTCDate()+" de "+MES[a.getUTCMonth()]+" de "+a.getUTCFullYear();
+    el.innerHTML='<h3 style="margin:4px 0 8px">Pedidos del '+t+' · '+L.length+'</h3>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
+  }
   function render(){
     if(!$("cal-box"))return;var ORD=window.__ORD||[];
     $("cal-modo").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===S.m)});
@@ -2222,11 +2234,13 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       for(var d=1;d<=n;d++){var k=S.mes+"-"+(d<10?"0":"")+d,r=days[k]||{e:0,d:0,c:0,i:0,p:0,t:0};rows.push({k:k,lab:d+" de "+MES[mo],r:r});items.push({r:r,lab:String(d),tip:d+" de "+MES[mo]})}
       var first=(dt(S.mes+"-01").getUTCDay()+6)%7,g='<div class="cal-grid">'+DIA.map(function(x){return '<div class="h">'+x+'</div>'}).join("");
       for(var i=0;i<first;i++)g+='<div class="cal-d o"></div>';
-      rows.forEach(function(x,i){var r=x.r;g+='<div class="cal-d'+(x.k===hoy?" hoy":"")+'"><span class="n">'+(i+1)+'</span>'+(r.t?'<span class="t">'+r.t+'</span><span class="p">'+(r.e?'<span style="color:var(--verde)">'+r.e+'E</span>':"")+(r.d?'<span style="color:var(--rojo)">'+r.d+'D</span>':"")+(r.c?'<span style="color:var(--gris)">'+r.c+'C</span>':"")+(r.i+r.p?'<span style="color:var(--azul)">'+(r.i+r.p)+'P</span>':"")+'</span>':"")+'</div>'});
-      $("cal-grid-w").innerHTML=g+'</div><p class="sub" style="margin:6px 0 0">E entregados · D devueltos · C cancelados · P en proceso o con incidencia</p>';
+      rows.forEach(function(x,i){var r=x.r;g+='<button type="button" class="cal-d'+(x.k===hoy?" hoy":"")+(x.k===S.dia?" sel":"")+'" data-k="'+x.k+'"><span class="n">'+(i+1)+'</span>'+(r.t?'<span class="t">'+r.t+'</span><span class="p">'+(r.e?'<span style="color:var(--verde)">'+r.e+'E</span>':"")+(r.d?'<span style="color:var(--rojo)">'+r.d+'D</span>':"")+(r.c?'<span style="color:var(--gris)">'+r.c+'C</span>':"")+(r.i+r.p?'<span style="color:var(--azul)">'+(r.i+r.p)+'P</span>':"")+'</span>':"")+'</button>'});
+      $("cal-grid-w").innerHTML=g+'</div><p class="sub" style="margin:6px 0 0">E entregados · D devueltos · C cancelados · P en proceso o con incidencia. Toca un día para ver sus pedidos.</p>';
       $("cal-prev").disabled=S.mes<=minM;$("cal-next").disabled=S.mes>=maxM;
       rows=rows.filter(function(x){return x.r.t}).reverse();
+      diaPanel();
     }else{
+      $("cal-dia").innerHTML="";
       $("cal-grid-w").innerHTML="";
       if(S.m==="semana"){
         var W=agg(lunes),ks=Object.keys(W).sort().slice(-16);th="Semana";tit="Últimas "+ks.length+" semanas";
@@ -2244,13 +2258,15 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+f0(T.e)+'</div><div class="sub">'+(T.t?Math.round(T.e/T.t*100):0)+'% del total</div></div>'+
       '<div class="card kpi"><h3>Devueltos</h3><div class="big tr_">'+f0(T.d)+'</div><div class="sub">'+(T.t?Math.round(T.d/T.t*100):0)+'% del total</div></div>'+
       '<div class="card kpi"><h3>% de entrega</h3><div class="big">'+ef(T)+'</div><div class="sub">entregados ÷ (entregados + devueltos)</div></div>';
+    $("cal-graf").hidden=$("cal-tw").hidden=S.m==="dia";if($("cal-tw").previousElementSibling&&$("cal-tw").previousElementSibling.classList.contains("vswrap"))$("cal-tw").previousElementSibling.hidden=S.m==="dia";
     chart(items,true);
     $("cal-body").innerHTML=rows.length?rows.map(function(x){var r=x.r;return '<tr><td><b>'+x.lab+'</b></td><td class="num">'+r.t+'</td><td class="num npos">'+r.e+'</td><td class="num nneg">'+r.d+'</td><td class="num">'+r.c+'</td><td class="num">'+r.i+'</td><td class="num">'+r.p+'</td><td class="num">'+ef(r)+'</td></tr>'}).join(""):'<tr><td colspan="8">Sin pedidos en este mes.</td></tr>';
     $("cal-foot").innerHTML='<td>Total</td><td class="num">'+T.t+'</td><td class="num npos">'+T.e+'</td><td class="num nneg">'+T.d+'</td><td class="num">'+T.c+'</td><td class="num">'+T.i+'</td><td class="num">'+T.p+'</td><td class="num">'+ef(T)+'</td>';
   }
   function sv2(){try{localStorage.setItem("ec_cal",JSON.stringify({m:S.m}))}catch(e){}}
   $("cal-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;sv2();render()});
-  function mover(n){var y=+S.mes.slice(0,4),m=+S.mes.slice(5,7)-1+n,x=new Date(Date.UTC(y,m,1));S.mes=x.getUTCFullYear()+"-"+("0"+(x.getUTCMonth()+1)).slice(-2);render()}
+  $("cal-grid-w").addEventListener("click",function(e){var b=e.target.closest(".cal-d[data-k]");if(!b)return;S.dia=S.dia===b.dataset.k?null:b.dataset.k;render();var d=$("cal-dia");if(S.dia&&d.scrollIntoView)d.scrollIntoView({block:"nearest",behavior:"smooth"})});
+  function mover(n){var y=+S.mes.slice(0,4),m=+S.mes.slice(5,7)-1+n,x=new Date(Date.UTC(y,m,1));S.mes=x.getUTCFullYear()+"-"+("0"+(x.getUTCMonth()+1)).slice(-2);S.dia=null;render()}
   $("cal-prev").addEventListener("click",function(){mover(-1)});$("cal-next").addEventListener("click",function(){mover(1)});
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="gan"]'))setTimeout(render,0)});
   window.ecCalRender=render;render();
