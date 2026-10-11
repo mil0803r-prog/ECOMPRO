@@ -231,6 +231,29 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));border-color:transparent}
 .fld input:focus,.fld select:focus,.fld textarea:focus,.sel select:focus{outline:2px solid var(--cel);outline-offset:1px;border-color:var(--cel)}
 @media(max-width:520px){.brand img{width:44px;height:44px;border-radius:12px}h1{font-size:2rem}}
+/* Paletas de acento */
+:root[data-pal="esmeralda"]{--ink:#0b7a55;--azul:#12a06f;--cel:#34d399;--cel2:#86efbf}
+:root[data-theme="dark"][data-pal="esmeralda"]{--ink:#34d399;--azul:#34d399;--cel:#34d399;--cel2:#86efbf}
+:root[data-pal="violeta"]{--ink:#5b3fc4;--azul:#7c5cf0;--cel:#a78bfa;--cel2:#d3c4ff}
+:root[data-theme="dark"][data-pal="violeta"]{--ink:#a78bfa;--azul:#a78bfa;--cel:#a78bfa;--cel2:#d3c4ff}
+:root[data-pal="coral"]{--ink:#c2452d;--azul:#e5603f;--cel:#fb8c6b;--cel2:#ffc2ad}
+:root[data-theme="dark"][data-pal="coral"]{--ink:#fb8c6b;--azul:#fb8c6b;--cel:#fb8c6b;--cel2:#ffc2ad}
+:root[data-pal="dorado"]{--ink:#94670a;--azul:#c28a14;--cel:#f5c542;--cel2:#ffe89a}
+:root[data-theme="dark"][data-pal="dorado"]{--ink:#f5c542;--azul:#f5c542;--cel:#f5c542;--cel2:#ffe89a}
+:root[data-pal="rosa"]{--ink:#b0306a;--azul:#d6478a;--cel:#f472b6;--cel2:#fbb6d9}
+:root[data-theme="dark"][data-pal="rosa"]{--ink:#f472b6;--azul:#f472b6;--cel:#f472b6;--cel2:#fbb6d9}
+:root[data-pal="grafito"]{--ink:#3f4c57;--azul:#5b6b78;--cel:#94a3b0;--cel2:#cbd5df}
+:root[data-theme="dark"][data-pal="grafito"]{--ink:#aab7c4;--azul:#aab7c4;--cel:#94a3b0;--cel2:#cbd5df}
+.palw{position:relative;display:inline-block;margin-right:6px}
+.palb{font:inherit;font-size:.78rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}.palb:hover{border-color:var(--cel)}
+.palb i{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--cel2),var(--cel));border:1px solid var(--line)}
+.palp{position:absolute;right:0;top:calc(100% + 8px);z-index:60;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.28);padding:12px;display:none;grid-template-columns:repeat(4,auto);gap:10px 12px;min-width:236px}
+.palp.open{display:grid}
+.palp b{grid-column:1/-1;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.palp button{font:inherit;font-size:.68rem;color:var(--fg);background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px}
+.palp button span{width:34px;height:34px;border-radius:50%;border:2px solid transparent;box-shadow:0 0 0 1px var(--line);background:linear-gradient(135deg,var(--c2),var(--c1))}
+.palp button[aria-pressed="true"] span{border-color:var(--card);box-shadow:0 0 0 2px var(--fg)}
+@media(max-width:900px){.palp{right:auto;left:0}}
 .thm{font:inherit;font-size:.78rem;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer;margin-right:10px}.thm:hover{border-color:var(--cel)}
 
 /* Menú lateral izquierdo en pantallas anchas; en celular se queda arriba */
@@ -512,7 +535,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 <div class="wrap">
   <header>
     <div class="brand"><button type="button" class="mbtn" id="mbtn" aria-label="Abrir menú" aria-expanded="false">☰</button><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
-    <div class="meta"><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 10 oct 2026 · Dropi sincronizado 10 oct 09:55 · montos en GTQ salvo Meta (PEN)</div>
+    <div class="meta"><span class="palw"><button type="button" class="palb" id="palb" aria-haspopup="true" aria-expanded="false" title="Paleta de colores"><i></i>Paleta</button><div class="palp" id="palp" role="menu"></div></span><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 10 oct 2026 · Dropi sincronizado 10 oct 09:55 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
   <button type="button" class="aibtn" id="ai-btn" aria-label="Abrir asistente IA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span>Asistente IA</span></button>
@@ -2473,6 +2496,21 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="pub"]'))setTimeout(render,0)});
   if(window.__dbw&&!pDb)window.pubWire(window.__dbw.db,window.__dbw.can);
   var t=$("pb-tabla");
+})();
+</script>
+<script>
+(function(){
+  var P=[["celeste","Celeste","#7defff","#38c6f4"],["esmeralda","Esmeralda","#86efbf","#34d399"],["violeta","Violeta","#d3c4ff","#a78bfa"],["coral","Coral","#ffc2ad","#fb8c6b"],["dorado","Dorado","#ffe89a","#f5c542"],["rosa","Rosa","#fbb6d9","#f472b6"],["grafito","Grafito","#cbd5df","#94a3b0"]];
+  var b=document.getElementById("palb"),pp=document.getElementById("palp"),r=document.documentElement;if(!b||!pp)return;
+  function cur(){var v=r.getAttribute("data-pal");return P.some(function(x){return x[0]===v})?v:"celeste"}
+  function draw(){pp.innerHTML='<b>Paleta de colores</b>'+P.map(function(x){return '<button type="button" data-k="'+x[0]+'" aria-pressed="'+(cur()===x[0])+'" aria-label="'+x[1]+'"><span style="--c1:'+x[3]+';--c2:'+x[2]+'"></span>'+x[1]+'</button>'}).join("")}
+  function setP(k){if(k==="celeste")r.removeAttribute("data-pal");else r.setAttribute("data-pal",k);try{localStorage.setItem("ec_pal",k)}catch(e){}draw()}
+  b.addEventListener("click",function(e){e.stopPropagation();var o=!pp.classList.contains("open");pp.classList.toggle("open",o);b.setAttribute("aria-expanded",o)});
+  pp.addEventListener("click",function(e){var x=e.target.closest("button[data-k]");if(x)setP(x.getAttribute("data-k"))});
+  document.addEventListener("click",function(e){if(!e.target.closest(".palw")){pp.classList.remove("open");b.setAttribute("aria-expanded","false")}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")pp.classList.remove("open")});
+  try{var s=localStorage.getItem("ec_pal");if(s&&P.some(function(x){return x[0]===s})&&s!=="celeste")r.setAttribute("data-pal",s)}catch(e){}
+  draw();
 })();
 </script>
 
