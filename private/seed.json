@@ -3197,6 +3197,720 @@
    "dk": "https://app.dropkiller.com/dashboard/products/ca8a59c3-6912-4694-b559-58e6dc461aad",
    "status": "nuevo",
    "fav": false
+  },
+  "2026-10-11_1": {
+   "date": "2026-10-11",
+   "rank": 1,
+   "source": "ia",
+   "name": "Ethiopian J (aceite de semilla negra en cápsulas)",
+   "provider": "laboratorio luna",
+   "verificado": true,
+   "cats": "salud, bienestar",
+   "costo": 49,
+   "pvp": 150,
+   "v7": 489,
+   "v30": 1033,
+   "stock": 5633,
+   "score": 65,
+   "scores": {
+    "demanda": 10,
+    "traccion": 6,
+    "margen": 6,
+    "competencia": 4,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 259
+   },
+   "verdict": "Vende 489 unidades en 7 días y 1033 en 30 (13 días con venta), pero ya tiene 9 anunciantes locales. Con 2 frascos a Q259 la utilidad esperada es Q31.82 por pedido (objetivo Q30), con costo Q49 por frasco y 62% de entrega.",
+   "angle": "Oferta de 2 frascos por Q259 (Q129.50 c/u) con pago al recibir. Gancho de digestión y bienestar general; evitar las promesas de próstata o parásitos que usan algunos anunciantes.",
+   "competition": "9 anunciantes locales activos en Guatemala (6 por WhatsApp y 3 con tienda). Producto nuevo en Dropi (creado el 2026-09-23); el anuncio local más viejo tiene 13 días. Hay otros listados parecidos de aceite de semilla negra con otras marcas.",
+   "anWA": 6,
+   "anLand": 3,
+   "anTotal": 9,
+   "anNota": "Contados por nombre. WhatsApp: Teyra, Sonic Store, Dandellions Shop, Boxtore, Naturiatria, Jade Lab. Tienda: Ethiopian Purely Nutrien, Figura & Armonia, Salud y Bienestar Hoy. Excluidos sin sumar por vender desde fuera (textos en inglés, tienda get.sabellife.com): Ancient Herbal Remedies y Dr. Charles Brockman, MD. Anuncio local más viejo: 13 días (Salud y Bienestar Hoy, casaymasgt.com). Precio anunciado visible: Q170 por 60 cápsulas (Sonic Store).",
+   "tiendas": [
+    {
+     "url": "https://puntocompraco.com/products/ethiopian-black-seed-oil-d-p",
+     "adv": "Puntocompraco",
+     "pais": "CO",
+     "dias": 0,
+     "nota": "Video que presenta el poder de la semilla negra con Ethiopian Black Seed Oil."
+    },
+    {
+     "url": "https://nuveracol.online/products/ethiopian-black-seed-oil",
+     "adv": "Nuvera Col",
+     "pais": "CO",
+     "dias": 0,
+     "nota": "Dice tener 6 veces más timoquinona que la semilla negra normal y cita más de 12.651 clientes."
+    },
+    {
+     "url": "https://nuviec.myshopify.com/products/ethiopian",
+     "adv": "Nuviva",
+     "pais": "EC",
+     "dias": 0,
+     "nota": "Oferta del día: apoya defensas, digestión y vitalidad desde adentro."
+    },
+    {
+     "url": "https://entreriosmarket.com/products/semilla-negra-ethiopian",
+     "adv": "EntreriosMarket Salud",
+     "pais": "CO",
+     "dias": 2,
+     "nota": "Abre con hinchazón, pesadez y cansancio casi todos los días."
+    },
+    {
+     "url": "https://santaelena.shop/products/ethiopian-black-seed-oil",
+     "adv": "Santa Elena Store",
+     "pais": "CO",
+     "dias": 2,
+     "nota": "De Etiopía a tu rutina diaria, con calificación 4.8/5."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Sofisebasshoppingvariedades",
+     "pais": "CO",
+     "dias": 1,
+     "score": 25,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1176117584750625",
+     "dk": "https://app.dropkiller.com/dashboard/ads/8748d79b-e901-4183-800e-c9b0f3cf6e5f",
+     "nota": "Softgel de 60 cápsulas con aceite prensado en frío, 100% puro."
+    },
+    {
+     "adv": "Buymania.online",
+     "pais": "EC",
+     "dias": 0,
+     "score": 25,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1804295764329641",
+     "dk": "https://app.dropkiller.com/dashboard/ads/56e4b1ca-f48e-43fc-b0d7-3964d1c01363",
+     "nota": "El poder de la semilla negra en una sola cápsula."
+    },
+    {
+     "adv": "Naroshop ec",
+     "pais": "EC",
+     "dias": 1,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1650686443315818",
+     "dk": "https://app.dropkiller.com/dashboard/ads/cdb2fa3b-c028-4f70-b380-f763dbce3841",
+     "nota": "Una forma sencilla de incorporar aceite de semilla negra a tu día."
+    },
+    {
+     "adv": "Urbanova2",
+     "pais": "CO",
+     "dias": 0,
+     "score": 20,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1984032655599396",
+     "dk": "https://app.dropkiller.com/dashboard/ads/9ee82193-db21-45d6-a0ce-d9f7a0c25aa7",
+     "nota": "Blinda tus defensas hoy con pago al recibir."
+    },
+    {
+     "adv": "Ecua-Drop",
+     "pais": "EC",
+     "dias": 4,
+     "score": 32,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=957062666923759",
+     "dk": "https://app.dropkiller.com/dashboard/ads/3ee093f4-9b49-46be-924e-3e191f5e3b8a",
+     "nota": "Pagas al recibir; rutina de bienestar con pequeños cambios."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Nature Store",
+     "pais": "EC",
+     "dias": 2,
+     "score": 15,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1758940548740558",
+     "dk": "https://app.dropkiller.com/dashboard/ads/033db12a-1aa7-407b-88de-ff6c38ccc1bb",
+     "nota": "Oferta por tiempo limitado: 2 frascos por $35."
+    },
+    {
+     "adv": "Vita Plus",
+     "pais": "EC",
+     "dias": 5,
+     "score": 11,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1116197564692739",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d63f5b4f-bc99-4a34-9e08-5fa37376a6e9",
+     "nota": "Oferta limitada de 2 por $30 con envío gratis y pago al recibir."
+    },
+    {
+     "adv": "Infinity Store",
+     "pais": "EC",
+     "dias": 6,
+     "score": 23,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2625725341206843",
+     "dk": "https://app.dropkiller.com/dashboard/ads/f6bc85bf-871a-4960-b152-b691836640e3",
+     "nota": "Promoción especial de 2 frascos por $30."
+    },
+    {
+     "adv": "3 DDD Shopping Online",
+     "pais": "EC",
+     "dias": 4,
+     "score": 34,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1606036167668550",
+     "dk": "https://app.dropkiller.com/dashboard/ads/9046885f-d644-4e73-a9f8-9ef669d43c62",
+     "nota": "Pagas al recibir tu producto; bienestar natural para todos los días."
+    },
+    {
+     "adv": "Outlet Prime EC",
+     "pais": "EC",
+     "dias": 2,
+     "score": 29,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1376102827940418",
+     "dk": "https://app.dropkiller.com/dashboard/ads/b3ed9d54-f348-4ecd-b91f-53fd74b7b011",
+     "nota": "Cápsulas de aceite de semilla negra etíope para cuidar el bienestar desde adentro."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "laboratorio luna",
+     "id": "24310",
+     "nombre": "ethiopian j",
+     "costo": 49,
+     "stock": 5633,
+     "v7": 489,
+     "v30": 1033,
+     "alt": "Elegido. Sugerido Q150"
+    },
+    {
+     "prov": "almafit",
+     "id": "23108",
+     "nombre": "ethiopian aceite semilla negra x60 caps",
+     "costo": 57,
+     "stock": 1657,
+     "v7": 79,
+     "v30": 343,
+     "alt": "Listado parecido, sugerido Q99"
+    },
+    {
+     "prov": "natural labs organic",
+     "id": "23004",
+     "nombre": "ethiopian",
+     "costo": 50,
+     "stock": 5417,
+     "v7": 70,
+     "v30": 83,
+     "alt": "Listado parecido, sugerido Q99"
+    },
+    {
+     "prov": "nibresma",
+     "id": "22526",
+     "nombre": "ethiopian 60 capsulas",
+     "costo": 55,
+     "stock": 2910,
+     "v7": 16,
+     "v30": 45,
+     "alt": "Listado parecido, sugerido Q100"
+    },
+    {
+     "prov": "suplem gt",
+     "id": "23168",
+     "nombre": "ethiopian",
+     "costo": 55,
+     "stock": 799,
+     "v7": 0,
+     "v30": 1,
+     "alt": "Sin ventas, proveedor no verificado"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/02e59a8c-897f-49ab-b954-c964ab27e150/8b31d9302b54.webp",
+   "risk": "Producto de salud: Meta restringe las promesas sobre próstata, hígado o parásitos que usan varios competidores. Riesgo de saturación rápida: 9 anunciantes en pocos días. Proveedor verificado y stock de 5633.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=24310&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/02e59a8c-897f-49ab-b954-c964ab27e150",
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-10-11_2": {
+   "date": "2026-10-11",
+   "rank": 2,
+   "source": "ia",
+   "name": "Woman Curves (cápsulas para curvas)",
+   "provider": "natural labs organic",
+   "verificado": true,
+   "cats": "salud, bienestar",
+   "costo": 50,
+   "pvp": 199,
+   "v7": 52,
+   "v30": 166,
+   "stock": 4404,
+   "score": 65,
+   "scores": {
+    "demanda": 4,
+    "traccion": 7,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 209
+   },
+   "verdict": "Vende 52 unidades en 7 días y 166 en 30, con 19 días de venta y 606 totales, y solo 1 anunciante local en Guatemala. A Q209 la utilidad esperada es Q30.58 por pedido (objetivo Q30), con costo Q50.",
+   "angle": "Una unidad a Q209 con pago al recibir, apoyado en la autenticidad (el único competidor usa el gancho ORIGINAL USA). Mostrar antes y después de ropa y siluetas, sin prometer cambios corporales médicos.",
+   "competition": "Un solo anunciante local (Casaguateclick, WhatsApp) con un anuncio de 0 días; el mercado todavía no valida el producto en anuncios. Hay otros listados Woman Curves en Dropi con casi nada de ventas.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "Único anunciante: Casaguateclick (WhatsApp), anuncio iniciado el 2026-10-06 con 0 días activos y sin precio visible. Excluido sin sumar: Jennifer Wilson (erthlabs.co, café superfood en inglés, otro producto). Búsqueda con anuncios vistos en los últimos 7 días.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "natural labs organic",
+     "id": "9374",
+     "nombre": "woman curves",
+     "costo": 50,
+     "stock": 4404,
+     "v7": 52,
+     "v30": 166,
+     "alt": "Elegido. Sugerido Q199"
+    },
+    {
+     "prov": "laboratorio luna",
+     "id": "2008",
+     "nombre": "woman curves",
+     "costo": 49,
+     "stock": 1986,
+     "v7": 0,
+     "v30": 0,
+     "alt": "Sin ventas recientes, sugerido Q100"
+    },
+    {
+     "prov": "kura labs",
+     "id": "19163",
+     "nombre": "woman curves cápsulas",
+     "costo": 57,
+     "stock": 956,
+     "v7": 0,
+     "v30": 0,
+     "alt": "Sin ventas recientes, proveedor no verificado"
+    },
+    {
+     "prov": "altamira",
+     "id": "10535",
+     "nombre": "woman curves",
+     "costo": 47,
+     "stock": 5000,
+     "v7": 0,
+     "v30": 0,
+     "alt": "Sin ventas, proveedor no verificado"
+    },
+    {
+     "prov": "corporacion g&c",
+     "id": "1437",
+     "nombre": "woman curves 60 capsulas",
+     "costo": 169,
+     "stock": 101,
+     "v7": 0,
+     "v30": 0,
+     "alt": "Sin ventas, proveedor no verificado, costo alto"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/222798e9-91e3-4934-b93b-57db6ee89552/2c8b17bb5ac0.webp",
+   "risk": "Producto que promete curvas: Meta puede rechazar anuncios de cambio corporal; usar lenguaje de bienestar. Demanda de 52 unidades en 7 días, cerca del mínimo, y sin referentes del mismo producto fuera de Guatemala.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=9374&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/222798e9-91e3-4934-b93b-57db6ee89552",
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-10-11_3": {
+   "date": "2026-10-11",
+   "rank": 3,
+   "source": "ia",
+   "name": "Vitiligo Care Spray",
+   "provider": "laboratorio luna",
+   "verificado": true,
+   "cats": "salud",
+   "costo": 45,
+   "pvp": 150,
+   "v7": 42,
+   "v30": 195,
+   "stock": 304,
+   "score": 62,
+   "scores": {
+    "demanda": 3,
+    "traccion": 9,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 4
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 249
+   },
+   "verdict": "Acumula 2037 unidades vendidas con 27 de 30 días con venta, aunque baja a 42 en 7 días (195 en 30). Con 2 sprays a Q249 la utilidad esperada es Q30.58 por pedido (objetivo Q30) y solo hay 1 anunciante local.",
+   "angle": "Oferta de 2 sprays por Q249 (Q124.50 c/u) con pago al recibir. Mensaje de apariencia uniforme de la piel, sin hablar de cura ni de tratamiento médico.",
+   "competition": "Un solo anunciante local activo (Dr. Felipe Flores, WhatsApp, 46 días). Producto con historial largo (creado en abril) y ventas que se enfrían: 42 en 7 días contra 195 en 30.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "Único anunciante: Dr. Felipe Flores (WhatsApp), 46 días activo, promete resultados en 8 semanas o devolución de dinero; sin precio visible. Sin otros anuncios locales del mismo producto en los últimos 7 días.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laboratorio luna",
+     "id": "4927",
+     "nombre": "vitiligo care spray",
+     "costo": 45,
+     "stock": 304,
+     "v7": 42,
+     "v30": 195,
+     "alt": "Único proveedor encontrado. Sugerido Q150"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/daecdc4f-497a-4c01-b05b-bde481224cb8/e7c5cf8806ca.webp",
+   "risk": "Salud de la piel: la política de anuncios de Meta es estricta con vitiligo y promesas de cura. Stock de 304 unidades, moderado, y ventas semanales en descenso. Los anuncios de vitiligo fuera de Guatemala son de otras marcas, no de este producto.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=4927&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/daecdc4f-497a-4c01-b05b-bde481224cb8",
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-10-11_4": {
+   "date": "2026-10-11",
+   "rank": 4,
+   "source": "ia",
+   "name": "American Fit 60 caps",
+   "provider": "american natural",
+   "verificado": true,
+   "cats": "salud, bienestar",
+   "costo": 110,
+   "pvp": 289,
+   "v7": 42,
+   "v30": 250,
+   "stock": 1155,
+   "score": 60,
+   "scores": {
+    "demanda": 3,
+    "traccion": 7,
+    "margen": 6,
+    "competencia": 9,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 269
+   },
+   "verdict": "Vende 42 unidades en 7 días y 250 en 30 (21 días con venta, 923 totales) con solo 2 anunciantes locales. A Q269 (por debajo del sugerido Q289) la utilidad esperada es Q30.58 por pedido (objetivo Q30), con costo Q110.",
+   "angle": "Una unidad a Q269 con pago al recibir. Gancho de digestión ligera y rutina de bienestar (fibra, magnesio, vitamina C, sen); hay referentes en Ecuador y Colombia con programa de 20 días.",
+   "competition": "2 anunciantes locales: una tienda Shopify y un anunciante por WhatsApp, ambos con pocos días. Fuera de Guatemala el producto ya se anuncia en Ecuador y Colombia con varias tiendas.",
+   "anWA": 1,
+   "anLand": 1,
+   "anTotal": 2,
+   "anNota": "Tienda: Elysium store (myshopify, 2 días). WhatsApp: Tu Mejor Versión Gt (4 días). Excluidos sin sumar por ser otros productos o anunciantes extranjeros en inglés: Good American, SayBeam, Lauren Hayes y similares. Anuncio local más viejo: 4 días. Sin precio visible.",
+   "tiendas": [
+    {
+     "url": "https://starstrends.shop/products/american-fit-desintoxica-purifica-y-limpia-tu-cuerpo-de-forma-natural",
+     "adv": "Stars Trends",
+     "pais": "CO",
+     "dias": 0,
+     "nota": "Abre con: te sientes inflamada, pesada o con digestión lenta aunque trates de cuidarte."
+    },
+    {
+     "url": "https://altroexpresstore.myshopify.com/products/american-fit",
+     "adv": "AltroExpress Tienda Online",
+     "pais": "CO",
+     "dias": 0,
+     "nota": "Bienestar desde adentro con fibra prebiótica, sen, magnesio y vitamina C."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Andrea M",
+     "pais": "EC",
+     "dias": 8,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1067994066138842",
+     "dk": "https://app.dropkiller.com/dashboard/ads/10e5693f-b35c-441f-93a0-5f1cb224e352",
+     "nota": "10 días y 4 kilos menos con American Fit 3 en 1 para control de peso."
+    },
+    {
+     "adv": "NeoMark.Ec",
+     "pais": "EC",
+     "dias": 5,
+     "score": 20,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=28661156576837062",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e04c1d2c-f92e-4466-af3c-5e6bac9ccffa",
+     "nota": "Despídete de la grasa extra."
+    },
+    {
+     "adv": "EcoZzen",
+     "pais": "EC",
+     "dias": 3,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2370006900493949",
+     "dk": "https://app.dropkiller.com/dashboard/ads/9ee99dfa-9927-42bc-8f42-c5c5ca27827b",
+     "nota": "Programa de 20 días de American Fit para el bienestar."
+    },
+    {
+     "adv": "El Rincón Novedoso",
+     "pais": "EC",
+     "dias": 1,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2546460185851501",
+     "dk": "https://app.dropkiller.com/dashboard/ads/14bebb9c-0e19-4942-9708-3e309ea5fee0",
+     "nota": "Método Reset Corporal antes de diciembre para lucir un vestido cómoda."
+    },
+    {
+     "adv": "Compra Segura EC",
+     "pais": "EC",
+     "dias": 0,
+     "score": 18,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1128256549723823",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c2ba63f5-a39e-4765-9ade-2f0b760f2af4",
+     "nota": "Rutina sencilla con sen, fibra prebiótica y magnesio para quien está cansada de rutinas complicadas."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Stars Trends",
+     "pais": "CO",
+     "dias": 0,
+     "score": 18,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1611742827357508",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d82222f0-02de-4e21-93a0-b687366f13fe",
+     "nota": "Descubre tu mejor versión: cuidarte desde adentro con digestión ligera."
+    },
+    {
+     "adv": "American Natural Ec",
+     "pais": "EC",
+     "dias": 4,
+     "score": 25,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1421251239448764",
+     "dk": "https://app.dropkiller.com/dashboard/ads/7bc9ca7c-7667-49ae-bb5b-407c9821788f",
+     "nota": "¿Te sientes pesado después de comer? Apoyo para tu rutina."
+    },
+    {
+     "adv": "Compra flash",
+     "pais": "EC",
+     "dias": 5,
+     "score": 25,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1446056647389541",
+     "dk": "https://app.dropkiller.com/dashboard/ads/f39f801c-a453-47c1-960f-a3d0d792dcbb",
+     "nota": "Transforma tu cuerpo y tu energía con paga al recibir y envío gratis."
+    },
+    {
+     "adv": "MatI Shop",
+     "pais": "EC",
+     "dias": 5,
+     "score": 18,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2153510838926347",
+     "dk": "https://app.dropkiller.com/dashboard/ads/f0b43fb6-3abf-4382-895a-c05b88e58d4e",
+     "nota": "Compra American Fit original de American Natural."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "american natural",
+     "id": "4448",
+     "nombre": "american fit, 60 caps. dropi cup",
+     "costo": 110,
+     "stock": 1155,
+     "v7": 42,
+     "v30": 250,
+     "alt": "Único proveedor encontrado. Sugerido Q289"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/0a9fd627-4502-4eef-96c8-470a1a40169d/abefd782fc97.webp",
+   "risk": "Producto de control de peso y digestión: Meta es sensible a promesas de bajar kilos. Demanda de 42 unidades en 7 días, justo sobre el mínimo, y costo alto de Q110 por unidad. Proveedor verificado con stock de 1155.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=4448&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/0a9fd627-4502-4eef-96c8-470a1a40169d",
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-10-11_5": {
+   "date": "2026-10-11",
+   "rank": 5,
+   "source": "ia",
+   "name": "Ahorrador de energía",
+   "provider": "grupo luna",
+   "verificado": true,
+   "cats": "tecnología, hogar",
+   "costo": 55,
+   "pvp": 150,
+   "v7": 156,
+   "v30": 704,
+   "stock": 1955,
+   "score": 59,
+   "scores": {
+    "demanda": 7,
+    "traccion": 9,
+    "margen": 4,
+    "competencia": 6,
+    "riesgo": 4
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 269
+   },
+   "verdict": "Vende 156 unidades en 7 días y 704 en 30 (26 días con venta, 2995 totales) con 6 anunciantes locales. Con 2 por Q269 la utilidad esperada es Q30.58 por pedido (objetivo Q30), pero el mercado anuncia 2 por Q199, así que el precio es el punto débil.",
+   "angle": "Ahorro en la factura de luz y protección de electrodomésticos ante picos de corriente; competir con garantía y envío gratis porque el precio queda Q70 por encima de 2 por Q199.",
+   "competition": "6 anunciantes locales (3 por WhatsApp y 3 con tienda). Anuncio más viejo con 103 días (Compra GT), así que el producto está validado pero con competencia de precio bajo.",
+   "anWA": 3,
+   "anLand": 3,
+   "anTotal": 6,
+   "anNota": "WhatsApp: Urbanly GT, A Un Clic, Compra En Casa. Tienda: TrendyPlus Guatemala (trendyplusgt.com), Tienda Listto - Guatemala (2 por Q199, 4 por Q349, 6 por Q499), Compra GT (compragt.com). Anuncio local más viejo: 103 días (Compra GT). Precios anunciados: 2 por Q199, 4 por Q349 y 6 por Q499.",
+   "tiendas": [
+    {
+     "url": "https://tiendavalkyria.com/products/ahorrador-de-energia-best-reduce-las-boletas-desde-el-primer-mes",
+     "adv": "Valkyria",
+     "pais": "CL",
+     "dias": 2,
+     "nota": "Cada mes veía la boleta de la luz esperando que no siguiera subiendo; envíos a todo Chile."
+    },
+    {
+     "url": "https://tiendalistto.com/products/ahorrador-de-energia59",
+     "adv": "Tienda Listto",
+     "pais": "CO",
+     "dias": 1,
+     "nota": "Ahorrador de energía desde $59.90 para controlar el consumo eléctrico del hogar."
+    },
+    {
+     "url": "https://pidehoy.mx/products/ahorrador-de-energia-luz-electricidad?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+     "adv": "Pide Hoy Mexico",
+     "pais": "MX",
+     "dias": 1,
+     "nota": "Pagas solo al recibir; ¿pagas demasiado de luz cada mes?"
+    },
+    {
+     "url": "https://hogarenarmonia.com.mx/products/ahorrador-de-energia-inteligente-para-el-hogar-estabilizador-de-voltaje-pack-2x1",
+     "adv": "Gad By Go",
+     "pais": "MX",
+     "dias": 4,
+     "nota": "El recibo de luz llega más caro aunque uses lo mismo."
+    },
+    {
+     "url": "https://www.vidafacilrd.com/products/ahorrador-de-energia-electrica-2x1?_pos=1&_psq=AHORRA&_ss=e&_v=1.0",
+     "adv": "Vida Facil Rd",
+     "pais": "DO",
+     "dias": 5,
+     "nota": "Oferta 2x1 para optimizar el uso de energía en hogar u oficina."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Tienda Online 1512",
+     "pais": "CO",
+     "dias": 6,
+     "score": 48,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1397493785825699",
+     "dk": "https://app.dropkiller.com/dashboard/ads/802777c4-9872-4047-a61d-f0dc7d5c0d36",
+     "nota": "¿Facturas de energía elevadas? Con envío gratis."
+    },
+    {
+     "adv": "Beka Importaciones",
+     "pais": "CO",
+     "dias": 2,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2733778663719140",
+     "dk": "https://app.dropkiller.com/dashboard/ads/dd6c55c4-8855-4dad-a014-f1dca8ef8ed8",
+     "nota": "Ahorrador de energía Premium 3.0 para quien siente su consumo cada vez más alto."
+    },
+    {
+     "adv": "Mega Tienda",
+     "pais": "EC",
+     "dias": 1,
+     "score": 28,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1804737780559466",
+     "dk": "https://app.dropkiller.com/dashboard/ads/b2822372-5065-438f-8b3d-7d361a59b31e",
+     "nota": "¿Cansado de que tu planilla de luz suba cada mes sin explicación?"
+    },
+    {
+     "adv": "Lúa Store",
+     "pais": "CO",
+     "dias": 7,
+     "score": 30,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=28914280398261129",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c7e75713-62aa-4aeb-9148-e82c8b2606f2",
+     "nota": "Tu factura de energía no deja de subir; últimas unidades disponibles."
+    },
+    {
+     "adv": "GlobalBuy Ecuador",
+     "pais": "EC",
+     "dias": 5,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1312956181035828",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d700345f-dda9-4693-a977-b9fdbb6d75bc",
+     "nota": "Impulso a la eficiencia eléctrica del hogar con envío gratis y pago al recibir."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Vida Facil Rd",
+     "pais": "DO",
+     "dias": 5,
+     "score": 35,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1304176775096396",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e3bfdf5a-4c0f-4669-809f-48c4f71187b2",
+     "nota": "Aprovecha la oferta 2x1 para optimizar el uso de energía."
+    },
+    {
+     "adv": "Tienda Ecua",
+     "pais": "EC",
+     "dias": 6,
+     "score": 35,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1752586075849419",
+     "dk": "https://app.dropkiller.com/dashboard/ads/bdb0d355-4fb8-4130-a25a-0634a2d2edc5",
+     "nota": "Cada mes veía la boleta de la luz esperando que no siguiera subiendo, con envío gratis y pago al recibir."
+    },
+    {
+     "adv": "Gad By Go",
+     "pais": "MX",
+     "dias": 4,
+     "score": 34,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1793650431831703",
+     "dk": "https://app.dropkiller.com/dashboard/ads/8df40a2f-96dd-47b2-b2e4-d6a47c6f216e",
+     "nota": "Paga al recibir: el recibo de luz llega más caro aunque uses lo mismo."
+    },
+    {
+     "adv": "Todo En Uno",
+     "pais": "CO",
+     "dias": 5,
+     "score": 27,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2339532133469598",
+     "dk": "https://app.dropkiller.com/dashboard/ads/39079581-d2a0-4771-ac3e-d7e7c92d5294",
+     "nota": "Lleva 2 y paga 1 con envío gratis."
+    },
+    {
+     "adv": "CompraYa24",
+     "pais": "CO",
+     "dias": 5,
+     "score": 31,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1753521245729530",
+     "dk": "https://app.dropkiller.com/dashboard/ads/df8c7150-bcfc-4b54-b306-07361f9814f5",
+     "nota": "Se enchufa y trabaja solo."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "grupo luna",
+     "id": "9538",
+     "nombre": "ahorrador de energia",
+     "costo": 55,
+     "stock": 1955,
+     "v7": 156,
+     "v30": 704,
+     "alt": "Elegido. Sugerido Q150"
+    },
+    {
+     "prov": "blue guatemala",
+     "id": "6073",
+     "nombre": "ahorrador ee",
+     "costo": 40,
+     "stock": 100,
+     "v7": 0,
+     "v30": 47,
+     "alt": "Listado parecido, stock bajo de 100, sugerido Q90"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/621b130e-b512-450f-891d-d4e697fa3dab/ad87a85bcdad.webp",
+   "risk": "Claims de ahorro eléctrico difíciles de comprobar: riesgo de reclamos y devoluciones. El precio de venta (2 por Q269) queda por encima del mercado local (2 por Q199). Proveedor verificado con stock de 1955.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=9538&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/621b130e-b512-450f-891d-d4e697fa3dab",
+   "status": "nuevo",
+   "fav": false
   }
  },
  "validations": {
