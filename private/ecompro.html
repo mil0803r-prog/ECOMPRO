@@ -764,7 +764,6 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <div class="chips" id="m-presets"></div>
     </div>
     <div class="pane" id="cta-view"></div>
-    <div class="card" id="h-meta"></div>
   </section>
 
   <section class="pane" id="p-tik" hidden>
@@ -1617,6 +1616,35 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     var out=[{},{}];
     ORD.forEach(function(o){if(o.d<r[0]||o.d>r[1])return;var key=o.s==="E"?"e":o.s==="D"?"d":o.s==="C"?"c":(o.s==="R"||o.s==="K"||o.s==="G")?"t":null;if(!key)return;var L=P[o.d];if(!L)return;var tot=L.reduce(function(q,x){return q+x.n},0);L.forEach(function(x){var m=out[x.a][x.ci]=out[x.a][x.ci]||{e:0,d:0,c:0,t:0};m[key]+=x.n/tot})});
     return out}
+  var LVL="camp",LVP=null;try{LVL=localStorage.getItem("lvl")||"camp"}catch(e){}
+  function lvOf(c){return (window.META_LV||{})[c.id]}
+  function isOn(e){return /^ACTIVE$/i.test(String(e||""))}
+  function lvLab(e){e=String(e||"").toUpperCase();return e==="ACTIVE"?["Activa","v"]:/CAMPAIGN_PAUSED|ADSET_PAUSED/.test(e)?["Pausada por "+(/ADSET/.test(e)?"conjunto":"campaña"),"g"]:e==="PAUSED"?["Pausada","g"]:/DELETED|ARCHIVED/.test(e)?["Eliminada","r"]:/DISAPPROVED|WITH_ISSUES/.test(e)?["Con problemas","r"]:e?[e,"g"]:["–","g"]}
+  function campOf(c,k){var L=lvOf(c);if(!L)return null;var nm=String((c.data.names||[])[k]||"").trim();for(var i=0;i<L.campanas.length;i++)if(String(L.campanas[i].nombre).trim()===nm)return L.campanas[i];return null}
+  function swc(c,nivel,x){return window.ecSwitch&&x?'<span class="hsw-w" style="display:inline-flex;align-items:center;gap:8px;margin-right:10px;vertical-align:middle">'+window.ecSwitch("meta",c.n,nivel,x.id,x.nombre,x.estado)+'</span>':""}
+  function lvch(){return '<div class="chips" id="m-nivel" style="margin-bottom:6px">'+[["camp","Campañas"],["conj","Conjuntos de anuncios"],["anun","Anuncios"]].map(function(f){return '<button type="button" class="chip" data-l="'+f[0]+'" aria-pressed="'+(LVL===f[0])+'">'+f[1]+'</button>'}).join("")+(LVP?'<button type="button" class="chip" data-l="clear" title="Quitar filtro">✕ '+esc(LVP.nombre)+'</button>':"")+'</div>'}
+  mview.addEventListener("click",function(ev){
+    var b=ev.target.closest("#m-nivel .chip");if(b){var l=b.dataset.l;if(l==="clear")LVP=null;else{LVL=l;if(l==="camp")LVP=null;try{localStorage.setItem("lvl",LVL)}catch(e){}}renderMeta();return}
+    var d=ev.target.closest("a[data-drill]");if(d){ev.preventDefault();var q=d.dataset.drill.split("|");LVL=q[0];LVP={nivel:q[0]==="conj"?"camp":"conj",id:q[1],nombre:q.slice(2).join("|")};try{localStorage.setItem("lvl",LVL)}catch(e){}renderMeta()}});
+  function nivelHTML(c,r,fch){
+    var L=lvOf(c);if(!L)return lvch()+'<div class="warn"><b>Sin datos por conjunto o anuncio</b><span>Aún no se cargaron los conjuntos y anuncios de esta cuenta.</span></div>';
+    var conj=L.conjuntos,anun=L.anuncios,E=LVL==="conj"?conj:anun,F=LVL==="conj"?L.filasConj:L.filasAnun,A={};
+    F.forEach(function(x){var dt="2026-"+x[0];if(dt<r[0]||dt>r[1])return;var k=A[x[1]]||(A[x[1]]={sp:0,im:0,cl:0,cv:0,cp:0});k.sp+=x[2];k.im+=x[3];k.cl+=x[4];k.cv+=x[5];k.cp+=x[6]||0});
+    var cmap={},jmap={};L.campanas.forEach(function(k){cmap[k.id]=k});conj.forEach(function(k){jmap[k.id]=k});
+    var list=E.filter(function(e){
+      if(LVP){if(LVL==="conj"&&e.campId!==LVP.id)return false;if(LVL==="anun"){if(LVP.nivel==="conj"&&e.conjId!==LVP.id)return false;if(LVP.nivel==="camp"&&(jmap[e.conjId]||{}).campId!==LVP.id)return false}}
+      var on=isOn(e.estado);if(CF==="act"&&!on)return false;if(CF==="off"&&on)return false;
+      return A[e.id]||on});
+    list.sort(function(x,y){return ((A[y.id]||{}).sp||0)-((A[x.id]||{}).sp||0)});
+    var cnt={todas:0,act:0,off:0};E.forEach(function(e){cnt.todas++;if(isOn(e.estado))cnt.act++;else cnt.off++});
+    var fc='<div class="chips" id="m-estado">'+[["todas","Todas ("+cnt.todas+")"],["act","Activas ("+cnt.act+")"],["off","Desactivadas ("+cnt.off+")"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(CF===f[0])+'">'+f[1]+'</button>'}).join("")+'</div>';
+    var T={sp:0,im:0,cl:0,cv:0,cp:0},nivel=LVL==="conj"?"conjunto":"anuncio";
+    var body=list.map(function(e){var x=A[e.id]||{sp:0,im:0,cl:0,cv:0,cp:0},es=lvLab(e.estado);T.sp+=x.sp;T.im+=x.im;T.cl+=x.cl;T.cv+=x.cv;T.cp+=x.cp;
+      var par=LVL==="conj"?(cmap[e.campId]||{}).nombre:((jmap[e.conjId]||{}).nombre+" · "+((cmap[(jmap[e.conjId]||{}).campId]||{}).nombre||""));
+      var nm=LVL==="conj"?'<a href="#" data-drill="anun|'+e.id+'|'+esc(e.nombre)+'" style="color:inherit;font-weight:600;text-decoration:none">'+esc(e.nombre)+'</a>':esc(e.nombre);
+      return '<tr><td>'+swc(c,nivel,e)+nm+' <span class="pill '+es[1]+'">'+es[0]+'</span><div class="sub">'+esc(par||"")+'</div></td><td class="num">'+fm(x.sp)+'</td><td class="num">'+fi(x.im)+'</td><td class="num">'+fi(x.cl)+'</td><td class="num">'+ctr(x)+'</td><td class="num">'+fi(x.cv)+'</td><td class="num">'+(x.cv?fm(x.sp/x.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(x.cp)+'</td><td class="num m-cp">'+(x.cp?fm(x.sp/x.cp):"–")+'</td>':'')+'</tr>'}).join("");
+    return '<div><h2>'+(LVL==="conj"?"Conjuntos de anuncios":"Anuncios")+' en el rango</h2>'+lvch()+fc+(list.length?'':'<div class="sub" style="margin:8px 0">No hay '+(LVL==="conj"?"conjuntos":"anuncios")+' con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>'+(LVL==="conj"?"Conjunto":"Anuncio")+'</th><th class="num">Gasto</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Conv.</th><th class="num">Costo/conv.</th>'+(MM.cp?'<th class="num m-cp">Compras</th><th class="num m-cp">Costo/compra</th>':'')+'</tr></thead><tbody>'+body+'<tr><td class="lab">Total</td><td class="num">'+fm(T.sp)+'</td><td class="num">'+fi(T.im)+'</td><td class="num">'+fi(T.cl)+'</td><td class="num">'+ctr(T)+'</td><td class="num">'+fi(T.cv)+'</td><td class="num">'+(T.cv?fm(T.sp/T.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(T.cp)+'</td><td class="num m-cp">'+(T.cp?fm(T.sp/T.cp):"–")+'</td>':'')+'</tr></tbody></table></div><p class="foot">Métricas de Meta por '+(LVL==="conj"?"conjunto":"anuncio")+' en el rango elegido, en '+esc(c.mo)+'. Toca el nombre de un conjunto para ver sus anuncios. El interruptor deja un pedido de activar o pausar: dile a Claude "aplica los cambios de anuncios".</p></div>'}
+  window.ecMetaRerender=function(){var pm=document.getElementById("p-met");if(pm&&!pm.hidden)renderMeta()};
   function renderAll(){
     var r=rango(),a1=agg(CT[0]),a3=agg(CT[1]),ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
     var rows=CT.map(function(c,i){var a=agg(c);var g=c.off?'<span class="sub">no consultable</span>':(c.data?fm(a.sp):'0,00');
@@ -1641,15 +1669,17 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       ks=ks.filter(function(k){var e=(c.data.est||{})[k]==="A";return CF==="todas"||(CF==="act"?e:!e)});
       var ta={sp:0,im:0,cl:0,cv:0,cp:0};ks.forEach(function(k){var x=a.camp[k];ta.sp+=x.sp;ta.im+=x.im;ta.cl+=x.cl;ta.cv+=x.cv;ta.cp+=(x.cp||0)});
       var fch='<div class="chips" id="m-estado">'+[["todas","Todas ("+cnt.todas+")"],["act","Activas ("+cnt.act+")"],["off","Desactivadas ("+cnt.off+")"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(CF===f[0])+'">'+f[1]+'</button>'}).join("")+'</div>';
+      var h0=h;
       if(kAll.length){
         var dn=dropiCnt(r),est=asig(r)[CT.indexOf(c)]||{},xc=[["e","Entregados"],["d","Devueltos"],["c","Cancelados"],["t","En camino"]].filter(function(m){return MM[m[0]]});
         var xh=(MM.cp?'<th class="num m-cp">Compras</th><th class="num m-cp">Costo/compra</th>':'')+xc.map(function(m){return '<th class="num m-'+m[0]+'" title="En 0 hasta encontrar cómo ligar los pedidos de Dropi con cada campaña">'+m[1]+'</th>'}).join("");
         var sumE={e:0,d:0,c:0,t:0};
-        h+='<div><h2>Campañas en el rango</h2>'+fch+(ks.length?'':'<div class="sub" style="margin:8px 0">No hay campañas con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>Campaña</th><th class="num">Gasto</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Conv.</th><th class="num">Costo/conv.</th>'+xh+'</tr></thead><tbody>'+
-         ks.map(function(k){var x=a.camp[k],cp=x.cp||0,m=est[k];if(m)xc.forEach(function(q){sumE[q[0]]+=m[q[0]]});var es=EST_L[(c.data.est||{})[k]]||EST_L.X;return '<tr><td>'+esc(c.data.names[k])+' <span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+fm(x.sp)+'</td><td class="num">'+fi(x.im)+'</td><td class="num">'+fi(x.cl)+'</td><td class="num">'+ctr(x)+'</td><td class="num">'+fi(x.cv)+'</td><td class="num">'+(x.cv?fm(x.sp/x.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(cp)+'</td><td class="num m-cp">'+(cp?fm(x.sp/cp):"–")+'</td>':'')+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'}).join("")+
+        h+='<div><h2>Campañas en el rango</h2>'+lvch()+fch+(ks.length?'':'<div class="sub" style="margin:8px 0">No hay campañas con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>Campaña</th><th class="num">Gasto</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Conv.</th><th class="num">Costo/conv.</th>'+xh+'</tr></thead><tbody>'+
+         ks.map(function(k){var x=a.camp[k],cp=x.cp||0,m=est[k];if(m)xc.forEach(function(q){sumE[q[0]]+=m[q[0]]});var es=EST_L[(c.data.est||{})[k]]||EST_L.X;var co=campOf(c,k);if(co){es=lvLab(co.estado)}return '<tr><td>'+swc(c,"campana",co)+(co?'<a href="#" data-drill="conj|'+co.id+'|'+esc(co.nombre)+'" style="color:inherit;font-weight:600;text-decoration:none">'+esc(c.data.names[k])+'</a>':esc(c.data.names[k]))+' <span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+fm(x.sp)+'</td><td class="num">'+fi(x.im)+'</td><td class="num">'+fi(x.cl)+'</td><td class="num">'+ctr(x)+'</td><td class="num">'+fi(x.cv)+'</td><td class="num">'+(x.cv?fm(x.sp/x.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(cp)+'</td><td class="num m-cp">'+(cp?fm(x.sp/cp):"–")+'</td>':'')+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'}).join("")+
          '<tr><td class="lab">Total</td><td class="num">'+fm(ta.sp)+'</td><td class="num">'+fi(ta.im)+'</td><td class="num">'+fi(ta.cl)+'</td><td class="num">'+ctr(ta)+'</td><td class="num">'+fi(ta.cv)+'</td><td class="num">'+(ta.cv?fm(ta.sp/ta.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(ta.cp)+'</td><td class="num m-cp">'+(ta.cp?fm(ta.sp/ta.cp):"–")+'</td>':'')+xc.map(function(q){return '<td class="num m-'+q[0]+'">0</td>'}).join("")+'</tr>'+
          (xc.length?'<tr><td class="lab">Total Dropi, todas las fuentes</td><td class="num sub" colspan="'+(6+(MM.cp?2:0))+'"></td>'+xc.map(function(q){return '<td class="num m-'+q[0]+'">'+fi(dn[q[0]])+'</td>'}).join("")+'</tr>':'')+'</tbody></table></div>'+(xc.length?'<p class="foot">Entregados, devueltos, cancelados y en camino por campaña están en 0 por ahora: Lumy y Dropi no dicen de qué campaña vino cada pedido y todavía no hay forma de ligarlos. La fila de abajo es el total real de Dropi según Lumy, de todas las fuentes.</p>':'')+'</div>';
       } else h+='<div class="warn"><b>Sin gasto en este rango</b><span>Prueba con otras fechas o con "Todo el periodo".</span></div>';
+      if(LVL!=="camp")h=h0+nivelHTML(c,r,fch);
     }
     h+='<p class="foot">'+c.nota+'</p>';
     mview.innerHTML=h;
@@ -2562,7 +2592,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function ctl(pl,cta,nivel,x){
     var p=pend(pl,x.id),act=on(x.estado),shown=p?p.accion==="activar":act,s=lab(x.estado,x.sec);
     return '<span class="pill '+s[1]+'">'+s[0]+'</span>'+(x.gasto30?'<span class="hs">'+f2(x.gasto30)+' · 30 d</span>':'')+
-      '<button type="button" class="hsw'+(p?' pend':'')+'" data-h="'+pl+'|'+esc(cta)+'|'+nivel+'|'+esc(x.id)+'" data-n="'+esc(x.nombre)+'" aria-pressed="'+shown+'" aria-label="'+(shown?"Pausar":"Activar")+' '+esc(x.nombre)+'" title="'+(shown?"Pausar":"Activar")+'"></button>'+
+      '<button type="button" class="hsw'+(p?' pend':'')+'" data-h="'+pl+'|'+esc(cta)+'|'+nivel+'|'+esc(x.id)+'" data-n="'+esc(x.nombre)+'" data-on="'+(act?1:0)+'" aria-pressed="'+shown+'" aria-label="'+(shown?"Pausar":"Activar")+' '+esc(x.nombre)+'" title="'+(shown?"Pausar":"Activar")+'"></button>'+
       (p?'<button type="button" class="hpend" data-cancel="'+esc(p.id)+'" title="Toca para cancelar el pedido">Pendiente: '+(p.accion==="activar"?"activar":"pausar")+' ✕</button>':'')}
   function node(pl,cta,nivel,nom,x,kids){
     var l={campana:"Campaña",conjunto:pl==="tiktok"?"Grupo de anuncios":"Conjunto",anuncio:"Anuncio"}[nivel];
@@ -2578,7 +2608,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(!cuentas||!cuentas.length){el.innerHTML='<h3>'+title+'</h3><p class="sub">Aún no hay campañas cargadas.</p>';return}
     var np=A.filter(function(x){return x.plataforma===pl&&x.estado==="pendiente"}).length;
     el.innerHTML='<h3 style="margin-bottom:2px">'+title+'</h3><p class="sub" style="margin:0 0 10px">Foto del '+esc(HIER.fecha)+'. El interruptor deja un pedido de activar o pausar; dile a Claude <b>"aplica los cambios de anuncios"</b> y se hace en '+(pl==="meta"?"Meta":"TikTok")+'. '+(np?'<b>'+np+' pedido(s) pendiente(s).</b>':'')+'</p><div class="hr" data-pl="'+pl+'">'+tree(pl,cuentas)+'</div>'}
-  function render(){if(!HIER)return;paint("meta",$("h-meta"),"Campañas, conjuntos y anuncios de Meta",HIER.meta);paint("tiktok",$("h-tik"),"Campañas, grupos de anuncios y anuncios de TikTok",HIER.tiktok)}
+  function render(){if(!HIER)return;paint("tiktok",$("h-tik"),"Campañas, grupos de anuncios y anuncios de TikTok",HIER.tiktok)}
   function click(ev){
     var c=ev.target.closest("button[data-cancel]");
     if(c){if(!aWrite||!aDb)return;aDb.doc("acciones/"+c.getAttribute("data-cancel")).delete();return}
@@ -2586,11 +2616,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(!aWrite||!aDb){alert("No tienes permiso para pedir cambios.");return}
     var q=b.getAttribute("data-h").split("|"),pl=q[0],id=q[3],p=pend(pl,id);
     if(p){aDb.doc("acciones/"+p.id).delete();return}
-    var x=null;(HIER[pl]||[]).forEach(function(cu){cu.campanas.forEach(function(k){if(k.id===id)x=k;(k.conjuntos||[]).forEach(function(s){if(s.id===id)x=s;(s.anuncios||[]).forEach(function(a){if(a.id===id)x=a})})})});
-    if(!x)return;var did=pl+"-"+id;
-    aDb.doc("acciones/"+did).set({id:did,plataforma:pl,cuenta:q[1],nivel:q[2],entidad:id,nombre:x.nombre,accion:on(x.estado)?"pausar":"activar",estado:"pendiente",fecha:Date.now()}).catch(function(){alert("No se pudo guardar el pedido.")})}
-  [$("h-meta"),$("h-tik")].forEach(function(e){if(e)e.addEventListener("click",click)});
-  window.hierWire=function(db,can){aDb=db;aWrite=can;if(db){db.collection("acciones").limit(300).onSnapshot(function(s){A=s.docs.map(function(d){var x=d.data();x.id=x.id||d.id;return x});render()},function(){A=[];render()})}render()};
+    var did=pl+"-"+id,nom=b.getAttribute("data-n")||id,isOn=b.getAttribute("data-on")==="1";
+    aDb.doc("acciones/"+did).set({id:did,plataforma:pl,cuenta:q[1],nivel:q[2],entidad:id,nombre:nom,accion:isOn?"pausar":"activar",estado:"pendiente",fecha:Date.now()}).catch(function(){alert("No se pudo guardar el pedido.")})}
+  [$("h-tik"),$("cta-view")].forEach(function(e){if(e)e.addEventListener("click",click)});
+  window.ecSwitch=function(pl,cta,nivel,id,nombre,estado){return ctl(pl,cta,nivel,{id:id,nombre:nombre,estado:estado}).replace(/^<span class="pill[^>]*>[^<]*<\/span>/,"")};
+  window.ecAccPend=function(pl){return A.filter(function(x){return x.plataforma===pl&&x.estado==="pendiente"})};
+  window.hierWire=function(db,can){aDb=db;aWrite=can;if(db){db.collection("acciones").limit(300).onSnapshot(function(s){A=s.docs.map(function(d){var x=d.data();x.id=x.id||d.id;return x});render();if(window.ecMetaRerender)window.ecMetaRerender()},function(){A=[];render()})}render()};
   window.__HIER=HIER;window.__ACC=function(){return A};
   render();
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="met"],#side button[data-p="tik"]'))setTimeout(render,0)});
