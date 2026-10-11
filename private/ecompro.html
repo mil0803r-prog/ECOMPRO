@@ -444,6 +444,26 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 #pb-tabla tbody td:last-child{border-right:1px solid var(--pc,var(--line));border-radius:0 10px 10px 0}
 #pb-tabla tbody tr{box-shadow:inset 3px 0 0 var(--pc,var(--line))}
 #pb-tabla tbody tr{background:color-mix(in srgb,var(--pc,transparent) 7%,var(--card))}
+/* Jerarquía de anuncios */
+.hr{display:flex;flex-direction:column;gap:6px}
+.hr details{border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.hr details details{margin:0 0 6px 14px;background:color-mix(in srgb,var(--cel) 4%,var(--card))}
+.hr summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 12px;flex-wrap:wrap}
+.hr summary::-webkit-details-marker{display:none}
+.hr summary::before{content:"▸";color:var(--muted);font-size:.8rem;transition:transform .15s}
+.hr details[open]>summary::before{transform:rotate(90deg)}
+.hr .hn{flex:1 1 220px;min-width:0;font-weight:600;overflow-wrap:anywhere}
+.hr .hl{font-size:.64rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.hr .hs{font-size:.8rem;color:var(--muted);white-space:nowrap}
+.hr .hit{display:flex;align-items:center;gap:10px;padding:8px 12px;margin:0 0 6px 14px;border:1px solid var(--line);border-radius:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--cel) 2%,var(--card))}
+.hr .hit::before{content:"•";color:var(--muted)}
+.hsw{position:relative;width:42px;height:24px;border-radius:99px;border:1px solid var(--line);background:var(--gris-bg);cursor:pointer;padding:0;flex:0 0 auto;transition:background .15s}
+.hsw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);transition:transform .15s}
+.hsw[aria-pressed="true"]{background:var(--verde);border-color:var(--verde)}
+.hsw[aria-pressed="true"]::after{transform:translateX(18px)}
+.hsw.pend{box-shadow:0 0 0 2px var(--amar)}
+.hpend{font-size:.7rem;font-weight:700;color:var(--amar);background:var(--amar-bg);border-radius:99px;padding:2px 9px;cursor:pointer;border:0;font-family:inherit}
+@media(max-width:520px){.hr details details,.hr .hit{margin-left:8px}}
 .pbsw{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .pbsw button{width:30px;height:30px;border-radius:50%;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0;font:inherit;font-size:.62rem;font-weight:700;color:var(--fg);background:var(--c,var(--card))}
 .pbsw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--fg)}
@@ -744,6 +764,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <div class="chips" id="m-presets"></div>
     </div>
     <div class="pane" id="cta-view"></div>
+    <div class="card" id="h-meta"></div>
   </section>
 
   <section class="pane" id="p-tik" hidden>
@@ -773,6 +794,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       </table></div>
       <p class="foot">TikTok gasta en soles (PEN) y las ventas están en quetzales (GTQ), así que no calculé ROAS. Las campañas de testeo del 10-09 y del collar son las más baratas por pedido.</p>
     </div>
+    <div class="card" id="h-tik"></div>
   </section>
 
   <section class="pane" id="p-mer" hidden>
@@ -1885,6 +1907,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     window.__dbw={db:db,can:can};
     if(window.gWire)window.gWire(db,can);
     if(window.pubWire)window.pubWire(db,can);
+    if(window.hierWire)window.hierWire(db,can);
     if(window.calcWire)window.calcWire(db,can);
   })();
 
@@ -2521,6 +2544,54 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("keydown",function(e){if(e.key==="Escape")pp.classList.remove("open")});
   try{var s=localStorage.getItem("ec_pal");if(s&&P.some(function(x){return x[0]===s})&&s!=="celeste")r.setAttribute("data-pal",s)}catch(e){}
   draw();
+})();
+</script>
+<script>
+(function(){
+  var HIER=/*HIER*/null/*END*/;
+  var $=function(i){return document.getElementById(i)};
+  var A=[],aDb=null,aWrite=false;
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function on(e){return /^(ACTIVE|ENABLE|STATUS_ENABLE)$/i.test(String(e||""))}
+  function lab(e){e=String(e||"").toUpperCase();return on(e)?["Activo","v"]:/PAUSED|DISABLE/.test(e)?["Pausado","a"]:/DELETED|ARCHIVED/.test(e)?["Eliminado","g"]:/DISAPPROVED|REJECT/.test(e)?["Rechazado","r"]:/PENDING|REVIEW/.test(e)?["En revisión","a"]:[e||"–","g"]}
+  function f2(n){return n?"S/ "+Number(n).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2}):""}
+  function pend(pl,id){for(var i=0;i<A.length;i++)if(A[i].plataforma===pl&&A[i].entidad===id&&A[i].estado==="pendiente")return A[i];return null}
+  function ctl(pl,cta,nivel,x){
+    var p=pend(pl,x.id),act=on(x.estado),shown=p?p.accion==="activar":act,s=lab(x.estado);
+    return '<span class="pill '+s[1]+'">'+s[0]+'</span>'+(x.gasto30?'<span class="hs">'+f2(x.gasto30)+' · 30 d</span>':'')+
+      '<button type="button" class="hsw'+(p?' pend':'')+'" data-h="'+pl+'|'+esc(cta)+'|'+nivel+'|'+esc(x.id)+'" data-n="'+esc(x.nombre)+'" aria-pressed="'+shown+'" aria-label="'+(shown?"Pausar":"Activar")+' '+esc(x.nombre)+'" title="'+(shown?"Pausar":"Activar")+'"></button>'+
+      (p?'<button type="button" class="hpend" data-cancel="'+esc(p.id)+'" title="Toca para cancelar el pedido">Pendiente: '+(p.accion==="activar"?"activar":"pausar")+' ✕</button>':'')}
+  function node(pl,cta,nivel,nom,x,kids){
+    var l={campana:"Campaña",conjunto:pl==="tiktok"?"Grupo de anuncios":"Conjunto",anuncio:"Anuncio"}[nivel];
+    if(!kids)return '<div class="hit"><span class="hl">'+l+'</span><span class="hn">'+esc(x.nombre)+'</span>'+ctl(pl,cta,nivel,x)+'</div>';
+    return '<details><summary><span class="hl">'+l+'</span><span class="hn">'+esc(x.nombre)+'</span>'+ctl(pl,cta,nivel,x)+'</summary>'+kids+'</details>'}
+  function tree(pl,cuentas){
+    return cuentas.map(function(c){
+      var nc=0,na=0,ng=0;c.campanas.forEach(function(k){nc++;(k.conjuntos||[]).forEach(function(s){ng++;na+=(s.anuncios||[]).length})});
+      var body=c.campanas.map(function(k){return node(pl,c.cuenta,"campana",null,k,(k.conjuntos||[]).map(function(s){return node(pl,c.cuenta,"conjunto",null,s,(s.anuncios||[]).map(function(a){return node(pl,c.cuenta,"anuncio",null,a,null)}).join("")||'<div class="sub" style="margin:0 0 6px 14px">Sin anuncios.</div>')}).join("")||'<div class="sub" style="margin:0 0 6px 14px">Sin conjuntos.</div>')}).join("");
+      return '<details open><summary><span class="hl">Cuenta</span><span class="hn">'+esc(c.cuenta)+'</span><span class="hs">'+nc+' campañas · '+ng+' conjuntos · '+na+' anuncios</span></summary>'+body+'</details>'}).join("")}
+  function paint(pl,el,title,cuentas){
+    if(!el)return;
+    if(!cuentas||!cuentas.length){el.innerHTML='<h3>'+title+'</h3><p class="sub">Aún no hay campañas cargadas.</p>';return}
+    var np=A.filter(function(x){return x.plataforma===pl&&x.estado==="pendiente"}).length;
+    el.innerHTML='<h3 style="margin-bottom:2px">'+title+'</h3><p class="sub" style="margin:0 0 10px">Foto del '+esc(HIER.fecha)+'. El interruptor deja un pedido de activar o pausar; dile a Claude <b>"aplica los cambios de anuncios"</b> y se hace en '+(pl==="meta"?"Meta":"TikTok")+'. '+(np?'<b>'+np+' pedido(s) pendiente(s).</b>':'')+'</p><div class="hr" data-pl="'+pl+'">'+tree(pl,cuentas)+'</div>'}
+  function render(){if(!HIER)return;paint("meta",$("h-meta"),"Campañas, conjuntos y anuncios de Meta",HIER.meta);paint("tiktok",$("h-tik"),"Campañas, grupos de anuncios y anuncios de TikTok",HIER.tiktok)}
+  function click(ev){
+    var c=ev.target.closest("button[data-cancel]");
+    if(c){if(!aWrite||!aDb)return;aDb.doc("acciones/"+c.getAttribute("data-cancel")).delete();return}
+    var b=ev.target.closest("button[data-h]");if(!b)return;ev.preventDefault();ev.stopPropagation();
+    if(!aWrite||!aDb){alert("No tienes permiso para pedir cambios.");return}
+    var q=b.getAttribute("data-h").split("|"),pl=q[0],id=q[3],p=pend(pl,id);
+    if(p){aDb.doc("acciones/"+p.id).delete();return}
+    var x=null;(HIER[pl]||[]).forEach(function(cu){cu.campanas.forEach(function(k){if(k.id===id)x=k;(k.conjuntos||[]).forEach(function(s){if(s.id===id)x=s;(s.anuncios||[]).forEach(function(a){if(a.id===id)x=a})})})});
+    if(!x)return;var did=pl+"-"+id;
+    aDb.doc("acciones/"+did).set({id:did,plataforma:pl,cuenta:q[1],nivel:q[2],entidad:id,nombre:x.nombre,accion:on(x.estado)?"pausar":"activar",estado:"pendiente",fecha:Date.now()}).catch(function(){alert("No se pudo guardar el pedido.")})}
+  [$("h-meta"),$("h-tik")].forEach(function(e){if(e)e.addEventListener("click",click)});
+  window.hierWire=function(db,can){aDb=db;aWrite=can;if(db){db.collection("acciones").limit(300).onSnapshot(function(s){A=s.docs.map(function(d){var x=d.data();x.id=x.id||d.id;return x});render()},function(){A=[];render()})}render()};
+  window.__HIER=HIER;window.__ACC=function(){return A};
+  render();
+  document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="met"],#side button[data-p="tik"]'))setTimeout(render,0)});
+  if(window.__dbw&&!aDb)window.hierWire(window.__dbw.db,window.__dbw.can);
 })();
 </script>
 
