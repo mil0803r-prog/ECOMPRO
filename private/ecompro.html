@@ -414,7 +414,9 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 @media(max-width:520px){.abars .r{grid-template-columns:96px minmax(0,1fr) 96px}}
 #p-pub .abars .r{grid-template-columns:minmax(60px,120px) minmax(0,1fr) auto}#p-pub .abars .r b{white-space:nowrap;text-align:right;font-size:.8rem}
 #p-pub .card{min-width:0}
-#pb-body .btn{padding:4px 10px;font-size:.78rem;min-height:0}#pb-body td:last-child{white-space:nowrap}#pb-tabla tfoot td{border-top:2px solid var(--line);border-bottom:0}
+#pb-body .btn{padding:4px 10px;font-size:.78rem;min-height:0}#pb-body td:last-child{white-space:nowrap}.pbdel{color:var(--rojo);border-color:color-mix(in srgb,var(--rojo) 50%,var(--line))}.pbdel.arm{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+#pb-body .btn[data-a="del"]{color:var(--rojo);border-color:color-mix(in srgb,var(--rojo) 45%,var(--line))}
+#pb-tabla tfoot td{border-top:2px solid var(--line);border-bottom:0}
 .abars .t{height:18px;background:var(--gris-bg);border-radius:4px;overflow:hidden}.abars .t i{display:block;height:100%;background:var(--azul);border-radius:4px}
 
 /* Asistente IA */
@@ -1060,7 +1062,7 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
     </div>
     <div class="card vbox" id="pb-impbox" hidden>
       <h3>Importar lista de gastos</h3>
-      <p class="sub" style="margin:0">Pega una línea por gasto con este orden: <b>fecha, producto, plataforma, cuenta, monto</b>, separados por tabulación, punto y coma o coma. La fecha puede ser 2026-10-09 o 09/10/2026. Las líneas repetidas se omiten.</p>
+      <p class="sub" style="margin:0">Copia la tabla de tu otra herramienta y pégala aquí, o escribe una línea por gasto: <b>fecha, producto, plataforma, cuenta, monto</b> (separados por tabulación, punto y coma o coma). La fecha puede ser 2026-10-09, 09/10/2026 o 09 oct, 2026. Las líneas repetidas se omiten.</p>
       <textarea id="pb-txt" rows="7" style="font:inherit;font-size:.85rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%" placeholder="2026-10-09;Collar llave amor en cadena;TikTok Ads;MILLORA 21005;17.40"></textarea>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn vprim" type="button" id="pb-impgo">Importar</button><button class="btn" type="button" id="pb-impx">Cerrar</button></div>
     </div>
@@ -1077,10 +1079,11 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
         <div class="fld"><label for="pb-fd">Desde</label><input id="pb-fd" type="date"></div>
         <div class="fld"><label for="pb-fh">Hasta</label><input id="pb-fh" type="date"></div>
       </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px"><button class="btn pbdel" type="button" id="pb-delsel" hidden>Eliminar seleccionados</button><button class="btn pbdel" type="button" id="pb-delall">Eliminar todo lo filtrado</button><span class="sub" id="pb-selinfo"></span></div>
       <div class="tbl"><table id="pb-tabla" style="min-width:820px">
-        <thead><tr><th>Fecha</th><th>Mes</th><th>Producto</th><th>Plataforma</th><th>Cuenta</th><th class="num">Monto (S/)</th><th></th></tr></thead>
+        <thead><tr><th style="width:34px"><input type="checkbox" id="pb-all" aria-label="Marcar todos"></th><th>Fecha</th><th>Mes</th><th>Producto</th><th>Plataforma</th><th>Cuenta</th><th class="num">Monto (S/)</th><th></th></tr></thead>
         <tbody id="pb-body"></tbody>
-        <tfoot><tr><td colspan="5" style="text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700">Total de lo filtrado</td><td class="num" id="pb-total" style="font-weight:700"></td><td></td></tr></tfoot>
+        <tfoot><tr><td colspan="6" style="text-align:right;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700">Total de lo filtrado</td><td class="num" id="pb-total" style="font-weight:700"></td><td></td></tr></tfoot>
       </table></div>
       <div style="display:flex;justify-content:center;margin-top:8px"><button class="btn" type="button" id="pb-mas" hidden>Ver más</button></div>
     </div>
@@ -2336,7 +2339,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 (function(){
   var $=function(i){return document.getElementById(i)};
   var MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-  var P=[],pDb=null,pWrite=false,lim=60,pDel=null,pEdit=null;
+  var P=[],pDb=null,pWrite=false,lim=60,pDel=null,pEdit=null,SEL={},armSel=false,armAll=false;
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function f2(n){return "S/ "+Number(n).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function today(){return new Date().toLocaleDateString("sv-SE",{timeZone:"America/Guatemala"})}
@@ -2362,8 +2365,11 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     $("pb-prods").innerHTML=group(P,"producto").map(function(r){return '<option value="'+esc(r[0])+'">'}).join("");
     $("pb-ctas").innerHTML=group(P,"cuenta").map(function(r){return '<option value="'+esc(r[0])+'">'}).join("");
     var L=filtrado();
-    $("pb-body").innerHTML=L.length?L.slice(0,lim).map(function(x){var m=x.fecha.slice(5,7);return '<tr data-id="'+esc(x.id)+'"><td>'+fdate(x.fecha)+'</td><td><span class="gmes" style="color:hsl('+((+m*37+140)%360)+',70%,'+(document.documentElement.getAttribute("data-theme")==="dark"?"65%":"36%")+')">'+MES[+m-1]+'</span></td><td><b>'+esc(x.producto)+'</b>'+(x.nota?'<div class="sub">'+esc(x.nota)+'</div>':'')+'</td><td>'+esc(x.plataforma)+'</td><td>'+esc(x.cuenta||"–")+'</td><td class="num"><b>'+f2(x.monto)+'</b></td><td class="num"><button class="btn" type="button" data-a="ed">Editar</button> <button class="btn" type="button" data-a="del">Eliminar</button></td></tr>'}).join(""):'<tr><td colspan="7" class="sub" style="padding:18px 14px">'+(P.length?"Nada coincide con los filtros.":'Todavía no hay gastos. Toca "＋ Registrar gasto" o "Importar lista".')+'</td></tr>';
+    $("pb-body").innerHTML=L.length?L.slice(0,lim).map(function(x){var m=x.fecha.slice(5,7);return '<tr data-id="'+esc(x.id)+'"><td><input type="checkbox" data-sel="1"'+(SEL[x.id]?' checked':'')+' aria-label="Marcar"></td><td>'+fdate(x.fecha)+'</td><td><span class="gmes" style="color:hsl('+((+m*37+140)%360)+',70%,'+(document.documentElement.getAttribute("data-theme")==="dark"?"65%":"36%")+')">'+MES[+m-1]+'</span></td><td><b>'+esc(x.producto)+'</b>'+(x.nota?'<div class="sub">'+esc(x.nota)+'</div>':'')+'</td><td>'+esc(x.plataforma)+'</td><td>'+esc(x.cuenta||"–")+'</td><td class="num"><b>'+f2(x.monto)+'</b></td><td class="num"><button class="btn" type="button" data-a="ed">Editar</button> <button class="btn" type="button" data-a="del">Eliminar</button></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">'+(P.length?"Nada coincide con los filtros.":'Todavía no hay gastos. Toca "＋ Registrar gasto" o "Importar lista".')+'</td></tr>';
     $("pb-total").textContent=f2(sum(L));$("pb-mas").hidden=L.length<=lim;
+    var ns=Object.keys(SEL).filter(function(k){return SEL[k]&&P.some(function(x){return x.id===k})}).length;$("pb-delsel").hidden=!ns;$("pb-delsel").textContent=(armSel?"¿Seguro? Toca otra vez":"Eliminar seleccionados ("+ns+")");$("pb-delsel").classList.toggle("arm",armSel);
+    $("pb-delall").hidden=!L.length;$("pb-delall").textContent=armAll?"¿Seguro? Se borran "+L.length+" · toca otra vez":"Eliminar todo lo filtrado ("+L.length+")";$("pb-delall").classList.toggle("arm",armAll);
+    $("pb-all").checked=L.length>0&&L.slice(0,lim).every(function(x){return SEL[x.id]});$("pb-selinfo").textContent=ns?ns+" marcados":"";
     var dd={};P.forEach(function(x){dd[x.fecha]=(dd[x.fecha]||0)+(+x.monto||0)});var dk=Object.keys(dd).sort().slice(-45),mx=Math.max.apply(null,dk.map(function(k){return dd[k]}).concat([1]));
     $("pb-dia").innerHTML=dk.length?'<div class="cal-cols">'+dk.map(function(k){return '<div class="c" title="'+fdate(k)+': '+f2(dd[k])+'"><div class="s" style="height:'+(dd[k]/mx*100)+'%"><i style="display:block;background:var(--azul);height:100%"></i></div></div>'}).join("")+'</div><div class="cal-lab">'+dk.map(function(k,i){return '<span>'+(dk.length>16&&i%(innerWidth<=520?5:3)?"":(+k.slice(8,10))+"/"+(+k.slice(5,7)))+'</span>'}).join("")+'</div>':'<p class="sub">Sin datos todavía.</p>';
     bars($("pb-gplat"),group(P,"plataforma"));bars($("pb-gcta"),group(P,"cuenta"));bars($("pb-gprod"),group(P,"producto"));
@@ -2393,11 +2399,28 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       if(b.dataset.a==="del"){if(!pWrite||!pDb)return;if(pDel===id){pDel=null;pDb.doc("publicidad/"+id).delete().catch(function(){msg("No se pudo eliminar.")})}else{pDel=id;b.textContent="¿Seguro?";setTimeout(function(){if(pDel===id){pDel=null;b.textContent="Eliminar"}},4000)}}});
     ["pb-q","pb-fp","pb-fc","pb-fd","pb-fh"].forEach(function(i){$(i).addEventListener("input",function(){lim=60;render()});$(i).addEventListener("change",function(){lim=60;render()})});
     $("pb-mas").addEventListener("click",function(){lim+=60;render()});
+    $("pb-body").addEventListener("change",function(ev){var c=ev.target.closest("input[data-sel]");if(!c)return;SEL[c.closest("tr").getAttribute("data-id")]=c.checked;armSel=false;render()});
+    $("pb-all").addEventListener("change",function(){var on=$("pb-all").checked;filtrado().slice(0,lim).forEach(function(x){SEL[x.id]=on});armSel=false;render()});
+    function delMany(ids,done){if(!pWrite||!pDb){msg("No tienes permiso para eliminar.");return}var n=0,i=0;(function next(){if(i>=ids.length){done(n);return}var id=ids[i++];pDb.doc("publicidad/"+id).delete().then(function(){n++;next()}).catch(function(){next()})})()}
+    $("pb-delsel").addEventListener("click",function(){var ids=Object.keys(SEL).filter(function(k){return SEL[k]&&P.some(function(x){return x.id===k})});if(!armSel){armSel=true;render();setTimeout(function(){if(armSel){armSel=false;render()}},5000);return}armSel=false;delMany(ids,function(n){SEL={};msg("Eliminados "+n+" gastos.")})});
+    $("pb-delall").addEventListener("click",function(){var ids=filtrado().map(function(x){return x.id});if(!armAll){armAll=true;render();setTimeout(function(){if(armAll){armAll=false;render()}},5000);return}armAll=false;delMany(ids,function(n){SEL={};msg("Eliminados "+n+" gastos.")})});
     $("pb-imp").addEventListener("click",function(){$("pb-impbox").hidden=!$("pb-impbox").hidden});$("pb-impx").addEventListener("click",function(){$("pb-impbox").hidden=true});
+    var MESN={ene:1,feb:2,mar:3,abr:4,may:5,jun:6,jul:7,ago:8,sep:9,set:9,oct:10,nov:11,dic:12};
+    function pd2(v){v=String(v).trim();var r=pd(v);if(r)return r;var m=v.match(/^(\d{1,2})\s+(?:de\s+)?([a-záéíóú]{3,})\.?,?\s+(?:de\s+)?(\d{4})/i);if(m){var mo=MESN[m[2].toLowerCase().slice(0,3)];if(mo)return m[3]+"-"+("0"+mo).slice(-2)+"-"+("0"+m[1]).slice(-2)}return null}
+    var SKIP=/^(activo|inactivo|editar|eliminar|acci[oó]n|enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)$/i;
+    function parseLine(l){
+      var c=l.indexOf("\t")>=0?l.split("\t"):l.indexOf(";")>=0?l.split(";"):l.split(",");
+      c=c.map(function(x){return x.trim()}).filter(function(x){return x!==""});if(c.length<4)return null;
+      var f=null,mo=NaN,pl=null,rest=[],mi=-1;
+      for(var i=c.length-1;i>=0;i--){if(/^(S\/\.?|\$|Q)?\s*-?[\d.,]+$/.test(c[i])&&/\d/.test(c[i])&&!pd2(c[i])){mo=pf(c[i]);mi=i;break}}
+      c.forEach(function(x,i){if(i===mi)return;if(!f){var d=pd2(x);if(d){f=d;return}}if(!pl&&/facebook|tiktok|meta|google|instagram|youtube/i.test(x)){pl=x.replace(/\s+/g," ");return}if(SKIP.test(x))return;rest.push(x.split(/\r?\n/)[0])});
+      if(!f||!(mo>=0)||!pl||!rest.length)return null;
+      return{fecha:f,producto:rest[0],plataforma:pl.replace(/\b(\w)(\w*)/g,function(a,b,d){return b.toUpperCase()+d.toLowerCase()}).replace(/Tiktok/,"TikTok"),cuenta:rest[1]||"",monto:mo}}
     $("pb-impgo").addEventListener("click",function(){
       var have={};P.forEach(function(x){have[key(x)]=1});var docs=[],bad=0,dup=0;
-      $("pb-txt").value.split(/\r?\n/).forEach(function(l){l=l.trim();if(!l)return;var c=l.indexOf("\t")>=0?l.split("\t"):l.indexOf(";")>=0?l.split(";"):l.split(",");if(c.length<5){bad++;return}
-        var f=pd(c[0]),mo=pf(c[c.length-1]);if(!f||!(mo>=0)){bad++;return}var d={id:newId()+docs.length,fecha:f,producto:c[1].trim(),plataforma:c[2].trim()||"Otra",cuenta:c[3].trim(),monto:mo,nota:"",updated:Date.now()};if(!d.producto){bad++;return}
+      var LN=[];$("pb-txt").value.split(/\r?\n/).forEach(function(l){l=l.trim();if(!l)return;var st=pd2(l.split(/[\t;,]/)[0]);if(!st&&LN.length&&parseLine(LN[LN.length-1])===null)LN[LN.length-1]+=" "+l;else LN.push(l)});
+      LN.forEach(function(l){var r=parseLine(l);if(!r||!r.producto){bad++;return}r.producto=r.producto.replace(/\s*ID:.*$/i,"").trim();
+        var d={id:newId()+docs.length,fecha:r.fecha,producto:r.producto,plataforma:r.plataforma,cuenta:r.cuenta,monto:r.monto,nota:"",updated:Date.now()};
         var k=key(d);if(have[k]){dup++;return}have[k]=1;docs.push(d)});
       if(!docs.length){msg("No hay líneas nuevas para importar."+(bad?" "+bad+" con formato incorrecto.":"")+(dup?" "+dup+" repetidas.":""));return}
       batchSave(docs,function(n){msg("Importados "+n+" gastos."+(bad?" Con formato incorrecto: "+bad+".":"")+(dup?" Repetidos: "+dup+".":""));$("pb-txt").value="";$("pb-impbox").hidden=true})});
