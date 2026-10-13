@@ -1909,12 +1909,13 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     return h;
   }
   function czRender(){
-    var dates=Array.from(new Set(W.map(function(w){return w.date}))).sort().reverse();
+    var WV=W.filter(function(w){var c=pmv(w,"ct");return !(c&&String(c).slice(0,4)<"2026")});
+    var dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse();
     if(!czDate||dates.indexOf(czDate)<0)czDate=dates[0]||null;
-    $("cz-fechas").innerHTML=dates.map(function(d){var n=W.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    $("cz-fechas").innerHTML=dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
     var L=$("cz-lista");
     if(!czDate){L.innerHTML='<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';return}
-    var day=W.filter(function(w){return w.date===czDate});
+    var day=WV.filter(function(w){return w.date===czDate});
     var ai=day.filter(function(w){return w.source!=="manual"}).sort(function(a,b){return a.rank-b.rank}),mn=day.filter(function(w){return w.source==="manual"});
     var r=ai.map(cardHtml).join("");
     if(mn.length)r+='<h2 style="margin-top:6px">Agregados a mano</h2>'+mn.map(cardHtml).join("");
