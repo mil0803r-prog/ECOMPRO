@@ -3912,433 +3912,344 @@
    "status": "nuevo",
    "fav": false
   },
-  "2026-10-13_1": {
+  "2026-10-13_6": {
    "date": "2026-10-13",
    "rank": 1,
    "source": "ia",
-   "name": "Crema blanqueadora potenciadora 7v",
-   "provider": "auré",
+   "name": "Gomitas para niños Heighterner",
+   "provider": "sicommer lab",
+   "verificado": true,
+   "cats": "bienestar, salud",
+   "costo": 57,
+   "pvp": 110,
+   "v7": 279,
+   "v30": 279,
+   "stock": 1721,
+   "score": 70,
+   "scores": {
+    "demanda": 8,
+    "traccion": 7,
+    "margen": 6,
+    "competencia": 9,
+    "riesgo": 4
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "279 ventas en 7 dias y 279 en 30 (5 dias con venta, de 21 a 83 diarias, sin ajuste de inventario), stock 1721 y 1 solo proveedor. Costo Q57 y oferta de 2 unidades a Q279 deja utilidad esperada de Q34.30 por pedido (flete Q68, entrega 62%). Competencia en GT: 1 anunciante.",
+   "angle": "Gomitas de sabor fresa como complemento de la nutricion en la etapa de crecimiento. Enfoque en mama preocupada por la alimentacion del nino, sin prometer talla; oferta de 2 frascos con pago al recibir.",
+   "competition": "Un solo anunciante activo en Guatemala (Teyra, por WhatsApp, desde 2026-10-10). Sin referentes activos fuera de GT en los ultimos 14 dias.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "1 anunciante en GT para 'gomitas heighterner': Teyra (WhatsApp, 1 dia activo).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "sicommer lab",
+     "id": "26896",
+     "nombre": "gomitas para niños heighterner",
+     "costo": 57,
+     "stock": 1721,
+     "v7": 279,
+     "v30": 279,
+     "alt": "",
+     "tv": 279,
+     "ct": "2026-10-07"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/e8c04835-b8d8-43d3-89c4-b74b07077c20/dc050162da9c.webp",
+   "risk": "Producto muy nuevo (creado el 2026-10-07, 5 dias con venta): puede ser pico de lanzamiento. Producto infantil con tema de crecimiento: Meta es estricto, evitar promesas de estatura o cura. Sin referentes extranjeros que validen.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=26896&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/e8c04835-b8d8-43d3-89c4-b74b07077c20",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-07",
+   "tv": 279
+  },
+  "2026-10-13_7": {
+   "date": "2026-10-13",
+   "rank": 2,
+   "source": "ia",
+   "name": "Rasuradora Lady Shaver",
+   "provider": "grupo luna",
    "verificado": true,
    "cats": "belleza",
-   "costo": 37,
+   "costo": 85,
    "pvp": 150,
-   "v7": 378,
-   "v30": 450,
-   "stock": 1339,
-   "score": 75,
+   "v7": 92,
+   "v30": 100,
+   "stock": 900,
+   "score": 68,
    "scores": {
-    "demanda": 9,
+    "demanda": 6,
     "traccion": 7,
     "margen": 6,
     "competencia": 9,
     "riesgo": 6
    },
    "oferta": {
-    "u": 2,
-    "precio": 239
-   },
-   "verdict": "378 ventas en 7 dias y 450 en 30, stock 1339. Costo Q37 y oferta de 2 unidad(es) a Q239 deja utilidad esperada de Q34.3 por pedido (objetivo Q30, flete Q68, entrega 62%). Competencia en GT: 0 anunciante(s). Es el producto con mas ventas de la lista (378 en 7 dias) y no tiene competencia directa anunciando en GT.",
-   "angle": "Aclarar manchas de axilas, rodillas y codos con oferta de 2 unidades. Mostrar antes y despues y envio gratis con pago al recibir.",
-   "competition": "Sin anuncios en Guatemala de este mismo producto. En GT solo hay otras cremas blanqueadoras de otras marcas (Kormesic, Snow Bleach, Donkey Milk) que anuncian 2 por Q125, referencia de precio del nicho.",
-   "anWA": 0,
-   "anLand": 0,
-   "anTotal": 0,
-   "anNota": "0 anunciantes del mismo producto en GT. No sumados por ser otro producto: Guate Mall Shop (Kormesic, WhatsApp, 32 dias), GT Llevele Chapin. (Snow Bleach 2 por Q125, WhatsApp, 163 dias), Guate Store Online (Donkey Milk 2 por Q125, WhatsApp, 405 dias). Ningun anuncio extranjero vendiendo desde fuera.",
-   "tiendas": [],
-   "imgs": [],
-   "vids": [],
-   "provs": [
-    {
-     "prov": "auré",
-     "id": "318",
-     "nombre": "crema blanqueadora pontenciadora , 7v",
-     "costo": 37,
-     "stock": 1339,
-     "v7": 378,
-     "v30": 450,
-     "alt": ""
-    }
-   ],
-   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/9144d4cd-f255-4c27-8749-2521af16c8df/e88bac2bb689.webp",
-   "risk": "Cremas aclarantes: Meta puede objetar promesas de blanqueamiento de piel, evitar antes y despues agresivos. Las cremas del nicho se anuncian a 2 por Q125 y esta oferta pide Q239 por 2 para llegar al objetivo de utilidad. Un solo proveedor. No se encontraron referentes de otros paises del mismo producto.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=318&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/9144d4cd-f255-4c27-8749-2521af16c8df",
-   "status": "nuevo",
-   "fav": false
-  },
-  "2026-10-13_2": {
-   "date": "2026-10-13",
-   "rank": 2,
-   "source": "ia",
-   "name": "Chupa panza moldeador",
-   "provider": "chicas empire fajas",
-   "verificado": true,
-   "cats": "moda y ropa",
-   "costo": 95,
-   "pvp": 200,
-   "v7": 81,
-   "v30": 223,
-   "stock": 824,
-   "score": 70,
-   "scores": {
-    "demanda": 6,
-    "traccion": 6,
-    "margen": 6,
-    "competencia": 10,
-    "riesgo": 7
-   },
-   "oferta": {
-    "u": 1,
-    "precio": 259
-   },
-   "verdict": "81 ventas en 7 dias y 223 en 30, stock 824. Costo Q95 y oferta de 1 unidad(es) a Q259 deja utilidad esperada de Q33.68 por pedido (objetivo Q30, flete Q68, entrega 62%). Competencia en GT: 0 anunciante(s).",
-   "angle": "Prenda moldeadora que marca cintura y aplana abdomen bajo la ropa. Tallas y colores disponibles, pago al recibir.",
-   "competition": "Sin anuncios activos en Guatemala del producto. Las faja moldeadoras de otros paises (CO, MX, PE, PA, EC, PY) llevan 76 a 539 dias activas, categoria validada.",
-   "anWA": 0,
-   "anLand": 0,
-   "anTotal": 0,
-   "anNota": "0 anunciantes en GT para 'chupa panza' / 'chupa panza moldeador' (solo aparecio un anuncio de Herbalife, otro producto). Nota: es de la misma categoria y proveedor que 'Faja reductora de cintura y gorditos' ya recomendada antes.",
-   "tiendas": [],
-   "imgs": [],
-   "vids": [],
-   "provs": [
-    {
-     "prov": "chicas empire fajas",
-     "id": "980",
-     "nombre": "chupa panza moldeador",
-     "costo": 95,
-     "stock": 824,
-     "v7": 81,
-     "v30": 223,
-     "alt": ""
-    }
-   ],
-   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/5330c6e8-7183-46bb-9678-fc804d83ccbc/f9cb427162c8.webp",
-   "risk": "Prendas moldeadoras: devoluciones por talla (6 variaciones), Meta restringe promesas de adelgazar. Se solapa en categoria con la faja ya recomendada. Un solo proveedor. No se pudo confirmar un referente identico fuera de GT; los anuncios de 'chupa panza' de CO/DO son te y gel, otro producto.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=980&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/5330c6e8-7183-46bb-9678-fc804d83ccbc",
-   "status": "nuevo",
-   "fav": false
-  },
-  "2026-10-13_3": {
-   "date": "2026-10-13",
-   "rank": 3,
-   "source": "ia",
-   "name": "Bikini cachetero con almohadillas",
-   "provider": "chicas empire fajas",
-   "verificado": true,
-   "cats": "moda y ropa",
-   "costo": 67,
-   "pvp": 250,
-   "v7": 63,
-   "v30": 118,
-   "stock": 1041,
-   "score": 69,
-   "scores": {
-    "demanda": 5,
-    "traccion": 4,
-    "margen": 8,
-    "competencia": 10,
-    "riesgo": 7
-   },
-   "oferta": {
     "u": 1,
     "precio": 249
    },
-   "verdict": "63 ventas en 7 dias y 118 en 30, stock 1041. Costo Q67 y oferta de 1 unidad(es) a Q249 deja utilidad esperada de Q44.84 por pedido (objetivo Q30, flete Q68, entrega 62%). Competencia en GT: 0 anunciante(s).",
-   "angle": "Ropa interior con almohadillas que realza gluteos. Vender al precio sugerido de Q250 con envio gratis y pago al recibir.",
-   "competition": "Sin anuncios activos en Guatemala. Fuera de GT solo hay ofertas de ropa interior por docena en PE (12 cacheteros o bikinis), que no son este producto.",
+   "verdict": "92 ventas en 7 dias y 100 en 30, con venta diaria creciente de 2 a 24 desde el 2026-10-03 y stock 900. Costo Q85 y oferta de 1 unidad a Q249 deja utilidad esperada de Q33.68 por pedido (flete Q68, entrega 62%). Competencia en GT: 0 anunciantes del mismo producto.",
+   "angle": "Rasuradora electrica femenina para depilar piernas, axilas y zona del bikini sin dolor ni irritacion. Demo de uso y piel suave, pago al recibir.",
+   "competition": "Sin anuncios activos en Guatemala de esta rasuradora (el unico anuncio depilatorio de GT es una espuma, otro producto). Fuera de GT aparece MultiShop (CL) con el kit Lady Shaver Beauty Kit 4 en 1.",
    "anWA": 0,
    "anLand": 0,
    "anTotal": 0,
-   "anNota": "0 anunciantes en GT para 'bikini cachetero' y 'cachetero almohadillas'. Los anuncios de PE (AdhaKers, Michael-BoxerGo, Silhouette Intima) son ropa interior comun por docena, no se usaron como referentes.",
+   "anNota": "0 anunciantes en GT para 'lady shaver' y 'rasuradora mujer'. El anuncio de ChemalgaHn es una espuma depilatoria (otro producto) y no se suma.",
    "tiendas": [],
    "imgs": [],
-   "vids": [],
-   "provs": [
-    {
-     "prov": "chicas empire fajas",
-     "id": "387",
-     "nombre": "bikini cachetero con almoadill",
-     "costo": 67,
-     "stock": 1041,
-     "v7": 63,
-     "v30": 118,
-     "alt": ""
-    }
-   ],
-   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/b0e29a7a-ce92-42af-8c92-2803d4e18142/f98637c44d14.webp",
-   "risk": "Traccion media: ventas en 12 de 30 dias y 159 unidades totales. 10 variaciones de talla/color pueden subir devoluciones. Un solo proveedor para este modelo exacto (otros modelos del proveedor casi no venden). Sin referentes extranjeros del mismo producto.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=387&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/b0e29a7a-ce92-42af-8c92-2803d4e18142",
-   "status": "nuevo",
-   "fav": false
-  },
-  "2026-10-13_4": {
-   "date": "2026-10-13",
-   "rank": 4,
-   "source": "ia",
-   "name": "Shine Armor kit completo para carro",
-   "provider": "grupo luna",
-   "verificado": true,
-   "cats": "vehiculos",
-   "costo": 43,
-   "pvp": 150,
-   "v7": 92,
-   "v30": 189,
-   "stock": 225,
-   "score": 66,
-   "scores": {
-    "demanda": 6,
-    "traccion": 5,
-    "margen": 6,
-    "competencia": 9,
-    "riesgo": 7
-   },
-   "oferta": {
-    "u": 2,
-    "precio": 249
-   },
-   "verdict": "92 ventas en 7 dias y 189 en 30, stock 225. Costo Q43 y oferta de 2 unidad(es) a Q249 deja utilidad esperada de Q33.06 por pedido (objetivo Q30, flete Q68, entrega 62%). Competencia en GT: 1 anunciante(s).",
-   "angle": "Recubrimiento ceramico 3 en 1 que da brillo espejo y repele el agua en minutos, sin pagar detailing. Oferta 2 unidades.",
-   "competition": "Solo 1 anunciante en Guatemala (Tienda Cumbral, WhatsApp, empezo el 2026-10-10). Producto con anuncios activos en MX, PA, PE y CO desde hace 19 a 85 dias.",
-   "anWA": 1,
-   "anLand": 0,
-   "anTotal": 1,
-   "anNota": "1 anunciante GT: Tienda Cumbral (WhatsApp, video 'Kit Shine Armor Fortify Quick Coat 3 en 1', 0 dias activo). Precio anunciado: no visible en el texto. Se excluyo el anuncio de GalaxyCon (otro tema).",
-   "tiendas": [
-    {
-     "url": "https://codlatam.store/products/cera-de-auto",
-     "adv": "Jawdalyd shop",
-     "pais": "MX",
-     "dias": 85,
-     "nota": "Landing COD de cera de auto Shine Armor, anuncia desde 2026-08-14"
-    },
-    {
-     "url": "https://cartsmartmx.myshopify.com/products/2x1-spray-de-revestimiento-ceramico-carro",
-     "adv": "Cartsmart Mx",
-     "pais": "MX",
-     "dias": 3,
-     "nota": "Oferta 2x1 de spray ceramico, mismo kit"
-    },
-    {
-     "url": "https://megaofertasexpress.store/products/shine-armor",
-     "adv": "MegaOfertas",
-     "pais": "MX",
-     "dias": 19,
-     "nota": "Ficha Shine Armor Fortify Quick Coat con reseña 4.9"
-    },
-    {
-     "url": "https://virexobuy.com/products/shine-armor",
-     "adv": "VirexoBuy",
-     "pais": "MX",
-     "dias": 33,
-     "nota": "Landing Shine Armor revestimiento ceramico 3 en 1"
-    }
-   ],
-   "imgs": [
-    {
-     "adv": "CompraExpress",
-     "pais": "PA",
-     "dias": 48,
-     "score": 58,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1500227678526194",
-     "dk": "https://app.dropkiller.com/dashboard/ads/7e8fec81-cccf-4710-a213-6a723be24a72",
-     "nota": "El clima castiga la pintura todos los dias: Shine Armor Ceramico 3 en 1 la protege"
-    }
-   ],
    "vids": [
     {
-     "adv": "Jawdalyd shop",
-     "pais": "MX",
-     "dias": 85,
-     "score": 61,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1580972647054699",
-     "dk": "https://app.dropkiller.com/dashboard/ads/9fdd6e2f-acf4-4d7c-9be9-1b2b2099581f",
-     "nota": "Haz que tu carro se vea de lujo sin pagar detailing"
-    },
-    {
-     "adv": "VirexoBuy",
-     "pais": "MX",
-     "dias": 33,
-     "score": 49,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1124163350267014",
-     "dk": "https://app.dropkiller.com/dashboard/ads/c672a015-4c5e-4e87-a45d-37cf156516b2",
-     "nota": "Haz que tu auto luzca como nuevo en minutos con acabado brillante"
-    },
-    {
-     "adv": "Prisma Store Perú",
-     "pais": "PE",
-     "dias": 21,
-     "score": 35,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2097447854221068",
-     "dk": "https://app.dropkiller.com/dashboard/ads/71b1f752-07b8-4a6f-a4ff-165b3d366a04",
-     "nota": "Devuelve el brillo, repele el agua y protege la superficie del vehiculo"
-    },
-    {
-     "adv": "MegaOfertas",
-     "pais": "MX",
-     "dias": 19,
-     "score": 39,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1600300821756878",
-     "dk": "https://app.dropkiller.com/dashboard/ads/01c81593-0ed9-4fc2-ae0a-64aeb13a36d3",
-     "nota": "Tu carro se ve opaco: el sol y la lluvia apagan el brillo cada dia"
-    },
-    {
-     "adv": "Cartsmart Mx",
-     "pais": "MX",
-     "dias": 3,
-     "score": 39,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1388968410100010",
-     "dk": "https://app.dropkiller.com/dashboard/ads/ec43b2e2-50f6-4fe9-9354-3306912d48af",
-     "nota": "Recubrimiento ceramico 3 en 1, oferta 2x1"
+     "adv": "MultiShop",
+     "pais": "CL",
+     "dias": 4,
+     "score": 27,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1374160391448007",
+     "dk": "https://app.dropkiller.com/dashboard/ads/40ccd56b-7dc8-46d4-848f-f2db5ebaf302",
+     "nota": "Lady Shaver Beauty Kit 4 en 1, pieza activa desde 2026-07-30 (por WhatsApp); version kit que puede diferir del articulo de Dropi"
     }
    ],
    "provs": [
     {
      "prov": "grupo luna",
-     "id": "9706",
-     "nombre": "shine armor car kit completo",
-     "costo": 43,
-     "stock": 225,
+     "id": "19130",
+     "nombre": "rasuradora lady shaver",
+     "costo": 85,
+     "stock": 900,
      "v7": 92,
-     "v30": 189,
-     "alt": ""
-    },
-    {
-     "prov": "distribuidora gt",
-     "id": "1186",
-     "nombre": "shine armor 19446-156",
-     "costo": 67,
-     "stock": 72,
-     "v7": 0,
-     "v30": 0,
-     "alt": "Mas caro y sin ventas en 30 dias; proveedor no verificado"
-    },
-    {
-     "prov": "cmide ecomm",
-     "id": "703",
-     "nombre": "shine armor",
-     "costo": 77,
-     "stock": 284,
-     "v7": 0,
-     "v30": 0,
-     "alt": "Mas caro y sin ventas en 30 dias; sugerido Q77"
+     "v30": 100,
+     "alt": "",
+     "tv": 100,
+     "ct": "2026-08-25"
     }
    ],
-   "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/a9f6ca8e-22c8-4924-8bfc-f506255519e5/e7496d7f7f17.webp",
-   "risk": "Stock de 225 unidades con 92 vendidas en 7 dias, puede agotarse en pocos dias. Historial corto (207 unidades totales). Duplicados del mismo proveedor (ids 434 y 1208) sin ventas, confirmar que se pide el id 9706. Producto de cuidado de auto, sin restricciones de salud en anuncios.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=9706&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/a9f6ca8e-22c8-4924-8bfc-f506255519e5",
+   "foto": "https://cdndropkiller.com/products/6d284431-fdf4-43ba-ae37-df8dd931fd29/db5db23f4611.webp",
+   "risk": "Solo 100 ventas totales y venta concentrada en los ultimos 9 dias: tracción corta aunque con aceleracion. Costo alto (Q85) frente a su precio sugerido Q150. Un unico referente extranjero y no confirmado como identico.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=19130&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/6d284431-fdf4-43ba-ae37-df8dd931fd29",
    "status": "nuevo",
-   "fav": false
+   "fav": false,
+   "ct": "2026-08-25",
+   "tv": 100
   },
-  "2026-10-13_5": {
+  "2026-10-13_8": {
    "date": "2026-10-13",
-   "rank": 5,
+   "rank": 3,
    "source": "ia",
-   "name": "Tiras moradas blanqueadoras dentales",
-   "provider": "digital gt",
-   "verificado": false,
-   "cats": "belleza, salud",
-   "costo": 55,
-   "pvp": 150,
-   "v7": 142,
-   "v30": 153,
-   "stock": 130,
-   "score": 62,
+   "name": "Mascarilla de colageno para cabello",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "otro",
+   "costo": 46,
+   "pvp": 66,
+   "v7": 135,
+   "v30": 186,
+   "stock": 379,
+   "score": 65,
    "scores": {
-    "demanda": 7,
-    "traccion": 3,
+    "demanda": 6,
+    "traccion": 7,
     "margen": 5,
-    "competencia": 10,
-    "riesgo": 5
+    "competencia": 9,
+    "riesgo": 6
    },
    "oferta": {
     "u": 2,
-    "precio": 269
+    "precio": 259
    },
-   "verdict": "142 ventas en 7 dias y 153 en 30, stock 130. Costo Q55 y oferta de 2 unidad(es) a Q269 deja utilidad esperada de Q30.58 por pedido (objetivo Q30, flete Q68, entrega 62%). Competencia en GT: 0 anunciante(s).",
-   "angle": "Sonrisa mas blanca en minutos con tiras faciles de aplicar. Antes y despues de dientes, oferta de 2 cajas con pago al recibir.",
-   "competition": "Sin anuncios activos en Guatemala del producto. Fuera de GT hay tiendas pequenas en PY, CO y AR con tiras blanqueadoras desde 0 a 23 dias, nicho aun nuevo.",
-   "anWA": 0,
+   "verdict": "135 ventas en 7 dias y 186 en 30, venta diaria creciente de 9 a 37 desde el 2026-10-02 y stock 379 que baja de forma consistente. Costo Q46 y oferta de 2 unidades a Q259 deja utilidad esperada de Q35.54 por pedido (flete Q68, entrega 62%). Competencia en GT: 2 anunciantes.",
+   "angle": "Mascarilla capilar con colageno para cabello seco, opaco o con frizz: brillo y suavidad en minutos. Antes y despues del cabello y oferta de 2 mascarillas con pago al recibir.",
+   "competition": "2 anunciantes por WhatsApp en Guatemala (Xevontech con mascarilla de argan, queratina y colageno, y Atucasahoy), ambos con pocos dias activos. Sin referentes activos fuera de GT en los ultimos 14 dias.",
+   "anWA": 2,
    "anLand": 0,
-   "anTotal": 0,
-   "anNota": "0 anunciantes en GT para 'tiras blanqueadoras dentales' y 'tiras moradas'. Lo que aparecio en GT pertenece a otros productos dentales (pastas con hidroxiapatita), no sumado.",
-   "tiendas": [
+   "anTotal": 2,
+   "anNota": "2 anunciantes en GT para 'mascarilla colageno cabello': Xevontech (2 anuncios, WhatsApp) y Atucasahoy (WhatsApp). Si Atucasahoy fuera otra mascarilla, bajaria a 1.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
     {
-     "url": "https://www.llegahoy.com.py/products/blancsmile-pro-tiras-blanqueadoras-dentales",
-     "adv": "Llega Hoy",
-     "pais": "PY",
-     "dias": 1,
-     "nota": "Tienda con entrega solo Asuncion y Central, tiras BlancSmile Pro"
+     "prov": "importadora el mayorista",
+     "id": "22670",
+     "nombre": "mascarilla colageno cabello",
+     "costo": 46,
+     "stock": 379,
+     "v7": 135,
+     "v30": 186,
+     "alt": "",
+     "tv": 186,
+     "ct": "2026-09-14"
     },
     {
-     "url": "https://futuriashop.myshopify.com/products/tiras-blanqueadoras-cintas-blanqueadoras?view=tiras",
-     "adv": "Futuria Shop",
-     "pais": "CO",
-     "dias": 0,
-     "nota": "Landing de tiras blanqueadoras, anuncio visto hace 13 dias"
+     "prov": "grupo luna",
+     "id": "431",
+     "nombre": "collagen mask mascarilla colageno antien",
+     "costo": 57,
+     "stock": 500,
+     "v7": 0,
+     "v30": 0,
+     "alt": "Mascarilla de colageno facial antiedad, no es la capilar; solo referencia de proveedor, sin ventas.",
+     "tv": 0,
+     "ct": "2025-10-04"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/7a750175-b8ee-44a1-bd26-a2f35e72e997/207a57770c83.webp",
+   "risk": "Stock de 379 con unas 20 a 30 ventas por dia: se agota en pocas semanas. Precio sugerido bajo (Q66), la rentabilidad depende de vender 2 unidades. Tiene 186 ventas totales, traccion de apenas 9 dias con venta (la primera el 2026-10-02). La coincidencia de Atucasahoy con el mismo producto no esta confirmada.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22670&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/7a750175-b8ee-44a1-bd26-a2f35e72e997",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-14",
+   "tv": 186
+  },
+  "2026-10-13_9": {
+   "date": "2026-10-13",
+   "rank": 4,
+   "source": "ia",
+   "name": "Brasier acanelado",
+   "provider": "chicas empire fajas",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 50,
+   "pvp": 100,
+   "v7": 146,
+   "v30": 493,
+   "stock": 2179,
+   "score": 65,
+   "scores": {
+    "demanda": 6,
+    "traccion": 8,
+    "margen": 5,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 209
+   },
+   "verdict": "146 ventas en 7 dias, 493 en 30 y 668 totales, con venta casi diaria (24 de 30 dias) y stock 2179 con 12 variaciones. Costo Q50 y oferta de 1 unidad a Q209 deja utilidad esperada de Q30.58 por pedido (flete Q68, entrega 62%). Competencia en GT: 1 anunciante del mismo producto.",
+   "angle": "Brasier acanalado sin varilla, comodo todo el dia y que no se marca bajo la ropa. Combo de 2 en colores y pago al recibir.",
+   "competition": "1 anunciante del mismo producto en Guatemala (Rapido Compra Quick, WhatsApp). La categoria de brasieres en general tiene muchos anunciantes con otros modelos. Sin referente del mismo articulo fuera de GT.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "1 anunciante en GT para 'Brasier Acanalado': Rapido Compra Quick (WhatsApp). No se suman Xevontech, Leonisa, Ohcomfy ni otros brasieres, que son otros modelos.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "chicas empire fajas",
+     "id": "20699",
+     "nombre": "brazier acanelado",
+     "costo": 50,
+     "stock": 2179,
+     "v7": 146,
+     "v30": 493,
+     "alt": "",
+     "tv": 668,
+     "ct": "2026-09-04"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/faaa9b7a-67c7-4082-9bb4-132b37708c2d/40571bf4da4f.webp",
+   "risk": "Producto de moda con 12 variaciones (tallas y colores): la logistica de cambios y devoluciones por talla pesa. Categoria saturada de brasieres genericos, el diferenciador es debil. La rentabilidad es justa con precio sugerido Q100.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20699&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/faaa9b7a-67c7-4082-9bb4-132b37708c2d",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-04",
+   "tv": 668
+  },
+  "2026-10-13_10": {
+   "date": "2026-10-13",
+   "rank": 5,
+   "source": "ia",
+   "name": "Cinturon de tonificacion abdominal",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "otro",
+   "costo": 112,
+   "pvp": 162,
+   "v7": 70,
+   "v30": 150,
+   "stock": 139,
+   "score": 61,
+   "scores": {
+    "demanda": 5,
+    "traccion": 7,
+    "margen": 5,
+    "competencia": 9,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 279
+   },
+   "verdict": "70 ventas en 7 dias y 150 en 30, con venta diaria creciente de 4 a 19 desde el 2026-09-22 (19 dias con venta) y stock 139. Costo Q112 y oferta de 1 unidad a Q279 deja utilidad esperada de Q35.54 por pedido (flete Q68, entrega 62%). Competencia en GT: 1 anunciante.",
+   "angle": "Cinturon con electroestimulacion para tonificar el abdomen con las manos libres mientras haces tus tareas. Demostracion en video y pago al recibir.",
+   "competition": "1 anunciante en Guatemala por landing (Diario Salud & Belleza, estimulador abdominal). Hay anuncios de cinturones termicos en GT que son otro producto. Referente fuera de GT: Pidelo Pe (PE) con el cinturon abdominal EMS, activo hace 54 dias.",
+   "anWA": 0,
+   "anLand": 1,
+   "anTotal": 1,
+   "anNota": "1 anunciante en GT para 'cinturon abdominal': Diario Salud & Belleza (landing verogt.com/products/el-estimulador). No se suman Movaguatemala ni Baratisimo (cinturones termicos, otro producto).",
+   "tiendas": [
+    {
+     "url": "https://pidelope.com/products/cinturon-abdominal-ems-recargable-activa-tu-zona-media-facilmente",
+     "adv": "Pidelo Pe",
+     "pais": "PE",
+     "dias": 54,
+     "nota": "Landing del cinturon abdominal EMS recargable, anuncio activo con 4.9/5 y 5700 resenas citadas"
     }
    ],
    "imgs": [],
    "vids": [
     {
-     "adv": "Llega Hoy",
-     "pais": "PY",
-     "dias": 1,
-     "score": 27,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2009222829621314",
-     "dk": "https://app.dropkiller.com/dashboard/ads/f55ed737-88bc-4eab-827d-d97fd3b2c540",
-     "nota": "Luce una sonrisa deslumbrante: elimina manchas y dientes mas blancos en minutos"
+     "adv": "Pidelo Pe",
+     "pais": "PE",
+     "dias": 56,
+     "score": 56,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2166235167255377",
+     "dk": "https://app.dropkiller.com/dashboard/ads/53319ef4-4306-4255-afe6-1cbc59f69ed3",
+     "nota": "Cinturon abdominal EMS recargable, activa tu zona media desde casa"
     },
     {
-     "adv": "Fenix Shopp",
-     "pais": "AR",
-     "dias": 23,
-     "score": 17,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1065897579665160",
-     "dk": "https://app.dropkiller.com/dashboard/ads/40b8b6e6-bd5f-4615-bdf8-408e5633c201",
-     "nota": "Sonrie con mas confianza con tiras 5D White, paquete de 7 unidades"
-    },
-    {
-     "adv": "Futuria Shop",
-     "pais": "CO",
-     "dias": 0,
-     "score": 20,
-     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1665107028577460",
-     "dk": "https://app.dropkiller.com/dashboard/ads/fc02e3f0-6074-43c1-a0d3-191284eed188",
-     "nota": "Luce una sonrisa mas blanca y radiante con tiras blanqueadoras"
+     "adv": "Pidelo Pe",
+     "pais": "PE",
+     "dias": 54,
+     "score": 55,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1098597256001306",
+     "dk": "https://app.dropkiller.com/dashboard/ads/a181c03f-661b-48d3-bc7c-e1dad36c5cc8",
+     "nota": "Misma pieza con otra variante de llamada a la accion"
     }
    ],
    "provs": [
     {
-     "prov": "digital gt",
-     "id": "20409",
-     "nombre": "tiras moradas blanqueadoras dentales",
-     "costo": 55,
-     "stock": 130,
-     "v7": 142,
-     "v30": 153,
-     "alt": ""
-    },
-    {
-     "prov": "importadora el mayorista",
-     "id": "2186",
-     "nombre": "tiras blanqueadoras dentales",
-     "costo": 38,
-     "stock": 614,
-     "v7": 0,
-     "v30": 0,
-     "alt": "Variante no morada, costo menor y sin ventas en 30 dias; solo como alternativa de abastecimiento"
+     "prov": "60 segundos",
+     "id": "23140",
+     "nombre": "cinturon de tonificación abdominal",
+     "costo": 112,
+     "stock": 139,
+     "v7": 70,
+     "v30": 150,
+     "alt": "",
+     "tv": 150,
+     "ct": "2026-09-18"
     }
    ],
-   "foto": "https://cdndropkiller.com/products/74084dd1-a72d-4f77-b463-ba099dff0976/cb9a4961d1c9.webp",
-   "risk": "Stock de solo 130 unidades con 142 vendidas en 7 dias, se agota en dias. Proveedor no verificado, producto con 8 dias con venta en 30 (empezo el 2026-09-04) y 173 unidades totales: tracción corta. Meta es estricta con productos de salud dental. Los referentes extranjeros son pocos y recientes.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=20409&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/74084dd1-a72d-4f77-b463-ba099dff0976",
+   "foto": "https://cdndropkiller.com/products/20f2d3f0-7fca-49b3-a0b0-2579a1151e1f/9d75525de130.webp",
+   "risk": "Stock de solo 139 con 19 ventas por dia: se agota en una semana. Proveedor no verificado y costo alto (Q112). Los anuncios de este nicho suelen prometer resultados de figura, hay que evitar promesas de adelgazamiento.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=23140&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/20f2d3f0-7fca-49b3-a0b0-2579a1151e1f",
    "status": "nuevo",
-   "fav": false
+   "fav": false,
+   "ct": "2026-09-18",
+   "tv": 150
   }
  },
  "validations": {
