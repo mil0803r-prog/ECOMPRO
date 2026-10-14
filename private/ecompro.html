@@ -810,6 +810,23 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     </div>
   </section>
 
+  <section class="pane" id="p-inv2" hidden>
+    <div class="card"><h2 style="margin:0 0 6px">CAZADIARIA 2</h2><p class="sub" style="margin:0">Radar diario de productos ganadores en 7 fases: cosecha (validado y emergente), agrupa por producto, filtro de margen, inteligencia de anuncios, puntuación, banderas e informe. Guatemala · Dropi.</p></div>
+    <details class="card" id="c2-par"><summary style="cursor:pointer;font-weight:700">Mis números de operación (valores de referencia: reemplázalos por los medidos)</summary>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px">
+        <div class="fld"><label for="c2-fl">Flete por entrega (Q)</label><input id="c2-fl" type="number" min="0" step="0.5" inputmode="decimal"></div>
+        <div class="fld"><label for="c2-dv">Flete de devolución (Q)</label><input id="c2-dv" type="number" min="0" step="0.5" inputmode="decimal"></div>
+        <div class="fld"><label for="c2-cm">Comisión de recaudo (%)</label><input id="c2-cm" type="number" min="0" step="0.5" inputmode="decimal"></div>
+        <div class="fld"><label for="c2-en">Tasa de entrega (%)</label><input id="c2-en" type="number" min="1" max="100" step="1" inputmode="decimal"></div>
+        <div class="fld"><label for="c2-cp">CPA objetivo por pedido (Q)</label><input id="c2-cp" type="number" min="0" step="0.5" inputmode="decimal"></div>
+        <div class="fld"><label for="c2-vi">VIABLE si la utilidad supera (Q)</label><input id="c2-vi" type="number" min="0" step="0.5" inputmode="decimal"></div>
+      </div>
+      <p class="foot" style="margin:8px 0 0">utilidad por pedido generado = entrega × (PVP − costo − flete − comisión) − (1 − entrega) × flete de devolución − CPA. El CPA no se multiplica por la entrega. <span id="c2-msg" role="status"></span></p>
+      <div style="margin-top:8px"><button class="btn" type="button" id="c2-save">Guardar y recalcular</button></div>
+    </details>
+    <div class="chips" id="c2-fechas" aria-label="Corridas"></div>
+    <div id="c2-rep"></div>
+  </section>
   <section class="pane" id="p-mer" hidden>
     <div class="grid g3">
       <div class="card kpi"><h3>Mercado</h3><div class="big">GT · Dropi</div><div class="sub">productos con venta y stock</div></div>
@@ -2137,7 +2154,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora de precios"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos de plataforma"],["pub","Publicidad manual"]]};
+  var GR={res:[["res","Resumen"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta"],["tik","TikTok"]],inv:[["inv","Caza diaria"],["inv2","CAZADIARIA 2"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora de precios"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos de plataforma"],["pub","Publicidad manual"]]};
   var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan"};
   function show(g,pane){
     cur[g]=pane;
@@ -2715,3 +2732,58 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 })();
 </script>
 
+
+<script>
+(function(){
+  var D0={flete:35,devol:28,comision:4,entrega:65,cpa:20,viable:8},PAR=Object.assign({},D0),R={},cur=null,db=null,can=true;
+  var $=function(i){return document.getElementById(i)};
+  function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function U(u){return /^https:\/\//.test(u)?E(u):"#"}
+  function L(l){return (l||[]).map(function(x){return '<a href="'+U(x.u)+'" target="_blank" rel="noopener">'+E(x.t)+'</a>'}).join(" · ")}
+  function MK(n){var q=String(n||"").replace(/\([^)]*\)/g," ").replace(/\s+/g," ").trim().split(" ").slice(0,5).join(" ");if(!q)return[];q=encodeURIComponent(q);return[{t:"Amazon",u:"https://www.amazon.com/s?k="+q},{t:"AliExpress",u:"https://www.aliexpress.com/wholesale?SearchText="+q}]}
+  function SEC(c){var h='<h4>'+E(c.h)+'</h4>';
+    if(c.p!=null)return h+'<p>'+E(c.p)+'</p>';
+    if(c.ul)return h+'<ul>'+c.ul.map(function(i){return '<li>'+E(i.t)+(i.l&&i.l.length?'<br>'+L(i.l):'')+'</li>'}).join("")+'</ul>';
+    if(c.ol)return h+'<ol>'+c.ol.map(function(i){return '<li><b>'+E(i.b)+'</b><br>'+E(i.s)+'</li>'}).join("")+'</ol>';
+    if(c.rows)return h+'<div class="rt"><table>'+c.rows.map(function(r,k){return '<tr>'+r.map(function(x){return k?'<td>'+E(x)+'</td>':'<th>'+E(x)+'</th>'}).join("")+'</tr>'}).join("")+'</table></div>';
+    return h}
+  function util(g){var pvp=+g.pvp||0,c=+g.cmin||0,e=PAR.entrega/100;return e*(pvp-c-PAR.flete-PAR.comision/100*pvp)-(1-e)*PAR.devol-PAR.cpa}
+  function util2(g){var c=+g.cmin||0,p=2.5*c,e=PAR.entrega/100;return e*(p-c-PAR.flete-PAR.comision/100*p)-(1-e)*PAR.devol-PAR.cpa}
+  function clase(g){var u=util(g);return u>PAR.viable?"VIABLE":(util2(g)>PAR.viable?"REPRECIABLE":"DESCARTADO")}
+  function fq(n){return "Q"+(Math.round(n*10)/10).toString().replace("-","−")}
+  function fdate(d){var q=String(d).split("-");var M=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];return q.length===3?+q[2]+" "+M[+q[1]-1]+" "+q[0]:d}
+  function render(){
+    var ids=Object.keys(R).sort().reverse();
+    if(!cur||!R[cur])cur=ids[0]||null;
+    $("c2-fechas").innerHTML=ids.map(function(d){return '<button type="button" class="chip" data-d="'+E(d)+'" aria-pressed="'+(d===cur)+'">'+fdate(d)+'</button>'}).join("");
+    var box=$("c2-rep");
+    if(!cur){box.innerHTML='<div class="czvacio"><b>Todavía no hay corridas de CAZADIARIA 2</b>La primera corrida aparece aquí en cuanto se guarde.</div>';return}
+    var r=R[cur],b=r.busqueda||{};
+    var h='<section class="rdr"><h2>'+E(r.titulo||"CAZADIARIA 2")+'</h2><div class="vd"><b>Veredicto.</b> '+E(r.veredicto)+'</div><p class="nt">'+E(r.nota)+'</p>';
+    if(b.A||b.B)h+='<p class="nt">Búsqueda A (validado, 81 a 200 en 7 d): '+E(b.A&&b.A.leidos)+' leídos · '+E(b.A&&b.A.grupos)+' grupos. Búsqueda B (emergente, 20 a 80 en 7 d y máx. 320 en 30 d): '+E(b.B&&b.B.leidos)+' leídos · '+E(b.B&&b.B.grupos)+' grupos.</p>';
+    h+='<h3 style="margin:14px 0 4px">Los 10 finalistas</h3>';
+    h+=(r.fichas||[]).map(function(f){
+      var tg=(f.tags||[]).map(function(t){return '<span class="rb '+(/^(am|ro|ok)$/.test(t.c)?t.c:"")+'">'+E(t.t)+'</span>'}).join("");
+      return '<details class="rf"><summary><span class="rn">'+E(f.n)+'</span> '+E(f.nombre)+' '+tg+'</summary><div class="rbody">'+(f.foto?'<img src="'+U(f.foto)+'" alt="" loading="lazy">':'')+'<p>'+E(f.v)+'</p><div class="rkv">'+(f.kv||[]).map(function(k){return '<div><small>'+E(k[0])+'</small><b>'+E(k[1])+'</b></div>'}).join("")+'</div>'+(f.secs||[]).map(SEC).join("")+'<p>'+L((f.links||[]).concat(MK(f.nombre)))+'</p></div></details>'}).join("");
+    var G=(r.grupos||[]);
+    h+='<details class="rf"><summary>Tabla completa ('+G.length+' grupos evaluados, con sus nombres originales)</summary><div class="rbody"><p class="nt">Margen recalculado con tus números de arriba. VIABLE: utilidad mayor a '+fq(PAR.viable)+' por pedido generado.</p><div class="rt"><table><tr><th>Grupo</th><th>Prov.</th><th>7d / 30d</th><th>Stock</th><th>Costo</th><th>PVP sug.</th><th>Utilidad</th><th>Clase</th><th>Nombres originales</th></tr>'+G.map(function(g){
+      var u=util(g),c=clase(g);return '<tr class="'+(g.fin?"f":c==="DESCARTADO"?"d":"")+'"><td>'+E(g.n)+(g.fin?' <b>★</b>':'')+'</td><td>'+E(g.prov)+'</td><td>'+E(g.v7)+' / '+E(g.v30)+'</td><td>'+E(g.stock)+'</td><td>'+E(g.cmin)+(g.cmax&&g.cmax!==g.cmin?'–'+E(g.cmax):'')+'</td><td>'+E(g.pvp)+(g.est?' <small>(estimado)</small>':'')+'</td><td>'+fq(u)+'</td><td>'+c+'</td><td><small>'+(g.nombres||[]).map(E).join("<br>")+'</small></td></tr>'}).join("")+'</table></div></div></details>';
+    h+='<details class="rf"><summary>Cuántos hubo y qué filtro aflojar</summary><div class="rbody"><p>'+E(r.resumen)+'</p></div></details>';
+    h+='<details class="rf" open><summary>A REVISAR</summary><div class="rbody"><p>'+E(r.revisar)+'</p></div></details></section>';
+    box.innerHTML=h}
+  function fill(){$("c2-fl").value=PAR.flete;$("c2-dv").value=PAR.devol;$("c2-cm").value=PAR.comision;$("c2-en").value=PAR.entrega;$("c2-cp").value=PAR.cpa;$("c2-vi").value=PAR.viable}
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("#c2-fechas .chip");if(b){cur=b.dataset.d;render()}});
+  $("c2-save").addEventListener("click",function(){
+    var v={flete:+$("c2-fl").value,devol:+$("c2-dv").value,comision:+$("c2-cm").value,entrega:+$("c2-en").value,cpa:+$("c2-cp").value,viable:+$("c2-vi").value};
+    if(!(v.flete>=0&&v.devol>=0&&v.comision>=0&&v.entrega>=1&&v.entrega<=100&&v.cpa>=0&&v.viable>=0)){$("c2-msg").textContent=" Revisa los números.";return}
+    PAR=v;render();
+    if(db&&can)db.doc("settings/radar2").set(v).then(function(){$("c2-msg").textContent=" Guardado."}).catch(function(){$("c2-msg").textContent=" No se pudo guardar."});else $("c2-msg").textContent=" Recalculado."});
+  fill();render();
+  (async function(){
+    try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false}}catch(e){}
+    if(!db)return;
+    db.collection("radar2").onSnapshot(function(sn){R={};sn.docs.forEach(function(d){R[d.id]=d.data()});render()},function(){});
+    db.doc("settings/radar2").onSnapshot(function(s){var d=s.exists&&s.data();if(d&&d.flete>=0&&d.entrega>=1){PAR=Object.assign({},D0,d);fill();render()}},function(){});
+  })();
+})();
+</script>
