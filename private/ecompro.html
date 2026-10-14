@@ -555,6 +555,21 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .mnum span:not([class]){color:var(--muted)}
 .mtot{background:color-mix(in srgb,var(--cel) 8%,transparent);border-top:2px solid var(--line)}
 .mtot b{font-size:.95rem}
+
+.rdr{margin:14px 0}.rdr h2{margin:0 0 8px}.rdr .vd{background:var(--card,#fff);border:1px solid var(--line);border-left:4px solid var(--azul);border-radius:12px;padding:12px 14px;line-height:1.5}
+.rdr .nt{font-size:.82rem;color:var(--muted);margin:8px 0}
+.rdr details.rf{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:var(--card,#fff);overflow:hidden}
+.rdr details.rf>summary{cursor:pointer;padding:10px 12px;font-weight:700;display:flex;flex-wrap:wrap;gap:6px;align-items:center;list-style:none}
+.rdr details.rf>summary::-webkit-details-marker{display:none}
+.rdr .rn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--azul);color:#fff;font-size:.8rem}
+.rdr .rb{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:99px;background:color-mix(in srgb,var(--muted) 18%,transparent)}
+.rdr .rb.am{background:var(--amar-bg);color:var(--amar)}.rdr .rb.ro{background:var(--rojo-bg);color:var(--rojo)}.rdr .rb.ok{background:var(--verde-bg,#e3f4ea);color:var(--verde,#1a7a46)}
+.rdr .rbody{padding:0 12px 12px}.rdr .rbody img{max-width:120px;border-radius:10px;float:right;margin:0 0 8px 10px}
+.rdr .rkv{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin:8px 0;clear:both}
+.rdr .rkv div{background:color-mix(in srgb,var(--azul) 7%,transparent);border-radius:8px;padding:6px 8px}.rdr .rkv small{display:block;color:var(--muted);font-size:.68rem}
+.rdr h4{margin:12px 0 4px;font-size:.85rem}.rdr .rbody p,.rdr .rbody li{font-size:.86rem;line-height:1.45}.rdr .rbody ul,.rdr .rbody ol{padding-left:18px;margin:4px 0}
+.rdr .rt{overflow-x:auto}.rdr .rt table{min-width:0;width:100%;font-size:.78rem}.rdr .rt td,.rdr .rt th{padding:5px 6px;vertical-align:top}
+.rdr tr.f td{background:color-mix(in srgb,var(--verde,#1a7a46) 12%,transparent)}.rdr tr.d td{color:var(--muted)}
 </style>
 
 <div class="wrap">
@@ -849,6 +864,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     </div>
     <div class="chips" id="cz-fechas" aria-label="Fechas con productos"></div>
     <div class="pane" id="cz-lista"></div>
+    <div id="cz-radar"></div>
     <details class="card" id="cz-manual">
       <summary style="cursor:pointer;font-weight:600">Agregar un producto a mano</summary>
       <form id="cz-form" style="display:flex;flex-direction:column;gap:12px;margin-top:12px" autocomplete="off">
@@ -1908,6 +1924,33 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       (ia?'':'<button type="button" class="btn" data-a="del"'+dis+'>Eliminar</button>')+'</div></article>';
     return h;
   }
+
+  var RDR={};
+  function rE(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function rU(u){return /^https:\/\//.test(u)?rE(u):"#"}
+  function rLinks(l){return (l||[]).map(function(x){return '<a href="'+rU(x.u)+'" target="_blank" rel="noopener">'+rE(x.t)+'</a>'}).join(" · ")}
+  function rSec(c){
+    var h='<h4>'+rE(c.h)+'</h4>';
+    if(c.p!=null)return h+'<p>'+rE(c.p)+'</p>';
+    if(c.ul)return h+'<ul>'+c.ul.map(function(i){return '<li>'+rE(i.t)+(i.l&&i.l.length?'<br>'+rLinks(i.l):'')+'</li>'}).join("")+'</ul>';
+    if(c.ol)return h+'<ol>'+c.ol.map(function(i){return '<li><b>'+rE(i.b)+'</b><br>'+rE(i.s)+'</li>'}).join("")+'</ol>';
+    if(c.rows)return h+'<div class="rt"><table>'+c.rows.map(function(r,k){return '<tr>'+r.map(function(x){return k?'<td>'+rE(x)+'</td>':'<th>'+rE(x)+'</th>'}).join("")+'</tr>'}).join("")+'</table></div>';
+    return h;
+  }
+  function czRadar(){
+    var box=$("cz-radar");if(!box)return;
+    var r=RDR[czDate];if(!r){box.innerHTML="";return}
+    var h='<section class="rdr"><h2>Radar CAZADIARIA · '+fd(r.date)+'</h2><div class="vd"><b>Veredicto.</b> '+rE(String(r.veredicto).replace(/^Veredicto\.\s*/,""))+'</div><p class="nt">'+rE(r.nota)+'</p>';
+    h+='<h3 style="margin:14px 0 4px">Los 10 finalistas</h3>';
+    h+=(r.fichas||[]).map(function(f){
+      var tg=(f.tags||[]).map(function(t){return '<span class="rb '+(/^(am|ro|ok)$/.test(t.c)?t.c:"")+'">'+rE(t.t)+'</span>'}).join("");
+      return '<details class="rf"><summary><span class="rn">'+rE(f.n)+'</span> '+rE(f.nombre)+' '+tg+'</summary><div class="rbody">'+(f.foto?'<img src="'+rU(f.foto)+'" alt="" loading="lazy">':'')+'<p>'+rE(f.v)+'</p><div class="rkv">'+(f.kv||[]).map(function(k){return '<div><small>'+rE(k[0])+'</small><b>'+rE(k[1])+'</b></div>'}).join("")+'</div>'+(f.secs||[]).map(rSec).join("")+(f.links&&f.links.length?'<p>'+rLinks(f.links)+'</p>':'')+'</div></details>';
+    }).join("");
+    h+='<details class="rf"><summary>Tabla completa ('+(r.tabla||[]).length+' productos leídos, con su nombre original)</summary><div class="rbody"><div class="rt"><table><tr><th>Producto original</th><th>7d / 30d / total</th><th>Stock</th><th>Creado</th><th>Resultado</th></tr>'+(r.tabla||[]).map(function(x){return '<tr class="'+(x.c==="f"?"f":x.c==="d"?"d":"")+'"><td>'+rE(x.n)+'<br><small>'+rE(x.s)+'</small></td><td>'+rE(x.v)+'</td><td>'+rE(x.st)+'</td><td>'+rE(x.ct)+'</td><td>'+rE(x.r)+'</td></tr>'}).join("")+'</table></div></div></details>';
+    h+='<details class="rf"><summary>Cuántos hubo y qué filtro cortó más</summary><div class="rbody"><p>'+rE(r.resumen)+'</p></div></details>';
+    h+='<details class="rf" open><summary>A REVISAR</summary><div class="rbody"><p>'+rE(r.revisar)+'</p></div></details></section>';
+    box.innerHTML=h;
+  }
   function czRender(){
     var WV=W.filter(function(w){var c=pmv(w,"ct");return !(c&&String(c).slice(0,4)<"2026")});
     var dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse();
@@ -1920,6 +1963,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     var r=ai.map(cardHtml).join("");
     if(mn.length)r+='<h2 style="margin-top:6px">Agregados a mano</h2>'+mn.map(cardHtml).join("");
     L.innerHTML=r||'<div class="czvacio"><b>Sin productos este día</b></div>';
+    czRadar();
   }
   function czWire(db,canWrite){
     czDb=db;czWrite=canWrite;
@@ -1959,6 +2003,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       czDb.doc("winners/"+d+"_m_"+Date.now().toString(36)).set(doc).then(function(){msg.textContent="Guardado.";$("cz-form").reset();$("cz-fecha").value=d;czDate=d;czRender()}).catch(function(){msg.textContent="No se pudo guardar. Intenta de nuevo."});
     });
     if(!db){czRender();return}
+    db.collection("radar").onSnapshot(function(sn){RDR={};sn.docs.forEach(function(d){RDR[d.id]=d.data()});czRadar()},function(){});
     db.doc("settings/params").onSnapshot(function(s){var d=s.exists&&s.data();if(d&&d.flete>=0&&d.entrega>=1&&d.objetivo>=0){PAR={flete:d.flete,entrega:d.entrega,objetivo:d.objetivo};$("cz-flete").value=PAR.flete;$("cz-ent").value=PAR.entrega;$("cz-obj").value=PAR.objetivo;czRender()}},function(){});
     db.collection("winners").orderBy("date","desc").limit(600).onSnapshot(function(snap){
       W=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});
