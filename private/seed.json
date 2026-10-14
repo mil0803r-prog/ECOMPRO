@@ -8462,5 +8462,5753 @@
    "resumen": "58 leidos con los filtros de entrada (creado desde 2026-07-16, stock 80 o mas, 7d 50 o mas, total 50 o mas). El filtro que mas corto fue el rango 50-800 de las tres ventas: 18 de 58 quedaron fuera. De los 40 en rango: 10 finalistas, 12 repetidos de los ultimos 20 dias, 8 con 3 o mas proveedores o listados del mismo producto, 3 para adultos, 1 por bandera (Derman) y 6 que cumplen pero no se analizaron a fondo por el cupo de 10 (estan en la tabla como \"cumple, sin analizar\"). La meta de 120 filas no se alcanzo: el catalogo solo tiene 58 que pasen el piso de 50 ventas en 7 dias; para ampliar, bajar minSold7d a 30.",
    "revisar": "Vacia. Es la primera corrida del radar y no hay memoria previa: las gemas (3 corridas seguidas con ventas estables) y los despegues (descartados que duplican ventas) solo pueden aparecer desde la segunda corrida. Los 58 productos de hoy quedaron guardados en memoria.json con su veredicto para comparar la proxima vez."
   }
+ },
+ "radar2": {
+  "2026-10-14": {
+   "date": "2026-10-14",
+   "source": "ia",
+   "titulo": "CAZADIARIA 2 · 2026-10-14",
+   "sub": "Guatemala · Dropi · DropKiller",
+   "veredicto": "Hoy mira primero el reparador de esmalte dental (418 unidades en 7 días entre 3 proveedores y solo 2 tiendas anunciándolo) y las luces navideñas en cascada (temporada que apenas arrancó, 3 tiendas del mismo tipo y todas con menos de 12 días de anuncio). Los 10 finalistas pasan el margen (utilidad > Q8 por pedido), pero la competencia salió solo de DropKiller: valida cada uno en la Biblioteca de Meta antes de gastar en pauta.",
+   "nota": "Corrida de 2026-10-14 con DropKiller (GT, Dropi, ACTIVOS, stock >= 1). NO se verificó en la Biblioteca de Anuncios de Meta (no hay navegador): todo el análisis de anuncios sale de la biblioteca de DropKiller. Interpretación de las cifras: el dueño escribió '35.000/8.000' copiando una plantilla colombiana; se interpreta en miles = flete Q35 y umbral VIABLE Q8 de utilidad por pedido generado. Los números de operación (flete Q35, devolución Q28, comisión 4%, entrega 65%, CPA Q20) son de referencia y el dueño los reemplazará. Cosecha: A (81-200 unidades/7d) devolvió solo 77 productos, menos de los 120 pedidos (el filtro se agotó, no hay más páginas); B (20-80 en 7d y máximo 320 en 30d) devolvió 177. No se aplicaron los filtros de la regla de 'caza diaria' del proyecto (antigüedad, 2026, ventas totales 50-800, stock >= 80) porque la orden de esta corrida los excluyó expresamente; sí se guardó la fecha de creación y la venta total en memoria.json. La columna de costo de Dropi viene del campo salePrice de DropKiller y el PVP del campo suggestedPrice; ningún precio sugerido fue 0 ni 1, por lo que no hubo precios estimados. Margen por grupo: se usa la mejor combinación costo/PVP de un mismo listado (no el costo mínimo con el PVP mediana, que mezclaba variantes). REPRECIABLE = no cierra al PVP sugerido pero sí a 2,5 x costo o en pack x2 vendido a 1,8 x PVP con un solo flete y un solo CPA. Inteligencia de anuncios: solo se investigaron 15 grupos (los de mayor venta y margen VIABLE y algunos REPRECIABLE); los otros 103 VIABLE/REPRECIABLE quedaron sin investigar y sin puntaje. La búsqueda semántica devolvió muy pocos resultados, por lo que se complementó con búsqueda de texto de DropKiller (país GT, activos, 1 anuncio por tienda). Los conteos de anuncios son de la muestra (una tienda = un anuncio), no totales; 'activo' en DropKiller puede incluir anuncios sin verse hace semanas (se anota la fecha de último avistamiento). Dos productos con ajuste de inventario sospechoso (creatina para mujer y lways fresh seal) no entran a finalistas. Ficha sin banderas de registros sanitarios verificados: solo se marcan por categoría de producto.",
+   "busqueda": {
+    "A": {
+     "leidos": 77,
+     "grupos": 65
+    },
+    "B": {
+     "leidos": 177,
+     "grupos": 142
+    }
+   },
+   "config": {
+    "flete": 35,
+    "devol": 28,
+    "comision": 4,
+    "entrega": 65,
+    "cpa": 20,
+    "viable": 8
+   },
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Luces navideñas (cascada / árbol / cortina)",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "6 tiendas · zona dulce",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/b6a07b48-b64a-44da-8479-5ea399ab7c8b/80deb67099e7.webp",
+     "v": "Luces navideñas (cascada / árbol / cortina): puntaje 12/15 y margen VIABLE (utilidad Q15.02 por pedido), vende 174 unidades en 7 días y 225 en 30 con 6 tiendas anunciando (zona dulce). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "174"
+      ],
+      [
+       "30d",
+       "225"
+      ],
+      [
+       "Stock",
+       "738"
+      ],
+      [
+       "Costo",
+       "Q43 a Q113"
+      ],
+      [
+       "PVP sug.",
+       "Q160 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "12/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "12/15. Necesidad 2/3: decorar rápido sin series enredadas (Lumina: 'este año no pelees con las series enredadas'); mejora clara pero no vital. Emoción 3/3: Navidad, familia, fotos; compra emocional y estacional (el anuncio de Teyra habla de escenario para fotos y reuniones). Funcionalidad 3/3: se entiende en una foto o video de 3 segundos (luces cayendo del árbol). Ángulos nuevos 2/3: los vendedores repiten 'sin enredos', 'cascada', 'solar'; quedan negocios, inquilinos, regalos y reventa. Oferta 2/3: hay packs de 2-3 y precios especiales por cantidad (Online Shop) pero el ticket de la cascada (PVP Q226) es alto frente a sets de Q125."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q113 y se vende a Q226 (sugerido de Dropi), con utilidad de Q15.02 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (226 - 113 - 35 - 9.04) - 35% x 28 - 20 = 15.02. Por listado: 25491 (importadora el mayorista): costo Q113, PVP Q226 -> utilidad Q15.02 por pedido generado (cierra). 25485 (importadora el mayorista): costo Q80, PVP Q160 -> utilidad Q-4.71 por pedido generado (NO cierra). 25508 (importadora el mayorista): costo Q43, PVP Q86 -> utilidad Q-26.84 por pedido generado (NO cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "luces de árbol navideño · 25508 · importadora el mayorista"
+        },
+        {
+         "t": "luces cascada navideña · 25491 · importadora el mayorista"
+        },
+        {
+         "t": "cortina de luces navideñas · 25485 · importadora el mayorista"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "importadora el mayorista",
+         "25508",
+         "luces de árbol navideño",
+         "Q43",
+         "179",
+         "115/153"
+        ],
+        [
+         "importadora el mayorista",
+         "25491",
+         "luces cascada navideña",
+         "Q113",
+         "531",
+         "32/32"
+        ],
+        [
+         "importadora el mayorista",
+         "25485",
+         "cortina de luces navideñas",
+         "Q80",
+         "28",
+         "27/40"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 6 · zona dulce (3-8): 3 tiendas con el mismo tipo cascada/serie y 3 más con luces solares de la misma categoría",
+       "ul": [
+        {
+         "t": "Lumina - Lo hacemos facil (cascada 2 m con estrella, Shopify)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://soykupi.myshopify.com/products/luces-cascada-navidena"
+          }
+         ]
+        },
+        {
+         "t": "Teyra (efecto cascada, 50% antes de Navidad, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=2337674837050207"
+          }
+         ]
+        },
+        {
+         "t": "Pa'tilladas (preventa navideña, 10 imágenes, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=2932241570470682"
+          }
+         ]
+        },
+        {
+         "t": "Online Shop (serie solar multicolor, más de 13 anuncios casi idénticos, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1140340768675375"
+          }
+         ]
+        },
+        {
+         "t": "Que Detalle GT (solar 30 m, preventa precio de fábrica)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://quedetalleonline.com/products/luces-navidenas-con-panel-solar-30-metros"
+          }
+         ]
+        },
+        {
+         "t": "iSolar.gt (luces solares, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=994870693640824"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "Al menos 6 tiendas, más de 25 anuncios activos vistos (Online Shop sola repite el mismo texto en unos 14 anuncios con 4-8 variantes de creativo cada uno). Todos son de video, salvo Pa'tilladas e iSolar.gt (imagen). El anuncio más antiguo del tipo cascada tiene 11 días (Teyra, desde 2026-10-03); la temporada recién arranca."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "Sin enredos: cascada de 2 m desde un solo distribuidor (Lumina)"
+        },
+        {
+         "t": "Efecto cascada como escenario para fotos y reuniones (Teyra)"
+        },
+        {
+         "t": "Ahorro: luces solares que se cargan solas (Online Shop, iSolar.gt, Que Detalle)"
+        },
+        {
+         "t": "Escasez: preventa, 50% antes de Navidad, 'precio de fábrica'"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Precios escalonados por cantidad (Online Shop: 'precios especiales'), 50% de descuento, preventa, pedido por WhatsApp, pago al recibir. No vimos 2x1 con la cascada."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie le habla a negocios (vitrinas, comedores, salones), a inquilinos que no pueden clavar, a quien regala decoración, ni a reventa por mayoreo; tampoco hay anuncios de 'antes/después' ni de guardado para reutilizar en 2027."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Dueños de negocios locales (tiendas, comedores, salones de belleza)",
+         "s": "'Tu vitrina sin Navidad no vende: ponle ambiente en 5 minutos, sin electricista'"
+        },
+        {
+         "b": "Inquilinos y quien vive en apartamento",
+         "s": "'Decora sin clavos ni escalera: se cuelga y se quita en un minuto'"
+        },
+        {
+         "b": "Hijos adultos que regalan a mamá o abuela",
+         "s": "'El regalo para quien ama decorar y ya no puede subirse a una escalera'"
+        },
+        {
+         "b": "Familias que ya compraron luces y las guardan enredadas",
+         "s": "'Guárdala en su caja y úsala otra vez en 2027: ahorras lo de cada año'"
+        },
+        {
+         "b": "Revendedores y vendedores de feria / mercado",
+         "s": "'Llévate 6 y véndelas a Q__ en tu mercado: pack mayorista con envío contra entrega'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Margen justo en el ticket alto: la cascada cuesta Q113 y el PVP sugerido es Q226 mientras los sets navideños de la competencia se venden a Q125; el árbol de Q43/Q86 NO cierra (utilidad negativa). Producto estacional (ventana hasta diciembre) y el proveedor ('importadora el mayorista') tiene un solo listado. Sin banderas de marca ni sanitarias."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=luces+navide%C3%B1as+cascada"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=luces+navide%C3%B1as+cascada"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=25491&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/b6a07b48-b64a-44da-8479-5ea399ab7c8b"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Shine Armor kit completo para carro",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "2 tiendas · muy buena señal",
+       "c": "gr"
+      },
+      {
+       "t": "Roja: posible marca 'Shine Armor'",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/a9f6ca8e-22c8-4924-8bfc-f506255519e5/e7496d7f7f17.webp",
+     "v": "Shine Armor kit completo para carro: puntaje 12/15 y margen VIABLE (utilidad Q13.10 por pedido), vende 102 unidades en 7 días y 228 en 30 con 2 tiendas anunciando (1-2 tiendas = muy buena señal). Ojo: Roja: posible marca 'Shine Armor'.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "102"
+      ],
+      [
+       "30d",
+       "228"
+      ],
+      [
+       "Stock",
+       "186"
+      ],
+      [
+       "Costo",
+       "Q43"
+      ],
+      [
+       "PVP sug.",
+       "Q150 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "12/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "12/15. Necesidad 2/3: brillo y protección de la pintura sin pulidora; antes/después visible. Estatus 2/3: el carro limpio es orgullo y estatus en Guatemala. Funcionalidad 3/3: se entiende de un video de 5 segundos (spray, pasar el paño, brillo). Ángulos nuevos 3/3: solo 2 tiendas lo anuncian, queda casi todo el mercado libre. Oferta 2/3: se arma pack x2 o combo con paño extra; hoy no vimos oferta."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q43 y se vende a Q150 (sugerido de Dropi), con utilidad de Q13.10 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (150 - 43 - 35 - 6.00) - 35% x 28 - 20 = 13.10. Por listado: 9706 (grupo luna): costo Q43, PVP Q150 -> utilidad Q13.10 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "shine armor car kit completo · 9706 · grupo luna"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "grupo luna",
+         "9706",
+         "shine armor car kit completo",
+         "Q43",
+         "186",
+         "102/228"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 2 · 1-2 tiendas = muy buena señal (mercado casi libre)",
+       "ul": [
+        {
+         "t": "Compra Rayo (landing propia, 'Brillo de concesionario en 10 min')",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://comprarayo.com/products/shine-armor-car-kit-completo"
+          }
+         ]
+        },
+        {
+         "t": "Tienda Cumbral (Fortify Quick Coat, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1332618418806228"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "2 tiendas, 2 anuncios activos en la muestra, ambos video. El más antiguo (Compra Rayo) empezó el 2026-09-15 pero no se ve activo hace 22 días; el de Tienda Cumbral empezó el 2026-10-09 y está activo."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "Brillo de concesionario en 10 minutos, sin manguera ni pulidora (Compra Rayo)"
+        },
+        {
+         "t": "Spray automotriz de fácil aplicación para el mantenimiento exterior (Tienda Cumbral)"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "No se vio precio ni pack en el texto; Tienda Cumbral vende por WhatsApp, Compra Rayo en landing con botón 'Comprar'."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie habla a conductores de Uber/taxi, a vendedores de carros usados, a motociclistas, ni usa prueba social con fotos antes/después ni el ángulo de regalo (Día del Padre pasó, pero Navidad viene)."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Conductores de Uber, InDriver y taxi",
+         "s": "'Un carro que brilla recibe mejores calificaciones y propinas: 10 minutos y listo'"
+        },
+        {
+         "b": "Quien vende su carro usado",
+         "s": "'Vende tu carro más rápido: preséntalo como nuevo por menos de Q150'"
+        },
+        {
+         "b": "Motociclistas y dueños de moto",
+         "s": "'Tu moto bajo el sol y el polvo de la carretera: protégela con un solo spray'"
+        },
+        {
+         "b": "Mujeres que manejan solas y odian ir al lavacarros",
+         "s": "'Lava carros sin lavacarros: tu carro brillante en tu cochera'"
+        },
+        {
+         "b": "Hijos que regalan a papá en Navidad",
+         "s": "'El regalo para papá que presume su carro: kit completo en caja'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera ROJA posible: 'Shine Armor' parece nombre comercial de marca; no usarlo en anuncios, vender con nombre propio y verificar. Proveedor único (grupo luna), una sola fuente. Compra Rayo no se ve activo hace 22 días, así que la señal de demanda en anuncios es débil."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=kit+pulir+carro+cera+spray"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=kit+pulir+carro+cera+spray"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=9706&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/a9f6ca8e-22c8-4924-8bfc-f506255519e5"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Reparador de esmalte dental (nano hidroxiapatita)",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "2 tiendas · muy buena señal",
+       "c": "gr"
+      },
+      {
+       "t": "Amarilla: higiene bucal",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/ef7ede0c-5859-4cf0-bc8d-d6d815dff0b4/a9ebfe18a767.webp",
+     "v": "Reparador de esmalte dental (nano hidroxiapatita): puntaje 11/15 y margen VIABLE (utilidad Q17.78 por pedido), vende 418 unidades en 7 días y 931 en 30 con 2 tiendas anunciando (1-2 tiendas = muy buena señal). Ojo: Amarilla: higiene bucal.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "418"
+      ],
+      [
+       "30d",
+       "931"
+      ],
+      [
+       "Stock",
+       "7184"
+      ],
+      [
+       "Costo",
+       "Q47 a Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q110 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "3"
+      ],
+      [
+       "Puntaje",
+       "11/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "11/15. Necesidad 3/3: dolor y sensibilidad dental con costo de dentista alto; problema claro. Emoción 2/3: alivio y confianza al sonreír; no cambia estatus. Funcionalidad 2/3: se entiende en video (aplicación y sensibilidad), pero la foto sola no muestra el resultado. Ángulos nuevos 2/3: solo 2 tiendas, usan 'sensibilidad' y 'diente picado'; quedan fumadores, café, niños. Oferta 2/3: se vende en pack x2 o x3 y suscripción."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q55 y se vende a Q170 (sugerido de Dropi), con utilidad de Q17.78 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (170 - 55 - 35 - 6.80) - 35% x 28 - 20 = 17.78. Por listado: 6507 (nexus): costo Q55, PVP Q170 -> utilidad Q17.78 por pedido generado (cierra). 5694 (sicommer lab): costo Q55, PVP Q110 -> utilidad Q-19.66 por pedido generado (NO cierra). 10551 (altamira): costo Q47, PVP Q47 -> utilidad Q-53.77 por pedido generado (NO cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "pasta dental con hydroxyapatite · 5694 · sicommer lab"
+        },
+        {
+         "t": "reparador esmalte dental · 6507 · nexus"
+        },
+        {
+         "t": "reparador de esmalte dental dropi cup · 10551 · altamira"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "sicommer lab",
+         "5694",
+         "pasta dental con hydroxyapatite",
+         "Q55",
+         "300",
+         "177/402"
+        ],
+        [
+         "nexus",
+         "6507",
+         "reparador esmalte dental",
+         "Q55",
+         "3590",
+         "157/333"
+        ],
+        [
+         "altamira",
+         "10551",
+         "reparador de esmalte dental dropi cup",
+         "Q47",
+         "3294",
+         "84/196"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 2 · 1-2 tiendas = muy buena señal",
+       "ul": [
+        {
+         "t": "Dra. María Vásquez (TootharmoR, landing propia)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://trendyplusgt.com/products/tootharmor"
+          }
+         ]
+        },
+        {
+         "t": "Mundo en casa (Reparador Dental con nano hidroxiapatita, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=2064534817749309"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "2 tiendas anunciando este producto, 2 anuncios en la muestra (ambos video, 2 videos cada uno). Dra. María Vásquez corre desde 2026-08-24 (50 días, activo hoy); Mundo en casa desde 2026-07-25 (45 días) pero no se ve hace 35 días."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "Dolor al morder o tomar frío/caliente: 'diente picado o con sensibilidad que el dentista cobra caro'"
+        },
+        {
+         "t": "Remineralización con nano hidroxiapatita para 'dar una nueva oportunidad a tu sonrisa' (Mundo en casa)"
+        },
+        {
+         "t": "Figura de doctora como autoridad (Dra. María Vásquez)"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Envío gratis a Guatemala y pago contra entrega; no vimos pack ni precio escrito en el texto."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie ataca mal aliento, manchas por café/cigarro, dientes de niños, embarazadas (encías) ni 'complemento después del blanqueamiento'; tampoco hay oferta de pack familiar ni demostración de antes/después."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Adultos que evitan lo frío/caliente y no pagan dentista",
+         "s": "'Si el helado te duele, no esperes a la cita de Q500: prueba esto 14 días'"
+        },
+        {
+         "b": "Papás con niños que comen mucha azúcar",
+         "s": "'Protege el esmalte de tus hijos antes de que aparezca la caries'"
+        },
+        {
+         "b": "Bebedores de café y fumadores",
+         "s": "'El café mancha y desgasta: repara el esmalte, no solo lo blanquees'"
+        },
+        {
+         "b": "Quien se hizo blanqueamiento o aparatos",
+         "s": "'Después del blanqueamiento tus dientes quedan sensibles: así los calmas'"
+        },
+        {
+         "b": "Mujeres 30-50 que cuidan la sonrisa",
+         "s": "'Pack familiar x3 con envío gratis: para ti, tu pareja y tus hijos'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera AMARILLA: producto de higiene bucal/cosmético, necesita registro sanitario y no se debe prometer 'curar caries'. Precio en Dropi inconsistente (un listado tiene PVP = costo Q47). Competencia con 3 proveedores y 7,184 unidades de stock, y los mismos proveedores pueden vender directo."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=reparador+esmalte+dental+hidroxiapatita"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=reparador+esmalte+dental+hidroxiapatita"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=6507&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/ef7ede0c-5859-4cf0-bc8d-d6d815dff0b4"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Linterna (táctica / mini / multifuncional)",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "4 tiendas · zona dulce",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/5cd1ca12-2e1f-47f7-bbc7-fc9eedbcf819/94f2d132670a.webp",
+     "v": "Linterna (táctica / mini / multifuncional): puntaje 11/15 y margen VIABLE (utilidad Q17.00 por pedido), vende 413 unidades en 7 días y 1532 en 30 con 4 tiendas anunciando (zona dulce). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "413"
+      ],
+      [
+       "30d",
+       "1532"
+      ],
+      [
+       "Stock",
+       "519"
+      ],
+      [
+       "Costo",
+       "Q37 a Q60"
+      ],
+      [
+       "PVP sug.",
+       "Q120 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "4"
+      ],
+      [
+       "Puntaje",
+       "11/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "11/15. Necesidad 2/3: apagones, camino de noche, auto; útil pero hay sustitutos (celular). Estatus 2/3: 'grado militar' y 'titanio' venden fuerza y seguridad. Funcionalidad 3/3: se entiende de una foto (luz potente, zoom). Ángulos nuevos 2/3: ya se usa fuerza militar y emergencia; quedan pesca, moto, seguridad personal. Oferta 2/3: pack x2 y combo con funda/estuche son sencillos."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q37 y se vende a Q150 (sugerido de Dropi), con utilidad de Q17.00 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (150 - 37 - 35 - 6.00) - 35% x 28 - 20 = 17.00. Por listado: 122 (grupo luna): costo Q37, PVP Q150 -> utilidad Q17.00 por pedido generado (cierra). 6647 (60 segundos): costo Q60, PVP Q150 -> utilidad Q2.05 por pedido generado (NO cierra). 2658 (distribuidora gt): costo Q45, PVP Q90 -> utilidad Q-25.64 por pedido generado (NO cierra). 530 (blue guatemala): costo Q48, PVP Q48 -> utilidad Q-53.80 por pedido generado (NO cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "linterna táctica · 530 · blue guatemala"
+        },
+        {
+         "t": "mini linterna hd · 122 · grupo luna"
+        },
+        {
+         "t": "linterna multifuncional 20854-54 · 2658 · distribuidora gt"
+        },
+        {
+         "t": "linterna portatil multifuncional · 6647 · 60 segundos"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "blue guatemala",
+         "530",
+         "linterna táctica",
+         "Q48",
+         "232",
+         "174/426"
+        ],
+        [
+         "grupo luna",
+         "122",
+         "mini linterna hd",
+         "Q37",
+         "70",
+         "151/806"
+        ],
+        [
+         "distribuidora gt",
+         "2658",
+         "linterna multifuncional 20854-54",
+         "Q45",
+         "88",
+         "60/237"
+        ],
+        [
+         "60 segundos",
+         "6647",
+         "linterna portatil multifuncional",
+         "Q60",
+         "129",
+         "28/63"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 4 · zona dulce (3-8): 4 páginas en 3 landings, hay más en la siguiente página de resultados",
+       "ul": [
+        {
+         "t": "Variedades en línea Guatemala / Valkyria Store (landing 'linterna exploradora ultrapotente')",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://variedadesenlineaguatemala.com/products/linterna-exploradora-ultrapotente"
+          }
+         ]
+        },
+        {
+         "t": "Variedad Venus (Linterna Táctica Titanio 1101, WhatsApp, 2 páginas)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1552228243213438"
+          }
+         ]
+        },
+        {
+         "t": "Ultramaxgt (Linterna Táctica LED recargable, zoom)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1568135034695009"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "Al menos 4 páginas y 6 anuncios activos en la muestra (1 por tienda). Los más fuertes son de video con 17 videos (Variedades en línea). El más antiguo corre desde 2026-03-17 (210 días, activo hoy): producto validado."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "'Linterna N°1 de Guatemala', 'te saca de cualquier apuro'"
+        },
+        {
+         "t": "Linterna láser 160,000 lúmenes ('ilumina la noche como nunca')"
+        },
+        {
+         "t": "Grado militar y titanio, 'liquidación total, últimas unidades'"
+        },
+        {
+         "t": "Luz frontal con zoom, recargable, para hogar, trabajo y emergencias"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Envío gratis + pago al recibir, 'liquidación total', unidades limitadas; no se vieron packs claros."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie le habla a pescadores, motoristas y repartidores, mujeres que caminan de noche (seguridad), campistas ni al hogar en época de lluvias y apagones; sin oferta 2x1 ni con bonus (estuche, cargador solar)."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Repartidores y motoristas",
+         "s": "'Entrega de noche sin el celular en la mano: luz potente y recargable en tu casco'"
+        },
+        {
+         "b": "Pescadores y campistas de fin de semana",
+         "s": "'Pesca de noche con 160,000 lúmenes: ves lo que otros no ven'"
+        },
+        {
+         "b": "Mujeres que caminan solas de noche",
+         "s": "'Luz y defensa en el bolsillo: te acompaña a casa'"
+        },
+        {
+         "b": "Familias en temporada de lluvias y apagones",
+         "s": "'Cuando se va la luz en tu colonia, tu familia no queda a oscuras'"
+        },
+        {
+         "b": "Regalos para papá o tío (Navidad)",
+         "s": "'2 linternas por Q__: una para el carro, una para la casa'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Dropi lista 4 proveedores con costo/PVP distintos; solo 2 de los 4 listados cierran margen (el Q48/Q48 de 'blue guatemala' no, porque PVP = costo). El producto es muy competido por importadores y las afirmaciones como '160,000 lúmenes' son riesgo de queja. Sin bandera de marca ('táctica' es genérico)."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=linterna+tactica+recargable"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=linterna+tactica+recargable"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=122&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/5cd1ca12-2e1f-47f7-bbc7-fc9eedbcf819"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Turboflush destapador de inodoros",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "4 tiendas · zona dulce",
+       "c": "gr"
+      },
+      {
+       "t": "Stock 3 unidades",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7/67af02e59f02.webp",
+     "v": "Turboflush destapador de inodoros: puntaje 11/15 y margen VIABLE (utilidad Q30.78 por pedido), vende 98 unidades en 7 días y 98 en 30 con 4 tiendas anunciando (zona dulce). Ojo: Stock 3 unidades.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "98"
+      ],
+      [
+       "30d",
+       "98"
+      ],
+      [
+       "Stock",
+       "3"
+      ],
+      [
+       "Costo",
+       "Q59"
+      ],
+      [
+       "PVP sug.",
+       "Q195 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "11/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "11/15. Necesidad 3/3: inodoro tapado, solución inmediata con antes/después claro. Emoción 1/3: alivio y vergüenza evitada; no sube estatus. Funcionalidad 3/3: se entiende en 3 segundos de video (bomba, presión, agua baja). Ángulos nuevos 2/3: ya se usa 'sin llamar plomero' y 3x1; quedan arrendadores, restaurantes, adultos mayores. Oferta 2/3: ya se vende 3x1 por Q199 en la competencia, el producto admite más combos."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q59 y se vende a Q195 (sugerido de Dropi), con utilidad de Q30.78 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (195 - 59 - 35 - 7.80) - 35% x 28 - 20 = 30.78. Por listado: 27026 (shop b): costo Q59, PVP Q195 -> utilidad Q30.78 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "turboflush – destapador de inodoros · 27026 · shop b"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "shop b",
+         "27026",
+         "turboflush – destapador de inodoros",
+         "Q59",
+         "3",
+         "98/98"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 4 · zona dulce (3-8): 4 tiendas con el mismo problema (algunas con químico, otras con bomba)",
+       "ul": [
+        {
+         "t": "Guate compra (Wild Tornado 3x1 Q199, 19 videos, activo hoy)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://guatecompra.store/products/wild-tornado%E2%84%A2-destapador-y-limpiador-de-canerias-profesional-x3-1"
+          }
+         ]
+        },
+        {
+         "t": "Smart Life (herramienta contra obstrucciones, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1736194611006559"
+          }
+         ]
+        },
+        {
+         "t": "Balamia (Super Cleaner destapador profesional)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://tb9rq1-zf.myshopify.com/products/destapador-de-drenaje"
+          }
+         ]
+        },
+        {
+         "t": "Guate ofertas (destapador de caños a presión Q250, 508 días)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=673744372128965"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "4 tiendas, 4 anuncios en la muestra (1 por tienda); Guate compra tiene 19 videos distintos y sigue activo. El más antiguo del mismo problema es Guate ofertas (508 días, desde 2025-05-23, activo), aunque vende un destapador manual distinto; Smart Life y Balamia no se ven activos hace 21 y 53 días."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "'Destapa tus tuberías en minutos' (disuelve grasa, cabello)"
+        },
+        {
+         "t": "'Esté preparado antes de que aparezca una obstrucción' (Smart Life)"
+        },
+        {
+         "t": "Alta presión sin electricidad, ideal para inodoros, lavamanos y regaderas (Guate ofertas)"
+        },
+        {
+         "t": "Descuento 50% y 3x1"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "3x1 por Q199 + envío gratis + pago al recibir (Wild Tornado), Q250 envío gratis (Guate ofertas), descuento 50% (Guate compra)."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie habla a arrendadores y administradores de edificios, restaurantes y pensiones, ni al 'cero químicos para el baño de los niños'; sin demostración de sonido/agua bajando ni garantía de devolución."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Arrendadores y administradores de apartamentos",
+         "s": "'Un inodoro tapado a las 10 de la noche no espera al plomero: ten uno en cada unidad'"
+        },
+        {
+         "b": "Dueños de restaurantes y pensiones",
+         "s": "'Cero químicos y cero cierres de baño: destapa en 2 minutos'"
+        },
+        {
+         "b": "Mamás con niños pequeños",
+         "s": "'Los juguetes en el inodoro pasan; destapa sin llamar a nadie'"
+        },
+        {
+         "b": "Personas con pena de llamar un plomero",
+         "s": "'Resuelve el problema en privado, sin visitas ni pena'"
+        },
+        {
+         "b": "Quien compra regalo útil para estrenar casa",
+         "s": "'Kit de hogar: destapador + guantes + repuesto, ideal para quien estrena casa'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "CRÍTICO: stock total 3 unidades en Dropi (shop b); 98 vendidas en 7 días y todas las ventas del producto son de esta semana (creado el 2026-10-08), puede agotarse hoy. Un solo proveedor. Producto sin banderas de marca ni sanitarias, pero 'Turboflush' parece nombre comercial, usa nombre propio."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=destapador+de+inodoros+bomba+aire+presion"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=destapador+de+inodoros+bomba+aire+presion"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27026&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7"
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "nombre": "Cargador / arrancador de batería de carro",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "4 tiendas · zona dulce",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/07301945-56c9-45f5-8a58-09d591f9c0cf/9f6442094766.webp",
+     "v": "Cargador / arrancador de batería de carro: puntaje 11/15 y margen VIABLE (utilidad Q38.45 por pedido), vende 61 unidades en 7 días y 115 en 30 con 4 tiendas anunciando (zona dulce). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "61"
+      ],
+      [
+       "30d",
+       "115"
+      ],
+      [
+       "Stock",
+       "34"
+      ],
+      [
+       "Costo",
+       "Q100"
+      ],
+      [
+       "PVP sug.",
+       "Q250 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "11/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "11/15. Necesidad 3/3: carro que no enciende, miedo a quedar varado. Estatus 2/3: seguridad y control; no estatus. Funcionalidad 3/3: se entiende en una foto (pinzas, batería, carro). Ángulos nuevos 2/3: dominan 'que no te deje varado'; quedan taxis, mujeres, flotillas. Oferta 1/3: producto de ticket alto (PVP Q250) sin gran margen para packs."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q100 y se vende a Q250 (sugerido de Dropi), con utilidad de Q38.45 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (250 - 100 - 35 - 10.00) - 35% x 28 - 20 = 38.45. Por listado: 8886 (60 segundos): costo Q100, PVP Q250 -> utilidad Q38.45 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "cargador de bateria de carro · 8886 · 60 segundos"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "60 segundos",
+         "8886",
+         "cargador de bateria de carro",
+         "Q100",
+         "34",
+         "61/115"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 4 · zona dulce (3-8): 4 tiendas, solo Smart Market muestra actividad en las últimas 24 horas",
+       "ul": [
+        {
+         "t": "Mercapp GT (arrancador WHISKY 4 en 1, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1567894858464740"
+          }
+         ]
+        },
+        {
+         "t": "Adry Online Store (arrancador HIGH-POWER TM15, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1782266686131285"
+          }
+         ]
+        },
+        {
+         "t": "Smart Market GT (WHISKY 4 en 1, activo hoy)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=5743174435908616"
+          }
+         ]
+        },
+        {
+         "t": "Todo hogar gt (cargador + arrancador, Shopify)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://todohogargt.myshopify.com/products/arrancador-portatil-inteligente"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "4 tiendas, 5 anuncios en la muestra (video salvo Adry). El más antiguo es Mercapp GT (46 días activos, desde 2026-07-09) pero no se ve hace 50 días; los demás corren desde septiembre-octubre."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "'Que tu carro nunca te deje varado' (arrancador 4 en 1)"
+        },
+        {
+         "t": "Cargador + arrancador, todo en uno"
+        },
+        {
+         "t": "Ideal para carretera, viajes y uso diario"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Envío gratis y pago al recibir; sin pack ni precio visible."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie les habla a taxistas/Uber, mujeres que viajan solas, flotillas de reparto, ni al regalo útil para papá; sin ángulo de ahorro vs grúa."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Taxistas, Uber e InDriver",
+         "s": "'Un día parado sin batería te cuesta lo que ganas: arranca en 30 segundos'"
+        },
+        {
+         "b": "Mujeres que viajan solas por carretera",
+         "s": "'No dependas de que alguien pare: arranca tu carro sola'"
+        },
+        {
+         "b": "Dueños de motos y carros de reparto",
+         "s": "'Tu moto no prende en la mañana: arranque de emergencia en tu mochila'"
+        },
+        {
+         "b": "Compradores de regalo para papá",
+         "s": "'El regalo más útil del año: arrancador + linterna + cargador de celular'"
+        },
+        {
+         "b": "Quien guarda el carro sin usarlo (viajeros, jubilados)",
+         "s": "'Si lo usas poco, la batería muere: sostén y arranca sin ayuda'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Stock 34 unidades: aguanta pocos días a 61 ventas por semana. Producto con batería de litio: riesgo de envío/garantía y devoluciones por 'no arranca mi V8'. Un solo proveedor (60 segundos). Sin banderas de marca (el nombre WHISKY es de otras tiendas)."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=arrancador+portatil+bateria+carro"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=arrancador+portatil+bateria+carro"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=8886&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/07301945-56c9-45f5-8a58-09d591f9c0cf"
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "nombre": "Tren navideño 13 piezas (luz y sonido)",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "6 tiendas · zona dulce",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/86b8d877-59c2-4a89-b431-24bdaa55c7c9/4d74dd77d629.webp",
+     "v": "Tren navideño 13 piezas (luz y sonido): puntaje 11/15 y margen VIABLE (utilidad Q11.67 por pedido), vende 44 unidades en 7 días y 96 en 30 con 6 tiendas anunciando (zona dulce). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "44"
+      ],
+      [
+       "30d",
+       "96"
+      ],
+      [
+       "Stock",
+       "204"
+      ],
+      [
+       "Costo",
+       "Q170"
+      ],
+      [
+       "PVP sug.",
+       "Q280 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "11/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "11/15. Necesidad 1/3: es decoración, no resuelve un problema. Emoción 3/3: ilusión de niños, tradición navideña. Funcionalidad 3/3: se entiende de un video (tren da vueltas bajo el árbol). Ángulos nuevos 2/3: dominan precio y niños; quedan regalo corporativo, colegios, abuelos. Oferta 2/3: ya hay 1 por Q55, 2 por Q85, 3 por Q100 (versión pequeña); el de 13 piezas puede ir en combo."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q170 y se vende a Q280 (sugerido de Dropi), con utilidad de Q11.67 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (280 - 170 - 35 - 11.20) - 35% x 28 - 20 = 11.67. Por listado: 23596 (digital gt): costo Q170, PVP Q280 -> utilidad Q11.67 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "tren navideño de 13 piezas · 23596 · digital gt"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "digital gt",
+         "23596",
+         "tren navideño de 13 piezas",
+         "Q170",
+         "204",
+         "44/96"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 6 · zona dulce (3-8), subiendo: 6 tiendas y hay más páginas de resultados; 4 de ellas con el tren pequeño barato",
+       "ul": [
+        {
+         "t": "La Tiendita Vecina (tren navideño de 13 piezas, Shopify)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://wxh1nq-ey.myshopify.com/products/tren-navideno-de-13-piezas"
+          }
+         ]
+        },
+        {
+         "t": "Chapina Shop (13 piezas, luz y sonido, Q299)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=991714199969348"
+          }
+         ]
+        },
+        {
+         "t": "Teyra (Tren Navideño Musical, 50% de descuento)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1406964018285286"
+          }
+         ]
+        },
+        {
+         "t": "Dcasa Tienda (tren decorativo 1x Q55, 2x Q85, 3x Q100)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1311984690891832"
+          }
+         ]
+        },
+        {
+         "t": "Para Todo Hogar (mismo texto de tren decorativo)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1749009459711187"
+          }
+         ]
+        },
+        {
+         "t": "CasaMia (mismo texto de tren decorativo)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1610148470492296"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "Al menos 6 tiendas, 7 anuncios activos en la muestra (mezcla de imagen y video). El más antiguo es de Dcasa Tienda (desde 2026-09-18, 24 días); el de 13 piezas exacto empezó el 2026-10-09."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "'El regalo WOW de esta Navidad' con luz frontal y sonido realista (Chapina Shop)"
+        },
+        {
+         "t": "'Esta Navidad no dejes que los niños vean el árbol como una decoración más' (Teyra)"
+        },
+        {
+         "t": "Tren decorativo para dar un toque mágico al hogar"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "1 tren Q55, 2 por Q85, 3 por Q100 (versión sencilla); Q299 por el de 13 piezas con luz y sonido; 50% descuento."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie lo ofrece a colegios y guarderías, a regalos corporativos, a abuelos que lo mandan a sus nietos, ni en kit 'árbol + tren' para familias nuevas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Papás y mamás con hijos de 3 a 8 años",
+         "s": "'Deja que tu hijo maneje el tren que da vueltas a tu árbol: la imagen que recordará toda la vida'"
+        },
+        {
+         "b": "Abuelos que compran regalo para nietos",
+         "s": "'El regalo que tus nietos abren y no dejan de jugar: llega a la puerta'"
+        },
+        {
+         "b": "Colegios, guarderías y negocios con árbol de recepción",
+         "s": "'Un árbol que se mueve atrae a los niños y a sus papás'"
+        },
+        {
+         "b": "Parejas que arman su primera Navidad",
+         "s": "'Tu primera Navidad en casa nueva, con tradición'"
+        },
+        {
+         "b": "Quien busca regalo para intercambio / amigo secreto",
+         "s": "'Regalo de Q__ que parece de Q300: se ve caro y se mueve'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Margen fino: costo Q170 contra PVP sugerido Q280 y la competencia lo vende en Q299 (y copias pequeñas en Q55), utilidad esperada solo Q11.67 por pedido; 44 ventas en 7 días y solo 96 en 30 (producto nuevo, creado 2026-09-23). Estacional. La categoría en Dropi dice 'tecnología' aunque es juguete/decoración. Un solo proveedor."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=tren+navide%C3%B1o+%C3%A1rbol"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=tren+navide%C3%B1o+%C3%A1rbol"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=23596&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/86b8d877-59c2-4a89-b431-24bdaa55c7c9"
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "nombre": "Mascarilla de colágeno para el cabello",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "2 tiendas · muy buena señal",
+       "c": "gr"
+      },
+      {
+       "t": "Amarilla: cosmético capilar",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/4615c0f0-83b5-4baf-97c8-5d5fbe9fb76c/6a64498fc2ed.webp",
+     "v": "Mascarilla de colágeno para el cabello: puntaje 10/15 y margen VIABLE (utilidad Q35.20 por pedido), vende 212 unidades en 7 días y 326 en 30 con 2 tiendas anunciando (1-2 tiendas = muy buena señal). Ojo: Amarilla: cosmético capilar.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "212"
+      ],
+      [
+       "30d",
+       "326"
+      ],
+      [
+       "Stock",
+       "739"
+      ],
+      [
+       "Costo",
+       "Q46 a Q57"
+      ],
+      [
+       "PVP sug.",
+       "Q133 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "2"
+      ],
+      [
+       "Puntaje",
+       "10/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "10/15. Necesidad 2/3: cabello reseco o con frizz, mejora clara. Emoción 2/3: verse bien, confianza; no cambia estatus. Funcionalidad 2/3: se entiende, pero el resultado se ve con tiempo. Ángulos nuevos 2/3: solo 2 tiendas con 'argán, queratina, colágeno'; faltan novias, estilistas, hombres. Oferta 2/3: se puede hacer pack x2 de tratamiento y combo con shampoo."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q57 y se vende a Q200 (sugerido de Dropi), con utilidad de Q35.20 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (200 - 57 - 35 - 8.00) - 35% x 28 - 20 = 35.20. Por listado: 431 (grupo luna): costo Q57, PVP Q200 -> utilidad Q35.20 por pedido generado (cierra). 22670 (importadora el mayorista): costo Q46, PVP Q66 -> utilidad Q-41.27 por pedido generado (NO cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "mascarilla colageno cabello · 22670 · importadora el mayorista"
+        },
+        {
+         "t": "collagen mask mascarilla colageno antien · 431 · grupo luna"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "importadora el mayorista",
+         "22670",
+         "mascarilla colageno cabello",
+         "Q46",
+         "339",
+         "112/226"
+        ],
+        [
+         "grupo luna",
+         "431",
+         "collagen mask mascarilla colageno antien",
+         "Q57",
+         "400",
+         "100/100"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 2 · 1-2 tiendas = muy buena señal",
+       "ul": [
+        {
+         "t": "Xevontech (mascarilla de argán con queratina y colágeno, 2 páginas, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=2976148896092129"
+          }
+         ]
+        },
+        {
+         "t": "Atucasahoy (cabello opaco, seco, con frizz, WhatsApp)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1083969021088719"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "2 tiendas, 3 anuncios en la muestra, todos video. El más antiguo es de Xevontech (desde 2026-10-02, 11 días, activo hoy)."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "Suavidad y brillo del cabello, menos frizz, 'sin gastar en el salón'"
+        },
+        {
+         "t": "'¿Cansada de que el cabello se vea opaco, seco, con frizz?'"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Envío gratis en Guatemala y pago al recibir; sin pack en el texto."
+      },
+      {
+       "h": "Huecos",
+       "p": "Nadie ataca cabello dañado por plancha, tinte o sol; no hay ángulo para novias, para estilistas que revenden ni para hombres con barba; sin prueba antes/después."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres con cabello dañado por plancha o tinte",
+         "s": "'Si planchas cada semana, tu cabello necesita esto cada semana'"
+        },
+        {
+         "b": "Novias y quinceañeras",
+         "s": "'Cabello de revista el día de tu boda: tratamiento de 4 semanas antes'"
+        },
+        {
+         "b": "Estilistas y salones pequeños",
+         "s": "'Vende el tratamiento a tus clientas: pack mayorista'"
+        },
+        {
+         "b": "Hombres con barba o cabello largo",
+         "s": "'Barba suave y sin frizz con el mismo tratamiento'"
+        },
+        {
+         "b": "Madres e hijas",
+         "s": "'Pack madre e hija 2x1 para el cabello de las dos'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera AMARILLA: cosmético capilar, necesita registro sanitario/notificación. Dos listados con precios muy distintos: el de importadora el mayorista (Q46 con PVP Q66) NO cierra margen; solo el de grupo luna (Q57 con PVP Q200) sí, y su venta de 100 unidades es todo de esta semana (totalSold = 7d = 30d; fecha de creación 2025-10-04 es un valor de relleno). Anuncios nuevos con poca historia."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=mascarilla+colageno+cabello"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=mascarilla+colageno+cabello"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=431&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/4615c0f0-83b5-4baf-97c8-5d5fbe9fb76c"
+      }
+     ]
+    },
+    {
+     "n": 9,
+     "nombre": "Soporte magnético giratorio para celular",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "4 tiendas · zona dulce",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/0108e94e-a8e4-45e8-b74c-b6c2d1991f98/c030ea5075c7.webp",
+     "v": "Soporte magnético giratorio para celular: puntaje 10/15 y margen VIABLE (utilidad Q13.10 por pedido), vende 27 unidades en 7 días y 52 en 30 con 4 tiendas anunciando (zona dulce). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "27"
+      ],
+      [
+       "30d",
+       "52"
+      ],
+      [
+       "Stock",
+       "368"
+      ],
+      [
+       "Costo",
+       "Q43"
+      ],
+      [
+       "PVP sug.",
+       "Q150 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "10/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "10/15. Necesidad 2/3: GPS y llamadas sin manos en moto o carro. Estatus 1/3: accesorio útil, no cambia emoción. Funcionalidad 3/3: se entiende de una foto. Ángulos nuevos 1/3: todas las tiendas repiten el mismo texto ('más comodidad y seguridad para tu celular'). Oferta 3/3: pack x2 o x3 y combo con cargador son naturales para un producto barato."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q43 y se vende a Q150 (sugerido de Dropi), con utilidad de Q13.10 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (150 - 43 - 35 - 6.00) - 35% x 28 - 20 = 13.10. Por listado: 20857 (grupo luna): costo Q43, PVP Q150 -> utilidad Q13.10 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "soporte magnetico giratorio · 20857 · grupo luna"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "grupo luna",
+         "20857",
+         "soporte magnetico giratorio",
+         "Q43",
+         "368",
+         "27/52"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 4 · zona dulce (3-8): 4 tiendas, 2 activas hoy, textos casi idénticos",
+       "ul": [
+        {
+         "t": "Electro Sonic GT (Soporte magnético, 110 días, 2 páginas)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1007121432288092"
+          }
+         ]
+        },
+        {
+         "t": "Electro Black (mismo texto, 91 días)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=27258636473837028"
+          }
+         ]
+        },
+        {
+         "t": "Online Shop (mismo texto, 79 días, 2 páginas)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1334258075564827"
+          }
+         ]
+        },
+        {
+         "t": "Multimayoreo (mismo texto, 53 días)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://www.facebook.com/ads/library/?id=1714679872909729"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "4 tiendas, 6 anuncios en la muestra (todos video, 1-3 videos). El más antiguo es Electro Sonic GT (desde 2026-06-24, 110 días y activo hoy): producto validado y de largo recorrido."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "'Más comodidad y seguridad para tu celular'"
+        },
+        {
+         "t": "GPS, contestar llamadas y escuchar música con las manos libres"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "No se vio precio ni pack en el texto; todo va a WhatsApp."
+      },
+      {
+       "h": "Huecos",
+       "p": "Todas las tiendas dicen lo mismo: nadie ataca a repartidores, a quien usa bicicleta/moto, ni vende pack x2 con descuento ni muestra prueba de agarre en bache."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Repartidores de comida y paquetería en moto",
+         "s": "'Ruta con GPS sin manos: tu celular no se cae en el bache'"
+        },
+        {
+         "b": "Ciclistas y motociclistas urbanos",
+         "s": "'Soporte magnético que aguanta baches y vibración: prueba de 1 km en video'"
+        },
+        {
+         "b": "Taxistas y conductores de Uber",
+         "s": "'Pantalla a la vista, ojos en el camino: instala en 5 segundos'"
+        },
+        {
+         "b": "Quien regala a su pareja",
+         "s": "'2x1 para ti y para ella: dos soportes por Q__'"
+        },
+        {
+         "b": "Familias con dos carros",
+         "s": "'Pack de 2 soportes, uno por carro, con envío gratis'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Margen fino: costo Q43 contra PVP Q150, utilidad Q13/pedido a una tasa de entrega de 65%; ventas bajas (27 en 7 días, 52 en 30). Producto de bajo costo con 4 tiendas y creativos repetidos. El texto de la competencia es copia de un mismo proveedor, lo que reduce diferenciación. El imán puede dañar tarjetas o el celular: afirmaciones cuidadosas."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=soporte+magn%C3%A9tico+celular+carro"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=soporte+magn%C3%A9tico+celular+carro"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=20857&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/0108e94e-a8e4-45e8-b74c-b6c2d1991f98"
+      }
+     ]
+    },
+    {
+     "n": 10,
+     "nombre": "Mini esmeril inalámbrico (kit)",
+     "tags": [
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      },
+      {
+       "t": "1 tiendas · muy buena señal",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/legacy-vercel-blob/iyqfgztixgy5bboz.public.blob.vercel-storage.com/products/0f8a8ad8-5ee1-4ad9-9388-968c3ac6dd8f/0716f528bb9a.webp",
+     "v": "Mini esmeril inalámbrico (kit): puntaje 10/15 y margen VIABLE (utilidad Q25.45 por pedido), vende 24 unidades en 7 días y 125 en 30 con 1 tiendas anunciando (1-2 tiendas = muy buena señal, pero la única no se ve activa hace 35 días). Sin banderas de marca ni sanitarias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "24"
+      ],
+      [
+       "30d",
+       "125"
+      ],
+      [
+       "Stock",
+       "392"
+      ],
+      [
+       "Costo",
+       "Q120"
+      ],
+      [
+       "PVP sug.",
+       "Q250 (mediana)"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ],
+      [
+       "Puntaje",
+       "10/15"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "10/15. Necesidad 2/3: pulir, cortar y grabar en casa sin herramienta grande. Estatus 1/3: herramienta; sin cambio de emoción más allá del 'hágalo usted mismo'. Funcionalidad 3/3: se entiende de una foto (puntas, kit). Ángulos nuevos 2/3: solo una tienda lo anuncia con 'compacta y fácil de llevar'; quedan manualidades y regalo. Oferta 2/3: kit con accesorios y pack regalo para papá."
+      },
+      {
+       "h": "Margen",
+       "p": "VIABLE: la mejor combinación cuesta Q120 y se vende a Q250 (sugerido de Dropi), con utilidad de Q25.45 por pedido generado, contra el umbral de Q8. Cálculo: 65% x (250 - 120 - 35 - 10.00) - 35% x 28 - 20 = 25.45. Por listado: 180 (grupo luna): costo Q120, PVP Q250 -> utilidad Q25.45 por pedido generado (cierra). Fórmula: 65% entrega x (PVP - costo - flete Q35 - comisión 4%) - 35% x flete devolución Q28 - CPA Q20; el CPA no se multiplica por la tasa de entrega."
+      },
+      {
+       "h": "Nombres originales agrupados",
+       "ul": [
+        {
+         "t": "esmeril inalambrico · 180 · grupo luna"
+        }
+       ]
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d"
+        ],
+        [
+         "grupo luna",
+         "180",
+         "esmeril inalambrico",
+         "Q120",
+         "392",
+         "24/125"
+        ]
+       ]
+      },
+      {
+       "h": "Tiendas que lo anuncian: 1 · 1-2 tiendas = muy buena señal, pero la única no se ve activa hace 35 días (cuidado: quizá lo probaron y lo apagaron)",
+       "ul": [
+        {
+         "t": "SkyShop GT (Mini Esmeril Inalámbrico, kit completo, Shopify)",
+         "l": [
+          {
+           "t": "Ver landing/anuncio",
+           "u": "https://trzai1-au.myshopify.com/products/esmeril"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Anuncios activos y creativos",
+       "p": "1 tienda, 1 anuncio de video; empezó el 2026-09-07, no se ve activo desde hace 35 días."
+      },
+      {
+       "h": "Angulos ya en uso",
+       "ul": [
+        {
+         "t": "Herramienta compacta y fácil de llevar con batería recargable y accesorios incluidos"
+        }
+       ]
+      },
+      {
+       "h": "Ofertas en uso",
+       "p": "Envío gratis y pago al recibir; no hay pack ni precio visible."
+      },
+      {
+       "h": "Huecos",
+       "p": "Casi todo: manualidades, joyería, taller casero, regalo para papá, reparación de pulido de llaves y cuchillos, uñas postizas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Quien hace manualidades y artesanías",
+         "s": "'Graba, pule y corta madera, metal y vidrio como un profesional'"
+        },
+        {
+         "b": "Papás que reparan todo en casa",
+         "s": "'Afila tu cuchillo, pule el óxido de tu llave, sin ir al taller'"
+        },
+        {
+         "b": "Joyeros y quienes hacen bisutería",
+         "s": "'Detalles finos en plata, resina y piedras con una herramienta que cabe en la mano'"
+        },
+        {
+         "b": "Quien regala a papá en Navidad",
+         "s": "'El regalo útil de Q__ para el papá que arregla todo'"
+        },
+        {
+         "b": "Estudiantes de oficios y pequeños talleres",
+         "s": "'Tu primera herramienta inalámbrica de bolsillo, con kit de accesorios'"
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Solo una tienda lo anunció y ya no está activa: señal de poca demanda en anuncios aunque Dropi lo muestra con 1,368 unidades vendidas en total y 125 en 30 días. Margen bueno (costo Q120, PVP Q250, utilidad Q25.45). Producto con batería: riesgo de garantía y de piezas que se rompen."
+      },
+      {
+       "h": "Enlaces de validación",
+       "ul": [
+        {
+         "t": "Buscar en Amazon",
+         "l": [
+          {
+           "t": "Amazon",
+           "u": "https://www.amazon.com/s?k=mini+esmeril+inalambrico"
+          }
+         ]
+        },
+        {
+         "t": "Buscar en AliExpress",
+         "l": [
+          {
+           "t": "AliExpress",
+           "u": "https://www.aliexpress.com/wholesale?SearchText=mini+esmeril+inalambrico"
+          }
+         ]
+        }
+       ]
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=180&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/0f8a8ad8-5ee1-4ad9-9388-968c3ac6dd8f"
+      }
+     ]
+    }
+   ],
+   "grupos": [
+    {
+     "n": "reparador de esmalte dental",
+     "prov": 3,
+     "v7": 418,
+     "v30": 931,
+     "stock": 7184,
+     "cmin": 47,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "pasta dental con hydroxyapatite · 5694 · sicommer lab",
+      "reparador esmalte dental · 6507 · nexus",
+      "reparador de esmalte dental dropi cup · 10551 · altamira"
+     ],
+     "u": 17.78,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 11
+    },
+    {
+     "n": "linterna",
+     "prov": 4,
+     "v7": 413,
+     "v30": 1532,
+     "stock": 519,
+     "cmin": 37,
+     "cmax": 60,
+     "pvp": 120.0,
+     "est": false,
+     "nombres": [
+      "linterna táctica · 530 · blue guatemala",
+      "mini linterna hd · 122 · grupo luna",
+      "linterna multifuncional 20854-54 · 2658 · distribuidora gt",
+      "linterna portatil multifuncional · 6647 · 60 segundos"
+     ],
+     "u": 17.0,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 11
+    },
+    {
+     "n": "crema neuropatia",
+     "prov": 3,
+     "v7": 384,
+     "v30": 2152,
+     "stock": 3694,
+     "cmin": 49,
+     "cmax": 70,
+     "pvp": 95,
+     "est": false,
+     "nombres": [
+      "neuropathy cream · 13105 · altamira",
+      "dos cremas para la neuropatia · 19133 · auré",
+      "neuropathy cream · 18331 · sicommer lab"
+     ],
+     "u": -26.55,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "multi collagen peptides",
+     "prov": 4,
+     "v7": 367,
+     "v30": 1716,
+     "stock": 10443,
+     "cmin": 55,
+     "cmax": 95,
+     "pvp": 134.5,
+     "est": false,
+     "nombres": [
+      "multi collagen peptides 2 lb · 1900 · nexus",
+      "neocell collagen bio peptides · 4205 · vitalcom",
+      "multi collagen peptides 2lb · 1915 · almafit",
+      "micro ingredients multi collagen capsula · 14554 · natural labs organic"
+     ],
+     "u": 32.73,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": 9
+    },
+    {
+     "n": "perfume con feromonas (her loss)",
+     "prov": 4,
+     "v7": 351,
+     "v30": 1601,
+     "stock": 8514,
+     "cmin": 50,
+     "cmax": 65,
+     "pvp": 87.5,
+     "est": false,
+     "nombres": [
+      "perfume ycz con feromonas activas · 19112 · altamira",
+      "her loss pheromone dropi cup · 2473 · auré",
+      "her loss · 17137 · natural labs organic",
+      "her loss men seductor · 2483 · chicas empire fajas"
+     ],
+     "u": -25.77,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "rainbow light mens one",
+     "prov": 2,
+     "v7": 334,
+     "v30": 2316,
+     "stock": 3753,
+     "cmin": 47,
+     "cmax": 50,
+     "pvp": 78.5,
+     "est": false,
+     "nombres": [
+      "rainbow light mens one · 15116 · natural labs organic",
+      "rainbow light men’s one · 10553 · altamira"
+     ],
+     "u": -16.41,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "dr melaxin peel shot",
+     "prov": 4,
+     "v7": 311,
+     "v30": 1482,
+     "stock": 9054,
+     "cmin": 40,
+     "cmax": 60,
+     "pvp": 105.0,
+     "est": false,
+     "nombres": [
+      "dr. melaxim peel shot + regalo dropi cup · 4664 · auré",
+      "dr. melaxin – peel shot spray · 10066 · altamira",
+      "dr melaxin top original · 5184 · natural labs organic",
+      "dr. melaxin peel shot · 4512 · sicommer lab"
+     ],
+     "u": -16.41,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "antena tv",
+     "prov": 2,
+     "v7": 285,
+     "v30": 1083,
+     "stock": 18471,
+     "cmin": 49,
+     "cmax": 97.44,
+     "pvp": 90,
+     "est": false,
+     "nombres": [
+      "antena para television · 132 · grupo luna",
+      "antena inalámbrica para smart tv hd · 731 · cmide ecomm",
+      "repetidor wifi 300mbps con 5 antenas · 17373 · cmide ecomm"
+     ],
+     "u": -28.24,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "blanqueador dental",
+     "prov": 2,
+     "v7": 283,
+     "v30": 568,
+     "stock": 86,
+     "cmin": 37,
+     "cmax": 55,
+     "pvp": 120.0,
+     "est": false,
+     "nombres": [
+      "tiras moradas blanqueadoras dentales · 20409 · digital gt",
+      "crema morada blanqueador dental · 430 · grupo luna"
+     ],
+     "u": 5.3,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "batana / nippori shampoo",
+     "prov": 5,
+     "v7": 265,
+     "v30": 1720,
+     "stock": 9771,
+     "cmin": 48,
+     "cmax": 120,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "nippori · 2517 · altamira",
+      "batana shampoo · 7746 · nexus",
+      "nippori shampoo 300ml x1 · 26308 · american natural",
+      "batana oil shampoo · 6076 · nibresma",
+      "combo shampoo y aceite de batana · 4663 · natural labs organic"
+     ],
+     "u": -8.87,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "crecimiento capilar (hair growth / minoxidil)",
+     "prov": 4,
+     "v7": 256,
+     "v30": 908,
+     "stock": 6053,
+     "cmin": 45,
+     "cmax": 58,
+     "pvp": 100.0,
+     "est": false,
+     "nombres": [
+      "hair growth x 120 caupsulas · 1414 · sicommer lab",
+      "minoxidil con biotina kormesic · 20405 · digital gt",
+      "hair suero crecimiento capilar · 10496 · altamira",
+      "hair growth · 4459 · nibresma"
+     ],
+     "u": 11.8,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cinta impermeable / butyl",
+     "prov": 3,
+     "v7": 248,
+     "v30": 608,
+     "stock": 1558,
+     "cmin": 35,
+     "cmax": 55,
+     "pvp": 85,
+     "est": false,
+     "nombres": [
+      "2 x 1 cinta repara goteras butyl · 11917 · shop b",
+      "cinta selladora · 6287 · 60 segundos",
+      "cinta impermeable · 499 · blue guatemala"
+     ],
+     "u": 10.92,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "magnesium 12 en 1",
+     "prov": 3,
+     "v7": 242,
+     "v30": 622,
+     "stock": 12967,
+     "cmin": 55,
+     "cmax": 70,
+     "pvp": 127.5,
+     "est": false,
+     "nombres": [
+      "magnesium for women * 60 capsulas · 18423 · vitalcom",
+      "totaria magnesium 12 in 1 complex · 6612 · nexus",
+      "totaria magnesium 12 in 1 complex* 120c · 7728 · vitalcom",
+      "magnesium 12 in 1 · 7888 · natural labs organic"
+     ],
+     "u": 1.43,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "creatina para mujer",
+     "prov": 2,
+     "v7": 233,
+     "v30": 235,
+     "stock": 924,
+     "cmin": 47,
+     "cmax": 56,
+     "pvp": 89.1,
+     "est": false,
+     "nombres": [
+      "creatina for women · 20007 · distribuciones linea verde",
+      "creatine for women (gris) · 19179 · kura labs"
+     ],
+     "u": -12.07,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "vitamina d3 + k2",
+     "prov": 3,
+     "v7": 232,
+     "v30": 874,
+     "stock": 9132,
+     "cmin": 54,
+     "cmax": 60,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "vitamin d3 & k2 · 10037 · altamira",
+      "vitamin d3+k2 * 60 caps · 13003 · vitalcom",
+      "vitamina d3+k2 · 12348 · laboratorio luna"
+     ],
+     "u": 5.95,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "fungus / hongos",
+     "prov": 3,
+     "v7": 230,
+     "v30": 1197,
+     "stock": 9129,
+     "cmin": 32,
+     "cmax": 45,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "fungus 7 dias · 15832 · laboratorio luna",
+      "spray para hongos beri · 286 · blue guatemala",
+      "fungus beri beri · 6079 · grupo luna"
+     ],
+     "u": 11.8,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "gafas bifocales",
+     "prov": 1,
+     "v7": 224,
+     "v30": 1096,
+     "stock": 1390,
+     "cmin": 40,
+     "cmax": 43,
+     "pvp": 100.0,
+     "est": false,
+     "nombres": [
+      "gafas b · 4256 · grupo luna",
+      "lentes bifocales · 126 · grupo luna"
+     ],
+     "u": -16.15,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "uro (probióticos urinarios)",
+     "prov": 2,
+     "v7": 215,
+     "v30": 680,
+     "stock": 2132,
+     "cmin": 45,
+     "cmax": 47,
+     "pvp": 105.0,
+     "est": false,
+     "nombres": [
+      "uro · 2567 · sicommer lab",
+      "uro probiotics · 1108 · laboratorio luna"
+     ],
+     "u": -14.46,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "glucora control de azucar",
+     "prov": 2,
+     "v7": 215,
+     "v30": 539,
+     "stock": 2760,
+     "cmin": 55,
+     "cmax": 100,
+     "pvp": 107.5,
+     "est": false,
+     "nombres": [
+      "glucora control de azucar · 23103 · almafit",
+      "glucora x 2 unid · 20860 · suplem gt"
+     ],
+     "u": -29.02,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "mascarilla colageno",
+     "prov": 2,
+     "v7": 212,
+     "v30": 326,
+     "stock": 739,
+     "cmin": 46,
+     "cmax": 57,
+     "pvp": 133.0,
+     "est": false,
+     "nombres": [
+      "mascarilla colageno cabello · 22670 · importadora el mayorista",
+      "collagen mask mascarilla colageno antien · 431 · grupo luna"
+     ],
+     "u": 35.2,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 10
+    },
+    {
+     "n": "camara espia",
+     "prov": 1,
+     "v7": 195,
+     "v30": 455,
+     "stock": 195,
+     "cmin": 51,
+     "cmax": 51,
+     "pvp": 80,
+     "est": false,
+     "nombres": [
+      "mini camara espia · 70 · grupo luna"
+     ],
+     "u": -35.78,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "prov": 1,
+     "v7": 195,
+     "v30": 709,
+     "stock": 639,
+     "cmin": 40,
+     "cmax": 40,
+     "pvp": 90,
+     "est": false,
+     "nombres": [
+      "spray para el dolor dental alivio rapido · 19439 · metacompras gt"
+     ],
+     "u": -22.39,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "shilajit",
+     "prov": 2,
+     "v7": 195,
+     "v30": 1081,
+     "stock": 8512,
+     "cmin": 44,
+     "cmax": 59,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "shilajit pro max dropi cup · 2761 · altamira",
+      "shilajit ultra dropi cup · 2100 · altamira",
+      "gomitas de shilajit · 1147 · sicommer lab"
+     ],
+     "u": -18.75,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "brazier",
+     "prov": 1,
+     "v7": 190,
+     "v30": 603,
+     "stock": 5015,
+     "cmin": 50,
+     "cmax": 55,
+     "pvp": 100.0,
+     "est": false,
+     "nombres": [
+      "brazier acanelado · 20699 · chicas empire fajas",
+      "brazier tira ancha comodo · 20725 · chicas empire fajas"
+     ],
+     "u": -22.65,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tratamiento para verrugas (wart remover)",
+     "prov": 1,
+     "v7": 184,
+     "v30": 686,
+     "stock": 4509,
+     "cmin": 41,
+     "cmax": 41,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "tratamiento para verrugas (wart remover) · 3689 · grupo luna"
+     ],
+     "u": -44.88,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "drenaje linfatico",
+     "prov": 3,
+     "v7": 176,
+     "v30": 412,
+     "stock": 7416,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 60,
+     "est": false,
+     "nombres": [
+      "drenaje linfático · 26764 · blue guatemala",
+      "drenaje linfatico aurelys 59ml · 25527 · american natural",
+      "lymphatic drainage – drenaje linfatico · 19669 · null"
+     ],
+     "u": -29.02,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "luces navideñas",
+     "prov": 1,
+     "v7": 174,
+     "v30": 225,
+     "stock": 738,
+     "cmin": 43,
+     "cmax": 113,
+     "pvp": 160,
+     "est": false,
+     "nombres": [
+      "luces de árbol navideño · 25508 · importadora el mayorista",
+      "luces cascada navideña · 25491 · importadora el mayorista",
+      "cortina de luces navideñas · 25485 · importadora el mayorista"
+     ],
+     "u": 15.02,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 12
+    },
+    {
+     "n": "dog is human multivitamin",
+     "prov": 1,
+     "v7": 167,
+     "v30": 486,
+     "stock": 3242,
+     "cmin": 48,
+     "cmax": 48,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "dog is human multivitamin · 2628 · altamira"
+     ],
+     "u": -21.97,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "bocina jbl charge 5",
+     "prov": 2,
+     "v7": 165,
+     "v30": 637,
+     "stock": 1013,
+     "cmin": 130,
+     "cmax": 140,
+     "pvp": 172.5,
+     "est": false,
+     "nombres": [
+      "bocina jbl charge 5 · 4638 · grupo luna",
+      "jbl charge 5 · 3958 · altamira"
+     ],
+     "u": -18.75,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "lways fresh seal",
+     "prov": 1,
+     "v7": 162,
+     "v30": 179,
+     "stock": 3,
+     "cmin": 89,
+     "cmax": 89,
+     "pvp": 89,
+     "est": false,
+     "nombres": [
+      "lways fresh seal · 1629 · cmide ecomm"
+     ],
+     "u": -54.86,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "ahorrador de energia",
+     "prov": 1,
+     "v7": 156,
+     "v30": 712,
+     "stock": 1887,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "ahorrador de energia · 9538 · grupo luna"
+     ],
+     "u": 5.3,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": 9
+    },
+    {
+     "n": "nad+",
+     "prov": 2,
+     "v7": 153,
+     "v30": 547,
+     "stock": 9668,
+     "cmin": 45,
+     "cmax": 55,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "nad pro max · 10415 · altamira",
+      "nad+ selerb x60 · 1646 · almafit",
+      "nad+ selerb · 4465 · altamira"
+     ],
+     "u": -14.04,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "oximetro",
+     "prov": 1,
+     "v7": 147,
+     "v30": 762,
+     "stock": 34,
+     "cmin": 34,
+     "cmax": 34,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "oximetro · 3706 · grupo luna"
+     ],
+     "u": -40.33,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "spray para oídos (tinnidrop / alivio)",
+     "prov": 1,
+     "v7": 146,
+     "v30": 648,
+     "stock": 626,
+     "cmin": 41,
+     "cmax": 41,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "spray para oídos (tinnidrop / alivio) · 3691 · grupo luna"
+     ],
+     "u": -44.88,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "mascara de pestañas",
+     "prov": 1,
+     "v7": 137,
+     "v30": 544,
+     "stock": 497,
+     "cmin": 26,
+     "cmax": 30,
+     "pvp": 48.0,
+     "est": false,
+     "nombres": [
+      "mascara lash full volume · 2362 · importadora el mayorista",
+      "rimel alargador · 22610 · importadora el mayorista"
+     ],
+     "u": -40.75,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "ethiopian",
+     "prov": 2,
+     "v7": 135,
+     "v30": 192,
+     "stock": 8244,
+     "cmin": 50,
+     "cmax": 55,
+     "pvp": 99.5,
+     "est": false,
+     "nombres": [
+      "ethiopian · 23004 · natural labs organic",
+      "ethiopian 60 capsulas · 22526 · nibresma"
+     ],
+     "u": -23.27,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "curvy gummies",
+     "prov": 1,
+     "v7": 134,
+     "v30": 375,
+     "stock": 1324,
+     "cmin": 54,
+     "cmax": 54,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "curvy gummies x 60 · 925 · sicommer lab"
+     ],
+     "u": -19.01,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "carillas",
+     "prov": 1,
+     "v7": 132,
+     "v30": 515,
+     "stock": 548,
+     "cmin": 32,
+     "cmax": 32,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "carillas · 175 · grupo luna"
+     ],
+     "u": -11.57,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "qinglin",
+     "prov": 1,
+     "v7": 127,
+     "v30": 794,
+     "stock": 910,
+     "cmin": 61,
+     "cmax": 61,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "qinglin · 7100 · sicommer lab"
+     ],
+     "u": -23.56,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "1 pantalon june premium",
+     "prov": 1,
+     "v7": 125,
+     "v30": 594,
+     "stock": 5183,
+     "cmin": 120,
+     "cmax": 120,
+     "pvp": 199,
+     "est": false,
+     "nombres": [
+      "1 pantalon june premium x 120 · 18363 · laurean by seong woo"
+     ],
+     "u": -6.37,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "dr althea crema 345",
+     "prov": 2,
+     "v7": 123,
+     "v30": 696,
+     "stock": 5978,
+     "cmin": 55,
+     "cmax": 57,
+     "pvp": 99.5,
+     "est": false,
+     "nombres": [
+      "dr. althea crema 345 · 20461 · natural labs organic",
+      "dr. althea crema 345 · 18334 · sicommer lab"
+     ],
+     "u": -26.52,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "varicose veins",
+     "prov": 1,
+     "v7": 121,
+     "v30": 167,
+     "stock": 833,
+     "cmin": 56,
+     "cmax": 56,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "varicose veins · 3681 · sicommer lab"
+     ],
+     "u": -20.31,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "maquina de boxeo intelligent smart boxin",
+     "prov": 1,
+     "v7": 116,
+     "v30": 847,
+     "stock": 769,
+     "cmin": 147,
+     "cmax": 147,
+     "pvp": 190,
+     "est": false,
+     "nombres": [
+      "maquina de boxeo intelligent smart boxin · 92 · grupo luna"
+     ],
+     "u": -29.54,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "nida (cuidado facial)",
+     "prov": 1,
+     "v7": 115,
+     "v30": 310,
+     "stock": 14362,
+     "cmin": 50,
+     "cmax": 55,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "nida ojeras · 15087 · natural labs organic",
+      "nida · 7459 · natural labs organic",
+      "nida spf50 · 20891 · natural labs organic"
+     ],
+     "u": -4.55,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "depilacion (spray / crema)",
+     "prov": 2,
+     "v7": 114,
+     "v30": 245,
+     "stock": 257,
+     "cmin": 37,
+     "cmax": 37,
+     "pvp": 47.0,
+     "est": false,
+     "nombres": [
+      "spray para depilar · 464 · blue guatemala",
+      "crema depilatoria sadoer peach · 3573 · importadora el mayorista"
+     ],
+     "u": -41.03,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "pumpkin seed oil",
+     "prov": 1,
+     "v7": 112,
+     "v30": 149,
+     "stock": 849,
+     "cmin": 100,
+     "cmax": 100,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "pumpkin seed oil · 19925 · nibresma"
+     ],
+     "u": 7.25,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "barra privada",
+     "prov": 1,
+     "v7": 105,
+     "v30": 394,
+     "stock": 150,
+     "cmin": 59,
+     "cmax": 59,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "barra privada · 24113 · importadora el mayorista"
+     ],
+     "u": -16.02,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "man xxl – crema íntima para hombre",
+     "prov": 1,
+     "v7": 105,
+     "v30": 106,
+     "stock": 194,
+     "cmin": 56,
+     "cmax": 56,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "man xxl – crema íntima para hombre · 21391 · dania"
+     ],
+     "u": -26.55,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "fundas para asientos de carro",
+     "prov": 1,
+     "v7": 103,
+     "v30": 312,
+     "stock": 310,
+     "cmin": 165,
+     "cmax": 165,
+     "pvp": 165,
+     "est": false,
+     "nombres": [
+      "fundas para asientos de carro · 10866 · altamira"
+     ],
+     "u": -56.84,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "shine armor car completo",
+     "prov": 1,
+     "v7": 102,
+     "v30": 228,
+     "stock": 186,
+     "cmin": 43,
+     "cmax": 43,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "shine armor car kit completo · 9706 · grupo luna"
+     ],
+     "u": 13.1,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 12
+    },
+    {
+     "n": "microfono inhalambrico",
+     "prov": 1,
+     "v7": 100,
+     "v30": 101,
+     "stock": 294,
+     "cmin": 130,
+     "cmax": 130,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "microfono inhalambrico · 12211 · grupo luna"
+     ],
+     "u": -43.45,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cobija",
+     "prov": 2,
+     "v7": 100,
+     "v30": 259,
+     "stock": 151,
+     "cmin": 50.44,
+     "cmax": 118,
+     "pvp": 141.5,
+     "est": false,
+     "nombres": [
+      "cobija magica que brilla · 1857 · 60 segundos",
+      "cobija · 4764 · importadora el mayorista"
+     ],
+     "u": -7.34,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "derman reto septiembre",
+     "prov": 1,
+     "v7": 98,
+     "v30": 448,
+     "stock": 424,
+     "cmin": 47.2,
+     "cmax": 47.2,
+     "pvp": 189,
+     "est": false,
+     "nombres": [
+      "derman reto septiembre · 20256 · unmerco"
+     ],
+     "u": 34.71,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": 10
+    },
+    {
+     "n": "turboflush – destapador de inodoros",
+     "prov": 1,
+     "v7": 98,
+     "v30": 98,
+     "stock": 3,
+     "cmin": 59,
+     "cmax": 59,
+     "pvp": 195,
+     "est": false,
+     "nombres": [
+      "turboflush – destapador de inodoros · 27026 · shop b"
+     ],
+     "u": 30.78,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": true,
+     "pts": 11
+    },
+    {
+     "n": "slim patch mesoterapia ombligo imán sin",
+     "prov": 1,
+     "v7": 97,
+     "v30": 188,
+     "stock": 291,
+     "cmin": 30,
+     "cmax": 30,
+     "pvp": 72,
+     "est": false,
+     "nombres": [
+      "slim patch mesoterapia ombligo imán sin · 1515 · auré"
+     ],
+     "u": -27.12,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "relieve sciatica / ciatica",
+     "prov": 3,
+     "v7": 96,
+     "v30": 416,
+     "stock": 18456,
+     "cmin": 49,
+     "cmax": 55,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "relieve sciatica · 9154 · laboratorio luna",
+      "relieve asiatica · 25049 · natural labs organic",
+      "relieve sciatica capsulas · 24810 · almafit"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "visionmiel",
+     "prov": 1,
+     "v7": 95,
+     "v30": 391,
+     "stock": 383,
+     "cmin": 39,
+     "cmax": 39,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "visionmiel · 20759 · sicommer lab"
+     ],
+     "u": -9.26,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "evil goods",
+     "prov": 3,
+     "v7": 95,
+     "v30": 344,
+     "stock": 7982,
+     "cmin": 40,
+     "cmax": 68,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "evil goods · 7426 · natural labs organic",
+      "duo evil goods · 4642 · auré",
+      "evil goods * 120 gramos · 27157 · vitalcom"
+     ],
+     "u": -16.77,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "2 pijamas huntrax niña premium",
+     "prov": 1,
+     "v7": 92,
+     "v30": 93,
+     "stock": 957,
+     "cmin": 95,
+     "cmax": 95,
+     "pvp": 180,
+     "est": false,
+     "nombres": [
+      "2 pijamas huntrax niña premium x 190 · 17550 · laurean by seong woo"
+     ],
+     "u": -1.98,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "drone",
+     "prov": 1,
+     "v7": 92,
+     "v30": 127,
+     "stock": 437,
+     "cmin": 140,
+     "cmax": 140,
+     "pvp": 290,
+     "est": false,
+     "nombres": [
+      "drone · 170 · grupo luna"
+     ],
+     "u": 37.41,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": 10
+    },
+    {
+     "n": "mini estudio de fotografía",
+     "prov": 1,
+     "v7": 91,
+     "v30": 93,
+     "stock": 2,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 125,
+     "est": false,
+     "nombres": [
+      "mini estudio de fotografía · 1361 · 60 segundos"
+     ],
+     "u": -7.05,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "krec'up, american natural",
+     "prov": 1,
+     "v7": 90,
+     "v30": 443,
+     "stock": 1215,
+     "cmin": 95,
+     "cmax": 95,
+     "pvp": 289,
+     "est": false,
+     "nombres": [
+      "krec`up, american natural, 60 caps x 1 · 11440 · american natural"
+     ],
+     "u": 66.04,
+     "clase": "VIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": 9
+    },
+    {
+     "n": "mini rastreador gps",
+     "prov": 1,
+     "v7": 90,
+     "v30": 103,
+     "stock": 185,
+     "cmin": 68,
+     "cmax": 68,
+     "pvp": 118,
+     "est": false,
+     "nombres": [
+      "mini rastreador gps · 20693 · 60 segundos"
+     ],
+     "u": -23.12,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "sell-01",
+     "prov": 1,
+     "v7": 90,
+     "v30": 197,
+     "stock": 468,
+     "cmin": 32,
+     "cmax": 32,
+     "pvp": 32,
+     "est": false,
+     "nombres": [
+      "sell-01 · 527 · blue guatemala"
+     ],
+     "u": -53.38,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "prov": 1,
+     "v7": 89,
+     "v30": 341,
+     "stock": 563,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 50,
+     "est": false,
+     "nombres": [
+      "set 4 cuadernos mágicos montessori+10rep · 16108 · distribuidora rocke feller"
+     ],
+     "u": -53.85,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "forgeskinpri",
+     "prov": 1,
+     "v7": 89,
+     "v30": 350,
+     "stock": 1558,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "forgeskinpri · 11122 · nibresma"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "bienestar intimo",
+     "prov": 1,
+     "v7": 88,
+     "v30": 309,
+     "stock": 868,
+     "cmin": 87,
+     "cmax": 87,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "combo bienestar intimo · 4440 · sicommer lab"
+     ],
+     "u": -15.5,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "smartwatch",
+     "prov": 2,
+     "v7": 86,
+     "v30": 316,
+     "stock": 282,
+     "cmin": 79,
+     "cmax": 110,
+     "pvp": 149.5,
+     "est": false,
+     "nombres": [
+      "reloj inteligente dt800 / dt900 · 2837 · importadora el mayorista",
+      "smartwatch + 7 correas intercambiables · 20437 · metacompras gt"
+     ],
+     "u": 0.75,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "prov": 1,
+     "v7": 84,
+     "v30": 355,
+     "stock": 380,
+     "cmin": 80,
+     "cmax": 80,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "almohada ortopedica cervical · 16112 · distribuidora rocke feller"
+     ],
+     "u": -10.95,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "rasuradora lady shaver",
+     "prov": 1,
+     "v7": 83,
+     "v30": 120,
+     "stock": 879,
+     "cmin": 85,
+     "cmax": 85,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "rasuradora lady shaver · 19130 · grupo luna"
+     ],
+     "u": -14.2,
+     "clase": "REPRECIABLE",
+     "busq": "A",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "dispensador de viaje 4 en 1",
+     "prov": 1,
+     "v7": 80,
+     "v30": 89,
+     "stock": 11,
+     "cmin": 84,
+     "cmax": 84,
+     "pvp": 134,
+     "est": false,
+     "nombres": [
+      "dispensador de viaje 4 en 1 · 19779 · 60 segundos"
+     ],
+     "u": -23.53,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "set de varillas y esferas magnéticas",
+     "prov": 1,
+     "v7": 79,
+     "v30": 136,
+     "stock": 264,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "set de varillas y esferas magnéticas · 25285 · grupo luna"
+     ],
+     "u": 5.3,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "natural vitality maxcalm",
+     "prov": 1,
+     "v7": 79,
+     "v30": 277,
+     "stock": 141,
+     "cmin": 85,
+     "cmax": 85,
+     "pvp": 105,
+     "est": false,
+     "nombres": [
+      "natural vitality maxcalm 453g · 16809 · distrilab"
+     ],
+     "u": -42.28,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "spray reparador de farolas de carros",
+     "prov": 1,
+     "v7": 75,
+     "v30": 178,
+     "stock": 268,
+     "cmin": 51,
+     "cmax": 51,
+     "pvp": 71,
+     "est": false,
+     "nombres": [
+      "spray reparador de farolas de carros · 2829 · importadora el mayorista"
+     ],
+     "u": -41.4,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "body fj seductora crema reductora",
+     "prov": 1,
+     "v7": 74,
+     "v30": 244,
+     "stock": 1554,
+     "cmin": 124,
+     "cmax": 124,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "body fj seductora combo crema reductora · 2545 · chicas empire fajas"
+     ],
+     "u": -8.35,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "organizador acrílico 3 pisos",
+     "prov": 1,
+     "v7": 71,
+     "v30": 71,
+     "stock": 30,
+     "cmin": 30,
+     "cmax": 30,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "organizador acrílico 3 pisos · 26765 · deslakeados"
+     ],
+     "u": -9.65,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "convertidor de oxido",
+     "prov": 1,
+     "v7": 71,
+     "v30": 172,
+     "stock": 1602,
+     "cmin": 42,
+     "cmax": 73,
+     "pvp": 102,
+     "est": false,
+     "nombres": [
+      "conversion primer · 4412 · blue guatemala",
+      "2 x 1 rust conversion · 4602 · blue guatemala",
+      "pintura antióxido · 462 · blue guatemala"
+     ],
+     "u": -22.7,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "jeans azul claro con faja control fit",
+     "prov": 1,
+     "v7": 66,
+     "v30": 224,
+     "stock": 352,
+     "cmin": 145,
+     "cmax": 145,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "jeans azul claro con faja control fit · 1488 · chicas empire fajas"
+     ],
+     "u": -22.0,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "perfumes arabes (subwild/asad/invotes)",
+     "prov": 1,
+     "v7": 63,
+     "v30": 114,
+     "stock": 1180,
+     "cmin": 50,
+     "cmax": 57,
+     "pvp": 77,
+     "est": false,
+     "nombres": [
+      "perfume subwild · 22666 · importadora el mayorista",
+      "perfume lattafa asad · 22650 · importadora el mayorista",
+      "perfume invotes · 22659 · importadora el mayorista"
+     ],
+     "u": -41.37,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "aceite para el crecimiento de busto",
+     "prov": 1,
+     "v7": 62,
+     "v30": 150,
+     "stock": 435,
+     "cmin": 39,
+     "cmax": 39,
+     "pvp": 59,
+     "est": false,
+     "nombres": [
+      "aceite para el crecimiento de busto · 3194 · grupo luna"
+     ],
+     "u": -41.08,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cinturon de tonificación abdominal",
+     "prov": 1,
+     "v7": 62,
+     "v30": 160,
+     "stock": 129,
+     "cmin": 112,
+     "cmax": 112,
+     "pvp": 162,
+     "est": false,
+     "nombres": [
+      "cinturon de tonificación abdominal · 23140 · 60 segundos"
+     ],
+     "u": -24.26,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "5 perfumes",
+     "prov": 1,
+     "v7": 61,
+     "v30": 61,
+     "stock": 341,
+     "cmin": 152,
+     "cmax": 152,
+     "pvp": 152,
+     "est": false,
+     "nombres": [
+      "5 x 1 perfumes · 593 · blue guatemala"
+     ],
+     "u": -56.5,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cargador de bateria de carro",
+     "prov": 1,
+     "v7": 61,
+     "v30": 115,
+     "stock": 34,
+     "cmin": 100,
+     "cmax": 100,
+     "pvp": 250,
+     "est": false,
+     "nombres": [
+      "cargador de bateria de carro · 8886 · 60 segundos"
+     ],
+     "u": 38.45,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": true,
+     "pts": 11
+    },
+    {
+     "n": "rock thrust spray",
+     "prov": 2,
+     "v7": 61,
+     "v30": 407,
+     "stock": 3715,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 104.5,
+     "est": false,
+     "nombres": [
+      "rock trhust - spray de ereccion · 13010 · nexus",
+      "rock thrust spray · 6221 · almafit"
+     ],
+     "u": -20.28,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "camiseta d compresión adelgazante moldea",
+     "prov": 1,
+     "v7": 60,
+     "v30": 176,
+     "stock": 9800,
+     "cmin": 79,
+     "cmax": 79,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "camiseta d compresión adelgazante moldea · 633 · chicas empire fajas"
+     ],
+     "u": -41.5,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "recubrimiento 3 en 1 para autos",
+     "prov": 2,
+     "v7": 60,
+     "v30": 193,
+     "stock": 113,
+     "cmin": 38,
+     "cmax": 41,
+     "pvp": 74.5,
+     "est": false,
+     "nombres": [
+      "spray recubrimiento 3 en 1 · 3162 · 60 segundos",
+      "spray repara autos recubrimiento 3 en 1 · 2842 · importadora el mayorista"
+     ],
+     "u": -22.42,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "prov": 1,
+     "v7": 58,
+     "v30": 178,
+     "stock": 767,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "guantes compresion tunel carpiano y art · 16115 · distribuidora rocke feller"
+     ],
+     "u": -10.17,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tag recede",
+     "prov": 1,
+     "v7": 57,
+     "v30": 225,
+     "stock": 1536,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "tag recede · 2117 · sicommer lab"
+     ],
+     "u": -16.41,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "panty pa tus dias mujer beige +blill0",
+     "prov": 1,
+     "v7": 56,
+     "v30": 112,
+     "stock": 1494,
+     "cmin": 62.5,
+     "cmax": 62.5,
+     "pvp": 180,
+     "est": false,
+     "nombres": [
+      "panty pa tus dias mujer beige +blill0 · 4485 · chicas empire fajas"
+     ],
+     "u": 19.14,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "ajedrez magnetico",
+     "prov": 1,
+     "v7": 55,
+     "v30": 262,
+     "stock": 86,
+     "cmin": 47,
+     "cmax": 47,
+     "pvp": 97,
+     "est": false,
+     "nombres": [
+      "ajedrez magnetico · 20243 · 60 segundos"
+     ],
+     "u": -22.57,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "aspiradora robot",
+     "prov": 1,
+     "v7": 55,
+     "v30": 227,
+     "stock": 769,
+     "cmin": 65,
+     "cmax": 82,
+     "pvp": 150.0,
+     "est": false,
+     "nombres": [
+      "aspiradora robot inteligente · 208 · grupo luna",
+      "aspiradora robot inteligente · 23662 · grupo luna"
+     ],
+     "u": -1.2,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tijera de corte profesional para carnes",
+     "prov": 1,
+     "v7": 54,
+     "v30": 54,
+     "stock": 1,
+     "cmin": 48,
+     "cmax": 48,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "tijera de corte profesional para carnes · 9440 · digital gt"
+     ],
+     "u": -21.35,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "chupa panza moldeador",
+     "prov": 1,
+     "v7": 53,
+     "v30": 232,
+     "stock": 813,
+     "cmin": 95,
+     "cmax": 95,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "chupa panza moldeador · 980 · chicas empire fajas"
+     ],
+     "u": 10.5,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "magneticas privadas",
+     "prov": 1,
+     "v7": 51,
+     "v30": 72,
+     "stock": 178,
+     "cmin": 32.83,
+     "cmax": 32.83,
+     "pvp": 67,
+     "est": false,
+     "nombres": [
+      "magneticas privadas · 26500 · importadora el mayorista"
+     ],
+     "u": -32.08,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "ci",
+     "prov": 1,
+     "v7": 51,
+     "v30": 236,
+     "stock": 235,
+     "cmin": 43,
+     "cmax": 43,
+     "pvp": 63,
+     "est": false,
+     "nombres": [
+      "combo ci · 25149 · importadora el mayorista"
+     ],
+     "u": -41.19,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "mini lavadora portatil",
+     "prov": 1,
+     "v7": 50,
+     "v30": 137,
+     "stock": 49,
+     "cmin": 39,
+     "cmax": 39,
+     "pvp": 125,
+     "est": false,
+     "nombres": [
+      "mini lavadora portatil · 2135 · 60 segundos"
+     ],
+     "u": 0.1,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "viresta soil activator",
+     "prov": 1,
+     "v7": 50,
+     "v30": 193,
+     "stock": 917,
+     "cmin": 51,
+     "cmax": 51,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "viresta soil activator · 15159 · sicommer lab"
+     ],
+     "u": -17.06,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "mini sierra electrica",
+     "prov": 1,
+     "v7": 50,
+     "v30": 102,
+     "stock": 441,
+     "cmin": 164,
+     "cmax": 164,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "mini sierra electrica · 182 · grupo luna"
+     ],
+     "u": -34.35,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "candela",
+     "prov": 1,
+     "v7": 49,
+     "v30": 169,
+     "stock": 328,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "candela · 24092 · sicommer lab"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "candida cleanse",
+     "prov": 2,
+     "v7": 49,
+     "v30": 405,
+     "stock": 5972,
+     "cmin": 45,
+     "cmax": 49,
+     "pvp": 84.5,
+     "est": false,
+     "nombres": [
+      "candida cleanse · 9043 · natural labs organic",
+      "candida cleanse · 319 · nibresma"
+     ],
+     "u": -20.02,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "removedor electrico dental",
+     "prov": 1,
+     "v7": 48,
+     "v30": 156,
+     "stock": 399,
+     "cmin": 65,
+     "cmax": 65,
+     "pvp": 80,
+     "est": false,
+     "nombres": [
+      "removedor electrico dental · 8515 · auré"
+     ],
+     "u": -44.88,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "te chino",
+     "prov": 1,
+     "v7": 47,
+     "v30": 143,
+     "stock": 658,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "te chino · 7101 · sicommer lab"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "vitiligo care spray",
+     "prov": 1,
+     "v7": 45,
+     "v30": 203,
+     "stock": 276,
+     "cmin": 45,
+     "cmax": 45,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "vitiligo care spray · 4927 · laboratorio luna"
+     ],
+     "u": 11.8,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "shampoo de tinte capilar",
+     "prov": 1,
+     "v7": 45,
+     "v30": 65,
+     "stock": 35,
+     "cmin": 52,
+     "cmax": 52,
+     "pvp": 102,
+     "est": false,
+     "nombres": [
+      "shampoo de tinte capilar · 23840 · 60 segundos"
+     ],
+     "u": -22.7,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "proteina",
+     "prov": 1,
+     "v7": 45,
+     "v30": 258,
+     "stock": 3740,
+     "cmin": 49,
+     "cmax": 49,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "proteina · 24786 · laboratorio luna"
+     ],
+     "u": 9.2,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "zapatera organizadora",
+     "prov": 2,
+     "v7": 45,
+     "v30": 359,
+     "stock": 1335,
+     "cmin": 110,
+     "cmax": 139.44,
+     "pvp": 154.72,
+     "est": false,
+     "nombres": [
+      "zapatera con colgadores · 17668 · blue guatemala",
+      "zapatera organizadora 6 niveles · 17375 · cmide ecomm"
+     ],
+     "u": -17.97,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tren navideño de 13 piezas",
+     "prov": 1,
+     "v7": 44,
+     "v30": 96,
+     "stock": 204,
+     "cmin": 170,
+     "cmax": 170,
+     "pvp": 280,
+     "est": false,
+     "nombres": [
+      "tren navideño de 13 piezas · 23596 · digital gt"
+     ],
+     "u": 11.67,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": true,
+     "pts": 11
+    },
+    {
+     "n": "guante lanzador hero attack para niños",
+     "prov": 1,
+     "v7": 44,
+     "v30": 199,
+     "stock": 145,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "guante lanzador hero attack para niños · 11588 · digital gt"
+     ],
+     "u": 5.3,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "set pulsera llave",
+     "prov": 1,
+     "v7": 42,
+     "v30": 190,
+     "stock": 1288,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "set pulsera llave · 36 · joyeria de la elite"
+     ],
+     "u": -13.42,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "bikini cachetero con almoadill",
+     "prov": 1,
+     "v7": 41,
+     "v30": 89,
+     "stock": 1041,
+     "cmin": 67,
+     "cmax": 67,
+     "pvp": 250,
+     "est": false,
+     "nombres": [
+      "bikini cachetero con almoadill · 387 · chicas empire fajas"
+     ],
+     "u": 59.9,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "peine quita piojos electronico",
+     "prov": 1,
+     "v7": 41,
+     "v30": 74,
+     "stock": 24,
+     "cmin": 75,
+     "cmax": 75,
+     "pvp": 125,
+     "est": false,
+     "nombres": [
+      "peine quita piojos electronico · 3168 · 60 segundos"
+     ],
+     "u": -23.3,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "crema arbutin",
+     "prov": 1,
+     "v7": 40,
+     "v30": 244,
+     "stock": 4424,
+     "cmin": 47,
+     "cmax": 47,
+     "pvp": 47,
+     "est": false,
+     "nombres": [
+      "crema arbutin · 10534 · altamira"
+     ],
+     "u": -53.77,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "camara de seguridad 360",
+     "prov": 1,
+     "v7": 40,
+     "v30": 178,
+     "stock": 458,
+     "cmin": 89,
+     "cmax": 89,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "camara de seguridad 360 ° · 108 · grupo luna"
+     ],
+     "u": -35.52,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "american fit",
+     "prov": 1,
+     "v7": 40,
+     "v30": 272,
+     "stock": 1117,
+     "cmin": 110,
+     "cmax": 110,
+     "pvp": 289,
+     "est": false,
+     "nombres": [
+      "american fit, 60 caps. dropi cup · 4448 · american natural"
+     ],
+     "u": 56.29,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "reparador de rayones para automóviles",
+     "prov": 1,
+     "v7": 37,
+     "v30": 146,
+     "stock": 4,
+     "cmin": 45,
+     "cmax": 45,
+     "pvp": 80,
+     "est": false,
+     "nombres": [
+      "reparador de rayones para automóviles · 2914 · grupo luna"
+     ],
+     "u": -31.88,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "preggo",
+     "prov": 1,
+     "v7": 37,
+     "v30": 198,
+     "stock": 723,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "preggo · 4395 · sicommer lab"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "fusil arp9",
+     "prov": 1,
+     "v7": 37,
+     "v30": 39,
+     "stock": 61,
+     "cmin": 217,
+     "cmax": 217,
+     "pvp": 350,
+     "est": false,
+     "nombres": [
+      "fusil arp9 · 1400 · 60 segundos"
+     ],
+     "u": 24.8,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cortadora de cesped malesa",
+     "prov": 1,
+     "v7": 37,
+     "v30": 101,
+     "stock": 410,
+     "cmin": 180,
+     "cmax": 180,
+     "pvp": 215,
+     "est": false,
+     "nombres": [
+      "cortadora de cesped malesa · 183 · grupo luna"
+     ],
+     "u": -35.39,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "fuente de agua con energía solar",
+     "prov": 1,
+     "v7": 36,
+     "v30": 36,
+     "stock": 1,
+     "cmin": 156,
+     "cmax": 156,
+     "pvp": 206,
+     "est": false,
+     "nombres": [
+      "fuente de agua con energía solar · 22001 · 60 segundos"
+     ],
+     "u": -25.41,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "crema antiarrugas para hombre",
+     "prov": 1,
+     "v7": 36,
+     "v30": 37,
+     "stock": 241,
+     "cmin": 45,
+     "cmax": 45,
+     "pvp": 50,
+     "est": false,
+     "nombres": [
+      "crema antiarrugas para hombre · 10333 · goldbox"
+     ],
+     "u": -50.6,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "gomitas de fibra",
+     "prov": 1,
+     "v7": 35,
+     "v30": 50,
+     "stock": 867,
+     "cmin": 65,
+     "cmax": 65,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "gomitas de fibra · 13300 · laboratorio luna"
+     ],
+     "u": -1.2,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "selerb metaburn",
+     "prov": 1,
+     "v7": 34,
+     "v30": 155,
+     "stock": 1817,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 50,
+     "est": false,
+     "nombres": [
+      "selerb metaburn 60 caps. · 17260 · american natural"
+     ],
+     "u": -53.85,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "pantalla amp",
+     "prov": 1,
+     "v7": 33,
+     "v30": 174,
+     "stock": 164,
+     "cmin": 31,
+     "cmax": 31,
+     "pvp": 64,
+     "est": false,
+     "nombres": [
+      "pantalla amp · 23132 · importadora el mayorista"
+     ],
+     "u": -32.76,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "aceite capilar colageno cqk",
+     "prov": 1,
+     "v7": 33,
+     "v30": 242,
+     "stock": 210,
+     "cmin": 35,
+     "cmax": 35,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "aceite capilar colageno cqk · 22667 · importadora el mayorista"
+     ],
+     "u": -40.98,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "taza termica estilo motor v8",
+     "prov": 1,
+     "v7": 33,
+     "v30": 33,
+     "stock": 11,
+     "cmin": 89,
+     "cmax": 89,
+     "pvp": 139,
+     "est": false,
+     "nombres": [
+      "taza termica estilo motor v8 · 18926 · 60 segundos"
+     ],
+     "u": -23.66,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cortador de vello nasal",
+     "prov": 1,
+     "v7": 32,
+     "v30": 39,
+     "stock": 61,
+     "cmin": 47.99,
+     "cmax": 47.99,
+     "pvp": 97.99,
+     "est": false,
+     "nombres": [
+      "cortador de vello nasal · 3379 · 60 segundos"
+     ],
+     "u": -22.6,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "renovia 15en1",
+     "prov": 1,
+     "v7": 31,
+     "v30": 31,
+     "stock": 969,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "renovia 15en1 · 27143 · nibresma"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cojin de espalda de espuma",
+     "prov": 1,
+     "v7": 31,
+     "v30": 141,
+     "stock": 45,
+     "cmin": 185,
+     "cmax": 185,
+     "pvp": 235,
+     "est": false,
+     "nombres": [
+      "cojin de espalda de espuma · 18929 · 60 segundos"
+     ],
+     "u": -26.16,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "parches reductores body shaper",
+     "prov": 1,
+     "v7": 31,
+     "v30": 91,
+     "stock": 2406,
+     "cmin": 65,
+     "cmax": 65,
+     "pvp": 189,
+     "est": false,
+     "nombres": [
+      "parches reductores body shaper · 11928 · shop b"
+     ],
+     "u": 23.14,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "prov": 1,
+     "v7": 31,
+     "v30": 31,
+     "stock": 469,
+     "cmin": 90,
+     "cmax": 90,
+     "pvp": 250,
+     "est": false,
+     "nombres": [
+      "cayenne pepper *60softgels · 27396 · kura labs"
+     ],
+     "u": 44.95,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "aire a",
+     "prov": 1,
+     "v7": 30,
+     "v30": 209,
+     "stock": 456,
+     "cmin": 175,
+     "cmax": 175,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "aire a. · 13341 · grupo luna"
+     ],
+     "u": -41.5,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "liver cleanse detox",
+     "prov": 1,
+     "v7": 30,
+     "v30": 192,
+     "stock": 809,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "liver cleanse detox, 70 cap dropi cup · 6124 · american natural"
+     ],
+     "u": -53.98,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tobillera térmica inalámbrica",
+     "prov": 1,
+     "v7": 30,
+     "v30": 131,
+     "stock": 126,
+     "cmin": 95,
+     "cmax": 95,
+     "pvp": 190,
+     "est": false,
+     "nombres": [
+      "tobillera térmica inalámbrica · 15639 · digital gt"
+     ],
+     "u": 4.26,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "set corta uñas profesional 3 en 1",
+     "prov": 1,
+     "v7": 29,
+     "v30": 79,
+     "stock": 2523,
+     "cmin": 48,
+     "cmax": 48,
+     "pvp": 149,
+     "est": false,
+     "nombres": [
+      "set corta uñas profesional 3 en 1 · 11188 · shop b"
+     ],
+     "u": 9.23,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "crema de alivio para el picor y rogecimi",
+     "prov": 1,
+     "v7": 29,
+     "v30": 43,
+     "stock": 45,
+     "cmin": 26,
+     "cmax": 26,
+     "pvp": 46,
+     "est": false,
+     "nombres": [
+      "crema de alivio para el picor y rogecimi · 15650 · importadora el mayorista"
+     ],
+     "u": -40.75,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "esquinero para ducha",
+     "prov": 1,
+     "v7": 29,
+     "v30": 53,
+     "stock": 421,
+     "cmin": 87,
+     "cmax": 87,
+     "pvp": 87,
+     "est": false,
+     "nombres": [
+      "esquinero para ducha · 573 · blue guatemala"
+     ],
+     "u": -54.81,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "chaleco divine curves",
+     "prov": 1,
+     "v7": 29,
+     "v30": 91,
+     "stock": 1871,
+     "cmin": 145,
+     "cmax": 145,
+     "pvp": 180,
+     "est": false,
+     "nombres": [
+      "chaleco divine curves · 16402 · chicas empire fajas"
+     ],
+     "u": -34.48,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "gomas kids detox",
+     "prov": 1,
+     "v7": 29,
+     "v30": 88,
+     "stock": 512,
+     "cmin": 48,
+     "cmax": 48,
+     "pvp": 129,
+     "est": false,
+     "nombres": [
+      "gomas kids detox · 24815 · edwar"
+     ],
+     "u": -3.25,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "capykaraoke micrófono infantil con luces",
+     "prov": 1,
+     "v7": 28,
+     "v30": 28,
+     "stock": 272,
+     "cmin": 110,
+     "cmax": 110,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "capykaraoke micrófono infantil con luces · 27194 · digital gt"
+     ],
+     "u": 0.75,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "mistery box",
+     "prov": 1,
+     "v7": 28,
+     "v30": 50,
+     "stock": 1387,
+     "cmin": 77,
+     "cmax": 77,
+     "pvp": 137,
+     "est": false,
+     "nombres": [
+      "mistery box · 542 · blue guatemala"
+     ],
+     "u": -17.11,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "woman curves",
+     "prov": 1,
+     "v7": 28,
+     "v30": 142,
+     "stock": 4396,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 199,
+     "est": false,
+     "nombres": [
+      "woman curves · 9374 · natural labs organic"
+     ],
+     "u": 39.13,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "turkesterona top",
+     "prov": 1,
+     "v7": 27,
+     "v30": 128,
+     "stock": 4818,
+     "cmin": 45,
+     "cmax": 45,
+     "pvp": 199,
+     "est": false,
+     "nombres": [
+      "turkesterona top · 5248 · natural labs organic"
+     ],
+     "u": 42.38,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "eye formula 14 in 1 ever vision",
+     "prov": 1,
+     "v7": 27,
+     "v30": 154,
+     "stock": 3938,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 109,
+     "est": false,
+     "nombres": [
+      "eye formula 14 in 1 ever vision x30 · 6012 · almafit"
+     ],
+     "u": -20.28,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "on running deportivo",
+     "prov": 1,
+     "v7": 27,
+     "v30": 190,
+     "stock": 2440,
+     "cmin": 155,
+     "cmax": 155,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "on running deportivo · 18020 · chicas empire fajas"
+     ],
+     "u": -28.5,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "soporte magnetico giratorio",
+     "prov": 1,
+     "v7": 27,
+     "v30": 52,
+     "stock": 368,
+     "cmin": 43,
+     "cmax": 43,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "soporte magnetico giratorio · 20857 · grupo luna"
+     ],
+     "u": 13.1,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": true,
+     "pts": 10
+    },
+    {
+     "n": "destornillador inalambrico 47 pzs",
+     "prov": 1,
+     "v7": 26,
+     "v30": 204,
+     "stock": 147,
+     "cmin": 84,
+     "cmax": 84,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "destornillador inalambrico 47 pzs · 85 · grupo luna"
+     ],
+     "u": -32.27,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "3 t-shirt gap negro y blanco hueso",
+     "prov": 1,
+     "v7": 26,
+     "v30": 31,
+     "stock": 662,
+     "cmin": 87,
+     "cmax": 87,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "3 t-shirt gap negro y blanco hueso x 87 · 14989 · laurean by seong woo"
+     ],
+     "u": -15.5,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "fibras capilares de relleno eelhoe",
+     "prov": 1,
+     "v7": 26,
+     "v30": 26,
+     "stock": 383,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "fibras capilares de relleno eelhoe · 24919 · grupo luna"
+     ],
+     "u": 5.3,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "primal queen",
+     "prov": 1,
+     "v7": 26,
+     "v30": 26,
+     "stock": 472,
+     "cmin": 30,
+     "cmax": 30,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "primal queen · 2746 · nibresma"
+     ],
+     "u": -9.65,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "new balance look moderno",
+     "prov": 1,
+     "v7": 26,
+     "v30": 76,
+     "stock": 2174,
+     "cmin": 148,
+     "cmax": 148,
+     "pvp": 200,
+     "est": false,
+     "nombres": [
+      "new balance look moderno · 23068 · chicas empire fajas"
+     ],
+     "u": -23.95,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "aspiradora 3 en 1 inalambrica",
+     "prov": 1,
+     "v7": 25,
+     "v30": 265,
+     "stock": 597,
+     "cmin": 110,
+     "cmax": 110,
+     "pvp": 180,
+     "est": false,
+     "nombres": [
+      "aspiradora 3 en 1 inalambrica · 16040 · distribuidora rocke feller"
+     ],
+     "u": -11.73,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "masajeadora con ventosa",
+     "prov": 1,
+     "v7": 25,
+     "v30": 144,
+     "stock": 125,
+     "cmin": 100,
+     "cmax": 100,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "masajeadora con ventosa · 18320 · grupo luna"
+     ],
+     "u": -23.95,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "escurridor 3 en 1 con tapa de 85cm",
+     "prov": 1,
+     "v7": 25,
+     "v30": 91,
+     "stock": 117,
+     "cmin": 260,
+     "cmax": 260,
+     "pvp": 350,
+     "est": false,
+     "nombres": [
+      "escurridor 3 en 1 con tapa de 85cm · 16039 · distribuidora rocke feller"
+     ],
+     "u": -3.15,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "jabon curcuma",
+     "prov": 1,
+     "v7": 25,
+     "v30": 64,
+     "stock": 768,
+     "cmin": 23,
+     "cmax": 23,
+     "pvp": 43,
+     "est": false,
+     "nombres": [
+      "jabon curcuma · 4540 · auré"
+     ],
+     "u": -40.67,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "masilla para diente temporal",
+     "prov": 1,
+     "v7": 25,
+     "v30": 104,
+     "stock": 1512,
+     "cmin": 32,
+     "cmax": 32,
+     "pvp": 120,
+     "est": false,
+     "nombres": [
+      "masilla para diente temporal · 186 · grupo luna"
+     ],
+     "u": 1.53,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "cepillo limpiador 9 en 1",
+     "prov": 1,
+     "v7": 24,
+     "v30": 96,
+     "stock": 51,
+     "cmin": 111,
+     "cmax": 111,
+     "pvp": 146,
+     "est": false,
+     "nombres": [
+      "cepillo limpiador 9 en 1 (im6324) · 20296 · oriental import"
+     ],
+     "u": -33.6,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "apolo",
+     "prov": 1,
+     "v7": 24,
+     "v30": 235,
+     "stock": 6693,
+     "cmin": 50,
+     "cmax": 50,
+     "pvp": 149,
+     "est": false,
+     "nombres": [
+      "apolo · 12244 · natural labs organic"
+     ],
+     "u": 7.93,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "banda elástica para ejercicio",
+     "prov": 1,
+     "v7": 24,
+     "v30": 228,
+     "stock": 9135,
+     "cmin": 47,
+     "cmax": 47,
+     "pvp": 62,
+     "est": false,
+     "nombres": [
+      "banda elástica para ejercicio · 739 · cmide ecomm"
+     ],
+     "u": -44.41,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "seborrheic dermatitis & psoriasis",
+     "prov": 1,
+     "v7": 24,
+     "v30": 258,
+     "stock": 4468,
+     "cmin": 47,
+     "cmax": 47,
+     "pvp": 47,
+     "est": false,
+     "nombres": [
+      "seborrheic dermatitis & psoriasis · 10036 · altamira"
+     ],
+     "u": -53.77,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "sopladora inalámbrica ultra venti",
+     "prov": 1,
+     "v7": 24,
+     "v30": 45,
+     "stock": 616,
+     "cmin": 145,
+     "cmax": 145,
+     "pvp": 250,
+     "est": false,
+     "nombres": [
+      "sopladora inalámbrica ultra venti · 4525 · grupo luna"
+     ],
+     "u": 9.2,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "testorex",
+     "prov": 1,
+     "v7": 24,
+     "v30": 41,
+     "stock": 4959,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 55,
+     "est": false,
+     "nombres": [
+      "testorex · 19735 · altamira"
+     ],
+     "u": -53.98,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "esmeril inalambrico",
+     "prov": 1,
+     "v7": 24,
+     "v30": 125,
+     "stock": 392,
+     "cmin": 120,
+     "cmax": 120,
+     "pvp": 250,
+     "est": false,
+     "nombres": [
+      "esmeril inalambrico · 180 · grupo luna"
+     ],
+     "u": 25.45,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": true,
+     "pts": 10
+    },
+    {
+     "n": "vitamin b complex b12",
+     "prov": 1,
+     "v7": 24,
+     "v30": 91,
+     "stock": 1968,
+     "cmin": 70,
+     "cmax": 70,
+     "pvp": 140,
+     "est": false,
+     "nombres": [
+      "vitamin b complex b12 x 2 · 10398 · vitalcom"
+     ],
+     "u": -10.69,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "tab",
+     "prov": 1,
+     "v7": 23,
+     "v30": 110,
+     "stock": 1933,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 109,
+     "est": false,
+     "nombres": [
+      "tab · 444 · cmide ecomm"
+     ],
+     "u": -20.28,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "calcitrin und",
+     "prov": 1,
+     "v7": 23,
+     "v30": 130,
+     "stock": 532,
+     "cmin": 100,
+     "cmax": 100,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "calcitrin x2 und · 13993 · almafit"
+     ],
+     "u": -23.95,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "reloj curren pulso silicona",
+     "prov": 1,
+     "v7": 23,
+     "v30": 88,
+     "stock": 83,
+     "cmin": 250,
+     "cmax": 250,
+     "pvp": 450,
+     "est": false,
+     "nombres": [
+      "reloj curren 8488 pulso silicona · 22509 · la relojería"
+     ],
+     "u": 65.75,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "proyector multi",
+     "prov": 1,
+     "v7": 23,
+     "v30": 128,
+     "stock": 806,
+     "cmin": 72,
+     "cmax": 72,
+     "pvp": 102,
+     "est": false,
+     "nombres": [
+      "proyector multi · 199 · grupo luna"
+     ],
+     "u": -35.7,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "inositol",
+     "prov": 1,
+     "v7": 23,
+     "v30": 41,
+     "stock": 109,
+     "cmin": 70,
+     "cmax": 70,
+     "pvp": 70,
+     "est": false,
+     "nombres": [
+      "inositol - 120cap · 22010 · distrilab"
+     ],
+     "u": -54.37,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "quarxery",
+     "prov": 1,
+     "v7": 22,
+     "v30": 34,
+     "stock": 966,
+     "cmin": 54,
+     "cmax": 54,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "quarxery · 5693 · sicommer lab"
+     ],
+     "u": -19.01,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "bicicleta estatica portatil",
+     "prov": 1,
+     "v7": 21,
+     "v30": 24,
+     "stock": 20,
+     "cmin": 191,
+     "cmax": 191,
+     "pvp": 221,
+     "est": false,
+     "nombres": [
+      "bicicleta estatica portatil (im6410) · 8718 · oriental import"
+     ],
+     "u": -38.8,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "herramienta magnetica telescopica",
+     "prov": 1,
+     "v7": 21,
+     "v30": 168,
+     "stock": 109,
+     "cmin": 71,
+     "cmax": 71,
+     "pvp": 121,
+     "est": false,
+     "nombres": [
+      "herramienta magnetica telescopica · 18923 · 60 segundos"
+     ],
+     "u": -23.2,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "eliminador de mal olor para mascotas",
+     "prov": 1,
+     "v7": 21,
+     "v30": 21,
+     "stock": 270,
+     "cmin": 40,
+     "cmax": 40,
+     "pvp": 175,
+     "est": false,
+     "nombres": [
+      "eliminador de mal olor para mascotas · 12838 · digital gt"
+     ],
+     "u": 30.65,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "true fem super human equilibrio hormonal",
+     "prov": 1,
+     "v7": 21,
+     "v30": 161,
+     "stock": 1506,
+     "cmin": 49,
+     "cmax": 49,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "true fem super human equilibrio hormonal · 3992 · laboratorio luna"
+     ],
+     "u": -22.0,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "estrechante vaginal - sharkscaviar",
+     "prov": 1,
+     "v7": 21,
+     "v30": 58,
+     "stock": 1670,
+     "cmin": 48,
+     "cmax": 48,
+     "pvp": 180,
+     "est": false,
+     "nombres": [
+      "estrechante vaginal - sharkscaviar · 15667 · shop b"
+     ],
+     "u": 28.57,
+     "clase": "VIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "rueda abdominal inteligente",
+     "prov": 1,
+     "v7": 20,
+     "v30": 81,
+     "stock": 12,
+     "cmin": 145,
+     "cmax": 145,
+     "pvp": 185,
+     "est": false,
+     "nombres": [
+      "rueda abdominal inteligente · 202 · grupo luna"
+     ],
+     "u": -31.36,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "jjlbro men¨s spray",
+     "prov": 1,
+     "v7": 20,
+     "v30": 182,
+     "stock": 1498,
+     "cmin": 51,
+     "cmax": 51,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "jjlbro men¨s spray · 4292 · sicommer lab"
+     ],
+     "u": -17.06,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "short tiro alto elastico colombiano",
+     "prov": 1,
+     "v7": 20,
+     "v30": 147,
+     "stock": 1753,
+     "cmin": 97,
+     "cmax": 97,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "short tiro alto elastico 100% colombiano · 1642 · chicas empire fajas"
+     ],
+     "u": -22.0,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "juego magnetico",
+     "prov": 1,
+     "v7": 20,
+     "v30": 20,
+     "stock": 80,
+     "cmin": 68,
+     "cmax": 68,
+     "pvp": 100,
+     "est": false,
+     "nombres": [
+      "juego magnetico · 26078 · 60 segundos"
+     ],
+     "u": -34.35,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "body seductora con zipper",
+     "prov": 1,
+     "v7": 20,
+     "v30": 106,
+     "stock": 3542,
+     "cmin": 110,
+     "cmax": 110,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "body seductora con zipper · 18217 · chicas empire fajas"
+     ],
+     "u": -30.45,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "gfsin",
+     "prov": 1,
+     "v7": 20,
+     "v30": 219,
+     "stock": 15138,
+     "cmin": 69,
+     "cmax": 69,
+     "pvp": 99,
+     "est": false,
+     "nombres": [
+      "gfsin (im6425) · 14524 · oriental import"
+     ],
+     "u": -35.62,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "hem hero",
+     "prov": 1,
+     "v7": 20,
+     "v30": 184,
+     "stock": 794,
+     "cmin": 55,
+     "cmax": 55,
+     "pvp": 110,
+     "est": false,
+     "nombres": [
+      "hem hero · 22181 · sicommer lab"
+     ],
+     "u": -19.66,
+     "clase": "DESCARTADO",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    },
+    {
+     "n": "“fbw”",
+     "prov": 1,
+     "v7": 20,
+     "v30": 20,
+     "stock": 1986,
+     "cmin": 65,
+     "cmax": 65,
+     "pvp": 150,
+     "est": false,
+     "nombres": [
+      "“fbw” · 26702 · laboratorio luna"
+     ],
+     "u": -1.2,
+     "clase": "REPRECIABLE",
+     "busq": "B",
+     "fin": false,
+     "pts": null
+    }
+   ],
+   "resumen": "Cosecha: A = 77 productos (grupos con alguna fila de A: 65), B = 177 productos (grupos con alguna fila de B: 142); total 254 filas agrupadas en 182 grupos (un grupo puede traer filas de A y de B). Fase 3 (margen): 33 VIABLE, 85 REPRECIABLE, 64 DESCARTADO. Fase 4: anuncios investigados en 15 grupos. Fase 5: 15 puntuados y 10 finalistas (todos VIABLE). Para llegar a 120 productos en A habría que aflojar el rango de 7 días (por ejemplo 60-200 en lugar de 81-200) o aceptar productos con stock bajo; para tener más candidatos con margen, pedir al dueño sus PVP reales de venta (muchos REPRECIABLE solo se corrigen con precio propio).",
+   "revisar": "Vacío: hoy es la primera corrida de CAZADIARIA 2, no hay memoria previa. Desde mañana, un producto evaluado hoy no se repite durante 21 días, salvo dos excepciones: GEMA (3 días seguidos con ventas estables, variación < 15%) vuelve como 'A REVISAR — lo evaluamos hace unos días, su promedio se mantiene, échale un vistazo ahora', y DESPEGUE (un descartado cuyas ventas se duplican) vuelve como 'DESPEGANDO'."
+  }
  }
 }
