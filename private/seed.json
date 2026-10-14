@@ -4250,6 +4250,601 @@
    "fav": false,
    "ct": "2026-09-18",
    "tv": 150
+  },
+  "2026-10-14_1": {
+   "date": "2026-10-14",
+   "rank": 1,
+   "source": "ia",
+   "name": "Crema Dr. Althea 345",
+   "provider": "natural labs organic",
+   "verificado": true,
+   "cats": "bienestar, salud, belleza",
+   "costo": 55,
+   "pvp": 99,
+   "v7": 97,
+   "v30": 557,
+   "stock": 4394,
+   "score": 93,
+   "scores": {
+    "demanda": 8,
+    "traccion": 8,
+    "margen": 5,
+    "competencia": 5,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 179
+   },
+   "verdict": "97 ventas en 7 dias, 557 en 30 y 613 en total, con venta casi todos los dias del mes, stock 4394 y 2 proveedores (natural labs organic y sicommer lab). Es el producto con demanda mas estable de la lista; ya hay al menos 4 tiendas en GT, asi que solo entra con angulo nuevo.",
+   "angle": "Piel sensible o cansada de probar de todo: rutina simple de una sola crema coreana, enfocada en barrera de la piel y apariencia del tono, con oferta de 2 frascos y pago al recibir.",
+   "competition": "Al menos 4 anunciantes en GT, 3 de ellos con anuncios activos esta semana. Zona dulce con tendencia a apretarse: el mas viejo lleva 38 dias.",
+   "anWA": 0,
+   "anLand": 4,
+   "anTotal": 4,
+   "anNota": "Minimo 4 anunciantes distintos en GT con landing propia (busqueda por significado y por nombre, 12 resultados leidos): Grupo Vittini Lancom (activo 38 dias), ShopiGuate (activo), Caza Pedidos Guatemala (activo desde 2026-10-07, 7 creativos), Quelo Company (inactivo). Puede haber mas fuera de lo leido.",
+   "tiendas": [
+    {
+     "url": "https://grupovittini.com/products/crema-dr-althea-345-relief",
+     "adv": "Grupo Vittini Lancom",
+     "pais": "GT",
+     "dias": 38,
+     "nota": "Activo. Angulo: barrera de la piel, pantenol y niacinamida; envio gratis y pago contra entrega."
+    },
+    {
+     "url": "https://shopiguate.com/collections/frontpage/products/crema-de-alivio-dr-althea-345?variant=49566362272003",
+     "adv": "ShopiGuate",
+     "pais": "GT",
+     "dias": 4,
+     "nota": "Activo. Angulo: 'la crema que todas estan amando', piel sensible y marquitas."
+    },
+    {
+     "url": "https://98682a-16.myshopify.com/products/dr-althea-cream-345",
+     "adv": "Caza Pedidos Guatemala",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Activo desde 2026-10-07. Angulos: 'ya probaste de todo', rutina simple, marcas y tono."
+    },
+    {
+     "url": "https://quelo-guatemala.myshopify.com/products/crema-coreana-345-relief",
+     "adv": "Quelo Company",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Inactivo (visto por ultima vez 2026-09-04). Angulo: hiperpigmentacion y acne, 30 % de descuento + regalos."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Caza Pedidos Guatemala",
+     "pais": "GT",
+     "dias": 0,
+     "score": 23,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=945903118134558",
+     "dk": "https://app.dropkiller.com/dashboard/ads/77da064a-d175-46c1-b1c2-3177fd3cb798",
+     "nota": "Imagen activa: 'Tu rutina no necesita ser complicada'."
+    },
+    {
+     "adv": "Caza Pedidos Guatemala",
+     "pais": "GT",
+     "dias": 0,
+     "score": 23,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=976227171476384",
+     "dk": "https://app.dropkiller.com/dashboard/ads/98e3954b-fa0c-4cb7-8842-4e6f1203ecc8",
+     "nota": "Imagen activa: 'Que las marcas no sean lo primero que veas'."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Grupo Vittini Lancom",
+     "pais": "GT",
+     "dias": 38,
+     "score": 43,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4683732925278512",
+     "dk": "https://app.dropkiller.com/dashboard/ads/57baf2cd-81b9-4748-b1db-d570f34b34c2",
+     "nota": "Video activo 38 dias, el de mayor winner score."
+    },
+    {
+     "adv": "ShopiGuate",
+     "pais": "GT",
+     "dias": 4,
+     "score": 34,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1091877536664976",
+     "dk": "https://app.dropkiller.com/dashboard/ads/fee90cdb-b21a-4ba3-a375-02e093019982",
+     "nota": "Video activo, estilo UGC 'viral'."
+    },
+    {
+     "adv": "Caza Pedidos Guatemala",
+     "pais": "GT",
+     "dias": 0,
+     "score": 23,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1398582188580105",
+     "dk": "https://app.dropkiller.com/dashboard/ads/76d6f237-5d43-493c-8c73-00f148e8966d",
+     "nota": "Video activo '¿Ya probaste de todo y tu piel sigue igual?'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "natural labs organic",
+     "id": "20461",
+     "nombre": "dr. althea crema 345",
+     "costo": 55,
+     "stock": 4394,
+     "v7": 97,
+     "v30": 557,
+     "tv": 613,
+     "ct": "2026-09-03",
+     "alt": ""
+    },
+    {
+     "prov": "sicommer lab",
+     "id": "18334",
+     "nombre": "dr. althea crema 345",
+     "costo": 57,
+     "stock": 1584,
+     "v7": 26,
+     "v30": 139,
+     "tv": 451,
+     "ct": "2026-08-19",
+     "alt": "segundo proveedor del mismo producto; sus cifras propias no llegan a 50 en 7 dias"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/d2d83845-53f3-405c-80cc-ac37f5e42ece/e3975a974d0e.webp",
+   "risk": "Bandera amarilla (consumible o cosmetico/salud). Cosmetico: Meta y registro sanitario exigen no prometer eliminar manchas ni curar acne o rojeces; usar lenguaje de apariencia. Venta de 7 dias bajo de 116 a 97 respecto a los dias anteriores del conteo.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20461&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/d2d83845-53f3-405c-80cc-ac37f5e42ece",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-03",
+   "tv": 613
+  },
+  "2026-10-14_2": {
+   "date": "2026-10-14",
+   "rank": 2,
+   "source": "ia",
+   "name": "Tinte vegetal cubre canas Eelohe",
+   "provider": "digital gt",
+   "verificado": false,
+   "cats": "belleza, moda",
+   "costo": 60,
+   "pvp": 120,
+   "v7": 247,
+   "v30": 533,
+   "stock": 344,
+   "score": 87,
+   "scores": {
+    "demanda": 9,
+    "traccion": 9,
+    "margen": 6,
+    "competencia": 4,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 219
+   },
+   "verdict": "247 ventas en 7 dias y 533 en 30 (11 dias con venta, de 4 a 95 diarias, sin ajuste de inventario), stock 344 y 1 solo proveedor. Es el de mayor traccion de la lista y aun con competencia moderada; el riesgo es que sea pico de lanzamiento y que el stock se agote en una semana.",
+   "angle": "Hombres y mujeres que quieren dejar de ver canas en casa sin ir al salon: tinte tipo shampoo en minutos, con packs de 2 o 3 y pago al recibir.",
+   "competition": "Al menos 4 anunciantes de la categoria en GT, todos activos entre el 2026-10-07 y hoy. Categoria recien encendida pero sin dominador claro.",
+   "anWA": 2,
+   "anLand": 2,
+   "anTotal": 4,
+   "anNota": "Minimo 4 anunciantes de shampoo/tinte cubre canas en GT con anuncios activos esta semana: Velmere (landing, 2 paginas), Tom Guatemala (landing), Compras Express 502 (WhatsApp, 'Q100 x 4'), cómpralo online gt (WhatsApp, 'Q75 x 3'). La busqueda dijo que hay mas paginas. No se confirmo que sean exactamente la marca Eelohe.",
+   "tiendas": [
+    {
+     "url": "https://velmereshop.com/products/dexetinte",
+     "adv": "Velmere",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Activo desde 2026-10-13. Angulo: 'deja de esconder tus canas'."
+    },
+    {
+     "url": "https://tomguate.com/products/shampoo-natural-cubre-canas",
+     "adv": "Tom Guatemala",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Activo desde 2026-10-10. Angulo: color y brillo en un solo retoque."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Compras Express 502",
+     "pais": "GT",
+     "dias": 3,
+     "nota": "WhatsApp, activo. Oferta en uso: 4 por Q100 + envio."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "cómpralo online gt",
+     "pais": "GT",
+     "dias": 6,
+     "nota": "WhatsApp, activo. Oferta en uso: 3 por Q75 + envio."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Tom Guatemala",
+     "pais": "GT",
+     "dias": 1,
+     "score": 33,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1277285994528983",
+     "dk": "https://app.dropkiller.com/dashboard/ads/58eb8a7d-53a2-49f8-b049-37c8d32111d8",
+     "nota": "Imagen activa: color y brillo."
+    },
+    {
+     "adv": "cómpralo online gt",
+     "pais": "GT",
+     "dias": 6,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1910177193721869",
+     "dk": "https://app.dropkiller.com/dashboard/ads/6419ea72-ef26-4f99-b177-931a63cb2807",
+     "nota": "Imagen activa con precio por cantidad."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Velmere",
+     "pais": "GT",
+     "dias": 0,
+     "score": 14,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1103215922640105",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e7b05ce2-cdd6-4666-9ab7-0c1af76620b1",
+     "nota": "Video activo '¡Deja de esconder tus canas!'."
+    },
+    {
+     "adv": "Velmere",
+     "pais": "GT",
+     "dias": 2,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1135670375476383",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e8dd27c4-db47-450b-9c0f-6e33444ee8b4",
+     "nota": "Video activo, segundo anunciante/pagina con el mismo nombre."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "digital gt",
+     "id": "25444",
+     "nombre": "tinte para canas vegetal eelohe",
+     "costo": 60,
+     "stock": 344,
+     "v7": 247,
+     "v30": 533,
+     "tv": 533,
+     "ct": "2026-09-30",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/b93d2e20-393f-4596-809e-5d3602c752c6/4fbf3b52ac63.webp",
+   "risk": "Bandera amarilla (consumible o cosmetico/salud). Cosmetico (tinte): registro sanitario y Meta vigila promesas de antes/despues; evitar 'cubre 100 %' sin respaldo. Creado hace 14 dias y 11 dias con venta: puede ser pico de lanzamiento. Stock 344 baja unas 40 unidades por dia (menos de 9 dias).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=25444&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/b93d2e20-393f-4596-809e-5d3602c752c6",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-30",
+   "tv": 533
+  },
+  "2026-10-14_3": {
+   "date": "2026-10-14",
+   "rank": 3,
+   "source": "ia",
+   "name": "Guantes de compresión para túnel carpiano y artritis",
+   "provider": "distribuidora rocke feller",
+   "verificado": false,
+   "cats": "salud",
+   "costo": 50,
+   "pvp": 120,
+   "v7": 58,
+   "v30": 178,
+   "stock": 767,
+   "score": 87,
+   "scores": {
+    "demanda": 6,
+    "traccion": 7,
+    "margen": 7,
+    "competencia": 6,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 219
+   },
+   "verdict": "58 ventas en 7 dias, 178 en 30 y 230 en total con venta casi todos los dias (27 de 30), stock 767 y 1 proveedor. Demanda constante y menos saturada que las cremas; solo hay que cuidar las promesas de salud.",
+   "angle": "Personas que usan las manos todo el dia (teclado, costura, cocina) y sienten rigidez: guantes de compresion como apoyo de comodidad, en pack de 2 pares.",
+   "competition": "3 tiendas en GT, sin dominador y con anuncios de baja duracion (1 a 17 dias). Zona dulce.",
+   "anWA": 2,
+   "anLand": 1,
+   "anTotal": 3,
+   "anNota": "3 anunciantes del mismo producto en GT: CamachoSolutions (WhatsApp, activo hace 17 dias), Dr. Adriana Recomienda (landing vitalityonline.co, activo, visto el 2026-08-27) y Pura Esencia GT (WhatsApp, visto el 2026-09-07).",
+   "tiendas": [
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "CamachoSolutions",
+     "pais": "GT",
+     "dias": 17,
+     "nota": "WhatsApp. Angulo: guantes de compresion grado terapeutico para tunel carpiano, artritis y tendinitis."
+    },
+    {
+     "url": "https://vitalityonline.co/products/guantes-de-compresion",
+     "adv": "Dr. Adriana Recomienda",
+     "pais": "GT",
+     "dias": 7,
+     "nota": "Landing propia. Angulo: testimonio 'la artritis me estaba quitando la vida de las manos'."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Pura Esencia GT",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "WhatsApp. Mismo testimonio de artritis."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "CamachoSolutions",
+     "pais": "GT",
+     "dias": 17,
+     "score": 27,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1946863203187073",
+     "dk": "https://app.dropkiller.com/dashboard/ads/ed45633a-a247-4ff7-aa3d-fda8d466f14c",
+     "nota": "Imagen: guantes de compresion para manos con dolor o rigidez."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Dr. Adriana Recomienda",
+     "pais": "GT",
+     "dias": 7,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1642016524016071",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d8ea4711-86c8-40e4-8715-4974fd757067",
+     "nota": "Video con testimonio de artritis."
+    },
+    {
+     "adv": "Pura Esencia GT",
+     "pais": "GT",
+     "dias": 1,
+     "score": 19,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3699183110260184",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e5e0dbe7-38fc-42fd-b5ad-b743a3f6f9f2",
+     "nota": "Video con el mismo testimonio."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "distribuidora rocke feller",
+     "id": "16115",
+     "nombre": "guantes compresión túnel carpiano y art",
+     "costo": 50,
+     "stock": 767,
+     "v7": 58,
+     "v30": 178,
+     "tv": 230,
+     "ct": "2026-08-06",
+     "alt": "tiene 3 variaciones (talla)"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/0687798e-c8ef-4108-bc95-1d76b217db58/fdb165cd83ce.webp",
+   "risk": "Bandera amarilla (consumible o cosmetico/salud). Producto de salud (compresion): no prometer curar o aliviar artritis ni tunel carpiano; Meta rechaza antes/despues y claims medicos. Tiene 3 variaciones (tallas): confirmar surtido en Dropi.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=16115&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/0687798e-c8ef-4108-bc95-1d76b217db58",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-08-06",
+   "tv": 230
+  },
+  "2026-10-14_4": {
+   "date": "2026-10-14",
+   "rank": 4,
+   "source": "ia",
+   "name": "Luces de arbol navideño",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "otro, navidad",
+   "costo": 43,
+   "pvp": 86,
+   "v7": 115,
+   "v30": 153,
+   "stock": 179,
+   "score": 87,
+   "scores": {
+    "demanda": 8,
+    "traccion": 9,
+    "margen": 5,
+    "competencia": 7,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 159
+   },
+   "verdict": "115 ventas en 7 dias y 153 en 30 (9 dias con venta, sin ajuste de inventario), 1 proveedor y temporada navideña arrancando. Entra por oportunidad de calendario, pero el stock de 179 se agota en menos de dos semanas y no hay anuncio confirmado del mismo SKU.",
+   "angle": "Familias que arman el arbol en octubre y noviembre: luces listas para colgar, con pack de 2 sets para arbol y ventana, pago al recibir y entrega antes de la fecha.",
+   "competition": "Categoria navideña recien encendida (anuncios desde el 2026-10-10). Ningun anunciante confirmado con este mismo SKU, lo que deja espacio pero sin prueba de anuncio.",
+   "anWA": 3,
+   "anLand": 2,
+   "anTotal": 5,
+   "anNota": "No se hallaron anuncios del mismo SKU. Hay 5 anunciantes de luces/decoracion navideña en GT con anuncios activos: Que Detalle GT (luces solares 30 m, landing), Lumina (cascada 2 m para arbol, landing), iSolar.gt, GuateClick y Mi paquete (WhatsApp, proyecciones y renos). Son productos vecinos, no el mismo.",
+   "tiendas": [
+    {
+     "url": "https://soykupi.myshopify.com/products/luces-cascada-navidena",
+     "adv": "Lumina - Lo hacemos facil",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Producto vecino: cascada de 2 m con estrella para punta de arbol. Angulo: 'este año no pelees con las series enredadas'."
+    },
+    {
+     "url": "https://quedetalleonline.com/products/luces-navidenas-con-panel-solar-30-metros",
+     "adv": "Que Detalle GT",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Producto vecino: luces solares 30 m, preventa precio de fabrica."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "iSolar.gt",
+     "pais": "GT",
+     "dias": 2,
+     "score": 35,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=994870693640824",
+     "dk": "https://app.dropkiller.com/dashboard/ads/890098e4-4f05-413e-a4d7-9098737b3b18",
+     "nota": "Imagen activa de luces solares navideñas (producto vecino)."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Lumina - Lo hacemos facil",
+     "pais": "GT",
+     "dias": 2,
+     "score": 18,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1112263248002785",
+     "dk": "https://app.dropkiller.com/dashboard/ads/4feafe34-374b-4fbd-9901-29c4c8be670e",
+     "nota": "Video activo de cascada para arbol (producto vecino)."
+    },
+    {
+     "adv": "Que Detalle GT",
+     "pais": "GT",
+     "dias": 0,
+     "score": 35,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1654059509400739",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e8c52022-00c2-467a-8909-5160653923a9",
+     "nota": "Video activo de luces solares 30 m (producto vecino)."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "25508",
+     "nombre": "luces de árbol navideño",
+     "costo": 43,
+     "stock": 179,
+     "v7": 115,
+     "v30": 153,
+     "tv": 153,
+     "ct": "2026-09-30",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/567c3db2-230f-4368-9963-3d2f247db26c/7cec5e27197d.webp",
+   "risk": "Producto de temporada: el pico dura hasta diciembre y la demanda cae despues. Stock 179 baja unas 20 a 40 unidades por dia (menos de 9 dias); hay que confirmar reposicion con el proveedor antes de pautar. Ventas empezaron el 2026-10-04 (9 dias con venta).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=25508&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/567c3db2-230f-4368-9963-3d2f247db26c",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-30",
+   "tv": 153
+  },
+  "2026-10-14_5": {
+   "date": "2026-10-14",
+   "rank": 5,
+   "source": "ia",
+   "name": "Mini rastreador GPS",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "tecnologia, otro",
+   "costo": 68,
+   "pvp": 118,
+   "v7": 90,
+   "v30": 103,
+   "stock": 185,
+   "score": 87,
+   "scores": {
+    "demanda": 7,
+    "traccion": 8,
+    "margen": 3,
+    "competencia": 7,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 209
+   },
+   "verdict": "90 ventas en 7 dias y 103 en 30 (10 dias con venta, sin ajuste de inventario), 2 proveedores en Dropi y solo 2 tiendas anunciando. Buen hueco de mercado, pero casi todo el volumen viene de los ultimos 6 dias y el margen es el mas bajo de la lista.",
+   "angle": "Dueños de moto, carro o mascota y padres que quieren saber donde estan sus cosas: mini rastreador con tutorial, pack de 2 y pago al recibir.",
+   "competition": "2 anunciantes del mismo tipo de producto. Muy buena señal: poco ruido y un competidor reciente.",
+   "anWA": 0,
+   "anLand": 2,
+   "anTotal": 2,
+   "anNota": "2 anunciantes en GT del mismo tipo de producto: TrendyPlus Guatemala (TrackMax, activo desde 2026-10-09) y Go Store Guatemala (mini localizador GPS Vision Pro, activo del 2026-09-17 al 2026-09-30, dos paginas). Aurora La Capital anuncia un Smart Tag, producto distinto.",
+   "tiendas": [
+    {
+     "url": "https://trendyplusgt.com/products/trackmax",
+     "adv": "TrendyPlus Guatemala",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Activo. Angulo: '¿sabes donde esta tu carro, la mochila de tu hijo o tus llaves?', GPS en tiempo real."
+    },
+    {
+     "url": "https://gostoreguatemala.com/products/mini-localizador-gps-vision-pro",
+     "adv": "Go Store Guatemala",
+     "pais": "GT",
+     "dias": 12,
+     "nota": "Inactivo desde 2026-09-30. Angulo: proteger auto, moto, bolso o mascota; 40 % off y tutorial de instalacion."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "TrendyPlus Guatemala",
+     "pais": "GT",
+     "dias": 1,
+     "score": 20,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1632521625191763",
+     "dk": "https://app.dropkiller.com/dashboard/ads/9217decb-c5c0-40f3-b77e-2a02511119e2",
+     "nota": "Video activo de TrackMax."
+    },
+    {
+     "adv": "Go Store Guatemala",
+     "pais": "GT",
+     "dias": 12,
+     "score": 32,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1998812840821670",
+     "dk": "https://app.dropkiller.com/dashboard/ads/54cf220a-83a9-490a-8d83-077b2c864958",
+     "nota": "Video de mini localizador GPS (inactivo)."
+    },
+    {
+     "adv": "Go Store Guatemala",
+     "pais": "GT",
+     "dias": 12,
+     "score": 32,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4513284302321643",
+     "dk": "https://app.dropkiller.com/dashboard/ads/1014911f-6819-4722-8927-bcfecf0b57e6",
+     "nota": "Video con oferta 40 % off (inactivo)."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "60 segundos",
+     "id": "20693",
+     "nombre": "mini rastreador gps",
+     "costo": 68,
+     "stock": 185,
+     "v7": 90,
+     "v30": 103,
+     "tv": 105,
+     "ct": "2026-09-05",
+     "alt": ""
+    },
+    {
+     "prov": "cmide ecomm",
+     "id": "3673",
+     "nombre": "mini rastreador gps para automóvil y más",
+     "costo": 69,
+     "stock": 16,
+     "v7": 0,
+     "v30": 5,
+     "tv": 177,
+     "ct": "2026-02-17",
+     "alt": "segundo proveedor, producto viejo y casi sin stock"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/7d32ef0a-4512-4c7c-9500-6b0c3633df31/38b1ca85626d.webp",
+   "risk": "Casi todas las ventas (90 de 105) son de los ultimos 6 dias: puede ser pico. Costo Q68 con PVP sugerido Q118 deja poco margen. Un rastreador sin cuota mensual exige cuidado en lo que se promete (cobertura y 'sin internet'); no usarlo para vigilar personas.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20693&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/7d32ef0a-4512-4c7c-9500-6b0c3633df31",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-05",
+   "tv": 105
   }
  },
  "validations": {
