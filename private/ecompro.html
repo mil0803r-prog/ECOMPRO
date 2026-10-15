@@ -3027,13 +3027,72 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
        '<div class="ajr"><div><b>Tasa de entrega (%)</b><small>Calculadora y Caza diaria</small></div><input id="aj-en" type="number" min="1" max="100" step="1" inputmode="decimal" value="'+PAR.entrega+'"></div>'+
        '<div class="ajr"><div><b>Utilidad objetivo por pedido (Q)</b><small>Calculadora y Caza diaria</small></div><input id="aj-ob" type="number" min="0" step="1" inputmode="decimal" value="'+PAR.objetivo+'"></div>'+
        '<div class="ajr"><span class="sub" id="aj-msg" role="status"></span><button class="btn" type="button" id="aj-sv">Guardar números</button></div></div>'+
+     '<div class="ajc"><h3>Copia de seguridad</h3><p>'+lastTxt()+'</p>'+
+       '<div class="ajr"><div><b>Descargar copia completa</b><small>Un solo archivo con pedidos guardados, Caza diaria, CAZADIARIA 2, gastos, publicidad, validaciones, cálculos y tus preferencias</small></div><button class="btn" type="button" id="aj-bk">Descargar copia</button></div>'+
+       '<div class="ajr"><div><b>Restaurar desde una copia</b><small>Elige un archivo .json que descargaste aquí. Se vuelven a guardar los registros del archivo; lo que no esté en el archivo no se borra</small></div><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo<input type="file" id="aj-rf" accept=".json,application/json" hidden></label></div>'+
+       '<div id="aj-rs"></div><div class="ajr"><span class="sub" id="aj-bm" role="status">'+BM+'</span></div></div>'+
+     '<div class="ajc"><h3>Exportar a Excel (CSV)</h3><p>Archivos que abre Excel o Google Sheets.</p>'+
+       '<div class="ajr"><div><b>Pedidos de Dropi</b><small>Número, fecha, estado, ciudad, departamento y valor</small></div><button class="btn" type="button" data-x="ped">Descargar</button></div>'+
+       '<div class="ajr"><div><b>Caza diaria</b><small>Los productos guardados por fecha</small></div><button class="btn" type="button" data-x="win">Descargar</button></div>'+
+       '<div class="ajr"><div><b>Gastos de plataforma</b><small>Fijos y variables</small></div><button class="btn" type="button" data-x="gas">Descargar</button></div>'+
+       '<div class="ajr"><div><b>Publicidad manual</b><small>Todos los registros</small></div><button class="btn" type="button" data-x="pub">Descargar</button></div></div>'+
+     '<div class="ajc"><h3>Este dispositivo</h3><p>Tema, paleta, moneda, filtros y tus preferencias se guardan en este navegador.</p>'+
+       '<div class="ajr"><div><b>Restablecer preferencias</b><small>Vuelve al tema, la paleta y los filtros de fábrica. No borra tus datos ni tus registros</small></div><button class="btn" type="button" id="aj-rp">Restablecer</button></div></div>'+
      '<div class="ajc"><h3>CAZADIARIA 2</h3><p>Flete, devolución, comisión, entrega, CPA y el umbral VIABLE del radar se cambian en su propia sección.</p><button class="btn" type="button" id="aj-c2">Abrir CAZADIARIA 2</button></div>'+
      '<div class="ajc"><h3>Cuenta</h3><p>Entras con tu cuenta de Google. Si compartes el dispositivo, cierra la sesión al terminar.</p><a class="btn" href="/api/logout" style="text-decoration:none;display:inline-block">Cerrar sesión</a></div>';
   }
+  var BM="",RS=null,COLS=["winners","validations","settings","gastos","calculos","publicidad","acciones","radar","radar2","radar_mem","radar2_mem"];
+  function lastTxt(){var t=null;try{t=localStorage.getItem("ec_lastbackup")}catch(e){}if(!t)return "Todavía no has descargado ninguna copia. Haz una cada semana y guárdala en tu correo o en tu Drive.";var d=Math.floor((Date.now()-new Date(t).getTime())/864e5);return "Última copia: "+(d<=0?"hoy":"hace "+d+" día"+(d===1?"":"s"))+(d>7?". Ya pasó más de una semana: conviene hacer otra.":".")}
+  function readCol(n){return new Promise(function(res){var done=false,t=setTimeout(function(){if(!done){done=true;res({})}},7000);try{db.collection(n).onSnapshot(function(sn){if(done)return;done=true;clearTimeout(t);var o={};sn.docs.forEach(function(d){o[d.id]=d.data()});res(o)},function(){if(!done){done=true;res({})}})}catch(e){if(!done){done=true;res({})}}})}
+  function save(name,txt,type){
+    var f=function(){var b=new Blob(["﻿"+txt],{type:type||"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)};
+    try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(function(d){if(d&&d.save)d.save({filename:name,data:txt});else f()}).catch(f);return}}catch(e){}f()}
+  function stamp(){return new Date().toISOString().slice(0,10)}
+  function csvCell(v){if(v==null)return "";if(typeof v==="object")v=JSON.stringify(v);v=String(v);if(/^[=+\-@\t\r]/.test(v)&&!/^-?\d+([.,]\d+)?$/.test(v))v="'"+v;return /[",;\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+  function csv(rows,cols){return cols.join(",")+"\r\n"+rows.map(function(r){return cols.map(function(c){return csvCell(r[c])}).join(",")}).join("\r\n")}
+  function union(rows){var s={};rows.forEach(function(r){Object.keys(r).forEach(function(k){s[k]=1})});return Object.keys(s)}
+  function bm(t){BM=t;var e=$("aj-bm");if(e)e.textContent=t}
+  async function backup(){
+    if(!db){bm("La base no está disponible en esta vista.");return}
+    bm("Preparando la copia…");var o={app:"ECOMPRO",v:1,fecha:new Date().toISOString(),cols:{},prefs:{}},n=0;
+    for(var i=0;i<COLS.length;i++){var d=await readCol(COLS[i]);if(Object.keys(d).length){o.cols[COLS[i]]=d;n+=Object.keys(d).length}}
+    try{for(var k=0;k<localStorage.length;k++){var key=localStorage.key(k);if(/^ec_/.test(key))o.prefs[key]=localStorage.getItem(key)}}catch(e){}
+    save("ecompro-copia-"+stamp()+".json",JSON.stringify(o),"application/json;charset=utf-8");
+    try{localStorage.setItem("ec_lastbackup",new Date().toISOString())}catch(e){}
+    bm("Copia descargada: "+n+" registros en "+Object.keys(o.cols).length+" colecciones.");draw()}
+  function readFile(f){
+    var rd=new FileReader();rd.onload=function(){
+      var o;try{o=JSON.parse(String(rd.result).replace(/^﻿/,""))}catch(e){bm("El archivo no se puede leer.");return}
+      if(!o||o.app!=="ECOMPRO"||!o.cols||typeof o.cols!=="object"){bm("Ese archivo no es una copia de ECOMPRO.");return}
+      var c=Object.keys(o.cols).filter(function(k){return /^[A-Za-z0-9_-]{1,40}$/.test(k)&&COLS.indexOf(k)>=0}),n=0;
+      c.forEach(function(k){n+=Object.keys(o.cols[k]||{}).length});
+      if(!n){bm("La copia no trae registros.");return}
+      RS={o:o,c:c};var el=$("aj-rs");
+      if(el)el.innerHTML='<div class="alert" style="margin:10px 0"><b>Copia del '+(o.fecha?String(o.fecha).slice(0,10):"?")+': '+n+' registros en '+c.length+' colecciones</b><span>Al confirmar se vuelven a guardar estos registros. Si ya existen con el mismo identificador, se reemplazan por los de la copia.</span></div><button class="btn" type="button" id="aj-rc">Confirmar restauración</button> <button class="btn" type="button" id="aj-rx">Cancelar</button>'};
+    rd.readAsText(f)}
+  async function restore(){
+    if(!RS||!db||!can){bm("No tienes permiso para restaurar en esta vista.");return}
+    var o=RS.o,done=0,fail=0,jobs=[];
+    RS.c.forEach(function(k){Object.keys(o.cols[k]).forEach(function(id){var d=o.cols[k][id];if(d&&typeof d==="object"&&!/[\/]/.test(id))jobs.push([k+"/"+id,d])})});
+    bm("Restaurando 0 de "+jobs.length+"…");
+    for(var i=0;i<jobs.length;i+=8){await Promise.all(jobs.slice(i,i+8).map(function(j){return db.doc(j[0]).set(j[1]).then(function(){done++}).catch(function(){fail++})}));bm("Restaurando "+(done+fail)+" de "+jobs.length+"…")}
+    RS=null;var el=$("aj-rs");if(el)el.innerHTML="";bm("Listo: "+done+" registros restaurados"+(fail?", "+fail+" con error":"")+".")}
+  function exportX(w){
+    var E=window.__EC2?window.__EC2():{W:[]},ST=window.__ST||{};
+    if(w==="ped"){var rows=(window.__ORD||[]).map(function(o){return{numero:o.n,fecha:o.d,hora:o.t,estado:(ST[o.s]||[o.s])[0],ciudad:o.c,departamento:o.dep,valor:o.v}});save("pedidos-"+stamp()+".csv",csv(rows,["numero","fecha","hora","estado","ciudad","departamento","valor"]),"text/csv;charset=utf-8");return}
+    if(w==="win"){var r=(E.W||[]).map(function(x){return{fecha:x.date,rank:x.rank,producto:x.name,proveedor:x.provider,costo:x.costo,pvp:x.pvp,vendidos_7d:x.v7,vendidos_30d:x.v30,stock:x.stock,puntaje:x.score,creado:x.ct,venta_total:x.tv,origen:x.source}});save("caza-diaria-"+stamp()+".csv",csv(r,["fecha","rank","producto","proveedor","costo","pvp","vendidos_7d","vendidos_30d","stock","puntaje","creado","venta_total","origen"]),"text/csv;charset=utf-8");return}
+    if(w==="gas"){var g=(window.ecGastos?window.ecGastos.get():[]).map(function(x){return x});save("gastos-"+stamp()+".csv",csv(g,union(g)),"text/csv;charset=utf-8");return}
+    if(w==="pub"){if(!db){bm("La base no está disponible en esta vista.");return}readCol("publicidad").then(function(d){var a=Object.keys(d).map(function(k){var x=Object.assign({id:k},d[k]);return x});save("publicidad-"+stamp()+".csv",csv(a,union(a)),"text/csv;charset=utf-8")})}}
   function setPal(k){if(k==="celeste")r.removeAttribute("data-pal");else r.setAttribute("data-pal",k);try{localStorage.setItem("ec_pal",k)}catch(e){}}
+  document.addEventListener("change",function(e){if(e.target.id==='aj-rf'&&e.target.files&&e.target.files[0])readFile(e.target.files[0])});
   document.addEventListener("click",function(e){
     var t=e.target.closest&&e.target.closest("#aj-th button");if(t){r.setAttribute("data-theme",t.dataset.t);try{localStorage.setItem("ec_theme",t.dataset.t)}catch(x){}var b=$("thm");if(b)b.textContent=t.dataset.t==="dark"?"☀ Claro":"☾ Oscuro";draw();return}
     var p=e.target.closest&&e.target.closest("#aj-pal button");if(p){setPal(p.dataset.p);draw();return}
+    if(e.target.id==="aj-bk"){backup();return}
+    if(e.target.id==="aj-rc"){restore();return}
+    if(e.target.id==="aj-rx"){RS=null;var rs=$("aj-rs");if(rs)rs.innerHTML="";return}
+    var xb=e.target.closest&&e.target.closest("button[data-x]");if(xb){exportX(xb.dataset.x);return}
+    if(e.target.id==="aj-rp"){if(!window.__rpArm){window.__rpArm=1;e.target.textContent="Toca otra vez para confirmar";setTimeout(function(){window.__rpArm=0;var q=$("aj-rp");if(q)q.textContent="Restablecer"},4000);return}try{Object.keys(localStorage).filter(function(k){return /^ec_/.test(k)&&k!=="ec_lastbackup"}).forEach(function(k){localStorage.removeItem(k)})}catch(x){}location.reload();return}
     if(e.target.id==="aj-c2"){var b2=document.querySelector('#side button[data-p="inv2"]');if(b2)b2.click();return}
     if(e.target.id==="aj-sv"){
       var v={flete:+$("aj-fl").value,entrega:+$("aj-en").value,objetivo:+$("aj-ob").value},dq=parseFloat($("aj-dq").value);
