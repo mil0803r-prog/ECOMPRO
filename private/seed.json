@@ -4845,6 +4845,500 @@
    "fav": false,
    "ct": "2026-09-05",
    "tv": 105
+  },
+  "2026-10-15_1": {
+   "date": "2026-10-15",
+   "rank": 1,
+   "source": "ia",
+   "name": "Lampara solar portatil de clip",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "hogar, tecnologia, otros",
+   "costo": 50,
+   "pvp": 100,
+   "v7": 67,
+   "v30": 369,
+   "stock": 207,
+   "score": 80,
+   "scores": {
+    "demanda": 6,
+    "traccion": 7,
+    "margen": 2,
+    "competencia": 6,
+    "riesgo": 8
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 179
+   },
+   "verdict": "67 ventas en 7 dias, 369 en 30 y 375 en total, con venta en 19 de los ultimos 30 dias, stock 207 (se repone: el historial muestra reabastos) y 1 solo proveedor (60 segundos). Tiene 3 anunciantes en GT, todos entraron entre el 23 de septiembre y el 13 de octubre: zona dulce todavia joven, pero con oferta 2x1 ya en uso, asi que solo entra con angulo nuevo.",
+   "angle": "Ya en uso en GT: 'luz automatica cuando la necesitas', lleva 2 o 3 / paga 1 lleva 2. Hueco: seguridad de adultos mayores y ninos de noche, negocios pequenos y fincas sin energia, con oferta de 2 lamparas y pago al recibir.",
+   "competition": "3 anunciantes en GT (Treat Deal Store, CONFORTIA, Nova Hogar GT); 2 con video activo esta semana y el mas viejo empezo el 2026-09-23 (22 dias). Zona dulce (3-8). Ninguno usa WhatsApp.",
+   "anWA": 0,
+   "anLand": 3,
+   "anTotal": 3,
+   "anNota": "3 anunciantes distintos en GT con landing propia (busqueda por nombre; 3 resultados, uno por anunciante): Treat Deal Store (imagen, empezo 2026-10-13), CONFORTIA (video activo 8 dias, 'Lleva 2 o 3 y ahorra por pieza', envio gratis), Nova Hogar GT (video 'Paga 1 y Lleva 2 ClipBeam'; DropKiller lo marca activo pero no lo ve hace 14 dias). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://www.treatdeal.store/products/lampara-solar-portatil-de-clip",
+     "adv": "Treat Deal Store",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Activo desde 2026-10-13. Imagen: 'Luz automatica cuando la necesitas', sensor de movimiento, clip ajustable, sin cables."
+    },
+    {
+     "url": "https://confortia.myshopify.com/products/lampara-solar-portatil-de-clip",
+     "adv": "CONFORTIA",
+     "pais": "GT",
+     "dias": 8,
+     "nota": "Activo. Video con oferta 'Lleva 2 o 3 y ahorra por pieza', envio gratis; ilumina entrada, patio, escalera y balcon."
+    },
+    {
+     "url": "https://novahogarguatemala.com/products/2x1-clipbeam",
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 8,
+     "nota": "Empezo 2026-09-23; ultima vez visto activo 2026-10-01. Marca propia 'ClipBeam', oferta paga 1 y lleva 2."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Treat Deal Store",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1065446846494902",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c495564a-63ee-48bb-bad8-937829c3fd02",
+     "nota": "Imagen activa: 'Luz automatica cuando la necesitas'."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "CONFORTIA",
+     "pais": "GT",
+     "dias": 8,
+     "score": 34,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1529099819264035",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e3831bb1-2708-4d24-9302-5bfa82e3c3cd",
+     "nota": "Video activo 8 dias, el de mayor winner score: oferta 2 o 3 piezas."
+    },
+    {
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 8,
+     "score": 27,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1105345939093682",
+     "dk": "https://app.dropkiller.com/dashboard/ads/95adf204-7994-4281-901d-498b91e00821",
+     "nota": "Video 'Paga 1 y Lleva 2' (marca ClipBeam); sin verse activo desde 2026-10-01."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "60 segundos",
+     "id": "22002",
+     "nombre": "lampara solar portatil de clip",
+     "costo": 50,
+     "stock": 207,
+     "v7": 67,
+     "v30": 369,
+     "tv": 375,
+     "ct": "2026-09-10",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/a515042c-6707-46d3-be04-7565eadc6104/a584b722efa6.webp",
+   "risk": "Sin bandera de marca ni de salud. Producto con bateria/panel solar: confirmar autonomia real y garantia con el proveedor (el stock se repone a saltos: pico de 1 a 221 unidades en el historial). Competidores con oferta 2x1 ya instalada.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22002&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/a515042c-6707-46d3-be04-7565eadc6104",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-10",
+   "tv": 375
+  },
+  "2026-10-15_2": {
+   "date": "2026-10-15",
+   "rank": 2,
+   "source": "ia",
+   "name": "Chaleco Divine Curves",
+   "provider": "chicas empire fajas",
+   "verificado": true,
+   "cats": "moda, fajas, belleza",
+   "costo": 145,
+   "pvp": 180,
+   "v7": 69,
+   "v30": 120,
+   "stock": 1830,
+   "score": 80,
+   "scores": {
+    "demanda": 5,
+    "traccion": 5,
+    "margen": 2,
+    "competencia": 6,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 249
+   },
+   "verdict": "69 ventas en 7 dias, 120 en 30 y 420 en total, stock 1830 y 1 proveedor (chicas empire fajas); vendio en 25 de los ultimos 30 dias, pero 61 de las 69 ventas de la semana cayeron en los dos ultimos dias (20 y 41). 3 anunciantes en GT (zona dulce); un competidor lo anuncia a Q250 pagando al recibir, que con costo Q145 aun no cierra.",
+   "angle": "Ya en uso en GT: 'Chaleco Divine Curves Q250 paga al recibir', 'mejor postura y cintura definida, envio gratis'. Hueco: oficinistas por postura, soporte posparto sin prometer reduccion, vestido de fin de ano.",
+   "competition": "3 anunciantes en GT (Bucefalo, Clic y Compras, GUATE ventas GT); solo Bucefalo con video visto activo hace menos de 10 dias. Zona dulce (3-8). Marca de origen 'Divine Curves' (tienda propia en Colombia).",
+   "anWA": 1,
+   "anLand": 2,
+   "anTotal": 3,
+   "anNota": "3 anunciantes distintos en GT que nombran el 'Chaleco Divine Curves' (busqueda por nombre y por significado/foto, 12 resultados leidos): Bucefalo (landing Shopify, video desde 2026-09-21), GUATE ventas GT (Q250 pagando al recibir, visto hasta 2026-09-09) y Clic y Compras (WhatsApp, visto hasta 2026-08-25). Hay otros chalecos/fajas vecinos (Quetza 'Faja Curve', Floralshe) que no cuentan como el mismo SKU. No se verifico en la Biblioteca de Anuncios de Meta.",
+   "tiendas": [
+    {
+     "url": "https://bucefalogt.myshopify.com/products/chaleco-divine-curves?pb=0",
+     "adv": "Bucefalo",
+     "pais": "GT",
+     "dias": 15,
+     "nota": "Activo (visto 2026-10-06). Video del chaleco, landing propia."
+    },
+    {
+     "url": "https://6krrtc-p7.myshopify.com/products/corset-reductor-de-cintura-moldeador",
+     "adv": "GUATE ventas GT",
+     "pais": "GT",
+     "dias": 26,
+     "nota": "Visto hasta 2026-09-09. Precio Q250 pagando al recibir; 'control de abdomen, moldeo de cintura'."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Clic y Compras",
+     "pais": "GT",
+     "dias": 5,
+     "nota": "Solo WhatsApp (sin landing), visto hasta 2026-08-25. 'Mejor postura y cintura definida, envio gratis', varillas de soporte."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Bucefalo",
+     "pais": "GT",
+     "dias": 15,
+     "score": 38,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1181753787750919",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d77533a9-6c2d-4461-b0b2-27d72380f326",
+     "nota": "Video 15 dias, el de mayor winner score."
+    },
+    {
+     "adv": "GUATE ventas GT",
+     "pais": "GT",
+     "dias": 26,
+     "score": 33,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1369084815202006",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e7e4e285-bde4-405e-b774-c25dc1882584",
+     "nota": "Video de 26 dias con precio Q250 al recibir; visto hasta 2026-09-09."
+    },
+    {
+     "adv": "Clic y Compras",
+     "pais": "GT",
+     "dias": 5,
+     "score": 30,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4462368704091146",
+     "dk": "https://app.dropkiller.com/dashboard/ads/86d817dc-73de-4110-b2d2-e5588186fd76",
+     "nota": "Video por WhatsApp, angulo de postura."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "chicas empire fajas",
+     "id": "16402",
+     "nombre": "chaleco divine curves",
+     "costo": 145,
+     "stock": 1830,
+     "v7": 69,
+     "v30": 120,
+     "tv": 420,
+     "ct": "2026-08-02",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/667f4aab-4691-4a32-8b7f-d89093472992/893bef98d592.webp",
+   "risk": "Bandera amarilla: nombre con marca ('Divine Curves' tiene tienda propia en Colombia), conviene vender bajo nombre propio. Evitar promesas de bajar de peso o 'quemar grasa'; hablar de soporte, postura y apariencia. Costo alto (Q145): con PVP Q250 aun pierde Q9 por pedido generado con los valores de referencia. Ventas de la semana concentradas en 2 dias.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=16402&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/667f4aab-4691-4a32-8b7f-d89093472992",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-08-02",
+   "tv": 420
+  },
+  "2026-10-15_3": {
+   "date": "2026-10-15",
+   "rank": 3,
+   "source": "ia",
+   "name": "Nida crema de ojeras",
+   "provider": "natural labs organic",
+   "verificado": true,
+   "cats": "bienestar, salud, belleza",
+   "costo": 50,
+   "pvp": 129,
+   "v7": 72,
+   "v30": 91,
+   "stock": 7403,
+   "score": 80,
+   "scores": {
+    "demanda": 5,
+    "traccion": 7,
+    "margen": 4,
+    "competencia": 4,
+    "riesgo": 3
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 229
+   },
+   "verdict": "72 ventas en 7 dias, 91 en 30 y 100 en total, stock 7403 y 2 proveedores (natural labs organic y kura labs); casi todo vendio desde el 11 de octubre (24, 21, 12 y 14 al dia), asi que es un arranque de 4 dias. 4 anunciantes en GT (zona dulce) y la marca NIDA anuncia su crema original a US$11-13 en Colombia y Peru: entra solo con angulo nuevo y nombre propio.",
+   "angle": "Ya en uso en GT: 'la original', rutina simple coreana, combo Nida Revive + Nida Ultimate como tratamiento completo desde casa. Hueco: mujeres que duermen poco, hombres, cuello y regalo de fin de ano.",
+   "competition": "4 anunciantes en GT (Bodeguita GT, Figura & Armonia, Promoexpressgt, Shappalele); 2 con anuncios activos. Zona dulce (3-8), el mas viejo empezo el 2026-08-02. Ademas hay mas de 12 anunciantes de cremas de ojeras de otras marcas (Dr. Melaxin) que compiten por el mismo hueco.",
+   "anWA": 0,
+   "anLand": 4,
+   "anTotal": 4,
+   "anNota": "Minimo 4 anunciantes distintos en GT con landing propia (busqueda por foto y por nombre, 15 resultados leidos): Bodeguita GT (video activo 21 dias, 'La Original'), Figura & Armonia (combo Revive + Ultimate, 6 creativos desde 2026-09-21), Promoexpressgt y Shappalele (inactivos desde agosto). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta.",
+   "tiendas": [
+    {
+     "url": "https://bodeguitagt.com/products/crema-para-ojos-nida-revive-para-rostro-y-cuello",
+     "adv": "Bodeguita GT",
+     "pais": "GT",
+     "dias": 21,
+     "nota": "Activo (visto 2026-10-11). 'La Original': bolsitas en los ojos, crema coreana."
+    },
+    {
+     "url": "https://www.ofertazogt.com/products/nida-revive-eye-cream-for-face-and-neck-nida-ultimate-moisturizing-cream",
+     "adv": "Figura & Armonia",
+     "pais": "GT",
+     "dias": 6,
+     "nota": "Empezo 2026-09-21, visto hasta 2026-09-30. Combo Nida Revive + Nida Ultimate: 'alternativa a la clinica estetica, sin agujas'."
+    },
+    {
+     "url": "https://promoexpressgt.com/products/nida-youthful-formula-ultimate-moisturizing-cream",
+     "adv": "Promoexpressgt",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Inactivo (agosto). Nida Youthful Formula, crema hidratante (producto hermano)."
+    },
+    {
+     "url": "https://shappalele.com/products/cuida-tu-piel-con-nida-y-recibe-envio-gratis",
+     "adv": "Shappalele",
+     "pais": "GT",
+     "dias": 8,
+     "nota": "Inactivo (agosto). 'Cuida tu piel con Nida', envio gratis a todo Guatemala."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Bodeguita GT",
+     "pais": "GT",
+     "dias": 21,
+     "score": 31,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1301965031915498",
+     "dk": "https://app.dropkiller.com/dashboard/ads/dbefdf37-8f57-4f87-b772-2862674f261e",
+     "nota": "Video activo 21 dias, el de mayor winner score."
+    },
+    {
+     "adv": "Figura & Armonia",
+     "pais": "GT",
+     "dias": 6,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2092122901692303",
+     "dk": "https://app.dropkiller.com/dashboard/ads/05e9d284-03f7-4ea9-a3ef-957b84ff1b69",
+     "nota": "Video del combo Revive + Ultimate: costo de clinica vs casa."
+    },
+    {
+     "adv": "Shappalele",
+     "pais": "GT",
+     "dias": 8,
+     "score": 0,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2449188732227106",
+     "dk": "https://app.dropkiller.com/dashboard/ads/79920dc2-c8b5-422f-aca1-26875a54679f",
+     "nota": "Video inactivo: piel con brillo natural, envio gratis."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "natural labs organic",
+     "id": "15087",
+     "nombre": "nida ojeras",
+     "costo": 50,
+     "stock": 7403,
+     "v7": 72,
+     "v30": 91,
+     "tv": 100,
+     "ct": "2026-07-18",
+     "alt": ""
+    },
+    {
+     "prov": "kura labs",
+     "id": "19148",
+     "nombre": "nida ojeras (amarillo)",
+     "costo": 57,
+     "stock": 802,
+     "v7": 0,
+     "v30": 3,
+     "tv": 127,
+     "ct": "2026-08-28",
+     "alt": "segundo proveedor del mismo producto (presentacion amarilla); sus cifras propias no llegan a 50 en 7 dias"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/0f2fdaab-d505-4b0b-a187-0c90a31abe17/11c49ee56c4d.webp",
+   "risk": "Bandera roja: 'NIDA' es una marca con tienda oficial (nida.co) que anuncia en Colombia y Peru; Meta puede tumbar la cuenta si se usa el nombre o el logo, vender bajo nombre propio. Tambien cosmetico (registro sanitario): hablar de 'apariencia de ojeras', no de eliminar arrugas ni 'tratamiento'. Creado el 2026-07-18 (89 dias, al limite de la ventana de 90).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=15087&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/0f2fdaab-d505-4b0b-a187-0c90a31abe17",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-07-18",
+   "tv": 100
+  },
+  "2026-10-15_4": {
+   "date": "2026-10-15",
+   "rank": 4,
+   "source": "ia",
+   "name": "2 pijamas Huntrax nina premium",
+   "provider": "laurean by seong woo",
+   "verificado": true,
+   "cats": "moda, ninos",
+   "costo": 95,
+   "pvp": 180,
+   "v7": 92,
+   "v30": 93,
+   "stock": 958,
+   "score": 80,
+   "scores": {
+    "demanda": 5,
+    "traccion": 6,
+    "margen": 3,
+    "competencia": 8,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 189
+   },
+   "verdict": "92 ventas en 7 dias, 93 en 30 y 93 en total, stock 958 con 21 variaciones y 1 proveedor (laurean by seong woo); pero las ventas son de solo 4 dias (1 el 30-sep y 18, 42 y 32 los dias 11, 12 y 13 de octubre), es un pico muy reciente, no una tendencia. No se hallaron anunciantes del mismo producto en GT: puede ser hueco real o que aun no lo pautan.",
+   "angle": "Sin angulo en uso del mismo producto en GT. Pijamas vecinas: Dressy Guatemala (pijama enteriza de personaje, Q299, venta por Meta) y Colorea Pijama (inactiva).",
+   "competition": "0 anunciantes del mismo producto en GT (busqueda por nombre, 'huntrax', foto y categoria). Semaforo 0: cuidado, quiza ya lo probaron y lo apagaron, o nadie lo ha encontrado. Solo hay pijamas vecinas de otras marcas.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "No se hallaron anuncios del mismo SKU en GT (busquedas por nombre, 'huntrax', 'pijamas nina' y por foto, 8 resultados leidos). Se vieron productos vecinos: Dressy Guatemala (pijama enteriza de personaje a Q299), EFashion Store (Colorea Pijama, inactiva) y MIC Guatemala (pijama de Barbie). Sin pruebas de que el mismo producto este pautado. No se verifico en la Biblioteca de Anuncios de Meta.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laurean by seong woo",
+     "id": "17550",
+     "nombre": "2 pijamas huntrax niña premium x 190",
+     "costo": 95,
+     "stock": 958,
+     "v7": 92,
+     "v30": 93,
+     "tv": 93,
+     "ct": "2026-08-13",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/e5edd8e8-1966-43dd-a8e4-f9d695683b37/c3f5442fbbe4.webp",
+   "risk": "Bandera amarilla (ropa infantil con posibles personajes con licencia: Disney, Barbie; no se verifico el diseno real). Pico de 4 dias de venta sin historial previo: puede ser una prueba de otro vendedor o un pedido grande. Sin competencia visible, pero tambien sin validacion publicitaria. Costo Q95 por el set, margen estrecho al PVP sugerido.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=17550&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/e5edd8e8-1966-43dd-a8e4-f9d695683b37",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-08-13",
+   "tv": 93
+  },
+  "2026-10-15_5": {
+   "date": "2026-10-15",
+   "rank": 5,
+   "source": "ia",
+   "name": "Ajedrez magnetico",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "juguetes, hogar, otros",
+   "costo": 47,
+   "pvp": 97,
+   "v7": 58,
+   "v30": 260,
+   "stock": 83,
+   "score": 73,
+   "scores": {
+    "demanda": 5,
+    "traccion": 5,
+    "margen": 2,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 179
+   },
+   "verdict": "58 ventas en 7 dias, 260 en 30 y 389 en total, con venta casi todos los dias (25 de 30) y estable semana a semana, stock 83 (justo sobre el minimo de 80; se repone en ciclos de 100) y 1 proveedor (60 segundos). Solo 2 anunciantes en GT, uno de ellos con 8 anuncios activos de la version MagnaChess: muy buena senal, pero el stock chico es el riesgo.",
+   "angle": "Ya en uso en GT: 'regala diversion y aprendizaje en familia' (WhatsApp, 282 dias) y 'MagnaChess: pon a prueba tu estrategia', 35 % de descuento. Hueco: menos pantalla, viajes, amigo secreto y abuelos.",
+   "competition": "2 anunciantes en GT (Nova Hogar GT con 8 anuncios activos y Pa Tu casa Store por WhatsApp). Semaforo 1-2: muy buena senal. El anuncio mas viejo lleva 282 dias.",
+   "anWA": 1,
+   "anLand": 1,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos en GT (busqueda por nombre y por foto, 9 resultados leidos): Nova Hogar GT (landing propia 'MagnaChess', 8 anuncios activos desde 2026-09-16, oferta 35 %) y Pa Tu casa Store (WhatsApp, video activo desde 2026-01-05, anterior a la fecha de creacion del producto en Dropi, probable otro proveedor). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta.",
+   "tiendas": [
+    {
+     "url": "https://novahogarguatemala.com/products/magnachess",
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 26,
+     "nota": "Activo (visto 2026-10-13), 8 anuncios. 'MagnaChess': juego magnetico en familia, oferta del 35 %."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Pa Tu casa Store",
+     "pais": "GT",
+     "dias": 282,
+     "nota": "Solo WhatsApp, activo hace 282 dias (2026-01-05). 'Regala diversion, aprendizaje y momentos en familia'."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Pa Tu casa Store",
+     "pais": "GT",
+     "dias": 282,
+     "score": 63,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1420774632812703",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d7af39c2-c52f-4d9b-8ee1-d7a4cf528b57",
+     "nota": "Video de 282 dias activo, el de mayor winner score."
+    },
+    {
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 26,
+     "score": 35,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1534351191796619",
+     "dk": "https://app.dropkiller.com/dashboard/ads/213808ca-06f5-4054-83f0-c175650e334e",
+     "nota": "Video activo 26 dias: 'Otra tarde sin saber que hacer en familia?'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "60 segundos",
+     "id": "20243",
+     "nombre": "ajedrez magnetico",
+     "costo": 47,
+     "stock": 83,
+     "v7": 58,
+     "v30": 260,
+     "tv": 389,
+     "ct": "2026-09-02",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/c2e736e2-582c-4163-be6b-47e4623cf894/9b0f64c421c0.webp",
+   "risk": "Sin bandera de marca ni de salud. Stock 83: con 8 ventas al dia se agota en 10 dias y el historial muestra caidas a 2 y 10 unidades antes de cada reabasto (riesgo de quiebre). Ventas 7d en 58, apenas sobre el minimo de 50. La version 'MagnaChess' de Nova Hogar es una marca propia.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20243&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/c2e736e2-582c-4163-be6b-47e4623cf894",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-02",
+   "tv": 389
   }
  },
  "validations": {
@@ -8461,6 +8955,2229 @@
    ],
    "resumen": "58 leidos con los filtros de entrada (creado desde 2026-07-16, stock 80 o mas, 7d 50 o mas, total 50 o mas). El filtro que mas corto fue el rango 50-800 de las tres ventas: 18 de 58 quedaron fuera. De los 40 en rango: 10 finalistas, 12 repetidos de los ultimos 20 dias, 8 con 3 o mas proveedores o listados del mismo producto, 3 para adultos, 1 por bandera (Derman) y 6 que cumplen pero no se analizaron a fondo por el cupo de 10 (estan en la tabla como \"cumple, sin analizar\"). La meta de 120 filas no se alcanzo: el catalogo solo tiene 58 que pasen el piso de 50 ventas en 7 dias; para ampliar, bajar minSold7d a 30.",
    "revisar": "Vacia. Es la primera corrida del radar y no hay memoria previa: las gemas (3 corridas seguidas con ventas estables) y los despegues (descartados que duplican ventas) solo pueden aparecer desde la segunda corrida. Los 58 productos de hoy quedaron guardados en memoria.json con su veredicto para comparar la proxima vez."
+  },
+  "2026-10-15": {
+   "date": "2026-10-15",
+   "source": "ia",
+   "titulo": "Radar Caza Diaria · 2026-10-15",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (sin navegador)",
+   "veredicto": "Veredicto. Hoy, 2026-10-15, DropKiller devolvio 60 productos GT/Dropi creados desde el 2026-07-17 con stock de 80 o mas y 50 o mas ventas en 7 dias; 42 tienen 7d, 30d y total entre 50 y 800 y solo 7 pasan todos los filtros (1 o 2 proveedores y sin repetir los ultimos 20 dias). El mejor es la Lampara solar portatil de clip (12/15, 3 anunciantes en GT, zona dulce), pero con flete Q68 y CPA Q20 solo Nida llega a utilidad positiva (Q6.4 con 2 unidades) y ninguno pasa de Q30 por pedido, asi que hay que medir flete y CPA reales antes de pautar.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador); los anuncios salen de la biblioteca de DropKiller (busqueda por nombre y por foto del producto) y se leyeron solo los primeros resultados por producto, asi que los conteos de tiendas son minimos. Los referentes fuera de GT se tomaron de DropKiller y se marcan como mismo producto por nombre, foto y landing; no se confirmo a ojo. No se uso Fasebook, Vercel ni ArtifactData. Aviso de repeticion: la regla se aplico solo contra los nombres de las tarjetas (hunt y radar del 14-oct); Lampara solar, Nida ojeras, Ajedrez magnetico salieron ayer como fichas 'solo informe' (7, 8 y 10) y Visionmiel (ayer ficha 6) se descarto hoy por ser el mismo producto que Oftamiel. Los eslabones de Amazon/AliExpress ya estan en el tablero.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Lámpara solar portátil de clip",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/a515042c-6707-46d3-be04-7565eadc6104/a584b722efa6.webp",
+     "v": "67 ventas en 7 dias, 369 en 30 y 375 en total, con venta en 19 de los ultimos 30 dias, stock 207 (se repone: el historial muestra reabastos) y 1 solo proveedor (60 segundos). Tiene 3 anunciantes en GT, todos entraron entre el 23 de septiembre y el 13 de octubre: zona dulce todavia joven, pero con oferta 2x1 ya en uso, asi que solo entra con angulo nuevo.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "67"
+      ],
+      [
+       "30d",
+       "369"
+      ],
+      [
+       "Total",
+       "375"
+      ],
+      [
+       "Stock",
+       "207"
+      ],
+      [
+       "Costo",
+       "Q50"
+      ],
+      [
+       "PVP sug.",
+       "Q100"
+      ],
+      [
+       "Creado",
+       "2026-09-10"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 1 · Funcion en foto 3 · Angulos nuevos 3 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q179; utilidad estimada por pedido generado: Q-24.6. Con 1 unidad al PVP sugerido: Q-42.6. Reprecio a 2,5 x costo (Q125): Q-27.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "60 segundos",
+         "22002",
+         "lampara solar portatil de clip",
+         "Q50",
+         "207",
+         "67/369/375",
+         "2026-09-10"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 3 anunciante(s) · 3-8 zona dulce",
+       "p": "3 anunciantes distintos en GT con landing propia (busqueda por nombre; 3 resultados, uno por anunciante): Treat Deal Store (imagen, empezo 2026-10-13), CONFORTIA (video activo 8 dias, 'Lleva 2 o 3 y ahorra por pieza', envio gratis), Nova Hogar GT (video 'Paga 1 y Lleva 2 ClipBeam'; DropKiller lo marca activo pero no lo ve hace 14 dias). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Treat Deal Store: Imagen activa: 'Luz automatica cuando la necesitas'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1065446846494902"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/c495564a-63ee-48bb-bad8-937829c3fd02"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · CONFORTIA: Video activo 8 dias, el de mayor winner score: oferta 2 o 3 piezas.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1529099819264035"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/e3831bb1-2708-4d24-9302-5bfa82e3c3cd"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Nova Hogar GT: Video 'Paga 1 y Lleva 2' (marca ClipBeam); sin verse activo desde 2026-10-01.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1105345939093682"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/95adf204-7994-4281-901d-498b91e00821"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Treat Deal Store: Activo desde 2026-10-13. Imagen: 'Luz automatica cuando la necesitas', sensor de movimiento, clip ajustable, sin cables.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://www.treatdeal.store/products/lampara-solar-portatil-de-clip"
+          }
+         ]
+        },
+        {
+         "t": "Landing · CONFORTIA: Activo. Video con oferta 'Lleva 2 o 3 y ahorra por pieza', envio gratis; ilumina entrada, patio, escalera y balcon.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://confortia.myshopify.com/products/lampara-solar-portatil-de-clip"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Nova Hogar GT: Empezo 2026-09-23; ultima vez visto activo 2026-10-01. Marca propia 'ClipBeam', oferta paga 1 y lleva 2.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://novahogarguatemala.com/products/2x1-clipbeam"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (5 tienda(s), 0 imagen(es), 5 video(s))",
+       "ul": [
+        {
+         "t": "Mismo producto por nombre, foto y modelo YX-525 en las landings; no se verifico con Biblioteca de Meta. En Chile la lampara ya se vende con 2x1 y pago contra entrega (hasta 8 tiendas vistas; se listan 5).",
+         "l": []
+        },
+        {
+         "t": "Tienda · Pepo Soluciones (PY, 10 dias): Activo. 'LumiClip': luz solar con clip, encendido automatico al detectar movimiento.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://buypepopy.com/products/luz-solar-con-clip"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Homerito Delivery (CL, 1 dias): Activo. Modelo YX-525: 'luz automatica sin cables'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://homeritodelivery.com/products/lampara-solar-con-clip-sensor-yx-525"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Zona Market Chile (CL, 6 dias): Activo. YX-525, pide y paga en casa (pago contra entrega).",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://zonamarketchile.com/products/lampara-solar-con-clip-sensor-yx-525"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Valkyria (CL, 22 dias): Inactivo (visto por ultima vez 2026-08-08). Promo 2x1 SolarClip; 22 dias de pauta.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://tiendavalkyria.com/products/promo-2x1-solarclip-lampara-led-con-sensor-y-carga-solar-ilumina-sin-cables-ni-electricidad"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · MercantoChile (CL, 4 dias): Inactivo (julio). Oferta 2x1, pago al recibir.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://www.mercantochile.com/products/lampara-solar-con-clip-y-sensor-de-movimiento-oferta-2x1"
+          }
+         ]
+        },
+        {
+         "t": "Video · Pepo Soluciones (PY, 10 dias, score 24): Video activo 10 dias: 'Tu exterior queda a oscuras de noche?'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1594664738872662"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/310c7e73-3b23-4d5e-9572-b4372671e29a"
+          }
+         ]
+        },
+        {
+         "t": "Video · Homerito Delivery (CL, 1 dias, score 19): Video 'Luz automatica sin cables'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1536971704897277"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/7881b79a-255d-42fc-89d1-a300c5eb3f6e"
+          }
+         ]
+        },
+        {
+         "t": "Video · Zona Market Chile (CL, 6 dias, score 23): Video 'Ilumina donde lo necesites, sin cables ni taladros'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1409031997780726"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/22255c00-9f6d-422c-8eda-4b1731be2eba"
+          }
+         ]
+        },
+        {
+         "t": "Video · Valkyria (CL, 22 dias, score 41): Video de 22 dias, el de mayor winner score: testimonio 'lugares oscuros en mi casa', promo 2x1.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1568266748372703"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/f5090aeb-6937-4a33-8bf0-924f36aca54f"
+          }
+         ]
+        },
+        {
+         "t": "Video · Elmejorr us (MX, 0 dias, score 34): Video inactivo: 'sin cables, sin agujeros, sin aumentar tu factura de luz'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2056115961661975"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/ff12b73a-0550-4396-8181-2f76a470a803"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Luz automatica cuando la necesitas (sensor de movimiento, solar, sin cables); lleva 2 o 3 y ahorra por pieza; paga 1 y lleva 2. Todo en video corto de beneficio. Ya en uso en GT: 'luz automatica cuando la necesitas', lleva 2 o 3 / paga 1 lleva 2. Hueco: seguridad de adultos mayores y ninos de noche, negocios pequenos y fincas sin energia, con oferta de 2 lamparas y pago al recibir."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Familias con adultos mayores o ninos que se levantan de noche",
+         "s": "Gancho: Que nadie tropiece de madrugada: una luz que se enciende sola en el pasillo, sin cables ni instalacion."
+        },
+        {
+         "b": "Duenos de negocios pequenos, bodegas, talleres y parqueos",
+         "s": "Gancho: Tu porton y tu bodega a oscuras son una invitacion: ilumina la entrada sin pagar electricista."
+        },
+        {
+         "b": "Duenos de finca, lote o casa de campo sin energia electrica",
+         "s": "Gancho: Una luz que se carga con el sol y la llevas a donde no llega el cable."
+        },
+        {
+         "b": "Inquilinos que no pueden perforar paredes",
+         "s": "Gancho: Se coloca con un clip y te la llevas cuando te mudas: luz exterior sin taladro ni permiso del dueno."
+        },
+        {
+         "b": "Compradores de regalo y de fin de ano (casa, patio, familia)",
+         "s": "Gancho: El regalo practico de diciembre: lleva 2 y alumbra la entrada y el patio, pago al recibir."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin bandera de marca ni de salud. Producto con bateria/panel solar: confirmar autonomia real y garantia con el proveedor (el stock se repone a saltos: pico de 1 a 221 unidades en el historial). Competidores con oferta 2x1 ya instalada."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 22002)",
+       "u": "https://app.dropi.gt/dashboard/search?search=22002&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/a515042c-6707-46d3-be04-7565eadc6104"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Chaleco Divine Curves",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/667f4aab-4691-4a32-8b7f-d89093472992/893bef98d592.webp",
+     "v": "69 ventas en 7 dias, 120 en 30 y 420 en total, stock 1830 y 1 proveedor (chicas empire fajas); vendio en 25 de los ultimos 30 dias, pero 61 de las 69 ventas de la semana cayeron en los dos ultimos dias (20 y 41). 3 anunciantes en GT (zona dulce); un competidor lo anuncia a Q250 pagando al recibir, que con costo Q145 aun no cierra.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "69"
+      ],
+      [
+       "30d",
+       "120"
+      ],
+      [
+       "Total",
+       "420"
+      ],
+      [
+       "Stock",
+       "1830"
+      ],
+      [
+       "Costo",
+       "Q145"
+      ],
+      [
+       "PVP sug.",
+       "Q180"
+      ],
+      [
+       "Creado",
+       "2026-08-02"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 3 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 1 unidad(es) a Q249; utilidad estimada por pedido generado: Q-9.1. Con 1 unidad al PVP sugerido: Q-51.9. Reprecio a 2,5 x costo (Q362): Q61.0. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos. Nota: a 2,5 x costo (Q362) dejaria utilidad positiva, pero queda muy por encima del Q250 al que ya se anuncia en GT; a Q249 (precio visto en GT) pierde Q9 por pedido."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "chicas empire fajas",
+         "16402",
+         "chaleco divine curves",
+         "Q145",
+         "1830",
+         "69/120/420",
+         "2026-08-02"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 3 anunciante(s) · 3-8 zona dulce",
+       "p": "3 anunciantes distintos en GT que nombran el 'Chaleco Divine Curves' (busqueda por nombre y por significado/foto, 12 resultados leidos): Bucefalo (landing Shopify, video desde 2026-09-21), GUATE ventas GT (Q250 pagando al recibir, visto hasta 2026-09-09) y Clic y Compras (WhatsApp, visto hasta 2026-08-25). Hay otros chalecos/fajas vecinos (Quetza 'Faja Curve', Floralshe) que no cuentan como el mismo SKU. No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Bucefalo: Video 15 dias, el de mayor winner score.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1181753787750919"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/d77533a9-6c2d-4461-b0b2-27d72380f326"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · GUATE ventas GT: Video de 26 dias con precio Q250 al recibir; visto hasta 2026-09-09.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1369084815202006"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/e7e4e285-bde4-405e-b774-c25dc1882584"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Clic y Compras: Video por WhatsApp, angulo de postura.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4462368704091146"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/86d817dc-73de-4110-b2d2-e5588186fd76"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Bucefalo: Activo (visto 2026-10-06). Video del chaleco, landing propia.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://bucefalogt.myshopify.com/products/chaleco-divine-curves?pb=0"
+          }
+         ]
+        },
+        {
+         "t": "Landing · GUATE ventas GT: Visto hasta 2026-09-09. Precio Q250 pagando al recibir; 'control de abdomen, moldeo de cintura'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://6krrtc-p7.myshopify.com/products/corset-reductor-de-cintura-moldeador"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (2 tienda(s), 0 imagen(es), 2 video(s))",
+       "ul": [
+        {
+         "t": "Solo se hallo la marca de origen (Divine Curves, Colombia) con 2 landings y 2 anuncios; las variantes 9 y 11 varillas pueden no ser identicas a la de Dropi. No hay mas tiendas del mismo producto fuera de GT en lo leido.",
+         "l": []
+        },
+        {
+         "t": "Tienda · Divine Curves (CO, 1 dias): Activo. Variante 'Chaleco Moldeador de 11 varillas con brasier', envio gratis y pago al recibir.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://divinecurvess.store/products/chaleco-extremo-11-varillas-con-brasier"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Divine Curves (CO, 50 dias): Inactivo (visto hasta 2026-07-19). Variante 9 varillas; 50 dias de pauta y 9 videos.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://divinecurves.store/products/chaleco-extremo-9-varillas"
+          }
+         ]
+        },
+        {
+         "t": "Video · Divine Curves (CO, 1 dias, score 23): Video del chaleco de 11 varillas con brasier.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1098129939489777"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/f8ad7b63-4eaa-466f-a341-00d1453d5eec"
+          }
+         ]
+        },
+        {
+         "t": "Video · Divine Curves (CO, 50 dias, score 0): Video del chaleco de 9 varillas, 50 dias, inactivo.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=971917718764442"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/a0822a1a-05e8-44cb-b217-55d8af111b1b"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Chaleco con varillas que 'define tu silueta' y 'control de abdomen'; mejor postura y cintura definida; precio Q250 pagando al recibir con envio gratis. Ya en uso en GT: 'Chaleco Divine Curves Q250 paga al recibir', 'mejor postura y cintura definida, envio gratis'. Hueco: oficinistas por postura, soporte posparto sin prometer reduccion, vestido de fin de ano."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Oficinistas y teletrabajadoras que pasan 8 horas sentadas",
+         "s": "Gancho: Espalda recta sin esfuerzo: el chaleco con varillas que te recuerda sentarte bien y marca la cintura bajo la blusa."
+        },
+        {
+         "b": "Mamas con bebe de 3 a 12 meses que cargan todo el dia (lenguaje de soporte, sin prometer reduccion)",
+         "s": "Gancho: Soporte para tu espalda y tu abdomen cuando cargas al bebe, con pago al recibir."
+        },
+        {
+         "b": "Invitadas a bodas, graduaciones y fiestas de fin de ano",
+         "s": "Gancho: Para ese vestido de diciembre: define la cintura bajo la ropa y nadie nota que la llevas."
+        },
+        {
+         "b": "Mujeres que ya probaron fajas incomodas o que se enrollan",
+         "s": "Gancho: Cansada de fajas que se enrollan? Elige tu talla y pagas hasta que lo tengas en la mano."
+        },
+        {
+         "b": "Compradoras de regalo (hermanas, amigas, parejas) y de oferta",
+         "s": "Gancho: Compra para ti y para tu hermana: dos chalecos con envio y pago al recibir."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: nombre con marca ('Divine Curves' tiene tienda propia en Colombia), conviene vender bajo nombre propio. Evitar promesas de bajar de peso o 'quemar grasa'; hablar de soporte, postura y apariencia. Costo alto (Q145): con PVP Q250 aun pierde Q9 por pedido generado con los valores de referencia. Ventas de la semana concentradas en 2 dias."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 16402)",
+       "u": "https://app.dropi.gt/dashboard/search?search=16402&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/667f4aab-4691-4a32-8b7f-d89093472992"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Nida crema de ojeras (Nida Revive)",
+     "tags": [
+      {
+       "t": "Bandera roja",
+       "c": "ro"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/0f2fdaab-d505-4b0b-a187-0c90a31abe17/11c49ee56c4d.webp",
+     "v": "72 ventas en 7 dias, 91 en 30 y 100 en total, stock 7403 y 2 proveedores (natural labs organic y kura labs); casi todo vendio desde el 11 de octubre (24, 21, 12 y 14 al dia), asi que es un arranque de 4 dias. 4 anunciantes en GT (zona dulce) y la marca NIDA anuncia su crema original a US$11-13 en Colombia y Peru: entra solo con angulo nuevo y nombre propio.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "72"
+      ],
+      [
+       "30d",
+       "91"
+      ],
+      [
+       "Total",
+       "100"
+      ],
+      [
+       "Stock",
+       "7403"
+      ],
+      [
+       "Costo",
+       "Q50"
+      ],
+      [
+       "PVP sug.",
+       "Q129"
+      ],
+      [
+       "Creado",
+       "2026-07-18"
+      ],
+      [
+       "Proveedores",
+       "2"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 3 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q229; utilidad estimada por pedido generado: Q6.4. Con 1 unidad al PVP sugerido: Q-24.6. Reprecio a 2,5 x costo (Q125): Q-27.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "natural labs organic",
+         "15087",
+         "nida ojeras",
+         "Q50",
+         "7403",
+         "72/91/100",
+         "2026-07-18"
+        ],
+        [
+         "kura labs",
+         "19148",
+         "nida ojeras (amarillo)",
+         "Q57",
+         "802",
+         "0/3/127",
+         "2026-08-28"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 4 anunciante(s) · 3-8 zona dulce",
+       "p": "Minimo 4 anunciantes distintos en GT con landing propia (busqueda por foto y por nombre, 15 resultados leidos): Bodeguita GT (video activo 21 dias, 'La Original'), Figura & Armonia (combo Revive + Ultimate, 6 creativos desde 2026-09-21), Promoexpressgt y Shappalele (inactivos desde agosto). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Bodeguita GT: Video activo 21 dias, el de mayor winner score.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1301965031915498"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/dbefdf37-8f57-4f87-b772-2862674f261e"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Figura & Armonia: Video del combo Revive + Ultimate: costo de clinica vs casa.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2092122901692303"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/05e9d284-03f7-4ea9-a3ef-957b84ff1b69"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Shappalele: Video inactivo: piel con brillo natural, envio gratis.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2449188732227106"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/79920dc2-c8b5-422f-aca1-26875a54679f"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Bodeguita GT: Activo (visto 2026-10-11). 'La Original': bolsitas en los ojos, crema coreana.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://bodeguitagt.com/products/crema-para-ojos-nida-revive-para-rostro-y-cuello"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Figura & Armonia: Empezo 2026-09-21, visto hasta 2026-09-30. Combo Nida Revive + Nida Ultimate: 'alternativa a la clinica estetica, sin agujas'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://www.ofertazogt.com/products/nida-revive-eye-cream-for-face-and-neck-nida-ultimate-moisturizing-cream"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Promoexpressgt: Inactivo (agosto). Nida Youthful Formula, crema hidratante (producto hermano).",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://promoexpressgt.com/products/nida-youthful-formula-ultimate-moisturizing-cream"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Shappalele: Inactivo (agosto). 'Cuida tu piel con Nida', envio gratis a todo Guatemala.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://shappalele.com/products/cuida-tu-piel-con-nida-y-recibe-envio-gratis"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (5 tienda(s), 0 imagen(es), 5 video(s))",
+       "ul": [
+        {
+         "t": "Los referentes son la marca de origen (NIDA) y sus revendedores en CO/PE/EC; 3 de las 5 piezas comparten la misma landing oficial. Es el mismo producto 'Nida Revive Eye Cream'.",
+         "l": []
+        },
+        {
+         "t": "Tienda · NIDA Skincare (tienda oficial) (CO, 27 dias): Activo 27 dias. Crema de ojos coreana a US$11.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://nida.co/es/products/revive-eye-cream"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Korean Skincare 101 (PE, 15 dias): Activo. Misma landing oficial, 'La crema de ojos coreana por solo US$12.99'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://nida.co/es/products/revive-eye-cream"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Vsdv (CO, 5 dias): Activo. Misma landing oficial, hook 'tu crema de ojos no llega a la mandibula'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://nida.co/es/products/revive-eye-cream"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Dermavive Ec (EC, 1 dias): WhatsApp. 'Ojeras y lineas de expresion, fuera': Nida Revive con retinal, 5 peptidos y probioticos.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://api.whatsapp.com/send"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Go Shopping (CO, 30 dias): WhatsApp, activo 30 dias, envio gratis; mirada y cuello.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://api.whatsapp.com/send"
+          }
+         ]
+        },
+        {
+         "t": "Video · NIDA Skincare (CO, 27 dias, score 48): Video oficial de 27 dias: 'Tu crema de ojos no llega a la mandibula'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1408394288083389"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/b73cb538-c49d-44fc-8178-0c5987365fe0"
+          }
+         ]
+        },
+        {
+         "t": "Video · Korean Skincare 101 (PE, 8 dias, score 39): Video PE, misma pieza del hook de la mandibula.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=28766995132941850"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/a620a975-9c68-4e01-b898-7792b009f5f3"
+          }
+         ]
+        },
+        {
+         "t": "Video · Korean Skincare 101 (PE, 15 dias, score 36): Video PE de 15 dias.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1734346297646718"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/9d3803a3-1229-4922-85b3-78c91af0b7e1"
+          }
+         ]
+        },
+        {
+         "t": "Video · Vsdv (CO, 5 dias, score 29): Video CO activo, hook de la franja olvidada.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4045099285797214"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/ef5250c2-d766-475c-b94d-96d777ae075c"
+          }
+         ]
+        },
+        {
+         "t": "Video · Go Shopping (CO, 30 dias, score 25): Video CO por WhatsApp, 30 dias activo.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1634753004974214"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/9fb0c98a-c84b-4f12-b23b-954abb794d63"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "'La Original' contra las imitaciones; rutina simple coreana de una crema; combo Revive + Ultimate como tratamiento facial completo 'desde casa, sin agujas'; descuento 30 % en una tienda inactiva. Ya en uso en GT: 'la original', rutina simple coreana, combo Nida Revive + Nida Ultimate como tratamiento completo desde casa. Hueco: mujeres que duermen poco, hombres, cuello y regalo de fin de ano."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres de 35 a 50 que duermen poco (mamas con bebe, enfermeras, turnos)",
+         "s": "Gancho: Tu cara de cansada no es falta de sueno: contorno de ojos en 3 minutos antes de dormir."
+        },
+        {
+         "b": "Hombres de 30 a 50 con cuidado basico (oficina, barba)",
+         "s": "Gancho: Una sola crema para ojos, rostro y cuello: sin rutina de 10 pasos."
+        },
+        {
+         "b": "Mujeres de 45 o mas que notan el cuello y el contorno",
+         "s": "Gancho: Tu crema de ojos no llega al cuello: una sola para ojos, rostro y cuello."
+        },
+        {
+         "b": "Regalo de fin de ano para mama, tia o madrina",
+         "s": "Gancho: El regalo que si usa todos los dias: crema coreana en caja, pago al recibir."
+        },
+        {
+         "b": "Compradoras de oferta que comparan precio (publico frio)",
+         "s": "Gancho: Lleva 2: una para ti y otra para tu mama, envio gratis y pago hasta que llegue."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera roja: 'NIDA' es una marca con tienda oficial (nida.co) que anuncia en Colombia y Peru; Meta puede tumbar la cuenta si se usa el nombre o el logo, vender bajo nombre propio. Tambien cosmetico (registro sanitario): hablar de 'apariencia de ojeras', no de eliminar arrugas ni 'tratamiento'. Creado el 2026-07-18 (89 dias, al limite de la ventana de 90)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 15087)",
+       "u": "https://app.dropi.gt/dashboard/search?search=15087&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/0f2fdaab-d505-4b0b-a187-0c90a31abe17"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "2 pijamas Huntrax niña premium",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/e5edd8e8-1966-43dd-a8e4-f9d695683b37/c3f5442fbbe4.webp",
+     "v": "92 ventas en 7 dias, 93 en 30 y 93 en total, stock 958 con 21 variaciones y 1 proveedor (laurean by seong woo); pero las ventas son de solo 4 dias (1 el 30-sep y 18, 42 y 32 los dias 11, 12 y 13 de octubre), es un pico muy reciente, no una tendencia. No se hallaron anunciantes del mismo producto en GT: puede ser hueco real o que aun no lo pautan.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "92"
+      ],
+      [
+       "30d",
+       "93"
+      ],
+      [
+       "Total",
+       "93"
+      ],
+      [
+       "Stock",
+       "958"
+      ],
+      [
+       "Costo",
+       "Q95"
+      ],
+      [
+       "PVP sug.",
+       "Q180"
+      ],
+      [
+       "Creado",
+       "2026-08-13"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 1 unidad(es) a Q189; utilidad estimada por pedido generado: Q-15.3. Con 1 unidad al PVP sugerido: Q-20.9. Reprecio a 2,5 x costo (Q238): Q15.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "laurean by seong woo",
+         "17550",
+         "2 pijamas huntrax niña premium x 190",
+         "Q95",
+         "958",
+         "92/93/93",
+         "2026-08-13"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciantes · semaforo 0 cuidado",
+       "p": "No se hallaron anuncios del mismo SKU en GT (busquedas por nombre, 'huntrax', 'pijamas nina' y por foto, 8 resultados leidos). Se vieron productos vecinos: Dressy Guatemala (pijama enteriza de personaje a Q299), EFashion Store (Colorea Pijama, inactiva) y MIC Guatemala (pijama de Barbie). Sin pruebas de que el mismo producto este pautado. No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se hallo ningun referente fuera de GT del MISMO producto (hay pijamas de personajes de Cosmic Dreams Colombia con oferta 'paga 2 lleva 3', pero es un producto vecino, no verificable como el mismo). Se deja vacio, sin rellenar.",
+         "l": []
+        },
+        {
+         "t": "Sin referentes del mismo producto fuera de GT.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Ninguno del mismo producto en GT. Vecinos: pijama enteriza de personaje a Q299, 'la pijama que se pinta y se lava'. Sin angulo en uso del mismo producto en GT. Pijamas vecinas: Dressy Guatemala (pijama enteriza de personaje, Q299, venta por Meta) y Colorea Pijama (inactiva)."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mamas de ninas de 4 a 12 anos que renuevan el ropero",
+         "s": "Gancho: Dos pijamas premium en un solo pedido: la hora de dormir sin pelear por la ropa."
+        },
+        {
+         "b": "Abuelas, tias y madrinas que buscan regalo de cumpleanos o navidad",
+         "s": "Gancho: El regalo que si se usa: set de 2 pijamas listo para entregar, pago al recibir."
+        },
+        {
+         "b": "Familias del altiplano (Xela, Totonicapan, Chimaltenango) en noches frias",
+         "s": "Gancho: Noches frias de noviembre a enero: pijamas abrigadas para toda la temporada."
+        },
+        {
+         "b": "Mamas con dos hijas (hermanas)",
+         "s": "Gancho: Una para cada una, el mismo diseno: se acabaron las peleas por la pijama."
+        },
+        {
+         "b": "Compradoras que prefieren evitar el centro comercial (publico frio)",
+         "s": "Gancho: Elige talla y color entre 21 variaciones y pagas al recibir, sin salir de casa."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla (ropa infantil con posibles personajes con licencia: Disney, Barbie; no se verifico el diseno real). Pico de 4 dias de venta sin historial previo: puede ser una prueba de otro vendedor o un pedido grande. Sin competencia visible, pero tambien sin validacion publicitaria. Costo Q95 por el set, margen estrecho al PVP sugerido."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 17550)",
+       "u": "https://app.dropi.gt/dashboard/search?search=17550&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/e5edd8e8-1966-43dd-a8e4-f9d695683b37"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Ajedrez magnético",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/c2e736e2-582c-4163-be6b-47e4623cf894/9b0f64c421c0.webp",
+     "v": "58 ventas en 7 dias, 260 en 30 y 389 en total, con venta casi todos los dias (25 de 30) y estable semana a semana, stock 83 (justo sobre el minimo de 80; se repone en ciclos de 100) y 1 proveedor (60 segundos). Solo 2 anunciantes en GT, uno de ellos con 8 anuncios activos de la version MagnaChess: muy buena senal, pero el stock chico es el riesgo.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "58"
+      ],
+      [
+       "30d",
+       "260"
+      ],
+      [
+       "Total",
+       "389"
+      ],
+      [
+       "Stock",
+       "83"
+      ],
+      [
+       "Costo",
+       "Q47"
+      ],
+      [
+       "PVP sug.",
+       "Q97"
+      ],
+      [
+       "Creado",
+       "2026-09-02"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 3 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q179; utilidad estimada por pedido generado: Q-20.9. Con 1 unidad al PVP sugerido: Q-42.6. Reprecio a 2,5 x costo (Q118): Q-29.5. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "60 segundos",
+         "20243",
+         "ajedrez magnetico",
+         "Q47",
+         "83",
+         "58/260/389",
+         "2026-09-02"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena señal",
+       "p": "2 anunciantes distintos en GT (busqueda por nombre y por foto, 9 resultados leidos): Nova Hogar GT (landing propia 'MagnaChess', 8 anuncios activos desde 2026-09-16, oferta 35 %) y Pa Tu casa Store (WhatsApp, video activo desde 2026-01-05, anterior a la fecha de creacion del producto en Dropi, probable otro proveedor). Puede haber mas fuera de lo leido. No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Pa Tu casa Store: Video de 282 dias activo, el de mayor winner score.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1420774632812703"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/d7af39c2-c52f-4d9b-8ee1-d7a4cf528b57"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Nova Hogar GT: Video activo 26 dias: 'Otra tarde sin saber que hacer en familia?'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1534351191796619"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/213808ca-06f5-4054-83f0-c175650e334e"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Nova Hogar GT: Activo (visto 2026-10-13), 8 anuncios. 'MagnaChess': juego magnetico en familia, oferta del 35 %.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://novahogarguatemala.com/products/magnachess"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (2 tienda(s), 0 imagen(es), 4 video(s))",
+       "ul": [
+        {
+         "t": "Referentes del mismo tipo de producto (ajedrez/juego magnetico, MagnaChess/Magnet Clash); ninguno esta activo y con winner score 0, asi que sirven de inspiracion de guion, no de validacion. Solo 2 tiendas halladas, no 5.",
+         "l": []
+        },
+        {
+         "t": "Tienda · ClickExpress Py (PY, 1 dias): Inactivo (julio). 'MagnaChess / Battle Chess', pago contra entrega, noches de familia sin pantalla.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://pediloexpresspyy.com/products/magnachess-juego-magn-tico-de-mesa-estrat-gico-noches-de-diversi-n-en-familia-sin-pantalla"
+          }
+         ]
+        },
+        {
+         "t": "Tienda · Milgenial (UY, 2 dias): Inactivo (agosto). 'Magnet Clash': ajedrez magnetico educativo, garantia de devolucion de 100 %. Pais deducido por el dominio (DropKiller lo marca ALL).",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://milgenialuruguay.com/products/juego-de-ajedrez-mgnetico-magnet-clash"
+          }
+         ]
+        },
+        {
+         "t": "Video · ClickExpress Py (PY, 1 dias, score 0): Video inactivo: 'los juegos de mesa comunes terminan siempre igual'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1430760202580518"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/a16c489d-23fc-49ac-b677-d30d17aab275"
+          }
+         ]
+        },
+        {
+         "t": "Video · ClickExpress Py (PY, 1 dias, score 0): Video inactivo: 'cada uno mira su celular por separado'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=27391950727081034"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/5def37db-b8c4-4607-8602-3506864f2e04"
+          }
+         ]
+        },
+        {
+         "t": "Video · Milgenial (UY, 2 dias, score 0): Video inactivo: aprender jugando, pensamiento logico.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1692043328689914"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/4bb4da28-5e38-43ba-ab1a-d267b8e4686e"
+          }
+         ]
+        },
+        {
+         "t": "Video · Milgenial (UY, 2 dias, score 0): Video inactivo, variante de la misma pieza.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3549841861838070"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/4fac5937-6019-4257-8f06-6df747fbf213"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Regalo educativo en familia, MagnaChess con 35 % de descuento, 'otra tarde sin saber que hacer en familia'. Ya en uso en GT: 'regala diversion y aprendizaje en familia' (WhatsApp, 282 dias) y 'MagnaChess: pon a prueba tu estrategia', 35 % de descuento. Hueco: menos pantalla, viajes, amigo secreto y abuelos."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Papas de ninos de 6 a 12 que quieren menos pantalla",
+         "s": "Gancho: 20 minutos sin tablet: un ajedrez cuyas piezas no se caen aunque el carro se mueva."
+        },
+        {
+         "b": "Abuelos y adultos mayores que quieren jugar con los nietos",
+         "s": "Gancho: Un juego facil de ver y de mover: piezas imantadas que no se pierden en la mesa."
+        },
+        {
+         "b": "Familias que viajan en bus, carro o van a la playa y lago",
+         "s": "Gancho: Se juega en el bus, en la lancha o en la playa porque las piezas se pegan al tablero."
+        },
+        {
+         "b": "Amigo secreto y regalos de fin de ano (oficina, colegio)",
+         "s": "Gancho: El regalo de amigo secreto que si se usa: ajedrez magnetico plegable, pago al recibir."
+        },
+        {
+         "b": "Estudiantes y clubes de ajedrez de colegio",
+         "s": "Gancho: Practica tus aperturas donde sea: tablero magnetico portatil para entrenar."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin bandera de marca ni de salud. Stock 83: con 8 ventas al dia se agota en 10 dias y el historial muestra caidas a 2 y 10 unidades antes de cada reabasto (riesgo de quiebre). Ventas 7d en 58, apenas sobre el minimo de 50. La version 'MagnaChess' de Nova Hogar es una marca propia."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 20243)",
+       "u": "https://app.dropi.gt/dashboard/search?search=20243&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/c2e736e2-582c-4163-be6b-47e4623cf894"
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "nombre": "Brazier tira ancha cómodo",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Solo informe",
+       "c": "gr"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/2e374e17-9cc5-4e09-936b-6881418d20e6/723d19ab3839.webp",
+     "v": "54 ventas en 7 dias, 106 en 30 y 108 en total (venta casi diaria desde el 30 de septiembre), stock 2892 con 12 variaciones y 1 proveedor (chicas empire fajas). No se hallaron anuncios del mismo producto en GT (solo marcas vecinas como Leonisa y Ohcomfy); queda en informe porque el volumen es bajo.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "54"
+      ],
+      [
+       "30d",
+       "106"
+      ],
+      [
+       "Total",
+       "108"
+      ],
+      [
+       "Stock",
+       "2892"
+      ],
+      [
+       "Costo",
+       "Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q100"
+      ],
+      [
+       "Creado",
+       "2026-09-04"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q179; utilidad estimada por pedido generado: Q-30.8. Con 1 unidad al PVP sugerido: Q-45.7. Reprecio a 2,5 x costo (Q138): Q-22.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "chicas empire fajas",
+         "20725",
+         "brazier tira ancha comodo",
+         "Q55",
+         "2892",
+         "54/106/108",
+         "2026-09-04"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciantes · semaforo 0 cuidado",
+       "p": "No se hallaron anuncios del mismo SKU en GT; solo brasieres vecinos de Leonisa GT, Ohcomfy y HIpertop.shop (adhesivo, inactivo). No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Ninguno del mismo producto. Sin angulo del mismo producto en uso en GT."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres de 25 a 45 que buscan comodidad todo el dia (oficina, turnos)",
+         "s": "Gancho: Un brasier que olvidas que traes puesto: tira ancha que no marca ni lastima."
+        },
+        {
+         "b": "Mamas en lactancia o posparto",
+         "s": "Gancho: Comodidad para el dia a dia con bebe: sin varillas ni molestias en el hombro."
+        },
+        {
+         "b": "Mujeres de 40 o mas con molestias de hombro y espalda",
+         "s": "Gancho: Tiras anchas que reparten el peso: menos presion en el hombro."
+        },
+        {
+         "b": "Compradoras de oferta que quieren varias piezas",
+         "s": "Gancho: Lleva 2 por un mejor precio por pieza, elige tu talla, pago al recibir."
+        },
+        {
+         "b": "Regalo para mama o pareja en diciembre",
+         "s": "Gancho: El detalle comodo que si se usa; cambio de talla coordinado por WhatsApp."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Producto de talla (12 variaciones): devoluciones por talla en pago contra entrega. Volumen bajo (54 en 7 dias, apenas sobre el minimo). Familia de 'Brasier acanelado' que ya salio como tarjeta (producto distinto)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 20725)",
+       "u": "https://app.dropi.gt/dashboard/search?search=20725&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/2e374e17-9cc5-4e09-936b-6881418d20e6"
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "nombre": "Magnesium for women · 60 cápsulas",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Solo informe",
+       "c": "gr"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/c237f058-9969-473f-a9be-adaa20cb2ab6/8c9f7bbd26b0.webp",
+     "v": "120 ventas en 7 dias, 347 en 30 y 430 en total, stock 2802 y 1 proveedor (vitalcom), venta diaria con subida los dias 10 y 11 de octubre (33 y 45). En GT solo se vio una tienda internacional (zionsorganics.com) con 6 paginas de 'doctor' pautando el mismo magnesio para mujeres; ayer este producto salio descartado por 3 o mas listados y hoy la busqueda por nombre muestra 1 solo: conviene confirmarlo.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "120"
+      ],
+      [
+       "30d",
+       "347"
+      ],
+      [
+       "Total",
+       "430"
+      ],
+      [
+       "Stock",
+       "2802"
+      ],
+      [
+       "Costo",
+       "Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q100"
+      ],
+      [
+       "Creado",
+       "2026-08-21"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 1 · Angulos nuevos 3 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q179; utilidad estimada por pedido generado: Q-30.8. Con 1 unidad al PVP sugerido: Q-45.7. Reprecio a 2,5 x costo (Q138): Q-22.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "vitalcom",
+         "18423",
+         "magnesium for women * 60 capsulas",
+         "Q55",
+         "2802",
+         "120/347/430",
+         "2026-08-21"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena señal",
+       "p": "Busqueda por foto (12 resultados leidos): todos apuntan a zionsorganics.com/products/womens-magnesium-complex con 6 paginas distintas (Essential Health Finds, Dr Gretchen Dolan, Sara Johnson, Abigail Langford, Dermatologist Dr. Linda, Zeria), anuncios en ingles; no se confirmo que sea el mismo SKU de Dropi. Ningun anunciante guatemalteco hallado. No se verifico en la Biblioteca de Anuncios de Meta."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Essential Health Finds: Imagen: 'Why millions are taking this every morning' (ingles), 33 dias.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1401359165255937"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/ac60bdc7-57ae-4532-ad12-18a1f9b6f31c"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Sara Johnson: Video de 35 dias en ingles, el de mayor winner score del grupo.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1669961231326840"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/7838f777-f2ad-4cdf-ab24-8eaf08faa8c2"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Essential Health Finds (6 paginas, misma landing): Tienda internacional en ingles, anuncios con paginas de 'doctor'; visto hasta 2026-10-14. No confirmado como el mismo SKU.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://zionsorganics.com/products/womens-magnesium-complex"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Magnesio para calma, sueno y recuperacion con 'miles lo toman cada manana' (en ingles). En uso (tienda internacional, ingles): 'Why millions are taking this every morning', magnesio para calma, sueno y recuperacion."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres de 30 a 50 con estres y mal dormir",
+         "s": "Gancho: Cierra el dia con una rutina simple: magnesio pensado para mujeres, dos capsulas por la noche."
+        },
+        {
+         "b": "Mujeres con calambres nocturnos o piernas cansadas",
+         "s": "Gancho: Calambres de madrugada? Muchas mujeres incluyen magnesio en su rutina; pide el tuyo contra entrega."
+        },
+        {
+         "b": "Mamas y trabajadoras en turnos largos",
+         "s": "Gancho: Tu cuerpo da todo el dia; dale un apoyo de magnesio en la noche."
+        },
+        {
+         "b": "Mujeres de 45 o mas en etapa de cambios hormonales (lenguaje de bienestar, sin prometer)",
+         "s": "Gancho: Tu bienestar a los 45 merece una rutina: magnesio formulado para mujer."
+        },
+        {
+         "b": "Regalo de bienestar para mama o hermana",
+         "s": "Gancho: Regala bienestar: 2 frascos a mejor precio, con pago al recibir."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: suplemento (registro sanitario); no prometer sueno, calma ni cura. Las paginas con apariencia de doctor/dermatologo de la competencia son practicas que Meta sanciona: no copiarlas. Discrepancia con la corrida de ayer (descartado por 3 o mas listados)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 18423)",
+       "u": "https://app.dropi.gt/dashboard/search?search=18423&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/c237f058-9969-473f-a9be-adaa20cb2ab6"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "glucora control de glucosa",
+     "s": "ID 20595 · nexus",
+     "v": "1115 / 3480 / 3651",
+     "st": "849",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 1115, 30d 3480, total 3651)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "927 / 1596 / 1672",
+     "st": "2508",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera de 50-800 (7d 927, 30d 1596, total 1672)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "540 / 1770 / 3211",
+     "st": "1782",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera de 50-800 (7d 540, 30d 1770, total 3211)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "408 / 1348 / 1348",
+     "st": "5318",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera de 50-800 (7d 408, 30d 1348, total 1348)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 14722 · auré",
+     "v": "387 / 3366 / 3826",
+     "st": "4085",
+     "ct": "2026-08-05",
+     "r": "Descartado: ventas fuera de 50-800 (7d 387, 30d 3366, total 3826)",
+     "c": "d"
+    },
+    {
+     "n": "gomitas para niños heighterner",
+     "s": "ID 26896 · sicommer lab",
+     "v": "291 / 343 / 343",
+     "st": "1657",
+     "ct": "2026-10-07",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "231 / 578 / 578",
+     "st": "299",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "230 / 615 / 861",
+     "st": "1139",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 230, 30d 615, total 861)",
+     "c": "d"
+    },
+    {
+     "n": "faja reductora de gorditos",
+     "s": "ID 15548 · chicas empire fajas",
+     "v": "204 / 751 / 1794",
+     "st": "2094",
+     "ct": "2026-07-21",
+     "r": "Descartado: ventas fuera de 50-800 (7d 204, 30d 751, total 1794)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "199 / 548 / 804",
+     "st": "2043",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 199, 30d 548, total 804)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "199 / 740 / 945",
+     "st": "591",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera de 50-800 (7d 199, 30d 740, total 945)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "150 / 646 / 690",
+     "st": "308",
+     "ct": "2026-08-26",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "146 / 477 / 477",
+     "st": "2023",
+     "ct": "2026-09-17",
+     "r": "Descartado: 4 proveedores del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "143 / 195 / 224",
+     "st": "314",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "man xxl – crema íntima para hombre",
+     "s": "ID 21391 · dania",
+     "v": "142 / 143 / 143",
+     "st": "157",
+     "ct": "2026-09-08",
+     "r": "Descartado: producto para adultos (no se pauta)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "139 / 1095 / 2165",
+     "st": "2333",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 139, 30d 1095, total 2165)",
+     "c": "d"
+    },
+    {
+     "n": "luces de árbol navideño",
+     "s": "ID 25508 · importadora el mayorista",
+     "v": "126 / 179 / 179",
+     "st": "153",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "pumpkin seed oil",
+     "s": "ID 19925 · nibresma",
+     "v": "123 / 175 / 177",
+     "st": "823",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (pumpkin seed: natural labs, kura labs, nibresma, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "magnesium for women * 60 capsulas",
+     "s": "ID 18423 · vitalcom",
+     "v": "120 / 347 / 430",
+     "st": "2802",
+     "ct": "2026-08-21",
+     "r": "FINALISTA #7 (puntaje 11/15, NO CIERRA); solo informe",
+     "c": "f"
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "118 / 120 / 120",
+     "st": "1880",
+     "ct": "2026-10-06",
+     "r": "Descartado: 4 o mas proveedores del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "115 / 606 / 825",
+     "st": "5163",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera de 50-800 (7d 115, 30d 606, total 825)",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "112 / 246 / 246",
+     "st": "319",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "104 / 386 / 622",
+     "st": "365",
+     "ct": "2026-09-05",
+     "r": "Descartado: mismo producto que Oftamiel (sicommer lab, 5444 ventas en total): sumados salen del rango 50-800",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "99 / 352 / 1140",
+     "st": "543",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 99, 30d 352, total 1140)",
+     "c": "d"
+    },
+    {
+     "n": "fungus 7 dias",
+     "s": "ID 15832 · laboratorio luna",
+     "v": "94 / 957 / 1780",
+     "st": "4109",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 94, 30d 957, total 1780)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "94 / 154 / 154",
+     "st": "5346",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "92 / 93 / 93",
+     "st": "958",
+     "ct": "2026-08-13",
+     "r": "FINALISTA #4 (puntaje 12/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "set de varillas y esferas magnéticas",
+     "s": "ID 25285 · grupo luna",
+     "v": "88 / 153 / 153",
+     "st": "247",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "mini rastreador gps",
+     "s": "ID 20693 · 60 segundos",
+     "v": "88 / 104 / 114",
+     "st": "176",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "s": "ID 16112 · distribuidora rocke feller",
+     "v": "87 / 366 / 632",
+     "st": "363",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "87 / 710 / 2076",
+     "st": "940",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera de 50-800 (7d 87, 30d 710, total 2076)",
+     "c": "d"
+    },
+    {
+     "n": "minoxidil con biotina kormesic",
+     "s": "ID 20405 · digital gt",
+     "v": "85 / 85 / 86",
+     "st": "393",
+     "ct": "2026-09-04",
+     "r": "Descartado: 5 o mas proveedores del mismo tipo (minoxidil: corporacion g&c, altamira, aure, digital gt, importadora el mayorista)",
+     "c": "d"
+    },
+    {
+     "n": "derman reto septiembre",
+     "s": "ID 20256 · unmerco",
+     "v": "83 / 432 / 574",
+     "st": "424",
+     "ct": "2026-09-02",
+     "r": "Descartado: crema intima con nombre de marca (Derman), bandera roja/amarilla",
+     "c": "d"
+    },
+    {
+     "n": "kneeflex pro",
+     "s": "ID 16336 · soluciones sig&sarp",
+     "v": "82 / 385 / 1516",
+     "st": "286",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera de 50-800 (7d 82, 30d 385, total 1516)",
+     "c": "d"
+    },
+    {
+     "n": "natural vitality maxcalm 453g",
+     "s": "ID 16809 · distrilab",
+     "v": "81 / 312 / 439",
+     "st": "81",
+     "ct": "2026-08-22",
+     "r": "Descartado: 4 o mas proveedores de Max Calm y nombre de marca (Natural Vitality)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 20461 · natural labs organic",
+     "v": "80 / 562 / 621",
+     "st": "4386",
+     "ct": "2026-09-03",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "79 / 459 / 548",
+     "st": "452",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (Glucora)",
+     "c": "d"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "78 / 395 / 395",
+     "st": "149",
+     "ct": "2026-09-22",
+     "r": "Descartado: producto para adultos (no se pauta)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "73 / 113 / 113",
+     "st": "4886",
+     "ct": "2026-10-03",
+     "r": "Descartado: 4 o mas proveedores del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "rasuradora lady shaver",
+     "s": "ID 19130 · grupo luna",
+     "v": "73 / 122 / 123",
+     "st": "877",
+     "ct": "2026-08-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "nida ojeras",
+     "s": "ID 15087 · natural labs organic",
+     "v": "72 / 91 / 100",
+     "st": "7403",
+     "ct": "2026-07-18",
+     "r": "FINALISTA #3 (puntaje 12/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "chaleco divine curves",
+     "s": "ID 16402 · chicas empire fajas",
+     "v": "69 / 120 / 420",
+     "st": "1830",
+     "ct": "2026-08-02",
+     "r": "FINALISTA #2 (puntaje 12/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "lampara solar portatil de clip",
+     "s": "ID 22002 · 60 segundos",
+     "v": "67 / 369 / 375",
+     "st": "207",
+     "ct": "2026-09-10",
+     "r": "FINALISTA #1 (puntaje 12/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "65 / 239 / 463",
+     "st": "4539",
+     "ct": "2026-08-09",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (Her Loss: laboratorio luna, aure, chicas empire, altamira, natural labs)",
+     "c": "d"
+    },
+    {
+     "n": "cinturon de tonificación abdominal",
+     "s": "ID 23140 · 60 segundos",
+     "v": "65 / 171 / 171",
+     "st": "118",
+     "ct": "2026-09-18",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "dr. melaxin cemenrete",
+     "s": "ID 18604 · sicommer lab",
+     "v": "61 / 625 / 2117",
+     "st": "1790",
+     "ct": "2026-08-22",
+     "r": "Descartado: ventas fuera de 50-800 (7d 61, 30d 625, total 2117)",
+     "c": "d"
+    },
+    {
+     "n": "totaria magnesium 12 in 1 complex",
+     "s": "ID 6612 · nexus",
+     "v": "59 / 97 / 98",
+     "st": "3660",
+     "ct": "2026-09-09",
+     "r": "Descartado: 6 proveedores del mismo producto (Totaria Magnesium 12 en 1)",
+     "c": "d"
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "s": "ID 16115 · distribuidora rocke feller",
+     "v": "59 / 175 / 236",
+     "st": "761",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "ajedrez magnetico",
+     "s": "ID 20243 · 60 segundos",
+     "v": "58 / 260 / 389",
+     "st": "83",
+     "ct": "2026-09-02",
+     "r": "FINALISTA #5 (puntaje 11/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "57 / 103 / 103",
+     "st": "1897",
+     "ct": "2026-10-04",
+     "r": "Descartado: mismo producto que Nippori (altamira, 10564 ventas en total): sumados salen del rango 50-800",
+     "c": "d"
+    },
+    {
+     "n": "magneticas privadas",
+     "s": "ID 26500 · importadora el mayorista",
+     "v": "57 / 79 / 79",
+     "st": "171",
+     "ct": "2026-10-04",
+     "r": "Descartado: producto para adultos (no se pauta)",
+     "c": "d"
+    },
+    {
+     "n": "candela",
+     "s": "ID 24092 · sicommer lab",
+     "v": "56 / 177 / 177",
+     "st": "320",
+     "ct": "2026-09-22",
+     "r": "Descartado: 3 proveedores del mismo producto (Candela: sicommer lab, natural labs, kura labs)",
+     "c": "d"
+    },
+    {
+     "n": "glucora x 2 unid",
+     "s": "ID 20860 · suplem gt",
+     "v": "56 / 90 / 91",
+     "st": "709",
+     "ct": "2026-09-06",
+     "r": "Descartado: 4 proveedores del mismo producto (Glucora)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian 60 capsulas",
+     "s": "ID 22526 · nibresma",
+     "v": "55 / 70 / 89",
+     "st": "2866",
+     "ct": "2026-09-12",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "55 / 472 / 623",
+     "st": "394",
+     "ct": "2026-09-11",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "crema para la neuropatia",
+     "s": "ID 4752 · auré",
+     "v": "55 / 371 / 904",
+     "st": "1100",
+     "ct": "2026-07-29",
+     "r": "Descartado: ventas fuera de 50-800 (7d 55, 30d 371, total 904)",
+     "c": "d"
+    },
+    {
+     "n": "pastillas limpiadoras para lavadora",
+     "s": "ID 15657 · shop b",
+     "v": "54 / 392 / 965",
+     "st": "10739",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 54, 30d 392, total 965)",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "54 / 106 / 108",
+     "st": "2892",
+     "ct": "2026-09-04",
+     "r": "FINALISTA #6 (puntaje 11/15, NO CIERRA); solo informe",
+     "c": "f"
+    },
+    {
+     "n": "flex-a",
+     "s": "ID 22527 · nibresma",
+     "v": "53 / 371 / 430",
+     "st": "1548",
+     "ct": "2026-09-12",
+     "r": "Descartado: 3 proveedores de la marca Flex-A (nibresma, laboratorio luna, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "combo mino",
+     "s": "ID 27973 · importadora el mayorista",
+     "v": "50 / 50 / 50",
+     "st": "127",
+     "ct": "2026-10-13",
+     "r": "Descartado: 5 o mas proveedores del mismo tipo (minoxidil)",
+     "c": "d"
+    }
+   ],
+   "resumen": "60 leidos con los filtros de entrada (creado desde 2026-07-17, stock 80 o mas, 7d 50 o mas, total 50 o mas); find_winning_products en ventana trending devolvio 50 productos y ninguno aporto candidatos nuevos (los que no estan en esta lista son anteriores al 2026-07-17). El filtro que mas corto fue el rango 50-800 de las tres ventas (18 de 60 fuera), seguido de los repetidos (16) y del limite de 1 o 2 proveedores del mismo producto (15 descartados). De los 42 en rango: 7 finalistas (solo hay 7, no 10), 16 repetidos, 15 con 3 o mas proveedores/listados del mismo producto, 3 para adultos y 1 por bandera de marca (Derman). La meta de 120 filas no se alcanzo: el catalogo solo tiene 60 que pasen el piso de 50 ventas en 7 dias; para llegar a 10 finalistas conviene bajar minSold7d a 30 y ampliar la antiguedad a 120 dias.",
+   "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA y ningun descartado de ayer duplico sus ventas de 7 dias. Para revisar a mano: (1) Magnesium for women estuvo ayer descartado por 3 o mas listados y hoy la busqueda por nombre muestra 1 solo proveedor; (2) Lampara solar, Nida ojeras y Ajedrez magnetico ya aparecieron ayer como fichas solo informe: si se quiere solo producto nunca visto, cambiar por Brazier tira ancha (#6) o Magnesium for women (#7); (3) Pijamas Huntrax tiene solo 4 dias de ventas y 0 anunciantes: validar con una prueba corta antes de invertir; (4) el Ajedrez magnetico tiene stock 83, apenas sobre el minimo de 80."
   }
  },
  "radar2": {
