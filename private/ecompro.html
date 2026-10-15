@@ -593,6 +593,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <button type="button" role="tab" data-g="mkt" aria-selected="false">Marketing</button>
       <button type="button" role="tab" data-g="inv" aria-selected="false">Investigación de mercado</button>
       <button type="button" role="tab" data-g="fin" aria-selected="false">Finanzas</button>
+      <button type="button" role="tab" data-g="aju" aria-selected="false">Ajustes</button>
     </nav>
     <nav id="nav-s" role="tablist" aria-label="Secciones" hidden></nav>
   </div>
@@ -812,6 +813,10 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 
   <section class="pane" id="p-pro" hidden>
     <div id="pro-box"></div>
+  </section>
+
+  <section class="pane" id="p-aju" hidden>
+    <div id="aju-box"></div>
   </section>
 
   <section class="pane" id="p-inv2" hidden>
@@ -2159,11 +2164,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Dashboard"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],inv:[["inv","Caza diaria"],["inv2","CAZADIARIA 2"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]]};
-  var IC={res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',inv2:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>'};
+  var GR={res:[["res","Dashboard"]],log:[["ped","Pedidos"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],inv:[["inv","Caza diaria"],["inv2","CAZADIARIA 2"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],aju:[["aju","Ajustes"]]};
+  var IC={res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',inv2:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
   window.EC_IC=IC;
   function ico(k){return '<svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[k]||"")+'</svg>'}
-  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan"};
+  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan",aju:"aju"};
   function show(g,pane){
     cur[g]=pane;
     gb.forEach(function(b){b.setAttribute("aria-selected",b.dataset.g===g)});
@@ -2868,11 +2873,22 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   .wrap>.foot{grid-column:2!important;padding-inline:clamp(20px,2.2vw,40px)}
 }
 @media(max-width:899px){#phead{padding:4px 0}.sbrand{display:none}}
+
+.gearb{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;vertical-align:middle;margin-left:6px}
+.gearb svg{width:19px;height:19px}.gearb:hover{border-color:var(--cel)}
+.ajc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px 22px;box-shadow:0 1px 2px rgba(10,40,60,.06),0 8px 18px -12px rgba(10,60,90,.2)}
+.ajc h3{margin:0 0 4px;font-size:1.05rem;color:var(--fg)}.ajc>p{margin:0 0 14px;color:var(--muted);font-size:.85rem}
+.ajr{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--line)}
+.ajr:first-of-type{border-top:0}.ajr b{display:block;font-size:.92rem}.ajr small{color:var(--muted);font-size:.78rem}
+.ajr input[type=number]{font:inherit;width:120px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);min-height:42px}
+.sw6{display:flex;gap:10px;flex-wrap:wrap}.sw6 button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw6 button[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 3px color-mix(in srgb,var(--cel) 40%,transparent)}
+#aju-box{display:flex;flex-direction:column;gap:14px;max-width:860px}
 </style>
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var HEAD={res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Pedidos","Todos tus pedidos de Dropi, con estados y filtros"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],inv2:["CAZADIARIA 2","Radar de productos ganadores en 7 fases"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"]};
+  var HEAD={res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Pedidos","Todos tus pedidos de Dropi, con estados y filtros"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],inv2:["CAZADIARIA 2","Radar de productos ganadores en 7 fases"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
   function svg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+((window.EC_IC||{})[k]||"")+'</svg>'}
   /* marca en la barra lateral */
   var nw=document.querySelector(".navwrap");
@@ -2885,6 +2901,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   /* control de moneda arriba */
   var meta=document.querySelector("header .meta");
   if(meta&&!meta.querySelector(".fxmini")){var fx=document.createElement("div");fx.className="fxmini";fx.setAttribute("role","group");fx.setAttribute("aria-label","Moneda");fx.innerHTML='<button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button>';meta.insertBefore(fx,meta.firstChild)}
+  if(meta&&!meta.querySelector(".gearb")){var gb=document.createElement("button");gb.type="button";gb.className="gearb";gb.title="Ajustes";gb.setAttribute("aria-label","Ajustes");gb.innerHTML=svg("aju");gb.addEventListener("click",function(){var b=document.querySelector('#side button[data-p="aju"]');if(b)b.click()});meta.appendChild(gb)}
   /* ===== Dashboard ===== */
   var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   var per="mes",modo="v",vista={d:false,s:false};
@@ -2985,5 +3002,47 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var mo=new MutationObserver(function(){head()});document.querySelectorAll(".wrap>.pane").forEach(function(p){mo.observe(p,{attributes:true,attributeFilter:["hidden"]})});
     document.addEventListener("click",function(e){if(e.target.closest("#side button, #nav-g button, #nav-s button"))setTimeout(function(){head();proy()},30)})}
   setTimeout(init,40);
+})();
+</script>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},r=document.documentElement;
+  var PL=[["celeste","#38c6f4","Celeste"],["esmeralda","#34d399","Esmeralda"],["violeta","#a78bfa","Violeta"],["coral","#fb8c6b","Coral"],["dorado","#f5c542","Dorado"],["rosa","#f472b6","Rosa"]];
+  var db=null,can=true,PAR={flete:68,entrega:62,objetivo:30};
+  function pal(){return r.getAttribute("data-pal")||"celeste"}
+  function th(){return r.getAttribute("data-theme")==="dark"?"dark":"light"}
+  function draw(){
+    var box=$("aju-box");if(!box)return;var fx=window.ecFx,st=(window.ecGan&&window.ecGan.st)||{},E=window.__EC2?window.__EC2():{PAR:{}};if(E.PAR&&E.PAR.flete>=0)PAR=E.PAR;
+    box.innerHTML=
+     '<div class="ajc"><h3>Apariencia</h3><p>Cómo se ve la plataforma en este dispositivo.</p>'+
+       '<div class="ajr"><div><b>Tema</b><small>Claro u oscuro</small></div><div class="seg" id="aj-th"><button type="button" data-t="light" aria-pressed="'+(th()==="light")+'">Claro</button><button type="button" data-t="dark" aria-pressed="'+(th()==="dark")+'">Oscuro</button></div></div>'+
+       '<div class="ajr"><div><b>Paleta de colores</b><small>Cambia el color de acento</small></div><div class="sw6" id="aj-pal">'+PL.map(function(p){return '<button type="button" data-p="'+p[0]+'" title="'+p[2]+'" aria-label="'+p[2]+'" aria-pressed="'+(pal()===p[0])+'" style="background:'+p[1]+'"></button>'}).join("")+'</div></div></div>'+
+     '<div class="ajc"><h3>Moneda</h3><p>Los montos se guardan en quetzales; la pauta de Meta y TikTok viene en soles.</p>'+
+       '<div class="ajr"><div><b>Mostrar montos en</b><small>Q quetzales · S/ soles</small></div><div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div></div>'+
+       '<div class="ajr"><div><b>Tipo de cambio</b><small>1 Q = ? S/ '+(fx&&fx.st.fecha?'· '+fx.st.fecha:'')+'</small></div><input class="fxin" type="number" step="0.0001" min="0.01" inputmode="decimal" value="'+(fx&&fx.st.rate?fx.st.rate:0.4504)+'" aria-label="Tipo de cambio"></div></div>'+
+     '<div class="ajc"><h3>Mis números de operación</h3><p>De estos números salen las utilidades. Cámbialos por los tuyos medidos.</p>'+
+       '<div class="ajr"><div><b>Costo por devolución (Q)</b><small>Lo que cuesta cada pedido devuelto, en Utilidad neta</small></div><input id="aj-dq" type="number" min="0" step="1" inputmode="decimal" value="'+(st.devq>=0?st.devq:30)+'"></div>'+
+       '<div class="ajr"><div><b>Flete por entrega (Q)</b><small>Calculadora y Caza diaria</small></div><input id="aj-fl" type="number" min="0" step="1" inputmode="decimal" value="'+PAR.flete+'"></div>'+
+       '<div class="ajr"><div><b>Tasa de entrega (%)</b><small>Calculadora y Caza diaria</small></div><input id="aj-en" type="number" min="1" max="100" step="1" inputmode="decimal" value="'+PAR.entrega+'"></div>'+
+       '<div class="ajr"><div><b>Utilidad objetivo por pedido (Q)</b><small>Calculadora y Caza diaria</small></div><input id="aj-ob" type="number" min="0" step="1" inputmode="decimal" value="'+PAR.objetivo+'"></div>'+
+       '<div class="ajr"><span class="sub" id="aj-msg" role="status"></span><button class="btn" type="button" id="aj-sv">Guardar números</button></div></div>'+
+     '<div class="ajc"><h3>CAZADIARIA 2</h3><p>Flete, devolución, comisión, entrega, CPA y el umbral VIABLE del radar se cambian en su propia sección.</p><button class="btn" type="button" id="aj-c2">Abrir CAZADIARIA 2</button></div>'+
+     '<div class="ajc"><h3>Cuenta</h3><p>Entras con tu cuenta de Google. Si compartes el dispositivo, cierra la sesión al terminar.</p><a class="btn" href="/api/logout" style="text-decoration:none;display:inline-block">Cerrar sesión</a></div>';
+  }
+  function setPal(k){if(k==="celeste")r.removeAttribute("data-pal");else r.setAttribute("data-pal",k);try{localStorage.setItem("ec_pal",k)}catch(e){}}
+  document.addEventListener("click",function(e){
+    var t=e.target.closest&&e.target.closest("#aj-th button");if(t){r.setAttribute("data-theme",t.dataset.t);try{localStorage.setItem("ec_theme",t.dataset.t)}catch(x){}var b=$("thm");if(b)b.textContent=t.dataset.t==="dark"?"☀ Claro":"☾ Oscuro";draw();return}
+    var p=e.target.closest&&e.target.closest("#aj-pal button");if(p){setPal(p.dataset.p);draw();return}
+    if(e.target.id==="aj-c2"){var b2=document.querySelector('#side button[data-p="inv2"]');if(b2)b2.click();return}
+    if(e.target.id==="aj-sv"){
+      var v={flete:+$("aj-fl").value,entrega:+$("aj-en").value,objetivo:+$("aj-ob").value},dq=parseFloat($("aj-dq").value);
+      if(!(v.flete>=0&&v.entrega>=1&&v.entrega<=100&&v.objetivo>=0&&dq>=0)){$("aj-msg").textContent="Revisa los números.";return}
+      if(window.ecGan){window.ecGan.st.devq=dq;try{localStorage.setItem("ec_gan",JSON.stringify(window.ecGan.st))}catch(x){}if(window.ecGanRender)window.ecGanRender()}
+      if(db&&can)db.doc("settings/params").set(v).then(function(){$("aj-msg").textContent="Guardado."}).catch(function(){$("aj-msg").textContent="No se pudo guardar en la base; el costo por devolución sí quedó."});else $("aj-msg").textContent="Costo por devolución guardado. Los demás necesitan permiso de escritura."}
+    if(e.target.closest&&e.target.closest('#side button[data-p="aju"]'))setTimeout(draw,30);
+  });
+  setTimeout(function(){draw();if(window.ecFx)window.ecFx.hooks.push(function(){var a=document.activeElement;if(!(a&&$("aju-box")&&$("aju-box").contains(a)))draw()})},60);
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false}}catch(e){}})();
 })();
 </script>
