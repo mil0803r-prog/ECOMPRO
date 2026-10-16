@@ -672,14 +672,14 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
           <div class="fld"><label for="o-ciu">Ciudad</label><select id="o-ciu"></select></div>
           <div class="fld"><label for="o-tag">Etiqueta</label><select id="o-tag"></select></div>
           <div class="fld"><label for="o-trans">Transportadora</label><select id="o-trans" disabled><option>No disponible</option></select></div>
-          <div class="fld"><label for="o-prod">Producto</label><select id="o-prod" disabled><option>No disponible</option></select></div>
+          <div class="fld"><label for="o-prod">Producto</label><select id="o-prod"><option value="">Todos</option></select></div>
         </div>
         <div><div class="flab">Estado</div><div class="chips" id="o-estados"></div></div>
         <div class="frow" style="align-items:center">
           <label class="chk"><input id="o-fav" type="checkbox"> Solo favoritos ★</label>
           <button class="btn" id="o-limpiar" type="button">Limpiar filtros</button>
         </div>
-        <p class="foot" style="margin:0">Transportadora, producto, nombre del cliente y número de guía no los entrega Lumy sobre los pedidos de Dropi, por eso esos filtros están apagados. El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
+        <p class="foot" style="margin:0">Transportadora, nombre del cliente y número de guía no los entrega Lumy sobre los pedidos de Dropi, por eso esos filtros están apagados. El producto se asigna por precio de venta con las reglas de Ajustes (Productos por precio de venta). El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
       </div>
       <div id="o-zona" style="margin-top:12px" hidden></div>
       <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
@@ -1484,6 +1484,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       if(ks.length&&ks.indexOf(o.s)<0)return false;
       if(d&&o.d<d)return false;if(h&&o.d>h)return false;
       if(dp&&o.dep!==dp)return false;if(ci&&o.c!==ci)return false;
+      if(window.ecProd){var pf=$("o-prod").value;if(pf&&window.ecProd.of(o)!==pf)return false}
       if(fv&&!store.favs[o.n])return false;
       var tags=store.tags[o.n]||[];
       if(tg&&tags.indexOf(tg)<0)return false;
@@ -1565,11 +1566,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     window.ecFx&&window.ecFx.apply();
     if(keepFocus){var el=obody.querySelector('.tg[data-n="'+keepFocus+'"]');if(el)el.focus()}
   }
-  [oq,od,oh,ociu,otag,ofav].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
+  [oq,od,oh,ociu,otag,ofav,$("o-prod")].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
   odep.addEventListener("change",function(){ciudades();lim=50;rOrd()});
   $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
   omas.addEventListener("click",function(){lim+=50;rOrd()});
-  $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
+  $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
   obody.addEventListener("click",function(ev){
     var st=ev.target.closest(".star");if(st){var n=st.dataset.n;if(store.favs[n])delete store.favs[n];else store.favs[n]=1;save();rOrd();return}
     var tc=ev.target.closest(".tagchip");if(tc){var n2=tc.dataset.n;store.tags[n2]=(store.tags[n2]||[]).filter(function(t){return t!==tc.dataset.t});if(!store.tags[n2].length)delete store.tags[n2];save();etiquetas();rOrd()}
@@ -3038,6 +3039,9 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
        '<div class="ajr"><div><b>Tasa de entrega (%)</b><small>Calculadora y Caza diaria</small></div><input id="aj-en" type="number" min="1" max="100" step="1" inputmode="decimal" value="'+PAR.entrega+'"></div>'+
        '<div class="ajr"><div><b>Utilidad objetivo por pedido (Q)</b><small>Calculadora y Caza diaria</small></div><input id="aj-ob" type="number" min="0" step="1" inputmode="decimal" value="'+PAR.objetivo+'"></div>'+
        '<div class="ajr"><span class="sub" id="aj-msg" role="status"></span><button class="btn" type="button" id="aj-sv">Guardar números</button></div></div>'+
+     '<div class="ajc"><h3>Productos por precio de venta</h3><p>Lumy no entrega el producto de cada pedido de Dropi. Aquí le dices a la plataforma qué producto corresponde a cada precio de venta, y así funcionan los filtros por producto en Dashboard y Pedidos. Los pedidos con un precio sin regla quedan como "Sin producto".</p>'+
+       '<div id="aj-pr">'+prHtml()+'</div>'+
+       '<div class="ajr"><div class="frow" style="gap:8px;align-items:flex-end"><div class="fld"><label for="aj-pv">Precio (Q)</label><input id="aj-pv" type="number" min="0" step="1" inputmode="decimal" placeholder="191"></div><div class="fld grow"><label for="aj-pn">Producto</label><input id="aj-pn" list="aj-pl" maxlength="60" placeholder="Nombre del producto"><datalist id="aj-pl">'+prNames().map(function(n){return '<option value="'+n+'">'}).join("")+'</datalist></div></div><button class="btn" type="button" id="aj-pa">Agregar regla</button></div></div>'+
      '<div class="ajc"><h3>Copia de seguridad</h3><p>'+lastTxt()+'</p>'+
        '<div class="ajr"><div><b>Descargar copia completa</b><small>Un solo archivo con pedidos guardados, Caza diaria, CAZADIARIA 2, gastos, publicidad, validaciones, cálculos y tus preferencias</small></div><button class="btn" type="button" id="aj-bk">Descargar copia</button></div>'+
        '<div class="ajr"><div><b>Restaurar desde una copia</b><small>Elige un archivo .json que descargaste aquí. Se vuelven a guardar los registros del archivo; lo que no esté en el archivo no se borra</small></div><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo<input type="file" id="aj-rf" accept=".json,application/json" hidden></label></div>'+
@@ -3052,6 +3056,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
      '<div class="ajc"><h3>CAZADIARIA 2</h3><p>Flete, devolución, comisión, entrega, CPA y el umbral VIABLE del radar se cambian en su propia sección.</p><button class="btn" type="button" id="aj-c2">Abrir CAZADIARIA 2</button></div>'+
      '<div class="ajc"><h3>Cuenta</h3><p>Entras con tu cuenta de Google. Si compartes el dispositivo, cierra la sesión al terminar.</p><a class="btn" href="/api/logout" style="text-decoration:none;display:inline-block">Cerrar sesión</a></div>';
   }
+  /* Productos por precio de venta (reglas del usuario) */
+  var PRR=[];try{PRR=JSON.parse(localStorage.getItem("ec_prr")||"[]")}catch(e){}
+  function prNames(){var a={};PRR.forEach(function(r){a[r.p]=1});["Dúo Mágico (Expresa tu amor)","Spray dental para molestias bucales","Pastillas limpiadoras de lavadora"].forEach(function(n){a[n]=1});return Object.keys(a)}
+  function prHtml(){return PRR.length?PRR.map(function(r,i){return '<div class="ajr"><div><b>Q '+r.v+' → '+r.p.replace(/[&<>"]/g,"")+'</b><small>'+(window.__ORD||[]).filter(function(o){return o.v===r.v}).length+' pedidos con este precio</small></div><button class="btn" type="button" data-prx="'+i+'">Quitar</button></div>'}).join(""):'<div class="ajr"><span class="sub">Todavía no hay reglas. Ejemplo: precio 191 → Dúo Mágico.</span></div>'}
+  function prSave(){try{localStorage.setItem("ec_prr",JSON.stringify(PRR))}catch(e){}if(db&&can)db.doc("settings/prodreglas").set({reglas:PRR}).catch(function(){});window.ecProd.sync()}
+  window.ecProd={of:function(o){for(var i=0;i<PRR.length;i++)if(PRR[i].v===o.v)return PRR[i].p;return "Sin producto"},names:function(){var a={};(window.__ORD||[]).forEach(function(o){a[window.ecProd.of(o)]=1});return Object.keys(a).sort()},sync:function(){document.dispatchEvent(new Event("ecprod"))}};
   var BM="",RS=null,COLS=["winners","validations","settings","gastos","calculos","publicidad","acciones","radar","radar2","radar_mem","radar2_mem"];
   function lastTxt(){var t=null;try{t=localStorage.getItem("ec_lastbackup")}catch(e){}if(!t)return "Todavía no has descargado ninguna copia. Haz una cada semana y guárdala en tu correo o en tu Drive.";var d=Math.floor((Date.now()-new Date(t).getTime())/864e5);return "Última copia: "+(d<=0?"hoy":"hace "+d+" día"+(d===1?"":"s"))+(d>7?". Ya pasó más de una semana: conviene hacer otra.":".")}
   function readCol(n){return new Promise(function(res){var done=false,t=setTimeout(function(){if(!done){done=true;res({})}},7000);try{db.collection(n).onSnapshot(function(sn){if(done)return;done=true;clearTimeout(t);var o={};sn.docs.forEach(function(d){o[d.id]=d.data()});res(o)},function(){if(!done){done=true;res({})}})}catch(e){if(!done){done=true;res({})}}})}
@@ -3099,6 +3109,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("click",function(e){
     var t=e.target.closest&&e.target.closest("#aj-th button");if(t){r.setAttribute("data-theme",t.dataset.t);try{localStorage.setItem("ec_theme",t.dataset.t)}catch(x){}var b=$("thm");if(b)b.textContent=t.dataset.t==="dark"?"☀ Claro":"☾ Oscuro";draw();return}
     var p=e.target.closest&&e.target.closest("#aj-pal button");if(p){setPal(p.dataset.p);draw();return}
+    if(e.target.id==="aj-pa"){var pv=parseFloat($("aj-pv").value),pn=($("aj-pn").value||"").trim();if(!(pv>0)||!pn)return;PRR=PRR.filter(function(r){return r.v!==pv});PRR.push({v:pv,p:pn.slice(0,60)});prSave();draw();return}
+    var px=e.target.closest&&e.target.closest("button[data-prx]");if(px){PRR.splice(+px.dataset.prx,1);prSave();draw();return}
     if(e.target.id==="aj-bk"){backup();return}
     if(e.target.id==="aj-rc"){restore();return}
     if(e.target.id==="aj-rx"){RS=null;var rs=$("aj-rs");if(rs)rs.innerHTML="";return}
@@ -3113,6 +3125,51 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(e.target.closest&&e.target.closest('#side button[data-p="aju"]'))setTimeout(draw,30);
   });
   setTimeout(function(){draw();if(window.ecFx)window.ecFx.hooks.push(function(){var a=document.activeElement;if(!(a&&$("aju-box")&&$("aju-box").contains(a)))draw()})},60);
-  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false}}catch(e){}})();
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/prodreglas").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&Array.isArray(d.reglas)){PRR=d.reglas.filter(function(r){return r&&r.v>0&&r.p});try{localStorage.setItem("ec_prr",JSON.stringify(PRR))}catch(e){}window.ecProd.sync();var a=document.activeElement;if(!(a&&$("aju-box")&&$("aju-box").contains(a)))draw()}},function(){})}}catch(e){}})();
+})();
+</script>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var KEEP=null,PRODSEL="";
+  var PROC={R:1,G:1,K:1,P:1,F:1};
+  function names(){return window.ecProd?window.ecProd.names():[]}
+  function fillOpts(){
+    var sel=$("o-prod");if(sel){var cur=sel.value,ns=names();sel.innerHTML='<option value="">Todos</option>'+ns.map(function(n){return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n.replace(/[&<>]/g,"")+'</option>'}).join("");if(ns.indexOf(cur)>-1)sel.value=cur}
+    var sm=$("sm-prod");if(sm){var c2=sm.value,ns2=names();sm.innerHTML='<option value="">Todos los productos</option>'+ns2.map(function(n){return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n.replace(/[&<>]/g,"")+'</option>'}).join("");if(ns2.indexOf(c2)>-1)sm.value=c2;else PRODSEL=""}
+  }
+  function build(){
+    var p=$("p-res");if(!p||$("sm-box"))return;
+    var h=p.querySelector(".dbsub");if(!h)return;
+    var box=document.createElement("div");box.id="sm-box";box.className="card";box.style.cssText="border-radius:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between";
+    box.innerHTML='<div><b>Filtrar el semáforo por producto</b><div class="sub" id="sm-nota">Cuenta los pedidos de Dropi según las reglas de precio de Ajustes (Productos por precio de venta).</div></div><div class="fld"><select id="sm-prod" aria-label="Producto"></select></div>';
+    h.parentNode.insertBefore(box,h.nextSibling);
+    box.querySelector("select").addEventListener("change",function(e){PRODSEL=e.target.value;apply()});
+  }
+  function grab(){
+    if(KEEP)return;var p=$("p-res");if(!p)return;
+    var cards=p.querySelectorAll(".card.light"),tasa=null;p.querySelectorAll(".card.kpi").forEach(function(c){var h=c.querySelector("h3");if(h&&/Tasa de entrega/i.test(h.textContent))tasa=c});
+    if(cards.length<3)return;
+    KEEP={cards:Array.prototype.map.call(cards,function(c){return{el:c,big:c.querySelector(".big").textContent,sub:c.querySelector(".sub").textContent}}),tasa:tasa&&{el:tasa,big:tasa.querySelector(".big").textContent,sub:tasa.querySelector(".sub").textContent}};
+  }
+  function apply(){
+    grab();if(!KEEP)return;
+    var nota=$("sm-nota");
+    if(!PRODSEL){KEEP.cards.forEach(function(k){k.el.querySelector(".big").textContent=k.big;k.el.querySelector(".sub").textContent=k.sub});if(KEEP.tasa){KEEP.tasa.el.querySelector(".big").textContent=KEEP.tasa.big;KEEP.tasa.el.querySelector(".sub").textContent=KEEP.tasa.sub}if(nota)nota.textContent="Cuenta los pedidos de Dropi según las reglas de precio de Ajustes (Productos por precio de venta).";return}
+    var L=(window.__ORD||[]).filter(function(o){return window.ecProd&&window.ecProd.of(o)===PRODSEL}),c={E:0,D:0,C:0,I:0,J:0,proc:0};
+    L.forEach(function(o){if(PROC[o.s])c.proc++;else c[o.s]=(c[o.s]||0)+1});
+    var N=L.length,rojo=c.D+c.I+c.J,tasa=(c.E+c.D)?Math.round(c.E/(c.E+c.D)*100):null,pc=N?Math.round(c.E/N*100):0;
+    var K=KEEP.cards;
+    K[0].el.querySelector(".big").textContent=c.E;K[0].el.querySelector(".sub").textContent=pc+"% de "+N+" pedidos";
+    K[1].el.querySelector(".big").textContent=c.proc;K[1].el.querySelector(".sub").textContent="ruta, guía y por confirmar";
+    K[2].el.querySelector(".big").textContent=rojo;K[2].el.querySelector(".sub").textContent=c.D+" devoluciones, "+(c.I+c.J)+" incidencias";
+    if(KEEP.tasa){KEEP.tasa.el.querySelector(".big").textContent=tasa==null?"–":tasa+"%";KEEP.tasa.el.querySelector(".sub").textContent=c.E+" llegaron, "+c.D+" volvieron"}
+    if(nota)nota.textContent="Mostrando solo: "+PRODSEL+" ("+N+" de "+(window.__ORD||[]).length+" pedidos de Dropi). Las tarjetas de dinero de arriba siguen siendo de todo el negocio.";
+  }
+  function refresh(){fillOpts();apply()}
+  document.addEventListener("ecprod",refresh);
+  setTimeout(function(){build();refresh()},120);
+  document.addEventListener("click",function(e){if(e.target.closest("#side button, #nav-g button"))setTimeout(function(){build();fillOpts()},60)});
 })();
 </script>
