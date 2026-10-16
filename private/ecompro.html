@@ -116,6 +116,11 @@ td.num{font-weight:600}
 .chk{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:500}
 .star{font:inherit;font-size:1.1rem;line-height:1;background:none;border:0;cursor:pointer;color:var(--line);padding:2px 4px}
 .star[aria-pressed="true"]{color:var(--amar)}
+.lkchip{display:inline-flex;align-items:stretch;margin:0 6px 6px 0;border:1px solid var(--line);border-radius:99px;background:var(--card);overflow:hidden;font-size:.8rem;font-weight:600;max-width:100%}
+.lkchip a,.lkchip>span{padding:6px 12px;color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:34px;display:inline-flex;align-items:center}
+.lkchip a:hover{background:color-mix(in srgb,var(--cel) 16%,transparent)}
+.lkx{font:inherit;font-size:1rem;line-height:1;border:0;border-left:1px solid var(--line);background:transparent;color:var(--muted);padding:0 11px;cursor:pointer;min-width:34px}
+.lkx:hover{background:var(--rojo-bg);color:var(--rojo)}
 .tagchip{display:inline-block;font-size:.72rem;font-weight:600;background:var(--gris-bg);color:var(--fg);border-radius:99px;padding:2px 8px;margin:0 4px 4px 0;cursor:pointer;white-space:nowrap}
 .tg{font:inherit;font-size:.78rem;color:var(--fg);background:var(--bg);border:1px dashed var(--line);border-radius:6px;padding:3px 6px;width:96px}
 #o-tabla{min-width:760px}
@@ -2068,7 +2073,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     $("v-ctot").textContent="Total de competidores: "+(vF.cwa+vF.cland)+" ("+vF.cwa+" en WhatsApp y "+vF.cland+" con landing o tienda). "+(vF.cauto?"Valores iniciales de la caza diaria (solo anunciantes en Guatemala, anuncios activos en los últimos 7 días). Cámbialos con tu investigación manual.":"Valores tuyos.");
     document.querySelectorAll("#v-canales .chip").forEach(function(b){b.setAttribute("aria-pressed",!!vF.ch[b.dataset.c])});
     ["tiendas","anuncios","videos","angulos"].forEach(function(k){
-      $("v-l-"+k).innerHTML=vF[k].map(function(x,i){return '<span class="tagchip" data-k="'+k+'" data-i="'+i+'" title="Quitar">'+esc(x.length>46?x.slice(0,44)+"…":x)+' ×</span>'}).join("");
+      $("v-l-"+k).innerHTML=vF[k].map(function(x,i){
+        if(k==="angulos")return '<span class="tagchip" data-k="'+k+'" data-i="'+i+'" title="Quitar">'+esc(x.length>46?x.slice(0,44)+"…":x)+' ×</span>';
+        var ok=/^https?:\/\//i.test(x),host=x;try{host=new URL(x).hostname.replace(/^www\./,"")}catch(e){}
+        var nm={tiendas:"Tienda",anuncios:"Anuncio",videos:"Video"}[k]+" "+(i+1);
+        return '<span class="lkchip">'+(ok?'<a href="'+esc(x)+'" target="_blank" rel="noopener" title="Abrir '+esc(x)+'">'+nm+' · '+esc(host.length>26?host.slice(0,24)+"…":host)+' ↗</a>':'<span title="'+esc(x)+'">'+esc(x.length>30?x.slice(0,28)+"…":x)+'</span>')+'<button type="button" class="lkx" data-k="'+k+'" data-i="'+i+'" aria-label="Quitar este enlace" title="Quitar">×</button></span>'}).join("");
     });
     vChecks();vEv();
     $("v-guardar").textContent=vEdit?"Guardar cambios":"Guardar investigación";
@@ -2099,9 +2108,9 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     var L=all.filter(function(v){return (vFiltro==="todos"||(v.estado||"falta")===vFiltro)&&(!q||((v.name||"")+" "+(v.dropi||"")).toLowerCase().indexOf(q)>-1)});
     $("v-body").innerHTML=L.length?L.map(function(v){
       var es=EST[v.estado||"falta"],av=vAv({check:v.check||[]}),links=[];
-      (v.tiendas||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Tienda '+(i+1)+'</a>')});
-      (v.anuncios||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Anuncio '+(i+1)+'</a>')});
-      (v.videos||[]).slice(0,3).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Video '+(i+1)+'</a>')});
+      (v.tiendas||[]).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Tienda '+(i+1)+'</a>')});
+      (v.anuncios||[]).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Anuncio '+(i+1)+'</a>')});
+      (v.videos||[]).forEach(function(u,i){links.push('<a class="vlink" href="'+esc(u)+'" target="_blank" rel="noopener">Video '+(i+1)+'</a>')});
       var ch=[v.ch&&v.ch.wa?"WhatsApp":"",v.ch&&v.ch.fb?"Facebook":"",v.ch&&v.ch.tt?"TikTok":""].filter(Boolean).join(" · ");
       return '<tr class="e-'+(v.estado||"falta")+'" data-id="'+esc(v.id)+'"><td style="white-space:nowrap">'+esc(v.date||"")+'</td><td><b>'+esc(v.name||"")+'</b><div class="sub">'+(v.dropi?'ID '+esc(v.dropi)+' · ':'')+(v.prov||0)+' prov.'+(ch?' · '+ch:'')+'</div>'+(v.notas?'<div class="sub" style="font-style:italic">'+esc(v.notas.length>90?v.notas.slice(0,88)+"…":v.notas)+'</div>':'')+'</td><td><span class="pill '+es[1]+'">'+es[0]+'</span></td><td class="num">'+(v.pvp?vPrecio(v):'–')+'</td><td class="num">'+((v.cwa||0)+(v.cland||0))+'<div class="sub" style="font-weight:400">WA '+(v.cwa||0)+' · Web '+(v.cland||0)+'</div></td><td>'+(links.join("")||'<span class="sub">–</span>')+'</td><td><div class="vmini"><i><u style="width:'+av+'%"></u></i><span class="sub">'+av+'%</span></div></td><td style="white-space:nowrap"><button type="button" class="btn" data-a="ed">Editar</button> <button type="button" class="btn" data-a="del">Eliminar</button></td></tr>';
     }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Todavía no hay investigaciones. Llena el formulario y toca "Guardar investigación".</td></tr>';
@@ -2128,6 +2137,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       var s=ev.target.closest("[data-s]");if(s){var k=s.dataset.s,d=+s.dataset.d;vF[k]=Math.max(0,(vF[k]||0)+d);if(k==="cwa"||k==="cland")vF.cauto=false;vSync();return}
       var c=ev.target.closest("#v-canales .chip");if(c){vF.ch[c.dataset.c]=!vF.ch[c.dataset.c];vSync();return}
       var a=ev.target.closest("[data-add]");if(a){var k2=a.dataset.add,inp=$("v-i-"+k2),v=inp.value.trim();if(v&&vF[k2].indexOf(v)<0){vF[k2].push(v);inp.value="";vSync()}return}
+      var lx=ev.target.closest(".lkx");if(lx){vF[lx.dataset.k].splice(+lx.dataset.i,1);vSync();return}
       var t=ev.target.closest(".tagchip[data-k]");if(t){vF[t.dataset.k].splice(+t.dataset.i,1);vSync();return}
       var rm=ev.target.closest("[data-rm]");if(rm){vF.check.splice(+rm.dataset.rm,1);vChecks();return}
       var fl=ev.target.closest("#v-filtros .chip");if(fl){vFiltro=fl.dataset.f;vRender();return}
