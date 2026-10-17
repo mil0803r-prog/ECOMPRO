@@ -687,6 +687,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
         <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden.</p>
         <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo CSV<input type="file" id="oi-f" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
         <div id="oi-map" style="margin-top:10px"></div>
+        <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
         <p class="foot" style="margin:8px 0 0" id="oi-pie"></p>
       </details>
       <div id="o-zona" style="margin-top:12px" hidden></div>
@@ -3250,6 +3251,15 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("click",function(e){
     if(e.target.id==="oi-go"){var t=$("oi-t").value;if(t.trim())load(t);return}
     if(e.target.id==="oi-x"){PA=null;$("oi-map").innerHTML="";return}
+    if(e.target.id==="oi-api"){
+      var m=$("oi-api-m");m.textContent="Pidiendo los pedidos a Dropi…";e.target.disabled=true;
+      fetch("/api/dropi",{method:"POST",credentials:"same-origin"}).then(function(r){return r.json().catch(function(){return {error:"Respuesta inválida"}})}).then(function(j){
+        e.target.disabled=false;
+        if(!j||!j.ok){m.textContent=(j&&j.error?j.error:"No se pudo traer.")+(j&&j.tried?" Intentos: "+j.tried.map(function(t){return (t.status||t.error)+" "+(t.base||"").replace("https://","")+(t.respuesta?" ("+String(t.respuesta).slice(0,60)+")":"")}).join(" | "):"");return}
+        var set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var c=0;
+        j.rows.forEach(function(r){var n=digits(r.n);if(!set[n])return;var x=MAP[n]||{};["g","p","t"].forEach(function(k){if(r[k])x[k]=String(r[k]).slice(0,80)});MAP[n]=x;c++});
+        persist();refresh();m.textContent="Listo: "+c+" pedidos actualizados de "+j.rows.length+" que devolvió Dropi."
+      }).catch(function(){e.target.disabled=false;m.textContent="No se pudo conectar con el servidor."});return}
     if(e.target.id==="oi-del"){MAP={};persist();refresh();return}
     if(e.target.id==="oi-ok"&&PA){
       var sel=PA.sel,set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var m=0;
