@@ -673,7 +673,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
           <div class="fld"><label for="o-dep">Departamento</label><select id="o-dep"></select></div>
           <div class="fld"><label for="o-ciu">Ciudad</label><select id="o-ciu"></select></div>
           <div class="fld"><label for="o-tag">Etiqueta</label><select id="o-tag"></select></div>
-          <div class="fld"><label for="o-trans">Transportadora</label><select id="o-trans" disabled><option>No disponible</option></select></div>
+          <div class="fld"><label for="o-trans">Transportadora</label><select id="o-trans" disabled><option value="">Sin datos (importa desde Dropi)</option></select></div>
           <div class="fld"><label for="o-prod">Producto</label><select id="o-prod"><option value="">Todos</option></select></div>
         </div>
         <div><div class="flab">Estado</div><div class="chips" id="o-estados"></div></div>
@@ -681,12 +681,18 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
           <label class="chk"><input id="o-fav" type="checkbox"> Solo favoritos ★</label>
           <button class="btn" id="o-limpiar" type="button">Limpiar filtros</button>
         </div>
-        <p class="foot" style="margin:0">Transportadora, nombre del cliente y número de guía no los entrega Lumy sobre los pedidos de Dropi, por eso esos filtros están apagados. El producto se asigna por precio de venta con las reglas de Ajustes (Productos por precio de venta). El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
+        <p class="foot" style="margin:0">Lumy no entrega la guía, el cliente, el producto ni la transportadora de los pedidos de Dropi: se traen importando el reporte de Dropi (abajo, "Traer guías, clientes y productos"). El producto se asigna por precio de venta con las reglas de Ajustes (Productos por precio de venta). El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
       </div>
+      <details class="card" id="o-imp" style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Traer guías, clientes y productos desde Dropi</summary>
+        <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden.</p>
+        <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo CSV<input type="file" id="oi-f" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
+        <div id="oi-map" style="margin-top:10px"></div>
+        <p class="foot" style="margin:8px 0 0" id="oi-pie"></p>
+      </details>
       <div id="o-zona" style="margin-top:12px" hidden></div>
       <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
       <div class="tbl" style="margin-top:12px"><table id="o-tabla">
-        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Fecha</th><th>Estado</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
+        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Guía</th><th>Cliente</th><th>Producto</th><th>Fecha</th><th>Estado</th><th>Transportadora</th><th>Ciudad</th><th>Departamento</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
         <tbody id="o-body"></tbody>
       </table></div>
       <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="o-mas" type="button">Mostrar más</button></div>
@@ -1487,10 +1493,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       if(d&&o.d<d)return false;if(h&&o.d>h)return false;
       if(dp&&o.dep!==dp)return false;if(ci&&o.c!==ci)return false;
       if(window.ecProd){var pf=$("o-prod").value;if(pf&&window.ecProd.of(o)!==pf)return false}
+      var tf=$("o-trans").value;if(tf&&((window.ecPedX&&window.ecPedX.get(o.n))||{}).t!==tf)return false;
       if(fv&&!store.favs[o.n])return false;
       var tags=store.tags[o.n]||[];
       if(tg&&tags.indexOf(tg)<0)return false;
-      if(q){var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")).toLowerCase();if(hay.indexOf(q)<0)return false}
+      if(q){var XX=(window.ecPedX&&window.ecPedX.get(o.n))||{};var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")+" "+(XX.g||"")+" "+(XX.c||"")+" "+(XX.p||"")+" "+(XX.t||"")).toLowerCase();if(hay.indexOf(q)<0)return false}
       return true});
   }
 
@@ -1548,6 +1555,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   $("z-ciu").addEventListener("change",function(){var v=this.value;if(v&&!odep.value){var o=ORD.filter(function(x){return x.c===v})[0];if(o){odep.value=o.dep;ciudades()}}ociu.value=v;lim=50;zlim=15;rOrd()});
   $("z-clear").addEventListener("click",function(){odep.value="";ciudades();ociu.value="";lim=50;rOrd()});
   zrender();zsel();
+  function xc(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>',pn=window.ecProd?window.ecProd.of(o):"";return '<td>'+(X.g?esc(X.g):d)+'</td><td>'+(X.c?esc(X.c):d)+'</td><td>'+(pn&&pn!=="Sin producto"?esc(pn):d)+'</td>'}
   function rOrd(keepFocus){
     zsel();zrender();zonaCard();
     var F=filtrar(),e=0,dv=0,pr=0,ca=0,val=0;
@@ -1562,19 +1570,20 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     obody.innerHTML=sh.length?sh.map(function(o){
       var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
       return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
-        '<td class="num" style="text-align:left">'+o.n+'</td><td style="white-space:nowrap">'+o.d.split("-").reverse().join("/")+(o.t?' '+o.t:'')+'</td>'+
-        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
+        '<td class="num" style="text-align:left">'+o.n+'</td>'+xc(o)+'<td style="white-space:nowrap">'+o.d.split("-").reverse().join("/")+(o.t?' '+o.t:'')+'</td>'+
+        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+((window.ecPedX&&window.ecPedX.get(o.n)||{}).t?esc(window.ecPedX.get(o.n).t):'<span class="sub">–</span>')+'</td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td><td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
         '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
-    }).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
+    }).join(""):'<tr><td colspan="12" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
     omas.hidden=F.length<=lim;omas.textContent="Mostrar más ("+(F.length-lim)+" restantes)";
     window.ecFx&&window.ecFx.apply();
     if(keepFocus){var el=obody.querySelector('.tg[data-n="'+keepFocus+'"]');if(el)el.focus()}
   }
-  [oq,od,oh,ociu,otag,ofav,$("o-prod")].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
+  window.ecRO=function(){lim=50;rOrd()};
+  [oq,od,oh,ociu,otag,ofav,$("o-prod"),$("o-trans")].forEach(function(el){el.addEventListener(el.type==="search"?"input":"change",function(){lim=50;rOrd()})});
   odep.addEventListener("change",function(){ciudades();lim=50;rOrd()});
   $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
   omas.addEventListener("click",function(){lim+=50;rOrd()});
-  $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
+  $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";$("o-trans").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
   obody.addEventListener("click",function(ev){
     var st=ev.target.closest(".star");if(st){var n=st.dataset.n;if(store.favs[n])delete store.favs[n];else store.favs[n]=1;save();rOrd();return}
     var tc=ev.target.closest(".tagchip");if(tc){var n2=tc.dataset.n;store.tags[n2]=(store.tags[n2]||[]).filter(function(t){return t!==tc.dataset.t});if(!store.tags[n2].length)delete store.tags[n2];save();etiquetas();rOrd()}
@@ -3065,7 +3074,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function prNames(){var a={};PRR.forEach(function(r){a[r.p]=1});["Dúo Mágico (Expresa tu amor)","Spray dental para molestias bucales","Pastillas limpiadoras de lavadora"].forEach(function(n){a[n]=1});return Object.keys(a)}
   function prHtml(){return PRR.length?PRR.map(function(r,i){return '<div class="ajr"><div><b>Q '+r.v+' → '+r.p.replace(/[&<>"]/g,"")+'</b><small>'+(window.__ORD||[]).filter(function(o){return o.v===r.v}).length+' pedidos con este precio</small></div><button class="btn" type="button" data-prx="'+i+'">Quitar</button></div>'}).join(""):'<div class="ajr"><span class="sub">Todavía no hay reglas. Ejemplo: precio 191 → Dúo Mágico.</span></div>'}
   function prSave(){try{localStorage.setItem("ec_prr",JSON.stringify(PRR))}catch(e){}if(db&&can)db.doc("settings/prodreglas").set({reglas:PRR}).catch(function(){});window.ecProd.sync()}
-  window.ecProd={of:function(o){for(var i=0;i<PRR.length;i++)if(PRR[i].v===o.v)return PRR[i].p;return "Sin producto"},names:function(){var a={};(window.__ORD||[]).forEach(function(o){a[window.ecProd.of(o)]=1});return Object.keys(a).sort()},sync:function(){document.dispatchEvent(new Event("ecprod"))}};
+  window.ecProd={of:function(o){var X=window.ecPedX&&window.ecPedX.get(o.n);if(X&&X.p)return X.p;for(var i=0;i<PRR.length;i++)if(PRR[i].v===o.v)return PRR[i].p;return "Sin producto"},names:function(){var a={};(window.__ORD||[]).forEach(function(o){a[window.ecProd.of(o)]=1});return Object.keys(a).sort()},sync:function(){document.dispatchEvent(new Event("ecprod"))}};
   var BM="",RS=null,COLS=["winners","validations","settings","gastos","calculos","publicidad","acciones","radar","radar2","radar_mem","radar2_mem"];
   function lastTxt(){var t=null;try{t=localStorage.getItem("ec_lastbackup")}catch(e){}if(!t)return "Todavía no has descargado ninguna copia. Haz una cada semana y guárdala en tu correo o en tu Drive.";var d=Math.floor((Date.now()-new Date(t).getTime())/864e5);return "Última copia: "+(d<=0?"hoy":"hace "+d+" día"+(d===1?"":"s"))+(d>7?". Ya pasó más de una semana: conviene hacer otra.":".")}
   function readCol(n){return new Promise(function(res){var done=false,t=setTimeout(function(){if(!done){done=true;res({})}},7000);try{db.collection(n).onSnapshot(function(sn){if(done)return;done=true;clearTimeout(t);var o={};sn.docs.forEach(function(d){o[d.id]=d.data()});res(o)},function(){if(!done){done=true;res({})}})}catch(e){if(!done){done=true;res({})}}})}
@@ -3195,5 +3204,59 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("ecprod",refresh);
   setTimeout(function(){refresh()},120);
   document.addEventListener("click",function(e){if(e.target.closest("#side button, #nav-g button"))setTimeout(function(){fillOpts()},60)});
+})();
+</script>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},MAP={},db=null,can=true,PA=null;
+  try{MAP=JSON.parse(localStorage.getItem("ec_pedx")||"{}")||{}}catch(e){MAP={}}
+  window.ecPedX={get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length}};
+  function norm(t){return String(t==null?"":t).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim()}
+  function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function parse(text){
+    text=String(text).replace(/^﻿/,"");var first=text.split(/\r?\n/)[0]||"";
+    var d=[["\t",(first.match(/\t/g)||[]).length],[";",(first.match(/;/g)||[]).length],[",",(first.match(/,/g)||[]).length]].sort(function(a,b){return b[1]-a[1]})[0][0];
+    var rows=[],row=[],cur="",q=false;
+    for(var i=0;i<text.length;i++){var ch=text[i];
+      if(q){if(ch==='"'){if(text[i+1]==='"'){cur+='"';i++}else q=false}else cur+=ch}
+      else if(ch==='"')q=true;
+      else if(ch===d){row.push(cur);cur=""}
+      else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&text[i+1]==="\n")i++;row.push(cur);cur="";if(row.some(function(x){return x.trim()}))rows.push(row);row=[]}
+      else cur+=ch}
+    row.push(cur);if(row.some(function(x){return x.trim()}))rows.push(row);return rows}
+  var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]]];
+  function guess(H){var used={},g={};FIELDS.forEach(function(f){var pick=-1;for(var r=0;r<f[2].length&&pick<0;r++){for(var i=0;i<H.length;i++){if(used[i])continue;if(f[0]==="c"&&/producto/.test(H[i]))continue;if(f[2][r].test(H[i])){pick=i;break}}}if(pick>=0)used[pick]=1;g[f[0]]=pick});return g}
+  function showMap(){
+    var box=$("oi-map");if(!box||!PA)return;var H=PA.rows[0],hn=H.map(norm);
+    box.innerHTML='<div class="frow" style="gap:10px">'+FIELDS.map(function(f){return '<div class="fld"><label>'+f[1]+'</label><select data-f="'+f[0]+'"><option value="-1">(no usar)</option>'+H.map(function(h,i){return '<option value="'+i+'"'+(PA.g[f[0]]===i?' selected':'')+'>'+E(h||("Columna "+(i+1)))+'</option>'}).join("")+'</select></div>'}).join("")+'</div><div class="sub" id="oi-prev" style="margin:8px 0"></div><button class="btn" type="button" id="oi-ok">Importar</button> <button class="btn" type="button" id="oi-x">Cancelar</button>';
+    prev()}
+  function digits(v){return String(v==null?"":v).replace(/\D/g,"")}
+  function prev(){
+    var sel={};document.querySelectorAll("#oi-map select").forEach(function(e){sel[e.dataset.f]=+e.value});PA.sel=sel;
+    var set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var m=0,N=PA.rows.length-1;
+    if(sel.n>=0)PA.rows.slice(1).forEach(function(r){if(set[digits(r[sel.n])])m++});
+    $("oi-prev").textContent=sel.n<0?"Elige la columna del número de pedido.":m+" de "+N+" filas coinciden con tus pedidos de Dropi."}
+  function persist(){try{localStorage.setItem("ec_pedx",JSON.stringify(MAP))}catch(e){}if(db&&can)db.doc("settings/pedextra").set({map:MAP}).catch(function(){})}
+  function fillT(){var sel=$("o-trans");if(!sel)return;var cur=sel.value,t={};Object.keys(MAP).forEach(function(k){if(MAP[k].t)t[MAP[k].t]=1});var ks=Object.keys(t).sort();
+    sel.disabled=!ks.length;sel.innerHTML=ks.length?'<option value="">Todas</option>'+ks.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join(""):'<option value="">Sin datos (importa desde Dropi)</option>';if(ks.indexOf(cur)>-1)sel.value=cur;
+    var pie=$("oi-pie");if(pie){var n=Object.keys(MAP).length;pie.innerHTML=n?'Datos importados de '+n+' pedidos. <button type="button" class="btn" id="oi-del" style="padding:4px 10px;font-size:.78rem">Quitar datos importados</button> Los nombres de clientes se guardan en tu base privada y salen en la copia de seguridad.':''}}
+  function refresh(){fillT();if(window.ecRO)window.ecRO();document.dispatchEvent(new Event("ecprod"))}
+  function load(text){var rows=parse(text);if(rows.length<2){$("oi-prev")&&0;$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
+    PA={rows:rows,g:guess(rows[0].map(norm))};showMap()}
+  document.addEventListener("change",function(e){
+    if(e.target.id==="oi-f"&&e.target.files&&e.target.files[0]){var rd=new FileReader();rd.onload=function(){load(rd.result)};rd.readAsText(e.target.files[0],"utf-8")}
+    if(e.target.closest&&e.target.closest("#oi-map select")&&PA)prev()});
+  document.addEventListener("click",function(e){
+    if(e.target.id==="oi-go"){var t=$("oi-t").value;if(t.trim())load(t);return}
+    if(e.target.id==="oi-x"){PA=null;$("oi-map").innerHTML="";return}
+    if(e.target.id==="oi-del"){MAP={};persist();refresh();return}
+    if(e.target.id==="oi-ok"&&PA){
+      var sel=PA.sel,set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var m=0;
+      if(!(sel.n>=0))return;
+      PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!set[n])return;var x=MAP[n]||{};["g","c","p","t"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)x[k]=v.slice(0,80)}});MAP[n]=x;m++});
+      persist();PA=null;$("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+m+' pedidos actualizados.</div>';refresh()}});
+  setTimeout(function(){fillT();refresh()},200);
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP))}catch(e){}refresh()}},function(){})}}catch(e){}})();
 })();
 </script>
