@@ -643,8 +643,10 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     <div id="o-zonas">
       <h2>Efectividad de entrega por zona</h2>
       <p class="sub" id="z-sub" style="margin:0 0 10px"></p>
+      <div id="zp-box"></div>
       <div class="zbar">
         <div class="vsw" role="group" aria-label="Agrupar por"><button type="button" data-z="dep" aria-pressed="true">Departamentos</button><button type="button" data-z="ciu" aria-pressed="false">Ciudades</button></div>
+        <div class="fld"><label for="z-prod">Producto</label><select id="z-prod"><option value="">Todos los productos</option></select></div>
         <div class="fld"><label for="z-dep">Departamento</label><select id="z-dep"></select></div>
         <div class="fld"><label for="z-ciu">Ciudad</label><select id="z-ciu"></select></div>
         <div class="fld"><label for="z-q">Buscar zona</label><input id="z-q" type="search" placeholder="Ej.: Tutuapa" autocomplete="off"></div>
@@ -1497,7 +1499,8 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   function zst(arr){var s={t:arr.length,e:0,d:0,c:0,p:0};arr.forEach(function(o){if(o.s==="E")s.e++;else if(o.s==="D"||o.s==="I"||o.s==="J")s.d++;else if(o.s==="C")s.c++;else s.p++});s.res=s.e+s.d;s.r=s.res?Math.round(s.e/s.res*100):null;return s}
   function zver(s){if(s.res<MINC)return["g","Pocos datos"];if(s.r>=GOOD)return["v","Enviar"];if(s.r>=BE)return["a","Con cuidado"];return["r","Evitar"]}
   function zbar(s){var v=zver(s);return '<span class="zrate"><b>'+(s.r==null?"–":s.r+"%")+'</b><i class="'+v[0]+'"><u style="width:'+(s.r||0)+'%"></u></i></span>'}
-  function zgroups(mode){var m={};ORD.forEach(function(o){var k=mode==="dep"?o.dep:o.c;(m[k]=m[k]||[]).push(o)});return Object.keys(m).map(function(k){var s=zst(m[k]);s.k=k;s.dep=mode==="ciu"?m[k][0].dep:"";return s})}
+  function ZO(){var p=$("z-prod")&&$("z-prod").value;return p&&window.ecProd?ORD.filter(function(o){return window.ecProd.of(o)===p}):ORD}
+  function zgroups(mode){var m={};ZO().forEach(function(o){var k=mode==="dep"?o.dep:o.c;(m[k]=m[k]||[]).push(o)});return Object.keys(m).map(function(k){var s=zst(m[k]);s.k=k;s.dep=mode==="ciu"?m[k][0].dep:"";return s})}
   function norm(t){return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
   function zrows(){
     var q=norm($("z-q").value.trim()),o=$("z-ord").value,dp=odep.value,ci=ociu.value,mode=ci?"ciu":zmode;
@@ -1506,8 +1509,8 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     L.sort(function(a,b){if(o==="best"||o==="worst"){var ka=a.res<MINC?-1:a.r,kb=b.res<MINC?-1:b.r;if(ka!==kb)return o==="best"?kb-ka:(ka<0?1:kb<0?-1:ka-kb)}return b.t-a.t||a.k.localeCompare(b.k)});
     return L}
   function zrender(){
-    var L=zrows(),all=zst(ORD),show=L.slice(0,zlim),emode=odep.value||ociu.value?(ociu.value?"ciu":zmode):zmode;
-    $("z-sub").textContent="Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): "+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
+    var L=zrows(),all=zst(ZO()),show=L.slice(0,zlim),emode=odep.value||ociu.value?(ociu.value?"ciu":zmode):zmode;
+    $("z-sub").textContent=($("z-prod")&&$("z-prod").value?"Solo "+$("z-prod").value+": ":"Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): ")+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
     $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(s.k)+'</b>'+(emode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
     $("z-mas").hidden=L.length<=zlim;$("z-mas").textContent="Ver más zonas ("+(L.length-zlim)+" restantes)";
     $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con tu flete de unos 68 GTQ y ~69 GTQ de ganancia por entrega, bajo ~"+BE+"% se pierde dinero). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
@@ -1515,20 +1518,21 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   function zonaCard(){
     var box=$("o-zona"),dp=odep.value,ci=ociu.value;
     if(!dp&&!ci){box.hidden=true;box.innerHTML="";return}
-    var arr=ORD.filter(function(o){return (!dp||o.dep===dp)&&(!ci||o.c===ci)}),s=zst(arr),v=zver(s);
+    var arr=ZO().filter(function(o){return (!dp||o.dep===dp)&&(!ci||o.c===ci)}),s=zst(arr),v=zver(s);
     var name=ci?ci+(dp?" ("+dp+")":""):dp;
     var msg=s.res<MINC?"Aún hay muy pocos pedidos resueltos en esta zona para decidir ("+s.res+"). Puedes probar con pocos envíos y medir.":
       s.r>=GOOD?"Buena zona: "+s.r+"% de entrega. Sí conviene enviar.":
       s.r>=BE?"Zona regular: "+s.r+"% de entrega. Rinde poco; envía con cuidado (confirma bien la dirección y el teléfono).":
       "Zona de riesgo: "+s.r+"% de entrega, por debajo del punto de equilibrio (~"+BE+"%). Cada envío tiende a perder dinero; mejor no enviar o pedir pago adelantado.";
     var extra="";
-    if(ci&&dp){var sd=zst(ORD.filter(function(o){return o.dep===dp}));extra='<div class="sub">Todo el departamento de '+esc(dp)+': '+sd.t+' pedidos, '+(sd.r==null?"–":sd.r+"%")+' de entrega.</div>'}
+    if(ci&&dp){var sd=zst(ZO().filter(function(o){return o.dep===dp}));extra='<div class="sub">Todo el departamento de '+esc(dp)+': '+sd.t+' pedidos, '+(sd.r==null?"–":sd.r+"%")+' de entrega.</div>'}
     if(dp&&!ci){var cs=zgroups("ciu").filter(function(x){return x.dep===dp}).sort(function(a,b){return b.t-a.t});extra='<div class="sub">Ciudades de '+esc(dp)+' (toca una para verla sola):</div><div class="zsub">'+cs.map(function(x){return '<button type="button" data-c="'+esc(x.k)+'">'+esc(x.k)+' · '+x.t+' · '+(x.r==null?"–":x.r+"%")+'</button>'}).join("")+'</div>'}
     box.hidden=false;
     box.innerHTML='<div class="zcard '+v[0]+'"><div class="zh"><h3>Historial completo de la zona</h3><span class="pill '+v[0]+'">'+v[1]+'</span></div><div class="zh"><b style="font-size:1.1rem">'+esc(name)+'</b><span class="zbig">'+(s.r==null?"–":s.r+"%")+'<small style="font-size:.8rem;font-weight:500;color:var(--muted)"> de entrega</small></span></div><div class="zst"><div><small>Pedidos</small><b>'+s.t+'</b></div><div><small>Entregados</small><b class="tv">'+s.e+'</b></div><div><small>Devueltos e incidencias</small><b class="tr_">'+s.d+'</b></div><div><small>En camino o proceso</small><b class="ta">'+s.p+'</b></div><div><small>Cancelados</small><b>'+s.c+'</b></div></div><div class="zmsg">'+msg+'</div>'+extra+'</div>';
   }
   $("o-zona").addEventListener("click",function(ev){var b=ev.target.closest("button[data-c]");if(!b)return;ociu.value=b.getAttribute("data-c");lim=50;rOrd()});
   document.querySelectorAll("#o-zonas .vsw button").forEach(function(b){b.addEventListener("click",function(){zmode=b.getAttribute("data-z");zlim=15;document.querySelectorAll("#o-zonas .vsw button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});zrender()})});
+  $("z-prod").addEventListener("change",function(){zlim=15;lim=50;rOrd()});
   $("z-q").addEventListener("input",function(){zlim=15;zrender()});$("z-ord").addEventListener("change",function(){zlim=15;zrender()});
   $("z-mas").addEventListener("click",function(){zlim+=20;zrender()});
   $("z-body").addEventListener("click",function(ev){var tr=ev.target.closest("tr[data-k]");if(!tr)return;var k=tr.getAttribute("data-k");
@@ -3137,6 +3141,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function names(){return window.ecProd?window.ecProd.names():[]}
   function fillOpts(){
     var sel=$("o-prod");if(sel){var cur=sel.value,ns=names();sel.innerHTML='<option value="">Todos</option>'+ns.map(function(n){return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n.replace(/[&<>]/g,"")+'</option>'}).join("");if(ns.indexOf(cur)>-1)sel.value=cur}
+    var zp=$("z-prod");if(zp){var c3=zp.value,ns3=names();zp.innerHTML='<option value="">Todos los productos</option>'+ns3.map(function(n){return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n.replace(/[&<>]/g,"")+'</option>'}).join("");if(ns3.indexOf(c3)>-1)zp.value=c3}
+    zmat();
     var sm=$("sm-prod");if(sm){var c2=sm.value,ns2=names();sm.innerHTML='<option value="">Todos los productos</option>'+ns2.map(function(n){return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n.replace(/[&<>]/g,"")+'</option>'}).join("");if(ns2.indexOf(c2)>-1)sm.value=c2;else PRODSEL=""}
   }
   function build(){
@@ -3167,6 +3173,24 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(KEEP.tasa){KEEP.tasa.el.querySelector(".big").textContent=tasa==null?"–":tasa+"%";KEEP.tasa.el.querySelector(".sub").textContent=c.E+" llegaron, "+c.D+" volvieron"}
     if(nota)nota.textContent="Mostrando solo: "+PRODSEL+" ("+N+" de "+(window.__ORD||[]).length+" pedidos de Dropi). Las tarjetas de dinero de arriba siguen siendo de todo el negocio.";
   }
+
+  var BE=50,GOOD=65,MINC=5;
+  function st3(a){var e=0,d=0;a.forEach(function(o){if(o.s==="E")e++;else if(o.s==="D"||o.s==="I"||o.s==="J")d++});return{e:e,d:d,res:e+d,r:(e+d)?Math.round(e/(e+d)*100):null}}
+  function ver(s){return s.res<MINC?["g","Pocos datos"]:s.r>=GOOD?["v","Enviar"]:s.r>=BE?["a","Con cuidado"]:["r","Evitar"]}
+  function zmat(){
+    var box=$("zp-box");if(!box||!window.ecProd)return;
+    var ORD=window.__ORD||[],by={};ORD.forEach(function(o){var k=window.ecProd.of(o);(by[k]=by[k]||[]).push(o)});
+    var ks=Object.keys(by).filter(function(k){return k!=="Sin producto"}).sort(function(a,b){return by[b].length-by[a].length});
+    if(!ks.length){box.innerHTML='<div class="alert" style="margin:0 0 12px"><b>Semáforo por producto</b><span>Para ver cada producto por separado, asigna el producto de cada precio de venta en Ajustes (Productos por precio de venta). Lumy no entrega el ID del producto en los pedidos de Dropi, solo el precio.</span></div>';return}
+    ks.push("Sin producto");
+    var rows=ks.filter(function(k){return by[k]}).map(function(k){
+      var a=by[k],s=st3(a),v=ver(s),deps={};a.forEach(function(o){(deps[o.dep]=deps[o.dep]||[]).push(o)});
+      var z=Object.keys(deps).map(function(d){var q=st3(deps[d]);q.k=d;return q}).filter(function(q){return q.res>=MINC});
+      var best=z.slice().sort(function(x,y){return y.r-x.r})[0],worst=z.slice().sort(function(x,y){return x.r-y.r})[0],evitar=z.filter(function(q){return q.r<BE}).length,enviar=z.filter(function(q){return q.r>=GOOD}).length;
+      return '<tr data-p="'+k.replace(/"/g,"&quot;")+'"><td><b>'+k.replace(/[&<>]/g,"")+'</b><div class="sub">'+a.length+' pedidos</div></td><td class="num">'+(s.r==null?"–":s.r+"%")+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td><td>'+(best?best.k+' · '+best.r+'%':"–")+'</td><td>'+(worst&&worst!==best?worst.k+' · '+worst.r+'%':"–")+'</td><td class="num">'+enviar+' enviar · '+evitar+' evitar</td></tr>'}).join("");
+    box.innerHTML='<div class="tbl" style="margin-bottom:14px"><table style="min-width:640px"><thead><tr><th>Producto</th><th class="num">% entrega</th><th>Veredicto</th><th>Mejor departamento</th><th>Peor departamento</th><th class="num">Zonas</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot" style="margin:-6px 0 12px">Semáforo por producto: toca una fila para ver las zonas de ese producto. El producto se saca del precio de venta con las reglas de Ajustes, porque Lumy no entrega el ID del producto en los pedidos de Dropi. Departamentos con menos de '+MINC+' pedidos resueltos no cuentan.</p>';
+  }
+  document.addEventListener("click",function(e){var tr=e.target.closest&&e.target.closest("#zp-box tr[data-p]");if(!tr)return;var zp=$("z-prod");if(zp){zp.value=tr.getAttribute("data-p");zp.dispatchEvent(new Event("change"));var t=$("z-tabla");if(t)t.scrollIntoView({behavior:"smooth",block:"start"})}});
   function refresh(){fillOpts();apply()}
   document.addEventListener("ecprod",refresh);
   setTimeout(function(){build();refresh()},120);
