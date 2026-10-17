@@ -641,7 +641,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     <div class="alert"><b>De cada 100 pedidos cerrados, 38 volvieron</b><span>Ningún mes con volumen real pasó de 66% de entrega. Marzo no tiene pedidos en Dropi y agosto tuvo 7.</span></div>
 
     <div id="o-zonas">
-      <h2>Efectividad de entrega por zona</h2>
+      <h2>Semáforo transportadora</h2>
       <p class="sub" id="z-sub" style="margin:0 0 10px"></p>
       <div id="zp-box"></div>
       <div class="zbar">
@@ -3181,7 +3181,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var box=$("zp-box");if(!box||!window.ecProd)return;
     var ORD=window.__ORD||[],by={};ORD.forEach(function(o){var k=window.ecProd.of(o);(by[k]=by[k]||[]).push(o)});
     var ks=Object.keys(by).filter(function(k){return k!=="Sin producto"}).sort(function(a,b){return by[b].length-by[a].length});
-    if(!ks.length){box.innerHTML='<div class="alert" style="margin:0 0 12px"><b>Semáforo por producto</b><span>Para ver cada producto por separado, asigna el producto de cada precio de venta en Ajustes (Productos por precio de venta). Lumy no entrega el ID del producto en los pedidos de Dropi, solo el precio.</span></div>';return}
+    if(!ks.length){box.innerHTML='<div class="alert" style="margin:0 0 12px"><b>Semáforo por producto</b><span>Para ver el semáforo de cada producto, asigna el producto de cada precio de venta en Ajustes (Productos por precio de venta). Lumy no entrega el ID del producto en los pedidos de Dropi, solo el precio.</span></div>';return}
     ks.push("Sin producto");
     var rows=ks.filter(function(k){return by[k]}).map(function(k){
       var a=by[k],s=st3(a),v=ver(s),deps={};a.forEach(function(o){(deps[o.dep]=deps[o.dep]||[]).push(o)});
@@ -3193,7 +3193,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   document.addEventListener("click",function(e){var tr=e.target.closest&&e.target.closest("#zp-box tr[data-p]");if(!tr)return;var zp=$("z-prod");if(zp){zp.value=tr.getAttribute("data-p");zp.dispatchEvent(new Event("change"));var t=$("z-tabla");if(t)t.scrollIntoView({behavior:"smooth",block:"start"})}});
   function refresh(){fillOpts();apply()}
   document.addEventListener("ecprod",refresh);
-  setTimeout(function(){build();refresh()},120);
-  document.addEventListener("click",function(e){if(e.target.closest("#side button, #nav-g button"))setTimeout(function(){build();fillOpts()},60)});
+  setTimeout(function(){refresh()},120);
+  document.addEventListener("click",function(e){if(e.target.closest("#side button, #nav-g button"))setTimeout(function(){fillOpts()},60)});
 })();
 </script>
