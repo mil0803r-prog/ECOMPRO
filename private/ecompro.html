@@ -549,7 +549,8 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 
 .cgl{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
 .cgc{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(10,40,60,.06)}
-.cgc{border-left:6px solid var(--cc,var(--line))}
+.cgc .cdt{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--cc);margin-right:6px;vertical-align:middle}
+.cgc details.cet{border-top:1px dashed var(--line);padding-top:6px}.cgc details.cet>summary{cursor:pointer;font-size:.8rem;font-weight:700;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center}.cgc details.cet[open]>summary{margin-bottom:8px}.cgc details.cet .cpal{margin-bottom:8px}
 .cgc .cpal,.cgc .ctg{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .cgc .cdot{width:20px;height:20px;border-radius:50%;border:2px solid transparent;padding:0;cursor:pointer;background:var(--d);min-height:0}
 .cgc .cdot.on{border-color:var(--text);box-shadow:0 0 0 2px var(--card) inset}
@@ -2461,7 +2462,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 
   function conv(x,mon){var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,gtq=mon==="GTQ"?x:mon==="PEN"?x/rt:x/0.130952;return (on()?"S/":"Q")+" "+f2(on()?gtq*rt:gtq)}
   function cmsg(t){msg(t)}
-  var CPAL=["#16a34a","#2563eb","#f59e0b","#dc2626","#7c3aed","#0891b2","#db2777","#64748b"],TCOL={"Lanzar":"#16a34a","Esperar":"#f59e0b","Seguimiento":"#2563eb","Descartar":"#dc2626","Probar":"#7c3aed"},TAGS=["Lanzar","Esperar","Seguimiento","Descartar","Probar"],tFil="";
+  var CPAL=["#16a34a","#2563eb","#f59e0b","#dc2626","#7c3aed","#0891b2","#db2777","#64748b"],TCOL={"Lanzar":"#16a34a","Esperar":"#f59e0b","Seguimiento":"#2563eb","Descartar":"#dc2626","Probar":"#7c3aed"},TAGS=["Lanzar","Esperar","Seguimiento","Descartar","Probar"],tFil="",openCet={};
   function tcol(t){return TCOL[t]||"#0891b2"}
   function esc(s){return String(s).replace(/[<>&"]/g,"")}
   function upd(id,patch){if(!cDb||!cWrite){msg("No tienes permiso para cambiar.");return}cDb.doc("calculos/"+id).update(patch).catch(function(){msg("No se pudo guardar el cambio.")})}
@@ -2470,12 +2471,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     $("c-tf").innerHTML=saved.length?['<button type="button" class="ctag'+(tFil?'':' on')+'" style="--tc:#64748b" data-f="">Todos</button>'].concat(all.map(function(t){return '<button type="button" class="ctag'+(tFil===t?' on':'')+'" style="--tc:'+tcol(t)+'" data-f="'+esc(t)+'">'+esc(t)+'</button>'})).join(""):"";
     var L=saved.filter(function(g){return !tFil||(g.tags||[]).indexOf(tFil)>=0}).slice().sort(function(a,b){return (b.ts||0)-(a.ts||0)});
     $("c-saved").hidden=false;
-    $("c-gl").innerHTML=L.length?L.map(function(g){var i=g.inp||{},res=g.res||{},d=new Date(g.ts||0).toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"});
+    $("c-gl").innerHTML=L.length?L.map(function(g){var i=g.inp||{},res=g.res||{},d=new Date(g.ts||0).toLocaleDateString("es",{day:"numeric",month:"short",year:"numeric"})+", "+new Date(g.ts||0).toLocaleTimeString("es",{hour:"2-digit",minute:"2-digit"});
       var gt=g.tags||[],tl=TAGS.slice();gt.forEach(function(t){if(tl.indexOf(t)<0)tl.push(t)});
-      return '<div class="cgc'+(g.id===loadedId?" on":"")+'" data-id="'+g.id+'"'+(g.color?' style="--cc:'+esc(g.color)+'"':'')+'><div><h4>'+String(g.nombre||"Sin nombre").replace(/[<>&]/g,"")+'</h4><div class="sub">'+d+' · x'+(i.uni||1)+' · entrega '+(i.ed||"–")+'%</div></div>'+
+      return '<div class="cgc'+(g.id===loadedId?" on":"")+'" data-id="'+g.id+'"'+(g.color?' style="--cc:'+esc(g.color)+'"':'')+'><div><h4>'+String(g.nombre||"Sin nombre").replace(/[<>&]/g,"")+'</h4><div class="sub">'+(g.color?'<i class="cdt"></i>':'')+d+' · x'+(i.uni||1)+' · entrega '+(i.ed||"–")+'%</div></div>'+
         '<div class="cgk"><div><small>Precio recomendado</small><b>'+conv(res.pv||0,res.mon)+'</b></div><div><small>Para publicar</small><b>'+conv(res.sell||0,res.mon)+'</b></div><div><small>Ganas por venta</small><b class="tv">'+conv(res.ut9||0,res.mon)+'</b></div><div><small>Margen</small><b>'+(res.mr9!=null?Math.round(res.mr9*100):"–")+'%</b></div></div>'+
-        '<div class="cpal" role="group" aria-label="Color">'+CPAL.map(function(c){return '<button type="button" class="cdot'+(g.color===c?' on':'')+'" style="--d:'+c+'" data-a="col" data-c="'+c+'" aria-label="Color"></button>'}).join("")+'<button type="button" class="ctag" data-a="col" data-c="" style="padding:1px 8px">Sin color</button></div>'+
-        '<div class="ctg">'+tl.map(function(t){return '<button type="button" class="ctag'+(gt.indexOf(t)>=0?' on':'')+'" style="--tc:'+tcol(t)+'" data-a="tag" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join("")+'<button type="button" class="ctag add" data-a="newtag">+ etiqueta</button></div>'+
+        '<details class="cet"'+(openCet[g.id]?' open':'')+' data-id="'+g.id+'"><summary>Etiquetas y color'+gt.map(function(t){return '<span class="ctag on" style="--tc:'+tcol(t)+';cursor:default">'+esc(t)+'</span>'}).join("")+'</summary><div class="cpal" role="group" aria-label="Color">'+CPAL.map(function(c){return '<button type="button" class="cdot'+(g.color===c?' on':'')+'" style="--d:'+c+'" data-a="col" data-c="'+c+'" aria-label="Color"></button>'}).join("")+'<button type="button" class="ctag" data-a="col" data-c="" style="padding:1px 8px">Sin color</button></div>'+
+        '<div class="ctg">'+tl.map(function(t){return '<button type="button" class="ctag'+(gt.indexOf(t)>=0?' on':'')+'" style="--tc:'+tcol(t)+'" data-a="tag" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join("")+'<button type="button" class="ctag add" data-a="newtag">+ etiqueta</button></div></details>'+
         '<div class="cgb"><button type="button" class="btn" data-a="load">Cargar</button><button type="button" class="btn" data-a="del">Eliminar</button></div></div>'}).join(""):'<p class="sub">Todavía no guardaste ningún cálculo. Llena los datos de un producto y toca "Guardar cálculo".</p>';
   }
   window.calcWire=function(db,can){
@@ -2503,6 +2504,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(b.dataset.a==="load"){S=Object.assign({},DEF,g.inp||{});loadedId=id;sv();fill();render();$("c-new").hidden=false;$("c-save").textContent="Guardar cambios";renderSaved();msg("Cargué «"+(g.nombre||"")+"». Cambia lo que quieras y toca Guardar cambios.");window.scrollTo({top:0,behavior:"smooth"})}
     if(b.dataset.a==="del"){if(!cWrite||!cDb)return;if(cDel===id){cDel=null;cDb.doc("calculos/"+id).delete().then(function(){if(loadedId===id){loadedId=null;$("c-new").hidden=true;$("c-save").textContent="Guardar cálculo"}}).catch(function(){msg("No se pudo eliminar.")})}else{cDel=id;b.textContent="¿Seguro?";setTimeout(function(){if(cDel===id){cDel=null;b.textContent="Eliminar"}},4000)}}
   });
+  $("c-gl").addEventListener("toggle",function(ev){var d=ev.target;if(d.classList&&d.classList.contains("cet"))openCet[d.dataset.id]=d.open},true);
   $("c-tf").addEventListener("click",function(ev){var b=ev.target.closest("button[data-f]");if(!b)return;tFil=b.dataset.f;renderSaved()});
   $("c-reset").addEventListener("click",function(){loadedId=null;$("c-new").hidden=true;$("c-save").textContent="Guardar cálculo";renderSaved()});
   window.__calcs=function(){return saved};
