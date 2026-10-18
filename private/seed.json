@@ -5339,6 +5339,382 @@
    "fav": false,
    "ct": "2026-09-02",
    "tv": 389
+  },
+  "2026-10-18_1": {
+   "date": "2026-10-18",
+   "rank": 1,
+   "source": "ia",
+   "name": "Capykaraoke microfono infantil con luces",
+   "provider": "digital gt",
+   "verificado": false,
+   "cats": "hogar, jugueteria",
+   "costo": 110,
+   "pvp": 200,
+   "v7": 59,
+   "v30": 78,
+   "stock": 222,
+   "score": 73,
+   "scores": {
+    "demanda": 5,
+    "traccion": 6,
+    "margen": 3,
+    "competencia": 6,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 369
+   },
+   "verdict": "59 ventas en 7 dias, 78 en 30 y 78 en total (producto creado el 2026-10-09, venta en 8 de los 9 dias desde el lanzamiento: 8, 11, 3, 6, 17, 13, 3 y 17 por dia), stock 222 (arranco en 300) y 1 solo proveedor (digital gt). En GT hay 4 anunciantes de micrófonos karaoke infantiles muy parecidos (no confirmado que sea el mismo SKU): zona dulce, con 2 activos en los ultimos 10 dias, y temporada de regalos de fin de ano por delante.",
+   "angle": "Ya en uso en GT: 'el regalo que convierte cualquier habitacion en un show', envio gratis y pago al recibir, 'HOY SOLO Q199 (precio regular Q399)'. Hueco: regalo de Navidad pensado para reducir pantallas, fiestas infantiles y abuelos/tios que no saben que regalar, con oferta de 2 piezas.",
+   "competition": "4 anunciantes de microfono karaoke infantil en GT (Viva GT, Lab502, AurasMarket, D'Noah Style); solo Viva GT (landing propia, visto 2026-10-08) y Lab502 (WhatsApp, visto 2026-10-08) con anuncios vistos en los ultimos 10 dias. Zona dulce (3-8). Dos de ellos usan la marca ajena 'K-POP Demon Hunters'.",
+   "anWA": 2,
+   "anLand": 2,
+   "anTotal": 4,
+   "anNota": "4 anunciantes distintos en GT de micrófonos karaoke infantiles (busqueda por texto 'karaoke' y por significado; son productos del mismo tipo, no se confirmo que sea el mismo modelo que Capykaraoke): Viva GT (landing vivagt.com, video activo desde 2026-10-01, visto 2026-10-08), Lab502 (WhatsApp, imagen 'HOY SOLO Q199, precio regular Q399', desde 2026-09-29, visto 2026-10-08), AurasMarket (landing auramarket.lat, 'K-POP Demon Hunters', visto por ultima vez 2026-09-12) y D'Noah Style (WhatsApp, 'K-POP', visto por ultima vez 2026-09-10). Hay ademas anunciantes de micrófonos inalambricos para adultos que no cuentan. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://vivagt.com/products/microfono-karaoke-k-pop-demon-hunters",
+     "adv": "Viva GT",
+     "pais": "GT",
+     "dias": 7,
+     "nota": "Video activo desde 2026-10-01 (visto 2026-10-08). 'Regalo diferente que no termine olvidado': show de musica, luces y diversion; pago al recibir."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Lab502",
+     "pais": "GT",
+     "dias": 9,
+     "nota": "Solo WhatsApp (sin landing). Imagen 'Karaoke infantil' a Q199 'precio regular Q399', pago contra entrega; desde 2026-09-29."
+    },
+    {
+     "url": "https://auramarket.lat/products/microfono-karaoke-k-pop-demon-hunters",
+     "adv": "AurasMarket",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Videos de 2 dias en septiembre, visto por ultima vez 2026-09-12. 'Que comience el show', envio gratis y pago al recibir."
+    },
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "D'Noah Style",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Solo WhatsApp. Video 'Microfono karaoke K-POP, super oferta', visto por ultima vez 2026-09-10."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Lab502",
+     "pais": "GT",
+     "dias": 9,
+     "score": 28,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=29097617556489089",
+     "dk": "https://app.dropkiller.com/dashboard/ads/34015efc-70b9-46bb-82ba-be8b0e78bfe4",
+     "nota": "Imagen: 'Hoy solo Q199 (precio regular Q399)', karaoke infantil, pago contra entrega."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Viva GT",
+     "pais": "GT",
+     "dias": 7,
+     "score": 22,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1132371935975310",
+     "dk": "https://app.dropkiller.com/dashboard/ads/cc1fee42-c2b6-4c14-968e-77c445d7e0f7",
+     "nota": "Video activo 7 dias con landing propia: regalo, luces y show."
+    },
+    {
+     "adv": "AurasMarket",
+     "pais": "GT",
+     "dias": 2,
+     "score": 28,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1817341129280693",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d5579dd2-f030-4285-88d7-37b3e3c809f3",
+     "nota": "Video de septiembre (mayor winner score); sin verse activo desde 2026-09-12."
+    },
+    {
+     "adv": "D'Noah Style",
+     "pais": "GT",
+     "dias": 1,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2097532740852157",
+     "dk": "https://app.dropkiller.com/dashboard/ads/7b5c0adb-9876-46c8-b9af-64fd8d3d3379",
+     "nota": "Video 'regalo que hara cantar y bailar a tu peque'; sin verse activo desde 2026-09-10."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "digital gt",
+     "id": "27194",
+     "nombre": "capykaraoke microfono infantil con luces",
+     "costo": 110,
+     "stock": 222,
+     "v7": 59,
+     "v30": 78,
+     "tv": 78,
+     "ct": "2026-10-09",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/9a564096-51ac-4768-881a-c263e82494db/556fcbc96999.webp",
+   "risk": "Producto nuevo (9 dias de historia): las ventas pueden ser un pico de lanzamiento. Sin bandera propia, pero 2 de los 4 competidores usan la marca ajena 'K-POP Demon Hunters' (Meta puede tumbar anuncios con marcas registradas): no copiar ese nombre. Juguete con bateria y luces: confirmar con el proveedor garantia y autonomia. Costo alto (Q110) para un juguete que otros ya anuncian a Q199.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27194&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/9a564096-51ac-4768-881a-c263e82494db",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-09",
+   "tv": 78
+  },
+  "2026-10-18_2": {
+   "date": "2026-10-18",
+   "rank": 2,
+   "source": "ia",
+   "name": "Removedor electrico dental",
+   "provider": "auré",
+   "verificado": true,
+   "cats": "salud",
+   "costo": 65,
+   "pvp": 80,
+   "v7": 61,
+   "v30": 202,
+   "stock": 846,
+   "score": 73,
+   "scores": {
+    "demanda": 5,
+    "traccion": 7,
+    "margen": 2,
+    "competencia": 8,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 199
+   },
+   "verdict": "61 ventas en 7 dias, 202 en 30 y 233 en total, con venta en 22 de los ultimos 30 dias (ventas de todos los dias desde el 24 de septiembre, en alza), stock 846 (reabasto el 14-oct: de 399 a 892) y 1 proveedor en Dropi (auré). Solo 2 anunciantes en GT, ambos nuevos (empezaron el 16 de octubre): muy buena senal, pero alguien ya lo descubrio esta semana. Creado el 2026-07-26, a 84 dias del limite de 90.",
+   "angle": "Ya en uso en GT: 'Dientes sin sarro, boca sin mal olor' con luz LED y vibracion ultrasonica; 'Sarro amarillo? Ya no tenes que darte pena al sonreir, sin dolor ni citas caras'. Hueco: regalo practico de fin de ano, quienes posponen el dentista por costo y gadget de cuidado personal para hombres, con oferta de 2 piezas.",
+   "competition": "2 anunciantes en GT (Lumina - Lo hacemos facil, con 2 paginas de anuncios, y Shoply Fast), todos con video y landing propia, ninguno con mas de 2 dias de anuncio visto. Ninguno por WhatsApp. Muy buena senal (1-2).",
+   "anWA": 0,
+   "anLand": 2,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos en GT con landing propia que anuncian el mismo tipo de removedor ultrasonico dental (busqueda por 'sarro'; 12 resultados leidos): Lumina - Lo hacemos facil (landing soykupi.myshopify.com/products/removedor-electrico-dental, 2 paginas con el mismo video desde 2026-10-16 y 2026-10-17) y Shoply Fast ('SonicSmile', shoplystor.online, video desde 2026-10-16). Los otros resultados ('limpiador ultrasonico' de lentes y joyas, removedores de sarro de tinaco o de superficies) no son este producto. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://soykupi.myshopify.com/products/removedor-electrico-dental",
+     "adv": "Lumina - Lo hacemos facil",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Activo desde 2026-10-16. Video: 'Complementa tu cepillado y quita el sarro acumulado' con vibracion de alta frecuencia y luz LED."
+    },
+    {
+     "url": "https://www.shoplystor.online/products/sonicsm",
+     "adv": "Shoply Fast",
+     "pais": "GT",
+     "dias": 1,
+     "nota": "Activo desde 2026-10-16. 'SonicSmile': quita sarro y manchas amarillas desde tu casa, sin dolor ni citas caras."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Lumina - Lo hacemos facil",
+     "pais": "GT",
+     "dias": 1,
+     "score": 24,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4043169842656682",
+     "dk": "https://app.dropkiller.com/dashboard/ads/46e24200-e64a-49bc-802e-dd9bda14de36",
+     "nota": "Video 'Dientes sin sarro, boca sin mal olor', el de mayor winner score."
+    },
+    {
+     "adv": "Lumina - Lo hacemos facil",
+     "pais": "GT",
+     "dias": 0,
+     "score": 17,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1650809179880802",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e1fd804c-d15a-4477-bb2f-0963063edb8d",
+     "nota": "Segunda pagina del mismo anunciante, mismo video, desde 2026-10-17."
+    },
+    {
+     "adv": "Shoply Fast",
+     "pais": "GT",
+     "dias": 1,
+     "score": 17,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2163114917953756",
+     "dk": "https://app.dropkiller.com/dashboard/ads/2dcb1699-7bcd-4031-ab36-ecb00e00f851",
+     "nota": "Video 'Sarro amarillo en tus dientes? Ya no tenes que darte pena al sonreir'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "auré",
+     "id": "8515",
+     "nombre": "removedor electrico dental",
+     "costo": 65,
+     "stock": 846,
+     "v7": 61,
+     "v30": 202,
+     "tv": 233,
+     "ct": "2026-07-26",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/626ecb7d-ce05-4083-82ea-2b9df45f4d6e/44a0b7683b84.webp",
+   "risk": "Bandera amarilla: producto de higiene oral con promesas de 'quitar sarro': Meta restringe antes y despues de dientes y claims de salud; hablar de 'complementar el cepillado' y no prometer sustituir al dentista. Producto electrico: confirmar garantia, voltaje y que no dane el esmalte. El PVP sugerido de Dropi (Q80) deja poco margen sobre costo Q65; hay que reprecificar. Dos competidores nuevos esta semana: la ventana puede cerrarse rapido.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=8515&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/626ecb7d-ce05-4083-82ea-2b9df45f4d6e",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-07-26",
+   "tv": 233
+  },
+  "2026-10-18_3": {
+   "date": "2026-10-18",
+   "rank": 3,
+   "source": "ia",
+   "name": "Aceite capilar colageno CQK",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza, cabello",
+   "costo": 35,
+   "pvp": 55,
+   "v7": 59,
+   "v30": 269,
+   "stock": 171,
+   "score": 73,
+   "scores": {
+    "demanda": 5,
+    "traccion": 6,
+    "margen": 1,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 139
+   },
+   "verdict": "59 ventas en 7 dias, 269 en 30 y 281 en total, con venta en 26 de los ultimos 30 dias (el historial muestra venta todos los dias desde el 25 de septiembre), stock 171 y 1 solo proveedor (importadora el mayorista). 2 anunciantes en GT, ambos de esta semana: muy buena senal. Stock bajo (baja de 388 a 171 en 3 semanas): a ritmo de 8 por dia dura unas 3 semanas.",
+   "angle": "Ya en uso en GT: 'Hoy oferta del 37 % de descuento', nutricion profunda y 'cabello opaco y sin vida? devuelvele su brillo'; kit con 2 mascarillas de colageno + 1 aceite. Hueco: combo con la mascarilla de colageno (mismo proveedor), cabello para las fiestas de diciembre y regalo economico.",
+   "competition": "2 anunciantes en GT (Nova Hogar GT con landing propia y Uy Que Chimba con un kit mascarillas + aceite), ambos con video desde el 11 y el 15 de octubre. Muy buena senal (1-2). Ninguno por WhatsApp para este producto.",
+   "anWA": 0,
+   "anLand": 2,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos en GT que nombran el aceite capilar de colageno (busqueda por nombre; 12 resultados leidos, el resto son otros productos de cabello como Batana, tratamiento antifrizz de NIHLO o kits de crecimiento): Nova Hogar GT (novahogarguatemala.com/products/aceite, video desde 2026-10-11, 'Hoy oferta del 37 % de descuento') y Uy Que Chimba (kit de 2 mascarillas Maca Power Collagen + 1 aceite de colageno, desde 2026-10-15; la landing apunta al producto de mascarilla). Klyvo Store anuncia un kit de crecimiento por WhatsApp pero no nombra este aceite, no se cuenta. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://novahogarguatemala.com/products/aceite",
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 4,
+     "nota": "Video activo desde 2026-10-11 (visto 2026-10-16). 'Hoy oferta del 37 % de descuento': nutricion profunda para cabello opaco."
+    },
+    {
+     "url": "https://uyquechimba.co/products/mascarilla-colageno-cabello",
+     "adv": "Uy Que Chimba",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Video desde 2026-10-15. Kit 2 mascarillas Maca Power Collagen 500 ml + 1 aceite capilar de colageno; anuncio con alcance GT."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Nova Hogar GT",
+     "pais": "GT",
+     "dias": 4,
+     "score": 26,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1835202440843828",
+     "dk": "https://app.dropkiller.com/dashboard/ads/fd11a08d-3614-4efd-827a-10d8c5e75a3e",
+     "nota": "Video activo 4 dias: aceite capilar de colageno con 37 % de descuento."
+    },
+    {
+     "adv": "Uy Que Chimba",
+     "pais": "GT",
+     "dias": 0,
+     "score": 15,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1636962438181100",
+     "dk": "https://app.dropkiller.com/dashboard/ads/7403a631-9edb-4de4-aa52-77ef6b209d8b",
+     "nota": "Video del kit 2 mascarillas + 1 aceite de colageno."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "22667",
+     "nombre": "aceite capilar colageno cqk",
+     "costo": 35,
+     "stock": 171,
+     "v7": 59,
+     "v30": 269,
+     "tv": 281,
+     "ct": "2026-09-14",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/9fcd92f7-173f-4b16-8a41-904ea164c3ea/e37e137d4471.webp",
+   "risk": "Bandera amarilla: cosmetico capilar (registro sanitario); no prometer crecimiento ni cura de caida, solo brillo, suavidad y nutricion. Con costo Q35 y flete de referencia Q68 el margen no cierra en ninguna oferta de 1 o 2 piezas: hay que medir el flete real o vender combo con la mascarilla de colageno (ya fue ganadora el 13-oct). Stock 171, cerca del piso de 80.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22667&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/9fcd92f7-173f-4b16-8a41-904ea164c3ea",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-14",
+   "tv": 281
+  },
+  "2026-10-18_4": {
+   "date": "2026-10-18",
+   "rank": 4,
+   "source": "ia",
+   "name": "Rimel alargador",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza, otros",
+   "costo": 26,
+   "pvp": 46,
+   "v7": 79,
+   "v30": 79,
+   "stock": 268,
+   "score": 67,
+   "scores": {
+    "demanda": 5,
+    "traccion": 5,
+    "margen": 0,
+    "competencia": 7,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 99
+   },
+   "verdict": "79 ventas en 7 dias, 79 en 30 y 79 en total: todo el volumen cayo en 4 dias seguidos (13 al 16 de octubre: 20, 20, 23 y 16; el 17 fue 0), stock 268 (de 345) y 1 solo proveedor (importadora el mayorista). 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado (o nadie lo ha probado o nadie lo anuncia porque el costo es bajo). Creado el 2026-09-14, sin ventas hasta el 13-oct.",
+   "angle": "Sin anuncios del mismo producto en GT. Referencia cercana: kits de pestañas postizas con '1 x Q55, 2 x Q100, 3 x Q144' y suero de pestañas '2 por Q100, envio gratis'. Hueco: rimel alargador con oferta de pack y envio gratis, mirada de salon para uso diario.",
+   "competition": "0 anunciantes del mismo producto en GT. Los anuncios de pestañas son de suero de crecimiento (Chapines Llevele, Guate Store Online, Dabalash) y de kits de pestañas postizas (Mix Ofertas, La Tiendita GT, Ganga Ofertas, Flash Lash): otro producto, misma necesidad. Semaforo 0 cuidado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos en GT del mismo producto (busquedas 'rimel' y 'pestañas', 20 resultados leidos): salen salones de pestañas, sueros de pestañas y kits de pestañas postizas, que son categorias cercanas pero no este rimel. DropKiller no indexa anuncios de este SKU; puede haber anuncios no leidos. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "22610",
+     "nombre": "rimel alargador",
+     "costo": 26,
+     "stock": 268,
+     "v7": 79,
+     "v30": 79,
+     "tv": 79,
+     "ct": "2026-09-14",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/a2665320-1d13-4053-b03a-223a12785c6b/4118d0912f7c.webp",
+   "risk": "Bandera amarilla: cosmetico (registro sanitario); evitar claims de crecimiento de pestañas. Solo 4 dias de ventas, un posible pico de una sola pauta de un tercero: validar con una prueba corta. Costo bajo (Q26) frente a flete de referencia Q68: ninguna oferta de 1 o 2 piezas cierra (NO CIERRA); solo un pack de 4 o mas piezas se acercaria. El listado vecino 'rimel big volume' (22612) y 'rimel mad lash' (22608), del mismo proveedor, no tienen ventas.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22610&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/a2665320-1d13-4053-b03a-223a12785c6b",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-14",
+   "tv": 79
   }
  },
  "validations": {
@@ -11178,6 +11554,1347 @@
    ],
    "resumen": "60 leidos con los filtros de entrada (creado desde 2026-07-17, stock 80 o mas, 7d 50 o mas, total 50 o mas); find_winning_products en ventana trending devolvio 50 productos y ninguno aporto candidatos nuevos (los que no estan en esta lista son anteriores al 2026-07-17). El filtro que mas corto fue el rango 50-800 de las tres ventas (18 de 60 fuera), seguido de los repetidos (16) y del limite de 1 o 2 proveedores del mismo producto (15 descartados). De los 42 en rango: 7 finalistas (solo hay 7, no 10), 16 repetidos, 15 con 3 o mas proveedores/listados del mismo producto, 3 para adultos y 1 por bandera de marca (Derman). La meta de 120 filas no se alcanzo: el catalogo solo tiene 60 que pasen el piso de 50 ventas en 7 dias; para llegar a 10 finalistas conviene bajar minSold7d a 30 y ampliar la antiguedad a 120 dias.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA y ningun descartado de ayer duplico sus ventas de 7 dias. Para revisar a mano: (1) Magnesium for women estuvo ayer descartado por 3 o mas listados y hoy la busqueda por nombre muestra 1 solo proveedor; (2) Lampara solar, Nida ojeras y Ajedrez magnetico ya aparecieron ayer como fichas solo informe: si se quiere solo producto nunca visto, cambiar por Brazier tira ancha (#6) o Magnesium for women (#7); (3) Pijamas Huntrax tiene solo 4 dias de ventas y 0 anunciantes: validar con una prueba corta antes de invertir; (4) el Ajedrez magnetico tiene stock 83, apenas sobre el minimo de 80."
+  },
+  "2026-10-18": {
+   "date": "2026-10-18",
+   "source": "ia",
+   "titulo": "Radar Caza Diaria · 2026-10-18",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (sin navegador)",
+   "veredicto": "Veredicto. Hoy, 2026-10-18, DropKiller devolvio 58 productos GT/Dropi creados desde el 2026-07-20 con stock de 80 o mas y 50 o mas ventas en 7 dias; 41 tienen 7d, 30d y total entre 50 y 800 y solo 4 pasan todos los filtros (1 o 2 proveedores, ventas consistentes, menos de 7 anunciantes en GT y sin repetir los ultimos 20 dias). El mejor es Capykaraoke (11/15, 4 anunciantes parecidos en GT, regalo de fin de ano), pero con flete Q68 y CPA Q20 ninguno pasa de Q30 por pedido (Capykaraoke Q18.8 con 2 unidades, el resto menos) y dos no cierran, asi que hay que medir flete y CPA reales antes de pautar.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador); los anuncios salen de la biblioteca de DropKiller (busqueda por texto y por significado) y se leyeron solo los primeros resultados por producto, asi que los conteos de tiendas son minimos. Solo se hallo 1 referente fuera de GT (karaoke, Colombia) y se marca como parecido, no confirmado como el mismo SKU. No se uso Fasebook, Vercel ni ArtifactData. Aviso de repeticion: la regla se aplico contra los ids de proveedor de las tarjetas desde el 28-sep, las fichas del radar del 14 y 15-oct y las tarjetas de /hunt; no se revisaron corridas del 16 y 17-oct si existieron, porque no estan en el seed. Solo hay 4 finalistas, no 5 ni 10. Los eslabones de Amazon/AliExpress ya estan en el tablero.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Capykaraoke, micrófono infantil con luces",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/9a564096-51ac-4768-881a-c263e82494db/556fcbc96999.webp",
+     "v": "59 ventas en 7 dias, 78 en 30 y 78 en total (producto creado el 2026-10-09, venta en 8 de los 9 dias desde el lanzamiento: 8, 11, 3, 6, 17, 13, 3 y 17 por dia), stock 222 (arranco en 300) y 1 solo proveedor (digital gt). En GT hay 4 anunciantes de micrófonos karaoke infantiles muy parecidos (no confirmado que sea el mismo SKU): zona dulce, con 2 activos en los ultimos 10 dias, y temporada de regalos de fin de ano por delante.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "59"
+      ],
+      [
+       "30d",
+       "78"
+      ],
+      [
+       "Total",
+       "78"
+      ],
+      [
+       "Stock",
+       "222"
+      ],
+      [
+       "Costo",
+       "Q110"
+      ],
+      [
+       "PVP sug.",
+       "Q200"
+      ],
+      [
+       "Creado",
+       "2026-10-09"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 3 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q369; utilidad estimada por pedido generado: Q18.8. Con 1 unidad al PVP sugerido: Q-17.8. Reprecio a 2,5 x costo (Q275): Q28.7. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "digital gt",
+         "27194",
+         "capykaraoke microfono infantil con luces",
+         "Q110",
+         "222",
+         "59/78/78",
+         "2026-10-09"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 4 anunciante(s) · 3-8 zona dulce",
+       "p": "4 anunciantes distintos en GT de micrófonos karaoke infantiles (busqueda por texto 'karaoke' y por significado; son productos del mismo tipo, no se confirmo que sea el mismo modelo que Capykaraoke): Viva GT (landing vivagt.com, video activo desde 2026-10-01, visto 2026-10-08), Lab502 (WhatsApp, imagen 'HOY SOLO Q199, precio regular Q399', desde 2026-09-29, visto 2026-10-08), AurasMarket (landing auramarket.lat, 'K-POP Demon Hunters', visto por ultima vez 2026-09-12) y D'Noah Style (WhatsApp, 'K-POP', visto por ultima vez 2026-09-10). Hay ademas anunciantes de micrófonos inalambricos para adultos que no cuentan. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Lab502: Imagen: 'Hoy solo Q199 (precio regular Q399)', karaoke infantil, pago contra entrega.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=29097617556489089"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/34015efc-70b9-46bb-82ba-be8b0e78bfe4"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Viva GT: Video activo 7 dias con landing propia: regalo, luces y show.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1132371935975310"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/cc1fee42-c2b6-4c14-968e-77c445d7e0f7"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · AurasMarket: Video de septiembre (mayor winner score); sin verse activo desde 2026-09-12.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1817341129280693"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/d5579dd2-f030-4285-88d7-37b3e3c809f3"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · D'Noah Style: Video 'regalo que hara cantar y bailar a tu peque'; sin verse activo desde 2026-09-10.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2097532740852157"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/7b5c0adb-9876-46c8-b9af-64fd8d3d3379"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Viva GT: Video activo desde 2026-10-01 (visto 2026-10-08). 'Regalo diferente que no termine olvidado': show de musica, luces y diversion; pago al recibir.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://vivagt.com/products/microfono-karaoke-k-pop-demon-hunters"
+          }
+         ]
+        },
+        {
+         "t": "Landing · AurasMarket: Videos de 2 dias en septiembre, visto por ultima vez 2026-09-12. 'Que comience el show', envio gratis y pago al recibir.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://auramarket.lat/products/microfono-karaoke-k-pop-demon-hunters"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (1 tienda(s), 0 imagen(es), 1 video(s))",
+       "ul": [
+        {
+         "t": "Solo se hallo 1 tienda fuera de GT con un karaoke infantil de pedestal y luces LED (Babytoys.latam, Colombia), parecido pero no confirmado como el mismo producto.",
+         "l": []
+        },
+        {
+         "t": "Tienda · Babytoys.latam (CO, 1 dias): Activo (visto 2026-10-10). 'Microfono karaoke infantil con pedestal ajustable, luces LED de colores y melodias integradas'.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://babytoys.com.co/products/microfono"
+          }
+         ]
+        },
+        {
+         "t": "Video · Babytoys.latam (CO, 1 dias, score 26): Video 'El regalo perfecto para los mas peques de la casa'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1422531053060026"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/aec21f12-989e-4f33-8e6a-649d6d65c9b4"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Regalo de show en casa (luces y musica), envio gratis y pago al recibir; precio ancla Q399 tachado a Q199; marcas de pelicula en el nombre. Ya en uso en GT: 'el regalo que convierte cualquier habitacion en un show', envio gratis y pago al recibir, 'HOY SOLO Q199 (precio regular Q399)'. Hueco: regalo de Navidad pensado para reducir pantallas, fiestas infantiles y abuelos/tios que no saben que regalar, con oferta de 2 piezas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Papas y mamas que buscan el regalo de Navidad para ninas y ninos de 3 a 8 anos",
+         "s": "Gancho: El regalo que no termina en una esquina: ella canta, se ve con luces y la casa se llena de risa. Llega y pagas al recibir."
+        },
+        {
+         "b": "Familias que quieren menos pantalla en las vacaciones de fin de ano",
+         "s": "Gancho: Cambia 2 horas de tablet por 20 minutos de escenario: un microfono con luces que los pone a cantar."
+        },
+        {
+         "b": "Mamas que organizan cumpleanos y fiestas infantiles",
+         "s": "Gancho: El numero estelar de la fiesta: cada peque pasa al frente con su microfono y sus luces."
+        },
+        {
+         "b": "Abuelos y tios que regalan y no saben que elegir",
+         "s": "Gancho: Regalo seguro: se entiende con una foto, llega a la puerta y se paga hasta tenerlo en la mano."
+        },
+        {
+         "b": "Madres de ninos timidos que no se animan a cantar ni hablar frente a otros",
+         "s": "Gancho: Cuando tiene un microfono con luces en la mano, la pena se vuelve juego. Lleva 2 para que canten juntos hermanos o primos."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Producto nuevo (9 dias de historia): las ventas pueden ser un pico de lanzamiento. Sin bandera propia, pero 2 de los 4 competidores usan la marca ajena 'K-POP Demon Hunters' (Meta puede tumbar anuncios con marcas registradas): no copiar ese nombre. Juguete con bateria y luces: confirmar con el proveedor garantia y autonomia. Costo alto (Q110) para un juguete que otros ya anuncian a Q199."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 27194)",
+       "u": "https://app.dropi.gt/dashboard/search?search=27194&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/9a564096-51ac-4768-881a-c263e82494db"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Removedor eléctrico dental",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/626ecb7d-ce05-4083-82ea-2b9df45f4d6e/44a0b7683b84.webp",
+     "v": "61 ventas en 7 dias, 202 en 30 y 233 en total, con venta en 22 de los ultimos 30 dias (ventas de todos los dias desde el 24 de septiembre, en alza), stock 846 (reabasto el 14-oct: de 399 a 892) y 1 proveedor en Dropi (auré). Solo 2 anunciantes en GT, ambos nuevos (empezaron el 16 de octubre): muy buena senal, pero alguien ya lo descubrio esta semana. Creado el 2026-07-26, a 84 dias del limite de 90.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "61"
+      ],
+      [
+       "30d",
+       "202"
+      ],
+      [
+       "Total",
+       "233"
+      ],
+      [
+       "Stock",
+       "846"
+      ],
+      [
+       "Costo",
+       "Q65"
+      ],
+      [
+       "PVP sug.",
+       "Q80"
+      ],
+      [
+       "Creado",
+       "2026-07-26"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 1 unidad(es) a Q199; utilidad estimada por pedido generado: Q9.5. Con 1 unidad al PVP sugerido: Q-64.3. Reprecio a 2,5 x costo (Q162): Q-13.4. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "auré",
+         "8515",
+         "removedor electrico dental",
+         "Q65",
+         "846",
+         "61/202/233",
+         "2026-07-26"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena señal",
+       "p": "2 anunciantes distintos en GT con landing propia que anuncian el mismo tipo de removedor ultrasonico dental (busqueda por 'sarro'; 12 resultados leidos): Lumina - Lo hacemos facil (landing soykupi.myshopify.com/products/removedor-electrico-dental, 2 paginas con el mismo video desde 2026-10-16 y 2026-10-17) y Shoply Fast ('SonicSmile', shoplystor.online, video desde 2026-10-16). Los otros resultados ('limpiador ultrasonico' de lentes y joyas, removedores de sarro de tinaco o de superficies) no son este producto. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Lumina - Lo hacemos facil: Video 'Dientes sin sarro, boca sin mal olor', el de mayor winner score.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=4043169842656682"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/46e24200-e64a-49bc-802e-dd9bda14de36"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Lumina - Lo hacemos facil: Segunda pagina del mismo anunciante, mismo video, desde 2026-10-17.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1650809179880802"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/e1fd804c-d15a-4477-bb2f-0963063edb8d"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Shoply Fast: Video 'Sarro amarillo en tus dientes? Ya no tenes que darte pena al sonreir'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2163114917953756"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/2dcb1699-7bcd-4031-ab36-ecb00e00f851"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Lumina - Lo hacemos facil: Activo desde 2026-10-16. Video: 'Complementa tu cepillado y quita el sarro acumulado' con vibracion de alta frecuencia y luz LED.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://soykupi.myshopify.com/products/removedor-electrico-dental"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Shoply Fast: Activo desde 2026-10-16. 'SonicSmile': quita sarro y manchas amarillas desde tu casa, sin dolor ni citas caras.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://www.shoplystor.online/products/sonicsm"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "Sin referentes del mismo producto fuera de GT en lo leido (busqueda 'removedor sarro dental ultrasonico' en CO, MX, PE, EC, CL, AR, PA, CR, DO, BO, PY, UY, SV y HN con anuncios activos: 0 resultados).",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Complementa tu cepillado y quita el sarro acumulado (vibracion ultrasonica y luz LED); sonrisa sin pena, sin dolor ni citas caras. Ya en uso en GT: 'Dientes sin sarro, boca sin mal olor' con luz LED y vibracion ultrasonica; 'Sarro amarillo? Ya no tenes que darte pena al sonreir, sin dolor ni citas caras'. Hueco: regalo practico de fin de ano, quienes posponen el dentista por costo y gadget de cuidado personal para hombres, con oferta de 2 piezas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Personas que posponen la cita al dentista por costo o por tiempo",
+         "s": "Gancho: Entre una visita y otra, cuida tu sonrisa en casa: 5 minutos, luz LED y sin sala de espera (complementa, no sustituye al dentista)."
+        },
+        {
+         "b": "Parejas y familias que quieren sonreir en las fotos de diciembre",
+         "s": "Gancho: La sonrisa que quieres para las fotos de fin de ano, lista antes de la cena. Pagas al recibir."
+        },
+        {
+         "b": "Cafeteros y fumadores preocupados por las manchas en los dientes",
+         "s": "Gancho: Tu cafe de cada manana tambien deja huella: limpia las manchas superficiales sin salir de casa."
+        },
+        {
+         "b": "Compradores de regalo practico (hermanos, padres, parejas)",
+         "s": "Gancho: Regalo util para el que tiene todo: llega a la puerta, se usa en minutos. Lleva 2 y quedate con uno."
+        },
+        {
+         "b": "Hombres de 25 a 45 que compran gadgets de cuidado personal",
+         "s": "Gancho: El gadget de aseo que si usaras: ultrasonico, con luz y recargable, por menos de lo que cuesta una limpieza."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: producto de higiene oral con promesas de 'quitar sarro': Meta restringe antes y despues de dientes y claims de salud; hablar de 'complementar el cepillado' y no prometer sustituir al dentista. Producto electrico: confirmar garantia, voltaje y que no dane el esmalte. El PVP sugerido de Dropi (Q80) deja poco margen sobre costo Q65; hay que reprecificar. Dos competidores nuevos esta semana: la ventana puede cerrarse rapido."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 8515)",
+       "u": "https://app.dropi.gt/dashboard/search?search=8515&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/626ecb7d-ce05-4083-82ea-2b9df45f4d6e"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Aceite capilar de colágeno CQK",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/9fcd92f7-173f-4b16-8a41-904ea164c3ea/e37e137d4471.webp",
+     "v": "59 ventas en 7 dias, 269 en 30 y 281 en total, con venta en 26 de los ultimos 30 dias (el historial muestra venta todos los dias desde el 25 de septiembre), stock 171 y 1 solo proveedor (importadora el mayorista). 2 anunciantes en GT, ambos de esta semana: muy buena senal. Stock bajo (baja de 388 a 171 en 3 semanas): a ritmo de 8 por dia dura unas 3 semanas.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "59"
+      ],
+      [
+       "30d",
+       "269"
+      ],
+      [
+       "Total",
+       "281"
+      ],
+      [
+       "Stock",
+       "171"
+      ],
+      [
+       "Costo",
+       "Q35"
+      ],
+      [
+       "PVP sug.",
+       "Q55"
+      ],
+      [
+       "Creado",
+       "2026-09-14"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q139; utilidad estimada por pedido generado: Q-30.8. Con 1 unidad al PVP sugerido: Q-61.2. Reprecio a 2,5 x costo (Q88): Q-40.7. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "22667",
+         "aceite capilar colageno cqk",
+         "Q35",
+         "171",
+         "59/269/281",
+         "2026-09-14"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena señal",
+       "p": "2 anunciantes distintos en GT que nombran el aceite capilar de colageno (busqueda por nombre; 12 resultados leidos, el resto son otros productos de cabello como Batana, tratamiento antifrizz de NIHLO o kits de crecimiento): Nova Hogar GT (novahogarguatemala.com/products/aceite, video desde 2026-10-11, 'Hoy oferta del 37 % de descuento') y Uy Que Chimba (kit de 2 mascarillas Maca Power Collagen + 1 aceite de colageno, desde 2026-10-15; la landing apunta al producto de mascarilla). Klyvo Store anuncia un kit de crecimiento por WhatsApp pero no nombra este aceite, no se cuenta. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Nova Hogar GT: Video activo 4 dias: aceite capilar de colageno con 37 % de descuento.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1835202440843828"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/fd11a08d-3614-4efd-827a-10d8c5e75a3e"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Uy Que Chimba: Video del kit 2 mascarillas + 1 aceite de colageno.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1636962438181100"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/7403a631-9edb-4de4-aa52-77ef6b209d8b"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Nova Hogar GT: Video activo desde 2026-10-11 (visto 2026-10-16). 'Hoy oferta del 37 % de descuento': nutricion profunda para cabello opaco.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://novahogarguatemala.com/products/aceite"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Uy Que Chimba: Video desde 2026-10-15. Kit 2 mascarillas Maca Power Collagen 500 ml + 1 aceite capilar de colageno; anuncio con alcance GT.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://uyquechimba.co/products/mascarilla-colageno-cabello"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "Sin referentes del mismo producto fuera de GT en lo leido (8 resultados activos en CO y MX son otros productos de cabello: shampoos anticaida, suplementos y tratamientos).",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Cabello opaco y sin vida: nutricion profunda y brillo con un serum ligero; descuento del 37 %; kit con mascarilla de colageno. Ya en uso en GT: 'Hoy oferta del 37 % de descuento', nutricion profunda y 'cabello opaco y sin vida? devuelvele su brillo'; kit con 2 mascarillas de colageno + 1 aceite. Hueco: combo con la mascarilla de colageno (mismo proveedor), cabello para las fiestas de diciembre y regalo economico."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres con cabello reseco por plancha, secador o tinte",
+         "s": "Gancho: Brillo de salon en 3 minutos, sin enjuague: unas gotas despues de la ducha y a peinar."
+        },
+        {
+         "b": "Clientas de la mascarilla de colageno para cabello (mismo proveedor)",
+         "s": "Gancho: Completa tu rutina: mascarilla en la ducha y aceite al salir. Combo en un solo envio y pago al recibir."
+        },
+        {
+         "b": "Mamas con poco tiempo que quieren un cuidado capilar de 1 paso",
+         "s": "Gancho: Cuidado de cabello sin horas ni salon: 1 producto, 1 minuto, pelo con vida."
+        },
+        {
+         "b": "Mujeres que se preparan para fiestas, bodas y graduaciones de diciembre",
+         "s": "Gancho: Cabello suave y brillante para las fotos de fin de ano, antes de la fiesta."
+        },
+        {
+         "b": "Compradoras de regalo economico (amigas, hermanas, madres)",
+         "s": "Gancho: Regalo de belleza por menos de Q70: lleva 2 y regala uno."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: cosmetico capilar (registro sanitario); no prometer crecimiento ni cura de caida, solo brillo, suavidad y nutricion. Con costo Q35 y flete de referencia Q68 el margen no cierra en ninguna oferta de 1 o 2 piezas: hay que medir el flete real o vender combo con la mascarilla de colageno (ya fue ganadora el 13-oct). Stock 171, cerca del piso de 80."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 22667)",
+       "u": "https://app.dropi.gt/dashboard/search?search=22667&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/9fcd92f7-173f-4b16-8a41-904ea164c3ea"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Rímel alargador",
+     "tags": [
+      {
+       "t": "Bandera amarilla",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/a2665320-1d13-4053-b03a-223a12785c6b/4118d0912f7c.webp",
+     "v": "79 ventas en 7 dias, 79 en 30 y 79 en total: todo el volumen cayo en 4 dias seguidos (13 al 16 de octubre: 20, 20, 23 y 16; el 17 fue 0), stock 268 (de 345) y 1 solo proveedor (importadora el mayorista). 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado (o nadie lo ha probado o nadie lo anuncia porque el costo es bajo). Creado el 2026-09-14, sin ventas hasta el 13-oct.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "79"
+      ],
+      [
+       "30d",
+       "79"
+      ],
+      [
+       "Total",
+       "79"
+      ],
+      [
+       "Stock",
+       "268"
+      ],
+      [
+       "Costo",
+       "Q26"
+      ],
+      [
+       "PVP sug.",
+       "Q46"
+      ],
+      [
+       "Creado",
+       "2026-09-14"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 2 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 3"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q99; utilidad estimada por pedido generado: Q-44.4. Con 1 unidad al PVP sugerido: Q-61.2. Reprecio a 2,5 x costo (Q65): Q-49.4. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "22610",
+         "rimel alargador",
+         "Q26",
+         "268",
+         "79/79/79",
+         "2026-09-14"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciantes · semaforo 0 cuidado",
+       "p": "0 anunciantes distintos en GT del mismo producto (busquedas 'rimel' y 'pestañas', 20 resultados leidos): salen salones de pestañas, sueros de pestañas y kits de pestañas postizas, que son categorias cercanas pero no este rimel. DropKiller no indexa anuncios de este SKU; puede haber anuncios no leidos. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "Sin referentes del mismo producto fuera de GT en lo leido (busqueda 'rimel alargador pestañas mascara' en CO, MX, PE, EC, CL, AR, PA, CR, DO, BO, PY, UY, SV y HN con anuncios activos: 0 resultados).",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "No hay anuncios del mismo producto en GT. En la categoria cercana: 'oferta 2 por Q100, envio gratis', kits '1 x Q55, 2 x Q100, 3 x Q144'. Sin anuncios del mismo producto en GT. Referencia cercana: kits de pestañas postizas con '1 x Q55, 2 x Q100, 3 x Q144' y suero de pestañas '2 por Q100, envio gratis'. Hueco: rimel alargador con oferta de pack y envio gratis, mirada de salon para uso diario."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres de 18 a 30 que quieren mirada larga sin pagar extensiones de salon (Q275 a Q300 en GT)",
+         "s": "Gancho: Pestañas largas para tu dia a dia por una fraccion de lo que cobra el salon. Pagas al recibir."
+        },
+        {
+         "b": "Universitarias y jovenes que se maquillan rapido",
+         "s": "Gancho: Un solo rimel y listo en 2 minutos: mirada despierta para clases y salidas."
+        },
+        {
+         "b": "Mamas con poco tiempo para maquillarse",
+         "s": "Gancho: Cuando solo tienes 2 minutos: un toque de rimel y te ves descansada."
+        },
+        {
+         "b": "Compradoras de regalo y de pack (amigas, hermanas)",
+         "s": "Gancho: Lleva 2 por Q99: uno para ti y otro para tu amiga, con envio gratis."
+        },
+        {
+         "b": "Emprendedoras de belleza que revenden",
+         "s": "Gancho: Producto de bajo costo y alta rotacion para tu tienda de maquillaje: consulta precio por docena."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: cosmetico (registro sanitario); evitar claims de crecimiento de pestañas. Solo 4 dias de ventas, un posible pico de una sola pauta de un tercero: validar con una prueba corta. Costo bajo (Q26) frente a flete de referencia Q68: ninguna oferta de 1 o 2 piezas cierra (NO CIERRA); solo un pack de 4 o mas piezas se acercaria. El listado vecino 'rimel big volume' (22612) y 'rimel mad lash' (22608), del mismo proveedor, no tienen ventas."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 22610)",
+       "u": "https://app.dropi.gt/dashboard/search?search=22610&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/a2665320-1d13-4053-b03a-223a12785c6b"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "1280 / 2276 / 2388",
+     "st": "1792",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera de 50-800 (7d 1280, 30d 2276, total 2388)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de glucosa",
+     "s": "ID 20595 · nexus",
+     "v": "1265 / 3990 / 4278",
+     "st": "222",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 1265, 30d 3990, total 4278)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "574 / 1607 / 1607",
+     "st": "5059",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera de 50-800 (7d 574, 30d 1607, total 1607)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "381 / 1686 / 3330",
+     "st": "1663",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera de 50-800 (7d 381, 30d 1686, total 3330)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 14722 · auré",
+     "v": "297 / 3583 / 4043",
+     "st": "3868",
+     "ct": "2026-08-05",
+     "r": "Descartado: ventas fuera de 50-800 (7d 297, 30d 3583, total 4043)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "236 / 615 / 904",
+     "st": "1943",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 236, 30d 615, total 904)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "222 / 663 / 967",
+     "st": "1033",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 222, 30d 663, total 967)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "217 / 830 / 1066",
+     "st": "470",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera de 50-800 (7d 217, 30d 830, total 1066)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "207 / 709 / 794",
+     "st": "204",
+     "ct": "2026-08-26",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "man xxl – crema íntima para hombre",
+     "s": "ID 21391 · dania",
+     "v": "179 / 219 / 220",
+     "st": "80",
+     "ct": "2026-09-08",
+     "r": "Descartado: producto clasificado para adultos en la corrida del 15-oct (no se pauta); no se reverifico hoy",
+     "c": "d"
+    },
+    {
+     "n": "batidor manual semiautomatico",
+     "s": "ID 19141 · 60 segundos",
+     "v": "174 / 856 / 1181",
+     "st": "239",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera de 50-800 (7d 174, 30d 856, total 1181)",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "160 / 607 / 607",
+     "st": "270",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "155 / 194 / 194",
+     "st": "1806",
+     "ct": "2026-10-06",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "luces de árbol navideño",
+     "s": "ID 25508 · importadora el mayorista",
+     "v": "150 / 241 / 241",
+     "st": "91",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "faja reductora de gorditos",
+     "s": "ID 15548 · chicas empire fajas",
+     "v": "149 / 811 / 1881",
+     "st": "2028",
+     "ct": "2026-07-21",
+     "r": "Descartado: ventas fuera de 50-800 (7d 149, 30d 811, total 1881)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "148 / 1030 / 2233",
+     "st": "2265",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 148, 30d 1030, total 2233)",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "132 / 274 / 305",
+     "st": "233",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "131 / 150 / 150",
+     "st": "901",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "gomitas para niños heighterner",
+     "s": "ID 26896 · sicommer lab",
+     "v": "126 / 405 / 405",
+     "st": "1595",
+     "ct": "2026-10-07",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "kneeflex pro",
+     "s": "ID 16336 · soluciones sig&sarp",
+     "v": "125 / 345 / 1603",
+     "st": "199",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera de 50-800 (7d 125, 30d 345, total 1603)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "114 / 206 / 206",
+     "st": "5294",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "113 / 499 / 615",
+     "st": "385",
+     "ct": "2026-08-29",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "shilajit ultra optimal potency 60 caps.",
+     "s": "ID 27368 · american natural",
+     "v": "111 / 112 / 112",
+     "st": "4888",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido, mismo producto que Shilajit Ultra Top (7-oct) con otro listado",
+     "c": "d"
+    },
+    {
+     "n": "pumpkin seed oil",
+     "s": "ID 19925 · nibresma",
+     "v": "102 / 212 / 214",
+     "st": "786",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (pumpkin seed oil: natural labs, kura labs, nibresma, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "100 / 594 / 2122",
+     "st": "894",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera de 50-800 (7d 100, 30d 594, total 2122)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "98 / 518 / 518",
+     "st": "1982",
+     "ct": "2026-09-17",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "95 / 352 / 654",
+     "st": "333",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "89 / 254 / 510",
+     "st": "4492",
+     "ct": "2026-08-09",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (Her Loss: laboratorio luna, aure, chicas empire, altamira, natural labs)",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "89 / 153 / 153",
+     "st": "1847",
+     "ct": "2026-10-04",
+     "r": "Descartado: mismo producto que Nippori (altamira, 10609 ventas en total): sumados salen del rango 50-800",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "88 / 626 / 884",
+     "st": "5104",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera de 50-800 (7d 88, 30d 626, total 884)",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "87 / 273 / 273",
+     "st": "292",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "86 / 101 / 101",
+     "st": "899",
+     "ct": "2026-10-08",
+     "r": "Descartado: 4 proveedores del mismo producto (Renovia 15 en 1: nibresma, suplem gt, nexus, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "fungus 7 dias",
+     "s": "ID 15832 · laboratorio luna",
+     "v": "86 / 867 / 1817",
+     "st": "4072",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 86, 30d 867, total 1817)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "84 / 152 / 152",
+     "st": "4847",
+     "ct": "2026-10-03",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "set de varillas y esferas magnéticas",
+     "s": "ID 25285 · grupo luna",
+     "v": "84 / 182 / 182",
+     "st": "218",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "81 / 365 / 1178",
+     "st": "505",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 81, 30d 365, total 1178)",
+     "c": "d"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "81 / 445 / 445",
+     "st": "99",
+     "ct": "2026-09-22",
+     "r": "Descartado: producto clasificado para adultos en la corrida del 15-oct (no se pauta); no se reverifico hoy",
+     "c": "d"
+    },
+    {
+     "n": "dispensador de viaje 4 en 1",
+     "s": "ID 19779 · 60 segundos",
+     "v": "80 / 89 / 171",
+     "st": "111",
+     "ct": "2026-08-28",
+     "r": "Descartado: venta no consistente, 80 de sus 89 ventas del mes cayeron en un solo dia (13-oct) y vendio solo 3 dias",
+     "c": "d"
+    },
+    {
+     "n": "rimel alargador",
+     "s": "ID 22610 · importadora el mayorista",
+     "v": "79 / 79 / 79",
+     "st": "268",
+     "ct": "2026-09-14",
+     "r": "FINALISTA #4 (puntaje 10/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "5 t-shirt rvca con bolsa y bordado x 120",
+     "s": "ID 27663 · laurean by seong woo",
+     "v": "75 / 75 / 75",
+     "st": "16900",
+     "ct": "2026-10-10",
+     "r": "Descartado: nombre con marca (RVCA), bandera roja, y solo 2 dias de venta",
+     "c": "d"
+    },
+    {
+     "n": "chaleco divine curves",
+     "s": "ID 16402 · chicas empire fajas",
+     "v": "74 / 122 / 430",
+     "st": "1823",
+     "ct": "2026-08-02",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "flex-a",
+     "s": "ID 22527 · nibresma",
+     "v": "70 / 376 / 474",
+     "st": "1504",
+     "ct": "2026-09-12",
+     "r": "Descartado: 3 proveedores de la marca Flex-A y mas listados (nibresma, laboratorio luna, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "65 / 172 / 512",
+     "st": "1523",
+     "ct": "2026-08-19",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "63 / 154 / 156",
+     "st": "2844",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "removedor electrico dental",
+     "s": "ID 8515 · auré",
+     "v": "61 / 202 / 233",
+     "st": "846",
+     "ct": "2026-07-26",
+     "r": "FINALISTA #2 (puntaje 11/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "minoxidil con biotina kormesic",
+     "s": "ID 20405 · digital gt",
+     "v": "60 / 103 / 104",
+     "st": "375",
+     "ct": "2026-09-04",
+     "r": "Descartado: saturado, 8 o mas anunciantes de minoxidil Kormesic en GT (varios con mas de 100 dias) y 5 o mas proveedores del tipo",
+     "c": "d"
+    },
+    {
+     "n": "aceite capilar colageno cqk",
+     "s": "ID 22667 · importadora el mayorista",
+     "v": "59 / 269 / 281",
+     "st": "171",
+     "ct": "2026-09-14",
+     "r": "FINALISTA #3 (puntaje 11/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "capykaraoke micrófono infantil con luces",
+     "s": "ID 27194 · digital gt",
+     "v": "59 / 78 / 78",
+     "st": "222",
+     "ct": "2026-10-09",
+     "r": "FINALISTA #1 (puntaje 11/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "59 / 462 / 664",
+     "st": "353",
+     "ct": "2026-09-11",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "s": "ID 16112 · distribuidora rocke feller",
+     "v": "58 / 366 / 649",
+     "st": "346",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora x 2 unid",
+     "s": "ID 20860 · suplem gt",
+     "v": "58 / 108 / 109",
+     "st": "691",
+     "ct": "2026-09-06",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "57 / 61 / 61",
+     "st": "439",
+     "ct": "2026-10-10",
+     "r": "Descartado: saturado, 7 tiendas distintas con Cayenne Pepper en GT (Vitalbix, Nexora, Cordivita, ClickGo, Bienestar Total/verogt, zaviragt, NovaShop); suplemento",
+     "c": "d"
+    },
+    {
+     "n": "pastillas limpiadoras para lavadora",
+     "s": "ID 15657 · shop b",
+     "v": "56 / 360 / 992",
+     "st": "10712",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 56, 30d 360, total 992)",
+     "c": "d"
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "s": "ID 16115 · distribuidora rocke feller",
+     "v": "56 / 185 / 265",
+     "st": "732",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "magneticas privadas",
+     "s": "ID 26500 · importadora el mayorista",
+     "v": "54 / 99 / 99",
+     "st": "151",
+     "ct": "2026-10-04",
+     "r": "Descartado: producto clasificado para adultos en la corrida del 15-oct (no se pauta); no se reverifico hoy",
+     "c": "d"
+    },
+    {
+     "n": "lampara solar portatil de clip",
+     "s": "ID 22002 · 60 segundos",
+     "v": "52 / 392 / 413",
+     "st": "169",
+     "ct": "2026-09-10",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian 60 capsulas",
+     "s": "ID 22526 · nibresma",
+     "v": "52 / 85 / 104",
+     "st": "2851",
+     "ct": "2026-09-12",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "combo x2 crema venas varices",
+     "s": "ID 28058 · importadora el mayorista",
+     "v": "50 / 50 / 50",
+     "st": "148",
+     "ct": "2026-10-14",
+     "r": "Descartado: saturado, mas de 6 anunciantes de crema para varices en GT (Distriguatex, Guate Store Online, Prisma Shop, FashionLiss, GT Llevele Chapin, Vivante Shop, Dra Lina Morales)",
+     "c": "d"
+    }
+   ],
+   "resumen": "58 leidos con los filtros de entrada (creado desde 2026-07-20, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=58); find_winning_products en ventana trending devolvio 50 productos y ninguno aporto candidatos nuevos (todos son anteriores al 2026-07-20 o ya estaban en la lista). El filtro que mas corto fue el de repetidos de los ultimos 20 dias (18), seguido del rango 50-800 de las tres ventas (17 de 58 fuera), los descartados por 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT o ventas no consistentes (16) y los de adultos (3). De los 41 en rango: 4 finalistas (solo hay 4, faltaron 1 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 58 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
+   "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA y no se compararon descartados de ayer. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 132/274/305, solo 2 tiendas en GT: TapKets y La Estacion GT) quedo fuera por repetido del 13-oct; si se quiere un 5to producto, es el mejor candidato; (2) Dispensador de viaje 4 en 1 (19779) tiene 80 ventas en un solo dia (13-oct, baja de stock 91 a 11), posible pedido mayorista; se descarto por no ser consistente; (3) Rimel alargador tiene solo 4 dias de ventas y 0 anunciantes del mismo producto: validar con una prueba corta; (4) Removedor electrico dental: dos anunciantes empezaron el 16-oct, la ventana puede cerrarse en dias; (5) Capykaraoke es de la misma linea de los karaokes K-POP Demon Hunters: no usar ese nombre."
   }
  },
  "radar2": {
