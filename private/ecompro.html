@@ -2005,7 +2005,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     h+='<details class="rf"><summary>Tabla completa ('+(r.tabla||[]).length+' productos leídos, con su nombre original)</summary><div class="rbody"><div class="rt"><table><tr><th>Producto original</th><th>7d / 30d / total</th><th>Stock</th><th>Creado</th><th>Resultado</th></tr>'+(r.tabla||[]).map(function(x){return '<tr class="'+(x.c==="f"?"f":x.c==="d"?"d":"")+'"><td>'+rE(x.n)+'<br><small>'+rE(x.s)+'</small></td><td>'+rE(x.v)+'</td><td>'+rE(x.st)+'</td><td>'+rE(x.ct)+'</td><td>'+rE(x.r)+'</td></tr>'}).join("")+'</table></div></div></details>';
     h+='<details class="rf"><summary>Cuántos hubo y qué filtro cortó más</summary><div class="rbody"><p>'+rE(r.resumen)+'</p></div></details>';
     h+='<details class="rf" open><summary>A REVISAR</summary><div class="rbody"><p>'+rE(r.revisar)+'</p></div></details></section>';
-    box.innerHTML=h;
+    if(box.__h===h)return;
+    var op=null,sy=window.scrollY;
+    if(box.__h&&box.__d===czDate){op=[].map.call(box.querySelectorAll("details"),function(d){return d.open})}
+    box.__h=h;box.__d=czDate;box.innerHTML=h;
+    if(op){[].forEach.call(box.querySelectorAll("details"),function(d,i){if(i<op.length)d.open=op[i]});window.scrollTo(0,sy)}
   }
   function czRender(){
     var WV=W.filter(function(w){var c=pmv(w,"ct");return !(c&&String(c).slice(0,4)<"2026")});
