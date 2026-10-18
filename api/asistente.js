@@ -35,8 +35,9 @@ module.exports = async (req, res) => {
   }
   if (!s) return send(401, { error: "auth" });
   if (req.method !== "POST") return send(405, { error: "method" });
+  const gkey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   const key = process.env.ANTHROPIC_API_KEY, model = process.env.ASSISTANT_MODEL;
-  if (!key || !model) return send(503, { error: "Falta conectar el asistente: agrega ANTHROPIC_API_KEY y ASSISTANT_MODEL en Vercel." });
+  if (!gkey && (!key || !model)) return send(503, { error: "Falta conectar el asistente: agrega GEMINI_API_KEY en Vercel y vuelve a desplegar." });
   let b;
   try {
     b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
@@ -60,6 +61,28 @@ module.exports = async (req, res) => {
       if (n === 1) await redis(["EXPIRE", k, 90000]);
       if (n > limit) return send(429, { error: "Llegaste al límite de " + limit + " preguntas de hoy. Vuelve mañana." });
     } catch (e) {}
+  }
+
+  if (gkey) {
+    try {
+      const gm = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+      const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(gm) + ":generateContent", {
+        method: "POST",
+        headers: { "x-goog-api-key": gkey, "content-type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SISTEMA + "\n\nCONTEXTO ACTUAL DEL TABLERO (datos reales de hoy):\n" + ctx }] },
+          contents: msgs.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+          generationConfig: { maxOutputTokens: 1200, temperature: 0.3 },
+        }),
+      });
+      const j = await r.json();
+      if (!r.ok) return send(502, { error: "El asistente no pudo responder (" + r.status + "). " + ((j && j.error && j.error.message) || "").slice(0, 160) });
+      const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
+      const text = parts.map((x) => x.text || "").join("\n").trim();
+      return send(200, { text: text || "No tengo respuesta para eso." });
+    } catch (e) {
+      return send(502, { error: "No se pudo conectar con el asistente." });
+    }
   }
 
   try {
