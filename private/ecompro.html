@@ -3199,7 +3199,16 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       else cur+=ch}
     row.push(cur);if(row.some(function(x){return x.trim()}))rows.push(row);return rows}
   var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]],["d","Fecha del pedido",[/fecha (de )?(creacion|orden|pedido)/,/^fecha$/,/fecha/]],["s","Estado",[/^(estado|estatus)$/,/(estado|estatus) (del )?(pedido|orden|envio)/,/estatus|estado|status/]],["ci","Ciudad / municipio",[/^(ciudad|municipio)( de destino)?$/,/ciudad|municipio/]],["v","Valor del pedido",[/total (de la )?(orden|venta|pedido)|valor (total|de la orden|del pedido)/,/^(total|valor|monto)$/,/total|monto/]]];
-  function guess(H){var used={},g={};FIELDS.forEach(function(f){var pick=-1;for(var r=0;r<f[2].length&&pick<0;r++){for(var i=0;i<H.length;i++){if(used[i])continue;if(f[0]==="c"&&/producto/.test(H[i]))continue;if(f[2][r].test(H[i])){pick=i;break}}}if(pick>=0)used[pick]=1;g[f[0]]=pick});return g}
+  function guess(H,body){var used={},g={},set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});
+    FIELDS.forEach(function(f){var pick=-1,k=f[0];
+      if(k==="n"&&body&&body.length){var best=0;H.forEach(function(x,i){var m=0;body.slice(0,400).forEach(function(r){if(set[String(r[i]==null?"":r[i]).replace(/\D/g,"")])m++});if(m>best){best=m;pick=i}})}
+      for(var r=0;r<f[2].length&&pick<0;r++){for(var i=0;i<H.length;i++){if(used[i])continue;
+        if(k==="c"&&/producto/.test(H[i]))continue;
+        if(k==="p"&&/valor|precio|total|costo|cantidad|monto|categoria|id /.test(H[i]))continue;
+        if(k==="n"&&/tienda|shopify|externo|referencia|guia|cliente|telefono|total|valor|monto|precio|costo|fecha|estado/.test(H[i]))continue;
+        if(f[2][r].test(H[i])){pick=i;break}}}
+      if(pick<0&&k==="n"){for(var i=0;i<H.length;i++)if(/numero de pedido|orden|pedido/.test(H[i])){pick=i;break}}
+      if(pick>=0)used[pick]=1;g[k]=pick});return g}
   function showMap(){
     var box=$("oi-map");if(!box||!PA)return;var H=PA.rows[0],hn=H.map(norm);
     box.innerHTML='<div class="frow" style="gap:10px">'+FIELDS.map(function(f){return '<div class="fld"><label>'+f[1]+'</label><select data-f="'+f[0]+'"><option value="-1">(no usar)</option>'+H.map(function(h,i){return '<option value="'+i+'"'+(PA.g[f[0]]===i?' selected':'')+'>'+E(h||("Columna "+(i+1)))+'</option>'}).join("")+'</select></div>'}).join("")+'</div><div class="sub" id="oi-prev" style="margin:8px 0"></div><button class="btn" type="button" id="oi-ok">Importar</button> <button class="btn" type="button" id="oi-x">Cancelar</button>';
@@ -3241,7 +3250,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var pie=$("oi-pie");if(pie){var n=Object.keys(MAP).length;pie.innerHTML=n?'Datos importados de '+n+' pedidos. <button type="button" class="btn" id="oi-del" style="padding:4px 10px;font-size:.78rem">Quitar datos importados</button> Los nombres de clientes se guardan en tu base privada y salen en la copia de seguridad.':''}}
   function refresh(){fillT();if(window.ecRO)window.ecRO();document.dispatchEvent(new Event("ecprod"))}
   function load(text){var rows=parse(text);if(rows.length<2){$("oi-prev")&&0;$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
-    PA={rows:rows,g:guess(rows[0].map(norm))};showMap()}
+    PA={rows:rows,g:guess(rows[0].map(norm),rows.slice(1))};showMap()}
   document.addEventListener("change",function(e){
     if(e.target.id==="oi-f"&&e.target.files&&e.target.files[0]){var rd=new FileReader();rd.onload=function(){load(rd.result)};rd.readAsText(e.target.files[0],"utf-8")}
     if(e.target.closest&&e.target.closest("#oi-map select")&&PA)prev()});
