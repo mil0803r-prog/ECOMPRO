@@ -611,6 +611,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <button type="button" role="tab" data-g="log" aria-selected="false">Logística</button>
       <button type="button" role="tab" data-g="mkt" aria-selected="false">Marketing</button>
       <button type="button" role="tab" data-g="inv" aria-selected="false">Investigación de mercado</button>
+      <button type="button" role="tab" data-g="mtc" aria-selected="false">Métricas</button>
       <button type="button" role="tab" data-g="fin" aria-selected="false">Finanzas</button>
       <button type="button" role="tab" data-g="aju" aria-selected="false">Ajustes</button>
     </nav>
@@ -836,6 +837,25 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       </table></div>
       <p class="foot">TikTok gasta en soles (PEN) y las ventas están en quetzales (GTQ), así que no calculé ROAS. Las campañas de testeo del 10-09 y del collar son las más baratas por pedido.</p>
     </div>
+  </section>
+
+  <section class="pane" id="p-mtl" hidden>
+    <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
+    <div class="chips" id="mtl-per" role="group" aria-label="Periodo"></div>
+    <div class="grid g4" id="mtl-kpis"></div>
+    <div><h2>Embudo</h2><div class="card fun" id="mtl-fun"></div></div>
+    <div id="mtl-alert"></div>
+    <div><h2>Por página</h2><div class="tbl"><table><thead><tr><th>Página</th><th class="num">Visitas</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas <span class="mc">GTQ</span></th><th class="num">Conv.</th></tr></thead><tbody id="mtl-pag"></tbody></table></div></div>
+    <div><h2>De dónde llegan</h2><div class="tbl"><table><thead><tr><th>Campaña</th><th class="num">Visitas</th><th class="num">Formul.</th><th class="num">Pedidos</th><th class="num">Entreg.</th><th class="num">Ventas <span class="mc">GTQ</span></th></tr></thead><tbody id="mtl-src"></tbody></table></div></div>
+    <p class="foot" id="mtl-foot"></p>
+  </section>
+
+  <section class="pane" id="p-mtw" hidden>
+    <div class="grid g4" id="mtw-kpis"></div>
+    <div class="alert"><b>Lectura de la muestra</b><span id="mtw-lect"></span></div>
+    <div><h2>Temas que más salen en los chats</h2><div class="card fun" id="mtw-temas"></div></div>
+    <div><h2>Calidad de las respuestas</h2><div class="tbl"><table style="min-width:520px"><thead><tr><th>Señal</th><th class="num">Chats</th><th class="num">De 20</th><th>Qué significa</th></tr></thead><tbody id="mtw-cal"></tbody></table></div></div>
+    <p class="foot">Datos de Lumy al 19 de octubre de 2026. Las conversaciones abiertas y las que esperan respuesta son el total de hoy. Lo demás sale de una muestra de 20 chats analizados sin texto literal, nombres ni teléfonos (solo intenciones y largo de mensajes), así que son señales, no totales. Pídele a Claude que lo actualice.</p>
   </section>
 
   <section class="pane" id="p-pro" hidden>
@@ -2192,11 +2212,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],aju:[["aju","Ajustes"]]};
-  var IC={res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
+  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],mtc:[["mtl","Landing"],["mtw","WhatsApp"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],aju:[["aju","Ajustes"]]};
+  var IC={mtl:'<path d="M3 20h18"/><rect x="5" y="11" width="3" height="9"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="13" width="3" height="7"/>',mtw:'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 10c0 3 2 5 5 5l1-2-2-1-1 1c-1-.5-1.800-1.300-2.300-2.300l1-1-1-2z"/>',res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
   window.EC_IC=IC;
   function ico(k){return '<svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[k]||"")+'</svg>'}
-  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",inv:"inv",fin:"gan",aju:"aju"};
+  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",mtc:"mtl",inv:"inv",fin:"gan",aju:"aju"};
   function show(g,pane){
     cur[g]=pane;
     gb.forEach(function(b){b.setAttribute("aria-selected",b.dataset.g===g)});
@@ -2218,6 +2238,59 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   gb.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.g,cur[b.dataset.g])})});
   ns.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var g=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0].dataset.g;show(g,b.dataset.p)});
   try{var sn=(sessionStorage.getItem("nav")||"").split("|");if(GR[sn[0]]&&GR[sn[0]].some(function(x){return x[0]===sn[1]}))show(sn[0],sn[1]);else show("res","res")}catch(e){show("res","res")}
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function pc(a,b){return b?(a/b*100).toFixed(1).replace(".",",")+"%":"–"}
+  function nf(n){return Number(n).toLocaleString("de-DE")}
+  function mq(q){return '<span class="mq" data-q="'+q+'">'+nf(q)+'</span>'}
+  var LD={
+    d7:{n:"Últimos 7 días (13–19 oct)",v:207,f:43,p:2,c:2,e:0,dv:0,vt:470,
+      pag:[["Guante Spiderman lanzadardos",124,2,0,470],["Dúo Mágico (copia x3)",54,0,0,0],["Canela de Ceilán orgánica",14,0,0,0],["Spray dental GT",5,0,0,0],["Otras 8 páginas",10,0,0,0]],
+      src:[["TikTok · Guante 15-10",59,7,1,0,279],["TikTok · Guante 2 17-10",37,3,1,0,191],["Directo",76,24,0,0,0],["TikTok · \"__CAMPAIGN_NAME__\"",22,9,0,0,0],["TikTok · Testeo collar 07-10",8,0,0,0,0],["TikTok · otras campañas",5,0,0,0,0]],
+      al:["Hay 4 pedidos sin guía y 11 chats esperando respuesta: atiéndelos antes de subir presupuesto.","La conversión está en la banda normal (1 %), pero con solo 207 visitas es una señal temprana: menos de 200 visitas por página no alcanza para juzgarla."]},
+    d30:{n:"Últimos 30 días (20 sep–19 oct)",v:6650,f:160,p:15,c:6,e:2,dv:4,vt:3032,
+      pag:[["Dúo Mágico (copia x3)",4646,12,2,2333],["Dúo Mágico (copia)",1401,0,0,0],["Guante Spiderman lanzadardos",134,2,0,470],["Spray dental GT",115,1,0,229],["Pastilla limpiador de lavadora",35,0,0,0],["Otras 13 páginas",319,0,0,0]],
+      src:[["TikTok · Testeo collar 07-10",4458,37,10,2,2130],["Directo",670,99,2,0,229],["TikTok · Guante 15-10",59,7,1,0,279],["TikTok · Guante 2 17-10",37,3,1,0,191],["TikTok · pedido sin campaña",0,0,1,0,203],["TikTok · \"__CAMPAIGN_NAME__\"",1342,10,0,0,0],["Meta / Facebook / Instagram","≈ 70",3,0,0,0]],
+      al:["Solo 2,4 % abre el formulario y de esos 9,4 % deja pedido: el cuello de botella está al inicio. Revisa la primera pantalla, la oferta y el precio visible antes de subir presupuesto.","1.342 visitas vienen de una campaña de TikTok sin nombre (\"__CAMPAIGN_NAME__\") y no dejan pedidos."]}};
+  var cur="d7";
+  function drawL(){
+    var d=LD[cur];
+    $("mtl-per").innerHTML=Object.keys(LD).map(function(k){return '<button type="button" class="chip" data-k="'+k+'" aria-pressed="'+(k===cur)+'">'+LD[k].n+'</button>'}).join("");
+    var tk=d.p?Math.round(d.vt/d.p):0;
+    $("mtl-kpis").innerHTML=
+      '<div class="card kpi"><h3>Visitas</h3><div class="big">'+nf(d.v)+'</div><div class="sub">a tus páginas de venta</div></div>'+
+      '<div class="card kpi"><h3>Abren el formulario</h3><div class="big">'+pc(d.f,d.v)+'</div><div class="sub">'+nf(d.f)+' de '+nf(d.v)+' visitas</div></div>'+
+      '<div class="card kpi"><h3>Pedidos</h3><div class="big">'+d.p+'</div><div class="sub">'+pc(d.p,d.f)+' de quienes abren el formulario</div></div>'+
+      '<div class="card kpi"><h3>Conversión</h3><div class="big'+(d.p/d.v<0.005?' tr_':'')+'">'+pc(d.p,d.v)+'</div><div class="sub">ticket '+mq(tk)+' <span class="mc">GTQ</span> · ventas '+mq(d.vt)+'</div></div>';
+    var F=[["Vieron la página",d.v],["Abrieron el formulario",d.f],["Dejaron pedido",d.p],["Confirmados",d.c],["Entregados",d.e]],f="";
+    F.forEach(function(r,i){var w=Math.max(r[1]/d.v*100,1.2);f+='<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+w+'%"></span></span><span class="v2">'+nf(r[1])+'</span></div>';
+      if(i<F.length-1)f+='<div class="pp sub">↓ '+pc(F[i+1][1],r[1])+' pasa al siguiente paso</div>'});
+    f+='<div class="pp sub">Devueltos: '+d.dv+'</div>';
+    $("mtl-fun").innerHTML=f;
+    $("mtl-alert").innerHTML=d.al.map(function(t){return '<div class="alert" style="margin-bottom:8px"><span>'+t+'</span></div>'}).join("");
+    $("mtl-pag").innerHTML=d.pag.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+nf(r[1])+'</td><td class="num">'+r[2]+'</td><td class="num">'+r[3]+'</td><td class="num">'+mq(r[4])+'</td><td class="num">'+pc(r[2],r[1])+'</td></tr>'}).join("");
+    $("mtl-src").innerHTML=d.src.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+(typeof r[1]==="number"?nf(r[1]):r[1])+'</td><td class="num">'+r[2]+'</td><td class="num">'+r[3]+'</td><td class="num">'+r[4]+'</td><td class="num">'+mq(r[5])+'</td></tr>'}).join("");
+    $("mtl-foot").textContent="Datos de Lumy al 19 de octubre de 2026. Conversión = pedidos ÷ visitas. Menos de 200 visitas no alcanza para juzgar una página. Lumy no tiene TikTok Ads conectado, así que aquí no hay gasto de TikTok.";
+    if(window.ecFx&&window.ecFx.apply)window.ecFx.apply();
+  }
+  $("mtl-per").addEventListener("click",function(e){var b=e.target.closest("button[data-k]");if(!b)return;cur=b.dataset.k;drawL()});
+  drawL();
+  // WhatsApp
+  var W={abiertas:41,espera:11,sinleer:0,muestra:20,conResp:10,plantilla:16,confirma:4,repite:2,
+    temas:[["Saludo / bienvenida",16],["Talla o color",9],["Confirmar pedido",4],["Corregir datos de entrega",4],["Tiempo de envío",3],["Despedida",3],["Disponibilidad",2],["Precio",1],["Forma de pago",1],["Garantía o cambio",1],["Pide hablar con una persona",1]]};
+  $("mtw-kpis").innerHTML=
+    '<div class="card kpi"><h3>Conversaciones abiertas</h3><div class="big">'+W.abiertas+'</div><div class="sub">en WhatsApp hoy</div></div>'+
+    '<div class="card kpi"><h3>Esperando tu respuesta</h3><div class="big tr_">'+W.espera+'</div><div class="sub">'+pc(W.espera,W.abiertas)+' de las abiertas</div></div>'+
+    '<div class="card kpi"><h3>Mensajes sin leer</h3><div class="big tv">'+W.sinleer+'</div><div class="sub">del comprador</div></div>'+
+    '<div class="card kpi"><h3>Compradores que responden</h3><div class="big">'+pc(W.conResp,W.muestra)+'</div><div class="sub">'+W.conResp+' de '+W.muestra+' chats de la muestra</div></div>';
+  $("mtw-lect").textContent="Hay "+W.espera+" conversaciones esperando respuesta: contéstalas primero, empezando por las más antiguas y las que tienen pedido activo. En la muestra, solo la mitad de los chats recibe respuesta del comprador; el resto se queda en los mensajes de bienvenida.";
+  var T=W.temas,mx=T[0][1];
+  $("mtw-temas").innerHTML=T.map(function(r){return '<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+Math.max(r[1]/mx*100,2)+'%"></span></span><span class="v2">'+r[1]+'</span></div>'}).join("");
+  var C=[["Chats con mensaje de plantilla",W.plantilla,"Casi todos arrancan con un mensaje automático de bienvenida."],["Chats donde el comprador responde",W.conResp,"La otra mitad no contesta después del saludo."],["Chats con confirmación de pedido",W.confirma,"El comprador confirma o el vendedor pide confirmar el pedido."],["Chats con mensajes repetidos",W.repite,"Se manda el mismo mensaje varias veces seguidas (un chat repitió 6 veces)."]];
+  $("mtw-cal").innerHTML=C.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="num">'+pc(r[1],W.muestra)+'</td><td>'+r[2]+'</td></tr>'}).join("");
 })();
 </script>
 <script>
@@ -2889,7 +2962,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var HEAD={res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
+  var HEAD={mtl:["Métricas de Landing","Visitas, formulario, pedidos y conversión de tus páginas de venta"],mtw:["Métricas de WhatsApp","Conversaciones, respuestas y temas de tus chats de venta"],res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
   function svg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+((window.EC_IC||{})[k]||"")+'</svg>'}
   /* marca en la barra lateral */
   var nw=document.querySelector(".navwrap");
