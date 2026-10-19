@@ -698,7 +698,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
         <p class="foot" style="margin:0">Lumy no entrega la guía, el cliente, el producto ni la transportadora de los pedidos de Dropi: se traen importando el reporte de Dropi (abajo, "Traer guías, clientes y productos"). El producto se asigna por precio de venta con las reglas de Ajustes (Productos por precio de venta). El departamento se deduce del municipio. Favoritos y etiquetas se guardan solo en este navegador.</p>
       </div>
       <details class="card" id="o-imp" style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Traer guías, clientes y productos desde Dropi</summary>
-        <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden.</p>
+        <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden: los que ya existen solo se completan, y los que no existen se agregan como pedidos nuevos (el número de orden nunca se repite). Para agregar pedidos nuevos el archivo necesita fecha, estado y, si puedes, ciudad y valor.</p>
         <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo CSV<input type="file" id="oi-f" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
         <div id="oi-map" style="margin-top:10px"></div>
         <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
@@ -1470,7 +1470,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   /* ===== Pedidos de Dropi ===== */
   var ST={E:["Entregado","v"],D:["Devolución","r"],C:["Cancelado","g"],R:["En ruta","a"],G:["Guía generada","a"],K:["Recolectado","a"],P:["Pendiente","a"],F:["Pend. confirmación","a"],I:["Incidencia validada","r"],J:["Incidencia en ruta","r"]};
   var ORD=ORAW.split("\n").filter(Boolean).map(function(l){var p=l.split("|");return{n:p[0],d:p[1],t:(p[2]==="00:00"?"":p[2]),s:p[3],c:p[4],v:+p[5],dep:DEP[p[4]]||"Sin determinar"}});
-  window.__ORD=ORD;window.__ST=ST;
+  window.__ORD=ORD;window.__ST=ST;window.__DEP=DEP;
   ORD.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)});
   var store={tags:{},favs:{}};
   try{var s1=localStorage.getItem("sem_tags");if(s1)store.tags=JSON.parse(s1);var s2=localStorage.getItem("sem_favs");if(s2)store.favs=JSON.parse(s2)}catch(e){}
@@ -3198,19 +3198,44 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&text[i+1]==="\n")i++;row.push(cur);cur="";if(row.some(function(x){return x.trim()}))rows.push(row);row=[]}
       else cur+=ch}
     row.push(cur);if(row.some(function(x){return x.trim()}))rows.push(row);return rows}
-  var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]]];
+  var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]],["d","Fecha del pedido",[/fecha (de )?(creacion|orden|pedido)/,/^fecha$/,/fecha/]],["s","Estado",[/^(estado|estatus)$/,/(estado|estatus) (del )?(pedido|orden|envio)/,/estatus|estado|status/]],["ci","Ciudad / municipio",[/^(ciudad|municipio)( de destino)?$/,/ciudad|municipio/]],["v","Valor del pedido",[/total (de la )?(orden|venta|pedido)|valor (total|de la orden|del pedido)/,/^(total|valor|monto)$/,/total|monto/]]];
   function guess(H){var used={},g={};FIELDS.forEach(function(f){var pick=-1;for(var r=0;r<f[2].length&&pick<0;r++){for(var i=0;i<H.length;i++){if(used[i])continue;if(f[0]==="c"&&/producto/.test(H[i]))continue;if(f[2][r].test(H[i])){pick=i;break}}}if(pick>=0)used[pick]=1;g[f[0]]=pick});return g}
   function showMap(){
     var box=$("oi-map");if(!box||!PA)return;var H=PA.rows[0],hn=H.map(norm);
     box.innerHTML='<div class="frow" style="gap:10px">'+FIELDS.map(function(f){return '<div class="fld"><label>'+f[1]+'</label><select data-f="'+f[0]+'"><option value="-1">(no usar)</option>'+H.map(function(h,i){return '<option value="'+i+'"'+(PA.g[f[0]]===i?' selected':'')+'>'+E(h||("Columna "+(i+1)))+'</option>'}).join("")+'</select></div>'}).join("")+'</div><div class="sub" id="oi-prev" style="margin:8px 0"></div><button class="btn" type="button" id="oi-ok">Importar</button> <button class="btn" type="button" id="oi-x">Cancelar</button>';
     prev()}
   function digits(v){return String(v==null?"":v).replace(/\D/g,"")}
+  var NEWO={};try{NEWO=JSON.parse(localStorage.getItem("ec_pednew")||"{}")||{}}catch(e){NEWO={}}
+  function pst(v){var t=norm(v);if(!t)return"";
+    if(/incidencia/.test(t))return /ruta|transito/.test(t)?"J":"I";
+    if(/entreg/.test(t)&&!/no entreg/.test(t))return "E";
+    if(/devol|retorn|rechaz|no entreg/.test(t))return "D";
+    if(/cancel|anulad/.test(t))return "C";
+    if(/pendiente.*confirm|por confirm/.test(t))return "F";
+    if(/pendiente/.test(t))return "P";
+    if(/recolect|recogid/.test(t))return "K";
+    if(/guia (generada|creada)|generad/.test(t))return "G";
+    if(/transito|ruta|camino|reparto|despach|bodega|inventario|alistamiento|enviad/.test(t))return "R";
+    return ""}
+  function pdt(v){var t=String(v||"").trim(),m,d,hh="";
+    if(m=t.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})(?:[ T]+(\d{1,2}):(\d{2}))?/)){d=m[1]+"-"+("0"+m[2]).slice(-2)+"-"+("0"+m[3]).slice(-2);if(m[4])hh=("0"+m[4]).slice(-2)+":"+m[5]}
+    else if(m=t.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})(?:[ T]+(\d{1,2}):(\d{2}))?/)){d=m[3]+"-"+("0"+m[2]).slice(-2)+"-"+("0"+m[1]).slice(-2);if(m[4])hh=("0"+m[4]).slice(-2)+":"+m[5]}
+    else return null;
+    if(+d.slice(5,7)<1||+d.slice(5,7)>12||+d.slice(8)<1||+d.slice(8)>31)return null;
+    return {d:d,t:hh}}
+  function pnum(v){var t=String(v==null?"":v).replace(/[^\d.,-]/g,"");if(!t)return 0;if(/,\d{1,2}$/.test(t)&&!/\./.test(t))t=t.replace(",",".");else t=t.replace(/,/g,"");var x=parseFloat(t);return isFinite(x)?Math.round(x):0}
+  function cityU(v){return String(v||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/\s+/g," ").trim().slice(0,40)}
+  function ordSet(){var s={};(window.__ORD||[]).forEach(function(o){s[o.n]=o});return s}
+  function addNew(n,x){var DEP=window.__DEP||{};var o={n:n,d:x.d,t:x.t||"",s:x.s||"P",c:x.c||"",v:x.v||0,dep:DEP[x.c]||"Sin determinar",nuevo:1};(window.__ORD||[]).push(o)}
+  function mergeNew(){var set=ordSet();Object.keys(NEWO).forEach(function(n){if(!set[n])addNew(n,NEWO[n])});
+    Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s});
+    var O=window.__ORD||[];O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
   function prev(){
     var sel={};document.querySelectorAll("#oi-map select").forEach(function(e){sel[e.dataset.f]=+e.value});PA.sel=sel;
-    var set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var m=0,N=PA.rows.length-1;
-    if(sel.n>=0)PA.rows.slice(1).forEach(function(r){if(set[digits(r[sel.n])])m++});
-    $("oi-prev").textContent=sel.n<0?"Elige la columna del número de pedido.":m+" de "+N+" filas coinciden con tus pedidos de Dropi."}
-  function persist(){try{localStorage.setItem("ec_pedx",JSON.stringify(MAP))}catch(e){}if(db&&can)db.doc("settings/pedextra").set({map:MAP}).catch(function(){})}
+    var set=ordSet(),m=0,nw=0,dp=0,sd=0,seen={},N=PA.rows.length-1;
+    if(sel.n>=0)PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;if(set[n])m++;else if(sel.d>=0&&pdt(r[sel.d])&&sel.s>=0&&pst(r[sel.s]))nw++;else sd++});
+    $("oi-prev").textContent=sel.n<0?"Elige la columna del número de pedido.":N+" filas: "+m+" ya existen (solo se completan sus datos), "+nw+" pedidos nuevos se agregarán, "+dp+" repetidos dentro del archivo se ignoran"+(sd?", "+sd+" no se pueden agregar (falta fecha o estado reconocible; elige esas columnas)":"")+"."}
+  function persist(){try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}if(db&&can)db.doc("settings/pedextra").set({map:MAP,nuevos:NEWO}).catch(function(){})}
   function fillT(){var sel=$("o-trans");if(!sel)return;var cur=sel.value,t={};Object.keys(MAP).forEach(function(k){if(MAP[k].t)t[MAP[k].t]=1});var ks=Object.keys(t).sort();
     sel.disabled=!ks.length;sel.innerHTML=ks.length?'<option value="">Todas</option>'+ks.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join(""):'<option value="">Sin datos (importa desde Dropi)</option>';if(ks.indexOf(cur)>-1)sel.value=cur;
     var pie=$("oi-pie");if(pie){var n=Object.keys(MAP).length;pie.innerHTML=n?'Datos importados de '+n+' pedidos. <button type="button" class="btn" id="oi-del" style="padding:4px 10px;font-size:.78rem">Quitar datos importados</button> Los nombres de clientes se guardan en tu base privada y salen en la copia de seguridad.':''}}
@@ -3232,13 +3257,22 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
         j.rows.forEach(function(r){var n=digits(r.n);if(!set[n])return;var x=MAP[n]||{};["g","p","t"].forEach(function(k){if(r[k])x[k]=String(r[k]).slice(0,80)});MAP[n]=x;c++});
         persist();refresh();m.textContent="Listo: "+c+" pedidos actualizados de "+j.rows.length+" que devolvió Dropi."
       }).catch(function(){e.target.disabled=false;m.textContent="No se pudo conectar con el servidor."});return}
-    if(e.target.id==="oi-del"){MAP={};persist();refresh();return}
+    if(e.target.id==="oi-del"){MAP={};var O=window.__ORD||[];for(var i=O.length-1;i>=0;i--)if(O[i].nuevo)O.splice(i,1);NEWO={};persist();refresh();return}
     if(e.target.id==="oi-ok"&&PA){
-      var sel=PA.sel,set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var m=0;
+      var sel=PA.sel,set=ordSet(),m=0,nw=0,dp=0,sd=0,st=0,seen={};
       if(!(sel.n>=0))return;
-      PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!set[n])return;var x=MAP[n]||{};["g","c","p","t"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)x[k]=v.slice(0,80)}});MAP[n]=x;m++});
-      persist();PA=null;$("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+m+' pedidos actualizados.</div>';refresh()}});
-  setTimeout(function(){fillT();refresh()},200);
-  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP))}catch(e){}refresh()}},function(){})}}catch(e){}})();
+      PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;
+        var code=sel.s>=0?pst(r[sel.s]):"";
+        if(set[n]){var x=MAP[n]||{};["g","c","p","t"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)x[k]=v.slice(0,80)}});
+          if(code&&code!==set[n].s){x.s=code;st++}MAP[n]=x;m++;return}
+        var dt=sel.d>=0?pdt(r[sel.d]):null;
+        if(!dt||!code){sd++;return}
+        var cx=sel.ci>=0?cityU(r[sel.ci]):"";
+        NEWO[n]={d:dt.d,t:dt.t,s:code,c:cx,v:sel.v>=0?pnum(r[sel.v]):0};
+        var y=MAP[n]||{};["g","c","p","t"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)y[k]=v.slice(0,80)}});MAP[n]=y;nw++});
+      mergeNew();persist();PA=null;
+      $("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+nw+' pedidos nuevos agregados, '+m+' existentes completados'+(st?' ('+st+' con estado actualizado)':'')+', '+dp+' repetidos ignorados'+(sd?', '+sd+' sin fecha o estado reconocible (no agregados)':'')+'.</div>';refresh()}});
+  setTimeout(function(){mergeNew();fillT();refresh()},200);
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;if(d.nuevos&&typeof d.nuevos==="object")NEWO=d.nuevos;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}mergeNew();refresh()}},function(){})}}catch(e){}})();
 })();
 </script>
