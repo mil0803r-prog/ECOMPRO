@@ -3199,13 +3199,14 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&text[i+1]==="\n")i++;row.push(cur);cur="";if(row.some(function(x){return x.trim()}))rows.push(row);row=[]}
       else cur+=ch}
     row.push(cur);if(row.some(function(x){return x.trim()}))rows.push(row);return rows}
-  var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]],["d","Fecha del pedido",[/fecha (de )?(creacion|orden|pedido)/,/^fecha$/,/fecha/]],["s","Estado",[/^(estado|estatus)$/,/(estado|estatus) (del )?(pedido|orden|envio)/,/estatus|estado|status/]],["ci","Ciudad / municipio",[/^(ciudad|municipio)( de destino)?$/,/ciudad|municipio/]],["a","Dirección",[/^direccion( de (entrega|destino))?$/,/direccion/,/domicilio/]],["nv","Novedad",[/^novedad$/,/novedad/,/observacion|incidencia/]],["v","Valor del pedido",[/total (de la )?(orden|venta|pedido)|valor (total|de la orden|del pedido)/,/^(total|valor|monto)$/,/total|monto/]]];
+  var FIELDS=[["n","Número de pedido",[/numero de (orden|pedido)/,/^(id )?(orden|pedido)( id)?$/,/orden|pedido/,/^id$/]],["g","Guía",[/numero de guia/,/guia/,/tracking|seguimiento/]],["c","Cliente",[/nombre (del )?(cliente|destinatario|comprador)/,/cliente|destinatario|comprador/,/^nombre$/]],["p","Producto",[/nombre (del )?producto/,/producto|articulo|item/]],["t","Transportadora",[/transportadora/,/courier|carrier|mensajeria/]],["d","Fecha del pedido",[/fecha (de )?(creacion|orden|pedido)/,/^fecha$/,/fecha/]],["s","Estado",[/^(estado|estatus)$/,/(estado|estatus) (del )?(pedido|orden|envio)/,/estatus|estado|status/]],["ci","Ciudad / municipio",[/^(ciudad|municipio)( de destino)?$/,/ciudad|municipio/]],["dp","Departamento",[/^departamento( de destino)?$/,/departamento|provincia|estado de destino/]],["a","Dirección",[/^direccion( de (entrega|destino))?$/,/direccion/,/domicilio/]],["nv","Novedad",[/^novedad$/,/novedad/,/observacion|incidencia/]],["v","Valor del pedido",[/total (de la )?(orden|venta|pedido)|valor (total|de la orden|del pedido)/,/^(total|valor|monto)$/,/total|monto/]]];
   function guess(H,body){var used={},g={},set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});
     FIELDS.forEach(function(f){var pick=-1,k=f[0];
       if(k==="n"&&body&&body.length){var best=0;H.forEach(function(x,i){var m=0;body.slice(0,400).forEach(function(r){if(set[String(r[i]==null?"":r[i]).replace(/\D/g,"")])m++});if(m>best){best=m;pick=i}})}
       for(var r=0;r<f[2].length&&pick<0;r++){for(var i=0;i<H.length;i++){if(used[i])continue;
         if(k==="c"&&/producto|direccion|ciudad|telefono|email|correo/.test(H[i]))continue;
         if(k==="p"&&/valor|precio|total|costo|cantidad|monto|categoria|id /.test(H[i]))continue;
+        if(k==="s"&&/destino|departamento|pago/.test(H[i]))continue;
         if(k==="n"&&/tienda|shopify|externo|referencia|guia|cliente|telefono|total|valor|monto|precio|costo|fecha|estado/.test(H[i]))continue;
         if(f[2][r].test(H[i])){pick=i;break}}}
       if(pick<0&&k==="n"){for(var i=0;i<H.length;i++)if(/numero de pedido|orden|pedido/.test(H[i])){pick=i;break}}
@@ -3235,10 +3236,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     return {d:d,t:hh}}
   function pnum(v){var t=String(v==null?"":v).replace(/[^\d.,-]/g,"");if(!t)return 0;if(/,\d{1,2}$/.test(t)&&!/\./.test(t))t=t.replace(",",".");else t=t.replace(/,/g,"");var x=parseFloat(t);return isFinite(x)?Math.round(x):0}
   function cityU(v){return String(v||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase().replace(/\s+/g," ").trim().slice(0,40)}
+  function depN(v){var t=norm(v);if(!t)return"";var DEP=window.__DEP||{},seen={};for(var k in DEP){var d=DEP[k];if(!seen[d]){seen[d]=1;if(norm(d)===t)return d}}
+    if(t==="guatemala"||/ciudad de guatemala/.test(t))return "Guatemala";return String(v).trim().toLowerCase().replace(/\b\w/g,function(c){return c.toUpperCase()}).slice(0,30)}
   function ordSet(){var s={};(window.__ORD||[]).forEach(function(o){s[o.n]=o});return s}
-  function addNew(n,x){var DEP=window.__DEP||{};var o={n:n,d:x.d,t:x.t||"",s:x.s||"P",c:x.c||"",v:x.v||0,dep:DEP[x.c]||"Sin determinar",nuevo:1};(window.__ORD||[]).push(o)}
+  function addNew(n,x){var DEP=window.__DEP||{};var o={n:n,d:x.d,t:x.t||"",s:x.s||"P",c:x.c||"",v:x.v||0,dep:DEP[x.c]||x.dp||"Sin determinar",nuevo:1};(window.__ORD||[]).push(o)}
   function mergeNew(){var set=ordSet();Object.keys(NEWO).forEach(function(n){if(!set[n])addNew(n,NEWO[n])});
-    Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s});
+    Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s;if(o&&MAP[n].dp&&o.dep==="Sin determinar")o.dep=MAP[n].dp});
     var O=window.__ORD||[];O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
   function prev(){
     var sel={};document.querySelectorAll("#oi-map select").forEach(function(e){sel[e.dataset.f]=+e.value});PA.sel=sel;
@@ -3274,11 +3277,11 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;
         var code=sel.s>=0?pst(r[sel.s]):"";
         if(set[n]){var x=MAP[n]||{};["g","c","p","t","a","nv"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)x[k]=v.slice(0,k==="a"||k==="nv"?200:80)}});
-          if(code&&code!==set[n].s){x.s=code;st++}MAP[n]=x;m++;return}
+          if(code&&code!==set[n].s){x.s=code;st++}if(sel.dp>=0){var dq=depN(r[sel.dp]);if(dq)x.dp=dq}MAP[n]=x;m++;return}
         var dt=sel.d>=0?pdt(r[sel.d]):null;
         if(!dt||!code){sd++;return}
         var cx=sel.ci>=0?cityU(r[sel.ci]):"";
-        NEWO[n]={d:dt.d,t:dt.t,s:code,c:cx,v:sel.v>=0?pnum(r[sel.v]):0};
+        NEWO[n]={d:dt.d,t:dt.t,s:code,c:cx,v:sel.v>=0?pnum(r[sel.v]):0};if(sel.dp>=0){var dn=depN(r[sel.dp]);if(dn)NEWO[n].dp=dn}
         var y=MAP[n]||{};["g","c","p","t","a","nv"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(v)y[k]=v.slice(0,k==="a"||k==="nv"?200:80)}});MAP[n]=y;nw++});
       mergeNew();persist();PA=null;
       $("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+nw+' pedidos nuevos agregados, '+m+' existentes completados'+(st?' ('+st+' con estado actualizado)':'')+', '+dp+' repetidos ignorados'+(sd?', '+sd+' sin fecha o estado reconocible (no agregados)':'')+'.</div>';refresh()}});
