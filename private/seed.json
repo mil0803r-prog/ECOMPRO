@@ -5715,6 +5715,177 @@
    "fav": false,
    "ct": "2026-09-14",
    "tv": 79
+  },
+  "2026-10-19_1": {
+   "date": "2026-10-19",
+   "rank": 1,
+   "source": "ia",
+   "name": "Spray restaurador del interior del carro",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "vehiculos, otros",
+   "costo": 34,
+   "pvp": 54,
+   "v7": 58,
+   "v30": 65,
+   "stock": 155,
+   "score": 80,
+   "scores": {
+    "demanda": 5,
+    "traccion": 7,
+    "margen": 3,
+    "competencia": 9,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 219
+   },
+   "verdict": "58 ventas en 7 dias, 65 en 30 y 65 en total (producto creado el 2026-09-04; sin ventas hasta el 10-oct y desde el 16-oct 19, 16 y 23 por dia, con baja de stock de 220 a 155), 1 solo proveedor (importadora el mayorista) y un solo anunciante parecido en GT (Atucasahoy, desde el 2026-10-10): semaforo 1-2, muy buena señal.",
+   "angle": "Ya en uso en GT: una sola tienda por WhatsApp con el texto 'farolas amarillentas, opacas y como nubladas; tablero y plasticos de adentro gastados, con polvo pegado' y pedido por WhatsApp ('pregunta por la oferta'). Hueco: antes y despues del tablero en 15 segundos, el carro de trabajo (taxi, Uber, mototaxi, flotilla) y la oferta de 2 frascos para dos carros o para el interior y el exterior.",
+   "competition": "1 anunciante parecido en GT (Atucasahoy, solo WhatsApp, 5 anuncios iniciados el 2026-10-10, visto por ultima vez el 2026-10-10). El anuncio habla de farolas y plasticos interiores: es un producto cercano, no se confirmo que sea el mismo SKU. Semaforo 1-2 muy buena señal.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "1 anunciante distinto en GT (busqueda 'restaurador interior carro', 5 resultados leidos): Atucasahoy, solo WhatsApp, 3 videos y 2 imagenes iniciados el 2026-10-10 y vistos por ultima vez ese dia (staleDays 9). Su texto cubre farolas y plasticos interiores, asi que es un producto parecido pero no confirmado como el mismo. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "nota": "Solo WhatsApp (sin landing). 5 anuncios iniciados el 2026-10-10, 'Pregunta por la oferta': farolas amarillentas y plasticos del tablero gastados."
+    }
+   ],
+   "imgs": [
+    {
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2188898648640735",
+     "dk": "https://app.dropkiller.com/dashboard/ads/1e2b5b2d-824b-40e1-8892-4e11b7354454",
+     "nota": "Imagen 'Pregunta por la oferta': farolas opacas y plasticos del interior gastados."
+    },
+    {
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1112370754883627",
+     "dk": "https://app.dropkiller.com/dashboard/ads/035914bb-4ad7-4ac0-89f5-3fda506b2d95",
+     "nota": "Segunda imagen, mismo texto."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1595969298052154",
+     "dk": "https://app.dropkiller.com/dashboard/ads/cd5a7f5e-a918-4dcd-9831-1ad3311c296d",
+     "nota": "Video 'Pregunta por la oferta'; visto por ultima vez el 2026-10-10."
+    },
+    {
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1113207378338735",
+     "dk": "https://app.dropkiller.com/dashboard/ads/864bc9dd-4262-435c-984e-3c86e3ccdd84",
+     "nota": "Segundo video, mismo texto."
+    },
+    {
+     "adv": "Atucasahoy",
+     "pais": "GT",
+     "dias": 0,
+     "score": 16,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2014358589272673",
+     "dk": "https://app.dropkiller.com/dashboard/ads/31865ac5-cb1d-4296-b2fa-f6466e317a89",
+     "nota": "Tercer video, mismo texto."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "2828",
+     "nombre": "spray restaurador del interior del carro",
+     "costo": 34,
+     "stock": 155,
+     "v7": 58,
+     "v30": 65,
+     "tv": 65,
+     "ct": "2026-09-04",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/d7dd0f9a-246c-40ed-8b26-e492ffd142bc/dba146883c4a.webp",
+   "risk": "DropKiller marca este listado con isDemo=true (dato de DropKiller, sin explicacion en la API): confirmar en Dropi que el producto y el stock son reales antes de pautar. Solo 6 dias de ventas y 3 dias de pico (19, 16 y 23): puede ser el efecto de una sola pauta de un tercero. Costo bajo (Q34) frente a flete de referencia Q68: 1 unidad al PVP sugerido no cierra; solo el pack de 2 se acerca. Es un quimico de limpieza: confirmar que el envio por transportadora lo permite.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=2828&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/d7dd0f9a-246c-40ed-8b26-e492ffd142bc",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-04",
+   "tv": 65
+  },
+  "2026-10-19_2": {
+   "date": "2026-10-19",
+   "rank": 2,
+   "source": "ia",
+   "name": "Faja slimming pants",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "moda, otros",
+   "costo": 93,
+   "pvp": 113,
+   "v7": 77,
+   "v30": 77,
+   "stock": 235,
+   "score": 80,
+   "scores": {
+    "demanda": 5,
+    "traccion": 6,
+    "margen": 4,
+    "competencia": 5,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 349
+   },
+   "verdict": "77 ventas en 7 dias, 77 en 30 y 77 en total (creado el 2026-09-14, sin ventas hasta el 12-oct; desde el 13-oct 5, 12, 12, 3, 6 y 39 por dia, con baja de stock de 312 a 235), 1 solo proveedor (importadora el mayorista) y 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado. Hay anuncios de fajas y shorts moldeadores parecidos, en otro producto.",
+   "angle": "Sin anuncios del mismo producto en GT. Referencia cercana en GT: shorts moldeadores de fibra de titanio (Promed, 'moldea tu figura y siente comodidad todo el dia') y braga con banda cruzada (Dr. Manuel Contreras, 'barriga plana desde el primer dia'). Hueco: pantalon moldeador para el dia a dia bajo jeans y oferta de 2 piezas.",
+   "competition": "0 anunciantes del mismo producto en GT. En lo leido salen fajas y shorts moldeadores parecidos (Promed, con 2 registros de anunciante y anuncios activos hasta el 2026-09-23 en DropKiller; Dr. Manuel Contreras, visto por ultima vez el 2026-09-14; DomyHouse, sin verse desde el 2026-07-08): otra categoria cercana, misma necesidad. Semaforo 0 cuidado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos en GT del mismo producto (busqueda por significado con la foto del producto, 8 resultados leidos; la busqueda por texto 'slimming pants faja pantalon reductor' no devolvio anuncios activos). Salen fajas y shorts moldeadores parecidos de Promed, Dr. Manuel Contreras y DomyHouse. DropKiller no indexa anuncios de este SKU; puede haber anuncios no leidos. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "22618",
+     "nombre": "faja slimming pants",
+     "costo": 93,
+     "stock": 235,
+     "v7": 77,
+     "v30": 77,
+     "tv": 77,
+     "ct": "2026-09-14",
+     "alt": "Otro listado del mismo proveedor: 27588 'slimming pants' (costo Q82, stock 484, sin ventas)"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/c7c68abf-077f-4f12-b77c-fa2511caac7f/c2da27c4cb92.webp",
+   "risk": "Producto de moda corporal: evitar promesas de bajar de peso o de cintura; hablar solo de ajuste y comodidad. Pico del 18-oct (39 ventas en un dia) sobre 6 dias de ventas: puede ser una pauta de un tercero. Costo Q93 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q113) pierde plata; solo el pack de 2 se acerca. El listado vecino 27588 del mismo proveedor (Q82) no tiene ventas. Hay que confirmar tallas y devoluciones por talla.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22618&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/c7c68abf-077f-4f12-b77c-fa2511caac7f",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-14",
+   "tv": 77
   }
  },
  "validations": {
@@ -12895,6 +13066,924 @@
    ],
    "resumen": "58 leidos con los filtros de entrada (creado desde 2026-07-20, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=58); find_winning_products en ventana trending devolvio 50 productos y ninguno aporto candidatos nuevos (todos son anteriores al 2026-07-20 o ya estaban en la lista). El filtro que mas corto fue el de repetidos de los ultimos 20 dias (18), seguido del rango 50-800 de las tres ventas (17 de 58 fuera), los descartados por 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT o ventas no consistentes (16) y los de adultos (3). De los 41 en rango: 4 finalistas (solo hay 4, faltaron 1 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 58 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA y no se compararon descartados de ayer. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 132/274/305, solo 2 tiendas en GT: TapKets y La Estacion GT) quedo fuera por repetido del 13-oct; si se quiere un 5to producto, es el mejor candidato; (2) Dispensador de viaje 4 en 1 (19779) tiene 80 ventas en un solo dia (13-oct, baja de stock 91 a 11), posible pedido mayorista; se descarto por no ser consistente; (3) Rimel alargador tiene solo 4 dias de ventas y 0 anunciantes del mismo producto: validar con una prueba corta; (4) Removedor electrico dental: dos anunciantes empezaron el 16-oct, la ventana puede cerrarse en dias; (5) Capykaraoke es de la misma linea de los karaokes K-POP Demon Hunters: no usar ese nombre."
+  },
+  "2026-10-19": {
+   "date": "2026-10-19",
+   "source": "ia",
+   "titulo": "Radar Caza Diaria · 2026-10-19",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (sin navegador)",
+   "veredicto": "Veredicto. Hoy, 2026-10-19, DropKiller devolvio 59 productos GT/Dropi creados desde el 2026-07-21 con stock de 80 o mas y 50 o mas ventas en 7 dias; 42 tienen 7d, 30d y total entre 50 y 800 y solo 2 pasan todos los filtros (1 o 2 proveedores, ventas consistentes, menos de 7 anunciantes en GT y sin repetir los ultimos 20 dias). El mejor es el spray restaurador del interior del carro (12/15, 1 anunciante parecido en GT), pero con flete Q68 y CPA Q20 ninguno pasa de Q30 por pedido (spray Q20.1 con 2 unidades, faja Q27.5) y hay que medir flete y CPA reales antes de pautar.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador); los anuncios salen de la biblioteca de DropKiller (busqueda por texto y por significado) y se leyeron solo los primeros resultados por producto, asi que los conteos de tiendas son minimos. No se buscaron referentes fuera de GT. El spray tiene isDemo=true en DropKiller: confirmar en Dropi. Los proveedores se contaron sumando los listados del mismo producto, como en la corrida del 18-oct. Aviso de repeticion: la regla se aplico contra los ids de proveedor de las tarjetas desde el 28-sep, las fichas del radar y las tarjetas de /hunt; las tiras blanqueadoras (20409) se excluyeron por la nota del 18-oct (repetido del 13-oct) aunque no aparecen como tarjeta en el seed. Solo hay 2 finalistas, no 5 ni 10. No se uso Fasebook, Vercel ni ArtifactData.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Spray restaurador del interior del carro",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/d7dd0f9a-246c-40ed-8b26-e492ffd142bc/dba146883c4a.webp",
+     "v": "58 ventas en 7 dias, 65 en 30 y 65 en total (producto creado el 2026-09-04; sin ventas hasta el 10-oct y desde el 16-oct 19, 16 y 23 por dia, con baja de stock de 220 a 155), 1 solo proveedor (importadora el mayorista) y un solo anunciante parecido en GT (Atucasahoy, desde el 2026-10-10): semaforo 1-2, muy buena señal.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "58"
+      ],
+      [
+       "30d",
+       "65"
+      ],
+      [
+       "Total",
+       "65"
+      ],
+      [
+       "Stock",
+       "155"
+      ],
+      [
+       "Costo",
+       "Q34"
+      ],
+      [
+       "PVP sug.",
+       "Q54"
+      ],
+      [
+       "Creado",
+       "2026-09-04"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 3 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q219; utilidad estimada por pedido generado: Q20.1. Con 1 unidad al PVP sugerido: Q-61.2. Reprecio a 2,5 x costo (Q85): Q-41.9. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "2828",
+         "spray restaurador del interior del carro",
+         "Q34",
+         "155",
+         "58/65/65",
+         "2026-09-04"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena señal",
+       "p": "1 anunciante distinto en GT (busqueda 'restaurador interior carro', 5 resultados leidos): Atucasahoy, solo WhatsApp, 3 videos y 2 imagenes iniciados el 2026-10-10 y vistos por ultima vez ese dia (staleDays 9). Su texto cubre farolas y plasticos interiores, asi que es un producto parecido pero no confirmado como el mismo. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Atucasahoy: Imagen 'Pregunta por la oferta': farolas opacas y plasticos del interior gastados.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2188898648640735"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/1e2b5b2d-824b-40e1-8892-4e11b7354454"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Atucasahoy: Segunda imagen, mismo texto.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1112370754883627"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/035914bb-4ad7-4ac0-89f5-3fda506b2d95"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Atucasahoy: Video 'Pregunta por la oferta'; visto por ultima vez el 2026-10-10.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1595969298052154"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/cd5a7f5e-a918-4dcd-9831-1ad3311c296d"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Atucasahoy: Segundo video, mismo texto.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1113207378338735"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/864bc9dd-4262-435c-984e-3c86e3ccdd84"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Atucasahoy: Tercer video, mismo texto.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2014358589272673"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/31865ac5-cb1d-4296-b2fa-f6466e317a89"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida (sin tiempo de lectura); no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Lo que ya se dice en GT: farolas amarillentas y plasticos del tablero gastados, pedido por WhatsApp. Ya en uso en GT: una sola tienda por WhatsApp con el texto 'farolas amarillentas, opacas y como nubladas; tablero y plasticos de adentro gastados, con polvo pegado' y pedido por WhatsApp ('pregunta por la oferta'). Hueco: antes y despues del tablero en 15 segundos, el carro de trabajo (taxi, Uber, mototaxi, flotilla) y la oferta de 2 frascos para dos carros o para el interior y el exterior."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Conductores de taxi, Uber y mototaxi que viven de su carro",
+         "s": "Su carro es su herramienta: el tablero limpio y con color vuelve a lucir como nuevo antes de la siguiente carrera."
+        },
+        {
+         "b": "Quien vende su carro usado",
+         "s": "Antes de publicar el anuncio, devuelvele color al tablero y a los plasticos: el carro se ve mejor cuidado y atrae mas mensajes."
+        },
+        {
+         "b": "Papa o mama con carro familiar",
+         "s": "El tablero se ve mate y con polvo despues de las vacaciones: un trapo y un spray, y queda como el primer dia."
+        },
+        {
+         "b": "Dueño de moto o pickup",
+         "s": "Los plasticos grises y descoloridos por el sol de Guatemala vuelven a ponerse negros con una sola pasada."
+        },
+        {
+         "b": "Regalo para el que presume su carro",
+         "s": "Lleva 2 frascos: uno para ti y otro para el amigo que siempre dice que su carro esta impecable."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "DropKiller marca este listado con isDemo=true (dato de DropKiller, sin explicacion en la API): confirmar en Dropi que el producto y el stock son reales antes de pautar. Solo 6 dias de ventas y 3 dias de pico (19, 16 y 23): puede ser el efecto de una sola pauta de un tercero. Costo bajo (Q34) frente a flete de referencia Q68: 1 unidad al PVP sugerido no cierra; solo el pack de 2 se acerca. Es un quimico de limpieza: confirmar que el envio por transportadora lo permite."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 2828)",
+       "u": "https://app.dropi.gt/dashboard/search?search=2828&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/d7dd0f9a-246c-40ed-8b26-e492ffd142bc"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Faja slimming pants (pantalon moldeador)",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "12/15 · tarjeta 80/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/c7c68abf-077f-4f12-b77c-fa2511caac7f/c2da27c4cb92.webp",
+     "v": "77 ventas en 7 dias, 77 en 30 y 77 en total (creado el 2026-09-14, sin ventas hasta el 12-oct; desde el 13-oct 5, 12, 12, 3, 6 y 39 por dia, con baja de stock de 312 a 235), 1 solo proveedor (importadora el mayorista) y 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado. Hay anuncios de fajas y shorts moldeadores parecidos, en otro producto.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "77"
+      ],
+      [
+       "30d",
+       "77"
+      ],
+      [
+       "Total",
+       "77"
+      ],
+      [
+       "Stock",
+       "235"
+      ],
+      [
+       "Costo",
+       "Q93"
+      ],
+      [
+       "PVP sug.",
+       "Q113"
+      ],
+      [
+       "Creado",
+       "2026-09-14"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 3 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q349; utilidad estimada por pedido generado: Q27.5. Con 1 unidad al PVP sugerido: Q-61.2. Reprecio a 2,5 x costo (Q232): Q12.6. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "22618",
+         "faja slimming pants",
+         "Q93",
+         "235",
+         "77/77/77",
+         "2026-09-14"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciantes · semaforo 0 cuidado",
+       "p": "0 anunciantes distintos en GT del mismo producto (busqueda por significado con la foto del producto, 8 resultados leidos; la busqueda por texto 'slimming pants faja pantalon reductor' no devolvio anuncios activos). Salen fajas y shorts moldeadores parecidos de Promed, Dr. Manuel Contreras y DomyHouse. DropKiller no indexa anuncios de este SKU; puede haber anuncios no leidos. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida (sin tiempo de lectura); no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Lo que ya se dice en GT para fajas parecidas: moldea la figura, barriga plana desde el primer dia, comodidad todo el dia. Sin anuncios del mismo producto en GT. Referencia cercana en GT: shorts moldeadores de fibra de titanio (Promed, 'moldea tu figura y siente comodidad todo el dia') y braga con banda cruzada (Dr. Manuel Contreras, 'barriga plana desde el primer dia'). Hueco: pantalon moldeador para el dia a dia bajo jeans y oferta de 2 piezas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujer de oficina que se pone jeans o falda todos los dias",
+         "s": "Una prenda que no se marca bajo la ropa y se siente comoda de la mañana a la noche."
+        },
+        {
+         "b": "Mama que busca recuperar su ropa de antes",
+         "s": "Ponte los pantalones que dejaste de usar: ajuste suave sin apretar, bajo la ropa de siempre."
+        },
+        {
+         "b": "Quien tiene una fiesta o evento este fin de año",
+         "s": "Un vestido o pantalon que cae mejor: lleva 2 y usas una mientras lavas la otra."
+        },
+        {
+         "b": "Vendedora o mesera que pasa horas de pie",
+         "s": "Soporte y comodidad para toda la jornada, sin cortes ni costuras que molestan."
+        },
+        {
+         "b": "Regalo para mama, hermana o pareja en Navidad",
+         "s": "Un regalo practico que se usa todos los dias: lleva 2 piezas y ahorra en el paquete."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Producto de moda corporal: evitar promesas de bajar de peso o de cintura; hablar solo de ajuste y comodidad. Pico del 18-oct (39 ventas en un dia) sobre 6 dias de ventas: puede ser una pauta de un tercero. Costo Q93 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q113) pierde plata; solo el pack de 2 se acerca. El listado vecino 27588 del mismo proveedor (Q82) no tiene ventas. Hay que confirmar tallas y devoluciones por talla."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 22618)",
+       "u": "https://app.dropi.gt/dashboard/search?search=22618&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/c7c68abf-077f-4f12-b77c-fa2511caac7f"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "1326 / 2456 / 2584",
+     "st": "1596",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera de 50-800 (7d 1326, 30d 2456, total 2584)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "400 / 1607 / 1607",
+     "st": "5059",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera de 50-800 (7d 400, 30d 1607, total 1607)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "325 / 1673 / 3370",
+     "st": "1623",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera de 50-800 (7d 325, 30d 1673, total 3370)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 14722 · auré",
+     "v": "289 / 3508 / 4115",
+     "st": "3796",
+     "ct": "2026-08-05",
+     "r": "Descartado: ventas fuera de 50-800 (7d 289, 30d 3508, total 4115)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "217 / 857 / 1114",
+     "st": "422",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera de 50-800 (7d 217, 30d 857, total 1114)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "216 / 665 / 999",
+     "st": "1001",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 216, 30d 665, total 999)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "208 / 615 / 904",
+     "st": "1944",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 208, 30d 615, total 904)",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "205 / 378 / 409",
+     "st": "129",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "195 / 725 / 823",
+     "st": "175",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera de 50-800 (7d 195, 30d 725, total 823)",
+     "c": "d"
+    },
+    {
+     "n": "kneeflex pro",
+     "s": "ID 16336 · soluciones sig&sarp",
+     "v": "169 / 356 / 1649",
+     "st": "153",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera de 50-800 (7d 169, 30d 356, total 1649)",
+     "c": "d"
+    },
+    {
+     "n": "faja reductora de gorditos",
+     "s": "ID 15548 · chicas empire fajas",
+     "v": "167 / 831 / 1927",
+     "st": "1982",
+     "ct": "2026-07-21",
+     "r": "Descartado: ventas fuera de 50-800 (7d 167, 30d 831, total 1927)",
+     "c": "d"
+    },
+    {
+     "n": "5 t-shirt rvca con bolsa y bordado x 120",
+     "s": "ID 27663 · laurean by seong woo",
+     "v": "160 / 160 / 160",
+     "st": "16815",
+     "ct": "2026-10-10",
+     "r": "Descartado: nombre con marca (RVCA), bandera roja, y solo 3 dias de venta con 160 unidades (posible pedido mayorista)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "159 / 1030 / 2273",
+     "st": "2225",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 159, 30d 1030, total 2273)",
+     "c": "d"
+    },
+    {
+     "n": "gomitas para niños heighterner",
+     "s": "ID 26896 · sicommer lab",
+     "v": "134 / 423 / 423",
+     "st": "1577",
+     "ct": "2026-10-07",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "luces de árbol navideño",
+     "s": "ID 25508 · importadora el mayorista",
+     "v": "133 / 244 / 244",
+     "st": "88",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "combo mino",
+     "s": "ID 27973 · importadora el mayorista",
+     "v": "132 / 132 / 132",
+     "st": "227",
+     "ct": "2026-10-13",
+     "r": "Descartado: venta no consistente, 132 ventas en solo 3 dias (14 al 16-oct), creado el 13-oct",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "129 / 522 / 648",
+     "st": "352",
+     "ct": "2026-08-29",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "128 / 195 / 195",
+     "st": "1805",
+     "ct": "2026-10-06",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "batidor manual semiautomatico",
+     "s": "ID 19141 · 60 segundos",
+     "v": "128 / 887 / 1212",
+     "st": "208",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera de 50-800 (7d 128, 30d 887, total 1212)",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "113 / 148 / 155",
+     "st": "4845",
+     "ct": "2026-08-28",
+     "r": "Descartado: repetido, mismo producto que Excalvo shampoo (9-oct, 10 proveedores)",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "107 / 201 / 203",
+     "st": "2797",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "105 / 166 / 166",
+     "st": "885",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "shilajit ultra optimal potency 60 caps.",
+     "s": "ID 27368 · american natural",
+     "v": "105 / 113 / 113",
+     "st": "4887",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido, mismo producto que Shilajit Ultra Top (7-oct) con otro listado",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "103 / 607 / 607",
+     "st": "455",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "102 / 212 / 212",
+     "st": "5288",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "100 / 124 / 124",
+     "st": "876",
+     "ct": "2026-10-08",
+     "r": "Descartado: 4 listados del mismo producto (Renovia 15 en 1: nibresma, nexus, almafit, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "99 / 202 / 550",
+     "st": "1485",
+     "ct": "2026-08-19",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "pumpkin seed oil",
+     "s": "ID 19925 · nibresma",
+     "v": "93 / 222 / 224",
+     "st": "776",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (pumpkin seed oil: natural labs, kura labs, nibresma, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "89 / 160 / 160",
+     "st": "1840",
+     "ct": "2026-10-04",
+     "r": "Descartado: mismo producto que Nippori (altamira, 10616 ventas en total): sumados salen del rango 50-800",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "87 / 610 / 892",
+     "st": "5096",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera de 50-800 (7d 87, 30d 610, total 892)",
+     "c": "d"
+    },
+    {
+     "n": "set de varillas y esferas magnéticas",
+     "s": "ID 25285 · grupo luna",
+     "v": "85 / 191 / 191",
+     "st": "209",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "85 / 263 / 519",
+     "st": "4483",
+     "ct": "2026-08-09",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (Her Loss: laboratorio luna, aure, chicas empire, altamira, natural labs)",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "83 / 555 / 2136",
+     "st": "880",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera de 50-800 (7d 83, 30d 555, total 2136)",
+     "c": "d"
+    },
+    {
+     "n": "flex-a",
+     "s": "ID 22527 · nibresma",
+     "v": "81 / 373 / 485",
+     "st": "1493",
+     "ct": "2026-09-12",
+     "r": "Descartado: 3 proveedores de la marca Flex-A (nibresma, laboratorio luna, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "81 / 518 / 529",
+     "st": "1971",
+     "ct": "2026-09-17",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "dispensador de viaje 4 en 1",
+     "s": "ID 19779 · 60 segundos",
+     "v": "80 / 89 / 171",
+     "st": "113",
+     "ct": "2026-08-28",
+     "r": "Descartado: venta no consistente, 80 de sus 89 ventas del mes cayeron en un solo dia y vendio solo 3 dias",
+     "c": "d"
+    },
+    {
+     "n": "rimel alargador",
+     "s": "ID 22610 · importadora el mayorista",
+     "v": "79 / 79 / 79",
+     "st": "272",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "78 / 383 / 1198",
+     "st": "485",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 78, 30d 383, total 1198)",
+     "c": "d"
+    },
+    {
+     "n": "removedor electrico dental",
+     "s": "ID 8515 · auré",
+     "v": "78 / 224 / 255",
+     "st": "824",
+     "ct": "2026-07-26",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "faja slimming pants",
+     "s": "ID 22618 · importadora el mayorista",
+     "v": "77 / 77 / 77",
+     "st": "235",
+     "ct": "2026-09-14",
+     "r": "FINALISTA #2 (puntaje 12/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "76 / 168 / 168",
+     "st": "4831",
+     "ct": "2026-10-03",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "76 / 290 / 290",
+     "st": "275",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "chaleco divine curves",
+     "s": "ID 16402 · chicas empire fajas",
+     "v": "76 / 125 / 435",
+     "st": "1818",
+     "ct": "2026-08-02",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "75 / 346 / 664",
+     "st": "323",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "capykaraoke micrófono infantil con luces",
+     "s": "ID 27194 · digital gt",
+     "v": "72 / 94 / 94",
+     "st": "206",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "fungus 7 dias",
+     "s": "ID 15832 · laboratorio luna",
+     "v": "69 / 852 / 1823",
+     "st": "4066",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 69, 30d 852, total 1823)",
+     "c": "d"
+    },
+    {
+     "n": "combo x2 crema venas varices",
+     "s": "ID 28058 · importadora el mayorista",
+     "v": "63 / 63 / 63",
+     "st": "135",
+     "ct": "2026-10-14",
+     "r": "Descartado: sumando listados del mismo proveedor y de goldbox (63 + 434 + 312) el total es 809, fuera de 50-800; ademas 4 anunciantes de crema para varices en GT y bandera amarilla por promesa de cura",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "63 / 422 / 681",
+     "st": "336",
+     "ct": "2026-09-11",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "lampara solar portatil de clip",
+     "s": "ID 22002 · 60 segundos",
+     "v": "62 / 385 / 423",
+     "st": "159",
+     "ct": "2026-09-10",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "mini rastreador gps",
+     "s": "ID 20693 · 60 segundos",
+     "v": "61 / 138 / 151",
+     "st": "227",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "aceite capilar colageno cqk",
+     "s": "ID 22667 · importadora el mayorista",
+     "v": "59 / 269 / 288",
+     "st": "164",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "spray restaurador del interior del carro",
+     "s": "ID 2828 · importadora el mayorista",
+     "v": "58 / 65 / 65",
+     "st": "155",
+     "ct": "2026-09-04",
+     "r": "FINALISTA #1 (puntaje 12/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "creatine for women (gris)",
+     "s": "ID 19179 · kura labs",
+     "v": "54 / 83 / 141",
+     "st": "876",
+     "ct": "2026-08-28",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (creatina para mujer: laboratorio luna, almafit, nexus, kura labs, capitan lab, vitalcom)",
+     "c": "d"
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "s": "ID 16115 · distribuidora rocke feller",
+     "v": "54 / 193 / 273",
+     "st": "724",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora x 2 unid",
+     "s": "ID 20860 · suplem gt",
+     "v": "54 / 112 / 113",
+     "st": "687",
+     "ct": "2026-09-06",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "pastillas limpiadoras para lavadora",
+     "s": "ID 15657 · shop b",
+     "v": "52 / 368 / 1000",
+     "st": "10704",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 52, 30d 368, total 1000)",
+     "c": "d"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "52 / 74 / 74",
+     "st": "426",
+     "ct": "2026-10-10",
+     "r": "Descartado: saturado, 8 anunciantes distintos de Cayenne Pepper en GT (ClickGo, Dra. Marta Gonzalez, Revista Bienestar Total, Portal Salud y Vida, Vitalbix, Camila Bernal, Clickofertasgt); suplemento",
+     "c": "d"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "51 / 445 / 445",
+     "st": "99",
+     "ct": "2026-09-22",
+     "r": "Descartado: clasificado como producto para adultos en la corrida del 15-oct y con foto generica; no se identifica el producto",
+     "c": "d"
+    },
+    {
+     "n": "2 pantalónes rose/dama 5 colores x 109",
+     "s": "ID 26401 · laurean by seong woo",
+     "v": "50 / 53 / 53",
+     "st": "9947",
+     "ct": "2026-10-04",
+     "r": "Descartado: 50/53/53 en 6 dias, ropa al por mayor (2 pantalones x109 con stock de 9947), no es producto de prueba",
+     "c": "d"
+    }
+   ],
+   "resumen": "59 leidos con los filtros de entrada (creado desde 2026-07-21, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=59). El filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT, ventas no consistentes o suma fuera de rango (20), seguido de repetidos de los ultimos 20 dias (20), el rango 50-800 de las tres ventas (17 de 59 fuera) y los de adultos (0). De los 42 en rango: 2 finalistas (faltaron 3 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 59 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
+   "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 205/378/409, stock 129, 10 dias de venta): quedo fuera por la nota de repetido del 13-oct, pero no esta como tarjeta en el seed; si no se repitio de verdad, es el mejor 3er producto; (2) Barra privada (24113, importadora el mayorista, 51/445/445, stock 99): ya se habia clasificado como adulto el 15-oct y su foto es un marcador generico, no se identifica el producto; (3) Cayenne Pepper (27396, kura labs, 52/74/74): demanda real pero 8 anunciantes en GT y suplemento; (4) Crema combo x2 para varices (28058): 4 anunciantes en GT y suma de listados 809, justo sobre el limite; (5) Faja slimming pants tiene 0 anunciantes del mismo producto: validar con una prueba corta."
   }
  }
 }
