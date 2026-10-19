@@ -562,6 +562,8 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 #c-nt[hidden]{display:none}#c-nt .nr{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 #c-nt .cdot{width:26px;height:26px;border-radius:50%;border:2px solid transparent;padding:0;cursor:pointer;background:var(--d);min-height:0}#c-nt .cdot.on{border-color:var(--text);box-shadow:0 0 0 2px var(--card) inset}
 #c-nt input[type=color]{width:34px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer}
+.esc-pasos{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.esc-pasos li{border-left:4px solid var(--cel);padding:6px 0 6px 12px;line-height:1.45}
 #c-tf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
 .cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
 .cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
@@ -855,6 +857,36 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     <div class="alert"><b>Lectura de la muestra</b><span id="mtw-lect"></span></div>
     <div><h2>Temas que más salen en los chats</h2><div class="card fun" id="mtw-temas"></div></div>
     <div><h2>Calidad de las respuestas</h2><div class="tbl"><table style="min-width:520px"><thead><tr><th>Señal</th><th class="num">Chats</th><th class="num">De 20</th><th>Qué significa</th></tr></thead><tbody id="mtw-cal"></tbody></table></div></div>
+    <div id="mtw-esc">
+      <h2>Método de escalamiento</h2>
+      <div class="card" style="display:flex;flex-direction:column;gap:14px">
+        <ol class="esc-pasos">
+          <li><b>1. Antes de escalar: atiende el WhatsApp.</b> Con chats esperando respuesta no subas presupuesto: cada chat sin contestar es plata de pauta perdida. Responde en pocos minutos y deja los pendientes en cero.</li>
+          <li><b>2. Prueba con poco.</b> 3 a 5 anuncios por producto con presupuesto bajo. No decidas hasta tener al menos 30 conversaciones iniciadas y 5 pedidos resueltos (la misma regla de muestra del semáforo).</li>
+          <li><b>3. Calcula tu tope de costo por pedido.</b> Es lo que el producto deja antes de pauta. Abajo está la calculadora con tu flete y tu % de entrega.</li>
+          <li><b>4. Decide con el semáforo.</b> Costo real por pedido hasta 60 % del tope: <b>escalar</b>. Entre 60 % y 100 %: <b>mantener</b> y mejorar el anuncio. Sobre el tope: <b>frenar</b>.</li>
+          <li><b>5. Escala de a poco.</b> Sube el presupuesto un 20 % cada 2 o 3 días, o duplica el conjunto ganador con presupuesto nuevo. No toques una campaña que todavía está en fase de aprendizaje y no hagas cambios grandes de golpe.</li>
+          <li><b>6. Renueva creativos cada semana.</b> Un anuncio que baja en clics o en respuesta se reemplaza. Guarda el ángulo ganador y pruébalo con otra cara, otro gancho y otra oferta (pack de 2 o precio terminado en 9).</li>
+          <li><b>7. Vigila la entrega.</b> Si baja de 50 % en una zona, deja de pautar esa zona aunque vendas: con el flete de unos Q68 cada devolución te cuesta dinero. 65 % o más es buena zona.</li>
+        </ol>
+        <p class="foot" style="margin:0">Los umbrales (30 conversaciones, 60 %, 20 % cada 2 o 3 días) son una guía de partida, no un dato medido de tu cuenta. Ajústalos cuando tengas más historial.</p>
+        <h3 style="margin:4px 0 0">Calculadora de escalamiento</h3>
+        <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+          <div class="fld"><label for="es-pvp">Precio de venta (Q)</label><input id="es-pvp" type="number" min="0" step="1" value="199"></div>
+          <div class="fld"><label for="es-cos">Costo del producto (Q)</label><input id="es-cos" type="number" min="0" step="1" value="60"></div>
+          <div class="fld"><label for="es-ent">% de entrega</label><input id="es-ent" type="number" min="1" max="100" step="1" value="62"></div>
+          <div class="fld"><label for="es-fle">Flete (Q)</label><input id="es-fle" type="number" min="0" step="1" value="68"></div>
+          <div class="fld"><label for="es-dev">Flete de devolución (Q)</label><input id="es-dev" type="number" min="0" step="1" value="30"></div>
+        </div>
+        <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+          <div class="fld"><label for="es-gas">Gasto de la campaña (Q)</label><input id="es-gas" type="number" min="0" step="1" value="0"></div>
+          <div class="fld"><label for="es-con">Conversaciones iniciadas</label><input id="es-con" type="number" min="0" step="1" value="0"></div>
+          <div class="fld"><label for="es-ped">Pedidos logrados</label><input id="es-ped" type="number" min="0" step="1" value="0"></div>
+        </div>
+        <div class="grid g4" id="es-out"></div>
+        <div id="es-ver"></div>
+      </div>
+    </div>
     <p class="foot">Datos de Lumy al 19 de octubre de 2026. Las conversaciones abiertas y las que esperan respuesta son el total de hoy. Lo demás sale de una muestra de 20 chats analizados sin texto literal, nombres ni teléfonos (solo intenciones y largo de mensajes), así que son señales, no totales. Pídele a Claude que lo actualice.</p>
   </section>
 
@@ -2290,6 +2322,29 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   var T=W.temas,mx=T[0][1];
   $("mtw-temas").innerHTML=T.map(function(r){return '<div class="row"><span>'+r[0]+'</span><span><span class="b" style="width:'+Math.max(r[1]/mx*100,2)+'%"></span></span><span class="v2">'+r[1]+'</span></div>'}).join("");
   var C=[["Chats con mensaje de plantilla",W.plantilla,"Casi todos arrancan con un mensaje automático de bienvenida."],["Chats donde el comprador responde",W.conResp,"La otra mitad no contesta después del saludo."],["Chats con confirmación de pedido",W.confirma,"El comprador confirma o el vendedor pide confirmar el pedido."],["Chats con mensajes repetidos",W.repite,"Se manda el mismo mensaje varias veces seguidas (un chat repitió 6 veces)."]];
+  // Método de escalamiento
+  (function(){
+    function N(i){var v=parseFloat($(i).value);return isFinite(v)?v:0}
+    function q(x){return "Q "+(Math.round(x*100)/100).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})}
+    function calc(){
+      var pvp=N("es-pvp"),cos=N("es-cos"),ent=Math.min(Math.max(N("es-ent"),1),100)/100,fle=N("es-fle"),dev=N("es-dev"),gas=N("es-gas"),con=N("es-con"),ped=N("es-ped");
+      var tope=ent*(pvp-cos-fle)-(1-ent)*dev,cpa=ped>0?gas/ped:null,cpc=con>0?gas/con:null,cv=con>0?ped/con*100:null;
+      $("es-out").innerHTML=
+        '<div class="card kpi"><h3>Tope por pedido</h3><div class="big'+(tope<=0?' tr_':'')+'">'+q(tope)+'</div><div class="sub">lo que deja el producto antes de pauta</div></div>'+
+        '<div class="card kpi"><h3>Costo real por pedido</h3><div class="big">'+(cpa==null?'–':q(cpa))+'</div><div class="sub">gasto ÷ pedidos</div></div>'+
+        '<div class="card kpi"><h3>Costo por conversación</h3><div class="big">'+(cpc==null?'–':q(cpc))+'</div><div class="sub">gasto ÷ conversaciones</div></div>'+
+        '<div class="card kpi"><h3>Conversación a pedido</h3><div class="big">'+(cv==null?'–':cv.toFixed(1).replace(".",",")+'%')+'</div><div class="sub">pedidos ÷ conversaciones</div></div>';
+      var c,t,m;
+      if(tope<=0){c="r";t="No cierra";m="Con este precio, costo y flete el producto no deja plata antes de pauta. Sube el precio, ofrece un pack o busca otro producto."}
+      else if(con<30||ped<5){c="a";t="Falta muestra";m="Junta al menos 30 conversaciones y 5 pedidos antes de decidir. Mientras tanto, sigue probando con poco presupuesto."}
+      else if(cpa<=tope*0.6){c="v";t="Escalar";m="Tu costo por pedido está por debajo del 60 % del tope. Sube el presupuesto un 20 % y vuelve a medir en 2 o 3 días."}
+      else if(cpa<=tope){c="a";t="Mantener";m="Estás dentro del tope pero sin mucho margen. No subas presupuesto: mejora el anuncio, la oferta o la rapidez de respuesta."}
+      else{c="r";t="Frenar";m="El costo por pedido pasó el tope: cada pedido te cuesta más de lo que deja. Pausa o cambia el creativo y la oferta."}
+      $("es-ver").innerHTML='<div class="alert"><b><span class="pill '+c+'">'+t+'</span></b><span>'+m+'</span></div>';
+    }
+    ["es-pvp","es-cos","es-ent","es-fle","es-dev","es-gas","es-con","es-ped"].forEach(function(i){$(i).addEventListener("input",calc)});
+    calc();
+  })();
   $("mtw-cal").innerHTML=C.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="num">'+pc(r[1],W.muestra)+'</td><td>'+r[2]+'</td></tr>'}).join("");
 })();
 </script>
