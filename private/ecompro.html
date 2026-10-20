@@ -605,6 +605,15 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 @media(max-width:560px){.dlv .dlres{grid-template-columns:1fr}.dlv .dlres img{width:100%;max-height:300px}}
 .rcv .rc-lin{margin:10px 0 6px}.rcv .rc-bar{position:relative;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
 .rcv .rc-bar i{position:absolute;top:0;bottom:0;left:0;background:var(--cel);border-radius:99px;display:block}
+.rcv .rc-tl{position:relative;height:72px;margin:12px 0 4px;border-radius:10px;overflow:hidden;background:#0b1220;touch-action:none;user-select:none;cursor:pointer}
+.rcv .rc-tl canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.rcv .rc-dim{position:absolute;top:0;bottom:0;background:rgba(5,10,20,.68);pointer-events:none}
+.rcv .rc-win{position:absolute;top:0;bottom:0;box-sizing:border-box;border-top:3px solid var(--cel);border-bottom:3px solid var(--cel);pointer-events:none}
+.rcv .rc-h{position:absolute;top:-3px;bottom:-3px;width:18px;background:var(--cel);cursor:ew-resize;display:flex;align-items:center;justify-content:center;touch-action:none;pointer-events:auto}
+.rcv .rc-h.l{left:0;border-radius:8px 0 0 8px}.rcv .rc-h.r{right:0;border-radius:0 8px 8px 0}
+.rcv .rc-h::after{content:"";width:3px;height:28px;background:#fff;border-radius:2px}
+.rcv .rc-ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.45);pointer-events:none}
+.rcv .rc-tt{display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted);margin-bottom:6px}
 #c-tf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
 .cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
 .cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
@@ -1052,7 +1061,9 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <p class="sub" id="rc-m" role="status" style="margin:8px 0 0">Elige un video (MP4, MOV, WebM). No se sube a ningún servidor: se recorta en tu propio navegador.</p>
       <div id="rc-w" hidden>
         <video id="rc-v" controls playsinline preload="metadata" style="width:100%;max-height:420px;background:#000;border-radius:12px;margin-top:10px"></video>
-        <div class="rc-lin"><div class="rc-bar"><i id="rc-sel"></i></div></div>
+        <div class="rc-tl" id="rc-tl" aria-label="Línea de tiempo del video completo"><canvas id="rc-cv"></canvas><div class="rc-dim" id="rc-d1"></div><div class="rc-dim" id="rc-d2"></div><div class="rc-win" id="rc-win"><div class="rc-h l" id="rc-ha" role="slider" aria-label="Inicio del recorte" tabindex="0"></div><div class="rc-h r" id="rc-hb" role="slider" aria-label="Fin del recorte" tabindex="0"></div></div><div class="rc-ph" id="rc-ph"></div></div>
+        <div class="rc-tt"><span>0:00</span><span id="rc-tot"></span></div>
+        <p class="sub" style="margin:0 0 6px">Arrastra las manijas de los lados para elegir el recorte: lo que queda entre ellas es lo que se guarda. Toca la línea para ir a ese momento.</p>
         <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
           <div class="fld"><label for="rc-a">Inicio (segundos)</label><input id="rc-a" type="number" min="0" step="0.1" value="0"></div>
           <button class="btn" type="button" id="rc-pa">Poner inicio aquí</button>
@@ -2613,8 +2624,32 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function fmt(s){s=Math.max(0,s);var m=Math.floor(s/60),x=(s-m*60).toFixed(1);return m+":"+(x<10?"0":"")+x}
   function num(i){var v=parseFloat($(i).value);return isFinite(v)?v:0}
-  function marca(){var a=num("rc-a"),b=num("rc-b");if(DUR>0){$("rc-sel").style.left=(a/DUR*100)+"%";$("rc-sel").style.width=Math.max((b-a)/DUR*100,0.5)+"%"}
+  function pos(t){return DUR>0?Math.min(Math.max(t/DUR,0),1)*100:0}
+  function marca(){var a=num("rc-a"),b=num("rc-b");
+    if(DUR>0){$("rc-d1").style.cssText="left:0;width:"+pos(a)+"%";$("rc-d2").style.cssText="left:"+pos(b)+"%;right:0";$("rc-win").style.cssText="left:"+pos(a)+"%;width:"+Math.max(pos(b)-pos(a),0.5)+"%";$("rc-tot").textContent=fmt(DUR)}
     $("rc-dur").textContent=DUR?"Recorte de "+fmt(a)+" a "+fmt(b)+" · dura "+fmt(b-a)+" de "+fmt(DUR)+" en total.":""}
+  function ph(){$("rc-ph").style.left="calc("+pos($("rc-v").currentTime)+"% - 1px)"}
+  $("rc-v").addEventListener("timeupdate",ph);$("rc-v").addEventListener("seeked",ph);
+  var DRAG=null;
+  function tAt(ev){var r=$("rc-tl").getBoundingClientRect();return Math.min(Math.max((ev.clientX-r.left)/r.width,0),1)*DUR}
+  function dragStart(w){return function(ev){DRAG=w;ev.preventDefault();ev.stopPropagation();try{ev.target.setPointerCapture(ev.pointerId)}catch(e){}}}
+  $("rc-ha").addEventListener("pointerdown",dragStart("a"));$("rc-hb").addEventListener("pointerdown",dragStart("b"));
+  function mover(ev){if(!DRAG||!DUR)return;var t=tAt(ev),a=num("rc-a"),b=num("rc-b");
+    if(DRAG==="a"){t=Math.min(t,b-0.1);$("rc-a").value=Math.max(t,0).toFixed(1)}else{t=Math.max(t,a+0.1);$("rc-b").value=Math.min(t,DUR).toFixed(1)}
+    $("rc-v").currentTime=Math.min(Math.max(t,0),DUR);marca()}
+  window.addEventListener("pointermove",mover);window.addEventListener("pointerup",function(){DRAG=null});
+  $("rc-tl").addEventListener("click",function(ev){if(ev.target.closest(".rc-h")||!DUR)return;$("rc-v").currentTime=tAt(ev)});
+  [["rc-ha","rc-a",-1],["rc-hb","rc-b",1]].forEach(function(x){$(x[0]).addEventListener("keydown",function(ev){var d=ev.key==="ArrowLeft"?-0.1:ev.key==="ArrowRight"?0.1:0;if(!d)return;ev.preventDefault();var v=num(x[1])+d;$(x[1]).value=Math.min(Math.max(v,0),DUR).toFixed(1);marca()})});
+  // tira de cuadros del video completo
+  function tira(url){
+    var cv=$("rc-cv"),W=$("rc-tl").clientWidth||600,H=72,dpr=window.devicePixelRatio||1;cv.width=W*dpr;cv.height=H*dpr;
+    var c=cv.getContext("2d");c.scale(dpr,dpr);c.fillStyle="#0b1220";c.fillRect(0,0,W,H);
+    var v2=document.createElement("video");v2.muted=true;v2.preload="auto";v2.playsInline=true;v2.src=url;
+    var n=Math.max(4,Math.ceil(W/110)),cw=W/n,i=0;
+    function next(){if(i>=n||!DUR)return;v2.currentTime=Math.min((i+0.5)/n*DUR,Math.max(DUR-0.05,0))}
+    v2.addEventListener("seeked",function(){try{var vw=v2.videoWidth,vh=v2.videoHeight;if(vw&&vh){var s=Math.max(cw/vw,H/vh),dw=vw*s,dh=vh*s;c.save();c.beginPath();c.rect(i*cw,0,cw,H);c.clip();c.drawImage(v2,i*cw+(cw-dw)/2,(H-dh)/2,dw,dh);c.restore()}}catch(e){}i++;next()});
+    v2.addEventListener("loadeddata",next);v2.addEventListener("error",function(){});
+  }
   $("rc-f").addEventListener("change",function(){
     var f=this.files&&this.files[0];if(!f)return;
     if(!/^video\//.test(f.type)&&!/\.(mp4|mov|webm|m4v|mkv)$/i.test(f.name)){$("rc-m").textContent="Ese archivo no parece un video.";return}
@@ -2622,12 +2657,12 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     $("rc-r").innerHTML="";
     var v=$("rc-v");if(v.dataset.u)URL.revokeObjectURL(v.dataset.u);var u=URL.createObjectURL(f);v.dataset.u=u;v.src=u;
     $("rc-m").textContent=f.size>300*1048576?"Ojo: el video pesa más de 300 MB y puede no alcanzar la memoria del navegador.":"Mueve el video y marca dónde empieza y dónde termina.";
-    v.onloadedmetadata=function(){DUR=v.duration||0;$("rc-a").value="0";$("rc-b").value=DUR?DUR.toFixed(1):"0";$("rc-a").max=$("rc-b").max=DUR;$("rc-w").hidden=false;marca()};
+    v.onloadedmetadata=function(){DUR=v.duration||0;$("rc-a").value="0";$("rc-b").value=DUR?DUR.toFixed(1):"0";$("rc-a").max=$("rc-b").max=DUR;$("rc-w").hidden=false;marca();ph();setTimeout(function(){tira(u)},60)};
     v.onerror=function(){$("rc-m").textContent="Tu navegador no pudo leer este video. Prueba con un MP4."};
   });
   ["rc-a","rc-b"].forEach(function(i){$(i).addEventListener("input",function(){var a=num("rc-a"),b=num("rc-b");if(a<0)$("rc-a").value="0";if(DUR&&b>DUR)$("rc-b").value=DUR.toFixed(1);marca()})});
-  $("rc-pa").addEventListener("click",function(){$("rc-a").value=$("rc-v").currentTime.toFixed(1);marca()});
-  $("rc-pb").addEventListener("click",function(){$("rc-b").value=$("rc-v").currentTime.toFixed(1);marca()});
+  $("rc-pa").addEventListener("click",function(){$("rc-a").value=Math.min($("rc-v").currentTime,Math.max(num("rc-b")-0.1,0)).toFixed(1);marca()});
+  $("rc-pb").addEventListener("click",function(){$("rc-b").value=Math.max($("rc-v").currentTime,num("rc-a")+0.1).toFixed(1);marca()});
   $("rc-ver").addEventListener("click",function(){var v=$("rc-v"),a=num("rc-a"),b=num("rc-b");v.currentTime=a;v.play();var t=setInterval(function(){if(v.currentTime>=b||v.paused){v.pause();clearInterval(t)}},80)});
   function blobUrl(url,tipo){return fetch(url).then(function(r){if(!r.ok)throw new Error("cdn");return r.blob()}).then(function(b){var u=URL.createObjectURL(new Blob([b],{type:tipo}));URLS.push(u);return u})}
   function cargarScript(src){return new Promise(function(ok,no){var s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=function(){no(new Error("script"))};document.head.appendChild(s)})}
