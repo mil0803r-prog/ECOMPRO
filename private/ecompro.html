@@ -235,7 +235,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--cel) 6%,transparent)}
 .chip:hover{border-color:var(--cel)}
 .chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),color-mix(in srgb,var(--ink) 70%,var(--cel)));border-color:transparent}
 .fld input:focus,.fld select:focus,.fld textarea:focus,.sel select:focus{outline:2px solid var(--cel);outline-offset:1px;border-color:var(--cel)}
-@media(max-width:520px){.brand img{width:44px;height:44px;border-radius:12px}h1{font-size:2rem}}
+@media(max-width:520px){.brand img,.brand img.logo{width:60px;height:60px;border-radius:0}h1{font-size:2rem}}
 /* Paletas de acento */
 :root[data-pal="esmeralda"]{--ink:#0b7a55;--azul:#12a06f;--cel:#34d399;--cel2:#86efbf}
 :root[data-theme="dark"][data-pal="esmeralda"]{--ink:#34d399;--azul:#34d399;--cel:#34d399;--cel2:#86efbf}
@@ -656,7 +656,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 
 <div class="wrap">
   <header>
-    <div class="brand"><button type="button" class="mbtn" id="mbtn" aria-label="Abrir menú" aria-expanded="false">☰</button><img src="/icon-192.png" alt="ECOMPRO" width="54" height="54"><h1>ECOMPRO<small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted);margin-top:4px">Semáforo Dropi GT</small></h1></div>
+    <div class="brand"><button type="button" class="mbtn" id="mbtn" aria-label="Abrir menú" aria-expanded="false">☰</button><img class="logo" src="/logo.png" alt="ECOMPRO" width="72" height="72"><h1><small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted)">Semáforo Dropi GT</small></h1></div>
     <div class="meta"><span class="palw"><button type="button" class="palb" id="palb" aria-haspopup="true" aria-expanded="false" title="Paleta de colores"><i></i>Paleta</button><div class="palp" id="palp" role="menu"></div></span><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 19 oct 2026 · Dropi sincronizado 19 oct 14:00 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
@@ -3334,8 +3334,10 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 .sg[aria-current="true"]{background:color-mix(in srgb,var(--cel) 20%,transparent)!important;color:var(--ink)!important;box-shadow:inset 3px 0 0 var(--cel)!important}
 .sg[aria-current="true"] .sic{color:var(--cel2,var(--ink))}
 .sghead{padding:16px 12px 6px!important;letter-spacing:.12em!important}
-.sbrand{display:flex;align-items:center;gap:12px;padding:6px 8px 16px;margin-bottom:6px;border-bottom:1px solid var(--line)}
-.sbrand img{width:46px;height:46px;border-radius:13px;flex:none;box-shadow:0 6px 16px rgba(13,109,153,.28)}
+.sbrand{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:6px 8px 16px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.sbrand img{width:150px;height:150px;border-radius:0;flex:none;box-shadow:none;margin:0 auto}
+.sbrand small{align-self:center}
+.brand img.logo{width:72px;height:72px;border-radius:0;box-shadow:none}
 .sbrand b{display:block;font-family:var(--display);font-size:1.45rem;letter-spacing:.09em;line-height:1;color:var(--fg)}
 .sbrand small{display:block;margin-top:4px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
 #phead{display:flex;align-items:center;gap:14px;padding:2px 0 4px;grid-column:2}
@@ -3416,7 +3418,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function svg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+((window.EC_IC||{})[k]||"")+'</svg>'}
   /* marca en la barra lateral */
   var nw=document.querySelector(".navwrap");
-  if(nw&&!nw.querySelector(".sbrand")){var br=document.createElement("div");br.className="sbrand";br.innerHTML='<img src="/icon-192.png" alt="" width="46" height="46"><div><b>ECOMPRO</b><small>Semáforo Dropi GT</small></div>';nw.insertBefore(br,nw.firstChild)}
+  if(nw&&!nw.querySelector(".sbrand")){var br=document.createElement("div");br.className="sbrand";br.innerHTML='<img class="logo" src="/logo.png" alt="ECOMPRO" width="150" height="150"><small>Semáforo Dropi GT</small>';nw.insertBefore(br,nw.firstChild)}
   /* encabezado de página */
   var hd=document.querySelector(".wrap>header"),ph=document.createElement("div");ph.id="phead";
   if(hd)hd.parentNode.insertBefore(ph,hd.nextSibling);
