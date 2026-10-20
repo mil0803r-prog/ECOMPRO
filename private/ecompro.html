@@ -597,6 +597,12 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .mgs2{border-color:#29b6f0!important;background:color-mix(in srgb,#29b6f0 9%,var(--card))}
 .mgbar{display:flex;border-radius:10px;overflow:hidden;min-height:44px;font-size:.8rem;font-weight:700;color:#fff}
 .mgbar span{display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 8px}
+.dlv .dlres{display:grid;grid-template-columns:140px 1fr;gap:14px;margin-top:14px;align-items:start}
+.dlv .dlres img{width:140px;max-height:250px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.dlv .dlres h3{margin:0 0 4px;font-size:1rem;overflow-wrap:anywhere}
+.dlv .dlbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.dlv a.btn{text-decoration:none;display:inline-block}
+@media(max-width:560px){.dlv .dlres{grid-template-columns:1fr}.dlv .dlres img{width:100%;max-height:300px}}
 #c-tf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
 .cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
 .cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
@@ -648,6 +654,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
       <button type="button" role="tab" data-g="inv" aria-selected="false">Investigación de mercado</button>
       <button type="button" role="tab" data-g="mtc" aria-selected="false">Métricas</button>
       <button type="button" role="tab" data-g="fin" aria-selected="false">Finanzas</button>
+      <button type="button" role="tab" data-g="hrm" aria-selected="false">Herramientas</button>
       <button type="button" role="tab" data-g="aju" aria-selected="false">Ajustes</button>
     </nav>
     <nav id="nav-s" role="tablist" aria-label="Secciones" hidden></nav>
@@ -995,6 +1002,30 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 <div class="tbl" style="margin-top:10px"><table style="min-width:520px"><thead><tr><th>Fecha</th><th>Qué toqué</th><th>Resultado a las 72 h</th><th></th></tr></thead><tbody id="bg-body"></tbody></table></div></div></details>
 <details class="mgs" ><summary>14 · Para llevar</summary><div class="mgb"><ol><li>Pruebas en ABO, escalas en CBO.</li><li>Al ganador no lo editas: lo duplicas y cambias una sola cosa.</li><li>Subes por escalones o replicas en otras cuentas.</li><li>Decides con tu Tasa de CPA y el semáforo.</li></ol></div></details>
     <p class="foot">Fuente: MBA en Comercio Conversacional · M14 Publicidad con Meta Ads (comunidadgolden.com/octubre14). Las reglas marcadas "de la práctica" no son de Meta. Los ejemplos en pesos de la guía los dejé como ejemplo y la calculadora usa quetzales.</p>
+  </section>
+
+  <section class="pane" id="p-dlt" hidden>
+    <div class="card dlv" data-k="dlt" data-pl="tiktok">
+      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div class="fld grow"><label for="dlt-u">Enlace del video de TikTok</label><input id="dlt-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.tiktok.com/@usuario/video/1234567890"></div>
+        <button class="btn" type="button" id="dlt-go">Buscar video</button>
+      </div>
+      <p class="sub" id="dlt-m" role="status" style="margin:8px 0 0"></p>
+      <div id="dlt-r"></div>
+      <p class="foot" style="margin:12px 0 0">Funciona con videos públicos. El enlace corto (vm.tiktok.com) también sirve. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p-dlf" hidden>
+    <div class="card dlv" data-k="dlf" data-pl="facebook">
+      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div class="fld grow"><label for="dlf-u">Enlace del video de Facebook</label><input id="dlf-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/usuario/videos/1234567890"></div>
+        <button class="btn" type="button" id="dlf-go">Buscar video</button>
+      </div>
+      <p class="sub" id="dlf-m" role="status" style="margin:8px 0 0"></p>
+      <div id="dlf-r"></div>
+      <p class="foot" style="margin:12px 0 0">Solo videos públicos (si Facebook pide iniciar sesión para verlo, no se puede bajar). Sirve con enlaces de videos, reels y fb.watch. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
+    </div>
   </section>
 
   <section class="pane" id="p-pro" hidden>
@@ -2351,11 +2382,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],mtc:[["mtl","Landing"],["mtw","WhatsApp"],["mtg","Método Golden"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],aju:[["aju","Ajustes"]]};
-  var IC={mtg:'<path d="M12 3l2.6 5.600 6.100.7-4.500 4.200 1.200 6L12 16.500 6.600 19.500l1.200-6L3.300 9.300l6.100-.7L12 3z"/>',mtl:'<path d="M3 20h18"/><rect x="5" y="11" width="3" height="9"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="13" width="3" height="7"/>',mtw:'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 10c0 3 2 5 5 5l1-2-2-1-1 1c-1-.5-1.800-1.300-2.300-2.300l1-1-1-2z"/>',res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
+  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["din","Dinero"]],mkt:[["lan","Landings"],["met","Meta Ads"],["tik","TikTok Ads"]],mtc:[["mtl","Landing"],["mtw","WhatsApp"],["mtg","Método Golden"]],inv:[["inv","Caza diaria"],["mer","Mercado"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],hrm:[["dlt","Descargar TikTok"],["dlf","Descargar Facebook"]],aju:[["aju","Ajustes"]]};
+  var IC={dlt:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',dlf:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',mtg:'<path d="M12 3l2.6 5.600 6.100.7-4.500 4.200 1.200 6L12 16.500 6.600 19.500l1.200-6L3.300 9.300l6.100-.7L12 3z"/>',mtl:'<path d="M3 20h18"/><rect x="5" y="11" width="3" height="9"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="13" width="3" height="7"/>',mtw:'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 10c0 3 2 5 5 5l1-2-2-1-1 1c-1-.5-1.800-1.300-2.300-2.300l1-1-1-2z"/>',res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',lan:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
   window.EC_IC=IC;
   function ico(k){return '<svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[k]||"")+'</svg>'}
-  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",mtc:"mtl",inv:"inv",fin:"gan",aju:"aju"};
+  var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"lan",mtc:"mtl",hrm:"dlt",inv:"inv",fin:"gan",aju:"aju"};
   function show(g,pane){
     cur[g]=pane;
     gb.forEach(function(b){b.setAttribute("aria-selected",b.dataset.g===g)});
@@ -2490,6 +2521,33 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   drawB();
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
     db.doc("settings/bitacoragolden").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list)){BG=d.list.filter(function(r){return r&&r.id&&r.f});try{localStorage.setItem("ec_mgbit",JSON.stringify(BG))}catch(e){}drawB()}},function(){})}}catch(e){}})();
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function wire(k,pl){
+    var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r");if(!inp)return;
+    function run(){
+      var u=inp.value.trim();r.innerHTML="";
+      if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo del video (empieza con https://).";return}
+      m.textContent="Buscando el video…";go.disabled=true;
+      fetch("/api/descargar",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u,plataforma:pl})})
+        .then(function(x){return x.json().catch(function(){return {error:"Respuesta inválida del servidor."}})})
+        .then(function(j){go.disabled=false;
+          if(!j||!j.ok){m.textContent=(j&&j.error)||"No se pudo leer el video.";return}
+          m.textContent="Listo.";
+          var nom=(j.autor||pl)+"-"+Date.now().toString(36);
+          var bt=j.videos.map(function(v,i){return '<a class="btn" href="/api/descargar?u='+encodeURIComponent(v.url)+'&n='+encodeURIComponent(nom+(i?"-b":""))+'" download>Descargar '+E(v.calidad)+'</a>'}).join("");
+          r.innerHTML='<div class="dlres">'+(j.portada?'<img src="'+E(j.portada)+'" alt="Portada del video" referrerpolicy="no-referrer">':'<div></div>')+
+            '<div><h3>'+E(j.titulo||"Video sin título")+'</h3><div class="sub">'+(j.autor?E(j.autor)+' · ':'')+(j.duracion?j.duracion+' s · ':'')+(pl==="tiktok"?'TikTok':'Facebook')+'</div><div class="dlbtn">'+bt+'</div></div></div>';
+        }).catch(function(){go.disabled=false;m.textContent="No hay conexión con el servidor."});
+    }
+    go.addEventListener("click",run);
+    inp.addEventListener("keydown",function(e){if(e.key==="Enter")run()});
+  }
+  wire("dlt","tiktok");wire("dlf","facebook");
 })();
 </script>
 <script>
@@ -3161,7 +3219,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var HEAD={mtg:["Método Golden","Escalar con Meta Ads: lo que funciona no se toca, se duplica"],mtl:["Métricas de Landing","Visitas, formulario, pedidos y conversión de tus páginas de venta"],mtw:["Métricas de WhatsApp","Conversaciones, respuestas y temas de tus chats de venta"],res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
+  var HEAD={dlt:["Descargar video de TikTok","Pega el enlace y baja el video sin marca de agua"],dlf:["Descargar video de Facebook","Pega el enlace de un video público y bájalo en HD"],mtg:["Método Golden","Escalar con Meta Ads: lo que funciona no se toca, se duplica"],mtl:["Métricas de Landing","Visitas, formulario, pedidos y conversión de tus páginas de venta"],mtw:["Métricas de WhatsApp","Conversaciones, respuestas y temas de tus chats de venta"],res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],lan:["Landings","Visitas, formularios y pedidos de tus páginas"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
   function svg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+((window.EC_IC||{})[k]||"")+'</svg>'}
   /* marca en la barra lateral */
   var nw=document.querySelector(".navwrap");

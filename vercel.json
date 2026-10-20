@@ -24,6 +24,9 @@
     },
     "api/db.js": {
       "includeFiles": "private/seed.json"
+    },
+    "api/descargar.js": {
+      "maxDuration": 60
     }
   },
   "headers": [
