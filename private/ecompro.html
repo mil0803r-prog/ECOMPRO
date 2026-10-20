@@ -614,6 +614,11 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .rcv .rc-h::after{content:"";width:3px;height:28px;background:#fff;border-radius:2px}
 .rcv .rc-ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.45);pointer-events:none}
 .rcv .rc-tt{display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted);margin-bottom:6px}
+.sg .pinb{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;color:var(--muted);opacity:0;transition:opacity .15s,background .15s;flex:none}
+.sg:hover .pinb,.sg .pinb:focus-visible,.sg .pinb.on{opacity:1}.sg .pinb:hover{background:color-mix(in srgb,var(--cel) 18%,transparent);color:var(--ink)}
+.sg .pinb.on{color:var(--cel2,var(--cel))}.sg .pinb.on svg{fill:currentColor}
+@media(hover:none){.sg .pinb{opacity:.7}.sg .pinb.on{opacity:1}}
+.sgpins .sghead{color:var(--cel)}
 #c-tf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
 .cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
 .cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
@@ -2412,14 +2417,27 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     side(g,pane);
   }
   window.__ecShow=function(g,p){show(g,p)};
+  var PINS=[];try{PINS=JSON.parse(localStorage.getItem("ec_pins")||"[]")||[]}catch(e){PINS=[]}
+  var PIN_SVG='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6l-1 6 3 3v2H7v-2l3-3-1-6z"/><path d="M12 14v7"/></svg>';
+  function find(p){for(var k in GR){for(var i=0;i<GR[k].length;i++)if(GR[k][i][0]===p)return {g:k,l:GR[k][i][1]}}return null}
+  function pinb(p,l){var on=PINS.indexOf(p)>=0;return '<span class="pinb'+(on?' on':'')+'" data-pin="'+p+'" role="button" tabindex="0" title="'+(on?'Quitar de fijados':'Fijar arriba')+'" aria-label="'+(on?'Quitar ':'Fijar ')+l.replace(/"/g,"")+(on?' de fijados':' arriba')+'" aria-pressed="'+on+'">'+PIN_SVG+'</span>'}
   function side(g,pane){
     var sd=$("side");if(!sd)return;
-    sd.innerHTML=Array.prototype.map.call(gb,function(b){
+    var fij=PINS.map(function(p){return find(p)?[p,find(p)]:null}).filter(Boolean);
+    var top=fij.length?'<div class="sgrp sgpins"><div class="sg sghead">Fijados</div>'+fij.map(function(x){return '<button type="button" class="sg sgsub" data-g="'+x[1].g+'" data-p="'+x[0]+'" aria-current="'+(x[1].g===g&&x[0]===pane)+'">'+ico(x[0])+'<span>'+x[1].l+'</span>'+pinb(x[0],x[1].l)+'</button>'}).join("")+'</div>':'';
+    sd.innerHTML=top+Array.prototype.map.call(gb,function(b){
       if(b.hidden)return "";var k=b.dataset.g,subs=GR[k],on=k===g;
-      if(subs.length<2)return '<button type="button" class="sg sgsolo" data-g="'+k+'" data-p="'+subs[0][0]+'" aria-current="'+on+'">'+ico(subs[0][0])+'<span>'+subs[0][1]+'</span></button>';
-      return '<div class="sgrp"><div class="sg sghead'+(on?' on':'')+'">'+b.textContent+'</div>'+subs.map(function(x){return '<button type="button" class="sg sgsub" data-g="'+k+'" data-p="'+x[0]+'" aria-current="'+(on&&x[0]===pane)+'">'+ico(x[0])+'<span>'+x[1]+'</span></button>'}).join("")+'</div>';
+      if(subs.length<2)return '<button type="button" class="sg sgsolo" data-g="'+k+'" data-p="'+subs[0][0]+'" aria-current="'+on+'">'+ico(subs[0][0])+'<span>'+subs[0][1]+'</span>'+pinb(subs[0][0],subs[0][1])+'</button>';
+      return '<div class="sgrp"><div class="sg sghead'+(on?' on':'')+'">'+b.textContent+'</div>'+subs.map(function(x){return '<button type="button" class="sg sgsub" data-g="'+k+'" data-p="'+x[0]+'" aria-current="'+(on&&x[0]===pane)+'">'+ico(x[0])+'<span>'+x[1]+'</span>'+pinb(x[0],x[1])+'</button>'}).join("")+'</div>';
     }).join("");
   }
+  function guardarPins(){try{localStorage.setItem("ec_pins",JSON.stringify(PINS))}catch(e){}if(window.__pinDb&&window.__pinCan)window.__pinDb.doc("settings/fijados").set({list:PINS}).catch(function(){})}
+  function togglePin(p){var i=PINS.indexOf(p);if(i>=0)PINS.splice(i,1);else PINS.push(p);guardarPins();var a=gb?Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0]:null;side(a?a.dataset.g:"res",a?cur[a.dataset.g]:"res")}
+  $("side")&&$("side").addEventListener("click",function(ev){var pb=ev.target.closest(".pinb");if(!pb)return;ev.preventDefault();ev.stopPropagation();togglePin(pb.dataset.pin)},true);
+  $("side")&&$("side").addEventListener("keydown",function(ev){var pb=ev.target.closest&&ev.target.closest(".pinb");if(pb&&(ev.key==="Enter"||ev.key===" ")){ev.preventDefault();ev.stopPropagation();togglePin(pb.dataset.pin)}},true);
+  window.__ecPins=function(l){if(Array.isArray(l)){PINS=l.filter(function(p){return find(p)});try{localStorage.setItem("ec_pins",JSON.stringify(PINS))}catch(e){}var a=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0];side(a?a.dataset.g:"res",a?cur[a.dataset.g]:"res")}};
+  (async function(){try{if(window.claude&&window.claude.use){var db=await window.claude.use("db"),us=await window.claude.use("user");window.__pinDb=db;window.__pinCan=!(us&&us.can&&us.can("data.write")===false);
+    db.doc("settings/fijados").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list))window.__ecPins(d.list)},function(){})}}catch(e){}})();
   $("side")&&$("side").addEventListener("click",function(ev){var b=ev.target.closest("button[data-g]");if(b)show(b.dataset.g,b.dataset.p)});
   gb.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.g,cur[b.dataset.g])})});
   ns.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var g=Array.prototype.filter.call(gb,function(x){return x.getAttribute("aria-selected")==="true"})[0].dataset.g;show(g,b.dataset.p)});
@@ -2680,7 +2698,7 @@ function set(o){document.body.classList.toggle('menu-open',o);b.setAttribute('ar
 b.addEventListener('click',function(){set(!document.body.classList.contains('menu-open'))});
 s.addEventListener('click',function(){set(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
-nw.addEventListener('click',function(e){if(e.target.closest('#side button'))setTimeout(function(){set(false)},0)},true);
+nw.addEventListener('click',function(e){if(e.target.closest('#side button')&&!e.target.closest('.pinb'))setTimeout(function(){set(false)},0)},true);
 window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 </script>
 <script>
