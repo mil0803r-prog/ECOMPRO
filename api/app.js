@@ -7,7 +7,7 @@ const ICONS = '<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link r
 
 const LOGIN = `<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ECOMPRO</title>${ICONS}
 <body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0;background:#041018;color:#e9fcff">
-<main style="text-align:center;padding:0 16px"><img src="/logo.png" width="180" height="180" alt="ECOMPRO" style="margin-bottom:12px"><p style="margin:0 0 20px;color:#8fb8c8">Semáforo Dropi GT · acceso privado</p>
+<main style="text-align:center;padding:0 16px"><img src="/logo.png" width="110" height="110" alt="ECOMPRO" style="margin-bottom:12px"><p style="margin:0 0 20px;color:#8fb8c8">Semáforo Dropi GT · acceso privado</p>
 <a href="/login" style="display:inline-block;background:#38c6f4;color:#04202c;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:600">Iniciar sesión con Google</a></main></body></html>`;
 
 module.exports = (req, res) => {
