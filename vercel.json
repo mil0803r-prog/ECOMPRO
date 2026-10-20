@@ -26,7 +26,8 @@
       "includeFiles": "private/seed.json"
     },
     "api/descargar.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "node_modules/@ffmpeg-installer/**"
     }
   },
   "headers": [

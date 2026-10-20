@@ -1,1 +1,11 @@
-{ "name": "ecompro", "private": true, "version": "1.0.0", "engines": { "node": "22.x" } }
+{
+  "name": "ecompro",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0"
+  }
+}

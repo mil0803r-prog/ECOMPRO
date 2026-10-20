@@ -1010,6 +1010,13 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
         <div class="fld grow"><label for="dlt-u">Enlace del video de TikTok</label><input id="dlt-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.tiktok.com/@usuario/video/1234567890"></div>
         <button class="btn" type="button" id="dlt-go">Buscar video</button>
       </div>
+      <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
+        <div class="fld"><label for="dlt-fmt">Formato</label><select id="dlt-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
+        <div class="fld"><label for="dlt-res">Resolución</label><select id="dlt-res"><option value="">Original</option><option value="720">720p (HD)</option><option value="1080">1080p (Full HD)</option><option value="1440">1440p (2K)</option><option value="2160">2160p (4K)</option></select></div>
+        <div class="fld"><label for="dlt-ar">Proporción</label><select id="dlt-ar"><option value="">Original</option><option value="9:16">9:16 (vertical, Reels y TikTok)</option><option value="1:1">1:1 (cuadrado, feed)</option><option value="3:4">3:4 (vertical feed)</option></select></div>
+        <div class="fld"><label for="dlt-fit">Si cambia la proporción</label><select id="dlt-fit"><option value="crop">Recortar al centro</option><option value="blur">Fondo difuminado (no recorta)</option></select></div>
+      </div>
+      <p class="sub" style="margin:6px 0 0">Si eliges una resolución mayor a la del video original, se amplía y no gana calidad. Con 4K o videos largos puede tardar; si falla, baja la resolución. Los GIF llegan hasta 720p.</p>
       <p class="sub" id="dlt-m" role="status" style="margin:8px 0 0"></p>
       <div id="dlt-r"></div>
       <p class="foot" style="margin:12px 0 0">Funciona con videos públicos. El enlace corto (vm.tiktok.com) también sirve. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
@@ -1022,6 +1029,13 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
         <div class="fld grow"><label for="dlf-u">Enlace del video de Facebook</label><input id="dlf-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/usuario/videos/1234567890"></div>
         <button class="btn" type="button" id="dlf-go">Buscar video</button>
       </div>
+      <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
+        <div class="fld"><label for="dlf-fmt">Formato</label><select id="dlf-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
+        <div class="fld"><label for="dlf-res">Resolución</label><select id="dlf-res"><option value="">Original</option><option value="720">720p (HD)</option><option value="1080">1080p (Full HD)</option><option value="1440">1440p (2K)</option><option value="2160">2160p (4K)</option></select></div>
+        <div class="fld"><label for="dlf-ar">Proporción</label><select id="dlf-ar"><option value="">Original</option><option value="9:16">9:16 (vertical, Reels y TikTok)</option><option value="1:1">1:1 (cuadrado, feed)</option><option value="3:4">3:4 (vertical feed)</option></select></div>
+        <div class="fld"><label for="dlf-fit">Si cambia la proporción</label><select id="dlf-fit"><option value="crop">Recortar al centro</option><option value="blur">Fondo difuminado (no recorta)</option></select></div>
+      </div>
+      <p class="sub" style="margin:6px 0 0">Si eliges una resolución mayor a la del video original, se amplía y no gana calidad. Con 4K o videos largos puede tardar; si falla, baja la resolución. Los GIF llegan hasta 720p.</p>
       <p class="sub" id="dlf-m" role="status" style="margin:8px 0 0"></p>
       <div id="dlf-r"></div>
       <p class="foot" style="margin:12px 0 0">Solo videos públicos (si Facebook pide iniciar sesión para verlo, no se puede bajar). Sirve con enlaces de videos, reels y fb.watch. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
@@ -2528,7 +2542,17 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   var $=function(i){return document.getElementById(i)};
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function wire(k,pl){
-    var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r");if(!inp)return;
+    var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r"),LAST=null,NOM="video";if(!inp)return;
+    function opts(){var f=$(k+"-fmt").value,s=$(k+"-res").value,a=$(k+"-ar").value,ft=$(k+"-fit").value;
+      if(f==="gif"&&(s==="1440"||s==="2160")){s="720";$(k+"-res").value="720"}
+      Array.prototype.forEach.call($(k+"-res").options,function(o){o.disabled=f==="gif"&&(o.value==="1440"||o.value==="2160")});
+      return {fmt:f,h:s,ar:a,fit:ft}}
+    function draw(){var bt=$(k+"-bt");if(!bt||!LAST)return;var o=opts();
+      var q=(o.fmt!=="mp4"?"&fmt="+o.fmt:"")+(o.h?"&h="+o.h:"")+(o.ar?"&ar="+encodeURIComponent(o.ar)+"&fit="+o.fit:"");
+      bt.innerHTML=LAST.videos.map(function(v,i){return '<a class="btn" href="/api/descargar?u='+encodeURIComponent(v.url)+'&n='+encodeURIComponent(NOM+(i?"-b":""))+q+'" download>Descargar '+E(v.calidad)+' · '+(o.fmt==="gif"?"GIF":"MP4")+'</a>'}).join("");
+      var t=[];t.push(o.fmt==="gif"?"GIF":"MP4");t.push(o.h?(o.h==="2160"?"4K":o.h+"p"):"resolución original");t.push(o.ar?o.ar+(o.fit==="blur"?" con fondo difuminado":" recortado al centro"):"proporción original");
+      var rs=$(k+"-rs");if(rs)rs.textContent="Se descargará en: "+t.join(" · ")+(o.fmt==="mp4"&&!o.h&&!o.ar?" (archivo tal cual, sin convertir).":". Puede tardar unos segundos en prepararse.")}
+    ["fmt","res","ar","fit"].forEach(function(x){$(k+"-"+x).addEventListener("change",draw)});
     function run(){
       var u=inp.value.trim();r.innerHTML="";
       if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo del video (empieza con https://).";return}
@@ -2538,10 +2562,10 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
         .then(function(j){go.disabled=false;
           if(!j||!j.ok){m.textContent=(j&&j.error)||"No se pudo leer el video.";return}
           m.textContent="Listo.";
-          var nom=(j.autor||pl)+"-"+Date.now().toString(36);
-          var bt=j.videos.map(function(v,i){return '<a class="btn" href="/api/descargar?u='+encodeURIComponent(v.url)+'&n='+encodeURIComponent(nom+(i?"-b":""))+'" download>Descargar '+E(v.calidad)+'</a>'}).join("");
+          LAST=j;NOM=(j.autor||pl)+"-"+Date.now().toString(36);
           r.innerHTML='<div class="dlres">'+(j.portada?'<img src="'+E(j.portada)+'" alt="Portada del video" referrerpolicy="no-referrer">':'<div></div>')+
-            '<div><h3>'+E(j.titulo||"Video sin título")+'</h3><div class="sub">'+(j.autor?E(j.autor)+' · ':'')+(j.duracion?j.duracion+' s · ':'')+(pl==="tiktok"?'TikTok':'Facebook')+'</div><div class="dlbtn">'+bt+'</div></div></div>';
+            '<div><h3>'+E(j.titulo||"Video sin título")+'</h3><div class="sub">'+(j.autor?E(j.autor)+' · ':'')+(j.duracion?j.duracion+' s · ':'')+(pl==="tiktok"?'TikTok':'Facebook')+'</div><div class="dlbtn" id="'+k+'-bt"></div><p class="sub" id="'+k+'-rs" style="margin:8px 0 0"></p></div></div>';
+          draw();
         }).catch(function(){go.disabled=false;m.textContent="No hay conexión con el servidor."});
     }
     go.addEventListener("click",run);

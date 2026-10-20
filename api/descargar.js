@@ -3,6 +3,11 @@
 //   GET  /api/descargar?u=<cdn>&n=<nombre> -> entrega el archivo como descarga (solo servidores de video conocidos)
 // Úsalo solo con videos propios, con permiso o como referencia: los videos de otras personas tienen derechos de autor.
 const { Readable } = require("stream");
+const { spawn } = require("child_process");
+const fs = require("fs");
+const os = require("os");
+const pathMod = require("path");
+const { pipeline } = require("stream/promises");
 const { session } = require("./_auth");
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -105,6 +110,102 @@ async function facebook(u) {
   };
 }
 
+// ---------- conversión (formato, resolución y proporción) ----------
+let FFMPEG = "ffmpeg";
+try {
+  FFMPEG = require("@ffmpeg-installer/ffmpeg").path;
+} catch (e) {}
+const RES = [480, 720, 1080, 1440, 2160];
+const ARS = { "9:16": [9, 16], "1:1": [1, 1], "3:4": [3, 4] };
+const even = (n) => Math.round(n / 2) * 2;
+
+// Devuelve el filtro de video. S = lado corto en píxeles (720 = 720p, 2160 = 4K).
+function filtroVideo(S, ar, fit) {
+  const a = ARS[ar];
+  if (!a) {
+    // proporción original: solo se fija el lado corto
+    return "scale='if(gt(iw,ih),-2," + S + ")':'if(gt(iw,ih)," + S + ",-2)',setsar=1";
+  }
+  const W = even(S), H = even((S * a[1]) / a[0]);
+  const ww = a[0] >= a[1] ? even((S * a[0]) / a[1]) : W;
+  const hh = a[0] >= a[1] ? S : H;
+  const w = a[0] >= a[1] ? ww : W, h = a[0] >= a[1] ? hh : H;
+  if (fit === "blur") {
+    return (
+      "split[a][b];[a]scale=" + w + ":" + h + ":force_original_aspect_ratio=increase,crop=" + w + ":" + h + ",boxblur=24:6[bg];" +
+      "[b]scale=" + w + ":" + h + ":force_original_aspect_ratio=decrease[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2,setsar=1"
+    );
+  }
+  return "scale=" + w + ":" + h + ":force_original_aspect_ratio=increase,crop=" + w + ":" + h + ",setsar=1";
+}
+
+function convertir(entrada, salida, opt) {
+  return new Promise((resolve, reject) => {
+    const S = opt.gif ? Math.min(opt.S, 720) : opt.S;
+    const vf = filtroVideo(S, opt.ar, opt.fit);
+    let args = ["-y", "-hide_banner", "-loglevel", "error", "-i", entrada];
+    if (opt.gif) {
+      const g = vf.includes("[") ? vf + "[v];[v]" : vf + ",";
+      args = args.concat(["-t", "15", "-an", "-filter_complex", g + "fps=12,split[x][y];[x]palettegen=max_colors=128[p];[y][p]paletteuse=dither=bayer", "-f", "gif", salida]);
+    } else {
+      args = args.concat(["-vf", vf.includes("[") ? vf : vf, "-c:v", "libx264", "-preset", S >= 1440 ? "ultrafast" : "veryfast", "-crf", "22", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", "-f", "mp4", salida]);
+      // los filtros con varias entradas necesitan -filter_complex
+      if (vf.includes("[")) {
+        const i = args.indexOf("-vf");
+        args.splice(i, 2, "-filter_complex", vf.replace(/,setsar=1$/, ",setsar=1[v]"), "-map", "[v]", "-map", "0:a?");
+      }
+    }
+    const ps = spawn(FFMPEG, args, { stdio: ["ignore", "ignore", "pipe"] });
+    let err = "";
+    ps.stderr.on("data", (d) => (err = (err + d).slice(-600)));
+    const t = setTimeout(() => {
+      ps.kill("SIGKILL");
+      reject(new Error("tiempo"));
+    }, 48000);
+    ps.on("error", (e) => {
+      clearTimeout(t);
+      reject(e);
+    });
+    ps.on("close", (c) => {
+      clearTimeout(t);
+      c === 0 ? resolve() : reject(new Error(err || "ffmpeg " + c));
+    });
+  });
+}
+
+async function entregarConvertido(res, u, q, nombre) {
+  const gif = q.fmt === "gif";
+  const S = RES.includes(+q.h) ? +q.h : 0;
+  const ar = ARS[q.ar] ? q.ar : "";
+  const fit = q.fit === "blur" ? "blur" : "crop";
+  const base = pathMod.join(os.tmpdir(), "dl-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7));
+  const ent = base + ".src", sal = base + (gif ? ".gif" : ".mp4");
+  const limpiar = () => [ent, sal].forEach((f) => fs.unlink(f, () => {}));
+  try {
+    const r = await get(u.toString(), { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" }, 25000);
+    const len = +r.headers.get("content-length") || 0;
+    if (!r.ok || !r.body || len > 120 * 1024 * 1024) {
+      res.statusCode = r.ok ? 413 : 502;
+      return res.end(r.ok ? "archivo muy grande" : "no se pudo bajar");
+    }
+    await pipeline(Readable.fromWeb(r.body), fs.createWriteStream(ent));
+    await convertir(ent, sal, { gif, S: S || 720, ar, fit });
+    const st = fs.statSync(sal);
+    res.statusCode = 200;
+    res.setHeader("Content-Type", gif ? "image/gif" : "video/mp4");
+    res.setHeader("Content-Disposition", 'attachment; filename="' + nombre.replace(/\.mp4$/, gif ? ".gif" : ".mp4") + '"');
+    res.setHeader("Content-Length", String(st.size));
+    res.setHeader("Cache-Control", "no-store");
+    const rs = fs.createReadStream(sal);
+    rs.on("close", limpiar);
+    rs.pipe(res);
+  } catch (e) {
+    limpiar();
+    res.statusCode = /tiempo/.test(String(e && e.message)) ? 504 : 502;
+    res.end(res.statusCode === 504 ? "tardó demasiado: baja la resolución o usa un video más corto" : "no se pudo convertir");
+  }
+}
+
 // ---------- entrega del archivo ----------
 async function entregar(req, res, q) {
   const u = parseUrl(q.u);
@@ -113,6 +214,8 @@ async function entregar(req, res, q) {
     return res.end("enlace no permitido");
   }
   const nombre = (String(q.n || "video").replace(/[^A-Za-z0-9_\-]/g, "_").slice(0, 60) || "video") + ".mp4";
+  const conv = q.fmt === "gif" || RES.includes(+q.h) || ARS[q.ar];
+  if (conv) return entregarConvertido(res, u, q, nombre);
   try {
     const r = await get(u.toString(), { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" }, 25000);
     const len = +r.headers.get("content-length") || 0;
