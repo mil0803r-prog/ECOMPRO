@@ -1798,7 +1798,9 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("z-clear").addEventListener("click",function(){odep.value="";ciudades();ociu.value="";lim=50;rOrd()});
   zrender();zsel();
   function xd(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>';return '<td style="min-width:160px">'+(X.a?esc(X.a):d)+'</td><td style="min-width:140px">'+(X.nv?'<span class="pill r">'+esc(X.nv)+'</span>':d)+'</td>'}
-  function xc(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>',pn=window.ecProd?window.ecProd.of(o):"";return '<td>'+(X.g?(!X.t||/forza/i.test(X.t)?'<a class="gl" href="https://rastreo.forzadelivery.com/#guia='+encodeURIComponent(X.g)+'" target="_blank" rel="noopener" data-g="'+esc(X.g)+'" title="Copiar la guía y abrir el rastreo de Forza">'+esc(X.g)+'</a>':esc(X.g)):d)+'</td><td>'+(X.c?esc(X.c):d)+'</td><td>'+(pn&&pn!=="Sin producto"?esc(pn):d)+'</td>'}
+  function isFz(X){return !!X&&(!X.t||/forza|delivery|^fd\b/i.test(X.t)||/^FD\d/i.test(X.g||""))}
+  window.ecIsFz=isFz;
+  function xc(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>',pn=window.ecProd?window.ecProd.of(o):"";return '<td>'+(X.g?(isFz(X)?'<a class="gl" href="https://rastreo.forzadelivery.com/#guia='+encodeURIComponent(X.g)+'" target="_blank" rel="noopener" data-g="'+esc(X.g)+'" title="Copiar la guía y abrir el rastreo de Forza">'+esc(X.g)+'</a>':esc(X.g)):d)+'</td><td>'+(X.c?esc(X.c):d)+'</td><td>'+(pn&&pn!=="Sin producto"?esc(pn):d)+'</td>'}
   function rOrd(keepFocus){
     zsel();zrender();zonaCard();
     var F=filtrar(),e=0,dv=0,pr=0,ca=0,val=0;
@@ -2782,12 +2784,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var body=$("rtf-body");if(!body)return;
     var map=(window.ecPedX&&window.ecPedX.all&&window.ecPedX.all())||{},ord={};(window.__ORD||[]).forEach(function(o){ord[o.n]=o});
     var todas=$("rtf-todas").checked,q=($("rtf-q").value||"").toLowerCase().trim(),ST=window.__ST||{};
-    var rows=Object.keys(map).filter(function(n){var x=map[n];return x&&x.g&&(todas||!x.t||/forza/i.test(x.t))}).map(function(n){return {n:n,x:map[n],o:ord[n]}})
+    var rows=Object.keys(map).filter(function(n){var x=map[n];return x&&x.g&&(todas||window.ecIsFz(x))}).map(function(n){return {n:n,x:map[n],o:ord[n]}})
       .filter(function(r){return !q||(r.x.g+" "+r.n+" "+((r.o&&r.o.c)||"")).toLowerCase().indexOf(q)>=0})
       .sort(function(a,b){var da=(a.o&&a.o.d)||"",db=(b.o&&b.o.d)||"";return db.localeCompare(da)||(+b.n)-(+a.n)});
     body.innerHTML=rows.length?rows.slice(0,300).map(function(r){var o=r.o,s=o&&ST[o.s]?ST[o.s]:null;
-      return '<tr><td>'+(!r.x.t||/forza/i.test(r.x.t)?'<a class="gl" href="https://rastreo.forzadelivery.com/#guia='+encodeURIComponent(r.x.g)+'" target="_blank" rel="noopener" data-g="'+E(r.x.g)+'" title="Copiar la guía y abrir el rastreo de Forza">'+E(r.x.g)+'</a>':E(r.x.g))+'</td><td>'+E(r.n)+'</td><td style="white-space:nowrap">'+(o&&o.d?E(o.d.split("-").reverse().join("/")):'<span class="sub">–</span>')+'</td><td>'+(s?'<span class="pill '+s[1]+'">'+E(s[0])+'</span>':'<span class="sub">–</span>')+'</td><td>'+E((o&&o.c)||"")+'</td><td>'+E(r.x.t||"")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Todavía no hay guías. Se llenan al importar tus pedidos de Dropi en Semáforo transportadora ("Traer guías, clientes y productos desde Dropi").</td></tr>';
-    var otras={},nOtras=0,tot=0;Object.keys(map).forEach(function(n){var x=map[n];if(!x||!x.g)return;tot++;if(x.t&&!/forza/i.test(x.t)){nOtras++;otras[x.t]=(otras[x.t]||0)+1}});
+      return '<tr><td>'+(window.ecIsFz(r.x)?'<a class="gl" href="https://rastreo.forzadelivery.com/#guia='+encodeURIComponent(r.x.g)+'" target="_blank" rel="noopener" data-g="'+E(r.x.g)+'" title="Copiar la guía y abrir el rastreo de Forza">'+E(r.x.g)+'</a>':E(r.x.g))+'</td><td>'+E(r.n)+'</td><td style="white-space:nowrap">'+(o&&o.d?E(o.d.split("-").reverse().join("/")):'<span class="sub">–</span>')+'</td><td>'+(s?'<span class="pill '+s[1]+'">'+E(s[0])+'</span>':'<span class="sub">–</span>')+'</td><td>'+E((o&&o.c)||"")+'</td><td>'+E(r.x.t||"")+'</td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:18px 14px">Todavía no hay guías. Se llenan al importar tus pedidos de Dropi en Semáforo transportadora ("Traer guías, clientes y productos desde Dropi").</td></tr>';
+    var otras={},nOtras=0,tot=0;Object.keys(map).forEach(function(n){var x=map[n];if(!x||!x.g)return;tot++;if(!window.ecIsFz(x)){nOtras++;otras[x.t]=(otras[x.t]||0)+1}});
     var res=rows.length?(rows.length>300?"Mostrando 300 de "+rows.length+" guías.":rows.length+" guías mostradas."):"";
     if(!todas&&nOtras)res+=" Hay "+nOtras+" guías de otras transportadoras escondidas ("+Object.keys(otras).slice(0,4).map(function(k){return k+": "+otras[k]}).join(", ")+"): activa \"Mostrar también guías de otras transportadoras\".";
     if(!tot)res="Todavía no hay guías importadas en este navegador ni en tu base.";
