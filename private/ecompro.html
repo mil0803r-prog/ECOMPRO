@@ -619,6 +619,12 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .sg .pinb.on{color:var(--cel2,var(--cel))}.sg .pinb.on svg{fill:currentColor}
 @media(hover:none){.sg .pinb{opacity:.7}.sg .pinb.on{opacity:1}}
 .sgpins .sghead{color:var(--cel)}
+.gchat{display:flex;flex-direction:column;gap:10px}
+.gchat .gch{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.gchat .gcm{max-height:420px;min-height:90px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px;overscroll-behavior:contain}
+.gchat .gcs{display:flex;gap:6px;flex-wrap:wrap}.gchat .gcs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;font-size:.78rem;cursor:pointer}
+.gchat .gcs button:hover{border-color:var(--cel)}
+.gchat .gcf{display:flex;gap:8px;align-items:flex-end}.gchat .gcf textarea{flex:1;resize:none;min-height:40px;max-height:120px}
 #c-tf{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
 .cgc.on{border-color:var(--cel);box-shadow:0 0 0 2px color-mix(in srgb,var(--cel) 30%,transparent)}
 .cgc h4{margin:0;font-size:1rem;overflow-wrap:anywhere}
@@ -910,6 +916,12 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
   </section>
 
   <section class="pane" id="p-mtg" hidden>
+    <div class="card gchat" id="gchat">
+      <div class="gch"><b>IA del Método Golden</b><span class="sub">Conoce la guía completa y usa tus números (calculadora, bitácora, plan, pedidos y pauta).</span><button type="button" class="btn" id="gc-new" style="margin-left:auto;padding:4px 10px;font-size:.78rem">Nueva conversación</button></div>
+      <div class="gcm" id="gc-msgs" aria-live="polite"></div>
+      <div class="gcs" id="gc-sug"></div>
+      <form class="gcf" id="gc-form"><textarea id="gc-in" rows="1" maxlength="1500" placeholder="Pregunta: ¿escalo, espero o freno? ¿duplico anuncio, conjunto o campaña?" aria-label="Pregunta al Método Golden"></textarea><button class="btn" type="submit" id="gc-send">Enviar</button></form>
+    </div>
     <div class="alert"><b>Método Golden</b><span>Lo que funciona no se toca. Se duplica. Guía de escalamiento con Meta Ads, tal cual la clase M14 del MBA en Comercio Conversacional (14 oct 2026), con tu calculadora, tu plan de dos semanas y tu bitácora.</span></div>
 <details class="mgs" open><summary>1 · La ley: lo que funciona no se toca, se duplica</summary><div class="mgb"><p>Es como un dibujo que te quedó perfecto: no lo borras para mejorarlo. Sacas una <b>fotocopia</b> y pintas encima de la fotocopia. Si sale mal, botas la copia y el dibujo original sigue intacto.</p>
 <figure class="mgd"><svg class="esq5" viewBox="0 0 520 305" role="img" aria-label="Tres carriles: lo dejas sigue aprendiendo; lo editas empieza de cero; lo duplicas la copia aprende aparte"> <text class="sv-leyenda" x="10" y="16">Lo dejas</text> <path class="sv-lin-si" d="M10 82 C150 78 250 54 380 40 S470 30 505 28"></path> <text class="sv-si" x="510" y="64" text-anchor="end">SIGUE APRENDIENDO</text> <text class="sv-leyenda" x="10" y="124">Lo editas</text> <path class="sv-lin-si" d="M10 192 C80 186 130 168 170 152"></path> <path class="sv-lin-no" d="M170 152 L170 192"></path> <path class="sv-lin-no" d="M170 192 C250 188 330 176 420 164 S480 158 505 156"></path> <text class="sv-no" x="510" y="138" text-anchor="end">EMPIEZA DE CERO</text> <text class="sv-leyenda" x="10" y="232">Lo duplicas</text> <path class="sv-lin-si" d="M10 296 C150 292 250 270 420 254 S480 250 505 248"></path> <path class="sv-lin-no flujo" d="M200 296 C280 292 340 282 420 276 S480 272 505 270"></path> <text class="sv-no" x="510" y="244" text-anchor="end">LA COPIA APRENDE APARTE</text> </svg></figure>
@@ -2684,6 +2696,51 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
     }).catch(function(e){var t=String(e&&e.message||e);
       $("rc-m").textContent=/cdn|script/.test(t)?"No pude cargar el editor (sin conexión al servidor de librerías). Revisa tu internet e intenta otra vez.":/ffmpeg|vacio/.test(t)?"No se pudo recortar este video. Prueba con el modo Preciso o con otro MP4. ("+t.slice(0,110)+")":"No se pudo recortar: "+t.slice(0,120)}).then(function(){go.disabled=false;$("rc-pr").hidden=true});
   });
+})();
+</script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};if(!$("gc-msgs"))return;
+  var H=[],busy=false,SUG=["¿Escalo, espero o freno con mis números?","¿Qué duplico: anuncio, conjunto o campaña?","Revisa mi bitácora y dime qué falta","¿Cuánto puedo subir el presupuesto y cuándo?","Mi CPA se disparó, ¿qué reviso primero?"];
+  try{H=JSON.parse(sessionStorage.getItem("ec_ai_golden")||"[]")||[]}catch(e){H=[]}
+  function esc(t){return String(t).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+  function md(t){var lines=esc(t).split("\n"),out="",ul=false;
+    lines.forEach(function(l){var m=/^\s*[-*•]\s+(.*)/.exec(l);if(m){if(!ul){out+="<ul>";ul=true}out+="<li>"+m[1]+"</li>"}else{if(ul){out+="</ul>";ul=false}if(l.trim())out+="<p>"+l+"</p>"}});
+    if(ul)out+="</ul>";return out.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")}
+  function draw(){var box=$("gc-msgs");
+    if(!H.length)box.innerHTML='<div class="aib a"><p>Hola, soy la IA del Método Golden. Te ayudo a decidir cuándo escalar, qué duplicar y cómo leer tus números con la guía. Pregúntame, o toca una de las opciones.</p></div>';
+    else box.innerHTML=H.map(function(m){return '<div class="aib '+(m.r==="u"?"u":m.r==="e"?"e":"a")+'">'+(m.r==="u"?esc(m.t):m.r==="e"?esc(m.t):md(m.t))+'</div>'}).join("")+(busy?'<div class="aib a"><p>Pensando…</p></div>':"");
+    $("gc-sug").innerHTML=H.length?"":SUG.map(function(s){return '<button type="button">'+esc(s)+'</button>'}).join("");
+    box.scrollTop=box.scrollHeight}
+  function guardar(){try{sessionStorage.setItem("ec_ai_golden",JSON.stringify(H.slice(-30)))}catch(e){}}
+  function val(i){var e=$(i);return e?e.value:""}
+  function ctx(){
+    var o=[];
+    o.push("=== TUS NÚMEROS DEL MÉTODO GOLDEN (lo que tiene escrito el usuario ahora) ===");
+    o.push("Calculadora (Q): precio "+val("mg-pvp")+", costo "+val("mg-cos")+", flete ida "+val("mg-fle")+", flete devolución "+val("mg-dev")+", confirmación "+val("mg-con")+"%, entrega "+val("mg-ent")+"%, utilidad que quiere "+val("mg-uti")+", cierre del bot "+val("mg-bot")+"%.");
+    var out=document.getElementById("mg-out");if(out)o.push("Resultado de la calculadora: "+out.innerText.replace(/\s+/g," ").trim());
+    o.push("Calculadora de escalamiento de WhatsApp: precio "+val("es-pvp")+", costo "+val("es-cos")+", entrega "+val("es-ent")+"%, gasto "+val("es-gas")+", conversaciones "+val("es-con")+", pedidos "+val("es-ped")+".");
+    var v=document.getElementById("es-ver");if(v)o.push("Semáforo de esa calculadora: "+v.innerText.replace(/\s+/g," ").trim());
+    var pl=[];try{pl=JSON.parse(localStorage.getItem("ec_mgplan")||"{}")}catch(e){}
+    var nombres=["Días 1 a 3 Mide","Día 4 Primer paso","Día 7 Lote nuevo","Día 10 Solo mira","Día 14 Decide"];
+    o.push("Plan de dos semanas hecho: "+(nombres.filter(function(n,i){return pl[i]}).join("; ")||"ninguno todavía")+".");
+    var rows=[].slice.call(document.querySelectorAll("#bg-body tr")).map(function(r){return r.innerText.replace(/\s+/g," ").trim()}).filter(function(t){return t&&!/^Todavía no anotaste/.test(t)}).slice(0,25);
+    o.push("Bitácora (fecha, qué tocó, resultado a las 72 h): "+(rows.length?"\n- "+rows.join("\n- "):"vacía"));
+    var base=window.ecAiContext?window.ecAiContext():"";
+    return o.join("\n")+"\n\n=== DATOS DEL NEGOCIO ===\n"+base}
+  function ask(q){q=String(q||"").trim();if(!q||busy)return;
+    H.push({r:"u",t:q});busy=true;$("gc-send").disabled=true;draw();
+    var msgs=H.filter(function(m){return m.r==="u"||m.r==="a"}).map(function(m){return{role:m.r==="u"?"user":"assistant",content:m.t}});
+    fetch("/api/asistente",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({modo:"golden",messages:msgs,contexto:ctx()})})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
+      .then(function(x){H.push(x.ok?{r:"a",t:x.j.text}:{r:"e",t:(x.j&&x.j.error)||"No se pudo responder."})})
+      .catch(function(){H.push({r:"e",t:"No hay conexión con el asistente."})})
+      .then(function(){busy=false;$("gc-send").disabled=false;guardar();draw()})}
+  $("gc-sug").addEventListener("click",function(e){var b=e.target.closest("button");if(b)ask(b.textContent)});
+  $("gc-form").addEventListener("submit",function(e){e.preventDefault();var t=$("gc-in");var q=t.value;t.value="";ask(q)});
+  $("gc-in").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("gc-form").requestSubmit()}});
+  $("gc-new").addEventListener("click",function(){H=[];guardar();draw()});
+  window.ecGoldenCtx=ctx;draw();
 })();
 </script>
 <script>
