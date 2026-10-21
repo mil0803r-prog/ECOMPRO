@@ -2260,19 +2260,16 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     box.__h=h;box.__d=czDate;box.innerHTML=h;
     if(op){[].forEach.call(box.querySelectorAll("details"),function(d,i){if(i<op.length)d.open=op[i]});window.scrollTo(0,sy)}
   }
+  var czSoloFav=false;try{czSoloFav=!!localStorage.getItem("ec_czfav")}catch(e){}
   function czRender(){
     var WV=W.filter(function(w){var c=pmv(w,"ct");return !(c&&String(c).slice(0,4)<"2026")});
     var dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse();
-    var FV=WV.filter(function(w){return w.fav});
-    if(czDate==="__fav"&&!FV.length)czDate=null;
-    if(czDate!=="__fav"&&(!czDate||dates.indexOf(czDate)<0))czDate=dates[0]||null;
-    $("cz-fechas").innerHTML='<button type="button" class="chip" data-d="__fav" aria-pressed="'+(czDate==="__fav")+'">★ Favoritos · '+FV.length+'</button>'+dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    var nFav=WV.filter(function(w){return w.fav}).length;
+    if(czSoloFav){WV=WV.filter(function(w){return w.fav});dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse()}
+    if(!czDate||dates.indexOf(czDate)<0)czDate=dates[0]||null;
+    $("cz-fechas").innerHTML='<button type="button" class="chip" data-f="1" aria-pressed="'+czSoloFav+'">★ Solo favoritos · '+nFav+'</button>'+dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
     var L=$("cz-lista");
-    if(!czDate){L.innerHTML='<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';return}
-    if(czDate==="__fav"){
-      FV.sort(function(a,b){return String(b.date).localeCompare(String(a.date))||((a.rank||99)-(b.rank||99))});
-      L.innerHTML='<h2 style="margin-top:0">Tus favoritos</h2>'+FV.map(cardHtml).join("");czRadar();return;
-    }
+    if(!czDate){L.innerHTML=czSoloFav?'<div class="czvacio"><b>Todavía no tienes favoritos</b>Toca la estrella ★ de un producto para marcarlo. Después vuelve a tocar "Solo favoritos" para ver todos.</div>':'<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';$("cz-radar").innerHTML="";return}
     var day=WV.filter(function(w){return w.date===czDate});
     var ai=day.filter(function(w){return w.source!=="manual"}).sort(function(a,b){return a.rank-b.rank}),mn=day.filter(function(w){return w.source==="manual"});
     var r=ai.map(cardHtml).join("");
@@ -2290,7 +2287,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       PAR={flete:f,entrega:e,objetivo:o};czRender();
       if(czDb&&czWrite)czDb.doc("settings/params").set(PAR).catch(function(){});
     })});
-    $("cz-fechas").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;czDate=b.dataset.d;czRender()});
+    $("cz-fechas").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;if(b.dataset.f){czSoloFav=!czSoloFav;try{localStorage.setItem("ec_czfav",czSoloFav?"1":"")}catch(e){}}else czDate=b.dataset.d;czRender()});
     var L=$("cz-lista");
     function upd(id,patch){if(!czDb||!czWrite)return;czDb.doc("winners/"+id).update(patch).catch(function(){})}
     L.addEventListener("click",function(ev){
