@@ -1146,7 +1146,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   <section class="pane" id="p-inv" hidden>
     <div class="card" style="display:flex;flex-direction:column;gap:12px">
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline">
-        <h2 style="margin:0">Caza diaria de productos ganadores</h2>
+        <h2 style="margin:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap">Caza diaria de productos ganadores <button type="button" class="chip" id="cz-solo" aria-pressed="false">★ Solo favoritos</button></h2>
         <span class="sub">5 productos por día: los elige la IA con datos de DropKiller y tú los validas, calificas y anotas.</span>
       </div>
       <div class="frow">
@@ -2267,7 +2267,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var nFav=WV.filter(function(w){return w.fav}).length;
     if(czSoloFav){WV=WV.filter(function(w){return w.fav});dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse()}
     if(!czDate||dates.indexOf(czDate)<0)czDate=dates[0]||null;
-    $("cz-fechas").innerHTML='<button type="button" class="chip" data-f="1" aria-pressed="'+czSoloFav+'">★ Solo favoritos · '+nFav+'</button>'+dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    $("cz-fechas").innerHTML=dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    var sb=$("cz-solo");if(sb){sb.setAttribute("aria-pressed",String(czSoloFav));sb.textContent="★ Solo favoritos · "+nFav}
     var L=$("cz-lista");
     if(!czDate){L.innerHTML=czSoloFav?'<div class="czvacio"><b>Todavía no tienes favoritos</b>Toca la estrella ★ de un producto para marcarlo. Después vuelve a tocar "Solo favoritos" para ver todos.</div>':'<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';$("cz-radar").innerHTML="";return}
     var day=WV.filter(function(w){return w.date===czDate});
@@ -2287,7 +2288,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       PAR={flete:f,entrega:e,objetivo:o};czRender();
       if(czDb&&czWrite)czDb.doc("settings/params").set(PAR).catch(function(){});
     })});
-    $("cz-fechas").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;if(b.dataset.f){czSoloFav=!czSoloFav;try{localStorage.setItem("ec_czfav",czSoloFav?"1":"")}catch(e){}}else czDate=b.dataset.d;czRender()});
+    $("cz-fechas").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b||!b.dataset.d)return;czDate=b.dataset.d;czRender()});
+    $("cz-solo").addEventListener("click",function(){czSoloFav=!czSoloFav;try{localStorage.setItem("ec_czfav",czSoloFav?"1":"")}catch(e){}czRender()});
     var L=$("cz-lista");
     function upd(id,patch){if(!czDb||!czWrite)return;czDb.doc("winners/"+id).update(patch).catch(function(){})}
     L.addEventListener("click",function(ev){
