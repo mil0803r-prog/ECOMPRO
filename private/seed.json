@@ -5886,6 +5886,183 @@
    "fav": false,
    "ct": "2026-09-14",
    "tv": 77
+  },
+  "2026-10-21_1": {
+   "date": "2026-10-21",
+   "rank": 1,
+   "source": "ia",
+   "name": "Pantalla amp (amplificador de pantalla para celular)",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "hogar",
+   "costo": 31,
+   "pvp": 64,
+   "v7": 59,
+   "v30": 213,
+   "stock": 102,
+   "score": 67,
+   "scores": {
+    "demanda": 6,
+    "traccion": 7,
+    "margen": 2,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 149
+   },
+   "verdict": "59 ventas en 7 dias, 213 en 30 y 236 en total (creado el 2026-09-17; vende 25 de los ultimos 30 dias, con 24 el 20-oct), 1 solo proveedor (importadora el mayorista, reabastecido el 13-oct) y 2 anunciantes parecidos en GT (Teyra y Compra con Confianza Guatemala): semaforo 1-2, muy buena señal. Stock 102, cerca del minimo de 80.",
+   "angle": "Ya en uso en GT: Teyra por WhatsApp (amplificador de pantalla con parlante bluetooth: 'ver series y peliculas en pantalla mas grande, sin sostener el celular durante horas') y Compra con Confianza Guatemala con landing (planes de pelicula, series y regalo para quien vive el futbol). Hueco: el celular en la cama o en la cocina, el viaje en bus, el regalo de Navidad y la oferta de 2 piezas.",
+   "competition": "2 anunciantes parecidos en GT: Teyra (solo WhatsApp, anuncios desde el 2026-09-10 y vistos activos hasta el 2026-10-19) y Compra con Confianza Guatemala (landing, anuncios del 2026-09-19 al 2026-09-22, sin verse desde entonces). Hablan de un amplificador de pantalla para celular; no se confirmo que sea el mismo SKU de Dropi (el listado se llama solo 'pantalla amp'). Semaforo 1-2 muy buena señal.",
+   "anWA": 1,
+   "anLand": 1,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos en GT (busquedas 'amplificador de pantalla' y 'teyra amplificador pantalla celular bluetooth'): Teyra, solo WhatsApp, 3 videos activos con 39 dias y vistos por ultima vez el 2026-10-19; Compra con Confianza Guatemala, landing compraaonlinegt.com, 3 videos de 2 dias vistos por ultima vez el 2026-09-22. Teyra aparece con dos registros de pagina en DropKiller (mismo nombre). Producto parecido, no confirmado como el mismo SKU. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://api.whatsapp.com/send",
+     "adv": "Teyra",
+     "pais": "GT",
+     "dias": 39,
+     "nota": "Solo WhatsApp (sin landing). Videos 'Amplificador de pantalla con parlante bluetooth' activos desde el 2026-09-10, vistos el 2026-10-19."
+    },
+    {
+     "url": "https://compraaonlinegt.com/products/pantalla-en-grande-amplificador-celular-gt",
+     "adv": "Compra con Confianza Guatemala",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Landing 'Pantalla en grande'. 3 videos del 2026-09-19 al 2026-09-22 (planes de pelicula, series y regalo para el futbol), CTA Comprar."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Teyra",
+     "pais": "GT",
+     "dias": 39,
+     "score": 47,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=940352578532371",
+     "dk": "https://app.dropkiller.com/dashboard/ads/0330eb16-eabd-47f9-a712-c59dc4a676ef",
+     "nota": "Video: 'disfrutar tus peliculas sin comprar un televisor nuevo'; visto por ultima vez el 2026-10-19."
+    },
+    {
+     "adv": "Teyra",
+     "pais": "GT",
+     "dias": 39,
+     "score": 40,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1746265173325153",
+     "dk": "https://app.dropkiller.com/dashboard/ads/fc5c323a-2488-44d3-9afa-02311a0e559f",
+     "nota": "Video: 'terminas sosteniendo el celular durante horas para ver tus series'."
+    },
+    {
+     "adv": "Teyra",
+     "pais": "GT",
+     "dias": 39,
+     "score": 40,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1804295011019596",
+     "dk": "https://app.dropkiller.com/dashboard/ads/b5890ec6-64ed-4b37-8d38-c957be4faffb",
+     "nota": "Video: 'te cansa ver peliculas y videos en la pequeña pantalla del celular'."
+    },
+    {
+     "adv": "Compra con Confianza Guatemala",
+     "pais": "GT",
+     "dias": 2,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=28564263853266652",
+     "dk": "https://app.dropkiller.com/dashboard/ads/f9bdb4ab-9ff5-4398-a81d-b1b63aa15c4c",
+     "nota": "Video 'Dale mas espacio a tus videos'; visto por ultima vez el 2026-09-22."
+    },
+    {
+     "adv": "Compra con Confianza Guatemala",
+     "pais": "GT",
+     "dias": 2,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2243458853179770",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c30dc210-0b43-484a-a34a-162502d64a3d",
+     "nota": "Video 'Un regalo para vivir el futbol'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "23132",
+     "nombre": "pantalla amp",
+     "costo": 31,
+     "stock": 102,
+     "v7": 59,
+     "v30": 213,
+     "tv": 236,
+     "ct": "2026-09-17",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/dac3eb75-a6b3-4b86-b38b-c192d4443d47/7cec5e27197d.webp",
+   "risk": "El stock bajo de 200 a 26 y se reabastecio a 164 el 13-oct; hoy quedan 102 con 24 ventas el 20-oct, asi que puede bajar pronto del minimo de 80: confirmar stock en Dropi antes de pautar. El nombre del listado es solo 'pantalla amp'; la identificacion como amplificador de pantalla para celular sale de la busqueda de anuncios y no se pudo ver la foto: confirmar el producto en Dropi. Costo Q31 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q64) pierde plata; el pack de 2 a Q149 tampoco cierra con los valores de referencia. Plastico y lente: confirmar calidad y devoluciones.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=23132&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/dac3eb75-a6b3-4b86-b38b-c192d4443d47",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-17",
+   "tv": 236
+  },
+  "2026-10-21_2": {
+   "date": "2026-10-21",
+   "rank": 2,
+   "source": "ia",
+   "name": "Luz LED roja para bicicleta",
+   "provider": "grupo luna",
+   "verificado": true,
+   "cats": "tecnologia",
+   "costo": 50,
+   "pvp": 150,
+   "v7": 69,
+   "v30": 70,
+   "stock": 930,
+   "score": 67,
+   "scores": {
+    "demanda": 5,
+    "traccion": 6,
+    "margen": 4,
+    "competencia": 5,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 249
+   },
+   "verdict": "69 ventas en 7 dias, 70 en 30 y 70 en total (creado el 2026-09-29; 1 venta el 30-sep, sin ventas hasta el 15-oct y desde el 16-oct 10, 17, 22, 5 y 15 por dia), 1 solo proveedor (grupo luna), stock 930 y 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado.",
+   "angle": "Sin anuncios del mismo producto en GT en lo leido. Referencia cercana en GT: Alexpress (WhatsApp) vende un 'DUO BICICLETA' de luces a Q99.99 + envio con el texto 'maxima visibilidad y seguridad en cada viaje'. Hueco: el ciclista y el mototaxista de noche, la oferta de 2 luces (una para cada bici o para la moto) y el regalo para quien pedalea al trabajo.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busquedas 'luz bicicleta' y 'luz trasera bicicleta', 10 a 15 resultados). Salen productos cercanos: Alexpress con un duo de luces para bicicleta (visto por ultima vez el 2026-10-05), un paquete de 4 luces estroboscopicas de Multimayoreo (otro producto) y una bicicleta con luz trasera de Biciteca. Semaforo 0 cuidado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos en GT del mismo producto en lo leido. Alexpress (WhatsApp, 'DUO BICICLETA' Q99.99 + envio, anuncios del 2026-09-28 al 2026-10-05) es el mas cercano pero es un duo de luces, no confirmado como el mismo SKU. DropKiller puede no indexar anuncios de este SKU. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "grupo luna",
+     "id": "25284",
+     "nombre": "luz led roja para bicicleta",
+     "costo": 50,
+     "stock": 930,
+     "v7": 69,
+     "v30": 70,
+     "tv": 70,
+     "ct": "2026-09-29",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/a15f9b33-56ec-4b2a-8607-3721415afa50/a1508fbaec7d.webp",
+   "risk": "Solo 5 dias de ventas (16 al 20-oct) tras 15 dias casi sin ventas: puede ser el efecto de una pauta de un tercero que ya termino. Costo Q50 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q150) pierde plata con los valores de referencia; solo el pack de 2 a Q249 cierra y el cercano de Alexpress cobra Q99.99 por un duo. No se pudo ver la foto: confirmar en Dropi que es una luz trasera roja y si trae pilas o bateria. Riesgo de devolucion por producto que no prende o dura poco.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=25284&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/a15f9b33-56ec-4b2a-8607-3721415afa50",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-29",
+   "tv": 70
   }
  },
  "validations": {
@@ -13984,6 +14161,933 @@
    ],
    "resumen": "59 leidos con los filtros de entrada (creado desde 2026-07-21, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=59). El filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT, ventas no consistentes o suma fuera de rango (20), seguido de repetidos de los ultimos 20 dias (20), el rango 50-800 de las tres ventas (17 de 59 fuera) y los de adultos (0). De los 42 en rango: 2 finalistas (faltaron 3 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 59 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 205/378/409, stock 129, 10 dias de venta): quedo fuera por la nota de repetido del 13-oct, pero no esta como tarjeta en el seed; si no se repitio de verdad, es el mejor 3er producto; (2) Barra privada (24113, importadora el mayorista, 51/445/445, stock 99): ya se habia clasificado como adulto el 15-oct y su foto es un marcador generico, no se identifica el producto; (3) Cayenne Pepper (27396, kura labs, 52/74/74): demanda real pero 8 anunciantes en GT y suplemento; (4) Crema combo x2 para varices (28058): 4 anunciantes en GT y suma de listados 809, justo sobre el limite; (5) Faja slimming pants tiene 0 anunciantes del mismo producto: validar con una prueba corta."
+  },
+  "2026-10-21": {
+   "date": "2026-10-21",
+   "source": "ia",
+   "titulo": "Radar Caza Diaria · 2026-10-21",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (sin navegador)",
+   "veredicto": "Veredicto. Hoy, 2026-10-21, DropKiller devolvio 59 productos GT/Dropi creados desde el 2026-07-23 con stock de 80 o mas y 50 o mas ventas en 7 dias; 42 tienen 7d, 30d y total entre 50 y 800 y solo 2 pasan todos los filtros (1 o 2 proveedores, ventas consistentes y sin repetir los ultimos 20 dias). El mejor es el amplificador de pantalla para celular, listado 'pantalla amp' (10/15, 2 anunciantes parecidos en GT), pero con flete Q68 y CPA Q20 ninguno de los dos supera Q30 por pedido (amplificador Q-19.6 con la oferta de 2, luz LED Q18.8 con la oferta de 2) y hay que medir flete y CPA reales antes de pautar.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador) y no se pudieron ver las fotos de los productos; los anuncios salen de la biblioteca de DropKiller (busqueda por texto) y se leyeron solo los primeros resultados por producto, asi que los conteos de tiendas son minimos. No se buscaron referentes fuera de GT. Los proveedores se contaron sumando los listados del mismo producto, como en las corridas del 18 y 19-oct. Aviso de repeticion: la regla se aplico contra los ids de proveedor de las tarjetas desde el 28-sep, las fichas del radar, las tarjetas de /hunt y las corridas radar15, radar18 y radar19. Las ventas de DropKiller cambian cada dia: las cifras de esta corrida son las del 2026-10-21 (por eso el spray restaurador del interior del carro, ya tarjeta del 19-oct, figura con 133/140/140). Solo hay 2 finalistas, no 5 ni 10. No se uso Fasebook, Vercel ni ArtifactData.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Pantalla amp (amplificador de pantalla para celular)",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/dac3eb75-a6b3-4b86-b38b-c192d4443d47/7cec5e27197d.webp",
+     "v": "59 ventas en 7 dias, 213 en 30 y 236 en total (creado el 2026-09-17; vende 25 de los ultimos 30 dias, con 24 el 20-oct), 1 solo proveedor (importadora el mayorista, reabastecido el 13-oct) y 2 anunciantes parecidos en GT (Teyra y Compra con Confianza Guatemala): semaforo 1-2, muy buena señal. Stock 102, cerca del minimo de 80.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "59"
+      ],
+      [
+       "30d",
+       "213"
+      ],
+      [
+       "Total",
+       "236"
+      ],
+      [
+       "Stock",
+       "102"
+      ],
+      [
+       "Costo",
+       "Q31"
+      ],
+      [
+       "PVP sug.",
+       "Q64"
+      ],
+      [
+       "Creado",
+       "2026-09-17"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 1"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q149; utilidad estimada por pedido generado: Q-19.6. Con 1 unidad al PVP sugerido: Q-53.1. Reprecio a 2,5 x costo (Q78): Q-44.4. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "23132",
+         "pantalla amp",
+         "Q31",
+         "102",
+         "59/213/236",
+         "2026-09-17"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena señal",
+       "p": "2 anunciantes distintos en GT (busquedas 'amplificador de pantalla' y 'teyra amplificador pantalla celular bluetooth'): Teyra, solo WhatsApp, 3 videos activos con 39 dias y vistos por ultima vez el 2026-10-19; Compra con Confianza Guatemala, landing compraaonlinegt.com, 3 videos de 2 dias vistos por ultima vez el 2026-09-22. Teyra aparece con dos registros de pagina en DropKiller (mismo nombre). Producto parecido, no confirmado como el mismo SKU. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Ver en Meta · DropKiller · Teyra: Video: 'disfrutar tus peliculas sin comprar un televisor nuevo'; visto por ultima vez el 2026-10-19.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=940352578532371"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/0330eb16-eabd-47f9-a712-c59dc4a676ef"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Teyra: Video: 'terminas sosteniendo el celular durante horas para ver tus series'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1746265173325153"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/fc5c323a-2488-44d3-9afa-02311a0e559f"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Teyra: Video: 'te cansa ver peliculas y videos en la pequeña pantalla del celular'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1804295011019596"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/b5890ec6-64ed-4b37-8d38-c957be4faffb"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Compra con Confianza Guatemala: Video 'Dale mas espacio a tus videos'; visto por ultima vez el 2026-09-22.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=28564263853266652"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/f9bdb4ab-9ff5-4398-a81d-b1b63aa15c4c"
+          }
+         ]
+        },
+        {
+         "t": "Ver en Meta · DropKiller · Compra con Confianza Guatemala: Video 'Un regalo para vivir el futbol'.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2243458853179770"
+          },
+          {
+           "t": "DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/c30dc210-0b43-484a-a34a-162502d64a3d"
+          }
+         ]
+        },
+        {
+         "t": "Landing · Compra con Confianza Guatemala: Landing 'Pantalla en grande'. 3 videos del 2026-09-19 al 2026-09-22 (planes de pelicula, series y regalo para el futbol), CTA Comprar.",
+         "l": [
+          {
+           "t": "Landing",
+           "u": "https://compraaonlinegt.com/products/pantalla-en-grande-amplificador-celular-gt"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Lo que ya se dice en GT: ver series y peliculas en una pantalla mas grande, sin sostener el celular, con parlante bluetooth, y como regalo para quien ve futbol. Ya en uso en GT: Teyra por WhatsApp (amplificador de pantalla con parlante bluetooth: 'ver series y peliculas en pantalla mas grande, sin sostener el celular durante horas') y Compra con Confianza Guatemala con landing (planes de pelicula, series y regalo para quien vive el futbol). Hueco: el celular en la cama o en la cocina, el viaje en bus, el regalo de Navidad y la oferta de 2 piezas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Quien ve series en la cama o en la cocina mientras cocina",
+         "s": "Pon el celular y suelta las manos: la imagen se ve mas grande sin comprar un televisor."
+        },
+        {
+         "b": "Papa o mama que viaja en bus o espera en la fila",
+         "s": "Un rato de peliculas para el camino sin cansar los brazos ni la vista."
+        },
+        {
+         "b": "Estudiante o trabajador en cuarto compartido",
+         "s": "Una pantalla grande para ti sin prender el televisor de la casa."
+        },
+        {
+         "b": "Regalo de Navidad para abuelo, abuela o quien ve videos todo el dia",
+         "s": "Una pantalla mas grande para ver fotos, videos y rezos: lleva 2 y regala 1."
+        },
+        {
+         "b": "Quien ve el futbol o la novela en el celular",
+         "s": "El partido o el capitulo en grande, sobre la mesa, sin pelear por el televisor."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "El stock bajo de 200 a 26 y se reabastecio a 164 el 13-oct; hoy quedan 102 con 24 ventas el 20-oct, asi que puede bajar pronto del minimo de 80: confirmar stock en Dropi antes de pautar. El nombre del listado es solo 'pantalla amp'; la identificacion como amplificador de pantalla para celular sale de la busqueda de anuncios y no se pudo ver la foto: confirmar el producto en Dropi. Costo Q31 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q64) pierde plata; el pack de 2 a Q149 tampoco cierra con los valores de referencia. Plastico y lente: confirmar calidad y devoluciones."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 23132)",
+       "u": "https://app.dropi.gt/dashboard/search?search=23132&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/dac3eb75-a6b3-4b86-b38b-c192d4443d47"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Luz LED roja para bicicleta",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/a15f9b33-56ec-4b2a-8607-3721415afa50/a1508fbaec7d.webp",
+     "v": "69 ventas en 7 dias, 70 en 30 y 70 en total (creado el 2026-09-29; 1 venta el 30-sep, sin ventas hasta el 15-oct y desde el 16-oct 10, 17, 22, 5 y 15 por dia), 1 solo proveedor (grupo luna), stock 930 y 0 anunciantes del mismo producto en GT en lo leido: semaforo 0, cuidado.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "69"
+      ],
+      [
+       "30d",
+       "70"
+      ],
+      [
+       "Total",
+       "70"
+      ],
+      [
+       "Stock",
+       "930"
+      ],
+      [
+       "Costo",
+       "Q50"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-09-29"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 1 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q249; utilidad estimada por pedido generado: Q18.8. Con 1 unidad al PVP sugerido: Q-11.6. Reprecio a 2,5 x costo (Q125): Q-27.1. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "grupo luna",
+         "25284",
+         "luz led roja para bicicleta",
+         "Q50",
+         "930",
+         "69/70/70",
+         "2026-09-29"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciantes · semaforo 0 cuidado",
+       "p": "0 anunciantes distintos en GT del mismo producto en lo leido. Alexpress (WhatsApp, 'DUO BICICLETA' Q99.99 + envio, anuncios del 2026-09-28 al 2026-10-05) es el mas cercano pero es un duo de luces, no confirmado como el mismo SKU. DropKiller puede no indexar anuncios de este SKU. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Lo que ya se dice en GT para luces parecidas: maxima visibilidad y seguridad en cada viaje, precio de duo con envio. Sin anuncios del mismo producto en GT en lo leido. Referencia cercana en GT: Alexpress (WhatsApp) vende un 'DUO BICICLETA' de luces a Q99.99 + envio con el texto 'maxima visibilidad y seguridad en cada viaje'. Hueco: el ciclista y el mototaxista de noche, la oferta de 2 luces (una para cada bici o para la moto) y el regalo para quien pedalea al trabajo."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Ciclista que pedalea al trabajo de noche o de madrugada",
+         "s": "Que los carros te vean desde lejos: una luz roja atras antes de la siguiente salida."
+        },
+        {
+         "b": "Papa o mama de un nino que anda en bici por la colonia",
+         "s": "Una luz atras para que lo vean al volver de la escuela o del parque."
+        },
+        {
+         "b": "Dueño de moto o mototaxi",
+         "s": "Mas visibilidad en la parte de atras para la lluvia y la noche."
+        },
+        {
+         "b": "Repartidor en bicicleta",
+         "s": "Trabaja de noche con una luz que avisa que vas adelante."
+        },
+        {
+         "b": "Regalo para el ciclista de la familia",
+         "s": "Lleva 2: una para su bici y otra de repuesto para cuando se acaben las pilas."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Solo 5 dias de ventas (16 al 20-oct) tras 15 dias casi sin ventas: puede ser el efecto de una pauta de un tercero que ya termino. Costo Q50 frente a flete de referencia Q68: 1 unidad al PVP sugerido (Q150) pierde plata con los valores de referencia; solo el pack de 2 a Q249 cierra y el cercano de Alexpress cobra Q99.99 por un duo. No se pudo ver la foto: confirmar en Dropi que es una luz trasera roja y si trae pilas o bateria. Riesgo de devolucion por producto que no prende o dura poco."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 25284)",
+       "u": "https://app.dropi.gt/dashboard/search?search=25284&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/a15f9b33-56ec-4b2a-8607-3721415afa50"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "1316 / 2830 / 2988",
+     "st": "1192",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera de 50-800 (7d 1316, 30d 2830, total 2988)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "559 / 1907 / 1907",
+     "st": "4759",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera de 50-800 (7d 559, 30d 1907, total 1907)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 14722 · auré",
+     "v": "449 / 3509 / 4275",
+     "st": "3636",
+     "ct": "2026-08-05",
+     "r": "Descartado: ventas fuera de 50-800 (7d 449, 30d 3509, total 4275)",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "333 / 721 / 881",
+     "st": "119",
+     "ct": "2026-08-29",
+     "r": "Descartado: ventas fuera de 50-800 (7d 333, 30d 721, total 881)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "269 / 752 / 1073",
+     "st": "1775",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera de 50-800 (7d 269, 30d 752, total 1073)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "251 / 907 / 1196",
+     "st": "340",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera de 50-800 (7d 251, 30d 907, total 1196)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "223 / 1636 / 3434",
+     "st": "1559",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera de 50-800 (7d 223, 30d 1636, total 3434)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "220 / 693 / 1081",
+     "st": "919",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 220, 30d 693, total 1081)",
+     "c": "d"
+    },
+    {
+     "n": "5 t-shirt rvca con bolsa y bordado x 120",
+     "s": "ID 27663 · laurean by seong woo",
+     "v": "210 / 210 / 210",
+     "st": "16765",
+     "ct": "2026-10-10",
+     "r": "Descartado: nombre con marca (RVCA), bandera roja, y solo 5 dias de venta con 210 unidades en una sola tanda (posible pedido mayorista)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "191 / 1014 / 2356",
+     "st": "2142",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 191, 30d 1014, total 2356)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "186 / 750 / 876",
+     "st": "122",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera de 50-800 (7d 186, 30d 750, total 876)",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "185 / 378 / 409",
+     "st": "619",
+     "ct": "2026-09-04",
+     "r": "Descartado: tiras blanqueadoras dentales, repetido del 13-oct segun las notas de las corridas del 18 y 19-oct (no figura como tarjeta en el seed)",
+     "c": "d"
+    },
+    {
+     "n": "kneeflex pro",
+     "s": "ID 16336 · soluciones sig&sarp",
+     "v": "184 / 356 / 1700",
+     "st": "102",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera de 50-800 (7d 184, 30d 356, total 1700)",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "148 / 194 / 194",
+     "st": "806",
+     "ct": "2026-10-08",
+     "r": "Descartado: 4 listados del mismo producto (Renovia 15 en 1: nibresma, nexus, almafit, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "removedor electrico dental",
+     "s": "ID 8515 · auré",
+     "v": "143 / 299 / 330",
+     "st": "749",
+     "ct": "2026-07-26",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "shilajit ultra optimal potency 60 caps.",
+     "s": "ID 27368 · american natural",
+     "v": "138 / 180 / 180",
+     "st": "4820",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido, mismo producto que Shilajit Ultra Top (7-oct) con otro listado",
+     "c": "d"
+    },
+    {
+     "n": "spray restaurador del interior del carro",
+     "s": "ID 2828 · importadora el mayorista",
+     "v": "133 / 140 / 140",
+     "st": "80",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "131 / 234 / 234",
+     "st": "1766",
+     "ct": "2026-10-04",
+     "r": "Descartado: mismo producto que otros listados de Nippori (altamira, 10616 ventas en total): sumados salen del rango 50-800",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "123 / 216 / 216",
+     "st": "835",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "120 / 314 / 583",
+     "st": "4419",
+     "ct": "2026-08-09",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (Her Loss: laboratorio luna, aure, chicas empire, altamira, natural labs)",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "108 / 148 / 155",
+     "st": "4492",
+     "ct": "2026-08-28",
+     "r": "Descartado: repetido, mismo producto que Excalvo shampoo (9-oct, 10 proveedores)",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "104 / 614 / 929",
+     "st": "5059",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera de 50-800 (7d 104, 30d 614, total 929)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "102 / 217 / 571",
+     "st": "1464",
+     "ct": "2026-08-19",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "101 / 496 / 2177",
+     "st": "839",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera de 50-800 (7d 101, 30d 496, total 2177)",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "99 / 413 / 1239",
+     "st": "444",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 99, 30d 413, total 1239)",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "96 / 399 / 719",
+     "st": "298",
+     "ct": "2026-09-11",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "95 / 201 / 203",
+     "st": "2797",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "capykaraoke micrófono infantil con luces",
+     "s": "ID 27194 · digital gt",
+     "v": "92 / 137 / 137",
+     "st": "163",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "gomitas para niños heighterner",
+     "s": "ID 26896 · sicommer lab",
+     "v": "90 / 433 / 433",
+     "st": "1567",
+     "ct": "2026-10-07",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "89 / 209 / 209",
+     "st": "1791",
+     "ct": "2026-10-06",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "87 / 241 / 241",
+     "st": "5259",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "85 / 532 / 562",
+     "st": "1938",
+     "ct": "2026-09-17",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "faja slimming pants",
+     "s": "ID 22618 · importadora el mayorista",
+     "v": "80 / 97 / 97",
+     "st": "215",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "te chino",
+     "s": "ID 29042 · sicommer lab",
+     "v": "79 / 79 / 79",
+     "st": "1921",
+     "ct": "2026-10-18",
+     "r": "Descartado: te chino, listado nuevo de sicommer lab del mismo producto que el 7101 (1688 ventas en total) y el 4749 de natural labs: sumados salen del rango 50-800; ademas solo 2 dias de venta (45 y 34) y bandera amarilla por consumible",
+     "c": "d"
+    },
+    {
+     "n": "pumpkin seed oil",
+     "s": "ID 19925 · nibresma",
+     "v": "76 / 251 / 253",
+     "st": "747",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (pumpkin seed oil: natural labs, kura labs, nibresma, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "2 pantalónes rose/dama 5 colores x 109",
+     "s": "ID 26401 · laurean by seong woo",
+     "v": "75 / 78 / 78",
+     "st": "9922",
+     "ct": "2026-10-04",
+     "r": "Descartado: 75/78/78 en 5 dias, ropa al por mayor (2 pantalones x109 con stock de 9922), no es producto de prueba",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "73 / 651 / 651",
+     "st": "411",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "aceite capilar colageno cqk",
+     "s": "ID 22667 · importadora el mayorista",
+     "v": "72 / 295 / 325",
+     "st": "127",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "creatine for women (gris)",
+     "s": "ID 19179 · kura labs",
+     "v": "71 / 117 / 175",
+     "st": "842",
+     "ct": "2026-08-28",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (creatina para mujer: laboratorio luna, almafit, nexus, kura labs, capitan lab, vitalcom)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "70 / 183 / 183",
+     "st": "4816",
+     "ct": "2026-10-03",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "luz led roja para bicicleta",
+     "s": "ID 25284 · grupo luna",
+     "v": "69 / 70 / 70",
+     "st": "930",
+     "ct": "2026-09-29",
+     "r": "FINALISTA #2 (puntaje 10/15, REPRECIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "s": "ID 16112 · distribuidora rocke feller",
+     "v": "65 / 391 / 697",
+     "st": "298",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "flex-a",
+     "s": "ID 22527 · nibresma",
+     "v": "65 / 362 / 495",
+     "st": "1483",
+     "ct": "2026-09-12",
+     "r": "Descartado: 3 proveedores de la marca Flex-A (nibresma, laboratorio luna, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "fungus 7 dias",
+     "s": "ID 15832 · laboratorio luna",
+     "v": "65 / 793 / 1845",
+     "st": "4044",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 65, 30d 793, total 1845)",
+     "c": "d"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "65 / 111 / 111",
+     "st": "389",
+     "ct": "2026-10-10",
+     "r": "Descartado: saturado, 8 anunciantes distintos de Cayenne Pepper en GT segun la corrida del 19-oct (no se reverifico hoy); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "64 / 337 / 686",
+     "st": "301",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "dr. melaxin cemenrete",
+     "s": "ID 18604 · sicommer lab",
+     "v": "64 / 479 / 2181",
+     "st": "1726",
+     "ct": "2026-08-22",
+     "r": "Descartado: ventas fuera de 50-800 (7d 64, 30d 479, total 2181)",
+     "c": "d"
+    },
+    {
+     "n": "glucora x 2 unid",
+     "s": "ID 20860 · suplem gt",
+     "v": "64 / 151 / 155",
+     "st": "645",
+     "ct": "2026-09-06",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "combo x2 crema venas varices",
+     "s": "ID 28058 · importadora el mayorista",
+     "v": "63 / 78 / 78",
+     "st": "120",
+     "ct": "2026-10-14",
+     "r": "Descartado: sumando listados del mismo proveedor y de goldbox el total es 809 segun la corrida del 19-oct (no se reverifico hoy), fuera de 50-800; ademas 4 anunciantes de crema para varices en GT y bandera amarilla por promesa de cura",
+     "c": "d"
+    },
+    {
+     "n": "pastillas limpiadoras para lavadora",
+     "s": "ID 15657 · shop b",
+     "v": "61 / 378 / 1026",
+     "st": "10678",
+     "ct": "2026-07-25",
+     "r": "Descartado: ventas fuera de 50-800 (7d 61, 30d 378, total 1026)",
+     "c": "d"
+    },
+    {
+     "n": "pantalla amp",
+     "s": "ID 23132 · importadora el mayorista",
+     "v": "59 / 213 / 236",
+     "st": "102",
+     "ct": "2026-09-17",
+     "r": "FINALISTA #1 (puntaje 10/15, NO CIERRA); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "s": "ID 16115 · distribuidora rocke feller",
+     "v": "59 / 206 / 295",
+     "st": "702",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "56 / 302 / 302",
+     "st": "263",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "lampara solar portatil de clip",
+     "s": "ID 22002 · 60 segundos",
+     "v": "54 / 330 / 429",
+     "st": "160",
+     "ct": "2026-09-10",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "mini rastreador gps",
+     "s": "ID 20693 · 60 segundos",
+     "v": "54 / 155 / 168",
+     "st": "210",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "magneticas privadas",
+     "s": "ID 26500 · importadora el mayorista",
+     "v": "53 / 132 / 132",
+     "st": "118",
+     "ct": "2026-10-04",
+     "r": "Descartado: producto clasificado para adultos en la corrida del 15-oct (no se pauta); no se reverifico hoy",
+     "c": "d"
+    },
+    {
+     "n": "oftamiel",
+     "s": "ID 28778 · sicommer lab",
+     "v": "52 / 52 / 52",
+     "st": "1944",
+     "ct": "2026-10-17",
+     "r": "Descartado: oftamiel, listado nuevo del mismo producto que el 15158 (5569 ventas en total, 1065 en 30d): sumados salen del rango 50-800; solo 4 dias de venta y bandera amarilla por gotas oftalmicas",
+     "c": "d"
+    },
+    {
+     "n": "rimel alargador",
+     "s": "ID 22610 · importadora el mayorista",
+     "v": "51 / 91 / 91",
+     "st": "260",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria",
+     "c": "d"
+    },
+    {
+     "n": "cyperus rotundus oil 30ml",
+     "s": "ID 15663 · american natural",
+     "v": "50 / 66 / 209",
+     "st": "2305",
+     "ct": "2026-07-24",
+     "r": "Descartado: cyperus rotundus oil, 12 o mas listados del mismo producto en Dropi GT (american natural, kura labs, nibresma, nexus, almafit, suplem gt, etc.); aceite cosmetico con bandera amarilla",
+     "c": "d"
+    }
+   ],
+   "resumen": "59 leidos con los filtros de entrada (creado desde 2026-07-23, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=59). El filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT, ventas no consistentes o suma fuera de rango (20), seguido de repetidos de los ultimos 20 dias (19), el rango 50-800 de las tres ventas (17 de 59 fuera) y los de adultos (1). De los 42 en rango: 2 finalistas (faltaron 3 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 59 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
+   "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 185/378/409, stock 619, 10 dias de venta): quedan fuera por la nota de repetido del 13-oct, pero no figuran como tarjeta en el seed; si no se repitio de verdad, es el mejor 3er producto; (2) Luz LED roja para bicicleta (25284) tiene 0 anunciantes del mismo producto pero solo 5 dias de venta: validar con una prueba corta y revisar el precio frente al duo de Alexpress a Q99.99; (3) Pantalla amp (23132): confirmar en Dropi que es el amplificador de pantalla para celular y el stock antes de pautar (102 hoy); (4) Te chino (29042) y Oftamiel (28778) son listados nuevos de sicommer lab de productos que ya venden mucho en otros listados (1688 y 5569 ventas en total): no son productos nuevos; (5) Cayenne Pepper (27396) y la crema combo x2 para varices (28058) se descartaron con datos de la corrida del 19-oct, sin reverificar hoy."
   }
  }
 }
