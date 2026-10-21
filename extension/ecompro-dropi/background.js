@@ -1,18 +1,30 @@
 // Manda los pedidos a tu servidor de ECOMPRO con tu clave. Guarda el resultado para el panel.
+function recargarDropi(abrir, resp) {
+  chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
+    if (chrome.runtime.lastError) { resp && resp({ ok: false, error: String(chrome.runtime.lastError.message) }); return; }
+    if (tabs && tabs.length) {
+      var t = tabs.filter(function (x) { return /order|pedido/i.test(x.url || ""); })[0] || tabs[0];
+      chrome.tabs.reload(t.id, function () { resp && resp({ ok: true, accion: "recargada", url: (t.url || "").replace(/[?#].*$/, "") }); });
+    } else if (abrir) {
+      chrome.tabs.create({ url: "https://app.dropi.gt/", active: false }, function () { resp && resp({ ok: true, accion: "abierta" }); });
+    } else { resp && resp({ ok: false, error: "No hay una pestaña de Dropi abierta." }); }
+  });
+}
+function programar() {
+  chrome.storage.local.get({ auto: 0 }, function (c) {
+    chrome.alarms.clear("auto", function () {
+      var n = Math.max(0, parseInt(c.auto, 10) || 0);
+      if (n >= 1) chrome.alarms.create("auto", { periodInMinutes: n });
+    });
+  });
+}
+chrome.alarms.onAlarm.addListener(function (a) { if (a && a.name === "auto") recargarDropi(false); });
+chrome.runtime.onInstalled.addListener(programar);
+chrome.runtime.onStartup.addListener(programar);
+chrome.storage.onChanged.addListener(function (ch) { if (ch.auto) programar(); });
 async function cfg() { return chrome.storage.local.get({ base: "https://ecompro-iota.vercel.app", key: "", log: null, total: 0 }); }
 chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
-  if (msg && msg.tipo === "refrescar") {
-    chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
-      if (chrome.runtime.lastError) { resp({ ok: false, error: String(chrome.runtime.lastError.message) }); return; }
-      if (tabs && tabs.length) {
-        var t = tabs.filter(function (x) { return /order|pedido/i.test(x.url || ""); })[0] || tabs[0];
-        chrome.tabs.reload(t.id, function () { resp({ ok: true, accion: "recargada", url: (t.url || "").replace(/[?#].*$/, "") }); });
-      } else {
-        chrome.tabs.create({ url: "https://app.dropi.gt/", active: false }, function () { resp({ ok: true, accion: "abierta" }); });
-      }
-    });
-    return true;
-  }
+  if (msg && msg.tipo === "refrescar") { recargarDropi(true, resp); return true; }
   if (!msg || msg.tipo !== "pedidos") return;
   (async function () {
     var c = await cfg();
