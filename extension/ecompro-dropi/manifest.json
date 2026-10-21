@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ECOMPRO",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "ECOMPRO: lee los pedidos que Dropi muestra en tu pantalla y los manda a tu tablero. No usa la API de Dropi.",
   "permissions": [
     "storage",
@@ -54,7 +54,7 @@
     },
     {
       "matches": [
-        "https://ecompro-iota.vercel.app/*"
+        "https://*.vercel.app/*"
       ],
       "js": [
         "content-ecompro.js"
