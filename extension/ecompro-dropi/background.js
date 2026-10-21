@@ -30,6 +30,7 @@ function avisar(ok, texto) {
 async function cfg() { return chrome.storage.local.get({ base: "https://ecompro-iota.vercel.app", key: "", log: null, total: 0 }); }
 chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
   if (msg && msg.tipo === "refrescar") { recargarDropi(true, resp); return true; }
+  if (msg && msg.tipo === "dbg") { chrome.storage.local.set({ dbg: Object.assign({ ts: Date.now() }, msg.dbg) }); return false; }
   if (!msg || msg.tipo !== "pedidos") return;
   (async function () {
     var c = await cfg();

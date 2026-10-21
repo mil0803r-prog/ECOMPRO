@@ -14,10 +14,32 @@
       chrome.runtime.sendMessage({ tipo: "pedidos", orders: lista, stats: stats }, function () { void chrome.runtime.lastError; });
     } catch (e) {}
   }
+  var dbg = { pagina: location.host + location.pathname.replace(/\d+/g, "#"), json: 0, vistos: {} };
+  var dtimer = null;
+  function claves(o) { return o && typeof o === "object" ? Object.keys(o).slice(0, 25) : typeof o; }
+  function huellaJson(j) {
+    var r = { top: claves(j) };
+    var q = [j], n = 0;
+    while (q.length && n++ < 40) {
+      var x = q.shift();
+      if (Array.isArray(x)) { if (x.length && x[0] && typeof x[0] === "object" && !Array.isArray(x[0])) { r.fila = claves(x[0]); r.filas = x.length; break; } }
+      else if (x && typeof x === "object") Object.keys(x).forEach(function (k) { if (x[k] && typeof x[k] === "object") q.push(x[k]); });
+    }
+    return r;
+  }
+  function guardarDbg() {
+    dtimer = null;
+    try { chrome.runtime.sendMessage({ tipo: "dbg", dbg: dbg }, function () { void chrome.runtime.lastError; }); } catch (e) {}
+  }
+  guardarDbg();
   window.addEventListener("message", function (ev) {
     if (ev.source !== window || !ev.data || ev.data.src !== "ecompro-dropi") return;
     var json;
     try { json = JSON.parse(ev.data.texto); } catch (e) { return; }
+    dbg.json++;
+    var up = String(ev.data.url || "").replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 70);
+    if (!dbg.vistos[up] && Object.keys(dbg.vistos).length < 25) dbg.vistos[up] = huellaJson(json);
+    if (!dtimer) dtimer = setTimeout(guardarDbg, 2000);
     var ped = self.ECDropiNorm.extraer(json);
     stats.capturados++;
     if (ped.length) {
