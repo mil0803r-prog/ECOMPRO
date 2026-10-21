@@ -1260,7 +1260,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="ccols">
       <div class="card vbox">
         <h3>Producto</h3>
-        <div class="fld"><label for="c-pick">Traer desde la caza diaria</label><select id="c-pick"></select></div>
+        <div class="fld"><label for="c-pick">Traer desde el validador manual o la caza diaria</label><select id="c-pick"></select></div>
         <div class="fld"><label for="c-nom">Nombre del producto</label><input id="c-nom" maxlength="120" placeholder="Ej.: Crema Apolo x 2"></div>
         <div class="frow">
           <div class="fld"><label for="c-uni">Unidades por pack</label><input id="c-uni" type="number" min="1" step="1" inputmode="numeric"></div>
@@ -2382,6 +2382,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   }
   function vPrecio(v){var fx=window.ecFx;if(fx&&fx.st.on){var q=fx.pen(+v.pvp,v.mon||"GTQ");if(q!=null)return g0(q)+' PEN'+((v.mon&&v.mon!=="PEN")?'<div class="sub" style="font-weight:400">'+g0(v.pvp)+' '+esc(v.mon)+'</div>':'')}return g0(v.pvp)+' '+esc(v.mon||"")}
   function vRender(){
+    window.__VAL=VAL;try{document.dispatchEvent(new Event("ecval"))}catch(e){}
     var all=VAL.slice().sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(b.updated||0)-(a.updated||0)});
     var cnt={todos:all.length,falta:0,proceso:0,testeado:0};all.forEach(function(v){cnt[v.estado||"falta"]++});
     $("v-filtros").innerHTML=[["todos","Todos"],["falta","Falta de testear"],["proceso","En proceso"],["testeado","Testeado"]].map(function(f){return '<button type="button" class="chip" data-f="'+f[0]+'" aria-pressed="'+(vFiltro===f[0])+'">'+f[1]+' ('+cnt[f[0]]+')</button>'}).join("");
@@ -3054,8 +3055,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function msg(t){$("c-msg").textContent=t;if(t)setTimeout(function(){if($("c-msg").textContent===t)$("c-msg").textContent=""},6000)}
   function pick(){
     var E=window.__EC2?window.__EC2():{W:[]},W=(E.W||[]).filter(function(w){return w.costo}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"")||(a.rank||9)-(b.rank||9)}).slice(0,40);
-    $("c-pick").innerHTML='<option value="">Elegir producto (opcional)</option>'+W.map(function(w){return '<option value="'+w.id+'">'+w.date+' · #'+w.rank+' · '+String(w.name).replace(/</g,"")+'</option>'}).join("");
-    window.__calcW=W}
+    var V=(window.__VAL||[]).filter(function(x){return x&&x.name&&+x.costo>0}).sort(function(a,b){return String(b.date||"").localeCompare(String(a.date||""))}).map(function(x){return{id:"v:"+x.id,name:x.name,costo:+x.costo,oferta:{u:1},mon:/^(GTQ|PEN|USD)$/.test(x.mon)?x.mon:"GTQ",date:x.date||""}});
+    var cl=function(s){return String(s).replace(/[<&"]/g,"")};
+    $("c-pick").innerHTML='<option value="">Elegir producto (opcional)</option>'+
+      (V.length?'<optgroup label="Validador manual">'+V.map(function(w){return '<option value="'+cl(w.id)+'">'+(w.date?w.date+' · ':'')+cl(w.name)+'</option>'}).join("")+'</optgroup>':'')+
+      (W.length?'<optgroup label="Caza diaria">'+W.map(function(w){return '<option value="'+cl(w.id)+'">'+w.date+' · #'+w.rank+' · '+cl(w.name)+'</option>'}).join("")+'</optgroup>':'');
+    window.__calcW=V.concat(W)}
   function real(){
     var A=window.ecGan,G=window.ecGastos,E=window.__EC2?window.__EC2():{PAR:{}},ORD=window.__ORD||[],o={},notes=[];
     var e=0,d=0;ORD.forEach(function(x){if(x.s==="E")e++;else if(x.s==="D"||x.s==="I"||x.s==="J")d++});
@@ -3071,7 +3076,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   $("c-sl").addEventListener("input",function(){S.mar=+this.value;$("c-mar").value=S.mar;sv();render()});
   F.forEach(function(k){var e=$("c-"+k);if(!e)return;e.addEventListener("input",function(){S[k]=e.type==="number"?e.value:e.value;sv();render()});e.addEventListener("change",function(){S[k]=e.value;sv();render()})});
   $("c-pick").addEventListener("change",function(){var w=(window.__calcW||[]).filter(function(x){return x.id===$("c-pick").value})[0];if(!w)return;
-    S.nom=w.name;S.cos=w.costo;S.uni=(w.oferta&&w.oferta.u)||1;S.mon="GTQ";sv();fill();render();msg("Traje "+w.name+" con costo "+w.costo+" por unidad.")});
+    S.nom=w.name;S.cos=w.costo;S.uni=(w.oferta&&w.oferta.u)||1;S.mon=w.mon||"GTQ";sv();fill();render();msg("Traje "+w.name+" con costo "+w.costo+" por unidad.")});
 
   function conv(x,mon){var fx=window.ecFx,rt=fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504,gtq=mon==="GTQ"?x:mon==="PEN"?x/rt:x/0.130952;return (on()?"S/":"Q")+" "+f2(on()?gtq*rt:gtq)}
   function cmsg(t){msg(t)}
@@ -3138,6 +3143,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   $("c-reset").addEventListener("click",function(){S=Object.assign({},DEF);sv();fill();render();msg("")});
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="cal"]')){pick();fill();render()}});
   pick();fill();render();
+  document.addEventListener("ecval",function(){var v=$("c-pick").value;pick();$("c-pick").value=v});
   setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(function(){render();fill();renderSaved()});if(window.ecGastos)window.ecGastos.onChange(function(){render();fill()});pick()},0);
 })();
 </script>
