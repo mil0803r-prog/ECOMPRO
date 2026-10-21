@@ -714,6 +714,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   </section>
 
   <section class="pane" id="p-ped" hidden>
+    <div class="card livebar" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="live-btn">Actualizar desde Dropi</button><span class="sub" id="live-msg" role="status">Recarga tu pestaña de Dropi y trae los pedidos al tablero.</span></div>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div>
       <div class="bar" role="img" aria-label="460 pedidos: 237 entregados, 29 en proceso, 157 en rojo, 37 cancelados">
@@ -2809,6 +2810,30 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 })();
 </script>
 <script>
+(function(){
+  var $=function(i){return document.getElementById(i)};if(!$("live-btn"))return;
+  var ext=null,espera=null,ts0=0;
+  window.addEventListener("message",function(ev){
+    if(ev.source!==window||!ev.data||ev.data.src!=="ecompro-ext")return;
+    if(ev.data.tipo==="hola")ext=ev.data.version;
+    if(ev.data.tipo==="resultado"){
+      if(!ev.data.ok){fin("No pude actualizar: "+(ev.data.error||"la extensión no respondió")+".",false);return}
+      $("live-msg").textContent=ev.data.accion==="abierta"?"Abrí Dropi en otra pestaña. Entra a Mis pedidos y espera unos segundos…":"Recargando Dropi… esperando los pedidos (puede tardar unos segundos).";
+    }
+  });
+  function fin(t,ok){clearTimeout(espera);espera=null;$("live-btn").disabled=false;$("live-msg").textContent=t}
+  $("live-btn").addEventListener("click",function(){
+    var b=this;ts0=window.__liveTs||0;b.disabled=true;$("live-msg").textContent="Buscando la extensión…";
+    window.postMessage({src:"ecompro-page",tipo:"actualizar"},"*");
+    var sin=setTimeout(function(){if(!ext&&espera===null){}},0);
+    espera=setTimeout(function(){fin(ext?"Dropi no mandó pedidos nuevos. Abre Mis pedidos en Dropi, recarga y vuelve a intentar.":"No encontré la extensión. Instálala o recárgala (tarjeta \"Dropi en vivo\" más abajo) y abre esta página de nuevo.",false)},45000);
+    setTimeout(function(){if(espera&&!ext&&b.disabled&&/Buscando/.test($("live-msg").textContent))fin("No encontré la extensión. Instálala o recárgala (tarjeta \"Dropi en vivo\" más abajo) y abre esta página de nuevo.",false)},2500);
+  });
+  document.addEventListener("eclive",function(){var ts=window.__liveTs||0;if(espera&&ts>ts0)fin("Listo: tablero actualizado desde Dropi ("+(window.__liveInfo||"")+").",true)});
+  window.postMessage({src:"ecompro-page",tipo:"hola"},"*");
+})();
+</script>
+<script>
 (function(){var b=document.getElementById('thm');if(!b)return;var r=document.documentElement;
 function cur(){return r.getAttribute('data-theme')==='dark'?'dark':'light'}
 function paint(){b.textContent=cur()==='dark'?'☀ Claro':'☾ Oscuro'}
@@ -3875,7 +3900,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       mergeNew();persist();PA=null;
       $("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+nw+' pedidos nuevos agregados, '+m+' existentes completados'+(st?' ('+st+' con estado actualizado)':'')+', '+dp+' repetidos ignorados'+(sd?', '+sd+' sin fecha o estado reconocible (no agregados)':'')+'.</div>';refresh()}});
   setTimeout(function(){mergeNew();fillT();refresh()},200);
-  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedlive").onSnapshot(function(s){var d=s&&s.exists&&s.data(),e=$("live-st");if(!e)return;if(d&&d.ts){var m=Math.max(0,Math.round((Date.now()-d.ts)/60000));e.textContent="· última lectura hace "+(m<1?"menos de 1 minuto":m<60?m+" min":Math.round(m/60)+" h")+" ("+(d.recibidos||0)+" pedidos)"}else e.textContent="· todavía sin lecturas"},function(){});
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedlive").onSnapshot(function(s){var d=s&&s.exists&&s.data(),e=$("live-st");if(!e)return;if(d&&d.ts){window.__liveTs=d.ts;window.__liveInfo=(d.recibidos||0)+" pedidos, "+(d.nuevos||0)+" nuevos";document.dispatchEvent(new Event("eclive"));var m=Math.max(0,Math.round((Date.now()-d.ts)/60000));e.textContent="· última lectura hace "+(m<1?"menos de 1 minuto":m<60?m+" min":Math.round(m/60)+" h")+" ("+(d.recibidos||0)+" pedidos)"}else e.textContent="· todavía sin lecturas"},function(){});
     db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;if(d.nuevos&&typeof d.nuevos==="object")NEWO=d.nuevos;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}mergeNew();refresh()}},function(){})}}catch(e){}})();
 })();
 </script>
