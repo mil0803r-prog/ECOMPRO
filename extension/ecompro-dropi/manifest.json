@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "ECOMPRO · Dropi en vivo",
+  "version": "1.0.0",
+  "description": "Lee los pedidos que Dropi muestra en tu pantalla y los manda a tu tablero ECOMPRO. No usa la API de Dropi.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://*.dropi.gt/*", "https://*.dropi.co/*", "https://*.vercel.app/*"],
+  "optional_host_permissions": ["https://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "ECOMPRO · Dropi en vivo", "default_popup": "popup.html" },
+  "content_scripts": [
+    { "matches": ["https://*.dropi.gt/*", "https://*.dropi.co/*"], "js": ["inject.js"], "run_at": "document_start", "world": "MAIN", "all_frames": false },
+    { "matches": ["https://*.dropi.gt/*", "https://*.dropi.co/*"], "js": ["normalize.js", "content.js"], "run_at": "document_start", "all_frames": false }
+  ]
+}

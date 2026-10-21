@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>ECOMPRO · Dropi en vivo</title>
+<style>body{font:14px system-ui,sans-serif;width:340px;margin:0;padding:14px;color:#0b2230}h1{font-size:16px;margin:0 0 4px}label{display:block;font-weight:600;margin:10px 0 3px;font-size:12px}input{width:100%;box-sizing:border-box;padding:8px;border:1px solid #b9cdd8;border-radius:8px}button{margin-top:10px;padding:8px 12px;border:0;border-radius:8px;background:#0e7aa8;color:#fff;font-weight:700;cursor:pointer}button.s{background:#e3eef4;color:#0b2230}#st{margin-top:12px;padding:8px;border-radius:8px;background:#eef5f9;font-size:12px;line-height:1.4;word-break:break-word}.ok{color:#15803d}.no{color:#b91c1c}small{color:#4b6676}</style>
+<h1>ECOMPRO · Dropi en vivo</h1><small>Con Dropi abierto en una pestaña, tus pedidos se mandan solos a tu tablero.</small>
+<label for="b">Dirección de tu tablero</label><input id="b" type="url" placeholder="https://ecompro-iota.vercel.app">
+<label for="k">Clave (la misma de DROPI_LIVE_KEY en Vercel)</label><input id="k" type="password" autocomplete="off" placeholder="Pega tu clave">
+<button id="g">Guardar</button> <button id="p" class="s">Probar conexión</button>
+<div id="st">Sin datos todavía.</div>
+<button id="d" class="s">Copiar diagnóstico (sin datos personales)</button>
+<script src="popup.js"></script>
