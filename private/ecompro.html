@@ -2830,8 +2830,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     window.postMessage({src:"ecompro-page",tipo:"actualizar"},"*");
     var sin=setTimeout(function(){if(!ext&&espera===null){}},0);
     window.postMessage({src:"ecompro-page",tipo:"hola"},"*");setTimeout(function(){window.postMessage({src:"ecompro-page",tipo:"hola"},"*")},800);
-    espera=setTimeout(function(){fin(ext?"Dropi no mandó pedidos nuevos. Abre Mis pedidos en Dropi, recarga y vuelve a intentar.":"No encontré la extensión en esta página ("+location.host+"). Recarga esta pestaña con Ctrl+Shift+R; si sigue igual, en chrome://extensions pulsa el botón de recargar de ECOMPRO (v1.3.1) y abre el tablero otra vez.",false)},45000);
-    setTimeout(function(){if(espera&&!ext&&b.disabled&&/Buscando/.test($("live-msg").textContent))fin("No encontré la extensión en esta página ("+location.host+"). Recarga esta pestaña con Ctrl+Shift+R; si sigue igual, en chrome://extensions pulsa el botón de recargar de ECOMPRO (v1.3.1) y abre el tablero otra vez.",false)},2500);
+    espera=setTimeout(function(){fin(ext?"Dropi no mandó pedidos nuevos. Abre Mis pedidos en Dropi, recarga y vuelve a intentar.":"No encontré la extensión en esta página ("+location.host+"). Recarga esta pestaña con Ctrl+Shift+R; si sigue igual, en chrome://extensions pulsa el botón de recargar de ECOMPRO (v1.4.0) y abre el tablero otra vez.",false)},45000);
+    setTimeout(function(){if(espera&&!ext&&b.disabled&&/Buscando/.test($("live-msg").textContent))fin("No encontré la extensión en esta página ("+location.host+"). Recarga esta pestaña con Ctrl+Shift+R; si sigue igual, en chrome://extensions pulsa el botón de recargar de ECOMPRO (v1.4.0) y abre el tablero otra vez.",false)},2500);
   });
   document.addEventListener("eclive",function(){var ts=window.__liveTs||0;if(espera&&ts>ts0)fin("Listo: tablero actualizado desde Dropi ("+(window.__liveInfo||"")+").",true)});
   window.postMessage({src:"ecompro-page",tipo:"hola"},"*");
