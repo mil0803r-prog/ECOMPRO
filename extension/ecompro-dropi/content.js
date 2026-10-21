@@ -34,6 +34,13 @@
   guardarDbg();
   window.addEventListener("message", function (ev) {
     if (ev.source !== window || !ev.data || ev.data.src !== "ecompro-dropi") return;
+    if (ev.data.meta) {
+      var mu = String(ev.data.url || "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 90);
+      dbg.red = dbg.red || {};
+      if (dbg.red[mu] || Object.keys(dbg.red).length < 40) { var o = dbg.red[mu] || (dbg.red[mu] = { n: 0 }); o.n++; o.ct = ev.data.ct; o.st = ev.data.st; }
+      if (!dtimer) dtimer = setTimeout(guardarDbg, 2000);
+      return;
+    }
     var json;
     try { json = JSON.parse(ev.data.texto); } catch (e) { return; }
     dbg.json++;
