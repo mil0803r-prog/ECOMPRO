@@ -15091,110 +15091,80 @@
   }
  },
  "tiktokshop": {
-  "2026-10-22_metodo": {
+  "2026-10-22_1": {
    "date": "2026-10-22",
-   "source": "ia",
-   "tipo": "Método",
-   "titulo": "Método: producto validado en TikTok Shop EE. UU. que falta en Dropi Guatemala",
-   "resumen": "Se busca en TikTok Shop de EE. UU. (función de DropKiller) productos que ya venden y se cruzan con Dropi GT. Si casi no hay proveedores aquí, es una joya oculta para testear, importar o maquilar.",
-   "puntos": [
-    "No se busca por nombre: se filtra por categoría (ejemplo del video: salud) y por unidades vendidas.",
-    "Unidades vendidas: mínimo 300 y máximo 10,000. Menos no está validado; más ya está saturado.",
-    "Demanda real: se mira el total facturado en USD, junto con unidades, precio y rating.",
-    "Cruce regional: SOLO Dropi, país Guatemala. Se usa \"Buscar similares\" para ver si el producto ya existe.",
-    "Proveedores en Dropi GT: máximo 3. Con pocos proveedores hay menos competencia y mejor chance al testear.",
-    "Si es un éxito en EE. UU. y no aparece en Dropi: oportunidad de importación o maquila propia.",
-    "Extras: guardar los filtros favoritos, buscar por imagen para ver los creativos de la competencia, y programar la búsqueda recurrente con IA (MCP).",
-    "Pendientes por definir: categorías, facturación mínima y frecuencia. Por defecto: todas las categorías, rating 4.0 o más, 5 productos por corrida."
-   ],
-   "recursos": [
-    {
-     "t": "Skill del proyecto: tiktokshop (método paso a paso)",
-     "u": "https://github.com/mil0803r-prog/ecompro/blob/claude/cool-dirac-1z286m/.claude/skills/tiktokshop/SKILL.md"
-    },
-    {
-     "t": "DropKiller · TikTok Shop",
-     "u": "https://app.dropkiller.com/dashboard/tiktok-shop"
-    },
-    {
-     "t": "Dropi Guatemala · buscar producto",
-     "u": "https://app.dropi.gt/dashboard/search"
-    },
-    {
-     "t": "Video de DropKiller sobre TikTok Shop, minutos 15:05 a 21:05 (enlace pendiente: pégalo en una nota)",
-     "u": ""
-    }
-   ]
+   "n": "Aspiradora peluquera de mascotas 7 en 1 (Pet Groomer vacuum)",
+   "l": "https://www.tiktok.com/shop/pdp/1731240690531865578",
+   "cat": "Mascotas",
+   "p": 259.64,
+   "c": null,
+   "com": null,
+   "v": 8184,
+   "cr": null,
+   "e": "revisar",
+   "fav": false,
+   "updated": 1792684800001,
+   "nt": "Corrida del 22 oct 2026 (filtros: 300 a 10,000 unidades, rating 4.0 o más, máx. 3 proveedores en Dropi GT).\nTikTok Shop EE. UU.: US$33.72, 8,184 unidades vendidas, rating 4.4. Facturación estimada US$275,964 (precio por unidades, no medida).\nPrecio mostrado en quetzales a Q7.70 por dólar (aproximado).\nDropi GT: 0 proveedores con este producto (solo aspiradoras de casa). Los cepillos de pelo de mascota sí venden: 82 en 30 días.\nFalta: costo de importación o maquila y confirmar por imagen con \"Buscar similares\" en DropKiller."
   },
-  "2026-10-22_prueba_salud": {
+  "2026-10-22_2": {
    "date": "2026-10-22",
-   "source": "ia",
-   "tipo": "Prueba",
-   "titulo": "Primera prueba del método en la categoría Salud",
-   "resumen": "Se probó la lectura de TikTok Shop con la categoría Salud. El método funciona, pero todavía no se cruzó ningún producto con Dropi GT, así que no hay lista de ganadores.",
-   "puntos": [
-    "Salud tiene 5,380 productos activos. La banda de 300 a 10,000 unidades ocupa unas 1,900 posiciones (páginas 0 a 19 de 100).",
-    "Referencia medida: página 1 va de 2,892 a 1,173 unidades; página 5 de 910 a 840; página 10 de 625 a 578; página 15 de 425 a 392; página 20 de 287 a 262.",
-    "La herramienta no filtra por unidades: se pagina de mayor a menor y se filtra al leer cada fila.",
-    "La categoría Salud es casi toda suplementos de marca (GNC, Nutrafol, MaryRuth's): riesgo de marca registrada y registro sanitario. Mejor probar otras categorías o dispositivos de salud.",
-    "Ejemplos leídos, sin validar en Dropi: tensiómetro de brazo Ziqing, 862 unidades, US$136, rating 4.6; Wellah Clear Whey Protein Isolate, 2,162 unidades, US$56.26, rating 4.7 (suplemento: bandera amarilla).",
-    "La facturación es una estimación (precio por unidades vendidas), no un dato medido.",
-    "Siguiente paso: elegir categoría, barrer la banda, cruzar con Dropi GT y entregar 5 productos."
-   ],
-   "recursos": [
-    {
-     "t": "Categoría Salud en TikTok Shop (DropKiller)",
-     "u": "https://app.dropkiller.com/dashboard/tiktok-shop"
-    },
-    {
-     "t": "Skill tiktokshop",
-     "u": "https://github.com/mil0803r-prog/ecompro/blob/claude/cool-dirac-1z286m/.claude/skills/tiktokshop/SKILL.md"
-    }
-   ]
+   "n": "Soplete de cocina con llama ajustable (Kitchen Torch)",
+   "l": "https://www.tiktok.com/shop/pdp/1731984474269651050",
+   "cat": "Cocina",
+   "p": 245.4,
+   "c": null,
+   "com": null,
+   "v": 8543,
+   "cr": null,
+   "e": "revisar",
+   "fav": false,
+   "updated": 1792684800002,
+   "nt": "Corrida del 22 oct 2026 (filtros: 300 a 10,000 unidades, rating 4.0 o más, máx. 3 proveedores en Dropi GT).\nTikTok Shop EE. UU.: US$31.87, 8,543 unidades vendidas, rating 4.7. Facturación estimada US$272,265 (precio por unidades, no medida).\nPrecio mostrado en quetzales a Q7.70 por dólar (aproximado).\nDropi GT: 0 resultados para soplete. Bandera amarilla: usa gas propano o butano; confirmar si la transportadora lo acepta.\nFalta: costo de importación o maquila y confirmar por imagen con \"Buscar similares\" en DropKiller."
   },
-  "2026-10-22_corrida1": {
+  "2026-10-22_3": {
    "date": "2026-10-22",
-   "source": "ia",
-   "tipo": "Corrida",
-   "titulo": "Primera corrida: 5 productos de TikTok Shop EE. UU. que faltan en Dropi GT",
-   "resumen": "Filtros: 300 a 10,000 unidades, rating 4.0 o más, precio US$3 a US$60, producto físico sin marca, máximo 3 proveedores en Dropi Guatemala.",
-   "puntos": [
-    "1. Aspiradora peluquera de mascotas 7 en 1 (Pet Groomer vacuum): 8,184 unidades, US$33.72, rating 4.4, facturación estimada US$275,964. Dropi GT: 0 proveedores con este producto (solo aspiradoras de casa). Los cepillos de pelo de mascota sí venden: 82 en 30 días.",
-    "2. Soplete de cocina con llama ajustable (Kitchen Torch): 8,543 unidades, US$31.87, rating 4.7, facturación estimada US$272,265. Dropi GT: 0 resultados para soplete. Bandera amarilla: usa gas propano o butano, revisar si la transportadora lo acepta.",
-    "3. Kit de emergencia para auto de 17 piezas (Car Emergency Survival Kit): 5,575 unidades, US$29.13, rating 4.7, facturación estimada US$162,400. Dropi GT: 0 kits de supervivencia o de auto; solo hay lámparas de emergencia.",
-    "4. Recortador de patas para perro con luz LED (Dog Paw Trimmer): 4,946 unidades, US$18.96, rating 4.5, facturación estimada US$93,776. Dropi GT: 0 recortadores para mascota; el único cortauñas es humano y sin stock.",
-    "5. Dispensador de jabón automático sin contacto (Touchless Soap Dispenser): 4,249 unidades, US$25.04, rating 4.5, facturación estimada US$106,395. Dropi GT: 1 proveedor (60 segundos) con 2 publicaciones y 1 venta en 30 días. Casi sin explotar.",
-    "Alterno: cuerda de salto con contador, 9,340 unidades, US$15.74, rating 4.4. Dropi GT: 1 proveedor (distribuidora gt), 0 ventas.",
-    "Alcance: se leyeron 6 categorías (Hogar, Cocina, Mejoras del hogar, Deportes, Mascotas, Electrónica) en sus 200 primeras posiciones, 850 productos dentro de los filtros. No se barrió la banda completa.",
-    "Limitación: el cruce con Dropi fue por palabras del nombre, no por imagen. Antes de comprar, confirmar con \"Buscar similares\" por imagen en DropKiller.",
-    "Falta: costo de importación o maquila y margen. Los datos de TikTok Shop son ventas acumuladas, no de los últimos 7 días."
-   ],
-   "recursos": [
-    {
-     "t": "Aspiradora peluquera de mascotas 7 en 1 en TikTok Shop",
-     "u": "https://www.tiktok.com/shop/pdp/1731240690531865578"
-    },
-    {
-     "t": "Soplete de cocina con llama ajustable en TikTok Shop",
-     "u": "https://www.tiktok.com/shop/pdp/1731984474269651050"
-    },
-    {
-     "t": "Kit de emergencia para auto de 17 piezas en TikTok Shop",
-     "u": "https://www.tiktok.com/shop/pdp/1730964514850639886"
-    },
-    {
-     "t": "Recortador de patas para perro con luz LED en TikTok Shop",
-     "u": "https://www.tiktok.com/shop/pdp/1731017476228223222"
-    },
-    {
-     "t": "Dispensador de jabón automático sin contacto en TikTok Shop",
-     "u": "https://www.tiktok.com/shop/pdp/1731213868564779973"
-    },
-    {
-     "t": "Dropi Guatemala · buscar producto",
-     "u": "https://app.dropi.gt/dashboard/search"
-    }
-   ]
+   "n": "Kit de emergencia para auto de 17 piezas (Car Emergency Survival Kit)",
+   "l": "https://www.tiktok.com/shop/pdp/1730964514850639886",
+   "cat": "Automotriz",
+   "p": 224.3,
+   "c": null,
+   "com": null,
+   "v": 5575,
+   "cr": null,
+   "e": "revisar",
+   "fav": false,
+   "updated": 1792684800003,
+   "nt": "Corrida del 22 oct 2026 (filtros: 300 a 10,000 unidades, rating 4.0 o más, máx. 3 proveedores en Dropi GT).\nTikTok Shop EE. UU.: US$29.13, 5,575 unidades vendidas, rating 4.7. Facturación estimada US$162,400 (precio por unidades, no medida).\nPrecio mostrado en quetzales a Q7.70 por dólar (aproximado).\nDropi GT: 0 kits de supervivencia o de auto; solo hay lámparas de emergencia.\nFalta: costo de importación o maquila y confirmar por imagen con \"Buscar similares\" en DropKiller."
+  },
+  "2026-10-22_4": {
+   "date": "2026-10-22",
+   "n": "Recortador de patas para perro con luz LED (Dog Paw Trimmer)",
+   "l": "https://www.tiktok.com/shop/pdp/1731017476228223222",
+   "cat": "Mascotas",
+   "p": 145.99,
+   "c": null,
+   "com": null,
+   "v": 4946,
+   "cr": null,
+   "e": "revisar",
+   "fav": false,
+   "updated": 1792684800004,
+   "nt": "Corrida del 22 oct 2026 (filtros: 300 a 10,000 unidades, rating 4.0 o más, máx. 3 proveedores en Dropi GT).\nTikTok Shop EE. UU.: US$18.96, 4,946 unidades vendidas, rating 4.5. Facturación estimada US$93,776 (precio por unidades, no medida).\nPrecio mostrado en quetzales a Q7.70 por dólar (aproximado).\nDropi GT: 0 recortadores para mascota; el único cortauñas es humano y sin stock.\nFalta: costo de importación o maquila y confirmar por imagen con \"Buscar similares\" en DropKiller."
+  },
+  "2026-10-22_5": {
+   "date": "2026-10-22",
+   "n": "Dispensador de jabón automático sin contacto (Touchless Soap Dispenser)",
+   "l": "https://www.tiktok.com/shop/pdp/1731213868564779973",
+   "cat": "Hogar",
+   "p": 192.81,
+   "c": null,
+   "com": null,
+   "v": 4249,
+   "cr": null,
+   "e": "revisar",
+   "fav": false,
+   "updated": 1792684800005,
+   "nt": "Corrida del 22 oct 2026 (filtros: 300 a 10,000 unidades, rating 4.0 o más, máx. 3 proveedores en Dropi GT).\nTikTok Shop EE. UU.: US$25.04, 4,249 unidades vendidas, rating 4.5. Facturación estimada US$106,395 (precio por unidades, no medida).\nPrecio mostrado en quetzales a Q7.70 por dólar (aproximado).\nDropi GT: 1 proveedor (60 segundos), 2 publicaciones y 1 venta en 30 días. Casi sin explotar.\nFalta: costo de importación o maquila y confirmar por imagen con \"Buscar similares\" en DropKiller."
   }
  }
 }
