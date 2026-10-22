@@ -15089,5 +15089,68 @@
    "resumen": "59 leidos con los filtros de entrada (creado desde 2026-07-23, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=59). El filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT, ventas no consistentes o suma fuera de rango (20), seguido de repetidos de los ultimos 20 dias (19), el rango 50-800 de las tres ventas (17 de 59 fuera) y los de adultos (1). De los 42 en rango: 2 finalistas (faltaron 3 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 59 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 185/378/409, stock 619, 10 dias de venta): quedan fuera por la nota de repetido del 13-oct, pero no figuran como tarjeta en el seed; si no se repitio de verdad, es el mejor 3er producto; (2) Luz LED roja para bicicleta (25284) tiene 0 anunciantes del mismo producto pero solo 5 dias de venta: validar con una prueba corta y revisar el precio frente al duo de Alexpress a Q99.99; (3) Pantalla amp (23132): confirmar en Dropi que es el amplificador de pantalla para celular y el stock antes de pautar (102 hoy); (4) Te chino (29042) y Oftamiel (28778) son listados nuevos de sicommer lab de productos que ya venden mucho en otros listados (1688 y 5569 ventas en total): no son productos nuevos; (5) Cayenne Pepper (27396) y la crema combo x2 para varices (28058) se descartaron con datos de la corrida del 19-oct, sin reverificar hoy."
   }
+ },
+ "tiktokshop": {
+  "2026-10-22_metodo": {
+   "date": "2026-10-22",
+   "source": "ia",
+   "tipo": "Método",
+   "titulo": "Método: producto validado en TikTok Shop EE. UU. que falta en Dropi Guatemala",
+   "resumen": "Se busca en TikTok Shop de EE. UU. (función de DropKiller) productos que ya venden y se cruzan con Dropi GT. Si casi no hay proveedores aquí, es una joya oculta para testear, importar o maquilar.",
+   "puntos": [
+    "No se busca por nombre: se filtra por categoría (ejemplo del video: salud) y por unidades vendidas.",
+    "Unidades vendidas: mínimo 300 y máximo 10,000. Menos no está validado; más ya está saturado.",
+    "Demanda real: se mira el total facturado en USD, junto con unidades, precio y rating.",
+    "Cruce regional: SOLO Dropi, país Guatemala. Se usa \"Buscar similares\" para ver si el producto ya existe.",
+    "Proveedores en Dropi GT: máximo 3. Con pocos proveedores hay menos competencia y mejor chance al testear.",
+    "Si es un éxito en EE. UU. y no aparece en Dropi: oportunidad de importación o maquila propia.",
+    "Extras: guardar los filtros favoritos, buscar por imagen para ver los creativos de la competencia, y programar la búsqueda recurrente con IA (MCP).",
+    "Pendientes por definir: categorías, facturación mínima y frecuencia. Por defecto: todas las categorías, rating 4.0 o más, 5 productos por corrida."
+   ],
+   "recursos": [
+    {
+     "t": "Skill del proyecto: tiktokshop (método paso a paso)",
+     "u": "https://github.com/mil0803r-prog/ecompro/blob/claude/cool-dirac-1z286m/.claude/skills/tiktokshop/SKILL.md"
+    },
+    {
+     "t": "DropKiller · TikTok Shop",
+     "u": "https://app.dropkiller.com/dashboard/tiktok-shop"
+    },
+    {
+     "t": "Dropi Guatemala · buscar producto",
+     "u": "https://app.dropi.gt/dashboard/search"
+    },
+    {
+     "t": "Video de DropKiller sobre TikTok Shop, minutos 15:05 a 21:05 (enlace pendiente: pégalo en una nota)",
+     "u": ""
+    }
+   ]
+  },
+  "2026-10-22_prueba_salud": {
+   "date": "2026-10-22",
+   "source": "ia",
+   "tipo": "Prueba",
+   "titulo": "Primera prueba del método en la categoría Salud",
+   "resumen": "Se probó la lectura de TikTok Shop con la categoría Salud. El método funciona, pero todavía no se cruzó ningún producto con Dropi GT, así que no hay lista de ganadores.",
+   "puntos": [
+    "Salud tiene 5,380 productos activos. La banda de 300 a 10,000 unidades ocupa unas 1,900 posiciones (páginas 0 a 19 de 100).",
+    "Referencia medida: página 1 va de 2,892 a 1,173 unidades; página 5 de 910 a 840; página 10 de 625 a 578; página 15 de 425 a 392; página 20 de 287 a 262.",
+    "La herramienta no filtra por unidades: se pagina de mayor a menor y se filtra al leer cada fila.",
+    "La categoría Salud es casi toda suplementos de marca (GNC, Nutrafol, MaryRuth's): riesgo de marca registrada y registro sanitario. Mejor probar otras categorías o dispositivos de salud.",
+    "Ejemplos leídos, sin validar en Dropi: tensiómetro de brazo Ziqing, 862 unidades, US$136, rating 4.6; Wellah Clear Whey Protein Isolate, 2,162 unidades, US$56.26, rating 4.7 (suplemento: bandera amarilla).",
+    "La facturación es una estimación (precio por unidades vendidas), no un dato medido.",
+    "Siguiente paso: elegir categoría, barrer la banda, cruzar con Dropi GT y entregar 5 productos."
+   ],
+   "recursos": [
+    {
+     "t": "Categoría Salud en TikTok Shop (DropKiller)",
+     "u": "https://app.dropkiller.com/dashboard/tiktok-shop"
+    },
+    {
+     "t": "Skill tiktokshop",
+     "u": "https://github.com/mil0803r-prog/ecompro/blob/claude/cool-dirac-1z286m/.claude/skills/tiktokshop/SKILL.md"
+    }
+   ]
+  }
  }
 }
