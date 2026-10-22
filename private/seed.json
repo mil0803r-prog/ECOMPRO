@@ -15151,6 +15151,50 @@
      "u": "https://github.com/mil0803r-prog/ecompro/blob/claude/cool-dirac-1z286m/.claude/skills/tiktokshop/SKILL.md"
     }
    ]
+  },
+  "2026-10-22_corrida1": {
+   "date": "2026-10-22",
+   "source": "ia",
+   "tipo": "Corrida",
+   "titulo": "Primera corrida: 5 productos de TikTok Shop EE. UU. que faltan en Dropi GT",
+   "resumen": "Filtros: 300 a 10,000 unidades, rating 4.0 o más, precio US$3 a US$60, producto físico sin marca, máximo 3 proveedores en Dropi Guatemala.",
+   "puntos": [
+    "1. Aspiradora peluquera de mascotas 7 en 1 (Pet Groomer vacuum): 8,184 unidades, US$33.72, rating 4.4, facturación estimada US$275,964. Dropi GT: 0 proveedores con este producto (solo aspiradoras de casa). Los cepillos de pelo de mascota sí venden: 82 en 30 días.",
+    "2. Soplete de cocina con llama ajustable (Kitchen Torch): 8,543 unidades, US$31.87, rating 4.7, facturación estimada US$272,265. Dropi GT: 0 resultados para soplete. Bandera amarilla: usa gas propano o butano, revisar si la transportadora lo acepta.",
+    "3. Kit de emergencia para auto de 17 piezas (Car Emergency Survival Kit): 5,575 unidades, US$29.13, rating 4.7, facturación estimada US$162,400. Dropi GT: 0 kits de supervivencia o de auto; solo hay lámparas de emergencia.",
+    "4. Recortador de patas para perro con luz LED (Dog Paw Trimmer): 4,946 unidades, US$18.96, rating 4.5, facturación estimada US$93,776. Dropi GT: 0 recortadores para mascota; el único cortauñas es humano y sin stock.",
+    "5. Dispensador de jabón automático sin contacto (Touchless Soap Dispenser): 4,249 unidades, US$25.04, rating 4.5, facturación estimada US$106,395. Dropi GT: 1 proveedor (60 segundos) con 2 publicaciones y 1 venta en 30 días. Casi sin explotar.",
+    "Alterno: cuerda de salto con contador, 9,340 unidades, US$15.74, rating 4.4. Dropi GT: 1 proveedor (distribuidora gt), 0 ventas.",
+    "Alcance: se leyeron 6 categorías (Hogar, Cocina, Mejoras del hogar, Deportes, Mascotas, Electrónica) en sus 200 primeras posiciones, 850 productos dentro de los filtros. No se barrió la banda completa.",
+    "Limitación: el cruce con Dropi fue por palabras del nombre, no por imagen. Antes de comprar, confirmar con \"Buscar similares\" por imagen en DropKiller.",
+    "Falta: costo de importación o maquila y margen. Los datos de TikTok Shop son ventas acumuladas, no de los últimos 7 días."
+   ],
+   "recursos": [
+    {
+     "t": "Aspiradora peluquera de mascotas 7 en 1 en TikTok Shop",
+     "u": "https://www.tiktok.com/shop/pdp/1731240690531865578"
+    },
+    {
+     "t": "Soplete de cocina con llama ajustable en TikTok Shop",
+     "u": "https://www.tiktok.com/shop/pdp/1731984474269651050"
+    },
+    {
+     "t": "Kit de emergencia para auto de 17 piezas en TikTok Shop",
+     "u": "https://www.tiktok.com/shop/pdp/1730964514850639886"
+    },
+    {
+     "t": "Recortador de patas para perro con luz LED en TikTok Shop",
+     "u": "https://www.tiktok.com/shop/pdp/1731017476228223222"
+    },
+    {
+     "t": "Dispensador de jabón automático sin contacto en TikTok Shop",
+     "u": "https://www.tiktok.com/shop/pdp/1731213868564779973"
+    },
+    {
+     "t": "Dropi Guatemala · buscar producto",
+     "u": "https://app.dropi.gt/dashboard/search"
+    }
+   ]
   }
  }
 }
