@@ -43,12 +43,12 @@
     if (ev.data.meta) {
       var mu = String(ev.data.url || "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 90);
       dbg.red = dbg.red || {};
-      if (dbg.red[mu] || Object.keys(dbg.red).length < 40) { var o = dbg.red[mu] || (dbg.red[mu] = { n: 0 }); o.n++; o.ct = ev.data.ct; o.st = ev.data.st; }
+      if (dbg.red[mu] || Object.keys(dbg.red).length < 40) { var o = dbg.red[mu] || (dbg.red[mu] = { n: 0 }); o.n++; o.ct = ev.data.ct; o.st = ev.data.st; if (ev.data.m) o.m = ev.data.m; if (ev.data.rt) o.rt = ev.data.rt; if (ev.data.skip) { o.skip = ev.data.skip; o.len = ev.data.len; o.ini = ev.data.ini; } }
       if (!dtimer) dtimer = setTimeout(guardarDbg, 2000);
       return;
     }
     var json;
-    try { json = JSON.parse(ev.data.texto); } catch (e) { return; }
+    try { json = JSON.parse(ev.data.texto); } catch (e) { dbg.noparse = (dbg.noparse || 0) + 1; return; }
     dbg.json++;
     var yaPedidos = false;
     var up = String(ev.data.url || "").replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 70);

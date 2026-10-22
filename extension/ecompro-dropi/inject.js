@@ -22,14 +22,18 @@
     var ks = Object.keys(REQ);
     if (ks.length > 60) delete REQ[ks[0]];
   }
-  function meta(url, ct, len, st) {
-    try { window.postMessage({ src: "ecompro-dropi", meta: true, url: String(url).slice(0, 200), ct: String(ct || "").slice(0, 40), len: len, st: st }, "*"); } catch (e) {}
+  function meta(url, ct, len, st, extra) {
+    try { window.postMessage(Object.assign({ src: "ecompro-dropi", meta: true, url: String(url).slice(0, 200), ct: String(ct || "").slice(0, 40), len: len, st: st }, extra || {}), "*"); } catch (e) {}
   }
   function enviar(url, texto) {
     try {
-      if (!texto || texto.length > 8e6 || texto.charAt(0) !== "{" && texto.charAt(0) !== "[") return;
+      var motivo = "";
+      if (!texto) motivo = "vacio";
+      else if (texto.length > 6e7) motivo = "muy-grande";
+      else if (texto.charAt(0) !== "{" && texto.charAt(0) !== "[") motivo = "no-json";
+      if (motivo) { meta(url, "", texto ? texto.length : 0, 0, { skip: motivo, ini: String(texto || "").slice(0, 40).replace(/\d/g, "#") }); return; }
       window.postMessage({ src: "ecompro-dropi", url: abs(url).slice(0, 600), texto: texto }, "*");
-    } catch (e) {}
+    } catch (e) { meta(url, "", 0, 0, { skip: "error: " + String(e && e.message || e).slice(0, 60) }); }
   }
   var of = window.fetch;
   if (of) {
@@ -44,7 +48,7 @@
         try {
           var u = (args[0] && args[0].url) || args[0];
           var ct = (r.headers && r.headers.get && r.headers.get("content-type")) || "";
-          meta(u, ct, +(r.headers.get("content-length") || 0), r.status);
+          meta(u, ct, +(r.headers.get("content-length") || 0), r.status, { m: String((args[1] && args[1].method) || (args[0] && args[0].method) || "GET") });
           if (/json/i.test(ct)) r.clone().text().then(function (t) { enviar(u, t); }).catch(function () {});
         } catch (e) {}
         return r;
@@ -59,7 +63,7 @@
     try { guardarReq(x.__ecu, x.__ecm, x.__ech, body); } catch (e) {}
     x.addEventListener("load", function () {
       try {
-        meta(x.__ecu, x.getResponseHeader("content-type"), 0, x.status);
+        meta(x.__ecu, x.getResponseHeader("content-type"), 0, x.status, { m: String(x.__ecm || "GET"), rt: x.responseType || "text" });
         if (x.responseType === "" || x.responseType === "text") enviar(x.__ecu, x.responseText);
         else if (x.responseType === "json" && x.response) enviar(x.__ecu, JSON.stringify(x.response));
       } catch (e) {}
