@@ -15,7 +15,7 @@
 // @grant        GM_notification
 // @grant        GM_setClipboard
 // @grant        GM_openInTab
-// @connect      *
+// @connect      ecompro-iota.vercel.app
 // @updateURL    https://ecompro-iota.vercel.app/dropi-live.user.js
 // @downloadURL  https://ecompro-iota.vercel.app/dropi-live.user.js
 // ==/UserScript==
