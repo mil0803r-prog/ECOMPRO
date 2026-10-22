@@ -4,7 +4,7 @@
   var cola = {};
   var timer = null;
   var stats = { capturados: 0, pedidos: 0, urls: {} };
-  function huella(p) { return [p.s, p.g, p.tr, p.nv, p.v, p.a, p.cl, p.p].join("|"); }
+  function huella(p) { return [p.s, p.g, p.tr, p.nv, p.v, p.a, p.cl, p.p, p.tl].join("|"); }
   function enviar() {
     timer = null;
     var lista = Object.keys(cola).map(function (k) { return cola[k]; });
