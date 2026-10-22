@@ -40,9 +40,20 @@ async function seedSync() {
   const legacy = (await redis(["GET", "ec:seeded"])) === "1" && done.size === 0;
   for (const col of Object.keys(seed)) {
     for (const id of Object.keys(seed[col])) {
-      const tag = col + "/" + id;
+      const doc = seed[col][id];
+      const v = doc && typeof doc === "object" && doc._seedv;
+      const tag = col + "/" + id + (v ? "@v" + v : "");
       if (done.has(tag)) continue;
-      await redis(["HSETNX", "ec:" + col, id, JSON.stringify(seed[col][id])]);
+      if (v) {
+        // Documento con versión: reemplaza el contenido pero conserva lo que el usuario cambió.
+        const { _seedv, ...fresh } = doc;
+        let cur = null;
+        try { cur = JSON.parse(await redis(["HGET", "ec:" + col, id])); } catch (e) {}
+        if (cur) for (const k of ["e", "fav", "c", "com", "cr"]) if (cur[k] !== undefined) fresh[k] = cur[k];
+        await redis(["HSET", "ec:" + col, id, JSON.stringify(fresh)]);
+      } else {
+        await redis(["HSETNX", "ec:" + col, id, JSON.stringify(doc)]);
+      }
       await redis(["SADD", "ec:seeded_ids", tag]);
     }
   }

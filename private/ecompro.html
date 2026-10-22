@@ -2870,6 +2870,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       '<a href="https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=GT&q='+q+'" target="_blank" rel="noopener">Anuncios en Meta (GT)</a> · '+
       '<a href="https://www.amazon.com/s?k='+q+'" target="_blank" rel="noopener">Amazon</a> · '+
       '<a href="https://www.aliexpress.com/wholesale?SearchText='+q+'" target="_blank" rel="noopener">AliExpress</a>';
+    var xl=(Array.isArray(r.links)?r.links:[]).filter(function(k){return k&&url(k.u)&&k.t}).map(function(k){return '<a href="'+E(k.u)+'" target="_blank" rel="noopener" style="font-weight:700">'+E(k.t)+'</a>'});
+    if(xl.length)links=xl.join(' · ')+'<br>'+links;
     var dis=can?'':' disabled';
     return '<article class="card" data-id="'+E(r.id)+'" style="display:flex;flex-direction:column;gap:8px">'+
       '<div style="display:flex;gap:10px;align-items:flex-start"><button type="button" class="star" data-a="fav" aria-pressed="'+!!r.fav+'" aria-label="Favorito"'+dis+'>★</button>'+
