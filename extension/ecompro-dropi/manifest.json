@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ECOMPRO",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "ECOMPRO: lee los pedidos que Dropi muestra en tu pantalla y los manda a tu tablero. No usa la API de Dropi.",
   "permissions": [
     "storage",

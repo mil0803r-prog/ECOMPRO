@@ -22,10 +22,14 @@
     var ks = Object.keys(REQ);
     if (ks.length > 60) delete REQ[ks[0]];
   }
+  // Nunca se leen ni se anotan las direcciones de credenciales, contraseñas, tokens o sesión.
+  var SENSIBLE = /credential|password|passwd|token|secret|login|logout|auth|session|apikey|api-key|oauth|confio|payment|pago|bank|banco|card|tarjeta/i;
   function meta(url, ct, len, st, extra) {
+    if (SENSIBLE.test(String(url))) return;
     try { window.postMessage(Object.assign({ src: "ecompro-dropi", meta: true, url: String(url).slice(0, 200), ct: String(ct || "").slice(0, 40), len: len, st: st }, extra || {}), "*"); } catch (e) {}
   }
   function enviar(url, texto) {
+    if (SENSIBLE.test(String(url))) return;
     try {
       var motivo = "";
       if (!texto) motivo = "vacio";
