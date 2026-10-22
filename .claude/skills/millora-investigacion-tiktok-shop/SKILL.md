@@ -1,9 +1,9 @@
 ---
-name: tiktokshop
-description: Radar de productos ganadores desde TikTok Shop EE. UU. (DropKiller) cruzado contra Dropi Guatemala. Busca productos ya validados en EE. UU. (300 a 10,000 unidades) que casi no existen en Dropi GT (máximo 3 proveedores) para importar, maquilar o testear. Úsala cuando digan "tiktok shop", "investigación tiktok shop", "joyas ocultas", "productos validados en EE. UU.".
+name: millora-investigacion-tiktok-shop
+description: Radar de productos ganadores desde TikTok Shop EE. UU. (DropKiller) cruzado contra Dropi Guatemala. Busca productos ya validados en EE. UU. (300 a 10,000 unidades) que casi no existen en Dropi GT (máximo 3 proveedores) para importar, maquilar o testear. Úsala cuando digan "millora investigación tiktok shop", "investigación tiktok shop", "tiktok shop", "investigación tiktok shop", "joyas ocultas", "productos validados en EE. UU.".
 ---
 
-# TIKTOKSHOP: productos validados en EE. UU. que faltan en Dropi Guatemala
+# MILLORA INVESTIGACIÓN TIK TOK SHOP: productos validados en EE. UU. que faltan en Dropi Guatemala
 
 Método aparte de `cazadiaria`. Aquí la señal de venta viene de TikTok Shop EE. UU. y se cruza con la oferta de Dropi GT. Origen: método enseñado por el dueño (función TikTok Shop de DropKiller).
 
@@ -33,6 +33,8 @@ Método aparte de `cazadiaria`. Aquí la señal de venta viene de TikTok Shop EE
 - Los "bundles" y "packs" de marca inflan la facturación: agrupar variantes del mismo producto antes de puntuar.
 
 ## Salida
+Los productos van a la sección "Investigación TikTok Shop" del tablero ECOMPRO (colección `tiktokshop`, un documento por producto con date, n, l, cat, p, c, com, v, cr, e, nt, fav, updated). El tablero en Vercel se alimenta de `private/seed.json` al desplegar; yo no puedo escribir en esa base en vivo. El precio de la sección está en quetzales: convertir de dólares a Q7.70 y dejar el precio en USD en la nota. Estado inicial "revisar", costo vacío.
+
 Lista de 5 productos con: nombre en inglés y en español, foto, enlace TikTok Shop, precio USD, unidades, facturación estimada, rating, vendedor, proveedores encontrados en Dropi GT (con ID), ruta recomendada (proveedor local, importación o maquila), banderas, y ángulos de anuncio observados. Si no hay 5, decir cuántos hubo y qué filtro cortó más. Nunca inventar cifras.
 
 ## Memoria
