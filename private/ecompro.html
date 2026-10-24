@@ -1862,8 +1862,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   window.ecIsFz=isFz;window.ecGuiaLink=glink;window.ecCarr=carr;window.ecRAST=RAST;
   function tlink(t){var s=String(t||'').replace(/[^\d+]/g,''),d=s.replace(/\D/g,''),w=d.length===8?'502'+d:d;return w.length>=8?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener" title="Abrir WhatsApp" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(s)+'</a>':esc(s)}
   function stCell(o){
-    var pe=window.ecPedX,man=!!(pe&&pe.manual&&pe.manual(o.n)),bloq=/^[EDC]$/.test(o.s)&&!man;
-    if(bloq)return '<span class="pill '+ST[o.s][1]+'" title="Estado final: no se cambia a mano">'+ST[o.s][0]+'</span>';
+    var pe=window.ecPedX,man=!!(pe&&pe.manual&&pe.manual(o.n)),bloq=/^[EDC]$/.test(o.s);
+    if(bloq)return '<span class="pill '+ST[o.s][1]+'" title="Estado final: ya no se puede cambiar">'+ST[o.s][0]+'</span>'+(man?'<span class="sub" title="Marcado a mano" style="margin-left:3px">✎</span>':'');
     return '<select class="stsel '+ST[o.s][1]+'" data-n="'+o.n+'" aria-label="Estado del pedido '+o.n+'" title="'+(man?'Cambiado a mano: ':'')+'Cambiar estado">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===o.s?' selected':'')+'>'+ST[k][0]+'</option>'}).join("")+'</select>'+(man?'<span class="sub" title="Cambiado a mano" style="margin-left:3px">✎</span>':'')}
   function xc(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>',pn=window.ecProd?window.ecProd.of(o):"";return '<td>'+(X.g?glink(X,esc):d)+'</td><td>'+(X.c?esc(X.c):d)+'</td><td style="white-space:nowrap">'+(X.tl?tlink(X.tl):d)+'</td><td>'+(pn&&pn!=="Sin producto"?esc(pn):d)+'</td>'}
   function rOrd(keepFocus){
@@ -1896,7 +1896,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";$("o-trans").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
   window.ecStCell=stCell;
   window.ecStChange=function(s){if(!s||!window.ecPedX)return;var c=s.value;
-    if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después solo lo podrás deshacer desde aquí. ¿Seguro?")){rOrd();document.dispatchEvent(new Event("ecprod"));return}
+    if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después ya no se podrá cambiar. ¿Seguro?")){rOrd();document.dispatchEvent(new Event("ecprod"));return}
     window.ecPedX.setState(s.dataset.n,c)};
   obody.addEventListener("change",function(ev){var s=ev.target.closest&&ev.target.closest(".stsel");if(s)window.ecStChange(s)});
   obody.addEventListener("click",function(ev){
@@ -3956,7 +3956,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   window.ecPedX={all:function(){return MAP},get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length},
     manual:function(n){return !!(MAP[n]&&MAP[n].sm)},
     setState:function(n,code){var o=ordSet()[n];if(!o||!/^[EDCRGKPFIJ]$/.test(code))return false;
-      var m=MAP[n]||(MAP[n]={});if(!m.sm&&/^[EDC]$/.test(o.s))return false;
+      var m=MAP[n]||(MAP[n]={});if(/^[EDC]$/.test(o.s))return false;
       if(!m.sm)m.sb=o.s;m.sm=code;if(code===m.sb){delete m.sm;delete m.sb}
       o.s=code;persist();refresh();return true}};
   function norm(t){return String(t==null?"":t).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim()}
@@ -4015,7 +4015,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function addNew(n,x){var DEP=window.__DEP||{};var o={n:n,d:x.d,t:x.t||"",s:x.s||"P",c:x.c||"",v:x.v||0,dep:DEP[x.c]||x.dp||"Sin determinar",nuevo:1};(window.__ORD||[]).push(o)}
   function mergeNew(){var set=ordSet(),drop=false;Object.keys(NEWO).forEach(function(n){if(!set[n])addNew(n,NEWO[n])});
     Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s;if(o&&MAP[n].dp&&o.dep==="Sin determinar")o.dep=MAP[n].dp;
-      var m=MAP[n];if(o&&m.sm){if(o.s===m.sb)o.s=m.sm;else if(o.s!==m.sm){delete m.sm;delete m.sb;drop=true}}});
+      var m=MAP[n];if(o&&m.sm){if(/^[EDC]$/.test(m.sm))o.s=m.sm;else if(o.s===m.sb)o.s=m.sm;else if(o.s!==m.sm){delete m.sm;delete m.sb;drop=true}}});
     if(drop)persist();
     var O=window.__ORD||[];O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
   function prev(){
