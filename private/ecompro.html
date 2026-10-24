@@ -419,6 +419,14 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .cal-d .t{font-weight:800;font-size:.95rem;line-height:1}
 .cal-d .p{display:flex;flex-wrap:wrap;gap:2px 5px;font-weight:700}
 .cal-d.hoy{border-color:var(--cel);box-shadow:0 0 0 1px var(--cel)}
+.cal-mini{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:0 0 12px;background:var(--bg)}
+.cal-mini .cm{display:grid;grid-template-columns:minmax(140px,1.1fr) 2fr minmax(90px,auto);gap:4px 12px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line)}
+.cal-mini .cm:last-child{border-bottom:0}
+.cal-mini .l{font-weight:700}
+.cal-mini .d{color:var(--muted);font-size:.8rem}
+.cal-mini b{text-align:right;white-space:nowrap}
+.cal-mini .tot{background:color-mix(in srgb,var(--cel) 10%,var(--bg));font-size:1.05rem}
+@media(max-width:520px){.cal-mini .cm{grid-template-columns:1fr auto}.cal-mini .d{grid-column:1/-1;order:3}}
 .cal-cols{display:flex;align-items:flex-end;gap:3px;height:170px;padding-top:6px}
 .cal-cols .c{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;gap:0}
 .cal-cols .c .s{display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden}
@@ -3279,7 +3287,13 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     L.sort(function(x,y){return (y.t||"").localeCompare(x.t||"")||(+y.n)-(+x.n)});
     var t=a.getUTCDate()+" de "+MES[a.getUTCMonth()]+" de "+a.getUTCFullYear();
     var AD=agg(function(d){return d})[S.dia]||nuevo();
-    el.innerHTML='<h3 style="margin:4px 0 8px">Pedidos del '+t+' · '+L.length+'</h3><p class="sub" style="margin:0 0 8px">Ganancia de los entregados '+mq(AD.base)+' − Meta '+mq(AD.pm)+' − TikTok '+mq(AD.pt)+' − devoluciones '+mq(AD.dv)+' = <b class="'+(neto(AD)>=0?'npos':'nneg')+'">'+sg(neto(AD))+'</b> <span class="mc">GTQ</span></p>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
+    el.innerHTML='<h3 style="margin:4px 0 8px">Pedidos del '+t+' · '+L.length+'</h3><div class="cal-mini" role="table" aria-label="Resumen del día">'+
+      '<div class="cm" role="row"><span class="l" role="cell">Pedidos entregados</span><span class="d" role="cell">'+AD.e+(AD.e===1?' pedido':' pedidos')+' · venta '+mq(AD.ve)+'</span><b class="npos" role="cell">+'+mq(AD.base)+'</b></div>'+
+      '<div class="cm" role="row"><span class="l" role="cell">Pedidos devueltos</span><span class="d" role="cell">'+AD.d+(AD.d===1?' pedido':' pedidos')+(G().st.devs?' × '+(G().st.devq>=0?+G().st.devq:30)+' de flete':' (no se resta)')+'</span><b class="nneg" role="cell">'+(G().st.devs&&AD.dv?'−'+mq(AD.dv):mq(0))+'</b></div>'+
+      '<div class="cm" role="row"><span class="l" role="cell">Gasto Meta Ads</span><span class="d" role="cell">Facebook e Instagram</span><b class="nneg" role="cell">'+(AD.pm?'−'+mq(AD.pm):mq(0))+'</b></div>'+
+      '<div class="cm" role="row"><span class="l" role="cell">Gasto TikTok Ads</span><span class="d" role="cell">Cuentas de TikTok</span><b class="nneg" role="cell">'+(AD.pt?'−'+mq(AD.pt):mq(0))+'</b></div>'+
+      '<div class="cm tot" role="row"><span class="l" role="cell">Ingreso neto del día</span><span class="d" role="cell">sin gastos fijos ni variables</span><b class="'+(neto(AD)>=0?'npos':'nneg')+'" role="cell">'+sg(neto(AD))+' <span class="mc">GTQ</span></b></div>'+
+    '</div>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
   }
   function render(){
     if(!$("cal-box"))return;var ORD=window.__ORD||[];
