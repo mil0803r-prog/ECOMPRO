@@ -1379,10 +1379,10 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div id="cal-dia"></div>
       <div id="cal-graf"></div>
       <div class="tbl" id="cal-tw"><table id="cal-tabla" style="min-width:720px">
-        <thead><tr><th id="cal-th">Día</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">Cancelados</th><th class="num">Incidencias</th><th class="num">En proceso</th><th class="num">% entrega</th></tr></thead>
+        <thead><tr><th id="cal-th">Día</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">Cancelados</th><th class="num">Incidencias</th><th class="num">En proceso</th><th class="num">% entrega</th><th class="num">Gasto Meta <span class="mc">GTQ</span></th><th class="num">Gasto TikTok <span class="mc">GTQ</span></th><th class="num">Neto del día <span class="mc">GTQ</span></th></tr></thead>
         <tbody id="cal-body"></tbody><tfoot><tr id="cal-foot"></tr></tfoot>
       </table></div>
-      <p class="foot">% entrega = entregados ÷ (entregados + devueltos): solo cuenta pedidos que ya tuvieron resultado. Incidencias = incidencia validada o en ruta. En proceso = pendiente de confirmar, pendiente, guía generada, recolectado o en ruta. Se actualiza cuando me pides "actualiza".</p>
+      <p class="foot">% entrega = entregados ÷ (entregados + devueltos): solo cuenta pedidos que ya tuvieron resultado. Incidencias = incidencia validada o en ruta. En proceso = pendiente de confirmar, pendiente, guía generada, recolectado o en ruta. Se actualiza cuando me pides "actualiza". <b>Neto del día</b> = ganancia estimada de los pedidos entregados que se hicieron ese día (su venta × el margen del mes según Lumy) − gasto de Meta y TikTok de ese día − devoluciones (con el costo por devolución de Utilidad neta). No incluye gastos fijos ni variables, que se cuentan por mes. La pauta de TikTok llega hasta la última actualización de TikTok y la de Meta hasta ayer; un pedido entregado cuenta en la fecha en que se hizo, no en la que se entregó.</p>
     </div>
   </section>
 
@@ -3244,9 +3244,26 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function iso(x){return x.toISOString().slice(0,10)}
   function lunes(d){var x=dt(d);x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return iso(x)}
   function sumar(d,n){var x=dt(d);x.setUTCDate(x.getUTCDate()+n);return iso(x)}
-  function agg(fn){var M={};(window.__ORD||[]).forEach(function(o){if(!o.d)return;var k=fn(o.d),r=M[k]||(M[k]={e:0,d:0,c:0,i:0,p:0,t:0});r[grp(o.s)]++;r.t++});return M}
+  var EX=["ve","base","pm","pt","dv"];
+  function G(){return window.ecGan||{MG:[],st:{pauta:true,devs:true,devq:30,base:"lumy"},rate:function(){return 0.4504}}}
+  function ratio(mes){var g=G(),m=g.MG.filter(function(r){return r[0]===mes})[0];if(!m||!m[3])return 0;return (g.st.base==="lumy"?m[6]:m[3]-m[4]-m[5])/m[3]}
+  function gastoDia(){
+    var rt=G().rate()||0.4504,M={};
+    ((window.__C)||[]).forEach(function(c){(c.rows||[]).forEach(function(x){var k="2026-"+x[0];(M[k]=M[k]||{pm:0,pt:0}).pm+=x[2]/rt})});
+    ((window.__TT)||[]).forEach(function(a){if(!a.data)return;a.data.rows.forEach(function(x){if(x[0]<"2026-01")return;(M[x[0]]=M[x[0]]||{pm:0,pt:0}).pt+=x[2]/rt})});
+    return M}
+  function nuevo(){return{e:0,d:0,c:0,i:0,p:0,t:0,ve:0,base:0,pm:0,pt:0,dv:0}}
+  function neto(r){var st=G().st;return r.base-(st.pauta?r.pm+r.pt:0)-(st.devs?r.dv:0)}
+  function agg(fn){var M={},rt={},g=G(),FLQ=g.st.devq>=0?+g.st.devq:30,GD=gastoDia();
+    (window.__ORD||[]).forEach(function(o){if(!o.d)return;var k=fn(o.d),r=M[k]||(M[k]=nuevo());r[grp(o.s)]++;r.t++;
+      var mes=o.d.slice(0,7);if(o.s==="E"){r.ve+=+o.v||0;if(!(mes in rt))rt[mes]=ratio(mes);r.base+=(+o.v||0)*rt[mes]}
+      if(o.s==="D")r.dv+=FLQ});
+    Object.keys(GD).forEach(function(d){var k=fn(d),r=M[k]||(M[k]=nuevo());r.pm+=GD[d].pm;r.pt+=GD[d].pt});
+    return M}
   function ef(r){var z=r.e+r.d;return z?Math.round(r.e/z*100)+"%":"–"}
-  function tot(rs){return rs.reduce(function(a,r){KS.concat("t").forEach(function(k){a[k]=(a[k]||0)+r[k]});return a},{e:0,d:0,c:0,i:0,p:0,t:0})}
+  function tot(rs){return rs.reduce(function(a,r){KS.concat("t",EX).forEach(function(k){a[k]=(a[k]||0)+(r[k]||0)});return a},nuevo())}
+  function mq(v){return '<span class="mq" data-q="'+Math.round(v)+'"></span>'}
+  function sg(v){return (v>=0?'+':'−')+mq(Math.abs(v))}
   function f0(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")}
   function etSem(k){var a=dt(k),b=dt(sumar(k,6));return a.getUTCDate()+" "+MES[a.getUTCMonth()].slice(0,3)+" – "+b.getUTCDate()+" "+MES[b.getUTCMonth()].slice(0,3)}
   function chart(items,small){
@@ -3261,13 +3278,14 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var L=(window.__ORD||[]).filter(function(o){return o.d===S.dia}),a=dt(S.dia);
     L.sort(function(x,y){return (y.t||"").localeCompare(x.t||"")||(+y.n)-(+x.n)});
     var t=a.getUTCDate()+" de "+MES[a.getUTCMonth()]+" de "+a.getUTCFullYear();
-    el.innerHTML='<h3 style="margin:4px 0 8px">Pedidos del '+t+' · '+L.length+'</h3>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
+    var AD=agg(function(d){return d})[S.dia]||nuevo();
+    el.innerHTML='<h3 style="margin:4px 0 8px">Pedidos del '+t+' · '+L.length+'</h3><p class="sub" style="margin:0 0 8px">Ganancia de los entregados '+mq(AD.base)+' − Meta '+mq(AD.pm)+' − TikTok '+mq(AD.pt)+' − devoluciones '+mq(AD.dv)+' = <b class="'+(neto(AD)>=0?'npos':'nneg')+'">'+sg(neto(AD))+'</b> <span class="mc">GTQ</span></p>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
   }
   function render(){
     if(!$("cal-box"))return;var ORD=window.__ORD||[];
     $("cal-modo").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===S.m)});
     $("cal-leg").innerHTML=KS.map(function(k){return '<span><i style="background:'+NM[k][1]+'"></i>'+NM[k][0]+'</span>'}).join("");
-    if(!ORD.length){$("cal-body").innerHTML='<tr><td colspan="8">Aún no hay pedidos cargados.</td></tr>';return}
+    if(!ORD.length){$("cal-body").innerHTML='<tr><td colspan="11">Aún no hay pedidos cargados.</td></tr>';return}
     var rows=[],items=[],tit="",th="Día",hoy=iso(new Date());
     var days=agg(function(d){return d}),all=Object.keys(days).sort(),maxM=all[all.length-1].slice(0,7),minM=all[0].slice(0,7);
     if(!S.mes||S.mes>maxM||S.mes<minM)S.mes=maxM;
@@ -3278,10 +3296,10 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       for(var d=1;d<=n;d++){var k=S.mes+"-"+(d<10?"0":"")+d,r=days[k]||{e:0,d:0,c:0,i:0,p:0,t:0};rows.push({k:k,lab:d+" de "+MES[mo],r:r});items.push({r:r,lab:String(d),tip:d+" de "+MES[mo]})}
       var first=(dt(S.mes+"-01").getUTCDay()+6)%7,g='<div class="cal-grid">'+DIA.map(function(x){return '<div class="h">'+x+'</div>'}).join("");
       for(var i=0;i<first;i++)g+='<div class="cal-d o"></div>';
-      rows.forEach(function(x,i){var r=x.r;g+='<button type="button" class="cal-d'+(x.k===hoy?" hoy":"")+(x.k===S.dia?" sel":"")+'" data-k="'+x.k+'"><span class="n">'+(i+1)+'</span>'+(r.t?'<span class="t">'+r.t+'</span><span class="p">'+(r.e?'<span style="color:var(--verde)">'+r.e+'E</span>':"")+(r.d?'<span style="color:var(--rojo)">'+r.d+'D</span>':"")+(r.c?'<span style="color:var(--gris)">'+r.c+'C</span>':"")+(r.i+r.p?'<span style="color:var(--azul)">'+(r.i+r.p)+'P</span>':"")+'</span>':"")+'</button>'});
+      rows.forEach(function(x,i){var r=x.r;g+='<button type="button" class="cal-d'+(x.k===hoy?" hoy":"")+(x.k===S.dia?" sel":"")+'" data-k="'+x.k+'"><span class="n">'+(i+1)+'</span>'+(r.t?'<span class="t">'+r.t+'</span><span class="p">'+(r.e?'<span style="color:var(--verde)">'+r.e+'E</span>':"")+(r.d?'<span style="color:var(--rojo)">'+r.d+'D</span>':"")+(r.c?'<span style="color:var(--gris)">'+r.c+'C</span>':"")+(r.i+r.p?'<span style="color:var(--azul)">'+(r.i+r.p)+'P</span>':"")+'</span>':"")+((r.pm+r.pt)>0?'<span class="p" style="color:var(--amar)" title="Gasto en Meta + TikTok">−'+mq(r.pm+r.pt)+'</span>':"")+((r.t||(r.pm+r.pt)>0)?'<span class="p" style="font-weight:800;color:'+(neto(r)>=0?'var(--verde)':'var(--rojo)')+'" title="Neto estimado del día">'+sg(neto(r))+'</span>':"")+'</button>'});
       $("cal-grid-w").innerHTML=g+'</div><p class="sub" style="margin:6px 0 0">E entregados · D devueltos · C cancelados · P en proceso o con incidencia. Toca un día para ver sus pedidos.</p>';
       $("cal-prev").disabled=S.mes<=minM;$("cal-next").disabled=S.mes>=maxM;
-      rows=rows.filter(function(x){return x.r.t}).reverse();
+      rows=rows.filter(function(x){return x.r.t||x.r.pm||x.r.pt}).reverse();
       diaPanel();
     }else{
       $("cal-dia").innerHTML="";
@@ -3301,11 +3319,14 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     $("cal-kpis").innerHTML='<div class="card kpi"><h3>Pedidos</h3><div class="big">'+f0(T.t)+'</div><div class="sub">'+(S.m==="dia"?tit:S.m==="semana"?tit:"desde el inicio")+'</div></div>'+
       '<div class="card kpi"><h3>Entregados</h3><div class="big tv">'+f0(T.e)+'</div><div class="sub">'+(T.t?Math.round(T.e/T.t*100):0)+'% del total</div></div>'+
       '<div class="card kpi"><h3>Devueltos</h3><div class="big tr_">'+f0(T.d)+'</div><div class="sub">'+(T.t?Math.round(T.d/T.t*100):0)+'% del total</div></div>'+
-      '<div class="card kpi"><h3>% de entrega</h3><div class="big">'+ef(T)+'</div><div class="sub">entregados ÷ (entregados + devueltos)</div></div>';
+      '<div class="card kpi"><h3>% de entrega</h3><div class="big">'+ef(T)+'</div><div class="sub">entregados ÷ (entregados + devueltos)</div></div>'+
+      '<div class="card kpi"><h3>Gasto Meta + TikTok · <span class="mc">GTQ</span></h3><div class="big ta">'+mq(T.pm+T.pt)+'</div><div class="sub">Meta '+mq(T.pm)+' · TikTok '+mq(T.pt)+'</div></div>'+
+      '<div class="card kpi"><h3>Neto estimado · <span class="mc">GTQ</span></h3><div class="big '+(neto(T)>=0?"tv":"tr_")+'">'+sg(neto(T))+'</div><div class="sub">ganancia − pauta − devoluciones</div></div>';
     $("cal-graf").hidden=$("cal-tw").hidden=S.m==="dia";if($("cal-tw").previousElementSibling&&$("cal-tw").previousElementSibling.classList.contains("vswrap"))$("cal-tw").previousElementSibling.hidden=S.m==="dia";
     chart(items,true);
-    $("cal-body").innerHTML=rows.length?rows.map(function(x){var r=x.r;return '<tr><td><b>'+x.lab+'</b></td><td class="num">'+r.t+'</td><td class="num npos">'+r.e+'</td><td class="num nneg">'+r.d+'</td><td class="num">'+r.c+'</td><td class="num">'+r.i+'</td><td class="num">'+r.p+'</td><td class="num">'+ef(r)+'</td></tr>'}).join(""):'<tr><td colspan="8">Sin pedidos en este mes.</td></tr>';
-    $("cal-foot").innerHTML='<td>Total</td><td class="num">'+T.t+'</td><td class="num npos">'+T.e+'</td><td class="num nneg">'+T.d+'</td><td class="num">'+T.c+'</td><td class="num">'+T.i+'</td><td class="num">'+T.p+'</td><td class="num">'+ef(T)+'</td>';
+    $("cal-body").innerHTML=rows.length?rows.map(function(x){var r=x.r;return '<tr><td><b>'+x.lab+'</b></td><td class="num">'+r.t+'</td><td class="num npos">'+r.e+'</td><td class="num nneg">'+r.d+'</td><td class="num">'+r.c+'</td><td class="num">'+r.i+'</td><td class="num">'+r.p+'</td><td class="num">'+ef(r)+'</td><td class="num">'+(r.pm?'−'+mq(r.pm):'<span class="sub">–</span>')+'</td><td class="num">'+(r.pt?'−'+mq(r.pt):'<span class="sub">–</span>')+'</td><td class="num"><b class="'+(neto(r)>=0?'npos':'nneg')+'">'+sg(neto(r))+'</b></td></tr>'}).join(""):'<tr><td colspan="11">Sin pedidos en este mes.</td></tr>';
+    $("cal-foot").innerHTML='<td>Total</td><td class="num">'+T.t+'</td><td class="num npos">'+T.e+'</td><td class="num nneg">'+T.d+'</td><td class="num">'+T.c+'</td><td class="num">'+T.i+'</td><td class="num">'+T.p+'</td><td class="num">'+ef(T)+'</td><td class="num">−'+mq(T.pm)+'</td><td class="num">−'+mq(T.pt)+'</td><td class="num"><b class="'+(neto(T)>=0?'npos':'nneg')+'">'+sg(neto(T))+'</b></td>';
+    if(window.ecFx&&window.ecFx.apply)window.ecFx.apply();
   }
   function sv2(){try{localStorage.setItem("ec_cal",JSON.stringify({m:S.m}))}catch(e){}}
   $("cal-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;sv2();render()});
