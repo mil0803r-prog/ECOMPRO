@@ -114,6 +114,8 @@ td.num{font-weight:600}
 .chip.r[aria-pressed="true"]{background:var(--rojo);border-color:var(--rojo)}
 .btn{font:inherit;font-size:.85rem;font-weight:600;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
 .chk{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:500}
+.stsel{font:inherit;font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 6px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;max-width:150px}
+.stsel.a{border-color:var(--amar);color:#8a5a00}.stsel.r{border-color:var(--rojo);color:var(--rojo)}.stsel.v{border-color:var(--verde);color:var(--verde)}
 .star{font:inherit;font-size:1.1rem;line-height:1;background:none;border:0;cursor:pointer;color:var(--line);padding:2px 4px}
 .star[aria-pressed="true"]{color:var(--amar)}
 .lkchip{display:inline-flex;align-items:stretch;margin:0 6px 6px 0;border:1px solid var(--line);border-radius:99px;background:var(--card);overflow:hidden;font-size:.8rem;font-weight:600;max-width:100%}
@@ -1855,6 +1857,10 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function glink(X,esc2){var c=carr(X);if(!c)return esc2(X.g);return '<a class="gl" href="'+RAST[c][0]+'#guia='+encodeURIComponent(X.g)+'" target="_blank" rel="noopener" data-g="'+esc2(X.g)+'" data-c="'+c+'" title="Copiar la guía y abrir el rastreo de '+RAST[c][1]+'">'+esc2(X.g)+'</a>'}
   window.ecIsFz=isFz;window.ecGuiaLink=glink;window.ecCarr=carr;window.ecRAST=RAST;
   function tlink(t){var s=String(t||'').replace(/[^\d+]/g,''),d=s.replace(/\D/g,''),w=d.length===8?'502'+d:d;return w.length>=8?'<a href="https://wa.me/'+w+'" target="_blank" rel="noopener" title="Abrir WhatsApp" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(s)+'</a>':esc(s)}
+  function stCell(o){
+    var pe=window.ecPedX,man=!!(pe&&pe.manual&&pe.manual(o.n)),bloq=/^[EDC]$/.test(o.s)&&!man;
+    if(bloq)return '<span class="pill '+ST[o.s][1]+'" title="Estado final: no se cambia a mano">'+ST[o.s][0]+'</span>';
+    return '<select class="stsel '+ST[o.s][1]+'" data-n="'+o.n+'" aria-label="Estado del pedido '+o.n+'" title="'+(man?'Cambiado a mano: ':'')+'Cambiar estado">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===o.s?' selected':'')+'>'+ST[k][0]+'</option>'}).join("")+'</select>'+(man?'<span class="sub" title="Cambiado a mano" style="margin-left:3px">✎</span>':'')}
   function xc(o){var X=(window.ecPedX&&window.ecPedX.get(o.n))||{},d='<span class="sub">–</span>',pn=window.ecProd?window.ecProd.of(o):"";return '<td>'+(X.g?glink(X,esc):d)+'</td><td>'+(X.c?esc(X.c):d)+'</td><td style="white-space:nowrap">'+(X.tl?tlink(X.tl):d)+'</td><td>'+(pn&&pn!=="Sin producto"?esc(pn):d)+'</td>'}
   function rOrd(keepFocus){
     zsel();zrender();zonaCard();
@@ -1871,7 +1877,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
       return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
         '<td class="num" style="text-align:left">'+o.n+'</td>'+xc(o)+'<td style="white-space:nowrap">'+o.d.split("-").reverse().join("/")+(o.t?' '+o.t:'')+'</td>'+
-        '<td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+((window.ecPedX&&window.ecPedX.get(o.n)||{}).t?esc(window.ecPedX.get(o.n).t):'<span class="sub">–</span>')+'</td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td>'+xd(o)+'<td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
+        '<td>'+stCell(o)+'</td><td>'+((window.ecPedX&&window.ecPedX.get(o.n)||{}).t?esc(window.ecPedX.get(o.n).t):'<span class="sub">–</span>')+'</td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td>'+xd(o)+'<td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
         '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
     }).join(""):'<tr><td colspan="15" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
     omas.hidden=F.length<=lim;omas.textContent="Mostrar más ("+(F.length-lim)+" restantes)";
@@ -1884,6 +1890,10 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
   omas.addEventListener("click",function(){lim+=50;rOrd()});
   $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";$("o-trans").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
+  obody.addEventListener("change",function(ev){
+    var s=ev.target.closest&&ev.target.closest(".stsel");if(!s||!window.ecPedX)return;var c=s.value;
+    if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después solo lo podrás deshacer desde aquí. ¿Seguro?")){rOrd();return}
+    window.ecPedX.setState(s.dataset.n,c)});
   obody.addEventListener("click",function(ev){
     var st=ev.target.closest(".star");if(st){var n=st.dataset.n;if(store.favs[n])delete store.favs[n];else store.favs[n]=1;save();rOrd();return}
     var tc=ev.target.closest(".tagchip");if(tc){var n2=tc.dataset.n;store.tags[n2]=(store.tags[n2]||[]).filter(function(t){return t!==tc.dataset.t});if(!store.tags[n2].length)delete store.tags[n2];save();etiquetas();rOrd()}
@@ -3936,7 +3946,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 (function(){
   var $=function(i){return document.getElementById(i)},MAP={},db=null,can=true,PA=null;
   try{MAP=JSON.parse(localStorage.getItem("ec_pedx")||"{}")||{}}catch(e){MAP={}}
-  window.ecPedX={all:function(){return MAP},get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length}};
+  window.ecPedX={all:function(){return MAP},get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length},
+    manual:function(n){return !!(MAP[n]&&MAP[n].sm)},
+    setState:function(n,code){var o=ordSet()[n];if(!o||!/^[EDCRGKPFIJ]$/.test(code))return false;
+      var m=MAP[n]||(MAP[n]={});if(!m.sm&&/^[EDC]$/.test(o.s))return false;
+      if(!m.sm)m.sb=o.s;m.sm=code;if(code===m.sb){delete m.sm;delete m.sb}
+      o.s=code;persist();refresh();return true}};
   function norm(t){return String(t==null?"":t).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim()}
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function parse(text){
@@ -3991,8 +4006,10 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(t==="guatemala"||/ciudad de guatemala/.test(t))return "Guatemala";return String(v).trim().toLowerCase().replace(/\b\w/g,function(c){return c.toUpperCase()}).slice(0,30)}
   function ordSet(){var s={};(window.__ORD||[]).forEach(function(o){s[o.n]=o});return s}
   function addNew(n,x){var DEP=window.__DEP||{};var o={n:n,d:x.d,t:x.t||"",s:x.s||"P",c:x.c||"",v:x.v||0,dep:DEP[x.c]||x.dp||"Sin determinar",nuevo:1};(window.__ORD||[]).push(o)}
-  function mergeNew(){var set=ordSet();Object.keys(NEWO).forEach(function(n){if(!set[n])addNew(n,NEWO[n])});
-    Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s;if(o&&MAP[n].dp&&o.dep==="Sin determinar")o.dep=MAP[n].dp});
+  function mergeNew(){var set=ordSet(),drop=false;Object.keys(NEWO).forEach(function(n){if(!set[n])addNew(n,NEWO[n])});
+    Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s;if(o&&MAP[n].dp&&o.dep==="Sin determinar")o.dep=MAP[n].dp;
+      var m=MAP[n];if(o&&m.sm){if(o.s===m.sb)o.s=m.sm;else if(o.s!==m.sm){delete m.sm;delete m.sb;drop=true}}});
+    if(drop)persist();
     var O=window.__ORD||[];O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
   function prev(){
     var sel={};document.querySelectorAll("#oi-map select").forEach(function(e){sel[e.dataset.f]=+e.value});PA.sel=sel;
