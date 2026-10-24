@@ -1894,10 +1894,11 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
   omas.addEventListener("click",function(){lim+=50;rOrd()});
   $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";$("o-trans").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
-  obody.addEventListener("change",function(ev){
-    var s=ev.target.closest&&ev.target.closest(".stsel");if(!s||!window.ecPedX)return;var c=s.value;
-    if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después solo lo podrás deshacer desde aquí. ¿Seguro?")){rOrd();return}
-    window.ecPedX.setState(s.dataset.n,c)});
+  window.ecStCell=stCell;
+  window.ecStChange=function(s){if(!s||!window.ecPedX)return;var c=s.value;
+    if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después solo lo podrás deshacer desde aquí. ¿Seguro?")){rOrd();document.dispatchEvent(new Event("ecprod"));return}
+    window.ecPedX.setState(s.dataset.n,c)};
+  obody.addEventListener("change",function(ev){var s=ev.target.closest&&ev.target.closest(".stsel");if(s)window.ecStChange(s)});
   obody.addEventListener("click",function(ev){
     var st=ev.target.closest(".star");if(st){var n=st.dataset.n;if(store.favs[n])delete store.favs[n];else store.favs[n]=1;save();rOrd();return}
     var tc=ev.target.closest(".tagchip");if(tc){var n2=tc.dataset.n;store.tags[n2]=(store.tags[n2]||[]).filter(function(t){return t!==tc.dataset.t});if(!store.tags[n2].length)delete store.tags[n2];save();etiquetas();rOrd()}
@@ -3307,7 +3308,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       '<div class="cm" role="row"><span class="l" role="cell">Gasto Meta Ads</span><span class="d" role="cell">Facebook e Instagram</span><b class="nneg" role="cell">'+(AD.pm?'−'+mq(AD.pm):mq(0))+'</b></div>'+
       '<div class="cm" role="row"><span class="l" role="cell">Gasto TikTok Ads</span><span class="d" role="cell">Cuentas de TikTok</span><b class="nneg" role="cell">'+(AD.pt?'−'+mq(AD.pt):mq(0))+'</b></div>'+
       '<div class="cm tot" role="row"><span class="l" role="cell">Ingreso neto del día</span><span class="d" role="cell">sin gastos fijos ni variables</span><b class="'+(neto(AD)>=0?'npos':'nneg')+'" role="cell">'+sg(neto(AD))+' <span class="mc">GTQ</span></b></div>'+
-    '</div>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td><span class="pill '+s[1]+'">'+s[0]+'</span></td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
+    '</div>'+(L.length?'<div class="tbl cdia"><table style="min-width:0"><thead><tr><th>Pedido</th><th>Estado</th><th>Ciudad</th><th class="num">Valor</th></tr></thead><tbody>'+L.map(function(o){var s=ST[o.s]||[o.s,"a"];return '<tr><td><b>#'+o.n+'</b><div class="sub">'+(o.t||"–")+'</div></td><td>'+(window.ecStCell?window.ecStCell(o):'<span class="pill '+s[1]+'">'+s[0]+'</span>')+'</td><td>'+o.c+'<div class="sub">'+o.dep+'</div></td><td class="num">Q '+f0(o.v)+'</td></tr>'}).join("")+'</tbody></table></div>':'<p class="sub">No hubo pedidos este día.</p>');
   }
   function render(){
     if(!$("cal-box"))return;var ORD=window.__ORD||[];
@@ -3357,6 +3358,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(window.ecFx&&window.ecFx.apply)window.ecFx.apply();
   }
   function sv2(){try{localStorage.setItem("ec_cal",JSON.stringify({m:S.m}))}catch(e){}}
+  $("cal-dia").addEventListener("change",function(e){var s=e.target.closest&&e.target.closest(".stsel");if(s&&window.ecStChange)window.ecStChange(s)});
+  document.addEventListener("ecprod",function(){setTimeout(render,0)});
   $("cal-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;sv2();render()});
   $("cal-grid-w").addEventListener("click",function(e){var b=e.target.closest(".cal-d[data-k]");if(!b)return;S.dia=S.dia===b.dataset.k?null:b.dataset.k;render();var d=$("cal-dia");if(S.dia&&d.scrollIntoView)d.scrollIntoView({block:"nearest",behavior:"smooth"})});
   function mover(n){var y=+S.mes.slice(0,4),m=+S.mes.slice(5,7)-1+n,x=new Date(Date.UTC(y,m,1));S.mes=x.getUTCFullYear()+"-"+("0"+(x.getUTCMonth()+1)).slice(-2);S.dia=null;render()}
