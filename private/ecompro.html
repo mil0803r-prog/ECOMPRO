@@ -701,13 +701,13 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 
   <section class="pane" id="p-res">
     <div class="grid g3">
-      <div class="card light v"><div class="dot"></div><div><div class="big">244</div><div class="lab">Entregados</div><div class="sub">51% de 478 pedidos</div></div></div>
-      <div class="card light a"><div class="dot"></div><div><div class="big">39</div><div class="lab">En proceso</div><div class="sub">ruta, guía y por confirmar</div></div></div>
-      <div class="card light r"><div class="dot"></div><div><div class="big">157</div><div class="lab">En rojo</div><div class="sub">146 devoluciones, 11 incidencias</div></div></div>
+      <div class="card light v"><div class="dot"></div><div><div class="big" id="lv-e">244</div><div class="lab">Entregados</div><div class="sub" id="lv-e-s">51% de 478 pedidos</div></div></div>
+      <div class="card light a"><div class="dot"></div><div><div class="big" id="lv-p">39</div><div class="lab">En proceso</div><div class="sub">ruta, guía y por confirmar</div></div></div>
+      <div class="card light r"><div class="dot"></div><div><div class="big" id="lv-r">157</div><div class="lab">En rojo</div><div class="sub" id="lv-r-s">146 devoluciones, 11 incidencias</div></div></div>
     </div>
     <div class="grid g4">
-      <div class="card kpi"><h3>Tasa de entrega</h3><div class="big tr_">63%</div><div class="sub">244 llegaron, 146 volvieron</div></div>
-      <div class="card kpi"><h3>Ganancia según Lumy</h3><div class="big">24.842</div><div class="sub">margen 51% · sin restar devoluciones · ver Dinero</div></div>
+      <div class="card kpi"><h3>Tasa de entrega</h3><div class="big tr_" id="lv-tasa">63%</div><div class="sub" id="lv-tasa-s">244 llegaron, 146 volvieron</div></div>
+      <div class="card kpi"><h3>Ganancia según Lumy</h3><div class="big" id="lv-gan">24.842</div><div class="sub" id="lv-gan-s">margen 51% · sin restar devoluciones · ver Dinero</div></div>
       <div class="card kpi"><h3>Conversión landings</h3><div class="big tr_">0,2%</div><div class="sub">15 pedidos en 6.284 visitas (30 días)</div></div>
       <div class="card kpi"><h3>Chats esperando</h3><div class="big ta">11</div><div class="sub">de 36 conversaciones abiertas</div></div>
     </div>
@@ -715,13 +715,13 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <h2>Qué atender hoy</h2>
       <ul class="todo">
         <li><span class="pill r">Urgente</span><b>2 pedidos parados por color que no existe en Dropi</b><span>Los clientes pidieron PLATEADO y DORADO. Confirma otro color por WhatsApp y toca "Enviar a Dropi". No se despacharon.</span></li>
-        <li><span class="pill r">Urgente</span><b>11 incidencias abiertas con la transportadora</b><span>7 validadas y 4 en ruta. Cada una puede terminar en devolución.</span></li>
-        <li><span class="pill a">Hoy</span><b>25 pedidos sin guía todavía</b><span>15 siguen en PENDIENTE CONFIRMACION y 10 en PENDIENTE. Entre más tarden, más probable que se enfríen.</span></li>
+        <li><span class="pill r">Urgente</span><b id="lv-inc-b">11 incidencias abiertas con la transportadora</b><span id="lv-inc-s">7 validadas y 4 en ruta. Cada una puede terminar en devolución.</span></li>
+        <li><span class="pill a">Hoy</span><b id="lv-sg-b">25 pedidos sin guía todavía</b><span id="lv-sg-s">15 siguen en PENDIENTE CONFIRMACION y 10 en PENDIENTE. Entre más tarden, más probable que se enfríen.</span></li>
         <li><span class="pill a">Hoy</span><b>11 chats de WhatsApp esperan tu respuesta</b><span>36 conversaciones abiertas, 1 con mensajes sin leer.</span></li>
         <li><span class="pill r">Revisar</span><b>1.683 visitas de TikTok sin medir</b><span>Llegan con la campaña "__CAMPAIGN_NAME__", la variable del anuncio sin reemplazar. Cero formularios abiertos y cero pedidos. Puede ser un enlace mal armado o tráfico que no es de personas.</span></li>
         <li><span class="pill r">Revisar</span><b>Dos cuentas de anuncios de Meta con pago pendiente</b><span>GUATEMALA 2 (la única en quetzales) y Naturly 01 figuran como UNSETTLED. Mientras no se pague, no entregan anuncios.</span></li>
         <li><span class="pill a">Revisar</span><b>Las 5 cuentas de TikTok tienen saldo 0</b><span>Sin recarga no hay anuncios nuevos.</span></li>
-        <li><span class="pill a">Revisar</span><b>La cartera de Dropi está sin sincronizar</b><span>Lumy ve 0 abonos pagados, así que no sabe cuáles de los 244 entregados ya te pagaron.</span></li>
+        <li><span class="pill a">Revisar</span><b>La cartera de Dropi está sin sincronizar</b><span>Lumy ve 0 abonos pagados, así que no sabe cuáles de los <span id="lv-cart">244</span> entregados ya te pagaron.</span></li>
       </ul>
     </div>
   </section>
@@ -730,12 +730,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card livebar" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="live-btn">Actualizar desde Dropi</button><span class="sub" id="live-msg" role="status">Recarga tu pestaña de Dropi y trae los pedidos al tablero.</span></div>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div>
-      <div class="bar" role="img" aria-label="478 pedidos: 244 entregados, 39 en proceso, 157 en rojo, 38 cancelados">
+      <div class="bar" role="img" id="lv-bar" aria-label="478 pedidos: 244 entregados, 39 en proceso, 157 en rojo, 38 cancelados">
         <i style="width:51.0%;background:var(--verde)"></i><i style="width:8.2%;background:var(--amar)"></i><i style="width:32.8%;background:var(--rojo)"></i><i style="width:7.9%;background:var(--gris)"></i>
       </div>
-      <div class="legend"><span class="tv">■ Entregado 244</span><span class="ta">■ En proceso 39</span><span class="tr_">■ Devolución e incidencia 157</span><span>■ Cancelado 38</span></div>
+      <div class="legend" id="lv-leg"><span class="tv">■ Entregado 244</span><span class="ta">■ En proceso 39</span><span class="tr_">■ Devolución e incidencia 157</span><span>■ Cancelado 38</span></div>
     </div>
-    <div class="alert"><b>De cada 100 pedidos cerrados, 38 volvieron</b><span>Ningún mes con volumen real pasó de 66% de entrega. Marzo no tiene pedidos en Dropi y agosto tuvo 7.</span></div>
+    <div class="alert"><b id="lv-alert">De cada 100 pedidos cerrados, 38 volvieron</b><span>Ningún mes con volumen real pasó de 66% de entrega. Marzo no tiene pedidos en Dropi y agosto tuvo 7.</span></div>
 
     <div id="o-zonas">
       <h2>Semáforo transportadora</h2>
@@ -826,19 +826,19 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   <section class="pane" id="p-din" hidden>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div class="grid g4">
-      <div class="card kpi"><h3>Venta entregada · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="48460">48.460</span></div><div class="sub">245 pedidos</div></div>
-      <div class="card kpi"><h3>Costo del producto · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="15048">15.048</span></div><div class="sub">31% de la venta</div></div>
-      <div class="card kpi"><h3>Flete · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="16789">16.789</span></div><div class="sub">35% de la venta</div></div>
-      <div class="card kpi"><h3>Perdido en devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" data-q="32048">32.048</span></div><div class="sub">venta de 154 pedidos</div></div>
+      <div class="card kpi"><h3>Venta entregada · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" id="dn-venta" data-q="48460">48.460</span></div><div class="sub" id="dn-ent">245 pedidos</div></div>
+      <div class="card kpi"><h3>Costo del producto · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" id="dn-costo" data-q="15048">15.048</span></div><div class="sub" id="dn-costo-s">31% de la venta</div></div>
+      <div class="card kpi"><h3>Flete · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" id="dn-flete" data-q="16789">16.789</span></div><div class="sub" id="dn-flete-s">35% de la venta</div></div>
+      <div class="card kpi"><h3>Perdido en devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" id="dn-perd" data-q="32048">32.048</span></div><div class="sub" id="dn-perd-s">venta de 154 pedidos</div></div>
     </div>
     <div class="grid g3">
-      <div class="card"><h3>Ganancia según Lumy · <span class="mc">GTQ</span></h3><div class="big tv"><span class="mq" data-q="24842">24.842</span></div><div class="sub">margen de 51,3%. Es lo que Lumy marca como "por cobrar".</div></div>
+      <div class="card"><h3>Ganancia según Lumy · <span class="mc">GTQ</span></h3><div class="big tv"><span class="mq" id="dn-gan" data-q="24842">24.842</span></div><div class="sub" id="dn-gan-s">margen de 51,3%. Es lo que Lumy marca como "por cobrar".</div></div>
       <div class="card"><h3>Cálculo simple · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" id="din-cs-base" data-q="16623">16.623</span></div><div class="sub">venta entregada menos costo del producto menos flete. Sin pauta ni devoluciones.</div></div>
       <div class="card"><h3>Cálculo simple con devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" id="din-cs" data-q="0">0</span></div><div class="sub" id="din-cs-s">cálculo simple menos el flete de regreso</div></div>
     </div>
-    <div class="warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de <span class="mq" data-q="8219">8.219</span> <span class="mc">GTQ</span>. Además, Lumy muestra 0 de flete de devoluciones aunque hay 154 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata <span class="mq" data-q="24842">24.842</span> <span class="mc">GTQ</span> como un techo y no como la ganancia real. Con 154 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
+    <div class="warn" id="dn-warn"><b>Estas dos cifras no cuadran y conviene revisarlas</b><span>La diferencia es de <span class="mq" data-q="8219">8.219</span> <span class="mc">GTQ</span>. Además, Lumy muestra 0 de flete de devoluciones aunque hay 154 devueltas, y la cartera de Dropi no tiene movimientos. Hasta que sincronices Finanzas de Dropi, trata <span class="mq" data-q="24842">24.842</span> <span class="mc">GTQ</span> como un techo y no como la ganancia real. Con 154 devoluciones, el flete de regreso suele ser el golpe más grande.</span></div>
     <div class="grid g3">
-      <div class="card"><h3>Por cobrar · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" data-q="24842">24.842</span></div><div class="sub">cartera de Lumy</div></div>
+      <div class="card"><h3>Por cobrar · <span class="mc">GTQ</span></h3><div class="big"><span class="mq" id="dn-cobrar" data-q="24842">24.842</span></div><div class="sub">cartera de Lumy</div></div>
       <div class="card"><h3>Ya abonado · <span class="mc">GTQ</span></h3><div class="big ta"><span class="mq" data-q="0">0</span></div><div class="sub">sin cartera sincronizada</div></div>
       <div class="card"><h3>Flete de devoluciones · <span class="mc">GTQ</span></h3><div class="big tr_"><span class="mq" id="din-dv" data-q="0">0</span></div><div class="sub" id="din-dv-s">estimado</div></div>
     </div>
@@ -1740,6 +1740,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 <script>
 (function(){
   var M=[["Mar",0,0,0,0],["Abr",27,17,0,1],["May",20,13,0,7],["Jun",39,29,0,14],["Jul",82,42,10,6],["Ago",3,1,0,3],["Sep",51,41,4,4],["Oct 1-24",22,14,25,3]];
+  window.ecMlab=M.map(function(m){return m[0]});
+  window.ecDrawM=function(M){
   var mx=140,h="";
   M.forEach(function(m){var t=m[1]+m[2]+m[3]+m[4];
     var pc=(m[1]+m[2])?Math.round(m[1]/(m[1]+m[2])*100)+"%":"–";
@@ -1751,6 +1753,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   var TT_=M.reduce(function(a,m){return [a[0]+m[1],a[1]+m[2],a[2]+m[3],a[3]+m[4]]},[0,0,0,0]),TN=TT_[0]+TT_[1]+TT_[2]+TT_[3];
   h+='<div class="mrow mtot"><div><b>Hasta el momento</b><small>'+TN+' pedidos</small></div><div><div class="mnum"><span class="tv">'+TT_[0]+' entregados</span><span class="tr_">'+TT_[1]+' devueltos</span><span class="ta">'+TT_[2]+' en proceso</span><span>'+TT_[3]+' cancelados</span></div></div><div class="pc">'+((TT_[0]+TT_[1])?Math.round(TT_[0]/(TT_[0]+TT_[1])*100)+"%":"–")+'</div></div>';
   document.getElementById("meses").innerHTML=h;
+  };
+  window.ecDrawM(M);
 
 
 
@@ -4058,3 +4062,65 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;if(d.nuevos&&typeof d.nuevos==="object")NEWO=d.nuevos;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}mergeNew();refresh()}},function(){})}}catch(e){}})();
 })();
 </script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function nf(n){return Math.round(n).toLocaleString("de-DE")}
+  function pc(a,b){return b?Math.round(a/b*100):0}
+  var MG0=null,D0=null,busy=false;
+  function ensure(){
+    if(!MG0&&window.ecGan&&window.ecGan.MG)MG0=window.ecGan.MG.map(function(r){return r.slice()});
+    if(!D0&&$("dn-venta")){var g=function(i){return +$(i).getAttribute("data-q")||0};
+      D0={venta:g("dn-venta"),costo:g("dn-costo"),flete:g("dn-flete"),perd:g("dn-perd"),gan:g("dn-gan"),cobrar:g("dn-cobrar"),ent:parseInt($("dn-ent").textContent,10)||0,dev:parseInt(($("dn-perd-s").textContent.match(/\d+/)||[0])[0],10)||0,cs:g("din-cs-base")}}
+  }
+  // Cambios hechos a mano: pedidos que pasaron a Entregado o Devolución
+  function manuales(){
+    var M=(window.ecPedX&&window.ecPedX.all&&window.ecPedX.all())||{},O={},r={E:[],D:[]};
+    (window.__ORD||[]).forEach(function(o){O[o.n]=o});
+    Object.keys(M).forEach(function(n){var m=M[n],o=O[n];if(!o||!m.sm)return;if(m.sm==="E")r.E.push(o);else if(m.sm==="D")r.D.push(o)});
+    return r}
+  function tasaMes(mes){var r=MG0&&MG0.filter(function(x){return x[0]===mes})[0];return r&&r[3]?{c:r[4]/r[3],f:r[5]/r[3],g:r[6]/r[3]}:{c:0,f:0,g:0}}
+  function apply(){
+    if(busy)return;busy=true;try{
+    ensure();var O=window.__ORD||[];if(!O.length||!MG0||!D0)return;
+    var c={};O.forEach(function(o){c[o.s]=(c[o.s]||0)+1});var N=O.length,E=c.E||0,D=c.D||0,C=c.C||0,I=(c.I||0)+(c.J||0),rojo=D+I,P=N-E-rojo-C,F=c.F||0,Pn=c.P||0;
+    var set=function(i,t){var e=$(i);if(e)e.textContent=t};
+    // Dashboard
+    set("lv-e",E);set("lv-e-s",pc(E,N)+"% de "+N+" pedidos");set("lv-p",P);set("lv-r",rojo);set("lv-r-s",D+" devoluciones, "+I+" incidencias");
+    set("lv-tasa",pc(E,E+D)+"%");set("lv-tasa-s",E+" llegaron, "+D+" volvieron");
+    set("lv-inc-b",I+" incidencias abiertas con la transportadora");set("lv-inc-s",(c.I||0)+" validadas y "+(c.J||0)+" en ruta. Cada una puede terminar en devolución.");
+    set("lv-sg-b",(F+Pn)+" pedidos sin guía todavía");set("lv-cart",E);
+    var sg=$("lv-sg-s");if(sg)sg.textContent=sg.textContent.replace(/^\d+ siguen en PENDIENTE CONFIRMACION y \d+ en PENDIENTE\./,F+" siguen en PENDIENTE CONFIRMACION y "+Pn+" en PENDIENTE.");
+    // Semáforo
+    var bar=$("lv-bar");if(bar){bar.setAttribute("aria-label",N+" pedidos: "+E+" entregados, "+P+" en proceso, "+rojo+" en rojo, "+C+" cancelados");var w=[E,P,rojo,C].map(function(x){return (Math.round(x/N*1000)/10)+"%"}),is=bar.querySelectorAll("i");for(var k=0;k<4&&k<is.length;k++)is[k].style.width=w[k]}
+    var lg=$("lv-leg");if(lg){var sp=lg.querySelectorAll("span");if(sp.length>=4){sp[0].textContent="■ Entregado "+E;sp[1].textContent="■ En proceso "+P;sp[2].textContent="■ Devolución e incidencia "+rojo;sp[3].textContent="■ Cancelado "+C}}
+    set("lv-alert","De cada 100 pedidos cerrados, "+pc(D,E+D)+" volvieron");
+    // Meses (Dashboard > Semáforo)
+    if(window.ecDrawM&&window.ecMlab){var mes={};O.forEach(function(o){var k=o.d.slice(5,7),r=mes[k]||(mes[k]=[0,0,0,0]),s=o.s;if(s==="E")r[0]++;else if(s==="D"||s==="I"||s==="J")r[1]++;else if(s==="C")r[3]++;else r[2]++});
+      var KS=["03","04","05","06","07","08","09","10"],M=window.ecMlab.map(function(l,i){var r=mes[KS[i]]||[0,0,0,0];return [l,r[0],r[1],r[2],r[3]]});window.ecDrawM(M)}
+    // Dinero y Utilidad neta: base de Lumy + cambios hechos a mano
+    var mn=manuales(),dv=0,dc=0,df=0,dg=0,ne=mn.E.length,vE=0;
+    var G2=MG0.map(function(r){return r.slice()});
+    mn.E.forEach(function(o){var v=+o.v||0,t=tasaMes(o.d.slice(0,7));vE+=v;dc+=v*t.c;df+=v*t.f;dg+=v*t.g;
+      var r=G2.filter(function(x){return x[0]===o.d.slice(0,7)})[0];if(r){r[2]++;r[3]+=v;r[4]+=v*t.c;r[5]+=v*t.f;r[6]+=v*t.g}});
+    var vD=0;mn.D.forEach(function(o){vD+=+o.v||0});
+    var Dn={venta:D0.venta+vE,costo:D0.costo+dc,flete:D0.flete+df,perd:D0.perd+vD,gan:D0.gan+dg,ent:D0.ent+ne,dev:D0.dev+mn.D.length};
+    var q=function(i,v){var e=$(i);if(e){e.setAttribute("data-q",Math.round(v))}};
+    q("dn-venta",Dn.venta);q("dn-costo",Dn.costo);q("dn-flete",Dn.flete);q("dn-perd",Dn.perd);q("dn-gan",Dn.gan);q("dn-cobrar",Dn.gan);
+    var cs=Dn.venta-Dn.costo-Dn.flete;q("din-cs-base",cs);
+    set("dn-ent",Dn.ent+" pedidos");set("dn-costo-s",pc(Dn.costo,Dn.venta)+"% de la venta");set("dn-flete-s",pc(Dn.flete,Dn.venta)+"% de la venta");set("dn-perd-s","venta de "+Dn.dev+" pedidos");
+    set("dn-gan-s","margen de "+(Dn.venta?(Math.round(Dn.gan/Dn.venta*1000)/10).toString().replace(".",","):"0")+"%. Es lo que Lumy marca como \"por cobrar\".");
+    var wr=$("dn-warn");if(wr){var sp2=wr.querySelectorAll("span.mq");if(sp2.length>=2){sp2[0].setAttribute("data-q",Math.round(Dn.gan-cs));sp2[1].setAttribute("data-q",Math.round(Dn.gan))}
+      wr.innerHTML=wr.innerHTML.replace(/hay \d+ devueltas/,"hay "+Dn.dev+" devueltas").replace(/Con \d+ devoluciones/,"Con "+Dn.dev+" devoluciones")}
+    set("lv-gan",nf(Dn.gan));set("lv-gan-s","margen "+pc(Dn.gan,Dn.venta)+"% · sin restar devoluciones · ver Dinero");
+    if(window.ecGan){for(var i=0;i<window.ecGan.MG.length;i++){var o2=G2[i];if(o2)for(var j=2;j<7;j++)window.ecGan.MG[i][j]=o2[j]}
+      if(window.ecGanRender)window.ecGanRender()}
+    if(window.ecFx&&window.ecFx.apply)window.ecFx.apply();
+    }finally{busy=false}
+  }
+  window.ecLive={apply:apply};
+  document.addEventListener("ecprod",function(){setTimeout(apply,0)});
+  setTimeout(apply,400);setTimeout(apply,1500);
+})();
+</script>
+
