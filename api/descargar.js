@@ -215,6 +215,7 @@ async function entregarConvertido(res, u, q, nombre) {
 
 // ---------- entrega del archivo ----------
 async function entregar(req, res, q) {
+  const ver = q.v === "1";
   const u = parseUrl(q.u);
   if (!u || u.protocol !== "https:" || !hostOk(u.hostname.toLowerCase(), CDN_HOSTS)) {
     res.statusCode = 400;
@@ -224,7 +225,10 @@ async function entregar(req, res, q) {
   const conv = q.fmt === "gif" || RES.includes(+q.h) || ARS[q.ar];
   if (conv) return entregarConvertido(res, u, q, nombre);
   try {
-    const r = await get(u.toString(), { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" }, 25000);
+    const hdr = { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" };
+    const rango = ver && /^bytes=\d*-\d*$/.test(String(req.headers.range || "")) ? req.headers.range : "";
+    if (rango) hdr.Range = rango;
+    const r = await get(u.toString(), hdr, 25000);
     const len = +r.headers.get("content-length") || 0;
     let fin;
     try {
@@ -240,9 +244,13 @@ async function entregar(req, res, q) {
       res.statusCode = 413;
       return res.end("archivo muy grande");
     }
-    res.statusCode = 200;
+    res.statusCode = r.status === 206 ? 206 : 200;
     res.setHeader("Content-Type", r.headers.get("content-type") || "video/mp4");
-    res.setHeader("Content-Disposition", 'attachment; filename="' + nombre + '"');
+    if (ver) {
+      res.setHeader("Accept-Ranges", "bytes");
+      if (r.headers.get("content-range")) res.setHeader("Content-Range", r.headers.get("content-range"));
+    }
+    res.setHeader("Content-Disposition", (ver ? "inline" : "attachment") + '; filename="' + nombre + '"');
     res.setHeader("Cache-Control", "no-store");
     if (len) res.setHeader("Content-Length", String(len));
     Readable.fromWeb(r.body).pipe(res);

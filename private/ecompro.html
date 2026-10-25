@@ -615,6 +615,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .vls h3{margin:0;font-size:.95rem}
 .vls .vl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg)}
 .vls .vl .vlt{flex:1 1 220px;min-width:0}
+.vls .vl .vp{flex-basis:100%}
 .vls .vl .vlt b{display:block;overflow-wrap:anywhere}
 .vls .vl .vlt small{display:block;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dlv .dlbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
@@ -2693,7 +2694,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r"),LAST=null,NOM="video",LASTU="";if(!inp)return;
     var sv=$(k+"-sv"),ls=$(k+"-ls");
     function drawLs(){var L=VL.filter(function(x){return x.k===k});
-      ls.innerHTML=L.length?'<h3>Enlaces guardados ('+L.length+')</h3>'+L.map(function(x){return '<div class="vl" data-id="'+E(x.id)+'"><div class="vlt"><b>'+E(x.t||x.u)+'</b><small>'+E(x.u)+'</small></div><button type="button" class="btn vprim" data-a="go">Descargar</button><button type="button" class="btn" data-a="del"'+(vcan?'':' disabled')+'>Quitar</button></div>'}).join(""):'<p class="sub" style="margin:0">Todavía no guardaste enlaces. Pega uno arriba y toca "Guardar enlace".</p>'}
+      ls.innerHTML=L.length?'<h3>Enlaces guardados ('+L.length+')</h3>'+L.map(function(x){return '<div class="vl" data-id="'+E(x.id)+'"><div class="vlt"><b>'+E(x.t||x.u)+'</b><small>'+E(x.u)+'</small></div><button type="button" class="btn" data-a="ver">Ver video</button><button type="button" class="btn vprim" data-a="go">Descargar</button><button type="button" class="btn" data-a="del"'+(vcan?'':' disabled')+'>Quitar</button></div>'}).join(""):'<p class="sub" style="margin:0">Todavía no guardaste enlaces. Pega uno arriba y toca "Guardar enlace".</p>'}
     REDRAW.push(drawLs);drawLs();
     sv.addEventListener("click",function(){var u=inp.value.trim();
       if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo (empieza con https://) y luego toca Guardar enlace.";return}
@@ -2702,7 +2703,19 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       VL.unshift({id:"v"+Date.now().toString(36),k:k,u:u.slice(0,600),t:String(t).slice(0,120),d:new Date().toISOString().slice(0,10)});saveVL();REDRAW.forEach(function(f){f()});m.textContent="Enlace guardado."});
     ls.addEventListener("click",function(ev){var b=ev.target.closest("button[data-a]");if(!b)return;var id=b.closest(".vl").dataset.id,x=VL.filter(function(y){return y.id===id})[0];if(!x)return;
       if(b.dataset.a==="del"){VL=VL.filter(function(y){return y.id!==id});saveVL();REDRAW.forEach(function(f){f()})}
-      if(b.dataset.a==="go"){inp.value=x.u;run(true)}});
+      if(b.dataset.a==="go"){inp.value=x.u;run(true)}
+      if(b.dataset.a==="ver"){var it=b.closest(".vl"),vp=it.querySelector(".vp");
+        if(vp){vp.remove();b.textContent="Ver video";return}
+        b.textContent="Cargando…";b.disabled=true;
+        fetch("/api/descargar",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:x.u,plataforma:pl})})
+          .then(function(q){return q.json().catch(function(){return {error:"Respuesta inválida del servidor."}})})
+          .then(function(j){b.disabled=false;var d=document.createElement("div");d.className="vp";
+            if(!j||!j.ok||!j.videos||!j.videos.length){b.textContent="Ver video";d.innerHTML='<p class="sub" style="margin:6px 0 0">'+E((j&&j.error)||"No se pudo abrir el video.")+'</p>';it.appendChild(d);return}
+            var src="/api/descargar?v=1&u="+encodeURIComponent((j.videos[j.videos.length-1]||j.videos[0]).url)+"&n=ver";
+            d.innerHTML='<video controls playsinline preload="metadata" style="width:100%;max-width:360px;max-height:70vh;border-radius:10px;background:#000;display:block;margin-top:8px"></video><p class="sub vpe" style="margin:6px 0 0" hidden>No se pudo reproducir aquí. Usa el botón Descargar.</p>';
+            var v=d.querySelector("video");v.addEventListener("error",function(){d.querySelector(".vpe").hidden=false});v.src=src;it.appendChild(d);b.textContent="Ocultar video";
+            if(j.titulo&&x.t!==String(j.titulo).slice(0,120)&&/^[a-z0-9.@\/_\-]+$/i.test(x.t||"")){x.t=String(j.titulo).slice(0,120);saveVL();}
+          }).catch(function(){b.disabled=false;b.textContent="Ver video";var d=document.createElement("div");d.className="vp";d.innerHTML='<p class="sub" style="margin:6px 0 0">No hay conexión con el servidor.</p>';it.appendChild(d)})}});
     function opts(){var f=$(k+"-fmt").value,s=$(k+"-res").value,a=$(k+"-ar").value,ft=$(k+"-fit").value;
       if(f==="gif"&&(s==="1440"||s==="2160")){s="720";$(k+"-res").value="720"}
       Array.prototype.forEach.call($(k+"-res").options,function(o){o.disabled=f==="gif"&&(o.value==="1440"||o.value==="2160")});
