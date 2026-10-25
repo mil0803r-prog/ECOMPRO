@@ -434,6 +434,13 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .hb .c{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
 .hb .c .s{display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden}
 .hb .c.top .s{outline:2px solid var(--cel);outline-offset:1px}
+.hbw{overflow-x:auto}
+.hbw>div{min-width:100%}
+.hbw.h24>div{min-width:640px}
+.hbp{display:flex;gap:3px;margin-top:2px;font-size:.62rem;font-weight:700}
+.hbp span{flex:1 1 0;text-align:center;min-width:0}
+.hbp.e span{color:var(--verde)}.hbp.d span{color:var(--rojo)}.hbp.c span{color:var(--muted)}
+.hbpl{font-size:.7rem;color:var(--muted);margin:6px 0 0}
 .hbl{display:flex;gap:3px;margin-top:4px;font-size:.66rem;color:var(--muted)}
 .hbl span{flex:1 1 0;text-align:center;min-width:0}
 .hbn{display:flex;gap:3px;font-size:.66rem;font-weight:700;margin-bottom:2px}
@@ -878,6 +885,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div class="cal-top"><div><h2 style="margin:0">¿A qué horas y qué días entran más pedidos?</h2><span class="sub" id="mh-sub"></span></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><div class="chips" id="mh-modo"><button type="button" class="chip" data-m="n" aria-pressed="true">Pedidos</button><button type="button" class="chip" data-m="v" aria-pressed="false">Venta (Q)</button></div><div class="chips" id="mh-tz" aria-label="Zona horaria"><button type="button" class="chip" data-z="gt" aria-pressed="true">Guatemala</button><button type="button" class="chip" data-z="pe" aria-pressed="false">Perú</button></div></div></div>
       <div class="grid g4" id="mh-kpis"></div>
+      <div class="grid g3" id="mh-pct"></div>
       <div><h3 style="margin:0 0 6px">Por hora del día</h3><div id="mh-h"></div></div>
       <div><h3 style="margin:0 0 6px">Por día de la semana</h3><div id="mh-d"></div></div>
       <div class="cal-leg" id="mh-leg"><span><i style="background:var(--verde)"></i>Entregado</span><span><i style="background:var(--rojo)"></i>Devuelto o incidencia</span><span><i style="background:var(--azul)"></i>En proceso</span><span><i style="background:var(--gris)"></i>Cancelado</span></div>
@@ -4198,15 +4206,18 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   var DN=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],DL=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
   function grp(s){return s==="E"?"e":s==="D"||s==="I"||s==="J"?"d":s==="C"?"c":"p"}
   var COL={e:"var(--verde)",d:"var(--rojo)",p:"var(--azul)",c:"var(--gris)"},KS=["e","d","p","c"];
+  function tp(x,t){return t?Math.round(x/t*100)+"%":"–"}
   function nz(){return {e:0,d:0,p:0,c:0,t:0,v:0}}
   function dow(d){var x=new Date(d+"T00:00:00Z");return (x.getUTCDay()+6)%7}
   function val(r){return S.m==="v"?r.v:r.t}
   function f0(n){return Math.round(n).toLocaleString("de-DE")}
   function bars(box,A,labels,tops,fmtTip){
     var mx=Math.max.apply(null,A.map(val).concat([1])),best=Math.max.apply(null,A.map(val));
-    $(box).innerHTML='<div class="hbn">'+A.map(function(r){var v=val(r);return '<span>'+(v?(S.m==="v"?f0(v):v):"")+'</span>'}).join("")+'</div><div class="hb">'+A.map(function(r,i){var t=val(r);
+    var pc=function(x,t){return t?Math.round(x/t*100)+"%":"–"};
+    var fila=function(c,key){return '<div class="hbp '+c+'">'+A.map(function(r){return '<span>'+pc(r[key],r.t)+'</span>'}).join("")+'</div>'};
+    $(box).innerHTML='<div class="hbw'+(A.length>10?' h24':'')+'"><div><div class="hbn">'+A.map(function(r){var v=val(r);return '<span>'+(v?(S.m==="v"?f0(v):v):"")+'</span>'}).join("")+'</div><div class="hb">'+A.map(function(r,i){var t=val(r);
       var seg=KS.map(function(k){var x=S.m==="v"?r["v"+k]:r[k];return x?'<i style="display:block;background:'+COL[k]+';height:'+(t?x/t*100:0)+'%"></i>':""}).join("");
-      return '<div class="c'+(t&&t===best?" top":"")+'" title="'+fmtTip(i,r)+'"><div class="s" style="height:'+(t/mx*100)+'%">'+seg+'</div></div>'}).join("")+'</div><div class="hbl">'+labels.map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'}
+      return '<div class="c'+(t&&t===best?" top":"")+'" title="'+fmtTip(i,r)+'"><div class="s" style="height:'+(t/mx*100)+'%">'+seg+'</div></div>'}).join("")+'</div><div class="hbl">'+labels.map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'+fila("e","e")+fila("d","d")+fila("c","c")+'</div></div><p class="hbpl"><b style="color:var(--verde)">% entrega</b> · <b style="color:var(--rojo)">% devolución</b> (con incidencias) · <b>% cancelados</b>, sobre los pedidos de cada barra.</p>'}
   function render(){
     var O=window.__ORD||[];if(!O.length)return;
     var d1=($("m-dia")&&$("m-dia").value)||($("m-desde")&&$("m-desde").value)||"",d2=($("m-dia")&&$("m-dia").value)||($("m-hasta")&&$("m-hasta").value)||"";
@@ -4227,8 +4238,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       '<div class="card kpi"><h3>Mejor día</h3><div class="big">'+(val(D[bd])?DL[bd]:"–")+'</div><div class="sub">'+(val(D[bd])?(S.m==="v"?'Q '+f0(D[bd].v):D[bd].t+' pedidos'):"sin datos")+'</div></div>'+
       '<div class="card kpi"><h3>Hora con más entregados</h3><div class="big tv">'+(H[eh].e?pad(eh):"–")+'</div><div class="sub">'+(H[eh].e?H[eh].e+' entregados':"sin datos")+'</div></div>'+
       '<div class="card kpi"><h3>Pedidos sin hora</h3><div class="big">'+sinHora+'</div><div class="sub">no entran en la gráfica por hora</div></div>';
-    bars("mh-h",H,H.map(function(r,i){return i%3?"":pad(i)}),0,function(i,r){return pad(i)+" · "+r.t+" pedidos · "+r.e+" entregados · Q "+f0(r.v)});
-    bars("mh-d",D,DN,0,function(i,r){return DL[i]+" · "+r.t+" pedidos · "+r.e+" entregados · Q "+f0(r.v)});
+    var T=D.reduce(function(a,r){["e","d","p","c","t"].forEach(function(k){a[k]+=r[k]});return a},{e:0,d:0,p:0,c:0,t:0});
+    $("mh-pct").innerHTML='<div class="card kpi"><h3>% de entrega</h3><div class="big tv">'+tp(T.e,T.t)+'</div><div class="sub">'+T.e+' de '+T.t+' pedidos</div></div>'+
+      '<div class="card kpi"><h3>% de devolución</h3><div class="big tr_">'+tp(T.d,T.t)+'</div><div class="sub">'+T.d+' devueltos o con incidencia</div></div>'+
+      '<div class="card kpi"><h3>% de cancelados</h3><div class="big">'+tp(T.c,T.t)+'</div><div class="sub">'+T.c+' cancelados</div></div>';
+    bars("mh-h",H,H.map(function(r,i){return i%3?"":pad(i)}),0,function(i,r){return pad(i)+" · "+r.t+" pedidos · "+r.e+" entregados ("+tp(r.e,r.t)+") · "+r.d+" devueltos ("+tp(r.d,r.t)+") · "+r.c+" cancelados ("+tp(r.c,r.t)+") · Q "+f0(r.v)});
+    bars("mh-d",D,DN,0,function(i,r){return DL[i]+" · "+r.t+" pedidos · "+r.e+" entregados ("+tp(r.e,r.t)+") · "+r.d+" devueltos ("+tp(r.d,r.t)+") · "+r.c+" cancelados ("+tp(r.c,r.t)+") · Q "+f0(r.v)});
     $("mh-pie").textContent="Son todos los pedidos de Dropi de esas fechas, no solo los de Meta: hoy el sistema no sabe de qué anuncio salió cada pedido. Las horas salen de Lumy, que usa hora de Colombia (igual que Perú, una más que Guatemala); el botón de zona horaria solo cambia cómo se ven las horas y los días. Los pedidos viejos sin hora no cuentan en la gráfica por hora. Con borde = la hora o el día con más movimiento.";
   }
   $("mh-tz").addEventListener("click",function(e){var b=e.target.closest("button[data-z]");if(!b)return;S.z=b.dataset.z;try{localStorage.setItem("ec_mhtz",S.z)}catch(x){}render()});
