@@ -437,6 +437,16 @@ body{padding-inline:max(16px,env(safe-area-inset-left),env(safe-area-inset-right
 .hbw{overflow-x:auto}
 .hbw>div{min-width:100%}
 .hbw.h24>div{min-width:640px}
+.hb .s i{display:flex;align-items:center;justify-content:center;color:#fff;font-size:.58rem;font-weight:800;line-height:1;overflow:hidden;font-style:normal;text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.hb .c{cursor:pointer}
+.hb .c.sel .s{outline:3px solid var(--fg);outline-offset:1px}
+.hbd{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 12px;margin-top:8px}
+.hbd h4{margin:0 0 6px;font-size:.95rem}
+.hbd table{width:100%;border-collapse:collapse;font-size:.85rem}
+.hbd td,.hbd th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right}
+.hbd td:first-child,.hbd th:first-child{text-align:left}
+.hbd tr:last-child td{border-bottom:0}
+.hbd .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .hbp{display:flex;gap:3px;margin-top:2px;font-size:.62rem;font-weight:700}
 .hbp span{flex:1 1 0;text-align:center;min-width:0}
 .hbp.e span{color:var(--verde)}.hbp.d span{color:var(--rojo)}.hbp.c span{color:var(--muted)}
@@ -4212,12 +4222,19 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function val(r){return S.m==="v"?r.v:r.t}
   function f0(n){return Math.round(n).toLocaleString("de-DE")}
   function bars(box,A,labels,tops,fmtTip){
+    DATA[box]=A;
     var mx=Math.max.apply(null,A.map(val).concat([1])),best=Math.max.apply(null,A.map(val));
     var pc=function(x,t){return t?Math.round(x/t*100)+"%":"–"};
-    var fila=function(c,key){return '<div class="hbp '+c+'">'+A.map(function(r){return '<span>'+pc(r[key],r.t)+'</span>'}).join("")+'</div>'};
+
     $(box).innerHTML='<div class="hbw'+(A.length>10?' h24':'')+'"><div><div class="hbn">'+A.map(function(r){var v=val(r);return '<span>'+(v?(S.m==="v"?f0(v):v):"")+'</span>'}).join("")+'</div><div class="hb">'+A.map(function(r,i){var t=val(r);
-      var seg=KS.map(function(k){var x=S.m==="v"?r["v"+k]:r[k];return x?'<i style="display:block;background:'+COL[k]+';height:'+(t?x/t*100:0)+'%"></i>':""}).join("");
-      return '<div class="c'+(t&&t===best?" top":"")+'" title="'+fmtTip(i,r)+'"><div class="s" style="height:'+(t/mx*100)+'%">'+seg+'</div></div>'}).join("")+'</div><div class="hbl">'+labels.map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'+fila("e","e")+fila("d","d")+fila("c","c")+'</div></div><p class="hbpl"><b style="color:var(--verde)">% entrega</b> · <b style="color:var(--rojo)">% devolución</b> (con incidencias) · <b>% cancelados</b>, sobre los pedidos de cada barra.</p>'}
+      var seg=KS.map(function(k){var x=S.m==="v"?r["v"+k]:r[k],px=t?x/mx*150:0;return x?'<i style="background:'+COL[k]+';height:'+(t?x/t*100:0)+'%">'+(px>=12?pc(x,t):"")+'</i>':""}).join("");
+      return '<div class="c'+(t&&t===best?" top":"")+(SEL[box]===i?" sel":"")+'" data-i="'+i+'" title="'+fmtTip(i,r)+'"><div class="s" style="height:'+(t/mx*100)+'%">'+seg+'</div></div>'}).join("")+'</div><div class="hbl">'+labels.map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'+'</div></div><p class="hbpl">El número dentro de cada color es su % sobre los pedidos de esa barra. Toca una barra para ver el detalle.</p><div class="hbd" id="'+box+'-det" hidden></div>';
+    if(SEL[box]!=null)detalle(box,SEL[box])}
+  var SEL={},DATA={};
+  function detalle(box,i){var A=DATA[box],r=A&&A[i],el=$(box+"-det");if(!el)return;if(!r||!r.t){el.hidden=true;return}
+    var nm=box==="mh-h"?ampm(i)+" a "+ampm((i+1)%24):DL[i];
+    var rows=[["e","Entregados"],["d","Devueltos e incidencias"],["p","En proceso"],["c","Cancelados"]].map(function(k){return '<tr><td><span class="dot" style="background:'+COL[k[0]]+'"></span>'+k[1]+'</td><td>'+r[k[0]]+'</td><td><b>'+tp(r[k[0]],r.t)+'</b></td><td>Q '+f0(r["v"+k[0]])+'</td></tr>'}).join("");
+    el.innerHTML='<h4>'+nm+' · '+r.t+' pedidos · Q '+f0(r.v)+'</h4><table><thead><tr><th>Estado</th><th>Pedidos</th><th>%</th><th>Venta</th></tr></thead><tbody>'+rows+'</tbody></table>';el.hidden=false}
   function render(){
     var O=window.__ORD||[];if(!O.length)return;
     var d1=($("m-dia")&&$("m-dia").value)||($("m-desde")&&$("m-desde").value)||"",d2=($("m-dia")&&$("m-dia").value)||($("m-hasta")&&$("m-hasta").value)||"";
@@ -4246,6 +4263,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     bars("mh-d",D,DN,0,function(i,r){return DL[i]+" · "+r.t+" pedidos · "+r.e+" entregados ("+tp(r.e,r.t)+") · "+r.d+" devueltos ("+tp(r.d,r.t)+") · "+r.c+" cancelados ("+tp(r.c,r.t)+") · Q "+f0(r.v)});
     $("mh-pie").textContent="Son todos los pedidos de Dropi de esas fechas, no solo los de Meta: hoy el sistema no sabe de qué anuncio salió cada pedido. Las horas salen de Lumy, que usa hora de Colombia (igual que Perú, una más que Guatemala); el botón de zona horaria solo cambia cómo se ven las horas y los días. Los pedidos viejos sin hora no cuentan en la gráfica por hora. Con borde = la hora o el día con más movimiento.";
   }
+  ["mh-h","mh-d"].forEach(function(b){$(b).addEventListener("click",function(e){var c=e.target.closest(".c[data-i]");if(!c)return;var i=+c.dataset.i;SEL[b]=SEL[b]===i?null:i;render()})});
   $("mh-tz").addEventListener("click",function(e){var b=e.target.closest("button[data-z]");if(!b)return;S.z=b.dataset.z;try{localStorage.setItem("ec_mhtz",S.z)}catch(x){}render()});
   $("mh-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;render()});
   ["m-desde","m-hasta","m-dia"].forEach(function(i){var e=$(i);if(e){e.addEventListener("change",render);e.addEventListener("input",render)}});
