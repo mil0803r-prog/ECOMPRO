@@ -116,6 +116,7 @@ td.num{font-weight:600}
 .chk{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:500}
 .stsel{font:inherit;font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 6px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;max-width:150px}
 .stsel.a{border-color:var(--amar);color:#8a5a00}.stsel.r{border-color:var(--rojo);color:var(--rojo)}.stsel.v{border-color:var(--verde);color:var(--verde)}
+.pbtag{display:inline-block;color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.03em;padding:2px 7px;border-radius:999px;margin-right:4px}
 .star{font:inherit;font-size:1.1rem;line-height:1;background:none;border:0;cursor:pointer;color:var(--line);padding:2px 4px}
 .star[aria-pressed="true"]{color:var(--amar)}
 .lkchip{display:inline-flex;align-items:stretch;margin:0 6px 6px 0;border:1px solid var(--line);border-radius:99px;background:var(--card);overflow:hidden;font-size:.8rem;font-weight:600;max-width:100%}
@@ -2260,9 +2261,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function pmv(w,k){var m=PM[w.id];return w[k]!=null?w[k]:(m&&m[k]!=null?m[k]:null)}
   function pmp(w,p,k){if(p[k]!=null)return p[k];var m=PM[w.id],q=m&&m.provs&&m.provs[String(p.id)];return q&&q[k]!=null?q[k]:null}
   function fdc(d){if(String(d).slice(0,10)<="2025-10-04")return "sin fecha real";var q=String(d).slice(0,10).split("-");return q.length===3?q[2]+" "+MES[+q[1]-1]+" "+q[0]:d}
+  var PBC=["#7c3aed","#db2777","#0891b2","#ea580c","#16a34a","#2563eb"];
+  function pbColor(d){var t=Date.parse(String(d).slice(0,10)+"T00:00:00Z");return PBC[(Math.floor(t/86400000)%PBC.length+PBC.length)%PBC.length]}
   function cardHtml(w){
     var ia=w.source!=="manual",c=+w.costo||0,u=(w.oferta&&w.oferta.u)||1,pr=(w.oferta&&w.oferta.precio)||+w.pvp||0,ev=(c&&pr)?evOf(c,u,pr):null,fin=final(w);
-    var h='<article class="czc" data-id="'+esc(w.id)+'"><div class="czh"><div class="czrank">'+(ia?'#'+w.rank:'M')+'</div><div class="czt"><h3>'+esc(w.name)+'</h3><div class="sub">'+(ia?'Elegido por IA':'Agregado a mano')+(w.provider?' · '+esc(w.provider)+(w.verificado?' (verificado)':''):'')+(w.cats?' · '+esc(w.cats):'')+'</div></div>'+'<button type="button" class="star czfav" data-a="fav" aria-pressed="'+!!w.fav+'" aria-label="Favorito" title="Marcar como favorito"'+(czWrite?'':' disabled')+' style="margin-left:auto;align-self:flex-start">★</button>'+(fin!=null?ring(fin):'')+'</div>';
+    var pbc=w.planb?pbColor(w.date):"";
+    var h='<article class="czc" data-id="'+esc(w.id)+'"'+(pbc?' style="border-left:6px solid '+pbc+'"':'')+'><div class="czh"><div class="czrank">'+(ia?'#'+w.rank:'M')+'</div><div class="czt"><h3>'+esc(w.name)+'</h3><div class="sub">'+(pbc?'<span class="pbtag" style="background:'+pbc+'">PLAN B · ventas 20 a 400</span> ':'')+(ia?'Elegido por IA':'Agregado a mano')+(w.provider?' · '+esc(w.provider)+(w.verificado?' (verificado)':''):'')+(w.cats?' · '+esc(w.cats):'')+'</div></div>'+'<button type="button" class="star czfav" data-a="fav" aria-pressed="'+!!w.fav+'" aria-label="Favorito" title="Marcar como favorito"'+(czWrite?'':' disabled')+' style="margin-left:auto;align-self:flex-start">★</button>'+(fin!=null?ring(fin):'')+'</div>';
     h+='<div class="czg"><div><small>Costo Dropi</small><span>'+(c?g0(c):'–')+'</span></div><div><small>Precio venta</small><span>'+(w.pvp?g0(w.pvp):'–')+'</span></div><div><small>Vend. 7 d</small><span>'+(w.v7!=null?g0(w.v7):'–')+'</span></div><div><small>Vend. 30 d</small><span>'+(w.v30!=null?g0(w.v30):'–')+'</span></div><div><small>Stock</small><span>'+(w.stock!=null?g0(w.stock):'–')+'</span></div><div><small>Venta total</small><span>'+(pmv(w,'tv')!=null?g0(pmv(w,'tv')):'–')+'</span></div><div><small>Creado</small><span>'+(pmv(w,'ct')?fdc(pmv(w,'ct')):'–')+'</span></div></div>';
     if(w.anTotal!=null){h+='<div class="czan"><div><small>En Guatemala por WhatsApp</small><b>'+g0(w.anWA||0)+'</b></div><div><small>En Guatemala con landing o tienda</small><b>'+g0(w.anLand||0)+'</b></div><div><small>Total en Guatemala</small><b>'+g0(w.anTotal)+'</b></div></div>'+(w.anNota?'<p class="czp" style="margin-top:-6px"><span class="sub">'+esc(w.anNota)+'</span></p>':'')}
     if(w.scores){h+='<div class="czbars">'+COMP.map(function(k){var v=w.scores[k[0]]||0;return '<div><small><span>'+k[1]+'</span><span>'+v+'/10</span></small><i><u style="width:'+v*10+'%"></u></i></div>'}).join("")+'</div>'}
@@ -2324,7 +2328,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var nFav=WV.filter(function(w){return w.fav}).length;
     if(czSoloFav){WV=WV.filter(function(w){return w.fav});dates=Array.from(new Set(WV.map(function(w){return w.date}))).sort().reverse()}
     if(!czDate||dates.indexOf(czDate)<0)czDate=dates[0]||null;
-    $("cz-fechas").innerHTML=dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'">'+fd(d)+' · '+n+'</button>'}).join("");
+    $("cz-fechas").innerHTML=dates.map(function(d){var n=WV.filter(function(w){return w.date===d}).length;var pbd=WV.filter(function(w){return w.date===d}).every(function(w){return w.planb}),c=pbd?pbColor(d):"";return '<button type="button" class="chip" data-d="'+d+'" aria-pressed="'+(d===czDate)+'"'+(c?' style="border-color:'+c+';box-shadow:inset 0 -3px 0 '+c+'" title="Día con productos del Plan B"':'')+'>'+(c?'<span style="color:'+c+'">●</span> ':'')+fd(d)+' · '+n+'</button>'}).join("");
     var sb=$("cz-solo");if(sb){sb.setAttribute("aria-pressed",String(czSoloFav));sb.textContent="★ Solo favoritos · "+nFav}
     var L=$("cz-lista");
     if(!czDate){L.innerHTML=czSoloFav?'<div class="czvacio"><b>Todavía no tienes favoritos</b>Toca la estrella ★ de un producto para marcarlo. Después vuelve a tocar "Solo favoritos" para ver todos.</div>':'<div class="czvacio"><b>Todavía no hay productos guardados</b>La primera caza aparece aquí en cuanto se guarde. También puedes agregar uno a mano abajo.</div>';$("cz-radar").innerHTML="";return}
