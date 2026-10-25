@@ -1053,11 +1053,13 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 <p><b>La bitácora salva:</b> fecha, qué tocaste, cuánto y qué pasó a las 72 horas. Y decide con entrega real y ganancia en quetzales, no solo con el ROAS de Meta.</p></div></details>
 <details class="mgs" open><summary>Bitácora Golden: un cambio a la vez</summary><div class="mgb"><div class="frow" style="gap:10px;flex-wrap:wrap;align-items:flex-end">
 <div class="fld"><label for="bg-f">Fecha</label><input id="bg-f" type="date"></div>
+<div class="fld"><label for="bg-t">Tipo</label><select id="bg-t"><option value="testeo">Testeo</option><option value="escalado">Escalado</option></select></div>
 <div class="fld grow"><label for="bg-q">Qué toqué y cuánto</label><textarea id="bg-q" rows="3" maxlength="5000" placeholder="Ej. Subí el conjunto del guante de Q50 a Q60" style="resize:vertical;min-height:70px"></textarea></div>
 <div class="fld grow"><label for="bg-r">Qué pasó a las 72 horas</label><textarea id="bg-r" rows="3" maxlength="5000" placeholder="Ej. CPA bajó de Q22 a Q19" style="resize:vertical;min-height:70px"></textarea></div>
 <div class="fld grow" style="flex-basis:100%"><label for="bg-n">Nota</label><textarea id="bg-n" rows="3" maxlength="5000" placeholder="Ej. Ideas, aprendizajes, qué probar después" style="resize:vertical;min-height:70px"></textarea></div>
 <button class="btn" type="button" id="bg-add">Anotar</button></div>
-<div class="tbl" style="margin-top:10px"><table style="min-width:640px"><thead><tr><th>Fecha</th><th>Qué toqué</th><th>Resultado a las 72 h</th><th>Nota</th><th></th></tr></thead><tbody id="bg-body"></tbody></table></div></div></details>
+<div class="chips" id="bg-tf" style="margin-top:10px"><button type="button" class="chip" data-t="" aria-pressed="true">Todos</button><button type="button" class="chip" data-t="testeo" aria-pressed="false">Testeo</button><button type="button" class="chip" data-t="escalado" aria-pressed="false">Escalado</button></div>
+<div class="tbl" style="margin-top:10px"><table style="min-width:700px"><thead><tr><th>Fecha</th><th>Tipo</th><th>Qué toqué</th><th>Resultado a las 72 h</th><th>Nota</th><th></th></tr></thead><tbody id="bg-body"></tbody></table></div></div></details>
 <details class="mgs" ><summary>14 · Para llevar</summary><div class="mgb"><ol><li>Pruebas en ABO, escalas en CBO.</li><li>Al ganador no lo editas: lo duplicas y cambias una sola cosa.</li><li>Subes por escalones o replicas en otras cuentas.</li><li>Decides con tu Tasa de CPA y el semáforo.</li></ol></div></details>
     <p class="foot">Fuente: MBA en Comercio Conversacional · M14 Publicidad con Meta Ads (comunidadgolden.com/octubre14). Las reglas marcadas "de la práctica" no son de Meta. Los ejemplos en pesos de la guía los dejé como ejemplo y la calculadora usa quetzales.</p>
   </section>
@@ -2704,12 +2706,16 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   var BG=[],db=null,can=true;
   try{BG=JSON.parse(localStorage.getItem("ec_mgbit")||"[]")||[]}catch(e){BG=[]}
   function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-  function drawB(){var L=BG.slice().sort(function(a,b){return (b.f||"").localeCompare(a.f||"")});
-    $("bg-body").innerHTML=L.length?L.map(function(r){return '<tr><td style="white-space:nowrap">'+esc((r.f||"").split("-").reverse().join("/"))+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.q)+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.r)+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.n||'')+'</td><td><button type="button" class="btn" data-id="'+esc(r.id)+'" style="padding:3px 9px;font-size:.78rem">Borrar</button></td></tr>'}).join(""):'<tr><td colspan="5" class="sub" style="padding:14px">Todavía no anotaste nada. Cada cambio que hagas va aquí.</td></tr>'}
+  var BT="",TYP={testeo:["Testeo","#7c3aed"],escalado:["Escalado","#16a34a"]};
+  function tipoB(r){var t=TYP[r.ty];return t?'<span class="pbtag" style="background:'+t[1]+'">'+t[0]+'</span>':'<span class="sub">–</span>'}
+  function drawB(){var L=BG.filter(function(r){return !BT||r.ty===BT}).sort(function(a,b){return (b.f||"").localeCompare(a.f||"")});
+    $("bg-tf").querySelectorAll("button").forEach(function(b){var n=b.dataset.t?BG.filter(function(r){return r.ty===b.dataset.t}).length:BG.length;b.setAttribute("aria-pressed",b.dataset.t===BT);b.textContent=(b.dataset.t?TYP[b.dataset.t][0]:"Todos")+" · "+n});
+    $("bg-body").innerHTML=L.length?L.map(function(r){return '<tr><td style="white-space:nowrap">'+esc((r.f||"").split("-").reverse().join("/"))+'</td><td>'+tipoB(r)+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.q)+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.r)+'</td><td style="white-space:pre-wrap;word-break:break-word">'+esc(r.n||'')+'</td><td><button type="button" class="btn" data-id="'+esc(r.id)+'" style="padding:3px 9px;font-size:.78rem">Borrar</button></td></tr>'}).join(""):'<tr><td colspan="6" class="sub" style="padding:14px">'+(BG.length?'No hay registros de este tipo.':'Todavía no anotaste nada. Cada cambio que hagas va aquí.')+'</td></tr>'}
   function saveB(){try{localStorage.setItem("ec_mgbit",JSON.stringify(BG))}catch(e){}if(db&&can)db.doc("settings/bitacoragolden").set({list:BG}).catch(function(){})}
   $("bg-f").value=new Date().toISOString().slice(0,10);
   $("bg-add").addEventListener("click",function(){var f=$("bg-f").value,qq=$("bg-q").value.trim();if(!f||!qq){$("bg-q").focus();return}
-    BG.push({id:"b"+Date.now().toString(36),f:f,q:qq.slice(0,5000),r:$("bg-r").value.trim().slice(0,5000),n:$("bg-n").value.trim().slice(0,5000)});$("bg-q").value="";$("bg-r").value="";$("bg-n").value="";saveB();drawB()});
+    BG.push({id:"b"+Date.now().toString(36),f:f,ty:$("bg-t").value==="escalado"?"escalado":"testeo",q:qq.slice(0,5000),r:$("bg-r").value.trim().slice(0,5000),n:$("bg-n").value.trim().slice(0,5000)});$("bg-q").value="";$("bg-r").value="";$("bg-n").value="";saveB();drawB()});
+  $("bg-tf").addEventListener("click",function(e){var b=e.target.closest("button[data-t]");if(!b)return;BT=b.dataset.t;drawB()});
   $("bg-body").addEventListener("click",function(e){var b=e.target.closest("button[data-id]");if(!b)return;BG=BG.filter(function(r){return r.id!==b.dataset.id});saveB();drawB()});
   drawB();
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
