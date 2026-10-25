@@ -6063,6 +6063,15 @@
    "fav": false,
    "ct": "2026-09-29",
    "tv": 70
+  },
+  "2026-10-25_aviso": {
+   "date": "2026-10-25",
+   "source": "ia",
+   "rank": 99,
+   "name": "Hoy ningún producto cumplió todos los filtros",
+   "verdict": "DropKiller devolvió 44 productos activos en Guatemala; 34 estaban entre 50 y 800 ventas, pero 13 eran repetidos de los últimos 20 días y 21 cayeron por tener 3 o más proveedores, estar saturados o por ventas no reales. Abajo, en el radar, están los candidatos más cercanos (tiras blanqueadoras 20409) para que decidas si aflojas el filtro.",
+   "status": "nuevo",
+   "fav": false
   }
  },
  "validations": {
@@ -15088,6 +15097,415 @@
    ],
    "resumen": "59 leidos con los filtros de entrada (creado desde 2026-07-23, stock 80 o mas, 7d 50 o mas, total 50 o mas, ACTIVE, DROPI, GT; una sola pagina, total=59). El filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, saturacion de anunciantes en GT, ventas no consistentes o suma fuera de rango (20), seguido de repetidos de los ultimos 20 dias (19), el rango 50-800 de las tres ventas (17 de 59 fuera) y los de adultos (1). De los 42 en rango: 2 finalistas (faltaron 3 para llegar a 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 59 que pasen el piso de 50 ventas en 7 dias y 90 dias de antiguedad; para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Tiras moradas blanqueadoras dentales (20409, digital gt, 185/378/409, stock 619, 10 dias de venta): quedan fuera por la nota de repetido del 13-oct, pero no figuran como tarjeta en el seed; si no se repitio de verdad, es el mejor 3er producto; (2) Luz LED roja para bicicleta (25284) tiene 0 anunciantes del mismo producto pero solo 5 dias de venta: validar con una prueba corta y revisar el precio frente al duo de Alexpress a Q99.99; (3) Pantalla amp (23132): confirmar en Dropi que es el amplificador de pantalla para celular y el stock antes de pautar (102 hoy); (4) Te chino (29042) y Oftamiel (28778) son listados nuevos de sicommer lab de productos que ya venden mucho en otros listados (1688 y 5569 ventas en total): no son productos nuevos; (5) Cayenne Pepper (27396) y la crema combo x2 para varices (28058) se descartaron con datos de la corrida del 19-oct, sin reverificar hoy."
+  },
+  "2026-10-25": {
+   "date": "2026-10-25",
+   "source": "ia",
+   "titulo": "Radar Caza Diaria · 2026-10-25",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (sin navegador)",
+   "veredicto": "Veredicto. Hoy, 2026-10-25, DropKiller devolvio 44 productos GT/Dropi creados desde el 2026-07-27 con stock de 80 o mas y 50 o mas ventas en 7 dias; 34 tienen 7d, 30d y total entre 50 y 800 y NINGUNO pasa todos los filtros (1 o 2 proveedores, ventas depuradas, sin saturacion y sin repetir los ultimos 20 dias). El unico casi finalista es la tira blanqueadora dental (20409): 110 / 384 / 415 reportadas y 2 proveedores, pero depuradas quedan 28 en 7d y llevan 3 dias casi sin venta, asi que no se guarda como tarjeta; no hay productos que entregar hoy.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador); los anuncios salen de la biblioteca de DropKiller (busqueda por texto), con conteos minimos. No se buscaron referentes fuera de GT ni se vieron las fotos. Aviso de repeticion: se aplico contra los ids de proveedor de las tarjetas desde el 28-sep, las fichas del radar y las corridas radar21 (Pantalla amp 23132 y Luz LED bici 25284 incluidas). Se reverificaron hoy: Cayenne Pepper 27396 (15 o mas anunciantes en GT, saturado), crema combo x2 para varices 28058 (hoy 40 / 90 / 90, ya no llega a 50 en 7d, 1 proveedor) y tiras blanqueadoras 20409 (nota de repetido del 13-oct sin respaldo: no hay tarjeta suya en el seed; se evaluo como cualquier otro). No se uso Fasebook, Vercel ni ArtifactData.",
+   "fichas": [],
+   "tabla": [
+    {
+     "n": "5 t-shirt rvca con bolsa y bordado x 120",
+     "s": "ID 27663 · laurean by seong woo",
+     "v": "321 / 396 / 396",
+     "st": "16579",
+     "ct": "2026-10-10",
+     "r": "Descartado: nombre con marca (RVCA), bandera roja, y 321 unidades en pocos dias de ropa al por mayor (stock 16579)",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "271 / 673 / 886",
+     "st": "977",
+     "ct": "2026-08-29",
+     "r": "Descartado: ventas fuera de 50-800 (7d 271, 30d 673, total 886)",
+     "c": "d"
+    },
+    {
+     "n": "te chino",
+     "s": "ID 29042 · sicommer lab",
+     "v": "232 / 232 / 232",
+     "st": "1768",
+     "ct": "2026-10-18",
+     "r": "Descartado: te chino, listado nuevo de sicommer lab del mismo producto que el 7101 (1688 ventas en total, segun la corrida del 21-oct) y el 4749 de natural labs: sumados salen del rango 50-800; 232 ventas en una sola tanda y bandera amarilla por consumible (no reverificado hoy)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "224 / 750 / 1191",
+     "st": "809",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 224, 30d 750, total 1191)",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "215 / 294 / 303",
+     "st": "4344",
+     "ct": "2026-08-28",
+     "r": "Descartado: repetido, tarjeta Excalvo shampoo 500ml del 2026-10-09",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "209 / 310 / 310",
+     "st": "690",
+     "ct": "2026-10-08",
+     "r": "Descartado: 4 listados del mismo producto (Renovia 15 en 1: nibresma, nexus, almafit, suplem gt) segun la corrida del 15-oct; suplemento (no reverificado hoy)",
+     "c": "d"
+    },
+    {
+     "n": "kneeflex pro",
+     "s": "ID 16336 · soluciones sig&sarp",
+     "v": "180 / 353 / 1783",
+     "st": "242",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera de 50-800 (7d 180, 30d 353, total 1783)",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "174 / 327 / 327",
+     "st": "1673",
+     "ct": "2026-10-04",
+     "r": "Descartado: mismo producto que otros listados de Nippori (altamira, 10616 ventas en total): sumados salen del rango 50-800 (no reverificado hoy)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "143 / 349 / 349",
+     "st": "5151",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-11)",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "137 / 481 / 801",
+     "st": "216",
+     "ct": "2026-09-11",
+     "r": "Descartado: ventas fuera de 50-800 (7d 137, 30d 481, total 801)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "136 / 743 / 930",
+     "st": "1052",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera de 50-800 (7d 136, 30d 743, total 930)",
+     "c": "d"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "132 / 338 / 642",
+     "st": "4360",
+     "ct": "2026-08-09",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (Her Loss: laboratorio luna, aure, chicas empire, altamira, natural labs) segun la corrida del 21-oct",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "131 / 455 / 1309",
+     "st": "374",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 131, 30d 455, total 1309)",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "130 / 737 / 737",
+     "st": "582",
+     "ct": "2026-09-30",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-14)",
+     "c": "d"
+    },
+    {
+     "n": "ácido r-alfa lipoico (r-ala)",
+     "s": "ID 28678 · natural labs organic",
+     "v": "115 / 115 / 115",
+     "st": "4885",
+     "ct": "2026-10-17",
+     "r": "Descartado: saturado, 9 o mas anunciantes distintos de R-alfa lipoico en GT con anuncios activos esta semana (Dapaju, Imperio Vital, Impervital, Zunelvia, ClickGt, Punto Compra, Vitacarga, Telotengo, ImportHouse y mas); suplemento con bandera amarilla; solo 6 dias de venta",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "110 / 384 / 415",
+     "st": "613",
+     "ct": "2026-09-04",
+     "r": "Casi finalista: ventas reportadas 110 / 384 / 415 y 2 proveedores (digital gt 20409 y 15470; importadora el mayorista 2186 y 22645), pero depuradas con ventas_reales.py quedan 28 en 7d y 211 en total (picos de 50, 65 y 104 unidades en un dia ligados a reabastecimientos del 14 y 19-oct) y llevan 3 dias casi sin venta (0, 2, 4). Falla el 7d depurado",
+     "c": "f"
+    },
+    {
+     "n": "shilajit ultra optimal potency 60 caps.",
+     "s": "ID 27368 · american natural",
+     "v": "108 / 220 / 220",
+     "st": "4780",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido, mismo producto que Shilajit Ultra Top (tarjeta del 2026-10-07) con otro listado",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "102 / 413 / 2224",
+     "st": "792",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera de 50-800 (7d 102, 30d 413, total 2224)",
+     "c": "d"
+    },
+    {
+     "n": "creatine for women (gris)",
+     "s": "ID 19179 · kura labs",
+     "v": "102 / 166 / 224",
+     "st": "793",
+     "ct": "2026-08-28",
+     "r": "Descartado: 5 o mas proveedores del mismo producto (creatina para mujer: laboratorio luna, almafit, nexus, kura labs, capitan lab, vitalcom) segun la corrida del 21-oct",
+     "c": "d"
+    },
+    {
+     "n": "combo mino",
+     "s": "ID 27973 · importadora el mayorista",
+     "v": "99 / 231 / 231",
+     "st": "137",
+     "ct": "2026-10-13",
+     "r": "Descartado: 5 o mas proveedores del mismo tipo (minoxidil) y venta no consistente: 99 unidades en pocos dias (creado el 13-oct)",
+     "c": "d"
+    },
+    {
+     "n": "spray restaurador del interior del carro",
+     "s": "ID 2828 · importadora el mayorista",
+     "v": "98 / 140 / 140",
+     "st": "80",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-19)",
+     "c": "d"
+    },
+    {
+     "n": "capykaraoke micrófono infantil con luces",
+     "s": "ID 27194 · digital gt",
+     "v": "90 / 168 / 168",
+     "st": "132",
+     "ct": "2026-10-09",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-18)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "82 / 234 / 234",
+     "st": "4765",
+     "ct": "2026-10-03",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico: aure, blue guatemala, american natural)",
+     "c": "d"
+    },
+    {
+     "n": "aceite capilar colageno cqk",
+     "s": "ID 22667 · importadora el mayorista",
+     "v": "81 / 302 / 362",
+     "st": "90",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-18)",
+     "c": "d"
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "s": "ID 16112 · distribuidora rocke feller",
+     "v": "79 / 395 / 728",
+     "st": "267",
+     "ct": "2026-08-06",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-10)",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "78 / 228 / 228",
+     "st": "825",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-15)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "78 / 551 / 596",
+     "st": "1904",
+     "ct": "2026-09-17",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "73 / 554 / 957",
+     "st": "5031",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera de 50-800 (7d 73, 30d 554, total 957)",
+     "c": "d"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "71 / 132 / 132",
+     "st": "368",
+     "ct": "2026-10-10",
+     "r": "Descartado (reverificado hoy): saturado, 15 o mas anunciantes distintos de Cayenne Pepper en GT (Los Andes Mayorista, Vitalbix, Vitacarga, Dra. Marta Gonzalez, ClickGo, Nexora, Renoval Shop, Cordivita y mas); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "glucora x 2 unid",
+     "s": "ID 20860 · suplem gt",
+     "v": "70 / 160 / 179",
+     "st": "621",
+     "ct": "2026-09-06",
+     "r": "Descartado: 5 listados del mismo producto (Glucora: nexus, almafit, nibresma, suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "gomitas para niños heighterner",
+     "s": "ID 29041 · sicommer lab",
+     "v": "67 / 67 / 67",
+     "st": "1933",
+     "ct": "2026-10-18",
+     "r": "Descartado: repetido, tarjeta Gomitas para ninos Heighterner del 2026-10-13 (12 dias)",
+     "c": "d"
+    },
+    {
+     "n": "pumpkin seed oil",
+     "s": "ID 19925 · nibresma",
+     "v": "65 / 275 / 279",
+     "st": "721",
+     "ct": "2026-08-29",
+     "r": "Descartado: 4 proveedores del mismo producto (pumpkin seed oil: natural labs, kura labs, nibresma, almafit)",
+     "c": "d"
+    },
+    {
+     "n": "oftamiel",
+     "s": "ID 28778 · sicommer lab",
+     "v": "65 / 78 / 78",
+     "st": "1918",
+     "ct": "2026-10-17",
+     "r": "Descartado: oftamiel, listado nuevo del mismo producto que el 15158 (5569 ventas en total): sumados salen del rango 50-800; gotas oftalmicas con bandera amarilla (no reverificado hoy)",
+     "c": "d"
+    },
+    {
+     "n": "luz led roja para bicicleta",
+     "s": "ID 25284 · grupo luna",
+     "v": "63 / 91 / 91",
+     "st": "909",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-21)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "62 / 211 / 574",
+     "st": "1465",
+     "ct": "2026-08-19",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-14)",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "61 / 215 / 217",
+     "st": "2783",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-15)",
+     "c": "d"
+    },
+    {
+     "n": "faja slimming pants",
+     "s": "ID 22618 · importadora el mayorista",
+     "v": "59 / 97 / 97",
+     "st": "215",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-19)",
+     "c": "d"
+    },
+    {
+     "n": "protector de colchon antifluidos",
+     "s": "ID 16111 · distribuidora rocke feller",
+     "v": "58 / 108 / 911",
+     "st": "1168",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera de 50-800 (7d 58, 30d 108, total 911)",
+     "c": "d"
+    },
+    {
+     "n": "mini rastreador gps",
+     "s": "ID 20693 · 60 segundos",
+     "v": "57 / 180 / 193",
+     "st": "185",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-14)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de drenaje linfatico",
+     "s": "ID 15876 · corporacion g&c",
+     "v": "56 / 80 / 178",
+     "st": "827",
+     "ct": "2026-07-30",
+     "r": "Descartado: capsulas de drenaje linfatico, mismo producto que los listados de aure, american natural y blue guatemala (3 o mas proveedores); 56 / 80 / 178",
+     "c": "d"
+    },
+    {
+     "n": "2 pantalónes rose/dama 5 colores x 109",
+     "s": "ID 26401 · laurean by seong woo",
+     "v": "52 / 93 / 93",
+     "st": "12378",
+     "ct": "2026-10-04",
+     "r": "Descartado: 52 / 93 / 93 de ropa al por mayor (2 pantalones x109 con stock de 12378), no es producto de prueba",
+     "c": "d"
+    },
+    {
+     "n": "dr. melaxin cemenrete",
+     "s": "ID 18604 · sicommer lab",
+     "v": "52 / 436 / 2199",
+     "st": "1709",
+     "ct": "2026-08-22",
+     "r": "Descartado: ventas fuera de 50-800 (7d 52, 30d 436, total 2199)",
+     "c": "d"
+    },
+    {
+     "n": "pasta dental blanqueadora 9d",
+     "s": "ID 27637 · importadora el mayorista",
+     "v": "51 / 51 / 51",
+     "st": "530",
+     "ct": "2026-10-10",
+     "r": "Descartado: 51 / 51 / 51 justo en el piso, con 32 de las 51 en un solo dia (20-oct) y 1 por dia despues (7d depurado bajo 50); el producto parecido (pasta con carbon activado) tiene 4 anunciantes en GT con anuncios de hasta 369 dias",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian aceite semilla negra x60 caps",
+     "s": "ID 23108 · almafit",
+     "v": "50 / 347 / 436",
+     "st": "1567",
+     "ct": "2026-09-17",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (tarjeta 2026-10-11)",
+     "c": "d"
+    }
+   ],
+   "resumen": "44 leidos con los filtros de entrada (creado desde 2026-07-27, stock 80 o mas, 7d 50 o mas, total 50 o mas, 30d hasta 800, ACTIVE, DROPI, GT; una sola pagina, total=44). Corte por filtro: ventas fuera de 50-800 (10 de 44), repetidos de los ultimos 20 dias (13), y entre los demas 21, el filtro que mas corto fue el de 3 o mas proveedores/listados del mismo producto, seguido de la saturacion de anunciantes en GT (Cayenne Pepper, R-alfa lipoico) y las ventas depuradas (tiras blanqueadoras, pasta dental 9d). De los 34 en rango: 0 finalistas (faltaron 5). La meta de 120 filas no se alcanzo: el catalogo solo tiene 44 con 7d de 50 o mas en 90 dias. Para llegar a 5 conviene bajar minSold7d a 30 o ampliar a 120 dias.",
+   "revisar": "(1) Tiras moradas blanqueadoras dentales (20409, digital gt, 110 / 384 / 415 reportadas, 211 depuradas en total, stock 613, creado 2026-09-04; mas 15470 digital gt y 2186 y 22645 de importadora el mayorista): es el unico que casi cumple, pero el 7d depurado es 28 y viene de picos con reabastecimiento; si el dueno acepta ventas reportadas, queda como el 1er candidato (en GT solo La Estacion GT anuncio entre el 27-ago y el 10-sep, sin anuncios vistos desde entonces; semaforo 1-2). Es producto de cuidado personal con bandera amarilla. (2) Crema combo x2 para varices (28058, importadora el mayorista, 40 / 90 / 90, stock 108): ya no llega a 50 en 7d. (3) Pasta dental blanqueadora 9d (27637): 51 / 51 / 51 con un solo dia fuerte; vigilar si sostiene. Sin gemas ni despegues: no hay memoria de 3 corridas para marcar GEMA."
   }
  },
  "tiktokshop": {
