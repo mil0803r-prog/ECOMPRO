@@ -998,11 +998,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 <div id="mg-plan"></div>
 <p><b>La bitácora salva:</b> fecha, qué tocaste, cuánto y qué pasó a las 72 horas. Y decide con entrega real y ganancia en quetzales, no solo con el ROAS de Meta.</p></div></details>
 <details class="mgs" open><summary>Bitácora Golden: un cambio a la vez</summary><div class="mgb"><div class="frow" style="gap:10px;flex-wrap:wrap;align-items:flex-end">
+<div class="fld"><label id="bg-tl">Tipo</label><div class="chips" id="bg-t" role="group" aria-labelledby="bg-tl"><button type="button" class="chip" data-t="testeo" aria-pressed="true">Testeo</button><button type="button" class="chip" data-t="escalado" aria-pressed="false">Escalado</button></div></div>
 <div class="fld"><label for="bg-f">Fecha</label><input id="bg-f" type="date"></div>
-<div class="fld grow"><label for="bg-q">Qué toqué y cuánto</label><input id="bg-q" type="text" maxlength="140" placeholder="Ej. Subí el conjunto del guante de Q50 a Q60"></div>
+<div class="fld grow"><label for="bg-q">Qué toqué y cuánto</label><input id="bg-q" type="text" maxlength="140" placeholder="Ej. Probé 4 videos nuevos con Q40 por conjunto"></div>
 <div class="fld grow"><label for="bg-r">Qué pasó a las 72 horas</label><input id="bg-r" type="text" maxlength="140" placeholder="Ej. CPA bajó de Q22 a Q19"></div>
 <button class="btn" type="button" id="bg-add">Anotar</button></div>
-<div class="tbl" style="margin-top:10px"><table style="min-width:520px"><thead><tr><th>Fecha</th><th>Qué toqué</th><th>Resultado a las 72 h</th><th></th></tr></thead><tbody id="bg-body"></tbody></table></div></div></details>
+<div class="tbl" style="margin-top:10px"><table style="min-width:520px"><thead><tr><th>Fecha</th><th>Tipo</th><th>Qué toqué</th><th>Resultado a las 72 h</th><th></th></tr></thead><tbody id="bg-body"></tbody></table></div></div></details>
 <details class="mgs" ><summary>14 · Para llevar</summary><div class="mgb"><ol><li>Pruebas en ABO, escalas en CBO.</li><li>Al ganador no lo editas: lo duplicas y cambias una sola cosa.</li><li>Subes por escalones o replicas en otras cuentas.</li><li>Decides con tu Tasa de CPA y el semáforo.</li></ol></div></details>
     <p class="foot">Fuente: MBA en Comercio Conversacional · M14 Publicidad con Meta Ads (comunidadgolden.com/octubre14). Las reglas marcadas "de la práctica" no son de Meta. Los ejemplos en pesos de la guía los dejé como ejemplo y la calculadora usa quetzales.</p>
   </section>
@@ -2593,11 +2594,14 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   try{BG=JSON.parse(localStorage.getItem("ec_mgbit")||"[]")||[]}catch(e){BG=[]}
   function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function drawB(){var L=BG.slice().sort(function(a,b){return (b.f||"").localeCompare(a.f||"")});
-    $("bg-body").innerHTML=L.length?L.map(function(r){return '<tr><td style="white-space:nowrap">'+esc((r.f||"").split("-").reverse().join("/"))+'</td><td>'+esc(r.q)+'</td><td>'+esc(r.r)+'</td><td><button type="button" class="btn" data-id="'+esc(r.id)+'" style="padding:3px 9px;font-size:.78rem">Borrar</button></td></tr>'}).join(""):'<tr><td colspan="4" class="sub" style="padding:14px">Todavía no anotaste nada. Cada cambio que hagas va aquí.</td></tr>'}
+    $("bg-body").innerHTML=L.length?L.map(function(r){return '<tr><td style="white-space:nowrap">'+esc((r.f||"").split("-").reverse().join("/"))+'</td><td><span class="tagchip" style="cursor:default">'+(r.t==="escalado"?"Escalado":r.t==="testeo"?"Testeo":"—")+'</span></td><td>'+esc(r.q)+'</td><td>'+esc(r.r)+'</td><td><button type="button" class="btn" data-id="'+esc(r.id)+'" style="padding:3px 9px;font-size:.78rem">Borrar</button></td></tr>'}).join(""):'<tr><td colspan="5" class="sub" style="padding:14px">Todavía no anotaste nada. Cada cambio que hagas va aquí.</td></tr>'}
+  var BT="testeo",BTX={testeo:["Ej. Probé 4 videos nuevos con Q40 por conjunto","Ej. CPA de Q22 con 5 pedidos, sigo o apago"],escalado:["Ej. Subí la campaña CBO de S/ 20 a S/ 24 (+20 %)","Ej. CPA bajó de Q22 a Q19"]};
+  function setBT(t){BT=t;[].forEach.call($("bg-t").querySelectorAll("button[data-t]"),function(b){b.setAttribute("aria-pressed",b.dataset.t===t?"true":"false")});$("bg-q").placeholder=BTX[t][0];$("bg-r").placeholder=BTX[t][1]}
+  $("bg-t").addEventListener("click",function(e){var b=e.target.closest("button[data-t]");if(b)setBT(b.dataset.t)});setBT("testeo");
   function saveB(){try{localStorage.setItem("ec_mgbit",JSON.stringify(BG))}catch(e){}if(db&&can)db.doc("settings/bitacoragolden").set({list:BG}).catch(function(){})}
   $("bg-f").value=new Date().toISOString().slice(0,10);
   $("bg-add").addEventListener("click",function(){var f=$("bg-f").value,qq=$("bg-q").value.trim();if(!f||!qq){$("bg-q").focus();return}
-    BG.push({id:"b"+Date.now().toString(36),f:f,q:qq.slice(0,140),r:$("bg-r").value.trim().slice(0,140)});$("bg-q").value="";$("bg-r").value="";saveB();drawB()});
+    BG.push({id:"b"+Date.now().toString(36),f:f,t:BT,q:qq.slice(0,140),r:$("bg-r").value.trim().slice(0,140)});$("bg-q").value="";$("bg-r").value="";saveB();drawB()});
   $("bg-body").addEventListener("click",function(e){var b=e.target.closest("button[data-id]");if(!b)return;BG=BG.filter(function(r){return r.id!==b.dataset.id});saveB();drawB()});
   drawB();
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
@@ -2760,7 +2764,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var nombres=["Días 1 a 3 Mide","Día 4 Primer paso","Día 7 Lote nuevo","Día 10 Solo mira","Día 14 Decide"];
     o.push("Plan de dos semanas hecho: "+(nombres.filter(function(n,i){return pl[i]}).join("; ")||"ninguno todavía")+".");
     var rows=[].slice.call(document.querySelectorAll("#bg-body tr")).map(function(r){return r.innerText.replace(/\s+/g," ").trim()}).filter(function(t){return t&&!/^Todavía no anotaste/.test(t)}).slice(0,25);
-    o.push("Bitácora (fecha, qué tocó, resultado a las 72 h): "+(rows.length?"\n- "+rows.join("\n- "):"vacía"));
+    o.push("Bitácora (fecha, tipo testeo o escalado, qué tocó, resultado a las 72 h): "+(rows.length?"\n- "+rows.join("\n- "):"vacía"));
     var base=window.ecAiContext?window.ecAiContext():"";
     return o.join("\n")+"\n\n=== DATOS DEL NEGOCIO ===\n"+base}
   function ask(q){q=String(q||"").trim();if(!q||busy)return;
