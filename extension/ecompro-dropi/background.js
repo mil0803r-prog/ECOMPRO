@@ -30,6 +30,23 @@ function avisar(ok, texto) {
 async function cfg() { return chrome.storage.local.get({ base: "https://ecompro-iota.vercel.app", key: "", log: null, total: 0 }); }
 chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
   if (msg && msg.tipo === "refrescar") { recargarDropi(true, resp); return true; }
+  if (msg && msg.tipo === "importar") {
+    chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
+      var t = (tabs || []).filter(function (x) { return /order|pedido/i.test(x.url || ""); })[0] || (tabs || [])[0];
+      if (!t) { resp({ ok: false, error: "Abre Dropi en una pestaña (Mis pedidos) y vuelve a intentar." }); return; }
+      chrome.tabs.sendMessage(t.id, { tipo: "importar", desde: msg.desde, hasta: msg.hasta }, function (r) {
+        if (chrome.runtime.lastError) { resp({ ok: false, error: "Recarga la pestaña de Dropi (Ctrl+Shift+R) y vuelve a intentar." }); return; }
+        resp(r || { ok: false, error: "Sin respuesta de Dropi." });
+      });
+    });
+    return true;
+  }
+  if (msg && msg.tipo === "prog") {
+    chrome.storage.local.set({ imp: Object.assign({ ts: Date.now() }, msg.prog) });
+    if (msg.prog.estado === "fin") avisar(true, "Importación lista (" + msg.prog.desde + " a " + msg.prog.hasta + "): Dropi devolvió " + msg.prog.filas + " pedidos. Se están subiendo al tablero.");
+    if (msg.prog.estado === "error") avisar(false, msg.prog.error);
+    return false;
+  }
   if (msg && msg.tipo === "dbg") { chrome.storage.local.set({ dbg: Object.assign({ ts: Date.now() }, msg.dbg) }); return false; }
   if (!msg || msg.tipo !== "pedidos") return;
   (async function () {

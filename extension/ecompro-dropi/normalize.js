@@ -1,4 +1,4 @@
-// Convierte lo que Dropi carga en pantalla en pedidos simples. Sin teléfonos ni correos.
+// Convierte lo que Dropi carga en pantalla en pedidos simples. Incluye el teléfono del cliente; no manda correos.
 (function (root) {
   function pick(o, keys) {
     for (var i = 0; i < keys.length; i++) {
@@ -58,6 +58,7 @@
       tr: pick(o, ["distribution_company.name", "shipping_company", "shipping_company_name", "transportadora", "carrier"]),
       p: prods.join(" + "),
       cl: nombre,
+      tl: pick(o, ["phone", "telefono", "client_phone", "customer_phone", "cellphone", "celular"]).replace(/[^\d+]/g, ""),
       a: pick(o, ["dir", "address", "direccion"]),
       nv: pick(o, ["novelty", "novedad", "status_novelty", "novelty_name"])
     };

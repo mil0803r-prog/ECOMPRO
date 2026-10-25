@@ -7,6 +7,10 @@
 <label for="a">Recargar Dropi automáticamente (solo si ya tienes Dropi abierto)</label>
 <select id="a"><option value="0">No, solo cuando yo lo pida</option><option value="5">Cada 5 minutos</option><option value="10">Cada 10 minutos</option><option value="15">Cada 15 minutos</option><option value="30">Cada 30 minutos</option></select>
 <button id="u">Actualizar ahora</button>
+<label for="fd">Importar por fechas (como el filtro de Dropi)</label>
+<div style="display:flex;gap:6px"><input id="fd" type="date" aria-label="Desde"><input id="fh" type="date" aria-label="Hasta"></div>
+<button id="im">Importar de Dropi a la plataforma</button>
+<small>No descarga ningún archivo: Dropi te entrega los pedidos de ese rango y se mandan directo a tu tablero. Antes abre Mis pedidos en Dropi.</small>
 <div id="st">Sin datos todavía.</div>
 <button id="d" class="s">Copiar diagnóstico (sin datos personales)</button>
 <script src="popup.js"></script>

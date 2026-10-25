@@ -92,8 +92,8 @@ module.exports = async (req, res) => {
       const m = map[n] || {};
       const s = estado(o.s);
       const x = Object.assign({}, m);
-      [["g", "g", 80], ["c", "cl", 80], ["p", "p", 200], ["t", "tr", 80], ["a", "a", 200], ["nv", "nv", 200]].forEach(([dst, src, len]) => {
-        const v = clip(o[src], len);
+      [["g", "g", 80], ["c", "cl", 80], ["p", "p", 200], ["t", "tr", 80], ["a", "a", 200], ["nv", "nv", 200], ["tl", "tl", 20]].forEach(([dst, src, len]) => {
+        const v = dst === "tl" ? String(o[src] == null ? "" : o[src]).replace(/[^\d+]/g, "").slice(0, len) : clip(o[src], len);
         if (v) x[dst] = v;
       });
       const dep = clip(o.dep, 30);

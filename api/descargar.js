@@ -84,7 +84,14 @@ function fbFind(html, key) {
   return m ? unesc(m[1]) : "";
 }
 async function facebook(u) {
-  const r = await get(u.toString(), { "User-Agent": UA_FB, "Accept-Language": "es,en;q=0.8", Accept: "text/html" }, 14000);
+  // Anuncios de la Biblioteca de anuncios de Meta: facebook.com/ads/library/?id=NÚMERO
+  const esAnuncio = /^\/ads\/(library|archive)/i.test(u.pathname);
+  if (esAnuncio) {
+    const id = (u.searchParams.get("id") || "").replace(/\D/g, "");
+    if (!id) return { error: "Ese enlace de la Biblioteca de anuncios no trae el número del anuncio (id=...)." };
+    u = new URL("https://www.facebook.com/ads/library/?id=" + id);
+  }
+  const r = await get(u.toString(), { "User-Agent": esAnuncio ? UA : UA_FB, "Accept-Language": "es,en;q=0.8", Accept: "text/html" }, 14000);
   let final;
   try {
     final = new URL(r.url);
@@ -93,13 +100,13 @@ async function facebook(u) {
   }
   if (!final || !hostOk(final.hostname.toLowerCase(), PAGE_HOSTS.facebook)) return { error: "Ese enlace no lleva a un video público de Facebook." };
   const html = await r.text();
-  const hd = fbFind(html, "hd_src") || fbFind(html, "playable_url_quality_hd") || fbFind(html, "browser_native_hd_url");
-  const sd = fbFind(html, "sd_src") || fbFind(html, "playable_url") || fbFind(html, "browser_native_sd_url") || meta(html, "og:video:secure_url") || meta(html, "og:video");
+  const hd = fbFind(html, "video_hd_url") || fbFind(html, "hd_src") || fbFind(html, "playable_url_quality_hd") || fbFind(html, "browser_native_hd_url");
+  const sd = fbFind(html, "video_sd_url") || fbFind(html, "sd_src") || fbFind(html, "playable_url") || fbFind(html, "browser_native_sd_url") || meta(html, "og:video:secure_url") || meta(html, "og:video");
   const videos = [];
   if (hd) videos.push({ calidad: "HD", url: hd });
   if (sd && sd !== hd) videos.push({ calidad: "Normal", url: sd });
   const ok = videos.filter((v) => hostOk((parseUrl(v.url) || { hostname: "" }).hostname, CDN_HOSTS) && /^https:/.test(v.url));
-  if (!ok.length) return { error: "No pude sacar el video. Facebook solo deja ver videos públicos: abre el enlace sin iniciar sesión para comprobar." };
+  if (!ok.length) return { error: "No pude sacar el video. Facebook solo deja ver videos públicos: abre el enlace sin iniciar sesión para comprobar. Si es un anuncio, pega el enlace de la Biblioteca de anuncios (facebook.com/ads/library/?id=...) y revisa que el anuncio sea de video y siga activo." };
   return {
     plataforma: "facebook",
     titulo: clean(meta(html, "og:title") || meta(html, "og:description"), 180),
@@ -208,6 +215,7 @@ async function entregarConvertido(res, u, q, nombre) {
 
 // ---------- entrega del archivo ----------
 async function entregar(req, res, q) {
+  const ver = q.v === "1";
   const u = parseUrl(q.u);
   if (!u || u.protocol !== "https:" || !hostOk(u.hostname.toLowerCase(), CDN_HOSTS)) {
     res.statusCode = 400;
@@ -217,7 +225,10 @@ async function entregar(req, res, q) {
   const conv = q.fmt === "gif" || RES.includes(+q.h) || ARS[q.ar];
   if (conv) return entregarConvertido(res, u, q, nombre);
   try {
-    const r = await get(u.toString(), { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" }, 25000);
+    const hdr = { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" };
+    const rango = ver && /^bytes=\d*-\d*$/.test(String(req.headers.range || "")) ? req.headers.range : "";
+    if (rango) hdr.Range = rango;
+    const r = await get(u.toString(), hdr, 25000);
     const len = +r.headers.get("content-length") || 0;
     let fin;
     try {
@@ -233,9 +244,13 @@ async function entregar(req, res, q) {
       res.statusCode = 413;
       return res.end("archivo muy grande");
     }
-    res.statusCode = 200;
+    res.statusCode = r.status === 206 ? 206 : 200;
     res.setHeader("Content-Type", r.headers.get("content-type") || "video/mp4");
-    res.setHeader("Content-Disposition", 'attachment; filename="' + nombre + '"');
+    if (ver) {
+      res.setHeader("Accept-Ranges", "bytes");
+      if (r.headers.get("content-range")) res.setHeader("Content-Range", r.headers.get("content-range"));
+    }
+    res.setHeader("Content-Disposition", (ver ? "inline" : "attachment") + '; filename="' + nombre + '"');
     res.setHeader("Cache-Control", "no-store");
     if (len) res.setHeader("Content-Length", String(len));
     Readable.fromWeb(r.body).pipe(res);
