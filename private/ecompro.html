@@ -611,6 +611,12 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .dlv .dlres{display:grid;grid-template-columns:140px 1fr;gap:14px;margin-top:14px;align-items:start}
 .dlv .dlres img{width:140px;max-height:250px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:var(--card)}
 .dlv .dlres h3{margin:0 0 4px;font-size:1rem;overflow-wrap:anywhere}
+.vls{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.vls h3{margin:0;font-size:.95rem}
+.vls .vl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg)}
+.vls .vl .vlt{flex:1 1 220px;min-width:0}
+.vls .vl .vlt b{display:block;overflow-wrap:anywhere}
+.vls .vl .vlt small{display:block;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dlv .dlbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .dlv a.btn{text-decoration:none;display:inline-block}
 @media(max-width:560px){.dlv .dlres{grid-template-columns:1fr}.dlv .dlres img{width:100%;max-height:300px}}
@@ -1024,7 +1030,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card dlv" data-k="dlt" data-pl="tiktok">
       <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
         <div class="fld grow"><label for="dlt-u">Enlace del video de TikTok</label><input id="dlt-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.tiktok.com/@usuario/video/1234567890"></div>
-        <button class="btn" type="button" id="dlt-go">Buscar video</button>
+        <button class="btn" type="button" id="dlt-go">Buscar video</button><button class="btn" type="button" id="dlt-sv" title="Guarda este enlace en tu lista">Guardar enlace</button>
       </div>
       <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
         <div class="fld"><label for="dlt-fmt">Formato</label><select id="dlt-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
@@ -1035,6 +1041,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <p class="sub" style="margin:6px 0 0">Si eliges una resolución mayor a la del video original, se amplía y no gana calidad. Con 4K o videos largos puede tardar; si falla, baja la resolución. Los GIF llegan hasta 720p.</p>
       <p class="sub" id="dlt-m" role="status" style="margin:8px 0 0"></p>
       <div id="dlt-r"></div>
+      <div id="dlt-ls" class="vls"></div>
       <p class="foot" style="margin:12px 0 0">Funciona con videos públicos. El enlace corto (vm.tiktok.com) también sirve. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
     </div>
   </section>
@@ -1043,7 +1050,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card dlv" data-k="dlf" data-pl="facebook">
       <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
         <div class="fld grow"><label for="dlf-u">Enlace del video o del anuncio de Facebook</label><input id="dlf-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/ads/library/?id=1234567890 o enlace de un video"></div>
-        <button class="btn" type="button" id="dlf-go">Buscar video</button>
+        <button class="btn" type="button" id="dlf-go">Buscar video</button><button class="btn" type="button" id="dlf-sv" title="Guarda este enlace en tu lista">Guardar enlace</button>
       </div>
       <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
         <div class="fld"><label for="dlf-fmt">Formato</label><select id="dlf-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
@@ -1054,6 +1061,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <p class="sub" style="margin:6px 0 0">Si eliges una resolución mayor a la del video original, se amplía y no gana calidad. Con 4K o videos largos puede tardar; si falla, baja la resolución. Los GIF llegan hasta 720p.</p>
       <p class="sub" id="dlf-m" role="status" style="margin:8px 0 0"></p>
       <div id="dlf-r"></div>
+      <div id="dlf-ls" class="vls"></div>
       <p class="foot" style="margin:12px 0 0">Solo videos públicos (si Facebook pide iniciar sesión para verlo, no se puede bajar). Sirve con enlaces de videos, reels y fb.watch. Usa los videos solo como referencia, con permiso o si son tuyos: tienen derechos de autor.</p>
     </div>
   </section>
@@ -2676,8 +2684,25 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 (function(){
   var $=function(i){return document.getElementById(i)};
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var VL=[],vdb=null,vcan=true,REDRAW=[];
+  try{VL=JSON.parse(localStorage.getItem("ec_vlinks")||"[]")||[]}catch(e){VL=[]}
+  function saveVL(){try{localStorage.setItem("ec_vlinks",JSON.stringify(VL))}catch(e){}if(vdb&&vcan)vdb.doc("settings/videolinks").set({list:VL}).catch(function(){})}
+  (async function(){try{if(window.claude&&window.claude.use){vdb=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)vcan=false;
+    vdb.doc("settings/videolinks").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list)){VL=d.list.filter(function(x){return x&&x.id&&/^https?:\/\//i.test(x.u)});try{localStorage.setItem("ec_vlinks",JSON.stringify(VL))}catch(e){}REDRAW.forEach(function(f){f()})}},function(){})}}catch(e){}})();
   function wire(k,pl){
-    var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r"),LAST=null,NOM="video";if(!inp)return;
+    var inp=$(k+"-u"),go=$(k+"-go"),m=$(k+"-m"),r=$(k+"-r"),LAST=null,NOM="video",LASTU="";if(!inp)return;
+    var sv=$(k+"-sv"),ls=$(k+"-ls");
+    function drawLs(){var L=VL.filter(function(x){return x.k===k});
+      ls.innerHTML=L.length?'<h3>Enlaces guardados ('+L.length+')</h3>'+L.map(function(x){return '<div class="vl" data-id="'+E(x.id)+'"><div class="vlt"><b>'+E(x.t||x.u)+'</b><small>'+E(x.u)+'</small></div><button type="button" class="btn vprim" data-a="go">Descargar</button><button type="button" class="btn" data-a="del"'+(vcan?'':' disabled')+'>Quitar</button></div>'}).join(""):'<p class="sub" style="margin:0">Todavía no guardaste enlaces. Pega uno arriba y toca "Guardar enlace".</p>'}
+    REDRAW.push(drawLs);drawLs();
+    sv.addEventListener("click",function(){var u=inp.value.trim();
+      if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo (empieza con https://) y luego toca Guardar enlace.";return}
+      if(VL.some(function(x){return x.u===u})){m.textContent="Ese enlace ya está guardado.";return}
+      var t=(LAST&&LASTU===u&&LAST.titulo)?LAST.titulo:"";if(!t){try{var uu=new URL(u);t=uu.hostname.replace(/^www\./,"")+uu.pathname.slice(0,40)}catch(e){t=u.slice(0,60)}}
+      VL.unshift({id:"v"+Date.now().toString(36),k:k,u:u.slice(0,600),t:String(t).slice(0,120),d:new Date().toISOString().slice(0,10)});saveVL();REDRAW.forEach(function(f){f()});m.textContent="Enlace guardado."});
+    ls.addEventListener("click",function(ev){var b=ev.target.closest("button[data-a]");if(!b)return;var id=b.closest(".vl").dataset.id,x=VL.filter(function(y){return y.id===id})[0];if(!x)return;
+      if(b.dataset.a==="del"){VL=VL.filter(function(y){return y.id!==id});saveVL();REDRAW.forEach(function(f){f()})}
+      if(b.dataset.a==="go"){inp.value=x.u;run(true)}});
     function opts(){var f=$(k+"-fmt").value,s=$(k+"-res").value,a=$(k+"-ar").value,ft=$(k+"-fit").value;
       if(f==="gif"&&(s==="1440"||s==="2160")){s="720";$(k+"-res").value="720"}
       Array.prototype.forEach.call($(k+"-res").options,function(o){o.disabled=f==="gif"&&(o.value==="1440"||o.value==="2160")});
@@ -2688,8 +2713,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       var t=[];t.push(o.fmt==="gif"?"GIF":"MP4");t.push(o.h?(o.h==="2160"?"4K":o.h+"p"):"resolución original");t.push(o.ar?o.ar+(o.fit==="blur"?" con fondo difuminado":" recortado al centro"):"proporción original");
       var rs=$(k+"-rs");if(rs)rs.textContent="Se descargará en: "+t.join(" · ")+(o.fmt==="mp4"&&!o.h&&!o.ar?" (archivo tal cual, sin convertir).":". Puede tardar unos segundos en prepararse.")}
     ["fmt","res","ar","fit"].forEach(function(x){$(k+"-"+x).addEventListener("change",draw)});
-    function run(){
-      var u=inp.value.trim();r.innerHTML="";
+    function run(auto){
+      var u=inp.value.trim();r.innerHTML="";LASTU=u;
       if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo del video (empieza con https://).";return}
       m.textContent="Buscando el video…";go.disabled=true;
       fetch("/api/descargar",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u,plataforma:pl})})
@@ -2701,9 +2726,11 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
           r.innerHTML='<div class="dlres">'+(j.portada?'<img src="'+E(j.portada)+'" alt="Portada del video" referrerpolicy="no-referrer">':'<div></div>')+
             '<div><h3>'+E(j.titulo||"Video sin título")+'</h3><div class="sub">'+(j.autor?E(j.autor)+' · ':'')+(j.duracion?j.duracion+' s · ':'')+(pl==="tiktok"?'TikTok':'Facebook')+'</div><div class="dlbtn" id="'+k+'-bt"></div><p class="sub" id="'+k+'-rs" style="margin:8px 0 0"></p></div></div>';
           draw();
+          var sx=VL.filter(function(y){return y.u===u&&y.k===k})[0];if(sx&&j.titulo&&sx.t!==j.titulo.slice(0,120)){sx.t=j.titulo.slice(0,120);saveVL();REDRAW.forEach(function(f){f()})}
+          if(auto===true){setTimeout(function(){var a=$(k+"-bt")&&$(k+"-bt").querySelector("a.btn");if(a){m.textContent="Descargando…";a.click()}},150)}
         }).catch(function(){go.disabled=false;m.textContent="No hay conexión con el servidor."});
     }
-    go.addEventListener("click",run);
+    go.addEventListener("click",function(){run()});
     inp.addEventListener("keydown",function(e){if(e.key==="Enter")run()});
   }
   wire("dlt","tiktok");wire("dlf","facebook");
