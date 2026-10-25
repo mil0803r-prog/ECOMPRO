@@ -1030,7 +1030,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card dlv" data-k="dlt" data-pl="tiktok">
       <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
         <div class="fld grow"><label for="dlt-u">Enlace del video de TikTok</label><input id="dlt-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.tiktok.com/@usuario/video/1234567890"></div>
-        <button class="btn" type="button" id="dlt-go">Buscar video</button><button class="btn" type="button" id="dlt-sv" title="Guarda este enlace en tu lista">Guardar enlace</button>
+        <button class="btn" type="button" id="dlt-go">Buscar video</button><button class="btn" type="button" id="dlt-sv" title="Guarda este enlace en tu lista">Guardar enlace</button><button class="btn vprim" type="button" id="dlt-dl" title="Descarga ahora, sin guardar el enlace">Descargar</button>
       </div>
       <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
         <div class="fld"><label for="dlt-fmt">Formato</label><select id="dlt-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
@@ -1050,7 +1050,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card dlv" data-k="dlf" data-pl="facebook">
       <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
         <div class="fld grow"><label for="dlf-u">Enlace del video o del anuncio de Facebook</label><input id="dlf-u" type="url" inputmode="url" autocomplete="off" placeholder="https://www.facebook.com/ads/library/?id=1234567890 o enlace de un video"></div>
-        <button class="btn" type="button" id="dlf-go">Buscar video</button><button class="btn" type="button" id="dlf-sv" title="Guarda este enlace en tu lista">Guardar enlace</button>
+        <button class="btn" type="button" id="dlf-go">Buscar video</button><button class="btn" type="button" id="dlf-sv" title="Guarda este enlace en tu lista">Guardar enlace</button><button class="btn vprim" type="button" id="dlf-dl" title="Descarga ahora, sin guardar el enlace">Descargar</button>
       </div>
       <div class="frow dl-opc" style="gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
         <div class="fld"><label for="dlf-fmt">Formato</label><select id="dlf-fmt"><option value="mp4">MP4 (video)</option><option value="gif">GIF (sin sonido, máx. 15 s)</option></select></div>
@@ -2731,6 +2731,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         }).catch(function(){go.disabled=false;m.textContent="No hay conexión con el servidor."});
     }
     go.addEventListener("click",function(){run()});
+    $(k+"-dl").addEventListener("click",function(){run(true)});
     inp.addEventListener("keydown",function(e){if(e.key==="Enter")run()});
   }
   wire("dlt","tiktok");wire("dlf","facebook");
