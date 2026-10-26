@@ -22,6 +22,7 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 | `ALLOWED_EMAILS` | Correos autorizados, separados por coma (por ejemplo `mil0803r@gmail.com`) |
 | `KV_REST_API_URL` y `KV_REST_API_TOKEN` | Se crean solos al conectar Upstash Redis desde Vercel (Storage → Marketplace → Upstash Redis → conectar al proyecto) |
 | `APP_URL` | Opcional: la dirección pública, por ejemplo `https://ecompro.vercel.app` |
+| `ALERTAS_KEY` | Clave larga (texto aleatorio). Con ella Claude manda avisos de ventas a la campana 🔔 del tablero (`POST /api/alertas`, cabecera `x-alertas-key`). Sin esta variable el endpoint responde 503 |
 
 ## Google Cloud (una vez)
 
