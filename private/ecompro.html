@@ -788,8 +788,24 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <div class="fld"><label for="z-ord">Ordenar por</label><select id="z-ord"><option value="t">Más pedidos</option><option value="best">Mejor % de entrega</option><option value="worst">Peor % de entrega</option></select></div>
         <button class="btn" id="z-clear" type="button" hidden>Quitar filtro</button>
       </div>
-      <div class="tbl"><table id="z-tabla" style="min-width:720px">
-        <thead><tr><th>Zona</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">En camino</th><th class="num">Cancelados</th><th class="num">% entrega</th><th>Veredicto</th></tr></thead>
+      <div class="card" id="zp-ads" style="display:flex;flex-direction:column;gap:8px;margin:0 0 10px">
+        <b>Para publicidad: dónde sí y dónde no</b>
+        <span class="sub">Marca zonas con el cuadrito, o usa los atajos, y exporta la lista para incluirlas u excluirlas en tus anuncios.</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="btn" id="zx-top">Marcar las 10 con más entregas</button>
+          <button type="button" class="btn" id="zx-bad">Marcar las 10 más devueltas</button>
+          <button type="button" class="btn" id="zx-clr">Quitar marcas</button>
+          <b id="zx-n" class="sub">0 zonas marcadas</b>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="btn vprim" id="zx-inc">Exportar para INCLUIR</button>
+          <button type="button" class="btn" id="zx-exc" style="border-color:var(--rojo);color:var(--rojo)">Exportar para EXCLUIR</button>
+          <button type="button" class="btn" id="zx-cp">Copiar nombres</button>
+          <span class="sub" id="zx-m" role="status"></span>
+        </div>
+      </div>
+      <div class="tbl"><table id="z-tabla" style="min-width:760px">
+        <thead><tr><th style="width:30px"><input type="checkbox" id="zx-all" aria-label="Marcar las zonas que se ven"></th><th>Zona</th><th class="num">Pedidos</th><th class="num">Entregados</th><th class="num">Devueltos</th><th class="num">En camino</th><th class="num">Cancelados</th><th class="num">% entrega</th><th>Veredicto</th></tr></thead>
         <tbody id="z-body"></tbody>
       </table></div>
       <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="z-mas" type="button">Ver más zonas</button></div>
@@ -1871,10 +1887,38 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function zrender(){
     var L=zrows(),all=zst(ZO()),show=L.slice(0,zlim),emode=odep.value||ociu.value?(ociu.value?"ciu":zmode):zmode;
     $("z-sub").textContent=($("z-prod")&&$("z-prod").value?"Solo "+$("z-prod").value+": ":"Todos los pedidos desde el inicio ("+ORD[ORD.length-1].d.split("-").reverse().join("/")+" a "+ORD[0].d.split("-").reverse().join("/")+"): ")+all.t+" pedidos, "+all.r+"% de entrega en total. % entrega = entregados ÷ (entregados + devueltos e incidencias). Toca una zona para ver todos sus pedidos.";
-    $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"><td><b>'+esc(s.k)+'</b>'+(emode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="8" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
+    $("z-body").innerHTML=show.length?show.map(function(s){var v=zver(s);return '<tr data-k="'+esc(s.k)+'"'+(ZS[emode+":"+s.k]?' class="dsel-on"':'')+'><td><input type="checkbox" class="zxc" data-zk="'+esc(emode+":"+s.k)+'"'+(ZS[emode+":"+s.k]?' checked':'')+' aria-label="Marcar '+esc(s.k)+'"></td><td><b>'+esc(s.k)+'</b>'+(emode==="ciu"&&s.dep&&s.dep!=="Sin determinar"?'<div class="sub">'+esc(s.dep)+'</div>':'')+'</td><td class="num">'+s.t+'</td><td class="num">'+s.e+'</td><td class="num">'+s.d+'</td><td class="num">'+s.p+'</td><td class="num">'+s.c+'</td><td class="num">'+zbar(s)+'</td><td><span class="pill '+v[0]+'">'+v[1]+'</span></td></tr>'}).join(""):'<tr><td colspan="9" class="sub" style="padding:18px 14px">Ninguna zona coincide con la búsqueda.</td></tr>';
+    window.__zVis=show.map(function(s){return emode+":"+s.k});zxBar();
     $("z-mas").hidden=L.length<=zlim;$("z-mas").textContent="Ver más zonas ("+(L.length-zlim)+" restantes)";
     $("z-pie").textContent="Veredicto: Enviar desde "+GOOD+"%, Con cuidado entre "+BE+"% y "+(GOOD-1)+"%, Evitar por debajo de "+BE+"% (con tu flete de unos 68 GTQ y ~69 GTQ de ganancia por entrega, bajo ~"+BE+"% se pierde dinero). Con menos de "+MINC+" pedidos resueltos (entregados + devueltos) no alcanza para juzgar.";
   }
+  var ZS={};
+  function zxBar(){var n=Object.keys(ZS).length,e=$("zx-n");if(e)e.textContent=n+(n===1?" zona marcada":" zonas marcadas");
+    var all=$("zx-all");if(all){var v=window.__zVis||[];all.checked=!!v.length&&v.every(function(k){return ZS[k]});all.indeterminate=!all.checked&&v.some(function(k){return ZS[k]})}}
+  function zxMode(){return odep.value||ociu.value?(ociu.value?"ciu":zmode):zmode}
+  function zxMark(kind){var m=zxMode(),L=zrows().filter(function(s){return s.res>=MINC});ZS={};
+    if(kind==="top")L.sort(function(a,b){return b.e-a.e||b.r-a.r}).filter(function(s){return s.r>=BE}).slice(0,10).forEach(function(s){ZS[m+":"+s.k]=1});
+    else L.sort(function(a,b){return a.r-b.r||b.d-a.d}).slice(0,10).forEach(function(s){ZS[m+":"+s.k]=1});
+    zrender();$("zx-m").textContent=Object.keys(ZS).length?(kind==="top"?"Marqué las zonas con más entregas (y al menos "+BE+"% de entrega). Revisa y exporta.":"Marqué las de peor % de entrega. Revisa y exporta."):"No hay zonas con suficientes pedidos resueltos para marcar."}
+  function zxRows(){var G={dep:zgroups("dep"),ciu:zgroups("ciu")},out=[];Object.keys(ZS).forEach(function(k){var m=k.slice(0,3),nm=k.slice(4),s=G[m].filter(function(x){return x.k===nm})[0];if(s)out.push({m:m,s:s})});
+    out.sort(function(a,b){return b.s.e-a.s.e});return out}
+  function csvq(v){v=String(v==null?"":v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+  function zxExport(accion){var R=zxRows();if(!R.length){$("zx-m").textContent="Marca al menos una zona con el cuadrito.";return}
+    var rows=[["Acción","Tipo de zona","Zona","Departamento","Pedidos","Entregados","Devueltos e incidencias","En camino","Cancelados","% de entrega","Veredicto"]];
+    R.forEach(function(x){var s=x.s,v=zver(s);rows.push([accion,x.m==="ciu"?"Ciudad":"Departamento",s.k,x.m==="ciu"?s.dep:s.k,s.t,s.e,s.d,s.p,s.c,s.r==null?"":s.r+"%",v[1]])});
+    var txt="\ufeff"+rows.map(function(r){return r.map(csvq).join(",")}).join("\r\n");
+    var name="zonas-"+accion.toLowerCase()+"-"+new Date().toISOString().slice(0,10)+".csv",blob=new Blob([txt],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+    $("zx-m").textContent="Exporté "+R.length+(R.length===1?" zona":" zonas")+" para "+accion+" ("+name+")."}
+  document.addEventListener("click",function(e){var id=e.target.id;
+    if(id==="zx-top")zxMark("top");else if(id==="zx-bad")zxMark("bad");
+    else if(id==="zx-clr"){ZS={};zrender();$("zx-m").textContent=""}
+    else if(id==="zx-inc")zxExport("INCLUIR");else if(id==="zx-exc")zxExport("EXCLUIR");
+    else if(id==="zx-cp"){var R=zxRows();if(!R.length){$("zx-m").textContent="Marca al menos una zona con el cuadrito.";return}var t=R.map(function(x){return x.s.k}).join(", ");
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t):Promise.reject()).then(function(){$("zx-m").textContent="Copié "+R.length+" nombres."}).catch(function(){window.prompt("Copia los nombres:",t)})}});
+  document.addEventListener("change",function(e){
+    if(e.target.id==="zx-all"){(window.__zVis||[]).forEach(function(k){if(e.target.checked)ZS[k]=1;else delete ZS[k]});zrender();return}
+    if(e.target.classList&&e.target.classList.contains("zxc")){var k=e.target.getAttribute("data-zk");if(e.target.checked)ZS[k]=1;else delete ZS[k];var tr=e.target.closest("tr");if(tr)tr.classList.toggle("dsel-on",!!ZS[k]);zxBar()}});
   function zonaCard(){
     var box=$("o-zona"),dp=odep.value,ci=ociu.value;
     if(!dp&&!ci){box.hidden=true;box.innerHTML="";return}
@@ -1895,7 +1939,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("z-prod").addEventListener("change",function(){zlim=15;lim=50;rOrd()});
   $("z-q").addEventListener("input",function(){zlim=15;zrender()});$("z-ord").addEventListener("change",function(){zlim=15;zrender()});
   $("z-mas").addEventListener("click",function(){zlim+=20;zrender()});
-  $("z-body").addEventListener("click",function(ev){var tr=ev.target.closest("tr[data-k]");if(!tr)return;var k=tr.getAttribute("data-k");
+  $("z-body").addEventListener("click",function(ev){if(ev.target.closest(".zxc"))return;var tr=ev.target.closest("tr[data-k]");if(!tr)return;var k=tr.getAttribute("data-k");
     if(zmode==="dep"){odep.value=k;ciudades();ociu.value=""}else{var o=ORD.filter(function(x){return x.c===k})[0];odep.value=o?o.dep:"";ciudades();ociu.value=k}
     lim=50;rOrd();$("o-filtros").scrollIntoView({behavior:"smooth",block:"start"})});
   function zsel(){
