@@ -114,6 +114,7 @@ td.num{font-weight:600}
 .chip.r[aria-pressed="true"]{background:var(--rojo);border-color:var(--rojo)}
 .btn{font:inherit;font-size:.85rem;font-weight:600;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
 .chk{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:500}
+.dsel-on td{background:color-mix(in srgb,var(--rojo) 8%,transparent)}
 .stsel{font:inherit;font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 6px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;max-width:150px}
 .stsel.a{border-color:var(--amar);color:#8a5a00}.stsel.r{border-color:var(--rojo);color:var(--rojo)}.stsel.v{border-color:var(--verde);color:var(--verde)}
 .bgr td{border-top:2px solid var(--tc,transparent);border-bottom:2px solid var(--tc,transparent)}
@@ -832,8 +833,10 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       </details>
       <div id="o-zona" style="margin-top:12px" hidden></div>
       <div class="grid g4" id="o-resumen" style="margin-top:12px"></div>
+      <div id="o-dbar" class="card" style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap" hidden><b id="o-dn">0 seleccionados</b><button type="button" class="btn" id="o-ddel" style="background:var(--rojo);color:#fff;border-color:var(--rojo)">Eliminar seleccionados</button><button type="button" class="btn" id="o-dclr">Quitar selección</button></div>
+      <p class="sub" id="o-drest" style="margin:8px 0 0" hidden></p>
       <div class="tbl" style="margin-top:12px"><table id="o-tabla">
-        <thead><tr><th style="width:36px"></th><th>Pedido</th><th>Guía</th><th>Cliente</th><th>Teléfono</th><th>Producto</th><th>Fecha</th><th>Estado</th><th>Transportadora</th><th>Ciudad</th><th>Departamento</th><th>Dirección</th><th>Novedad</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
+        <thead><tr><th style="width:30px"><input type="checkbox" id="o-dall" aria-label="Seleccionar los pedidos que se ven"></th><th style="width:36px"></th><th>Pedido</th><th>Guía</th><th>Cliente</th><th>Teléfono</th><th>Producto</th><th>Fecha</th><th>Estado</th><th>Transportadora</th><th>Ciudad</th><th>Departamento</th><th>Dirección</th><th>Novedad</th><th class="num">Valor <span class="mc">GTQ</span></th><th>Etiquetas</th></tr></thead>
         <tbody id="o-body"></tbody>
       </table></div>
       <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="o-mas" type="button">Mostrar más</button></div>
@@ -1930,11 +1933,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var sh=F.slice(0,lim);
     obody.innerHTML=sh.length?sh.map(function(o){
       var tags=store.tags[o.n]||[],fv=!!store.favs[o.n];
-      return '<tr><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
+      return '<tr'+(selDel[o.n]?' class="dsel-on"':'')+'><td><input type="checkbox" class="dsel" data-n="'+o.n+'"'+(selDel[o.n]?' checked':'')+' aria-label="Seleccionar el pedido '+o.n+'"></td><td><button type="button" class="star" data-n="'+o.n+'" aria-pressed="'+fv+'" aria-label="Favorito '+o.n+'">★</button></td>'+
         '<td class="num" style="text-align:left">'+o.n+'</td>'+xc(o)+'<td style="white-space:nowrap">'+o.d.split("-").reverse().join("/")+(o.t?' '+o.t:'')+'</td>'+
         '<td>'+stCell(o)+'</td><td>'+((window.ecPedX&&window.ecPedX.get(o.n)||{}).t?esc(window.ecPedX.get(o.n).t):'<span class="sub">–</span>')+'</td><td>'+esc(o.c)+'</td><td>'+(o.dep==="Sin determinar"?'<span class="sub">sin determinar</span>':o.dep)+'</td>'+xd(o)+'<td class="num"><span class="mq" data-q="'+o.v+'"></span></td>'+
         '<td>'+tags.map(function(t){return '<span class="tagchip" data-n="'+o.n+'" data-t="'+esc(t)+'" title="Quitar etiqueta">'+esc(t)+' ×</span>'}).join("")+'<input class="tg" data-n="'+o.n+'" maxlength="20" placeholder="+ etiqueta" aria-label="Agregar etiqueta al pedido '+o.n+'"></td></tr>'
-    }).join(""):'<tr><td colspan="15" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
+    }).join(""):'<tr><td colspan="16" class="sub" style="padding:18px 14px">Ningún pedido coincide con estos filtros.</td></tr>';
+    window.__oVis=sh.map(function(o){return o.n});dBar();
     omas.hidden=F.length<=lim;omas.textContent="Mostrar más ("+(F.length-lim)+" restantes)";
     window.ecFx&&window.ecFx.apply();
     if(keepFocus){var el=obody.querySelector('.tg[data-n="'+keepFocus+'"]');if(el)el.focus()}
@@ -1945,6 +1949,19 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   $("o-estados").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var k=b.dataset.s;selS[k]=!selS[k];b.setAttribute("aria-pressed",!!selS[k]);lim=50;rOrd()});
   omas.addEventListener("click",function(){lim+=50;rOrd()});
   $("o-limpiar").addEventListener("click",function(){oq.value="";od.value="";oh.value="";odep.value="";ciudades();otag.value="";$("o-prod").value="";$("o-trans").value="";ofav.checked=false;selS={};document.querySelectorAll("#o-estados .chip").forEach(function(b){b.setAttribute("aria-pressed","false")});lim=50;rOrd()});
+  var selDel={};
+  function dBar(){var ks=Object.keys(selDel).filter(function(k){return selDel[k]}),n=ks.length,b=$("o-dbar");if(!b)return;b.hidden=!n;$("o-dn").textContent=n+(n===1?" seleccionado":" seleccionados");
+    var vis=window.__oVis||[],all=$("o-dall");if(all){all.checked=!!vis.length&&vis.every(function(x){return selDel[x]});all.indeterminate=!all.checked&&vis.some(function(x){return selDel[x]})}
+    var nb=window.ecPedX&&window.ecPedX.borrados?window.ecPedX.borrados():0,r=$("o-drest");if(r){r.hidden=!nb;r.innerHTML=nb?nb+' pedidos eliminados. <button type="button" class="btn" id="o-drs" style="padding:3px 9px;font-size:.78rem">Restaurar eliminados</button>':""}}
+  document.addEventListener("click",function(e){
+    if(e.target.id==="o-ddel"){var ks=Object.keys(selDel).filter(function(k){return selDel[k]});if(!ks.length)return;
+      if(!window.confirm("Vas a eliminar "+ks.length+(ks.length===1?" pedido":" pedidos")+" del tablero. Dejan de contarse en todas las secciones. Puedes restaurarlos con el botón Restaurar eliminados. ¿Seguro?"))return;
+      selDel={};window.ecPedX.eliminar(ks);return}
+    if(e.target.id==="o-dclr"){selDel={};rOrd();return}
+    if(e.target.id==="o-drs"){if(window.confirm("¿Restaurar todos los pedidos eliminados?"))window.ecPedX.restaurar();return}});
+  document.addEventListener("change",function(e){
+    if(e.target.id==="o-dall"){(window.__oVis||[]).forEach(function(n){if(e.target.checked)selDel[n]=1;else delete selDel[n]});rOrd();return}
+    if(e.target.classList&&e.target.classList.contains("dsel")){var n=e.target.dataset.n;if(e.target.checked)selDel[n]=1;else delete selDel[n];var tr=e.target.closest("tr");if(tr)tr.classList.toggle("dsel-on",!!selDel[n]);dBar()}});
   window.ecStCell=stCell;
   window.ecStChange=function(s){if(!s||!window.ecPedX)return;var c=s.value;
     if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después ya no se podrá cambiar. ¿Seguro?")){rOrd();document.dispatchEvent(new Event("ecprod"));return}
@@ -4045,7 +4062,13 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 (function(){
   var $=function(i){return document.getElementById(i)},MAP={},db=null,can=true,PA=null;
   try{MAP=JSON.parse(localStorage.getItem("ec_pedx")||"{}")||{}}catch(e){MAP={}}
-  window.ecPedX={all:function(){return MAP},get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length},
+  var BORR={},REMOVED={};try{BORR=JSON.parse(localStorage.getItem("ec_pedborr")||"{}")||{}}catch(e){BORR={}}
+  function saveBorr(){try{localStorage.setItem("ec_pedborr",JSON.stringify(BORR))}catch(e){}if(db&&can)db.doc("settings/pedborrados").set({list:Object.keys(BORR)}).catch(function(){})}
+  window.ecPedX={borrados:function(){return Object.keys(BORR).length},
+    eliminar:function(ns){ns.forEach(function(n){BORR[String(n)]=1});saveBorr();mergeNew();refresh()},
+    restaurar:function(){var ns=Object.keys(BORR),falta=false,O=window.__ORD||[];ns.forEach(function(n){if(REMOVED[n])O.push(REMOVED[n]);else falta=true;delete BORR[n]});BORR={};REMOVED={};saveBorr();
+      if(falta){location.reload();return}mergeNew();refresh()},
+    all:function(){return MAP},get:function(n){return MAP[n]},count:function(){return Object.keys(MAP).length},
     manual:function(n){return !!(MAP[n]&&MAP[n].sm)},
     setState:function(n,code){var o=ordSet()[n];if(!o||!/^[EDCRGKPFIJ]$/.test(code))return false;
       var m=MAP[n]||(MAP[n]={});if(/^[EDC]$/.test(o.s))return false;
@@ -4109,11 +4132,13 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     Object.keys(MAP).forEach(function(n){var o=set[n];if(o&&MAP[n].s&&MAP[n].s!==o.s)o.s=MAP[n].s;if(o&&MAP[n].dp&&o.dep==="Sin determinar")o.dep=MAP[n].dp;
       var m=MAP[n];if(o&&m.sm){if(/^[EDC]$/.test(m.sm))o.s=m.sm;else if(o.s===m.sb)o.s=m.sm;else if(o.s!==m.sm){delete m.sm;delete m.sb;drop=true}}});
     if(drop)persist();
-    var O=window.__ORD||[];O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
+    var O=window.__ORD||[];
+    if(Object.keys(BORR).length){for(var q=O.length-1;q>=0;q--)if(BORR[O[q].n]){REMOVED[O[q].n]=O[q];O.splice(q,1)}}
+    O.sort(function(a,b){return (b.d+(b.t||"00:00")).localeCompare(a.d+(a.t||"00:00"))||(+b.n)-(+a.n)})}
   function prev(){
     var sel={};document.querySelectorAll("#oi-map select").forEach(function(e){sel[e.dataset.f]=+e.value});PA.sel=sel;
     var set=ordSet(),m=0,nw=0,dp=0,sd=0,seen={},N=PA.rows.length-1;
-    if(sel.n>=0)PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;if(set[n])m++;else if(sel.d>=0&&pdt(r[sel.d])&&sel.s>=0&&pst(r[sel.s]))nw++;else sd++});
+    if(sel.n>=0)PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]||BORR[n]){dp++;return}seen[n]=1;if(set[n])m++;else if(sel.d>=0&&pdt(r[sel.d])&&sel.s>=0&&pst(r[sel.s]))nw++;else sd++});
     $("oi-prev").textContent=sel.n<0?"Elige la columna del número de pedido.":N+" filas: "+m+" ya existen (solo se completan sus datos), "+nw+" pedidos nuevos se agregarán, "+dp+" repetidos dentro del archivo se ignoran"+(sd?", "+sd+" no se pueden agregar (falta fecha o estado reconocible; elige esas columnas)":"")+"."}
   function persist(){try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}if(db&&can)db.doc("settings/pedextra").set({map:MAP,nuevos:NEWO}).catch(function(){})}
   function fillT(){var sel=$("o-trans");if(!sel)return;var cur=sel.value,t={};Object.keys(MAP).forEach(function(k){if(MAP[k].t)t[MAP[k].t]=1});var ks=Object.keys(t).sort();
@@ -4179,7 +4204,11 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(e.target.id==="oi-del"){MAP={};var O=window.__ORD||[];for(var i=O.length-1;i>=0;i--)if(O[i].nuevo)O.splice(i,1);NEWO={};persist();refresh();return}
   });
   setTimeout(function(){mergeNew();fillT();refresh()},200);
-  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedlive").onSnapshot(function(s){var d=s&&s.exists&&s.data(),e=$("live-st");if(!e)return;if(d&&d.ts){window.__liveTs=d.ts;window.__liveInfo=(d.recibidos||0)+" pedidos, "+(d.nuevos||0)+" nuevos";document.dispatchEvent(new Event("eclive"));var m=Math.max(0,Math.round((Date.now()-d.ts)/60000));e.textContent="· última lectura hace "+(m<1?"menos de 1 minuto":m<60?m+" min":Math.round(m/60)+" h")+" ("+(d.recibidos||0)+" pedidos)"}else e.textContent="· todavía sin lecturas"},function(){});
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedborrados").onSnapshot(function(sn){var d=sn&&sn.exists&&sn.data();if(!d||!Array.isArray(d.list))return;var nb={};d.list.forEach(function(n){nb[String(n)]=1});
+        var O=window.__ORD||[],falta=false;Object.keys(BORR).forEach(function(n){if(!nb[n]){if(REMOVED[n]){O.push(REMOVED[n]);delete REMOVED[n]}else falta=true}});
+        var igual=Object.keys(nb).length===Object.keys(BORR).length&&Object.keys(nb).every(function(n){return BORR[n]});BORR=nb;try{localStorage.setItem("ec_pedborr",JSON.stringify(BORR))}catch(e){}
+        if(falta){location.reload();return}if(!igual){mergeNew();refresh()}},function(){});
+      db.doc("settings/pedlive").onSnapshot(function(s){var d=s&&s.exists&&s.data(),e=$("live-st");if(!e)return;if(d&&d.ts){window.__liveTs=d.ts;window.__liveInfo=(d.recibidos||0)+" pedidos, "+(d.nuevos||0)+" nuevos";document.dispatchEvent(new Event("eclive"));var m=Math.max(0,Math.round((Date.now()-d.ts)/60000));e.textContent="· última lectura hace "+(m<1?"menos de 1 minuto":m<60?m+" min":Math.round(m/60)+" h")+" ("+(d.recibidos||0)+" pedidos)"}else e.textContent="· todavía sin lecturas"},function(){});
     db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;if(d.nuevos&&typeof d.nuevos==="object")NEWO=d.nuevos;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}mergeNew();refresh()}},function(){})}}catch(e){}})();
 })();
 </script>
