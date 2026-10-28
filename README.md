@@ -40,3 +40,9 @@ El botón "Asistente IA" del tablero usa `api/asistente.js`. Para activarlo agre
 - `ASSISTANT_LIMIT` (opcional): preguntas por correo al día. Por defecto 80.
 
 Cada pregunta envía solo un resumen compacto de los datos del tablero; la clave nunca llega al navegador.
+
+## Avisos al celular
+La campana 🔔 del tablero tiene el botón **Recibir avisos en este celular**. Al tocarlo (y aceptar el permiso) ese equipo queda registrado en la base (`ec:push`) y cada aviso que llega a `/api/alertas` también le llega como notificación, aunque la página esté cerrada.
+- En iPhone hay que instalar primero la app: Compartir → Añadir a pantalla de inicio, y abrir ECOMPRO desde ese ícono.
+- Las claves VAPID se crean solas la primera vez y se guardan en la base (`ec:cfg`); no hay que crear variables nuevas. Opcional: `VAPID_SUBJECT` (por defecto usa el primer correo de `ALLOWED_EMAILS`).
+- El botón **Probar aviso** manda una notificación de prueba a los equipos registrados.

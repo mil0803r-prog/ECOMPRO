@@ -2,6 +2,7 @@
 // No usa sesión de Google: se protege con la clave ALERTAS_KEY (variable de Vercel, sensible).
 // Guarda cada aviso en la colección "alertas" de la base; el tablero la lee con db.collection("alertas") y muestra la campana.
 const crypto = require("crypto");
+const push = require("./_push");
 
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -62,7 +63,12 @@ module.exports = async (req, res) => {
       const viejos = ids.sort().slice(0, ids.length - MAX);
       if (viejos.length) await redis(["HDEL", "ec:alertas"].concat(viejos));
     }
-    return send(200, { ok: true, id });
+    // Además del tablero, el aviso llega al celular de quien activó los avisos (si falla, el aviso igual queda guardado).
+    let celular = { enviados: 0, equipos: 0 };
+    try {
+      celular = await Promise.race([push.enviar({ id, ...doc }), new Promise((r) => setTimeout(() => r(celular), 8000))]);
+    } catch (e) {}
+    return send(200, { ok: true, id, celular });
   } catch (e) {
     return send(500, { error: "No se pudo guardar." });
   }

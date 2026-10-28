@@ -538,6 +538,10 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .nth{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
 .nth b{flex:1}
 .nth button{font:inherit;font-size:.78rem;padding:4px 10px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--fg);cursor:pointer}
+.ntx{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:.82rem}
+.ntx button{font:inherit;font-size:.78rem;padding:5px 11px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--fg);cursor:pointer}
+.ntx button.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ntx p{flex-basis:100%;margin:0;color:var(--muted)}
 .ntl{overflow:auto;padding:6px 0}
 .nti{padding:9px 12px;border-bottom:1px solid var(--line)}
 .nti:last-child{border-bottom:0}
@@ -733,6 +737,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   <button type="button" class="aibtn" id="ai-btn" aria-label="Abrir asistente IA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span>Asistente IA</span></button>
 <div class="ntp" id="nt-panel" role="dialog" aria-label="Avisos de ventas">
   <div class="nth"><b>Avisos de ventas</b><button type="button" id="nt-perm">Activar avisos del navegador</button><button type="button" id="nt-close" aria-label="Cerrar">✕</button></div>
+  <div class="ntx" id="nt-pushrow"><button type="button" class="pri" id="nt-push">Recibir avisos en este celular</button><button type="button" id="nt-test" hidden>Probar aviso</button><button type="button" id="nt-off" hidden>Desactivar</button><p id="nt-pmsg">En iPhone: primero toca Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono.</p></div>
   <div class="ntl" id="nt-list"></div>
 </div>
 <div class="aip" id="ai-panel" role="dialog" aria-label="Asistente IA">
@@ -4454,6 +4459,34 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       if(pan.classList.contains("open"))marcar();else draw();
     },function(){});
   }catch(e){}})();
+  // Avisos al celular (Web Push): registra este equipo para que cada aviso llegue aunque la página esté cerrada.
+  var pb=$("nt-push"),pt=$("nt-test"),po=$("nt-off"),pm=$("nt-pmsg");
+  var soporta=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+  function b64(x){var p=new Array((4-x.length%4)%4+1).join("="),b=(x+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b),o=new Uint8Array(r.length);for(var i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o}
+  function pmsg(t){pm.textContent=t}
+  async function estadoPush(){
+    if(!soporta){pb.hidden=true;pmsg("Este navegador no recibe avisos al celular. En iPhone: Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono.");return}
+    try{var reg=await navigator.serviceWorker.getRegistration("/sw.js");var sub=reg&&await reg.pushManager.getSubscription();
+      var on=!!sub&&Notification.permission==="granted";
+      pb.hidden=on;pt.hidden=!on;po.hidden=!on;
+      pmsg(on?"✓ Este equipo recibe los avisos aunque la página esté cerrada.":(Notification.permission==="denied"?"Bloqueaste los avisos: actívalos en los ajustes del navegador para este sitio.":"En iPhone: primero toca Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono."))
+    }catch(e){}
+  }
+  pb.addEventListener("click",async function(){
+    if(!soporta)return;pb.disabled=true;
+    try{
+      var reg=await navigator.serviceWorker.register("/sw.js");await navigator.serviceWorker.ready;
+      var perm=await Notification.requestPermission();if(perm!=="granted"){pmsg("No diste permiso para los avisos.");return}
+      var k=await (await fetch("/api/push")).json();if(!k.publicKey){pmsg("No se pudo preparar los avisos. Intenta otra vez.");return}
+      var sub=await reg.pushManager.getSubscription()||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(k.publicKey)});
+      var r=await fetch("/api/push",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({subscription:sub.toJSON()})});
+      if(!r.ok){pmsg("No se pudo guardar este equipo. Intenta otra vez.");return}
+      await estadoPush()
+    }catch(e){pmsg("No se pudo activar: "+(e&&e.message||"error"))}finally{pb.disabled=false}
+  });
+  pt.addEventListener("click",async function(){pt.disabled=true;try{var r=await fetch("/api/push",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prueba:true})});var j=await r.json();pmsg(j.enviados?"Prueba enviada: debe llegarte en unos segundos.":"No hay ningún equipo activo para enviar la prueba.")}catch(e){pmsg("No se pudo enviar la prueba.")}finally{pt.disabled=false}});
+  po.addEventListener("click",async function(){try{var reg=await navigator.serviceWorker.getRegistration("/sw.js");var sub=reg&&await reg.pushManager.getSubscription();if(sub){await fetch("/api/push",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})});await sub.unsubscribe()}}catch(e){}estadoPush()});
+  estadoPush();
   draw();
 })();
 </script>
