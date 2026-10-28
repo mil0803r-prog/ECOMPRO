@@ -766,6 +766,11 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 
   <section class="pane" id="p-ped" hidden>
     <div class="card livebar" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="live-btn">Actualizar desde Dropi</button><span class="sub" id="live-msg" role="status">Recarga tu pestaña de Dropi y trae los pedidos al tablero.</span></div>
+    <div class="card" id="ps-box" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-top:12px">
+      <div class="fld grow" style="min-width:240px"><label for="ps-q">Buscar en todos los pedidos</label><input id="ps-q" type="search" placeholder="Pedido, guía, cliente, teléfono, ciudad, producto…" autocomplete="off"></div>
+      <span class="sub" id="ps-n" role="status" style="padding-bottom:10px"></span>
+      <button type="button" class="btn" id="ps-go" hidden>Ver en la tabla</button>
+    </div>
     <div class="fxmini" role="group" aria-label="Moneda"><button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button></div>
     <div>
       <div class="bar" role="img" id="lv-bar" aria-label="478 pedidos: 244 entregados, 39 en proceso, 157 en rojo, 38 cancelados">
@@ -816,7 +821,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <h2>Todos los pedidos de Dropi</h2>
       <div class="card" id="o-filtros" style="display:flex;flex-direction:column;gap:12px">
         <div class="frow">
-          <div class="fld grow"><label for="o-q">Buscar</label><input id="o-q" type="search" placeholder="Número de pedido, ciudad, departamento o etiqueta" autocomplete="off"></div>
+          <div class="fld grow"><label for="o-q">Buscar</label><input id="o-q" type="search" placeholder="Pedido, guía, cliente, teléfono, ciudad, producto o etiqueta" autocomplete="off"></div>
           <div class="fld"><label for="o-desde">Desde</label><input id="o-desde" type="date" min="2026-04-01" max="2026-10-26"></div>
           <div class="fld"><label for="o-hasta">Hasta</label><input id="o-hasta" type="date" min="2026-04-01" max="2026-10-26"></div>
         </div>
@@ -1866,7 +1871,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       if(fv&&!store.favs[o.n])return false;
       var tags=store.tags[o.n]||[];
       if(tg&&tags.indexOf(tg)<0)return false;
-      if(q){var XX=(window.ecPedX&&window.ecPedX.get(o.n))||{};var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")+" "+(XX.g||"")+" "+(XX.c||"")+" "+(XX.p||"")+" "+(XX.t||"")).toLowerCase();if(hay.indexOf(q)<0)return false}
+      if(q){var XX=(window.ecPedX&&window.ecPedX.get(o.n))||{};var hay=(o.n+" "+o.c+" "+o.dep+" "+ST[o.s][0]+" "+o.v+" "+tags.join(" ")+" "+(XX.g||"")+" "+(XX.c||"")+" "+(XX.p||"")+" "+(XX.t||"")+" "+(XX.tl||"")+" "+(XX.a||"")+" "+(XX.nv||"")+" "+(window.ecProd?window.ecProd.of(o):"")).toLowerCase();q=q.replace(/\s+/g," ");var qd=q.replace(/[\s\-+]/g,"");if(hay.indexOf(q)<0&&!(/^\d{4,}$/.test(qd)&&String(XX.tl||"").replace(/\D/g,"").indexOf(qd)>-1))return false}
       return true});
   }
 
@@ -2006,6 +2011,14 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   document.addEventListener("change",function(e){
     if(e.target.id==="o-dall"){(window.__oVis||[]).forEach(function(n){if(e.target.checked)selDel[n]=1;else delete selDel[n]});rOrd();return}
     if(e.target.classList&&e.target.classList.contains("dsel")){var n=e.target.dataset.n;if(e.target.checked)selDel[n]=1;else delete selDel[n];var tr=e.target.closest("tr");if(tr)tr.classList.toggle("dsel-on",!!selDel[n]);dBar()}});
+  (function(){var a=$("ps-q"),b=oq;if(!a||!b)return;
+    function cnt(){var n=filtrar().length,e=$("ps-n"),g=$("ps-go");if(!a.value.trim()){e.textContent="";g.hidden=true;return}e.textContent=n+(n===1?" pedido encontrado":" pedidos encontrados");g.hidden=false}
+    a.addEventListener("input",function(){b.value=a.value;lim=50;rOrd();cnt()});
+    b.addEventListener("input",function(){if(a.value!==b.value)a.value=b.value;cnt()});
+    a.addEventListener("keydown",function(e){if(e.key==="Enter")$("o-filtros").scrollIntoView({behavior:"smooth",block:"start"})});
+    $("ps-go").addEventListener("click",function(){$("o-tabla").scrollIntoView({behavior:"smooth",block:"start"})});
+    $("o-limpiar")&&$("o-limpiar").addEventListener("click",function(){a.value="";cnt()});
+    document.addEventListener("ecprod",cnt)})();
   window.ecStCell=stCell;
   window.ecStChange=function(s){if(!s||!window.ecPedX)return;var c=s.value;
     if(/^[EDC]$/.test(c)&&!window.confirm("Vas a marcar el pedido "+s.dataset.n+" como "+ST[c][0]+". Es un estado final: después ya no se podrá cambiar. ¿Seguro?")){rOrd();document.dispatchEvent(new Event("ecprod"));return}
