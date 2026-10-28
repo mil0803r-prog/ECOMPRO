@@ -531,6 +531,26 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .aibtn svg{width:18px;height:18px}
 .aip{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(76px,calc(env(safe-area-inset-bottom) + 64px));z-index:41;width:min(440px,calc(100vw - 32px));height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden}
 .aip.open{display:flex}
+.ntb{position:relative}
+.ntn{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--rojo);color:#fff;font-size:.7rem;font-weight:700;line-height:18px;text-align:center}
+.ntp{position:fixed;top:64px;right:max(12px,env(safe-area-inset-right));z-index:42;width:min(420px,calc(100vw - 24px));max-height:min(70vh,560px);display:none;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.28)}
+.ntp.open{display:flex}
+.nth{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.nth b{flex:1}
+.nth button{font:inherit;font-size:.78rem;padding:4px 10px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--fg);cursor:pointer}
+.ntx{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:.82rem}
+.ntx button{font:inherit;font-size:.78rem;padding:5px 11px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--fg);cursor:pointer}
+.ntx button.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ntx p{flex-basis:100%;margin:0;color:var(--muted)}
+.ntl{overflow:auto;padding:6px 0}
+.nti{padding:9px 12px;border-bottom:1px solid var(--line)}
+.nti:last-child{border-bottom:0}
+.nti.al{background:var(--rojo-bg)}
+.nti.nw{box-shadow:inset 3px 0 0 var(--azul)}
+.nti b{display:block;font-size:.9rem}
+.nti small{color:var(--muted)}
+.nti p{margin:3px 0 0;font-size:.84rem;white-space:pre-wrap;word-break:break-word}
+.nti ul{margin:4px 0 0;padding-left:18px;font-size:.84rem}
 .aih{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,color-mix(in srgb,var(--cel) 16%,transparent),transparent)}
 .aih b{flex:1;font-family:var(--display);font-size:1.15rem;letter-spacing:.03em}
 .aih button{font:inherit;font-size:.78rem;font-weight:600;color:var(--muted);background:none;border:1px solid var(--line);border-radius:99px;padding:4px 10px;cursor:pointer}
@@ -711,10 +731,15 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 <div class="wrap">
   <header>
     <div class="brand"><button type="button" class="mbtn" id="mbtn" aria-label="Abrir menú" aria-expanded="false">☰</button><img class="logo" src="/logo.png" alt="ECOMPRO" width="54" height="54"><h1><small style="display:block;font-family:var(--body);font-size:.85rem;font-weight:500;color:var(--muted)">Semáforo Dropi GT</small></h1></div>
-    <div class="meta"><span class="palw"><button type="button" class="palb" id="palb" aria-haspopup="true" aria-expanded="false" title="Paleta de colores"><i></i>Paleta</button><div class="palp" id="palp" role="menu"></div></span><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 28 oct 2026 · Dropi sincronizado 28 oct 09:30 · montos en GTQ salvo Meta (PEN)</div>
+    <div class="meta"><button type="button" id="nt-btn" class="thm ntb" aria-haspopup="dialog" aria-expanded="false" aria-label="Avisos de ventas" title="Avisos de ventas">🔔<span class="ntn" id="nt-n" hidden>0</span></button><span class="palw"><button type="button" class="palb" id="palb" aria-haspopup="true" aria-expanded="false" title="Paleta de colores"><i></i>Paleta</button><div class="palp" id="palp" role="menu"></div></span><button type="button" id="thm" class="thm" aria-label="Cambiar entre claro y oscuro" title="Claro / Oscuro">☾ Oscuro</button> 1 mar – 28 oct 2026 · Dropi sincronizado 28 oct 09:30 · montos en GTQ salvo Meta (PEN)</div>
   </header>
 
   <button type="button" class="aibtn" id="ai-btn" aria-label="Abrir asistente IA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span>Asistente IA</span></button>
+<div class="ntp" id="nt-panel" role="dialog" aria-label="Avisos de ventas">
+  <div class="nth"><b>Avisos de ventas</b><button type="button" id="nt-perm">Activar avisos del navegador</button><button type="button" id="nt-close" aria-label="Cerrar">✕</button></div>
+  <div class="ntx" id="nt-pushrow"><button type="button" class="pri" id="nt-push">Recibir avisos en este celular</button><button type="button" id="nt-test" hidden>Probar aviso</button><button type="button" id="nt-off" hidden>Desactivar</button><p id="nt-pmsg">En iPhone: primero toca Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono.</p></div>
+  <div class="ntl" id="nt-list"></div>
+</div>
 <div class="aip" id="ai-panel" role="dialog" aria-label="Asistente IA">
   <div class="aih"><b>Asistente ECOMPRO</b><button type="button" id="ai-clear">Nueva</button><button type="button" id="ai-close" aria-label="Cerrar">✕</button></div>
   <div class="aim" id="ai-msgs"></div>
@@ -4397,5 +4422,71 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   setTimeout(render,600);
 })();
 </script>
-
-
+<script>
+(function(){
+  // Avisos de ventas: resúmenes cada 2 horas y alertas de gasto sin compras que Claude manda a /api/alertas.
+  var $=function(i){return document.getElementById(i)};
+  var btn=$("nt-btn"),pan=$("nt-panel");if(!btn||!pan)return;
+  var N=[],seen=0,inicio=Date.now(),primera=true;
+  try{seen=+localStorage.getItem("ec_nt_seen")||0}catch(e){}
+  function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function hora(ts){var d=new Date(ts);return d.toLocaleString("es-GT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false})}
+  function draw(){
+    var sinver=N.filter(function(a){return a.ts>seen}).length;
+    $("nt-n").hidden=!sinver;$("nt-n").textContent=sinver>99?"99+":sinver;
+    $("nt-list").innerHTML=N.length?N.map(function(a){
+      return '<div class="nti'+(a.tipo==="alerta"?" al":"")+(a.ts>seen?" nw":"")+'"><b>'+(a.tipo==="alerta"?"⚠ ":"")+esc(a.titulo)+'</b><small>'+esc(hora(a.ts))+'</small>'+(a.texto?'<p>'+esc(a.texto)+'</p>':"")+((a.lineas&&a.lineas.length)?'<ul>'+a.lineas.map(function(l){return "<li>"+esc(l)+"</li>"}).join("")+'</ul>':"")+'</div>'}).join(""):'<div class="nti"><small>Todavía no hay avisos. Cada 2 horas llega un resumen de ventas.</small></div>';
+    var p=$("nt-perm");if(p){p.hidden=!("Notification" in window)||Notification.permission!=="default"}
+  }
+  function marcar(){var m=N.length?N[0].ts:0;if(m>seen){seen=m;try{localStorage.setItem("ec_nt_seen",String(seen))}catch(e){}}draw()}
+  function abrir(v){pan.classList.toggle("open",v);btn.setAttribute("aria-expanded",v?"true":"false");if(v)marcar()}
+  btn.addEventListener("click",function(){abrir(!pan.classList.contains("open"))});
+  $("nt-close").addEventListener("click",function(){abrir(false)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&pan.classList.contains("open"))abrir(false)});
+  $("nt-perm").addEventListener("click",function(){if(!("Notification" in window))return;Notification.requestPermission().then(draw)});
+  function avisar(a){
+    if(!("Notification" in window)||Notification.permission!=="granted")return;
+    try{new Notification((a.tipo==="alerta"?"⚠ ":"")+a.titulo,{body:a.texto||(a.lineas||[]).slice(0,3).join(" · "),icon:"/icon-192.png",tag:"ec-"+a.id})}catch(e){}
+  }
+  (async function(){try{
+    if(!window.claude||!window.claude.use)return;
+    var db=await window.claude.use("db");
+    db.collection("alertas").orderBy("ts","desc").limit(60).onSnapshot(function(s){
+      var antes={};N.forEach(function(a){antes[a.id]=1});
+      N=s.docs.map(function(d){var x=d.data();x.id=d.id;return x});
+      if(!primera)N.forEach(function(a){if(!antes[a.id]&&a.ts>seen&&a.ts>inicio-60000&&!pan.classList.contains("open"))avisar(a)});
+      primera=false;
+      if(pan.classList.contains("open"))marcar();else draw();
+    },function(){});
+  }catch(e){}})();
+  // Avisos al celular (Web Push): registra este equipo para que cada aviso llegue aunque la página esté cerrada.
+  var pb=$("nt-push"),pt=$("nt-test"),po=$("nt-off"),pm=$("nt-pmsg");
+  var soporta=("serviceWorker" in navigator)&&("PushManager" in window)&&("Notification" in window);
+  function b64(x){var p=new Array((4-x.length%4)%4+1).join("="),b=(x+p).replace(/-/g,"+").replace(/_/g,"/"),r=atob(b),o=new Uint8Array(r.length);for(var i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o}
+  function pmsg(t){pm.textContent=t}
+  async function estadoPush(){
+    if(!soporta){pb.hidden=true;pmsg("Este navegador no recibe avisos al celular. En iPhone: Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono.");return}
+    try{var reg=await navigator.serviceWorker.getRegistration("/sw.js");var sub=reg&&await reg.pushManager.getSubscription();
+      var on=!!sub&&Notification.permission==="granted";
+      pb.hidden=on;pt.hidden=!on;po.hidden=!on;
+      pmsg(on?"✓ Este equipo recibe los avisos aunque la página esté cerrada.":(Notification.permission==="denied"?"Bloqueaste los avisos: actívalos en los ajustes del navegador para este sitio.":"En iPhone: primero toca Compartir → Añadir a pantalla de inicio y abre ECOMPRO desde ese ícono."))
+    }catch(e){}
+  }
+  pb.addEventListener("click",async function(){
+    if(!soporta)return;pb.disabled=true;
+    try{
+      var reg=await navigator.serviceWorker.register("/sw.js");await navigator.serviceWorker.ready;
+      var perm=await Notification.requestPermission();if(perm!=="granted"){pmsg("No diste permiso para los avisos.");return}
+      var k=await (await fetch("/api/push")).json();if(!k.publicKey){pmsg("No se pudo preparar los avisos. Intenta otra vez.");return}
+      var sub=await reg.pushManager.getSubscription()||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(k.publicKey)});
+      var r=await fetch("/api/push",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({subscription:sub.toJSON()})});
+      if(!r.ok){pmsg("No se pudo guardar este equipo. Intenta otra vez.");return}
+      await estadoPush()
+    }catch(e){pmsg("No se pudo activar: "+(e&&e.message||"error"))}finally{pb.disabled=false}
+  });
+  pt.addEventListener("click",async function(){pt.disabled=true;try{var r=await fetch("/api/push",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prueba:true})});var j=await r.json();pmsg(j.enviados?"Prueba enviada: debe llegarte en unos segundos.":"No hay ningún equipo activo para enviar la prueba.")}catch(e){pmsg("No se pudo enviar la prueba.")}finally{pt.disabled=false}});
+  po.addEventListener("click",async function(){try{var reg=await navigator.serviceWorker.getRegistration("/sw.js");var sub=reg&&await reg.pushManager.getSubscription();if(sub){await fetch("/api/push",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})});await sub.unsubscribe()}}catch(e){}estadoPush()});
+  estadoPush();
+  draw();
+})();
+</script>
