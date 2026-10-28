@@ -824,8 +824,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <p class="foot" style="margin:0">Pasan al tablero nombres y direcciones de tus clientes, igual que al importar. Pasan también los teléfonos (solo se ven en la columna Teléfono). Solo funciona con Dropi abierto en una computadora; si Dropi cambia su página, la lectura puede dejar de funcionar.</p>
       </details>
       <details class="card" id="o-imp" style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Traer guías, clientes y productos desde Dropi</summary>
-        <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden: los que ya existen solo se completan, y los que no existen se agregan como pedidos nuevos (el número de orden nunca se repite). Para agregar pedidos nuevos el archivo necesita fecha, estado y, si puedes, ciudad y valor.</p>
-        <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo (Excel o CSV)<input type="file" id="oi-f" accept=".xlsx,.xls,.csv,.tsv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
+        <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Sube el archivo (Excel o CSV) y se importa solo: las columnas se reconocen por su encabezado, sin que tengas que elegir nada. Cada pedido se une por su número de orden: los que ya existen solo se completan y los que no existen se agregan como nuevos. El número de orden nunca se repite. Para agregar pedidos nuevos el archivo necesita las columnas de fecha y de estado.</p>
+        <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo (Excel o CSV)<input type="file" id="oi-f" accept=".xlsx,.xls,.csv,.tsv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Importar</button></div>
         <div id="oi-map" style="margin-top:10px"></div>
         <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
         <p class="foot" style="margin:8px 0 0" id="oi-pie"></p>
@@ -4141,8 +4141,26 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var tx;try{tx=new TextDecoder("utf-8",{fatal:true}).decode(buf)}catch(e){tx=new TextDecoder("windows-1252").decode(buf)}
     load(tx)}
   function load(text){loadRows(parse(text))}
-  function loadRows(rows){if(rows.length<2){$("oi-prev")&&0;$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
-    PA={rows:rows,g:guess(rows[0].map(norm),rows.slice(1))};showMap()}
+  function importar(rows,sel){
+      var set=ordSet(),m=0,nw=0,dp=0,sd=0,st=0,seen={};
+      
+      rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;
+        var code=sel.s>=0?pst(r[sel.s]):"";
+        if(set[n]){var x=MAP[n]||{};["g","c","p","t","a","nv","tl"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(k==="tl")v=v.replace(/[^\d+]/g,"");if(v)x[k]=v.slice(0,k==="a"||k==="nv"?200:k==="tl"?20:80)}});
+          if(code&&code!==set[n].s){x.s=code;st++}if(sel.dp>=0){var dq=depN(r[sel.dp]);if(dq)x.dp=dq}MAP[n]=x;m++;return}
+        var dt=sel.d>=0?pdt(r[sel.d]):null;
+        if(!dt||!code){sd++;return}
+        var cx=sel.ci>=0?cityU(r[sel.ci]):"";
+        NEWO[n]={d:dt.d,t:dt.t,s:code,c:cx,v:sel.v>=0?pnum(r[sel.v]):0};if(sel.dp>=0){var dn=depN(r[sel.dp]);if(dn)NEWO[n].dp=dn}
+        var y=MAP[n]||{};["g","c","p","t","a","nv","tl"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(k==="tl")v=v.replace(/[^\d+]/g,"");if(v)y[k]=v.slice(0,k==="a"||k==="nv"?200:k==="tl"?20:80)}});MAP[n]=y;nw++});
+      mergeNew();persist();
+      var nom={n:"pedido",g:"guía",c:"cliente",p:"producto",t:"transportadora",d:"fecha",s:"estado",ci:"ciudad",dp:"departamento",a:"dirección",nv:"novedad",tl:"teléfono",v:"valor"},leidas=Object.keys(nom).filter(function(f){return sel[f]>=0}).map(function(f){return nom[f]});
+      $("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+nw+' pedidos nuevos agregados, '+m+' existentes completados'+(st?' ('+st+' con estado actualizado)':'')+', '+dp+' repetidos ignorados'+(sd?', '+sd+' sin fecha o estado reconocible (no agregados)':'')+'.<br>Columnas que leí: '+leidas.join(", ")+'.'+(sd&&!(sel.d>=0&&sel.s>=0)?' Para agregar pedidos nuevos el archivo necesita las columnas de fecha y de estado.':'')+'</div>';refresh()}
+  function loadRows(rows){if(rows.length<2){$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
+    var g=guess(rows[0].map(norm),rows.slice(1));
+    if(!(g.n>=0)){$("oi-map").innerHTML='<div class="sub">No encontré la columna del número de pedido (orden). Revisa que el archivo la tenga con su encabezado.</div>';return}
+    importar(rows,g)}
+
   document.addEventListener("change",function(e){
     if(e.target.id==="oi-f"&&e.target.files&&e.target.files[0]){var rd=new FileReader();rd.onload=function(){loadBuf(rd.result)};rd.readAsArrayBuffer(e.target.files[0])}
     if(e.target.closest&&e.target.closest("#oi-map select")&&PA)prev()});
@@ -4159,20 +4177,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
         persist();refresh();m.textContent="Listo: "+c+" pedidos actualizados de "+j.rows.length+" que devolvió Dropi."
       }).catch(function(){e.target.disabled=false;m.textContent="No se pudo conectar con el servidor."});return}
     if(e.target.id==="oi-del"){MAP={};var O=window.__ORD||[];for(var i=O.length-1;i>=0;i--)if(O[i].nuevo)O.splice(i,1);NEWO={};persist();refresh();return}
-    if(e.target.id==="oi-ok"&&PA){
-      var sel=PA.sel,set=ordSet(),m=0,nw=0,dp=0,sd=0,st=0,seen={};
-      if(!(sel.n>=0))return;
-      PA.rows.slice(1).forEach(function(r){var n=digits(r[sel.n]);if(!n)return;if(seen[n]){dp++;return}seen[n]=1;
-        var code=sel.s>=0?pst(r[sel.s]):"";
-        if(set[n]){var x=MAP[n]||{};["g","c","p","t","a","nv","tl"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(k==="tl")v=v.replace(/[^\d+]/g,"");if(v)x[k]=v.slice(0,k==="a"||k==="nv"?200:k==="tl"?20:80)}});
-          if(code&&code!==set[n].s){x.s=code;st++}if(sel.dp>=0){var dq=depN(r[sel.dp]);if(dq)x.dp=dq}MAP[n]=x;m++;return}
-        var dt=sel.d>=0?pdt(r[sel.d]):null;
-        if(!dt||!code){sd++;return}
-        var cx=sel.ci>=0?cityU(r[sel.ci]):"";
-        NEWO[n]={d:dt.d,t:dt.t,s:code,c:cx,v:sel.v>=0?pnum(r[sel.v]):0};if(sel.dp>=0){var dn=depN(r[sel.dp]);if(dn)NEWO[n].dp=dn}
-        var y=MAP[n]||{};["g","c","p","t","a","nv","tl"].forEach(function(k){if(sel[k]>=0){var v=String(r[sel[k]]||"").trim();if(k==="tl")v=v.replace(/[^\d+]/g,"");if(v)y[k]=v.slice(0,k==="a"||k==="nv"?200:k==="tl"?20:80)}});MAP[n]=y;nw++});
-      mergeNew();persist();PA=null;
-      $("oi-map").innerHTML='<div class="sub"><b>Listo:</b> '+nw+' pedidos nuevos agregados, '+m+' existentes completados'+(st?' ('+st+' con estado actualizado)':'')+', '+dp+' repetidos ignorados'+(sd?', '+sd+' sin fecha o estado reconocible (no agregados)':'')+'.</div>';refresh()}});
+  });
   setTimeout(function(){mergeNew();fillT();refresh()},200);
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;db.doc("settings/pedlive").onSnapshot(function(s){var d=s&&s.exists&&s.data(),e=$("live-st");if(!e)return;if(d&&d.ts){window.__liveTs=d.ts;window.__liveInfo=(d.recibidos||0)+" pedidos, "+(d.nuevos||0)+" nuevos";document.dispatchEvent(new Event("eclive"));var m=Math.max(0,Math.round((Date.now()-d.ts)/60000));e.textContent="· última lectura hace "+(m<1?"menos de 1 minuto":m<60?m+" min":Math.round(m/60)+" h")+" ("+(d.recibidos||0)+" pedidos)"}else e.textContent="· todavía sin lecturas"},function(){});
     db.doc("settings/pedextra").onSnapshot(function(sn){var d=sn.exists&&sn.data();if(d&&d.map&&typeof d.map==="object"){MAP=d.map;if(d.nuevos&&typeof d.nuevos==="object")NEWO=d.nuevos;try{localStorage.setItem("ec_pedx",JSON.stringify(MAP));localStorage.setItem("ec_pednew",JSON.stringify(NEWO))}catch(e){}mergeNew();refresh()}},function(){})}}catch(e){}})();
