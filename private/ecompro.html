@@ -825,7 +825,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       </details>
       <details class="card" id="o-imp" style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Traer guías, clientes y productos desde Dropi</summary>
         <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Elige el archivo guardado como <b>CSV</b>, o copia las filas con sus encabezados y pégalas aquí. Se unen a tus pedidos por el número de orden: los que ya existen solo se completan, y los que no existen se agregan como pedidos nuevos (el número de orden nunca se repite). Para agregar pedidos nuevos el archivo necesita fecha, estado y, si puedes, ciudad y valor.</p>
-        <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo CSV<input type="file" id="oi-f" accept=".csv,.tsv,.txt,text/csv,text/plain" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
+        <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo (Excel o CSV)<input type="file" id="oi-f" accept=".xlsx,.xls,.csv,.tsv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Leer</button></div>
         <div id="oi-map" style="margin-top:10px"></div>
         <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
         <p class="foot" style="margin:8px 0 0" id="oi-pie"></p>
@@ -4120,10 +4120,31 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     sel.disabled=!ks.length;sel.innerHTML=ks.length?'<option value="">Todas</option>'+ks.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join(""):'<option value="">Sin datos (importa desde Dropi)</option>';if(ks.indexOf(cur)>-1)sel.value=cur;
     var pie=$("oi-pie");if(pie){var n=Object.keys(MAP).length;pie.innerHTML=n?'Datos importados de '+n+' pedidos. <button type="button" class="btn" id="oi-del" style="padding:4px 10px;font-size:.78rem">Quitar datos importados</button> Los nombres y teléfonos de clientes se guardan en tu base privada y salen en la copia de seguridad.':''}}
   function refresh(){fillT();if(window.ecRO)window.ecRO();document.dispatchEvent(new Event("ecprod"))}
-  function load(text){var rows=parse(text);if(rows.length<2){$("oi-prev")&&0;$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
+  function p2(n){return (n<10?"0":"")+n}
+  function xlsxRows(buf){
+    var wb=XLSX.read(buf,{type:"array",cellNF:true}),ws=wb.Sheets[wb.SheetNames[0]];if(!ws||!ws["!ref"])return [];
+    var rg=XLSX.utils.decode_range(ws["!ref"]),rows=[];
+    for(var r=rg.s.r;r<=rg.e.r;r++){var row=[];
+      for(var c=rg.s.c;c<=rg.e.c;c++){var x=ws[XLSX.utils.encode_cell({r:r,c:c})],v="";
+        if(x){if(x.t==="n"){if(x.z&&XLSX.SSF.is_date(x.z)){var d=XLSX.SSF.parse_date_code(x.v);v=d.y+"-"+p2(d.m)+"-"+p2(d.d)+(d.H||d.M?" "+p2(d.H)+":"+p2(d.M):"")}else if(x.w&&/^\d{1,4}[-\/]\d{1,2}[-\/]\d{1,4}/.test(String(x.w))&&String(x.v).indexOf(".")>-1)v=String(x.w);else v=String(x.v)}
+          else if(x.t==="d"&&x.v&&x.v.toISOString){v=x.v.toISOString().slice(0,16).replace("T"," ")}
+          else v=String(x.w!=null?x.w:(x.v==null?"":x.v))}
+        row.push(v)}
+      if(row.some(function(t){return String(t).trim()}))rows.push(row)}
+    return rows}
+  function needX(cb,err){if(window.XLSX)return cb();var s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=cb;s.onerror=err;document.head.appendChild(s)}
+  function loadBuf(buf){
+    var b=new Uint8Array(buf.slice(0,4)),zip=b[0]===0x50&&b[1]===0x4B,old=b[0]===0xD0&&b[1]===0xCF;
+    if(zip||old){$("oi-map").innerHTML='<div class="sub">Leyendo el archivo de Excel…</div>';
+      needX(function(){try{var rows=xlsxRows(buf);loadRows(rows)}catch(e){$("oi-map").innerHTML='<div class="sub">No pude leer ese archivo de Excel. Guárdalo como CSV o copia las filas y pégalas aquí.</div>'}},
+        function(){$("oi-map").innerHTML='<div class="sub">No pude cargar el lector de Excel (sin internet o bloqueado). Guarda el archivo como CSV, o copia las filas con sus encabezados y pégalas aquí.</div>'});return}
+    var tx;try{tx=new TextDecoder("utf-8",{fatal:true}).decode(buf)}catch(e){tx=new TextDecoder("windows-1252").decode(buf)}
+    load(tx)}
+  function load(text){loadRows(parse(text))}
+  function loadRows(rows){if(rows.length<2){$("oi-prev")&&0;$("oi-map").innerHTML='<div class="sub">No encontré filas. Incluye la primera fila con los encabezados.</div>';return}
     PA={rows:rows,g:guess(rows[0].map(norm),rows.slice(1))};showMap()}
   document.addEventListener("change",function(e){
-    if(e.target.id==="oi-f"&&e.target.files&&e.target.files[0]){var rd=new FileReader();rd.onload=function(){load(rd.result)};rd.readAsText(e.target.files[0],"utf-8")}
+    if(e.target.id==="oi-f"&&e.target.files&&e.target.files[0]){var rd=new FileReader();rd.onload=function(){loadBuf(rd.result)};rd.readAsArrayBuffer(e.target.files[0])}
     if(e.target.closest&&e.target.closest("#oi-map select")&&PA)prev()});
   document.addEventListener("click",function(e){
     if(e.target.id==="oi-go"){var t=$("oi-t").value;if(t.trim())load(t);return}
