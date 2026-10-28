@@ -4,13 +4,22 @@ self.addEventListener("activate", function (e) { e.waitUntil(self.clients.claim(
 self.addEventListener("push", function (e) {
   var d = {};
   try { d = e.data.json(); } catch (x) { d = { titulo: "ECOMPRO", texto: e.data ? e.data.text() : "" }; }
-  e.waitUntil(self.registration.showNotification((d.tipo === "alerta" ? "⚠ " : "") + (d.titulo || "ECOMPRO"), {
-    body: d.texto || "",
-    icon: "/icon-192.png",
-    badge: "/icon-192.png",
-    tag: "ec-" + (d.id || Date.now()),
-    data: { url: "/" }
-  }));
+  var alerta = d.tipo === "alerta";
+  e.waitUntil(Promise.all([
+    self.registration.showNotification((alerta ? "⚠ " : "") + (d.titulo || "ECOMPRO"), {
+      body: d.texto || "",
+      icon: "/icon-192.png",
+      badge: "/icon-192.png",
+      tag: "ec-" + (d.id || Date.now()),
+      renotify: true,
+      requireInteraction: alerta,
+      vibrate: alerta ? [400, 150, 400, 150, 700] : [200, 100, 200],
+      data: { url: "/" }
+    }),
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(function (l) {
+      l.forEach(function (c) { c.postMessage({ type: "aviso", tipo: d.tipo }); });
+    })
+  ]));
 });
 self.addEventListener("notificationclick", function (e) {
   e.notification.close();
