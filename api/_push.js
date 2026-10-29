@@ -33,7 +33,7 @@ function valida(sub) {
   return (
     sub &&
     typeof sub.endpoint === "string" &&
-    /^https:\/\//.test(sub.endpoint) &&
+    /^https:\/\/([a-z0-9-]+\.)*(googleapis\.com|push\.services\.mozilla\.com|notify\.windows\.com|push\.apple\.com)\//i.test(sub.endpoint) &&
     sub.endpoint.length < 600 &&
     sub.keys &&
     typeof sub.keys.p256dh === "string" &&
