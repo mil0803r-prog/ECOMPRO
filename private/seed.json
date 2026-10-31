@@ -7239,6 +7239,376 @@
    "ct": "2026-10-15",
    "tv": 118,
    "planb": true
+  },
+  "2026-10-30_1": {
+   "date": "2026-10-30",
+   "rank": 1,
+   "source": "ia",
+   "name": "Barra privada",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "hogar",
+   "costo": 59,
+   "pvp": 120,
+   "v7": 71,
+   "v30": 385,
+   "stock": 231,
+   "score": 40,
+   "scores": {
+    "demanda": 8,
+    "traccion": 5,
+    "margen": 5,
+    "competencia": 6,
+    "riesgo": 3
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 299
+   },
+   "verdict": "71 ventas en 7 dias, 385 en 30 y 584 en total depuradas (creado el 2026-09-22; 30 dias con venta de 37 leidos, ritmo mediano de 15 por dia y 3 reabastecimientos), stock 231, 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Es el unico normal de hoy y el que mas vende, pero no se sabe que es: la foto del listado es una imagen generica que ese proveedor repite en otros productos. Va frenando (la semana pasada 105 por semana, ahora 71).",
+   "angle": "Sin anuncios del mismo producto en GT en lo leido (la busqueda por texto 'barra privada' solo devolvio un anuncio de una casa de playa que no tiene nada que ver). Como no se sabe que es el producto, no se pudo comparar angulos: primero hay que abrirlo en Dropi y ver la foto real y la descripcion del proveedor.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busqueda de texto 'barra privada', solo anuncios de GT). Semaforo 0, cuidado: con 584 ventas en 5 semanas alguien ya lo esta vendiendo, quiza por WhatsApp o con otro nombre comercial; la busqueda por nombre del proveedor no sirve si el anuncio usa otro nombre.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto 'barra privada', solo GT). El nombre del listado es ambiguo y la foto es generica, asi que el conteo es un minimo. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "24113",
+     "nombre": "barra privada",
+     "costo": 59,
+     "stock": 231,
+     "v7": 71,
+     "v30": 385,
+     "tv": 584,
+     "ct": "2026-09-22",
+     "alt": "Sin otros listados del mismo nombre en Dropi GT (busqueda 'barra privada': 1 resultado). Ventas depuradas con ventas_reales.py: REAL (584 / 584), 3 reabastecimientos, 30 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/bff9d664-cea5-4b2d-a1ab-2f2d1ebeace0/f68f6ea9355f.webp",
+   "risk": "No se sabe que es el producto: nombre ambiguo y foto generica (la misma imagen aparece en otros productos del mismo proveedor, como el combo mino y la crema de alivio del picor). Confirmar en Dropi que es antes de pagar anuncios. Con flete Q68 y CPA Q20 de referencia pierde plata al PVP sugerido Q120 con 1 unidad; solo cierra en pack de 2 a Q299. Frena: 71 en 7 dias contra 105 por semana de promedio.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=24113&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/bff9d664-cea5-4b2d-a1ab-2f2d1ebeace0",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-22",
+   "tv": 584
+  },
+  "2026-10-30_2": {
+   "date": "2026-10-30",
+   "rank": 2,
+   "source": "ia",
+   "name": "Espatula facial ultrasonica",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 75,
+   "pvp": 95,
+   "v7": 40,
+   "v30": 41,
+   "stock": 341,
+   "score": 67,
+   "scores": {
+    "demanda": 5,
+    "traccion": 7,
+    "margen": 3,
+    "competencia": 6,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 349
+   },
+   "verdict": "40 ventas en 7 dias, 41 en 30 y 41 en total depuradas (creado el 2026-10-10; 7 dias con venta y acelerando: 1, 6, 3, 3, 0, 6, 10 y 12 el 29-oct), stock 341, 1 solo proveedor (importadora el mayorista) y 3 anunciantes distintos en GT (Dcasa Tienda, Kinky's Fashion y GuateSale) con 2 de ellos vendiendola en combo con otros aparatos de limpieza facial. Semaforo 3-8 zona dulce. El unico del Plan B que sube dia a dia, pero el ticket es bajo.",
+   "angle": "Ya en uso en GT: limpieza facial profunda desde casa y puntos negros (Dcasa Tienda, 1 x Q65 o 2 x Q100, video desde el 18-sep); combo mascara LED + espatula + cepillos de silicona a Q230 pago contra entrega (Kinky's Fashion, activo hace 40 dias); kit completo de limpieza facial con 2 aparatos (GuateSale). Hueco: piel con acne del adolescente, la espatula como regalo para mama y la rutina de 5 minutos antes de dormir con prueba de antes y despues.",
+   "competition": "3 anunciantes distintos en GT del mismo producto o de combos que lo incluyen: Dcasa Tienda (WhatsApp, video, desde el 2026-09-18, visto por ultima vez el 15-oct), Kinky's Fashion (WhatsApp, imagen, desde el 2026-06-13 y visto activo el 30-oct) y GuateSale (WhatsApp, video, desde el 2026-10-12). Semaforo 3-8 zona dulce. Las clinicas esteticas que salen en la misma busqueda venden el servicio, no el aparato, y no se contaron.",
+   "anWA": 3,
+   "anLand": 0,
+   "anTotal": 3,
+   "anNota": "3 anunciantes distintos en GT (busqueda de texto 'espatula facial ultrasonica', solo anuncios de GT): Dcasa Tienda, Kinky's Fashion y GuateSale, todos por WhatsApp. Salieron ademas 5 anuncios de clinicas y spas con faciales 2x1 que no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [
+    {
+     "adv": "Kinky's Fashion",
+     "pais": "GT",
+     "dias": 40,
+     "score": 46,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3079688962238930",
+     "dk": "https://app.dropkiller.com/dashboard/ads/87f78b72-40ba-44ef-a82a-94846b5db6d5",
+     "nota": "Imagen 'Mascarilla LED + espatula ultrasonica facial': rutina de spa desde casa con efecto lifting. Empezo el 13-jun y sigue activa el 30-oct."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "Dcasa Tienda",
+     "pais": "GT",
+     "dias": 26,
+     "score": 38,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2050195935680684",
+     "dk": "https://app.dropkiller.com/dashboard/ads/ba7adcb7-af01-456a-ab22-0f0abae26e49",
+     "nota": "Video 'Limpieza facial profunda desde casa': espatula ultrasonica 3 en 1, 1 x Q65 y 2 x Q100. Visto por ultima vez el 15-oct."
+    },
+    {
+     "adv": "GuateSale",
+     "pais": "GT",
+     "dias": 15,
+     "score": 27,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2205309003677753",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e692e714-4681-44c4-ad0c-57f5172c6869",
+     "nota": "Video 'Kit completo limpieza facial': 2 aparatos para hombres y mujeres, elimina puntos negros. Activo el 30-oct."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27605",
+     "nombre": "espatula facial ultrasonica",
+     "costo": 75,
+     "stock": 341,
+     "v7": 40,
+     "v30": 41,
+     "tv": 41,
+     "ct": "2026-10-10",
+     "alt": "Hay un listado mas del mismo proveedor (2316 'espatula facial', 0 ventas, creado el 2026-01-17) que no suma ventas. Ventas depuradas con ventas_reales.py: REAL (41 / 41), 7 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/18888efb-475a-484e-82ac-52da5ecfd9f3/dcfdeeaff91d.webp",
+   "risk": "Costo Q75 con PVP sugerido Q95: no cierra con 1 unidad (referencia flete Q68, CPA Q20, no medidos); solo cierra en pack de 2 a Q349, mas del triple del PVP sugerido, y la competencia ya la vende a Q65 y 2 x Q100. Producto de bajo ticket y muy visto en GT. No se pudo ver la foto: la identificacion sale del nombre; confirmar en Dropi.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27605&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/18888efb-475a-484e-82ac-52da5ecfd9f3",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-10",
+   "tv": 41,
+   "planb": true
+  },
+  "2026-10-30_3": {
+   "date": "2026-10-30",
+   "rank": 3,
+   "source": "ia",
+   "name": "Balon flotante de futbol con luces",
+   "provider": "metacompras gt",
+   "verificado": false,
+   "cats": "jugueteria",
+   "costo": 85,
+   "pvp": 155,
+   "v7": 25,
+   "v30": 25,
+   "stock": 225,
+   "score": 60,
+   "scores": {
+    "demanda": 4,
+    "traccion": 6,
+    "margen": 4,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 349
+   },
+   "verdict": "25 ventas en 7 dias, 25 en 30 y 25 en total depuradas (creado el 2026-10-22; 6 dias con venta entre 2 y 8 por dia: 2, 8, 3, 3, 3 y 6 el 29-oct), stock 225, 1 solo proveedor (metacompras gt) y 0 anunciantes del mismo balon en GT en lo leido: semaforo 0, cuidado. Venta chica pero pareja y en temporada de regalos para ninos.",
+   "angle": "Sin anuncios del mismo balon en GT en lo leido (la busqueda 'balon flotante luces futbol' devolvio 0 anuncios activos en GT). Hueco completo: regalo de Navidad para ninos de 6 a 14 anos, juego de noche con luces, y el padre que quiere sacar al hijo de la pantalla.",
+   "competition": "0 anunciantes del mismo balon en GT en lo leido (busqueda de texto, solo anuncios de GT, 0 resultados). Semaforo 0, cuidado: quiza todavia nadie lo prueba o lo venden por WhatsApp sin que DropKiller lo vea.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos del mismo balon en GT en lo leido (busqueda de texto 'balon flotante luces futbol', solo GT, 0 anuncios activos). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "metacompras gt",
+     "id": "29932",
+     "nombre": "balon flotante de futbol con luces",
+     "costo": 85,
+     "stock": 225,
+     "v7": 25,
+     "v30": 25,
+     "tv": 25,
+     "ct": "2026-10-22",
+     "alt": "Sin otros listados del mismo balon en Dropi GT (busqueda 'balon flotante': 1 resultado). Ventas depuradas con ventas_reales.py: REAL (25 / 25), 6 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/cba31eca-0f08-4a01-b119-e31477ccf6ce/c7ba80c80115.webp",
+   "risk": "Costo Q85 con PVP sugerido Q155: con 1 unidad pierde plata (referencia flete Q68, CPA Q20, no medidos); solo cierra a Q249 o mas, o en pack de 2 a Q349. Historial de solo 9 dias, sin tendencia clara. Producto de juguete: cuidar que no se prometa que 'flota' si no es cierto; confirmar en Dropi que hace exactamente. No se pudo ver la foto: la identificacion sale del nombre.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=29932&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/cba31eca-0f08-4a01-b119-e31477ccf6ce",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-22",
+   "tv": 25,
+   "planb": true
+  },
+  "2026-10-30_4": {
+   "date": "2026-10-30",
+   "rank": 4,
+   "source": "ia",
+   "name": "Lampara alarma solar con sensor",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "hogar",
+   "costo": 64,
+   "pvp": 84,
+   "v7": 24,
+   "v30": 24,
+   "stock": 317,
+   "score": 60,
+   "scores": {
+    "demanda": 4,
+    "traccion": 5,
+    "margen": 2,
+    "competencia": 7,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 299
+   },
+   "verdict": "24 ventas en 7 dias, 24 en 30 y 24 en total depuradas (creado el 2026-10-10; 6 dias con venta, 14 de ellas el 25-oct y de 1 a 5 por dia despues), stock 317, 1 solo proveedor (importadora el mayorista) y 1 solo anunciante en GT (Neilux Shop, desde el 24-oct): semaforo 1-2, muy buena senal. Venta chica y concentrada en un dia, prueba corta.",
+   "angle": "Ya en uso en GT: Neilux Shop usa 'el 70% de las casas no estan protegidas' y la lampara solar de alarma portatil con sirena, video de 2 dias en tienda Shopify propia. Hueco: negocio pequeno (tienda, bodega), casa sola en vacaciones, finca o terreno, y la mama que vive sola.",
+   "competition": "1 anunciante en GT del mismo producto: Neilux Shop (video, desde el 2026-10-24, landing en su tienda Shopify, visto activo hasta el 26-oct). Semaforo 1-2, muy buena senal.",
+   "anWA": 0,
+   "anLand": 1,
+   "anTotal": 1,
+   "anNota": "1 anunciante distinto en GT (busqueda de texto 'lampara alarma solar sensor', solo anuncios de GT): Neilux Shop con landing propia. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [
+    {
+     "url": "https://neiluxshopguatemala.myshopify.com/products/lampara-solar-de-alarma-portatil-8k-666",
+     "adv": "Neilux Shop",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Landing 'Lampara solar de alarma portatil 8K-666'. Video 'La solucion que necesitas', desde el 2026-10-24."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Neilux Shop",
+     "pais": "GT",
+     "dias": 2,
+     "score": 24,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1138019728803944",
+     "dk": "https://app.dropkiller.com/dashboard/ads/61dfb4c1-9438-43b0-840e-6c90321ad1a0",
+     "nota": "Video 'La solucion que necesitas': el 70% de las casas no esta protegido, lampara solar de alarma portatil facil de instalar."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27596",
+     "nombre": "lampara alarma solar sensor",
+     "costo": 64,
+     "stock": 317,
+     "v7": 24,
+     "v30": 24,
+     "tv": 24,
+     "ct": "2026-10-10",
+     "alt": "Sin otros listados del mismo producto en Dropi GT (busqueda 'lampara alarma solar': 1 resultado). Ventas depuradas con ventas_reales.py: REAL (24 / 24), 6 dias con venta, 14 de 24 en un solo dia"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/f73c884b-0d1a-4166-8932-d17ab7597451/7a516f1f94d6.webp",
+   "risk": "Costo Q64 con PVP sugerido Q84: es el margen mas apretado del dia (referencia flete Q68, CPA Q20, no medidos); con 1 unidad pierde Q61 por pedido y solo cierra en pack de 2 a Q299, 3,5 veces el PVP sugerido. 14 de las 24 ventas fueron en un dia. Hay otra tarjeta de lampara solar (clip, 15-oct) que es otro producto. No se pudo ver la foto: la identificacion sale del nombre.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27596&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/f73c884b-0d1a-4166-8932-d17ab7597451",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-10",
+   "tv": 24,
+   "planb": true
+  },
+  "2026-10-30_5": {
+   "date": "2026-10-30",
+   "rank": 5,
+   "source": "ia",
+   "name": "Medidor de glucosa",
+   "provider": "grupo luna",
+   "verificado": true,
+   "cats": "salud-bienestar",
+   "costo": 55,
+   "pvp": 150,
+   "v7": 42,
+   "v30": 53,
+   "stock": 150,
+   "score": 53,
+   "scores": {
+    "demanda": 5,
+    "traccion": 8,
+    "margen": 5,
+    "competencia": 7,
+    "riesgo": 4
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 299
+   },
+   "verdict": "42 ventas en 7 dias, 53 en 30 y 53 en total depuradas (creado el 2026-10-02; 7 dias con venta y acelerando fuerte: 3, 10, 15 y 14 en los ultimos 4 dias tras tres semanas casi sin ventas), stock 150, 1 solo proveedor (grupo luna) y 2 anunciantes en GT (MediShop y Efimed) que lo venden en combos con tensiometro y oximetro. Semaforo 1-2, muy buena senal. Stock bajo (150) y a este ritmo dura unos 10 dias.",
+   "angle": "Ya en uso en GT: MediShop vende combos de salud desde Q125 para monitorear glucosa y presion desde casa, y un multimedidor 4 en 1 (colesterol, glucosa, hemoglobina, acido urico) a Q499; Efimed usa combos de equipos medicos. Hueco: el hijo adulto que le regala el equipo a sus papas, el adulto mayor que no quiere ir a la clinica y el familiar de una persona con diabetes.",
+   "competition": "2 anunciantes distintos en GT de combos que incluyen medidor de glucosa: MediShop (WhatsApp, imagenes y videos, desde el 2026-09-06, visto activo hasta el 8-oct) y Efimed (WhatsApp, imagen, desde el 2026-07-02 y visto activo el 29-oct). Semaforo 1-2, muy buena senal.",
+   "anWA": 2,
+   "anLand": 0,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos en GT (busqueda de texto 'medidor de glucosa', solo anuncios de GT): MediShop (2 paginas con combos y multimedidor) y Efimed. Ninguno vende el aparato solo en la lectura. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [
+    {
+     "adv": "MediShop",
+     "pais": "GT",
+     "dias": 29,
+     "score": 45,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3950838788556841",
+     "dk": "https://app.dropkiller.com/dashboard/ads/8d08b462-56f1-46c6-847b-10613957870d",
+     "nota": "Imagen 'Flash Sale Multi Medidor 4 en 1 por Q499' (precio regular Q799): colesterol, glucosa, hemoglobina y acido urico. Empezo el 6-sep."
+    },
+    {
+     "adv": "Efimed",
+     "pais": "GT",
+     "dias": 43,
+     "score": 42,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2845071339178551",
+     "dk": "https://app.dropkiller.com/dashboard/ads/173cae53-3df8-4926-a349-d88c8b4d1bb1",
+     "nota": "Imagenes 'Combos de salud EFIMED': equipos para medir presion, oxigeno y glucosa desde casa. Empezo el 2-jul y sigue activa el 29-oct."
+    }
+   ],
+   "vids": [
+    {
+     "adv": "MediShop",
+     "pais": "GT",
+     "dias": 31,
+     "score": 46,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1926610588297133",
+     "dk": "https://app.dropkiller.com/dashboard/ads/4d72e29b-9ced-4e19-8d57-63e2f4d6455b",
+     "nota": "Video 'Flash Sale Multi Medidor 4 en 1 por Q499'. Empezo el 6-sep, visto por ultima vez el 8-oct."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "grupo luna",
+     "id": "25972",
+     "nombre": "medidor de la glucosa",
+     "costo": 55,
+     "stock": 150,
+     "v7": 42,
+     "v30": 53,
+     "tv": 53,
+     "ct": "2026-10-02",
+     "alt": "Sin otros listados del mismo medidor en Dropi GT (busqueda 'medidor de la glucosa': 1 resultado). Ventas depuradas con ventas_reales.py: REAL (53 / 53), tendencia acelerando"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/2dcd172e-8e74-4c3e-b2cb-9f85d6622b20/01784133c480.webp",
+   "risk": "Bandera amarilla: dispositivo de salud, hay que cuidar que el anuncio no prometa diagnostico ni cura y revisar el registro sanitario. Stock de solo 150 con ventas subiendo: puede agotarse antes de terminar un testeo. Con flete Q68 y CPA Q20 de referencia pierde con 1 unidad al PVP sugerido Q150 (Q-14.7); cierra en pack de 2 a Q299 (Q43.6). Ventas muy recientes: 39 de las 53 salieron en los ultimos 3 dias, puede ser un pico de un solo anunciante. No se pudo ver la foto: la identificacion sale del nombre.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=25972&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/2dcd172e-8e74-4c3e-b2cb-9f85d6622b20",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-02",
+   "tv": 53,
+   "planb": true
   }
  },
  "validations": {
@@ -21512,6 +21882,1872 @@
    ],
    "resumen": "105 leidos con los filtros de entrada del Plan B (creado desde 2026-07-31, stock 80 o mas, 7d 20 o mas, total 20 o mas, ACTIVE, DROPI, GT, orden createdAt mas reciente; una sola pagina, total=105). 25 tienen las tres ventas en el rango normal 50-800 y 3 pasan todos los filtros normales (1 o 2 proveedores, ventas depuradas, maximo 6 anunciantes en GT, sin repetir los ultimos 20 dias). El filtro que mas corto fue la saturacion de anunciantes y los 3 o mas proveedores/listados del mismo producto (te chino, renovia, nippori, drenaje linfatico, glucora, creatine, minoxidil, suplementos), seguido de los repetidos de los ultimos 20 dias y los productos de marca o ropa al por mayor. Plan B: completo 2 (jabon de curcuma 2x1 y drill de unas) de los mas recientes que pasaron; shampoo de batana, mullein y pulverizador de pintura se descartaron por saturacion o por tener las ventas en un dia.",
    "revisar": "Sin gemas ni despegues: no hay 3 corridas seguidas de memoria para marcar GEMA. Para revisar a mano: (1) Pestanina Dodo Girl (22607): 0 anuncios en GT y 7 dias de venta tras semanas en cero; puede ser un vendedor grande por WhatsApp, validar que se sostiene antes de invertir; no cierra al PVP sugerido Q50; (2) R-ALA (28678): 4 anunciantes lanzaron el 26 y 27-oct, la competencia crece rapido; angulo medico con riesgo en Meta; (3) Breatyfresh (17492): las ventas dependen de los ultimos 7 dias y del anuncio de Paga en tu casa; (4) Drill de unas (28316): costo Q100, el margen mas apretado, y comparte nicho con el pulidor de unas del 9-oct; (5) Reserva Plan B sin evaluar a fondo: barra telescopica de tension (23128, 23 / 64 / 112) y relieve asiatica (25049, 30 / 126 / 130); (6) Te chino (29042, 234 / 397 / 426) vende bien pero el mercado de te chino ya esta maduro con 2 proveedores mas grandes."
+  },
+  "2026-10-30": {
+   "date": "2026-10-30",
+   "source": "ia",
+   "planb": true,
+   "titulo": "Radar Caza Diaria · 2026-10-30 · 1 normal + 4 PLAN B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (normal 50 a 800; Plan B 20 a 400 para completar), sin navegador",
+   "veredicto": "Veredicto. Con los filtros normales (creado desde el 2026-08-01 y en 2026, las tres ventas de 50 a 800, stock 80 o mas, 1 o 2 proveedores, competencia solo GT, sin repetir los ultimos 20 dias) paso solo 1 de 5 productos: la barra privada (71 / 385 / 584 depuradas, 0 anunciantes visibles), que vende bien pero no se sabe que es porque su foto es generica. Para completar los 5 de hoy se uso el PLAN B (ventas de 20 a 400, mas recientes primero): la espatula facial ultrasonica (40 / 41 / 41, 3 anunciantes y subiendo), el balon flotante de futbol con luces (25 / 25 / 25, 0 anunciantes), la lampara alarma solar (24 / 24 / 24, 1 anunciante) y el medidor de glucosa (42 / 53 / 53, 2 anunciantes y acelerando); son ventas bajas con 6 y 7 dias de venta, prueba corta con poco presupuesto. Con flete Q68 y CPA Q20 de referencia ninguno cierra con 1 unidad al PVP sugerido; en pack x2 superan Q30 por pedido la barra (Q299, Q38.7), el medidor (Q299, Q43.6), el balon (Q349, Q37.4), la espatula (Q349, Q49.8) y la lampara (Q299, Q32.5), pero la espatula y la lampara solo con un precio de 3,5 veces el sugerido, donde la competencia ya vende mas barato; hay que medir flete y CPA reales.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador) y no se pudieron ver las fotos (el CDN de imagenes no es accesible desde aqui); los anuncios salen de la biblioteca de DropKiller (busqueda por texto, solo GT) y se leyeron solo los primeros resultados por producto, asi que los conteos de anunciantes son minimos. No se buscaron referentes fuera de GT. Las ventas se depuraron con ventas_reales.py sobre get_product_history (los 5 salieron REAL, sin recortes; la tarjeta usa las cifras depuradas al 2026-10-29: la barra tiene 71 en 7 dias, DropKiller reporta 53 por un retraso de lectura). La corrida es la del 30-oct con datos de DropKiller hasta el 29-oct. Aviso de repeticion: la regla se aplico contra los ids de proveedor de las tarjetas desde el 10-oct, las fichas del radar y por nombre contra las tarjetas de los ultimos 20 dias. No se uso Fasebook, Vercel ni ArtifactData (la memoria radar_mem no esta disponible en esta sesion). Un mismo producto con varios listados se sumo como un solo producto (flex-a, spray bucal, renovia).",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Barra privada",
+     "tags": [
+      {
+       "t": "Producto sin identificar: foto generica",
+       "c": "am"
+      },
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "6/15 · tarjeta 40/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/bff9d664-cea5-4b2d-a1ab-2f2d1ebeace0/f68f6ea9355f.webp",
+     "v": "71 ventas en 7 dias, 385 en 30 y 584 en total depuradas (creado el 2026-09-22; 30 dias con venta de 37 leidos, ritmo mediano de 15 por dia y 3 reabastecimientos), stock 231, 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Es el unico normal de hoy y el que mas vende, pero no se sabe que es: la foto del listado es una imagen generica que ese proveedor repite en otros productos. Va frenando (la semana pasada 105 por semana, ahora 71).",
+     "kv": [
+      [
+       "Ventas 7d",
+       "71"
+      ],
+      [
+       "30d",
+       "385"
+      ],
+      [
+       "Total",
+       "584"
+      ],
+      [
+       "Stock",
+       "231"
+      ],
+      [
+       "Costo",
+       "Q59"
+      ],
+      [
+       "PVP sug.",
+       "Q120"
+      ],
+      [
+       "Creado",
+       "2026-09-22"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 1 · Funcion en foto 0 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q299; utilidad estimada por pedido generado: Q38.7. Con 1 unidad al PVP sugerido Q120: Q-35.7. Reprecio a 2,5 x costo (Q149): Q-17.8. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "24113",
+         "barra privada",
+         "Q59",
+         "231",
+         "71/385/584",
+         "2026-09-22"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado",
+       "p": "0 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto 'barra privada', solo GT). El nombre del listado es ambiguo y la foto es generica, asi que el conteo es un minimo. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Sin anuncios del mismo producto en GT en lo leido (la busqueda por texto 'barra privada' solo devolvio un anuncio de una casa de playa que no tiene nada que ver). Como no se sabe que es el producto, no se pudo comparar angulos: primero hay que abrirlo en Dropi y ver la foto real y la descripcion del proveedor."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Hogar que quiere ordenar o dar privacidad (segun lo que resulte ser)",
+         "s": "Mostrar el antes y despues en 3 segundos, sin instalar nada."
+        },
+        {
+         "b": "Familia que estrena casa o apartamento",
+         "s": "Detalle que se instala en minutos y cambia el espacio."
+        },
+        {
+         "b": "Regalo util de fin de ano",
+         "s": "Algo practico para el hogar que llega pagando al recibir."
+        },
+        {
+         "b": "Quien alquila y no puede hacer obra",
+         "s": "Sin taladro ni herramientas: se pone y se quita."
+        },
+        {
+         "b": "Pack x2 para dos espacios",
+         "s": "Segundo a mitad de precio para llevar uno a otro cuarto."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "No se sabe que es el producto: nombre ambiguo y foto generica (la misma imagen aparece en otros productos del mismo proveedor, como el combo mino y la crema de alivio del picor). Confirmar en Dropi que es antes de pagar anuncios. Con flete Q68 y CPA Q20 de referencia pierde plata al PVP sugerido Q120 con 1 unidad; solo cierra en pack de 2 a Q299. Frena: 71 en 7 dias contra 105 por semana de promedio."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 24113)",
+       "u": "https://app.dropi.gt/dashboard/search?search=24113&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/bff9d664-cea5-4b2d-a1ab-2f2d1ebeace0"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Espatula facial ultrasonica",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Plan B: ventas 20 a 400",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2 a Q349 (3,7 veces el PVP)",
+       "c": "am"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/18888efb-475a-484e-82ac-52da5ecfd9f3/dcfdeeaff91d.webp",
+     "v": "40 ventas en 7 dias, 41 en 30 y 41 en total depuradas (creado el 2026-10-10; 7 dias con venta y acelerando: 1, 6, 3, 3, 0, 6, 10 y 12 el 29-oct), stock 341, 1 solo proveedor (importadora el mayorista) y 3 anunciantes distintos en GT (Dcasa Tienda, Kinky's Fashion y GuateSale) con 2 de ellos vendiendola en combo con otros aparatos de limpieza facial. Semaforo 3-8 zona dulce. El unico del Plan B que sube dia a dia, pero el ticket es bajo.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "40"
+      ],
+      [
+       "30d",
+       "41"
+      ],
+      [
+       "Total",
+       "41"
+      ],
+      [
+       "Stock",
+       "341"
+      ],
+      [
+       "Costo",
+       "Q75"
+      ],
+      [
+       "PVP sug.",
+       "Q95"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 1 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q349; utilidad estimada por pedido generado: Q49.8. Con 1 unidad al PVP sugerido Q95: Q-72. Reprecio a 2,5 x costo (Q189): Q-22. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "27605",
+         "espatula facial ultrasonica",
+         "Q75",
+         "341",
+         "40/41/41",
+         "2026-10-10"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 3 anunciante(s) · 3-8 zona dulce",
+       "p": "3 anunciantes distintos en GT (busqueda de texto 'espatula facial ultrasonica', solo anuncios de GT): Dcasa Tienda, Kinky's Fashion y GuateSale, todos por WhatsApp. Salieron ademas 5 anuncios de clinicas y spas con faciales 2x1 que no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Kinky's Fashion: Imagen 'Mascarilla LED + espatula ultrasonica facial': rutina de spa desde casa con efecto lifting. Empezo el 13-jun y sigue activa el 30-oct.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3079688962238930"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/87f78b72-40ba-44ef-a82a-94846b5db6d5"
+          }
+         ]
+        },
+        {
+         "t": "Dcasa Tienda: Video 'Limpieza facial profunda desde casa': espatula ultrasonica 3 en 1, 1 x Q65 y 2 x Q100. Visto por ultima vez el 15-oct.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2050195935680684"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/ba7adcb7-af01-456a-ab22-0f0abae26e49"
+          }
+         ]
+        },
+        {
+         "t": "GuateSale: Video 'Kit completo limpieza facial': 2 aparatos para hombres y mujeres, elimina puntos negros. Activo el 30-oct.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2205309003677753"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/e692e714-4681-44c4-ad0c-57f5172c6869"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Ya en uso en GT: limpieza facial profunda desde casa y puntos negros (Dcasa Tienda, 1 x Q65 o 2 x Q100, video desde el 18-sep); combo mascara LED + espatula + cepillos de silicona a Q230 pago contra entrega (Kinky's Fashion, activo hace 40 dias); kit completo de limpieza facial con 2 aparatos (GuateSale). Hueco: piel con acne del adolescente, la espatula como regalo para mama y la rutina de 5 minutos antes de dormir con prueba de antes y despues."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujer de 25 a 40 con puntos negros en la nariz",
+         "s": "Limpieza profunda de 5 minutos sin ir al spa: ver el antes y despues en la nariz."
+        },
+        {
+         "b": "Adolescente o mama de adolescente con acne",
+         "s": "Rutina suave que ayuda a limpiar sin apretar ni lastimar la piel."
+        },
+        {
+         "b": "Regalo de Navidad para mama, hermana o novia",
+         "s": "Detalle de cuidado personal que llega pagando al recibir."
+        },
+        {
+         "b": "Hombre que nunca se cuida la piel",
+         "s": "Rutina simple de 3 pasos con un solo aparato, sin cremas caras."
+        },
+        {
+         "b": "Quien paga facial en clinica cada mes",
+         "s": "Una espatula en casa cuesta menos que una sesion de spa."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Costo Q75 con PVP sugerido Q95: no cierra con 1 unidad (referencia flete Q68, CPA Q20, no medidos); solo cierra en pack de 2 a Q349, mas del triple del PVP sugerido, y la competencia ya la vende a Q65 y 2 x Q100. Producto de bajo ticket y muy visto en GT. No se pudo ver la foto: la identificacion sale del nombre; confirmar en Dropi."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 27605)",
+       "u": "https://app.dropi.gt/dashboard/search?search=27605&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/18888efb-475a-484e-82ac-52da5ecfd9f3"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Balon flotante de futbol con luces",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Plan B: ventas 20 a 400",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE en pack x2 a Q349",
+       "c": "ok"
+      },
+      {
+       "t": "9/15 · tarjeta 60/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/cba31eca-0f08-4a01-b119-e31477ccf6ce/c7ba80c80115.webp",
+     "v": "25 ventas en 7 dias, 25 en 30 y 25 en total depuradas (creado el 2026-10-22; 6 dias con venta entre 2 y 8 por dia: 2, 8, 3, 3, 3 y 6 el 29-oct), stock 225, 1 solo proveedor (metacompras gt) y 0 anunciantes del mismo balon en GT en lo leido: semaforo 0, cuidado. Venta chica pero pareja y en temporada de regalos para ninos.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "25"
+      ],
+      [
+       "30d",
+       "25"
+      ],
+      [
+       "Total",
+       "25"
+      ],
+      [
+       "Stock",
+       "225"
+      ],
+      [
+       "Costo",
+       "Q85"
+      ],
+      [
+       "PVP sug.",
+       "Q155"
+      ],
+      [
+       "Creado",
+       "2026-10-22"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 1"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q349; utilidad estimada por pedido generado: Q37.4. Con 1 unidad al PVP sugerido Q155: Q-30.2. Reprecio a 2,5 x costo (Q213): Q5.8. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "metacompras gt",
+         "29932",
+         "balon flotante de futbol con luces",
+         "Q85",
+         "225",
+         "25/25/25",
+         "2026-10-22"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado",
+       "p": "0 anunciantes distintos del mismo balon en GT en lo leido (busqueda de texto 'balon flotante luces futbol', solo GT, 0 anuncios activos). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Sin anuncios del mismo balon en GT en lo leido (la busqueda 'balon flotante luces futbol' devolvio 0 anuncios activos en GT). Hueco completo: regalo de Navidad para ninos de 6 a 14 anos, juego de noche con luces, y el padre que quiere sacar al hijo de la pantalla."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Papa o mama con hijo de 6 a 14 anos que no suelta el celular",
+         "s": "Un balon con luces para jugar de noche en el patio: sale de la pantalla."
+        },
+        {
+         "b": "Regalo de Navidad para ninos futboleros",
+         "s": "Se abre y se juega la misma noche, sin pilas que buscar (confirmar con el proveedor)."
+        },
+        {
+         "b": "Entrenador o profesor de una escuelita de futbol",
+         "s": "Balon llamativo para ninos pequenos que se animan a practicar."
+        },
+        {
+         "b": "Cumpleanos con tema de futbol",
+         "s": "Detalle de regalo que ocupa poco espacio y se ve en foto."
+        },
+        {
+         "b": "Pack x2 para hermanos",
+         "s": "El segundo balon al precio de un dia de pizza, para que no peleen."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Costo Q85 con PVP sugerido Q155: con 1 unidad pierde plata (referencia flete Q68, CPA Q20, no medidos); solo cierra a Q249 o mas, o en pack de 2 a Q349. Historial de solo 9 dias, sin tendencia clara. Producto de juguete: cuidar que no se prometa que 'flota' si no es cierto; confirmar en Dropi que hace exactamente. No se pudo ver la foto: la identificacion sale del nombre."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 29932)",
+       "u": "https://app.dropi.gt/dashboard/search?search=29932&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/cba31eca-0f08-4a01-b119-e31477ccf6ce"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Lampara alarma solar con sensor",
+     "tags": [
+      {
+       "t": "Sin bandera",
+       "c": "ok"
+      },
+      {
+       "t": "Plan B: ventas 20 a 400",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2 a Q299 (3,5 veces el PVP)",
+       "c": "am"
+      },
+      {
+       "t": "9/15 · tarjeta 60/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/f73c884b-0d1a-4166-8932-d17ab7597451/7a516f1f94d6.webp",
+     "v": "24 ventas en 7 dias, 24 en 30 y 24 en total depuradas (creado el 2026-10-10; 6 dias con venta, 14 de ellas el 25-oct y de 1 a 5 por dia despues), stock 317, 1 solo proveedor (importadora el mayorista) y 1 solo anunciante en GT (Neilux Shop, desde el 24-oct): semaforo 1-2, muy buena senal. Venta chica y concentrada en un dia, prueba corta.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "24"
+      ],
+      [
+       "30d",
+       "24"
+      ],
+      [
+       "Total",
+       "24"
+      ],
+      [
+       "Stock",
+       "317"
+      ],
+      [
+       "Costo",
+       "Q64"
+      ],
+      [
+       "PVP sug.",
+       "Q84"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 1"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q299; utilidad estimada por pedido generado: Q32.5. Con 1 unidad al PVP sugerido Q84: Q-61. Reprecio a 2,5 x costo (Q160): Q-46. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "27596",
+         "lampara alarma solar sensor",
+         "Q64",
+         "317",
+         "24/24/24",
+         "2026-10-10"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena senal",
+       "p": "1 anunciante distinto en GT (busqueda de texto 'lampara alarma solar sensor', solo anuncios de GT): Neilux Shop con landing propia. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Neilux Shop: Video 'La solucion que necesitas': el 70% de las casas no esta protegido, lampara solar de alarma portatil facil de instalar.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1138019728803944"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/61dfb4c1-9438-43b0-840e-6c90321ad1a0"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Ya en uso en GT: Neilux Shop usa 'el 70% de las casas no estan protegidas' y la lampara solar de alarma portatil con sirena, video de 2 dias en tienda Shopify propia. Hueco: negocio pequeno (tienda, bodega), casa sola en vacaciones, finca o terreno, y la mama que vive sola."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Dueno de tienda o bodega que cierra de noche",
+         "s": "Alarma con sirena que se carga con el sol: sin cables ni recibo de luz."
+        },
+        {
+         "b": "Familia que viaja en Navidad y deja la casa sola",
+         "s": "Tranquilidad de que suena si alguien se acerca."
+        },
+        {
+         "b": "Mama o abuela que vive sola",
+         "s": "Alarma facil de instalar sin tecnico, para dormir tranquila."
+        },
+        {
+         "b": "Dueno de finca, terreno o carro en el patio",
+         "s": "Sensor y sirena en el exterior, con carga solar."
+        },
+        {
+         "b": "Pack x2 para puerta y ventana",
+         "s": "Cubre entrada y trasera por menos de lo que cuesta un tecnico."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Costo Q64 con PVP sugerido Q84: es el margen mas apretado del dia (referencia flete Q68, CPA Q20, no medidos); con 1 unidad pierde Q61 por pedido y solo cierra en pack de 2 a Q299, 3,5 veces el PVP sugerido. 14 de las 24 ventas fueron en un dia. Hay otra tarjeta de lampara solar (clip, 15-oct) que es otro producto. No se pudo ver la foto: la identificacion sale del nombre."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 27596)",
+       "u": "https://app.dropi.gt/dashboard/search?search=27596&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/f73c884b-0d1a-4166-8932-d17ab7597451"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Medidor de glucosa",
+     "tags": [
+      {
+       "t": "Amarillo: dispositivo de salud (registro sanitario, sin promesas de diagnostico)",
+       "c": "am"
+      },
+      {
+       "t": "Plan B: ventas 20 a 400",
+       "c": "am"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE en pack x2 a Q299",
+       "c": "ok"
+      },
+      {
+       "t": "8/15 · tarjeta 53/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/2dcd172e-8e74-4c3e-b2cb-9f85d6622b20/01784133c480.webp",
+     "v": "42 ventas en 7 dias, 53 en 30 y 53 en total depuradas (creado el 2026-10-02; 7 dias con venta y acelerando fuerte: 3, 10, 15 y 14 en los ultimos 4 dias tras tres semanas casi sin ventas), stock 150, 1 solo proveedor (grupo luna) y 2 anunciantes en GT (MediShop y Efimed) que lo venden en combos con tensiometro y oximetro. Semaforo 1-2, muy buena senal. Stock bajo (150) y a este ritmo dura unos 10 dias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "42"
+      ],
+      [
+       "30d",
+       "53"
+      ],
+      [
+       "Total",
+       "53"
+      ],
+      [
+       "Stock",
+       "150"
+      ],
+      [
+       "Costo",
+       "Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-10-02"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 1 · Funcion en foto 2 · Angulos nuevos 1 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q299; utilidad estimada por pedido generado: Q43.6. Con 1 unidad al PVP sugerido Q150: Q-14.7. Reprecio a 2,5 x costo (Q139): Q-22. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "grupo luna",
+         "25972",
+         "medidor de la glucosa",
+         "Q55",
+         "150",
+         "42/53/53",
+         "2026-10-02"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena senal",
+       "p": "2 anunciantes distintos en GT (busqueda de texto 'medidor de glucosa', solo anuncios de GT): MediShop (2 paginas con combos y multimedidor) y Efimed. Ninguno vende el aparato solo en la lectura. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "MediShop: Imagen 'Flash Sale Multi Medidor 4 en 1 por Q499' (precio regular Q799): colesterol, glucosa, hemoglobina y acido urico. Empezo el 6-sep.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=3950838788556841"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/8d08b462-56f1-46c6-847b-10613957870d"
+          }
+         ]
+        },
+        {
+         "t": "Efimed: Imagenes 'Combos de salud EFIMED': equipos para medir presion, oxigeno y glucosa desde casa. Empezo el 2-jul y sigue activa el 29-oct.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2845071339178551"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/173cae53-3df8-4926-a349-d88c8b4d1bb1"
+          }
+         ]
+        },
+        {
+         "t": "MediShop: Video 'Flash Sale Multi Medidor 4 en 1 por Q499'. Empezo el 6-sep, visto por ultima vez el 8-oct.",
+         "l": [
+          {
+           "t": "Ver en Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1926610588297133"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/4d72e29b-9ced-4e19-8d57-63e2f4d6455b"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Ya en uso en GT: MediShop vende combos de salud desde Q125 para monitorear glucosa y presion desde casa, y un multimedidor 4 en 1 (colesterol, glucosa, hemoglobina, acido urico) a Q499; Efimed usa combos de equipos medicos. Hueco: el hijo adulto que le regala el equipo a sus papas, el adulto mayor que no quiere ir a la clinica y el familiar de una persona con diabetes."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Hijo o hija adulto que cuida a sus papas",
+         "s": "Regalo que cuida la salud de mama o papa desde casa, sin ir a la clinica."
+        },
+        {
+         "b": "Adulto mayor con azucar alta",
+         "s": "Medirse en la mesa de la cocina, rapido y sin ayuda."
+        },
+        {
+         "b": "Persona con diabetes en la familia",
+         "s": "Control diario facil con un aparato sencillo."
+        },
+        {
+         "b": "Adulto de 40 o mas que se cuida",
+         "s": "Revisarse el azucar una vez por semana en vez de esperar al examen anual."
+        },
+        {
+         "b": "Combo con tensiometro u oximetro",
+         "s": "Tres controles de salud en un solo pedido para toda la familia."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Bandera amarilla: dispositivo de salud, hay que cuidar que el anuncio no prometa diagnostico ni cura y revisar el registro sanitario. Stock de solo 150 con ventas subiendo: puede agotarse antes de terminar un testeo. Con flete Q68 y CPA Q20 de referencia pierde con 1 unidad al PVP sugerido Q150 (Q-14.7); cierra en pack de 2 a Q299 (Q43.6). Ventas muy recientes: 39 de las 53 salieron en los ultimos 3 dias, puede ser un pico de un solo anunciante. No se pudo ver la foto: la identificacion sale del nombre."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi (ID 25972)",
+       "u": "https://app.dropi.gt/dashboard/search?search=25972&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/2dcd172e-8e74-4c3e-b2cb-9f85d6622b20"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 14722 · auré",
+     "v": "1243 / 3398 / 6054",
+     "st": "4294",
+     "ct": "2026-08-05",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 1243, 30d 3398, total 6054)",
+     "c": "d"
+    },
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "1131 / 4120 / 4369",
+     "st": "1809",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 1131, 30d 4120, total 4369)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "687 / 1595 / 2042",
+     "st": "806",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 687, 30d 1595, total 2042)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "268 / 2096 / 2421",
+     "st": "4245",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 268, 30d 2096, total 2421)",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "249 / 559 / 559",
+     "st": "441",
+     "ct": "2026-10-08",
+     "r": "Descartado: renovia 15 en 1, 4 proveedores del mismo producto (nibresma, nexus, almafit, suplem gt); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "240 / 945 / 977",
+     "st": "342",
+     "ct": "2026-09-30",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 240, 30d 945, total 977)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "230 / 897 / 2694",
+     "st": "1804",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 230, 30d 897, total 2694)",
+     "c": "d"
+    },
+    {
+     "n": "te chino",
+     "s": "ID 29042 · sicommer lab",
+     "v": "228 / 460 / 460",
+     "st": "1540",
+     "ct": "2026-10-18",
+     "r": "Descartado: te chino, el mismo producto que el 4749 'te 18 flavors te chino' (natural labs organic, 3001 ventas, 1058 en 30 dias) y el 7101 (sicommer lab, 1709): 3 listados de 2 proveedores sumados salen del rango y el mercado ya esta maduro",
+     "c": "d"
+    },
+    {
+     "n": "ácido r-alfa lipoico (r-ala)",
+     "s": "ID 28678 · natural labs organic",
+     "v": "213 / 328 / 328",
+     "st": "4672",
+     "ct": "2026-10-17",
+     "r": "Descartado: repetido de los ultimos 20 dias (tarjeta del 29-oct)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "192 / 874 / 1383",
+     "st": "617",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 192, 30d 874, total 1383)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "180 / 1504 / 3705",
+     "st": "1288",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 180, 30d 1504, total 3705)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "159 / 504 / 508",
+     "st": "4992",
+     "ct": "2026-09-25",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "144 / 989 / 1468",
+     "st": "428",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 144, 30d 989, total 1468)",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "144 / 371 / 372",
+     "st": "690",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "142 / 568 / 943",
+     "st": "250",
+     "ct": "2026-09-11",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 142, 30d 568, total 943)",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "134 / 526 / 1443",
+     "st": "322",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 134, 30d 526, total 1443)",
+     "c": "d"
+    },
+    {
+     "n": "pestañina dodo girl",
+     "s": "ID 22607 · importadora el mayorista",
+     "v": "132 / 166 / 166",
+     "st": "229",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias (tarjeta del 29-oct)",
+     "c": "d"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "122 / 506 / 537",
+     "st": "491",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias (tiras blanqueadoras, tarjeta del 28-oct)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "119 / 728 / 1049",
+     "st": "933",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 119, 30d 728, total 1049)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "104 / 554 / 700",
+     "st": "1800",
+     "ct": "2026-09-17",
+     "r": "Descartado: glucora, mismo producto que el 20860 (suplem gt): sumados 7d 129, 30d 741, total 875 salen del rango; suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "combo mino",
+     "s": "ID 27973 · importadora el mayorista",
+     "v": "102 / 333 / 333",
+     "st": "210",
+     "ct": "2026-10-13",
+     "r": "Descartado: combo mino (minoxidil), mas de 10 anunciantes distintos de minoxidil en GT esta semana (Lo veo y lo quiero, Click Shop, Style Men Shop, Minoxidil Quetzaltenango, Revista Bienestar Total, Origen Natural, Chapines Llevele, Chapinstore.Gt, Azura, Bienestar Puro); saturado y con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de glucosa",
+     "s": "ID 20595 · nexus",
+     "v": "101 / 3299 / 4606",
+     "st": "4377",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 101, 30d 3299, total 4606)",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "99 / 311 / 316",
+     "st": "2684",
+     "ct": "2026-09-04",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "96 / 423 / 423",
+     "st": "1577",
+     "ct": "2026-10-04",
+     "r": "Descartado: nippori shampoo, mismo producto que el 2517 nippori (altamira, 10773 ventas) y combos; mercado ya maduro y 2 proveedores sumados salen del rango",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18331 · sicommer lab",
+     "v": "89 / 460 / 2313",
+     "st": "703",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 89, 30d 460, total 2313)",
+     "c": "d"
+    },
+    {
+     "n": "batidor manual semiautomatico",
+     "s": "ID 19141 · 60 segundos",
+     "v": "88 / 927 / 1489",
+     "st": "97",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 88, 30d 927, total 1489)",
+     "c": "d"
+    },
+    {
+     "n": "pulverizador para pintar",
+     "s": "ID 30530 · shop b",
+     "v": "86 / 86 / 86",
+     "st": "887",
+     "ct": "2026-10-24",
+     "r": "Descartado: pulverizador de pintura, la mayoria de las ventas en un solo dia y costo Q198",
+     "c": "d"
+    },
+    {
+     "n": "carrier baby sling",
+     "s": "ID 26207 · grupo luna",
+     "v": "76 / 170 / 170",
+     "st": "113",
+     "ct": "2026-10-03",
+     "r": "Descartado: repetido de los ultimos 20 dias (portabebe, tarjeta del 28-oct)",
+     "c": "d"
+    },
+    {
+     "n": "spray analgésico y calmante bucal",
+     "s": "ID 28876 · laboratorio luna",
+     "v": "75 / 94 / 94",
+     "st": "106",
+     "ct": "2026-10-17",
+     "r": "Descartado: spray bucal, mismo producto que el 19439 spray para el dolor dental (metacompras gt, 144 / 989 / 1468): sumados salen del rango; bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "5 t-shirt rvca con bolsa y bordado x 120",
+     "s": "ID 27663 · laurean by seong woo",
+     "v": "74 / 470 / 470",
+     "st": "16732",
+     "ct": "2026-10-10",
+     "r": "Descartado: nombre con marca (RVCA), bandera roja, y 321 unidades en pocos dias de ropa al por mayor (stock 16579)",
+     "c": "d"
+    },
+    {
+     "n": "her loss",
+     "s": "ID 17137 · natural labs organic",
+     "v": "74 / 382 / 716",
+     "st": "4286",
+     "ct": "2026-08-09",
+     "r": "Descartado: perfume her loss, 5 o mas proveedores del mismo producto; perfume imitacion con riesgo de marca",
+     "c": "d"
+    },
+    {
+     "n": "drill de uñas/finger",
+     "s": "ID 28316 · grupo luna",
+     "v": "72 / 143 / 143",
+     "st": "800",
+     "ct": "2026-10-15",
+     "r": "Descartado: repetido de los ultimos 20 dias (tarjeta del 29-oct)",
+     "c": "d"
+    },
+    {
+     "n": "oftamiel",
+     "s": "ID 28778 · sicommer lab",
+     "v": "71 / 149 / 149",
+     "st": "1847",
+     "ct": "2026-10-17",
+     "r": "Descartado: oftamiel, clon del 15158 oftamiel (mismo proveedor sicommer lab, 5608 ventas y 821 en 30 dias); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "luces navideñas",
+     "s": "ID 30361 · emdel",
+     "v": "70 / 70 / 70",
+     "st": "169",
+     "ct": "2026-10-23",
+     "r": "Plan B descartado: repetido por nombre de los ultimos 20 dias (luces de arbol navideno, tarjeta del 14-oct)",
+     "c": "d"
+    },
+    {
+     "n": "protector de colchon antifluidos",
+     "s": "ID 16111 · distribuidora rocke feller",
+     "v": "69 / 162 / 980",
+     "st": "1099",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 69, 30d 162, total 980)",
+     "c": "d"
+    },
+    {
+     "n": "rainbow light men's one",
+     "s": "ID 24808 · almafit",
+     "v": "66 / 82 / 82",
+     "st": "1919",
+     "ct": "2026-09-25",
+     "r": "Descartado: nombre con marca (Rainbow Light), bandera roja; multivitaminico con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "65 / 299 / 299",
+     "st": "4700",
+     "ct": "2026-10-03",
+     "r": "Descartado: drenaje linfatico, saturado: 10 o mas listados del mismo producto de 8 proveedores distintos (aure con 5786 ventas, nexus, natural labs, nibresma, almafit y mas)",
+     "c": "d"
+    },
+    {
+     "n": "batana oil shampoo 300ml",
+     "s": "ID 30484 · american natural",
+     "v": "61 / 61 / 61",
+     "st": "2439",
+     "ct": "2026-10-24",
+     "r": "Descartado: saturado, 15 o mas anunciantes distintos de shampoo de batana en GT y 5 o mas proveedores del mismo producto",
+     "c": "d"
+    },
+    {
+     "n": "ajedrez magnetico",
+     "s": "ID 20243 · 60 segundos",
+     "v": "59 / 207 / 476",
+     "st": "86",
+     "ct": "2026-09-02",
+     "r": "Descartado: cumple ventas 50-800 pero no paso 1 o 2 proveedores / competencia / repeticion (ver reglas del dia)",
+     "c": "d"
+    },
+    {
+     "n": "1 pantalon june premium x 120",
+     "s": "ID 18363 · laurean by seong woo",
+     "v": "59 / 509 / 1016",
+     "st": "4972",
+     "ct": "2026-08-20",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 59, 30d 509, total 1016)",
+     "c": "d"
+    },
+    {
+     "n": "breatyfresh",
+     "s": "ID 17492 · altamira",
+     "v": "58 / 83 / 83",
+     "st": "4917",
+     "ct": "2026-08-13",
+     "r": "Descartado: repetido de los ultimos 20 dias (tarjeta del 29-oct)",
+     "c": "d"
+    },
+    {
+     "n": "creatine for women (gris)",
+     "s": "ID 19179 · kura labs",
+     "v": "56 / 222 / 280",
+     "st": "737",
+     "ct": "2026-08-28",
+     "r": "Descartado: creatine for women, 5 o mas proveedores del mismo producto (sicommer lab 7387 ventas, nexus, almafit, kura labs, laboratorio luna); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "56 / 346 / 359",
+     "st": "4304",
+     "ct": "2026-08-28",
+     "r": "Descartado: repetido de los ultimos 20 dias (Excalvo shampoo 500ml, tarjeta del 2026-10-09)",
+     "c": "d"
+    },
+    {
+     "n": "2 pantalónes rose/dama 5 colores x 109",
+     "s": "ID 26401 · laurean by seong woo",
+     "v": "55 / 148 / 148",
+     "st": "12323",
+     "ct": "2026-10-04",
+     "r": "Descartado: ropa al por mayor (2 pantalones x109, stock 12378 con reabastecimientos) y frenada: 0 ventas los ultimos 2 dias; no es producto de prueba",
+     "c": "d"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "53 / 385 / 584",
+     "st": "231",
+     "ct": "2026-09-22",
+     "r": "FINALISTA NORMAL #1 (puntaje 6/15, VIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "faja tiro alto slimming",
+     "s": "ID 22615 · importadora el mayorista",
+     "v": "52 / 94 / 94",
+     "st": "471",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias (faja slimming, mismo producto que Faja slimming pants, tarjeta del 2026-10-19; tratado como repetido por nombre)",
+     "c": "d"
+    },
+    {
+     "n": "flex-a",
+     "s": "ID 22527 · nibresma",
+     "v": "52 / 305 / 565",
+     "st": "1414",
+     "ct": "2026-09-12",
+     "r": "Descartado: flex-a, mismo producto que el 4139 flex-a articulaciones (laboratorio luna, 1349 ventas en total): sumados 7d 61, 30d 314 y total 1914 salen del rango; suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "mini rastreador gps",
+     "s": "ID 20693 · 60 segundos",
+     "v": "52 / 232 / 245",
+     "st": "133",
+     "ct": "2026-09-05",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "2 leggins alo bota campana x 125",
+     "s": "ID 27984 · laurean by seong woo",
+     "v": "50 / 108 / 108",
+     "st": "2893",
+     "ct": "2026-10-13",
+     "r": "Descartado: nombre con marca (Alo), bandera roja, y ropa al por mayor (stock 3232)",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "49 / 304 / 746",
+     "st": "263",
+     "ct": "2026-09-05",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 49, 30d 304, total 746)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 20461 · natural labs organic",
+     "v": "48 / 431 / 727",
+     "st": "4347",
+     "ct": "2026-09-03",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 48, 30d 431, total 727)",
+     "c": "d"
+    },
+    {
+     "n": "2 pants gap unisex x 168",
+     "s": "ID 26707 · laurean by seong woo",
+     "v": "47 / 79 / 79",
+     "st": "2321",
+     "ct": "2026-10-06",
+     "r": "Descartado: nombre con marca (Gap), bandera roja, y ropa al por mayor (stock 2323)",
+     "c": "d"
+    },
+    {
+     "n": "candela",
+     "s": "ID 24092 · sicommer lab",
+     "v": "47 / 191 / 264",
+     "st": "1228",
+     "ct": "2026-09-22",
+     "r": "Descartado: crema Candela, 5 o mas anunciantes distintos en GT esta semana (Teyra, Mega Vital GT, De leone, Supertodo Colombia, Naturex) y 3 proveedores (sicommer lab, natural labs, kura labs); cosmetico con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "lampara solar portatil de clip",
+     "s": "ID 22002 · 60 segundos",
+     "v": "47 / 320 / 500",
+     "st": "89",
+     "ct": "2026-09-10",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "gel reparador pies agrietados",
+     "s": "ID 27639 · importadora el mayorista",
+     "v": "46 / 48 / 48",
+     "st": "428",
+     "ct": "2026-10-10",
+     "r": "Descartado: repetido de los ultimos 20 dias (gel de pies, tarjeta del 28-oct)",
+     "c": "d"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "45 / 177 / 177",
+     "st": "323",
+     "ct": "2026-10-10",
+     "r": "Descartado: saturado, 15 o mas anunciantes distintos de Cayenne Pepper en GT (segun la corrida normal de hoy); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "43 / 364 / 364",
+     "st": "201",
+     "ct": "2026-09-14",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "medidor de la glucosa",
+     "s": "ID 25972 · grupo luna",
+     "v": "42 / 53 / 53",
+     "st": "150",
+     "ct": "2026-10-02",
+     "r": "FINALISTA PLAN B #5 (puntaje 8/15, VIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "ethiopian 60 capsulas",
+     "s": "ID 22526 · nibresma",
+     "v": "42 / 151 / 179",
+     "st": "2776",
+     "ct": "2026-09-12",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "glucora 50ml",
+     "s": "ID 19928 · nibresma",
+     "v": "41 / 610 / 927",
+     "st": "936",
+     "ct": "2026-08-29",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 41, 30d 610, total 927)",
+     "c": "d"
+    },
+    {
+     "n": "ahorrador de energia",
+     "s": "ID 2712 · shop b",
+     "v": "40 / 40 / 40",
+     "st": "459",
+     "ct": "2026-10-26",
+     "r": "Plan B descartado: repetido de los ultimos 20 dias (ahorrador de energia, tarjeta del 11-oct)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "39 / 273 / 273",
+     "st": "1727",
+     "ct": "2026-10-06",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "set de varillas y esferas magnéticas",
+     "s": "ID 25285 · grupo luna",
+     "v": "39 / 251 / 254",
+     "st": "146",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "correa de estiramiento",
+     "s": "ID 27656 · importadora el mayorista",
+     "v": "38 / 63 / 63",
+     "st": "426",
+     "ct": "2026-10-10",
+     "r": "Descartado: repetido de los ultimos 20 dias (correa de estiramiento, tarjeta del 25-oct)",
+     "c": "d"
+    },
+    {
+     "n": "wild mullein",
+     "s": "ID 30031 · nibresma",
+     "v": "37 / 48 / 48",
+     "st": "452",
+     "ct": "2026-10-22",
+     "r": "Descartado: saturado, 10 o mas anunciantes distintos de mullein (gordolobo) en GT y 4 o mas proveedores; suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "pasta dental blanqueadora 9d",
+     "s": "ID 27637 · importadora el mayorista",
+     "v": "35 / 86 / 86",
+     "st": "495",
+     "ct": "2026-10-10",
+     "r": "Descartado: 51 / 51 / 51 con 32 de las 51 en un solo dia (20-oct) y 1 por dia despues; el producto parecido (pasta con carbon activado) tiene 4 anunciantes en GT (segun la corrida normal de hoy)",
+     "c": "d"
+    },
+    {
+     "n": "espatula facial ultrasonica",
+     "s": "ID 27605 · importadora el mayorista",
+     "v": "34 / 41 / 41",
+     "st": "341",
+     "ct": "2026-10-10",
+     "r": "FINALISTA PLAN B #2 (puntaje 10/15, VIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "luz led roja para bicicleta",
+     "s": "ID 25284 · grupo luna",
+     "v": "34 / 124 / 125",
+     "st": "876",
+     "ct": "2026-09-29",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian aceite semilla negra x60 caps",
+     "s": "ID 23108 · almafit",
+     "v": "34 / 273 / 470",
+     "st": "1533",
+     "ct": "2026-09-17",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 34, 30d 273, total 470)",
+     "c": "d"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "34 / 221 / 608",
+     "st": "1431",
+     "ct": "2026-08-19",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 34, 30d 221, total 608)",
+     "c": "d"
+    },
+    {
+     "n": "almohada ortopedica cervical",
+     "s": "ID 16112 · distribuidora rocke feller",
+     "v": "34 / 363 / 762",
+     "st": "233",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 34, 30d 363, total 762)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico",
+     "s": "ID 17797 · nibresma",
+     "v": "33 / 126 / 416",
+     "st": "597",
+     "ct": "2026-08-15",
+     "r": "Descartado: 3 o mas proveedores/listados del mismo producto (drenaje linfatico)",
+     "c": "d"
+    },
+    {
+     "n": "2 licras para yoga | black & grey x 99",
+     "s": "ID 28084 · laurean by seong woo",
+     "v": "32 / 32 / 32",
+     "st": "3568",
+     "ct": "2026-10-14",
+     "r": "Descartado: ropa al por mayor (2 licras x99, stock 3574, laurean by seong woo)",
+     "c": "d"
+    },
+    {
+     "n": "tren navidad",
+     "s": "ID 27631 · importadora el mayorista",
+     "v": "32 / 73 / 73",
+     "st": "407",
+     "ct": "2026-10-10",
+     "r": "Plan B descartado: saturado, 7 o mas anunciantes distintos de tren navideno en GT (Teyra, Cabale Store, Essence Guatemala, Litper Guatemala, Novedades para todos, Olveaguate y mas; la lista tiene otra pagina)",
+     "c": "d"
+    },
+    {
+     "n": "evil goods * 120 gramos",
+     "s": "ID 27157 · vitalcom",
+     "v": "32 / 88 / 88",
+     "st": "2232",
+     "ct": "2026-10-08",
+     "r": "Descartado: evil goods tiene 5 o mas listados en Dropi GT (natural labs 7426 con 2092 ventas en total, grupo luna 4217, aure 4642, kura labs 19218 y vitalcom 27157); sumados salen del rango",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo",
+     "s": "ID 19156 · kura labs",
+     "v": "32 / 93 / 113",
+     "st": "513",
+     "ct": "2026-08-28",
+     "r": "Descartado: repetido de los ultimos 20 dias de la Caza diaria (id de proveedor ya usado)",
+     "c": "d"
+    },
+    {
+     "n": "cortador y decorador de frutas 3 en 1",
+     "s": "ID 29968 · metacompras gt",
+     "v": "31 / 40 / 40",
+     "st": "210",
+     "ct": "2026-10-22",
+     "r": "Descartado: repetido de los ultimos 20 dias (cortador de frutas, tarjeta del 28-oct)",
+     "c": "d"
+    },
+    {
+     "n": "new balance look moderno",
+     "s": "ID 23068 · chicas empire fajas",
+     "v": "31 / 146 / 170",
+     "st": "2081",
+     "ct": "2026-09-16",
+     "r": "Descartado: nombre con marca (New Balance), bandera roja; faja de chicas empire",
+     "c": "d"
+    },
+    {
+     "n": "vinilo adhesivo estampado marmol 3mx60cm",
+     "s": "ID 16110 · distribuidora rocke feller",
+     "v": "31 / 53 / 199",
+     "st": "480",
+     "ct": "2026-08-06",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "pack leggins bota campana x3 a 89",
+     "s": "ID 29834 · laurean by seong woo",
+     "v": "30 / 30 / 30",
+     "st": "3970",
+     "ct": "2026-10-21",
+     "r": "Plan B descartado: ropa al por mayor (pack de 3 leggins, stock 3970)",
+     "c": "d"
+    },
+    {
+     "n": "chaleco divine curves",
+     "s": "ID 16402 · chicas empire fajas",
+     "v": "30 / 136 / 478",
+     "st": "1775",
+     "ct": "2026-08-02",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 30, 30d 136, total 478)",
+     "c": "d"
+    },
+    {
+     "n": "safebone",
+     "s": "ID 29473 · nibresma",
+     "v": "29 / 76 / 76",
+     "st": "424",
+     "ct": "2026-10-20",
+     "r": "Descartado: saturado, 7 o mas anunciantes distintos de Safebone en GT y 3 listados (nibresma, nexus, suplem gt) segun la corrida del 25-oct; suplemento con bandera amarilla (no reverificado hoy)",
+     "c": "d"
+    },
+    {
+     "n": "kahi balm",
+     "s": "ID 21718 · sicommer lab",
+     "v": "29 / 44 / 65",
+     "st": "1440",
+     "ct": "2026-09-09",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "dr. melaxin cemenrete",
+     "s": "ID 18604 · sicommer lab",
+     "v": "29 / 318 / 2228",
+     "st": "1680",
+     "ct": "2026-08-22",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 29, 30d 318, total 2228)",
+     "c": "d"
+    },
+    {
+     "n": "neuropathy cream",
+     "s": "ID 18428 · natural labs organic",
+     "v": "29 / 107 / 335",
+     "st": "4669",
+     "ct": "2026-08-21",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "limpiador a vapor de alta temperatura",
+     "s": "ID 16105 · distribuidora rocke feller",
+     "v": "28 / 28 / 28",
+     "st": "317",
+     "ct": "2026-10-24",
+     "r": "Plan B descartado: 3 listados del mismo limpiador a vapor en Dropi GT (blue guatemala 1593, distribuidora rocke feller 16105 e inversiones vhl 1226): 3 proveedores",
+     "c": "d"
+    },
+    {
+     "n": "magnesium for women * 60 capsulas",
+     "s": "ID 18423 · vitalcom",
+     "v": "28 / 262 / 516",
+     "st": "2727",
+     "ct": "2026-08-21",
+     "r": "Descartado: ventas fuera del rango normal 50-800 y del Plan B 20-400 (7d 28, 30d 262, total 516)",
+     "c": "d"
+    },
+    {
+     "n": "safebone - dolor articular",
+     "s": "ID 30132 · nexus",
+     "v": "27 / 29 / 29",
+     "st": "4471",
+     "ct": "2026-10-22",
+     "r": "Plan B descartado: mismo producto que el 29473 safebone, saturado (7 o mas anunciantes distintos en GT)",
+     "c": "d"
+    },
+    {
+     "n": "nattokina micro ingredientes 60 caps",
+     "s": "ID 28622 · natural labs organic",
+     "v": "27 / 89 / 89",
+     "st": "4898",
+     "ct": "2026-10-17",
+     "r": "Descartado: repetido de los ultimos 20 dias (Nattokina, tarjeta del 25-oct)",
+     "c": "d"
+    },
+    {
+     "n": "dr. melaxin calcium",
+     "s": "ID 19737 · altamira",
+     "v": "27 / 89 / 260",
+     "st": "4746",
+     "ct": "2026-08-28",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "renovia 15 in 1",
+     "s": "ID 28447 · nexus",
+     "v": "26 / 36 / 36",
+     "st": "3766",
+     "ct": "2026-10-16",
+     "r": "Descartado: renovia 15 en 1, mismo producto que el 27143 con 4 proveedores; suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "jjlbro men¨s spray",
+     "s": "ID 25052 · natural labs organic",
+     "v": "26 / 136 / 137",
+     "st": "4863",
+     "ct": "2026-09-26",
+     "r": "Descartado: producto para adultos (spray masculino retardante, JJLBRO), no se pauta; ademas 7 o mas anunciantes en GT y 2 proveedores (natural labs y sicommer lab 4292)",
+     "c": "d"
+    },
+    {
+     "n": "barra telescopica de tension",
+     "s": "ID 23128 · importadora el mayorista",
+     "v": "26 / 69 / 119",
+     "st": "264",
+     "ct": "2026-09-17",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "arbutin cream tubo",
+     "s": "ID 19117 · altamira",
+     "v": "26 / 72 / 107",
+     "st": "4903",
+     "ct": "2026-08-25",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "balón flotante de fútbol con luces",
+     "s": "ID 29932 · metacompras gt",
+     "v": "25 / 25 / 25",
+     "st": "225",
+     "ct": "2026-10-22",
+     "r": "FINALISTA PLAN B #3 (puntaje 9/15, VIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "2x1 jabon de curcuma + regalo",
+     "s": "ID 28315 · auré",
+     "v": "25 / 70 / 70",
+     "st": "424",
+     "ct": "2026-10-15",
+     "r": "Descartado: repetido de los ultimos 20 dias (tarjeta del 29-oct)",
+     "c": "d"
+    },
+    {
+     "n": "faja moldeadora tipo body",
+     "s": "ID 27589 · importadora el mayorista",
+     "v": "25 / 44 / 44",
+     "st": "445",
+     "ct": "2026-10-10",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "relieve asiatica",
+     "s": "ID 25049 · natural labs organic",
+     "v": "25 / 123 / 134",
+     "st": "4866",
+     "ct": "2026-09-26",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "ethiopian black seed",
+     "s": "ID 28554 · prana",
+     "v": "24 / 37 / 37",
+     "st": "950",
+     "ct": "2026-10-23",
+     "r": "Descartado: ethiopian black seed, mismo producto que las tarjetas Ethiopian J del 2026-10-11 (5 proveedores); suplemento con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "1 licra para yoga | black & grey x 59",
+     "s": "ID 30138 · laurean by seong woo",
+     "v": "24 / 25 / 25",
+     "st": "4980",
+     "ct": "2026-10-22",
+     "r": "Plan B descartado: ropa al por mayor (licra para yoga, stock 4980 y solo 24 en 7 dias)",
+     "c": "d"
+    },
+    {
+     "n": "lampara alarma solar sensor",
+     "s": "ID 27596 · importadora el mayorista",
+     "v": "24 / 24 / 24",
+     "st": "317",
+     "ct": "2026-10-10",
+     "r": "FINALISTA PLAN B #4 (puntaje 9/15, VIABLE); tarjeta Caza diaria",
+     "c": "f"
+    },
+    {
+     "n": "dr. melaxin tx cream",
+     "s": "ID 19787 · altamira",
+     "v": "24 / 44 / 103",
+     "st": "4897",
+     "ct": "2026-08-28",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "pasta dental blanqueadora",
+     "s": "ID 27638 · importadora el mayorista",
+     "v": "23 / 50 / 50",
+     "st": "272",
+     "ct": "2026-10-10",
+     "r": "Descartado: mismo producto que 27637 (pasta dental blanqueadora), 4 dias de venta y los anunciantes de pasta con carbon activado en GT; consumible con bandera amarilla",
+     "c": "d"
+    },
+    {
+     "n": "berberina 60 caps",
+     "s": "ID 24586 · natural labs organic",
+     "v": "23 / 29 / 29",
+     "st": "4971",
+     "ct": "2026-09-24",
+     "r": "Plan B, no evaluado a fondo: berberina (suplemento con bandera amarilla, natural labs organic), el Plan B se completo con productos mas recientes",
+     "c": "d"
+    },
+    {
+     "n": "hem hero",
+     "s": "ID 22181 · sicommer lab",
+     "v": "23 / 106 / 246",
+     "st": "1755",
+     "ct": "2026-09-11",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "guantes compresion tunel carpiano y art",
+     "s": "ID 16115 · distribuidora rocke feller",
+     "v": "22 / 198 / 327",
+     "st": "428",
+     "ct": "2026-08-06",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    },
+    {
+     "n": "slimming pants",
+     "s": "ID 27588 · importadora el mayorista",
+     "v": "20 / 61 / 61",
+     "st": "423",
+     "ct": "2026-10-10",
+     "r": "Descartado: repetido de los ultimos 20 dias (slimming pants, tarjeta Faja slimming pants del 2026-10-19)",
+     "c": "d"
+    },
+    {
+     "n": "body seductora con zipper",
+     "s": "ID 18217 · chicas empire fajas",
+     "v": "20 / 88 / 252",
+     "st": "3500",
+     "ct": "2026-08-19",
+     "r": "Rango Plan B (20-400), no evaluado a fondo: el Plan B se completo con productos mas recientes que pasaron",
+     "c": ""
+    }
+   ],
+   "resumen": "108 leidos con los filtros de entrada del Plan B (creado desde 2026-08-01, stock 80 o mas, 7d 20 o mas, total 20 o mas, ACTIVE, DROPI, GT, orden createdAt mas reciente; una sola pagina, total=108). 32 tienen las tres ventas en el rango normal 50-800 y 1 pasa todos los filtros normales (1 o 2 proveedores, ventas depuradas, maximo 6 anunciantes en GT, sin repetir los ultimos 20 dias). El filtro que mas corto fue los 3 o mas proveedores/listados del mismo producto (te chino, renovia, nippori, drenaje linfatico, glucora, creatine, flex-a, spray bucal) y la saturacion de anunciantes (minoxidil, batana), seguido de los repetidos de los ultimos 20 dias (los 5 de ayer y los de dias anteriores) y los productos de marca o ropa al por mayor. Plan B: completo 4 (espatula facial, balon flotante, lampara alarma solar y medidor de glucosa) de los mas recientes que pasaron; el tren navideno (saturado), el limpiador a vapor (3 proveedores), el ahorrador de energia y las luces navidenas (repetidos) se descartaron.",
+   "revisar": "Sin gemas ni despegues: no hay memoria de corridas disponible. Para revisar a mano: (1) Barra privada (24113): abrirla en Dropi y ver que es antes de invertir; vende 71 en 7 dias pero va frenando (105 por semana de promedio) y la foto es generica; (2) Medidor de glucosa (25972): 39 de 53 ventas en 3 dias y stock de solo 150, puede ser un pico de un anunciante; bandera amarilla por dispositivo de salud; (3) Espatula facial (27605): la unica que sube dia a dia, pero 3 anunciantes la venden a Q65 o 2 x Q100 y el costo es Q75; (4) Lampara alarma solar (27596): 14 de 24 ventas en un dia y costo Q64 contra PVP Q84, la mas apretada; (5) Balon flotante (29932): 0 anunciantes, confirmar en Dropi que hace exactamente; (6) Reserva Plan B sin evaluar a fondo: guantes de compresion (16115, 22 / 198 / 327, ya hubo tarjeta el 14-oct) y barra telescopica de tension (23128, 26 / 69 / 119); (7) Te chino (29042, 228 / 460 / 460) vende muy bien pero son 3 listados del mismo producto y el mercado esta maduro."
   }
  },
  "tiktokshop": {
