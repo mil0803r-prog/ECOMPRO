@@ -2227,6 +2227,67 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   msel.addEventListener("change",renderMeta);md.addEventListener("change",renderMeta);mh.addEventListener("change",renderMeta);$("m-dia").addEventListener("change",function(e){if(!e.target.value)return;md.value=e.target.value;mh.value=e.target.value;renderMeta()});
   $("m-presets").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var p=PRE[+b.dataset.i];md.value=p[1];mh.value=p[2];renderMeta()});
   try{var sv=sessionStorage.getItem("cta");if(sv&&(sv==="all"||CT[+sv]))msel.value=sv}catch(e){}
+    /* ===== Meta en vivo: lee la API de Meta (api/meta-sync) y mezcla sobre los datos guardados ===== */
+  (function(){
+    var CMAP={"1345913420795708":C1,"27517283797940921":C3};
+    var st=document.createElement("span");st.id="m-live";st.style.cssText="font-size:12px;opacity:.75;margin-left:8px";msel.parentNode.appendChild(st);
+    function nrm(s){return String(s||"").replace(/\s+/g," ").trim()}
+    function mergeLV(lv,L,since){
+      ["campanas","conjuntos","anuncios"].forEach(function(k){
+        var by={};lv[k].forEach(function(x){by[x.id]=x});
+        L[k].forEach(function(x){if(by[x.id])by[x.id].estado=x.estado;else lv[k].push(x)});
+      });
+      [["filasConj","conjuntos"],["filasAnun","anuncios"]].forEach(function(p){
+        var ids={};lv[p[1]].forEach(function(x){ids[x.id]=1});
+        lv[p[0]]=lv[p[0]].filter(function(r){return r[0]<since}).concat(L[p[0]].filter(function(r){return r[0]>=since&&ids[r[1]]})).sort(function(a,b){return a[0]<b[0]?-1:a[0]>b[0]?1:0});
+      });
+    }
+    function mergeC(o,L,since){
+      var idx={};
+      L.campanas.forEach(function(cp){
+        var j=-1,n=nrm(cp.nombre);o.names.forEach(function(x,k){if(nrm(x)===n)j=k});
+        if(j<0){o.names.push(cp.nombre);j=o.names.length-1}
+        idx[cp.id]=j;o.est=o.est||{};o.est[String(j)]=cp.estado==="ACTIVE"?"A":"P";
+      });
+      o.rows=o.rows.filter(function(r){return r[0]<since});
+      o.buy=o.buy||{};Object.keys(o.buy).forEach(function(d){if(d>=since)delete o.buy[d]});
+      o.cbuy=o.cbuy||{};Object.keys(o.cbuy).forEach(function(k){Object.keys(o.cbuy[k]).forEach(function(d){if(d>=since)delete o.cbuy[k][d]})});
+      L.filasCamp.forEach(function(r){
+        var j=idx[r[1]];if(j===undefined||r[0]<since)return;
+        o.rows.push([r[0],j,r[2],r[3],r[4],r[5]]);
+        if(r[6]){o.buy[r[0]]=(o.buy[r[0]]||0)+r[6];(o.cbuy[String(j)]=o.cbuy[String(j)]||{})[r[0]]=r[6]}
+      });
+      o.rows.sort(function(a,b){return a[0]<b[0]?-1:a[0]>b[0]?1:a[1]-b[1]});
+    }
+    function apply(cur){
+      if(!cur||!cur.cuentas)return false;
+      CT.forEach(function(c){
+        var L=cur.cuentas[c.id],o=CMAP[c.id];if(!L||!o)return;
+        mergeC(o,L,cur.since);
+        var lv=(window.META_LV=window.META_LV||{})[c.id];if(lv)mergeLV(lv,L,cur.since);
+      });
+      if(cur.until&&cur.until>HOY){
+        var viejo=HOY;HOY=cur.until;
+        var ayer=new Date(Date.parse(HOY+"T12:00:00Z")-86400000).toISOString().slice(0,10);
+        var s7=new Date(Date.parse(HOY+"T12:00:00Z")-6*86400000).toISOString().slice(0,10);
+        PRE.forEach(function(p){if(p[0]==="Hoy"){p[1]=HOY;p[2]=HOY}else if(p[0]==="Ayer"){p[1]=ayer;p[2]=ayer}else if(p[0]==="Todo el periodo"){p[2]=HOY}else if(p[0]==="Últimos 7 días"){p[1]=s7;p[2]=HOY}});
+        if(mh.value===viejo)mh.value=HOY;
+      }
+      return true;
+    }
+    function sync(){
+      fetch("/api/meta-sync?refresh=1",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
+        if(j.sin_token||j.error){st.textContent="Meta en vivo: falta conectar el token en Vercel";return}
+        if(apply(j.cur)){
+          var f=j.cur.fallas&&Object.keys(j.cur.fallas).length;
+          st.textContent="Meta en vivo · actualizado "+new Date(j.cur.ts).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+(f?" · "+f+" cuenta(s) sin leer":"");
+          renderMeta();
+        }
+      }).catch(function(e){st.textContent="Meta en vivo: error "+(e&&e.message||e)});
+    }
+    window.ecMetaLive={sync:sync,apply:apply};
+    sync();setInterval(sync,20*60*1000);
+  })();
   renderMeta();
   (function(){
     var TT=[

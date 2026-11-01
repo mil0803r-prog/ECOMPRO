@@ -28,6 +28,9 @@
     "api/descargar.js": {
       "maxDuration": 60,
       "includeFiles": "node_modules/@ffmpeg-installer/**"
+    },
+    "api/meta-sync.js": {
+      "maxDuration": 30
     }
   },
   "headers": [
@@ -43,6 +46,12 @@
           "value": "no-store"
         }
       ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/meta-sync",
+      "schedule": "17 11 * * *"
     }
   ]
 }
