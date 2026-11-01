@@ -214,6 +214,9 @@ td.num{font-weight:600}
 .tscroll button:disabled{opacity:.35;cursor:default}
 .mt-cp,.m-cp{--mc:var(--azul)}.mt-e,.m-e{--mc:var(--verde)}.mt-d,.m-d{--mc:var(--rojo)}.mt-c,.m-c{--mc:var(--gris)}.mt-t,.m-t{--mc:var(--amar)}
 .card.kpi[class*="mt-"]{background:color-mix(in srgb,var(--mc) 8%,var(--card));border-color:color-mix(in srgb,var(--mc) 35%,var(--line));box-shadow:inset 3px 0 0 var(--mc)}
+.card.kpi.sem-v{--sc:var(--verde)}.card.kpi.sem-a{--sc:var(--amar)}.card.kpi.sem-r{--sc:var(--rojo)}.card.kpi.sem-n{--sc:var(--gris,#8a94a6)}
+.card.kpi[class*="sem-"]{background:color-mix(in srgb,var(--sc) 12%,var(--card));border-color:color-mix(in srgb,var(--sc) 50%,var(--line));box-shadow:inset 4px 0 0 var(--sc)}
+.card.kpi[class*="sem-"] .big{color:var(--sc)}
 th[class*="m-"],td[class*="m-"]{background:color-mix(in srgb,var(--mc) 7%,var(--card))}
 th[class*="m-"]{color:var(--mc);box-shadow:inset 0 2px 0 var(--mc)}
 .pill.mp{background:color-mix(in srgb,var(--mc) 16%,transparent);color:var(--mc)}
@@ -2115,6 +2118,11 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     return o;
   }
   function ctr(a){return a.im?fm(a.cl/a.im*100)+"%":"–"}
+  /* Semáforo por comportamiento: v verde, a ambar, r rojo, n neutro (sin datos suficientes) */
+  function sCtr(a){if(!a.im||a.im<500)return"n";var c=a.cl/a.im*100;return c>=1.5?"v":c>=0.8?"a":"r"}
+  function sCosto(sp,n,vOk,aOk,minSp){if(!n)return sp>=minSp?"r":"n";var c=sp/n;return c<=vOk?"v":c<=aOk?"a":"r"}
+  function sPct(p,vOk,aOk,n,alto){if(!n)return"n";return alto?(p>=vOk?"v":p>=aOk?"a":"r"):(p<=vOk?"v":p<=aOk?"a":"r")}
+  function kS(cls,html){return html.replace("card kpi","card kpi sem-"+cls)}
   function grafico(o){
     var r=rango(),days=[],d=new Date(r[0]+"T00:00:00Z"),end=new Date(r[1]+"T00:00:00Z");
     while(d<=end){days.push(d.toISOString().slice(0,10));d=new Date(d.getTime()+864e5)}
@@ -2131,8 +2139,16 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function metricas(sp,cp,mo,single){
     var r=rango(),n=dropiCnt(r),v={cp:cp,e:n.e,d:n.d,c:n.c,t:n.t};
     var chips=MDEF.map(function(m){return '<button type="button" class="chip m-'+m[0]+'" style="color:'+(MM[m[0]]?'var(--fg)':'var(--muted)')+';background:'+(MM[m[0]]?'color-mix(in srgb,var(--mc) 18%,var(--card))':'var(--card)')+';border-color:color-mix(in srgb,var(--mc) 45%,var(--line))" data-m="'+m[0]+'" aria-pressed="'+!!MM[m[0]]+'">'+m[1]+'</button>'}).join("");
+    var cerr=n.e+n.d+n.c,tot=cerr+n.t;
     var tiles=MDEF.filter(function(m){return MM[m[0]]}).map(function(m){var k=m[0],x=v[k],money=(k==="cp"||!single);
-      return kpi(m[1],fi(x),money&&x?fm(sp/x)+" "+mo+" por "+(k==="cp"?"compra":"pedido"):(k==="cp"?"sin compras":(single?"todas las fuentes":"sin pedidos"))).replace("card kpi","card kpi mt-"+k)}).join("");
+      var cls="n",pc="";
+      if(k==="cp")cls=sCosto(sp,cp,8,12,8);
+      else if(k==="e"){pc=cerr?Math.round(n.e/cerr*100):0;cls=sPct(pc,65,55,cerr,true)}
+      else if(k==="d"){pc=cerr?Math.round(n.d/cerr*100):0;cls=sPct(pc,15,25,cerr,false)}
+      else if(k==="c"){pc=tot?Math.round(n.c/tot*100):0;cls=sPct(pc,10,20,tot,false)}
+      var sub=money&&x?fm(sp/x)+" "+mo+" por "+(k==="cp"?"compra":"pedido"):(k==="cp"?"sin compras":(single?"todas las fuentes":"sin pedidos"));
+      if(pc!==""&&(k==="c"?tot:cerr))sub=pc+" % "+(k==="c"?"de los pedidos":"de los cerrados")+" · "+sub;
+      return kpi(m[1],fi(x),sub).replace("card kpi","card kpi mt-"+k+" sem-"+cls)}).join("");
     return '<div class="card" style="display:flex;flex-direction:column;gap:10px"><div><h3 style="margin:0">Métricas personalizadas</h3><div class="sub">Elige qué ver. Compras viene de Meta; entregado, devuelto, cancelado y en camino vienen del estado que Lumy lee en Dropi (pedidos creados en el rango). En camino = en ruta + recolectado + guía generada. Devuelto = devolución, sin incidencias.</div></div><div class="chips" id="m-metricas">'+chips+'</div>'+(tiles?'<div class="grid g5">'+tiles+'</div>':'<div class="sub">Activa al menos una métrica.</div>')+(single?'<div class="sub">En una cuenta suelta, Dropi no dice de qué anuncio vino cada pedido: esos conteos son de todas las fuentes y no llevan costo. Elige "Todas las cuentas" para ver el costo por pedido.</div>':'')+'</div>'}
   mview.addEventListener("click",function(ev){var b=ev.target.closest("#m-metricas .chip");if(!b)return;MM[b.dataset.m]=MM[b.dataset.m]?0:1;try{localStorage.setItem("mm",JSON.stringify(MM))}catch(e){}renderMeta()});
   var CF="todas";try{CF=localStorage.getItem("cf")||"todas"}catch(e){}
@@ -2177,7 +2193,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var r=rango(),a1=agg(CT[0]),a3=agg(CT[1]),ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
     var rows=CT.map(function(c,i){var a=agg(c);var g=c.off?'<span class="sub">no consultable</span>':(c.data?fm(a.sp):'0,00');
       return '<tr><td><a href="#" data-i="'+i+'" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(c.n)+'</a><div class="sub">'+c.id+'</div></td><td>'+c.mo+'</td><td>'+pill(c)+'</td><td class="num">'+g+'</td><td class="num">'+(c.data?fi(a.cl):'–')+'</td><td class="num">'+(c.data?fi(a.cv):'–')+'</td></tr>'}).join("");
-    mview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(a1.sp+a3.sp,0)+' <small style="font-size:1rem">PEN</small>',"Cuenta 1 más Cuenta 3")+kpi("Clics",fi(a1.cl+a3.cl),"CTR "+ctr({im:a1.im+a3.im,cl:a1.cl+a3.cl}))+kpi("Conversaciones",fi(a1.cv+a3.cv),(a1.cv+a3.cv)?fm((a1.sp+a3.sp)/(a1.cv+a3.cv))+" PEN cada una":"sin datos")+kpi("Compras (según Meta)",fi(a1.cp+a3.cp),(a1.cp+a3.cp)?fm((a1.sp+a3.sp)/(a1.cp+a3.cp))+" PEN cada una":"sin compras")+kpi("Entregados (estado de Lumy)",fi(ent),"pedidos del rango · "+ORD.filter(function(o){return o.d>=r[0]&&o.d<=r[1]}).length+" en total")+kpi("CPA real (por entregado)",ent?fm((a1.sp+a3.sp)/ent)+' <small style="font-size:1rem">PEN</small>':"–",ent?"gasto de Cuenta 1 y 3 ÷ entregados":"sin entregados en el rango")+kpi("Cuentas con gasto",(a1.sp>0?1:0)+(a3.sp>0?1:0)+" de 12","2 con pago pendiente","ta")+'</div>'+
+    mview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(a1.sp+a3.sp,0)+' <small style="font-size:1rem">PEN</small>',"Cuenta 1 más Cuenta 3")+kS(sCtr({im:a1.im+a3.im,cl:a1.cl+a3.cl}),kpi("Clics",fi(a1.cl+a3.cl),"CTR "+ctr({im:a1.im+a3.im,cl:a1.cl+a3.cl})))+kS(sCosto(a1.sp+a3.sp,a1.cv+a3.cv,1,2,4),kpi("Conversaciones",fi(a1.cv+a3.cv),(a1.cv+a3.cv)?fm((a1.sp+a3.sp)/(a1.cv+a3.cv))+" PEN cada una":"sin datos"))+kS(sCosto(a1.sp+a3.sp,a1.cp+a3.cp,8,12,8),kpi("Compras (según Meta)",fi(a1.cp+a3.cp),(a1.cp+a3.cp)?fm((a1.sp+a3.sp)/(a1.cp+a3.cp))+" PEN cada una":"sin compras"))+kpi("Entregados (estado de Lumy)",fi(ent),"pedidos del rango · "+ORD.filter(function(o){return o.d>=r[0]&&o.d<=r[1]}).length+" en total")+kpi("CPA real (por entregado)",ent?fm((a1.sp+a3.sp)/ent)+' <small style="font-size:1rem">PEN</small>':"–",ent?"gasto de Cuenta 1 y 3 ÷ entregados":"sin entregados en el rango")+kpi("Cuentas con gasto",(a1.sp>0?1:0)+(a3.sp>0?1:0)+" de 12","2 con pago pendiente","ta")+'</div>'+
      metricas(a1.sp+a3.sp,a1.cp+a3.cp,"PEN",false)+'<div class="warn"><b>Tu pauta compra conversaciones de WhatsApp, no visitas a la página</b><span>Casi todas las campañas optimizan "conversaciones iniciadas". Por eso las landings casi no reciben visitas de Meta. Lo que falta medir es cuántas conversaciones terminan en pedido.</span></div>'+
      '<div><h2>Todas las cuentas · '+r[0]+' a '+r[1]+'</h2><div class="tbl"><table><thead><tr><th>Cuenta</th><th>Moneda</th><th>Estado</th><th class="num">Gasto</th><th class="num">Clics</th><th class="num">Conversaciones</th><th class="num">Compras</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot">Toca el nombre de una cuenta, o elige una en el desplegable, para ver su detalle. El CPA real es el gasto de Meta (soles, Cuentas 1 y 3) entre los pedidos que Lumy marca como entregados en Dropi que se crearon en ese rango; no separa pedidos que no vienen de Meta. Las compras son los eventos de compra que Meta atribuye a los anuncios (no son pedidos entregados). Los gastos están en la moneda de cada cuenta y no se suman entre monedas distintas. El total de arriba es solo Cuenta 1 más Cuenta 3, ambas en soles.</p></div>';
     mview.querySelectorAll("a[data-i]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();msel.value=a.dataset.i;renderMeta()})});
@@ -2188,7 +2204,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     else if(!c.data){h+='<div class="grid g3">'+kpi("Gasto en el rango","0 <small style=\"font-size:1rem\">"+c.mo+"</small>","sin actividad")+kpi("Clics","0","sin actividad")+kpi("Campañas con gasto","0","en todo el periodo")+'</div>'}
     else{
       var a=agg(c);
-      h+='<div class="grid g5">'+kpi("Gasto en el rango",fm(a.sp)+' <small style="font-size:1rem">'+c.mo+'</small>',r[0]+" a "+r[1])+kpi("Impresiones",fi(a.im),"CTR "+ctr(a))+kpi("Clics",fi(a.cl),"CPC "+(a.cl?fm(a.sp/a.cl):"–")+" "+c.mo)+kpi("Conversaciones",fi(a.cv),a.cv?fm(a.sp/a.cv)+" "+c.mo+" cada una":"sin datos")+kpi("Compras (según Meta)",fi(a.cp),a.cp?fm(a.sp/a.cp)+" "+c.mo+" cada una":"sin compras")+'</div>';
+      h+='<div class="grid g5">'+kpi("Gasto en el rango",fm(a.sp)+' <small style="font-size:1rem">'+c.mo+'</small>',r[0]+" a "+r[1])+kpi("Impresiones",fi(a.im),"CTR "+ctr(a))+kS(sCtr(a),kpi("Clics",fi(a.cl),"CPC "+(a.cl?fm(a.sp/a.cl):"–")+" "+c.mo+" · CTR "+ctr(a)))+kS(sCosto(a.sp,a.cv,1,2,4),kpi("Conversaciones",fi(a.cv),a.cv?fm(a.sp/a.cv)+" "+c.mo+" cada una":"sin datos"))+kS(sCosto(a.sp,a.cp,8,12,8),kpi("Compras (según Meta)",fi(a.cp),a.cp?fm(a.sp/a.cp)+" "+c.mo+" cada una":"sin compras"))+'</div>';
       h+=metricas(a.sp,a.cp,c.mo,true);
       var g=grafico(a);
       if(g)h+='<div class="card"><h3>Gasto por día</h3>'+g+'</div>';
