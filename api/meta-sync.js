@@ -1,6 +1,6 @@
 // Trae las métricas de Meta Ads directo de la Marketing API y las guarda en la base (ec:metalive).
 // Token: variable de entorno META_ACCESS_TOKEN (usuario del sistema con permiso ads_read). Nunca va en el repo.
-// GET  -> devuelve lo guardado.  GET ?refresh=1 -> vuelve a consultar Meta (máx. 1 vez cada 10 min).
+// GET  -> devuelve lo guardado.  GET ?refresh=1 -> vuelve a consultar Meta (máx. 1 vez cada 4 min).
 // Cron de Vercel: llega con Authorization: Bearer CRON_SECRET.
 const crypto = require("crypto");
 const { session } = require("./_auth");
@@ -11,7 +11,7 @@ const MTOKEN = process.env.META_ACCESS_TOKEN;
 const GV = "v21.0";
 const CUENTAS = (process.env.META_ACCOUNTS || "1345913420795708,27517283797940921").split(",").map((s) => s.trim()).filter((s) => /^\d{5,20}$/.test(s));
 const DIAS = 5;
-const MIN_MS = 10 * 60 * 1000;
+const MIN_MS = 4 * 60 * 1000;
 
 async function redis(cmd) {
   const r = await fetch(URL_, { method: "POST", headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" }, body: JSON.stringify(cmd) });
