@@ -2301,7 +2301,9 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         if(!j){msg("Meta en vivo: el servidor no tiene todavía la conexión nueva (HTTP "+x.st+"). Revisa en Vercel > Deployments que el último despliegue esté en Ready.","err");return}
         if(j.error==="auth"){msg("Meta en vivo: tu sesión venció. Recarga la página e inicia sesión de nuevo.","err");return}
         if(j.sin_token){msg("Meta en vivo: falta la variable META_ACCESS_TOKEN en Vercel (o falta hacer Redeploy después de crearla).","err");return}
-        if(j.error){msg("Meta en vivo: "+(j.detalle?"Meta respondió: "+j.detalle:j.error),"err");return}
+        if(j.error){
+          if(j.cur&&j.cur.cuentas){apply(j.cur);renderMeta()}
+          msg("Meta en vivo: Meta rechazó la consulta"+(j.detalle?": "+j.detalle:"")+(j.cur?" · se muestran los últimos datos guardados ("+new Date(j.cur.ts).toLocaleString("es-GT",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})+"). Si dice token o sesión, genera un token nuevo.":""),"err");return}
         var cur=j.cur;
         if(!cur||!cur.cuentas||!Object.keys(cur.cuentas).length){
           var ff=cur&&cur.fallas?Object.keys(cur.fallas).map(function(k){return "cuenta "+k.slice(-6)+": "+cur.fallas[k]}).join(" | "):"";

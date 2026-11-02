@@ -145,6 +145,10 @@ module.exports = async (req, res) => {
     for (const id of CUENTAS) {
       try { cuentas[id] = await cuenta(id, since, until); } catch (e) { fallas[id] = String(e.message || e).slice(0, 200); }
     }
+    if (!Object.keys(cuentas).length) {
+      const motivo = Object.keys(fallas).map((k) => fallas[k]).join(" | ").slice(0, 300);
+      return send(200, { ok: false, error: "meta", detalle: motivo || "Meta no devolvió datos", cur });
+    }
     const nuevo = { ts: Date.now(), since: since.slice(5), until, cuentas: Object.assign({}, cur && cur.cuentas, cuentas), fallas };
     // Las cifras acumuladas solo sirven para las alertas: no se guardan en el tablero.
     const sinAcum = JSON.parse(JSON.stringify(nuevo));
@@ -154,6 +158,8 @@ module.exports = async (req, res) => {
     try { avisos = await alertar(cuentas); } catch (e) {}
     return send(200, { ok: true, cur: sinAcum, avisos });
   } catch (e) {
-    return send(500, { error: "meta", detalle: String(e.message || e).slice(0, 200) });
+    let cur = null;
+    try { cur = JSON.parse((await redis(["HGET", "ec:metalive", "cur"])) || "null"); } catch (e2) {}
+    return send(200, { ok: false, error: "meta", detalle: String(e.message || e).slice(0, 200), cur });
   }
 };
