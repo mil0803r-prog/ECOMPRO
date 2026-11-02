@@ -2315,7 +2315,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       }).catch(function(e){msg("Meta en vivo: error "+(e&&e.message||e),"err")});
     }
     window.ecMetaLive={sync:sync,apply:apply};
-    sync();setInterval(sync,5*60*1000);
+    sync();setInterval(sync,15*60*1000);
   })();
   renderMeta();
   (function(){
