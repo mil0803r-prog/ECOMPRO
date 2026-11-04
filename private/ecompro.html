@@ -674,6 +674,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .dlv .dlbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .dlv a.btn{text-decoration:none;display:inline-block}
 @media(max-width:560px){.dlv .dlres{grid-template-columns:1fr}.dlv .dlres img{width:100%;max-height:300px}}
+.rdm .rd-t td,.rdm .rd-t th{white-space:nowrap}.rdm .rd-t td.n{text-align:right;font-variant-numeric:tabular-nums}.rdm .rd-pos{color:var(--verde);font-weight:700}.rdm .rd-neg{color:var(--rojo);font-weight:700}.rdm .rd-tot td{font-weight:700;border-top:2px solid var(--line)}
 .cim .cim-dz{border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center;cursor:pointer;background:color-mix(in srgb,var(--cel) 5%,var(--card))}
 .cim .cim-dz.on{border-color:var(--cel);background:color-mix(in srgb,var(--cel) 14%,var(--card))}
 .cim .cim-it{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
@@ -961,6 +962,33 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div><h3 style="margin:0 0 6px">Por día de la semana</h3><div id="mh-d"></div></div>
       <div class="cal-leg" id="mh-leg"><span><i style="background:var(--verde)"></i>Entregado</span><span><i style="background:var(--rojo)"></i>Devuelto o incidencia</span><span><i style="background:var(--azul)"></i>En proceso</span><span><i style="background:var(--gris)"></i>Cancelado</span></div>
       <p class="foot" id="mh-pie" style="margin:0"></p>
+    </div>
+  </section>
+
+  <section class="pane" id="p-rdm" hidden>
+    <div class="card rdm">
+      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div class="fld"><label for="rd-f">Fecha</label><input id="rd-f" type="date"></div>
+        <div class="fld"><label for="rd-i">ID (campaña o anuncio)</label><input id="rd-i" type="text" maxlength="60" placeholder="Ej. 120250539525520497"></div>
+        <div class="fld grow"><label for="rd-p">Producto</label><input id="rd-p" type="text" maxlength="120" list="rd-pl" placeholder="Ej. Collar llave"><datalist id="rd-pl"></datalist></div>
+        <div class="fld"><label for="rd-g">Gasto del día</label><div class="frow" style="gap:6px"><input id="rd-g" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" style="width:110px"><select id="rd-gm" aria-label="Moneda del gasto"><option value="PEN">S/ soles</option><option value="GTQ">Q quetzales</option></select></div></div>
+        <div class="fld"><label for="rd-v">Ventas (pedidos)</label><input id="rd-v" type="number" min="0" step="1" inputmode="numeric" placeholder="0" style="width:90px"></div>
+        <div class="fld"><label for="rd-m">Monto vendido</label><div class="frow" style="gap:6px"><input id="rd-m" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" style="width:110px"><select id="rd-mm" aria-label="Moneda del monto"><option value="GTQ">Q quetzales</option><option value="PEN">S/ soles</option></select></div></div>
+        <div class="fld"><label for="rd-tc">Tipo de cambio (1 Q = S/)</label><input id="rd-tc" type="number" min="0.01" step="0.0001" inputmode="decimal" style="width:100px"></div>
+        <div class="fld grow" style="flex-basis:100%"><label for="rd-n">Nota</label><input id="rd-n" type="text" maxlength="300" placeholder="Opcional"></div>
+        <button class="btn" type="button" id="rd-add">Anotar</button>
+      </div>
+      <p class="sub" id="rd-msg" role="status" style="margin:8px 0 0">El tipo de cambio se llena solo con el de hoy y queda guardado en cada registro, así el histórico no cambia si el cambio sube o baja.</p>
+    </div>
+    <div class="card rdm" style="margin-top:12px">
+      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div class="fld"><label for="rd-fd">Desde</label><input id="rd-fd" type="date"></div>
+        <div class="fld"><label for="rd-fh">Hasta</label><input id="rd-fh" type="date"></div>
+        <div class="fld"><label for="rd-fp">Producto</label><select id="rd-fp"><option value="">Todos</option></select></div>
+        <button class="btn" type="button" id="rd-xl">Descargar CSV</button>
+      </div>
+      <div class="grid g4" id="rd-kpi" style="margin-top:12px"></div>
+      <div class="tbl" style="margin-top:12px"><table class="rd-t" style="min-width:980px"><thead><tr><th>Fecha</th><th>ID</th><th>Producto</th><th>Gasto S/</th><th>Gasto Q</th><th>Ventas</th><th>Monto S/</th><th>Monto Q</th><th>Costo por venta Q</th><th>Resultado Q</th><th>Nota</th><th></th></tr></thead><tbody id="rd-body"></tbody></table></div>
     </div>
   </section>
 
@@ -2785,8 +2813,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     if(db){db.collection("validations").orderBy("date","desc").limit(500).onSnapshot(function(snap){VAL=snap.docs.map(function(d){var x=d.data();x.id=d.id;return x});vRender()},function(){VAL=[];vRender()})}
   }
 
-  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["rtf","Rastreo de guías"],["din","Dinero"]],mkt:[["met","Meta Ads"],["tik","TikTok Ads"]],mtc:[["mtl","Landing"],["mtw","WhatsApp"],["mtg","Método Golden"]],inv:[["inv","Caza diaria"],["tts","Investigación TikTok Shop"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],hrm:[["dlt","Descargar TikTok"],["dlf","Descargar Facebook"],["rcv","Recortar video"],["cim","Comprimir imágenes"]],aju:[["aju","Ajustes"]],mer:[["mer","Mercado"]]};
-  var IC={rtf:'<path d="M12 21s-6-5.500-6-11a6 6 0 1 1 12 0c0 5.500-6 11-6 11z"/><circle cx="12" cy="10" r="2.300"/>',cim:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.800"/><path d="M21 16l-5-5-8 9"/>',rcv:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.100 15.900M14.500 14.500L20 20M8.100 8.100L12 12"/>',dlt:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',dlf:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',mtg:'<path d="M12 3l2.6 5.600 6.100.7-4.500 4.200 1.200 6L12 16.500 6.600 19.500l1.200-6L3.300 9.300l6.100-.7L12 3z"/>',mtl:'<path d="M3 20h18"/><rect x="5" y="11" width="3" height="9"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="13" width="3" height="7"/>',mtw:'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 10c0 3 2 5 5 5l1-2-2-1-1 1c-1-.5-1.800-1.300-2.300-2.300l1-1-1-2z"/>',res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',tts:'<path d="M6 7h12l1.500 13H4.500L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
+  var GR={res:[["res","Dashboard"]],log:[["ped","Semáforo transportadora"],["rtf","Rastreo de guías"],["din","Dinero"]],mkt:[["met","Meta Ads"],["tik","TikTok Ads"],["rdm","Registro diario meta-app"]],mtc:[["mtl","Landing"],["mtw","WhatsApp"],["mtg","Método Golden"]],inv:[["inv","Caza diaria"],["tts","Investigación TikTok Shop"],["val","Validador manual"],["cal","Calculadora"]],fin:[["gan","Utilidad neta"],["adm","Costo administrativo"],["gas","Gastos"],["pub","Publicidad"],["pro","Proyección"]],hrm:[["dlt","Descargar TikTok"],["dlf","Descargar Facebook"],["rcv","Recortar video"],["cim","Comprimir imágenes"]],aju:[["aju","Ajustes"]],mer:[["mer","Mercado"]]};
+  var IC={rtf:'<path d="M12 21s-6-5.500-6-11a6 6 0 1 1 12 0c0 5.500-6 11-6 11z"/><circle cx="12" cy="10" r="2.300"/>',rdm:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',cim:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.800"/><path d="M21 16l-5-5-8 9"/>',rcv:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.100 15.900M14.500 14.500L20 20M8.100 8.100L12 12"/>',dlt:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',dlf:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>',mtg:'<path d="M12 3l2.6 5.600 6.100.7-4.500 4.200 1.200 6L12 16.500 6.600 19.500l1.200-6L3.300 9.300l6.100-.7L12 3z"/>',mtl:'<path d="M3 20h18"/><rect x="5" y="11" width="3" height="9"/><rect x="10.5" y="6" width="3" height="14"/><rect x="16" y="13" width="3" height="7"/>',mtw:'<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 10c0 3 2 5 5 5l1-2-2-1-1 1c-1-.5-1.800-1.300-2.300-2.300l1-1-1-2z"/>',res:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',ped:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',din:'<path d="M12 3v18M16 7.5c-.8-1-2.2-1.5-4-1.5-2.2 0-3.8 1-3.8 2.7 0 4 8 2 8 6 0 1.7-1.7 2.8-4.2 2.8-1.9 0-3.4-.6-4.3-1.7"/>',met:'<path d="M6 8c-2.5 0-4 1.8-4 4s1.5 4 4 4c4 0 8-8 12-8 2.5 0 4 1.8 4 4s-1.5 4-4 4c-4 0-8-8-12-8z"/>',tik:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',inv:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>',mer:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',tts:'<path d="M6 7h12l1.500 13H4.500L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>',val:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/>',gan:'<path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M3 7l12-3v3"/><circle cx="17" cy="13.5" r="1"/>',adm:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',gas:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',pub:'<path d="M3 11v2a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',pro:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/>',aju:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'};
   window.EC_IC=IC;
   function ico(k){return '<svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[k]||"")+'</svg>'}
   var gb=document.querySelectorAll("#nav-g button"),ns=$("nav-s"),cur={res:"res",log:"ped",mkt:"met",mtc:"mtl",hrm:"dlt",mer:"mer",inv:"inv",fin:"gan",aju:"aju"};
@@ -3967,7 +3995,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var HEAD={rtf:["Rastreo de guías","Toca una guía para abrir el rastreo de su transportadora (Forza o Gintracom)"],cim:["Comprimir imágenes","Elige tus imágenes, di a qué formato quieres pasarlas y bájalas más livianas"],rcv:["Recortar video","Sube un video, elige desde dónde hasta dónde y bájalo recortado"],dlt:["Descargar video de TikTok","Pega el enlace y baja el video sin marca de agua"],dlf:["Descargar video de Facebook","Pega el enlace de un video público y bájalo en HD"],mtg:["Método Golden","Escalar con Meta Ads: lo que funciona no se toca, se duplica"],mtl:["Métricas de Landing","Visitas, formulario, pedidos y conversión de tus páginas de venta"],mtw:["Métricas de WhatsApp","Conversaciones, respuestas y temas de tus chats de venta"],res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],tts:["Investigación TikTok Shop","Productos que ves en TikTok Shop: compara, califica y decide"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
+  var HEAD={rtf:["Rastreo de guías","Toca una guía para abrir el rastreo de su transportadora (Forza o Gintracom)"],rdm:["Registro diario meta-app","Anota cada día cuánto gastaste y cuánto vendiste, en soles y en quetzales"],cim:["Comprimir imágenes","Elige tus imágenes, di a qué formato quieres pasarlas y bájalas más livianas"],rcv:["Recortar video","Sube un video, elige desde dónde hasta dónde y bájalo recortado"],dlt:["Descargar video de TikTok","Pega el enlace y baja el video sin marca de agua"],dlf:["Descargar video de Facebook","Pega el enlace de un video público y bájalo en HD"],mtg:["Método Golden","Escalar con Meta Ads: lo que funciona no se toca, se duplica"],mtl:["Métricas de Landing","Visitas, formulario, pedidos y conversión de tus páginas de venta"],mtw:["Métricas de WhatsApp","Conversaciones, respuestas y temas de tus chats de venta"],res:["Resumen de la tienda","Cómo va tu negocio"],ped:["Semáforo transportadora","Entrega por zona y por producto, y todos tus pedidos de Dropi"],din:["Dinero","Ventas, ganancias y lo que ya te pagaron"],met:["Meta Ads","Campañas, conjuntos y anuncios"],tik:["TikTok Ads","Campañas, grupos y anuncios"],inv:["Caza diaria","Productos ganadores nuevos, por fecha"],mer:["Mercado","Los nichos que más se venden"],tts:["Investigación TikTok Shop","Productos que ves en TikTok Shop: compara, califica y decide"],val:["Validador manual","Valida un producto antes de pautar"],cal:["Calculadora","Precio, costo y ganancia por pedido"],gan:["Utilidad neta","Lo que realmente te queda cada mes"],adm:["Costo administrativo","Lo que cuesta operar el negocio"],gas:["Gastos","Gastos fijos y variables de la plataforma"],pub:["Publicidad","Registro manual del gasto en anuncios"],pro:["Proyección","Cómo cerraría el mes si sigues a este ritmo"],aju:["Ajustes","Apariencia, moneda y tus números de operación"]};
   function svg(k){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+((window.EC_IC||{})[k]||"")+'</svg>'}
   /* marca en la barra lateral */
   var nw=document.querySelector(".navwrap");
@@ -4735,5 +4763,57 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     var end=new Uint8Array([0x50,0x4b,5,6,0,0,0,0].concat(u16(OUT.length),u16(OUT.length),u32(cl),u32(off),u16(0)));
     var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(parts.concat(cen,[end]),{type:"application/zip"}));a.download="imagenes-ecompro.zip";document.body.appendChild(a);a.click();a.remove();
   });
+})();
+</script>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};if(!$("rd-add"))return;
+  var L=[],db=null,can=true,KEY="ec_regmeta";
+  try{L=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(e){L=[]}
+  function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function rate(){var fx=window.ecFx;return fx&&fx.st&&fx.st.rate>0?fx.st.rate:0.4504}
+  function f2(n){return (Math.round(n*100)/100).toLocaleString("es-GT",{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function hoy(){var d=new Date(Date.now()-6*3600*1000);return d.toISOString().slice(0,10)}
+  function ini(){$("rd-f").value=hoy();$("rd-tc").value=rate()}
+  ini();
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}if(db&&can)db.doc("settings/registrometa").set({list:L}).catch(function(){})}
+  function filtrado(){var d=$("rd-fd").value,h=$("rd-fh").value,p=$("rd-fp").value;return L.filter(function(r){return (!d||r.f>=d)&&(!h||r.f<=h)&&(!p||r.p===p)}).sort(function(a,b){return b.f.localeCompare(a.f)||(b.t||0)-(a.t||0)})}
+  function cls(n){return n>0?"rd-pos":n<0?"rd-neg":""}
+  function draw(){
+    var ps=Array.from(new Set(L.map(function(r){return r.p}).filter(Boolean))).sort(),cur=$("rd-fp").value;
+    $("rd-fp").innerHTML='<option value="">Todos</option>'+ps.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("");if(ps.indexOf(cur)>-1)$("rd-fp").value=cur;
+    $("rd-pl").innerHTML=ps.map(function(x){return '<option value="'+E(x)+'">'}).join("");
+    var R=filtrado(),gs=0,gq=0,v=0,ms=0,mq=0;
+    R.forEach(function(r){gs+=r.gs;gq+=r.gq;v+=r.v;ms+=r.ms;mq+=r.mq});
+    var res=mq-gq;
+    function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
+    $("rd-kpi").innerHTML=k("Gasto","S/ "+f2(gs),"Q "+f2(gq))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
+    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+f2(r.gs)+'</td><td class="n">'+f2(r.gq)+'</td><td class="n">'+r.v+'</td><td class="n">'+f2(r.ms)+'</td><td class="n">'+f2(r.mq)+'</td><td class="n">'+(r.v?f2(r.gq/r.v):"–")+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+f2(gs)+'</td><td class="n">'+f2(gq)+'</td><td class="n">'+v+'</td><td class="n">'+f2(ms)+'</td><td class="n">'+f2(mq)+'</td><td class="n">'+(v?f2(gq/v):"–")+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="12" class="sub">Todavía no hay registros en este rango.</td></tr>';
+  }
+  $("rd-add").addEventListener("click",function(){
+    var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0;
+    if(!f){m.textContent="Pon la fecha.";return}
+    if(!(tc>0)){m.textContent="Pon el tipo de cambio (1 Q = cuántos S/).";return}
+    if(!g&&!v&&!mo){m.textContent="Anota al menos el gasto, las ventas o el monto.";return}
+    var gm=$("rd-gm").value,mm=$("rd-mm").value;
+    var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
+    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:$("rd-i").value.trim(),p:$("rd-p").value.trim(),gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
+    save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});m.textContent="Anotado.";
+  });
+  $("rd-body").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});save();draw()});
+  ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
+  $("rd-xl").addEventListener("click",function(){
+    var R=filtrado(),q=function(x){return '"'+String(x==null?"":x).replace(/"/g,'""')+'"'};
+    var rows=[["Fecha","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.i,r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
+    var txt="﻿"+rows.map(function(r){return r.map(q).join(",")}).join("\n"),dl=window.claude&&window.claude.downloads;
+    if(dl&&dl.save){dl.save({filename:"registro-meta-app.csv",data:txt}).catch(function(){});return}
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/csv"}));a.download="registro-meta-app.csv";document.body.appendChild(a);a.click();a.remove();
+  });
+  if(window.ecFx&&window.ecFx.hooks)window.ecFx.hooks.push(function(){if(!$("rd-tc").dataset.t)$("rd-tc").value=rate()});
+  $("rd-tc").addEventListener("input",function(){$("rd-tc").dataset.t="1"});
+  draw();
+  (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
+    db.doc("settings/registrometa").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list)){L=d.list.filter(function(r){return r&&r.id&&r.f});try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}draw()}},function(){})}}catch(e){}})();
 })();
 </script>
