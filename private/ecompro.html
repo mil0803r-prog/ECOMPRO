@@ -978,7 +978,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <h3 style="margin:0 0 10px">Anotar el día</h3>
       <div class="rd-g3">
         <div class="fld"><label for="rd-f">Fecha</label><input id="rd-f" type="date"></div>
-        <div class="fld"><label for="rd-is">ID (de tus campañas de Meta)</label><select id="rd-is"></select><input id="rd-i" type="text" maxlength="60" placeholder="Escribe el ID" hidden style="margin-top:6px"></div>
+        <div class="fld"><label for="rd-ct">Cuenta publicitaria</label><select id="rd-ct"></select></div>
+        <div class="fld"><label for="rd-is">ID del anuncio (activos primero)</label><select id="rd-is"></select><input id="rd-i" type="text" maxlength="60" placeholder="Escribe el ID" hidden style="margin-top:6px"></div>
         <div class="fld"><label for="rd-ps">Producto (de la calculadora)</label><select id="rd-ps"></select><input id="rd-p" type="text" maxlength="120" placeholder="Escribe el producto" hidden style="margin-top:6px"></div>
       </div>
       <div class="rd-g3" style="margin-top:12px">
@@ -4810,21 +4811,34 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     sel.innerHTML='<option value="">Elige un producto…</option>'+(cs.length?'<optgroup label="De la calculadora de precios">'+cs.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+(ant.length?'<optgroup label="Anotados antes">'+ant.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+'<option value="'+OTRO+'">Otro (escribir)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
-  var NID={};
-  function ids(){
-    var lv=window.META_LV||{},G=[["Campañas","campanas"],["Conjuntos","conjuntos"],["Anuncios","anuncios"]],sel=$("rd-is"),cur=sel.value,h="";NID={};
-    G.forEach(function(g){var A=[],P=[];
-      Object.keys(lv).forEach(function(c){(lv[c][g[1]]||[]).forEach(function(x){NID[x.id]=x.nombre;(x.estado==="ACTIVE"?A:P).push(x)})});
-      var op=function(l){return l.map(function(x){return '<option value="'+E(x.id)+'">'+(x.estado==="ACTIVE"?"● ":"")+E(String(x.nombre||"").trim().slice(0,55))+" · "+E(x.id)+'</option>'}).join("")};
-      if(A.length)h+='<optgroup label="'+g[0]+' activas">'+op(A)+'</optgroup>';
-      if(P.length)h+='<optgroup label="'+g[0]+' pausadas o antiguas">'+op(P.sort(function(a,b){return b.id<a.id?-1:1}).slice(0,60))+'</optgroup>';
-    });
-    sel.innerHTML='<option value="">Elige el ID…</option>'+h+'<option value="'+OTRO+'">Otro (escribir)…</option>';
+  var NID={},CN={"1345913420795708":"CUENTA 1","27517283797940921":"CUENTA 3"};
+  function cname(c){return CN[c]||"Cuenta "+String(c).slice(-6)}
+  function cuentas(){
+    var lv=window.META_LV||{},sel=$("rd-ct"),cur=sel.value,ks=Object.keys(lv);
+    var ORD=Object.keys(CN);ks.sort(function(a,b){var ia=ORD.indexOf(a),ib=ORD.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib)});
+    sel.innerHTML=ks.map(function(c){var n=(lv[c].anuncios||[]).filter(function(x){return x.estado==="ACTIVE"}).length;return '<option value="'+E(c)+'">'+E(cname(c))+' · '+n+' anuncio'+(n===1?'':'s')+' activo'+(n===1?'':'s')+'</option>'}).join("")+'<option value="'+OTRO+'">Otra cuenta (escribir ID)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
+  function ids(){
+    cuentas();
+    var lv=window.META_LV||{},cta=$("rd-ct").value,d=lv[cta]||{},sel=$("rd-is"),cur=sel.value,h="";NID={};
+    [["Anuncios","anuncios"],["Conjuntos","conjuntos"],["Campañas","campanas"]].forEach(function(g){
+      (d[g[1]]||[]).forEach(function(x){NID[x.id]=x.nombre});
+    });
+    function op(l){return l.map(function(x){return '<option value="'+E(x.id)+'">'+(x.estado==="ACTIVE"?"● ":"")+E(String(x.nombre||"").trim().slice(0,55))+" · "+E(x.id)+'</option>'}).join("")}
+    [["Anuncios","anuncios"],["Conjuntos","conjuntos"],["Campañas","campanas"]].forEach(function(g){
+      var A=(d[g[1]]||[]).filter(function(x){return x.estado==="ACTIVE"});
+      if(A.length)h+='<optgroup label="'+g[0]+' ACTIVOS">'+op(A)+'</optgroup>';
+    });
+    var P=(d.anuncios||[]).filter(function(x){return x.estado!=="ACTIVE"}).sort(function(a,b){return b.id<a.id?-1:1}).slice(0,60);
+    if(P.length)h+='<optgroup label="Anuncios pausados o antiguos">'+op(P)+'</optgroup>';
+    sel.innerHTML='<option value="">'+(h?"Elige el anuncio…":"Esta cuenta no tiene anuncios cargados")+'</option>'+h+'<option value="'+OTRO+'">Otro (escribir)…</option>';
+    if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
+  }
+  $("rd-ct").addEventListener("change",function(){ids();$("rd-i").hidden=$("rd-is").value!==OTRO});
   function idv(){var s=$("rd-is").value;return s===OTRO?$("rd-i").value.trim():s}
   $("rd-is").addEventListener("change",function(){$("rd-i").hidden=this.value!==OTRO;if(this.value===OTRO)$("rd-i").focus()});
-  $("rd-is").addEventListener("focus",ids);$("rd-is").addEventListener("mousedown",ids);
+
   function prod(){var s=$("rd-ps").value;return s===OTRO?$("rd-p").value.trim():s}
   $("rd-ps").addEventListener("change",function(){$("rd-p").hidden=this.value!==OTRO;if(this.value===OTRO)$("rd-p").focus()});
   $("rd-ps").addEventListener("focus",productos);$("rd-ps").addEventListener("mousedown",productos);
@@ -4843,7 +4857,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
     $("rd-kpi").innerHTML=k("Gasto","Q "+f2(gq),"S/ "+f2(gs))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" · S/ "+f2(gs/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
-    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+(r.in?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(r.in).slice(0,45))+'</div>':'')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
+    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(r.in?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(r.in).slice(0,45))+'</div>':'')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
   $("rd-add").addEventListener("click",function(){
     var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0,pr=prod();
@@ -4853,14 +4867,14 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(!g&&!v&&!mo){m.textContent="Anota al menos el gasto, las ventas o el monto.";return}
     var gm=$("rd-gm").value,mm=$("rd-mm").value;
     var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
-    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:idv(),in:NID[idv()]||"",p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
+    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:idv(),in:NID[idv()]||"",ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
     save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
   });
   $("rd-body").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
   $("rd-xl").addEventListener("click",function(){
     var R=filtrado(),q=function(x){return '"'+String(x==null?"":x).replace(/"/g,'""')+'"'};
-    var rows=[["Fecha","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.i,r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
+    var rows=[["Fecha","Cuenta","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.ct?cname(r.ct):"",r.i,r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
     var txt="﻿"+rows.map(function(r){return r.map(q).join(",")}).join("\n"),dl=window.claude&&window.claude.downloads;
     if(dl&&dl.save){dl.save({filename:"registro-meta-app.csv",data:txt}).catch(function(){});return}
     var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/csv"}));a.download="registro-meta-app.csv";document.body.appendChild(a);a.click();a.remove();
