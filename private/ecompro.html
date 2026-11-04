@@ -674,6 +674,14 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .dlv .dlbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .dlv a.btn{text-decoration:none;display:inline-block}
 @media(max-width:560px){.dlv .dlres{grid-template-columns:1fr}.dlv .dlres img{width:100%;max-height:300px}}
+.rdm .rd-g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.rdm .rd-bx{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:color-mix(in srgb,var(--cel) 4%,var(--card))}
+.rdm .rd-bt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px}
+.rdm .rd-bx input,.rdm .rd-bx select{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0;width:100%}
+.rdm .rd-eq{margin-top:6px;font-size:.9rem;font-weight:700;color:var(--cel);min-height:1.2em}
+.rdm .rd-t th.g{text-align:center;border-bottom:1px solid var(--line)}.rdm .rd-t th.n{text-align:right}.rdm .rd-h2 th{font-size:.7rem}
+.rdm .rd-t tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--line) 22%,var(--card))}
+.rdm .rd-t td:nth-child(5),.rdm .rd-t td:nth-child(7),.rdm .rd-t td:nth-child(9),.rdm .rd-t td:nth-child(11){border-left:1px solid var(--line)}
 .rdm .rd-t td,.rdm .rd-t th{white-space:nowrap}.rdm .rd-t td.n{text-align:right;font-variant-numeric:tabular-nums}.rdm .rd-pos{color:var(--verde);font-weight:700}.rdm .rd-neg{color:var(--rojo);font-weight:700}.rdm .rd-tot td{font-weight:700;border-top:2px solid var(--line)}
 .cim .cim-dz{border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center;cursor:pointer;background:color-mix(in srgb,var(--cel) 5%,var(--card))}
 .cim .cim-dz.on{border-color:var(--cel);background:color-mix(in srgb,var(--cel) 14%,var(--card))}
@@ -967,28 +975,43 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 
   <section class="pane" id="p-rdm" hidden>
     <div class="card rdm">
-      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+      <h3 style="margin:0 0 10px">Anotar el día</h3>
+      <div class="rd-g3">
         <div class="fld"><label for="rd-f">Fecha</label><input id="rd-f" type="date"></div>
         <div class="fld"><label for="rd-i">ID (campaña o anuncio)</label><input id="rd-i" type="text" maxlength="60" placeholder="Ej. 120250539525520497"></div>
-        <div class="fld grow"><label for="rd-p">Producto</label><input id="rd-p" type="text" maxlength="120" list="rd-pl" placeholder="Ej. Collar llave"><datalist id="rd-pl"></datalist></div>
-        <div class="fld"><label for="rd-g">Gasto del día</label><div class="frow" style="gap:6px"><input id="rd-g" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" style="width:110px"><select id="rd-gm" aria-label="Moneda del gasto"><option value="PEN">S/ soles</option><option value="GTQ">Q quetzales</option></select></div></div>
-        <div class="fld"><label for="rd-v">Ventas (pedidos)</label><input id="rd-v" type="number" min="0" step="1" inputmode="numeric" placeholder="0" style="width:90px"></div>
-        <div class="fld"><label for="rd-m">Monto vendido</label><div class="frow" style="gap:6px"><input id="rd-m" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" style="width:110px"><select id="rd-mm" aria-label="Moneda del monto"><option value="GTQ">Q quetzales</option><option value="PEN">S/ soles</option></select></div></div>
-        <div class="fld"><label for="rd-tc">Tipo de cambio (1 Q = S/)</label><input id="rd-tc" type="number" min="0.01" step="0.0001" inputmode="decimal" style="width:100px"></div>
-        <div class="fld grow" style="flex-basis:100%"><label for="rd-n">Nota</label><input id="rd-n" type="text" maxlength="300" placeholder="Opcional"></div>
-        <button class="btn" type="button" id="rd-add">Anotar</button>
+        <div class="fld"><label for="rd-ps">Producto (de la calculadora)</label><select id="rd-ps"></select><input id="rd-p" type="text" maxlength="120" placeholder="Escribe el producto" hidden style="margin-top:6px"></div>
       </div>
-      <p class="sub" id="rd-msg" role="status" style="margin:8px 0 0">El tipo de cambio se llena solo con el de hoy y queda guardado en cada registro, así el histórico no cambia si el cambio sube o baja.</p>
+      <div class="rd-g3" style="margin-top:12px">
+        <div class="rd-bx"><div class="rd-bt">Gasto del día</div>
+          <div class="frow" style="gap:8px;flex-wrap:nowrap"><input id="rd-g" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" aria-label="Gasto"><select id="rd-gm" aria-label="Moneda del gasto" style="max-width:130px"><option value="PEN">S/ soles</option><option value="GTQ">Q quetzales</option></select></div>
+          <div class="rd-eq" id="rd-ge">= –</div></div>
+        <div class="rd-bx"><div class="rd-bt">Ventas</div>
+          <div class="frow" style="gap:8px;flex-wrap:nowrap"><input id="rd-v" type="number" min="0" step="1" inputmode="numeric" placeholder="0" aria-label="Ventas (pedidos)"></div>
+          <div class="rd-eq">pedidos del día</div></div>
+        <div class="rd-bx"><div class="rd-bt">Monto vendido</div>
+          <div class="frow" style="gap:8px;flex-wrap:nowrap"><input id="rd-m" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" aria-label="Monto vendido"><select id="rd-mm" aria-label="Moneda del monto" style="max-width:130px"><option value="GTQ">Q quetzales</option><option value="PEN">S/ soles</option></select></div>
+          <div class="rd-eq" id="rd-me">= –</div></div>
+      </div>
+      <div class="rd-g3" style="margin-top:12px;align-items:end">
+        <div class="fld"><label for="rd-tc">Tipo de cambio (1 Q = S/)</label><input id="rd-tc" type="number" min="0.01" step="0.0001" inputmode="decimal"></div>
+        <div class="fld"><label for="rd-n">Nota</label><input id="rd-n" type="text" maxlength="300" placeholder="Opcional"></div>
+        <div><button class="btn" type="button" id="rd-add" style="width:100%">Anotar</button></div>
+      </div>
+      <p class="sub" id="rd-msg" role="status" style="margin:10px 0 0">El tipo de cambio se llena con el de hoy y queda guardado en cada registro, así el histórico no cambia si el cambio sube o baja.</p>
     </div>
     <div class="card rdm" style="margin-top:12px">
-      <div class="frow" style="gap:10px;align-items:flex-end;flex-wrap:wrap">
+      <h3 style="margin:0 0 10px">Resumen y registros</h3>
+      <div class="rd-g3" style="align-items:end">
         <div class="fld"><label for="rd-fd">Desde</label><input id="rd-fd" type="date"></div>
         <div class="fld"><label for="rd-fh">Hasta</label><input id="rd-fh" type="date"></div>
         <div class="fld"><label for="rd-fp">Producto</label><select id="rd-fp"><option value="">Todos</option></select></div>
-        <button class="btn" type="button" id="rd-xl">Descargar CSV</button>
       </div>
+      <div style="margin-top:8px"><button class="btn" type="button" id="rd-xl">Descargar CSV</button></div>
       <div class="grid g4" id="rd-kpi" style="margin-top:12px"></div>
-      <div class="tbl" style="margin-top:12px"><table class="rd-t" style="min-width:980px"><thead><tr><th>Fecha</th><th>ID</th><th>Producto</th><th>Gasto S/</th><th>Gasto Q</th><th>Ventas</th><th>Monto S/</th><th>Monto Q</th><th>Costo por venta Q</th><th>Resultado Q</th><th>Nota</th><th></th></tr></thead><tbody id="rd-body"></tbody></table></div>
+      <div class="tbl" style="margin-top:12px"><table class="rd-t" style="min-width:1100px"><thead>
+        <tr class="rd-h1"><th rowspan="2">Fecha</th><th rowspan="2">ID</th><th rowspan="2">Producto</th><th rowspan="2" class="n">Ventas</th><th colspan="2" class="g">Gasto</th><th colspan="2" class="g">Monto vendido</th><th colspan="2" class="g">Costo por venta</th><th colspan="2" class="g">Resultado</th><th rowspan="2">Nota</th><th rowspan="2"></th></tr>
+        <tr class="rd-h2"><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th></tr>
+      </thead><tbody id="rd-body"></tbody></table></div>
     </div>
   </section>
 
@@ -4780,26 +4803,43 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   function save(){try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}if(db&&can)db.doc("settings/registrometa").set({list:L}).catch(function(){})}
   function filtrado(){var d=$("rd-fd").value,h=$("rd-fh").value,p=$("rd-fp").value;return L.filter(function(r){return (!d||r.f>=d)&&(!h||r.f<=h)&&(!p||r.p===p)}).sort(function(a,b){return b.f.localeCompare(a.f)||(b.t||0)-(a.t||0)})}
   function cls(n){return n>0?"rd-pos":n<0?"rd-neg":""}
+  function calcs(){try{return (window.__calcs?window.__calcs():[]).map(function(g){return String(g.nombre||"").trim()}).filter(Boolean)}catch(e){return []}}
+  var OTRO="__otro__";
+  function productos(){
+    var cs=Array.from(new Set(calcs())).sort(),ant=Array.from(new Set(L.map(function(r){return r.p}).filter(function(x){return x&&cs.indexOf(x)<0}))).sort(),sel=$("rd-ps"),cur=sel.value;
+    sel.innerHTML='<option value="">Elige un producto…</option>'+(cs.length?'<optgroup label="De la calculadora de precios">'+cs.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+(ant.length?'<optgroup label="Anotados antes">'+ant.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+'<option value="'+OTRO+'">Otro (escribir)…</option>';
+    if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
+  }
+  function prod(){var s=$("rd-ps").value;return s===OTRO?$("rd-p").value.trim():s}
+  $("rd-ps").addEventListener("change",function(){$("rd-p").hidden=this.value!==OTRO;if(this.value===OTRO)$("rd-p").focus()});
+  $("rd-ps").addEventListener("focus",productos);$("rd-ps").addEventListener("mousedown",productos);
+  /* equivalentes en vivo: lo que escribes en una moneda se ve también en la otra */
+  function eq(inp,mon,out){var v=parseFloat($(inp).value),tc=parseFloat($("rd-tc").value),e=$(out);if(!(v>=0)||!(tc>0)){e.textContent="= –";return}
+    e.textContent=$(mon).value==="PEN"?"= Q "+f2(v/tc):"= S/ "+f2(v*tc)}
+  function eqs(){eq("rd-g","rd-gm","rd-ge");eq("rd-m","rd-mm","rd-me")}
+  ["rd-g","rd-gm","rd-m","rd-mm","rd-tc"].forEach(function(x){$(x).addEventListener("input",eqs);$(x).addEventListener("change",eqs)});eqs();
   function draw(){
+    productos();
     var ps=Array.from(new Set(L.map(function(r){return r.p}).filter(Boolean))).sort(),cur=$("rd-fp").value;
     $("rd-fp").innerHTML='<option value="">Todos</option>'+ps.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("");if(ps.indexOf(cur)>-1)$("rd-fp").value=cur;
-    $("rd-pl").innerHTML=ps.map(function(x){return '<option value="'+E(x)+'">'}).join("");
     var R=filtrado(),gs=0,gq=0,v=0,ms=0,mq=0;
     R.forEach(function(r){gs+=r.gs;gq+=r.gq;v+=r.v;ms+=r.ms;mq+=r.mq});
-    var res=mq-gq;
+    var res=mq-gq,tcm=gq>0?gs/gq:rate();
     function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
-    $("rd-kpi").innerHTML=k("Gasto","S/ "+f2(gs),"Q "+f2(gq))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
-    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+f2(r.gs)+'</td><td class="n">'+f2(r.gq)+'</td><td class="n">'+r.v+'</td><td class="n">'+f2(r.ms)+'</td><td class="n">'+f2(r.mq)+'</td><td class="n">'+(r.v?f2(r.gq/r.v):"–")+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+f2(gs)+'</td><td class="n">'+f2(gq)+'</td><td class="n">'+v+'</td><td class="n">'+f2(ms)+'</td><td class="n">'+f2(mq)+'</td><td class="n">'+(v?f2(gq/v):"–")+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="12" class="sub">Todavía no hay registros en este rango.</td></tr>';
+    $("rd-kpi").innerHTML=k("Gasto","Q "+f2(gq),"S/ "+f2(gs))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" · S/ "+f2(gs/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
+    function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
+    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
   $("rd-add").addEventListener("click",function(){
-    var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0;
+    var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0,pr=prod();
     if(!f){m.textContent="Pon la fecha.";return}
+    if(!pr){m.textContent="Elige el producto (o escribe uno en «Otro»).";return}
     if(!(tc>0)){m.textContent="Pon el tipo de cambio (1 Q = cuántos S/).";return}
     if(!g&&!v&&!mo){m.textContent="Anota al menos el gasto, las ventas o el monto.";return}
     var gm=$("rd-gm").value,mm=$("rd-mm").value;
     var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
-    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:$("rd-i").value.trim(),p:$("rd-p").value.trim(),gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
-    save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});m.textContent="Anotado.";
+    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:$("rd-i").value.trim(),p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
+    save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
   });
   $("rd-body").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
@@ -4812,7 +4852,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
   });
   if(window.ecFx&&window.ecFx.hooks)window.ecFx.hooks.push(function(){if(!$("rd-tc").dataset.t)$("rd-tc").value=rate()});
   $("rd-tc").addEventListener("input",function(){$("rd-tc").dataset.t="1"});
-  draw();
+  draw();setTimeout(productos,3000);setTimeout(productos,9000);
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
     db.doc("settings/registrometa").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list)){L=d.list.filter(function(r){return r&&r.id&&r.f});try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}draw()}},function(){})}}catch(e){}})();
 })();
