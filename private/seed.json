@@ -7609,6 +7609,358 @@
    "ct": "2026-10-02",
    "tv": 53,
    "planb": true
+  },
+  "2026-11-04_1": {
+   "date": "2026-11-04",
+   "rank": 1,
+   "source": "ia",
+   "name": "Pulverizador para pintar",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "herramientas",
+   "costo": 198,
+   "pvp": 295,
+   "v7": 195,
+   "v30": 201,
+   "stock": 772,
+   "score": 67,
+   "scores": {
+    "demanda": 8,
+    "traccion": 5,
+    "margen": 4,
+    "competencia": 9,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 569
+   },
+   "verdict": "195 ventas en 7 dias y 201 en 30 y en total depuradas (creado el 2026-10-24; 8 dias con venta y 1 reabastecimiento: el stock subio de 492 a 967 el 26-oct), stock 772, 1 solo proveedor (shop b) y 1 anunciante del mismo producto en GT (ShopTrend, con 59 dias activo: a alguien le funciona). Es el que mas vende hoy y acelera (14 a 41 por dia desde el 27-oct). El PVP sugerido de Q295 ya es alto: con 1 unidad pierde plata y solo cierra en pack de 2.",
+   "angle": "Pintar una pared sin rodillo en la mitad del tiempo. ShopTrend (la unica tienda activa en GT, 59 dias) vende con video y pago contra entrega: arranca con el dolor de pintar metros y metros con rodillo. Queda libre el angulo del arreglo en casa por cuenta propia (sin pagar pintor) y el de remodelar antes de fin de ano.",
+   "competition": "1 anunciante del mismo producto en GT en lo leido (busqueda de texto 'pulverizador pintura', solo GT, activos vistos en los ultimos 7 dias). Semaforo 1-2, muy buena senal: lleva 59 dias corriendo, asi que a ShopTrend le funciona, y sigue casi sin competencia.",
+   "anWA": 0,
+   "anLand": 1,
+   "anTotal": 1,
+   "anNota": "1 anunciante distinto del mismo producto en GT en lo leido (ShopTrend, landing sjmarketluxury.com, video, 59 dias activo, 3 variantes). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [
+    {
+     "url": "https://sjmarketluxury.com/products/pulverizador-de-pintura-airless-cobertura-uniforme-potencia-profesional-y-acabados-impecables-en-cada-proyecto",
+     "adv": "ShopTrend",
+     "pais": "GT",
+     "dias": 59,
+     "nota": "Landing con pago contra entrega; producto 'pulverizador de pintura airless'."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "ShopTrend",
+     "pais": "GT",
+     "dias": 59,
+     "score": 69,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2483524155478517",
+     "dk": "https://app.dropkiller.com/dashboard/ads/dff0fe62-a804-47f7-9d03-e1702400dab4",
+     "nota": "Gancho: 'Todavia pierdes horas pintando paredes completas con rodillo?'"
+    }
+   ],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "30530",
+     "nombre": "pulverizador para pintar",
+     "costo": 198,
+     "stock": 772,
+     "v7": 195,
+     "v30": 201,
+     "tv": 201,
+     "ct": "2026-10-24",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con ventas_reales.py: REAL (201 / 201), 1 reabastecimiento(s), 8 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/f2e21f62-9cbd-4a27-aa63-7b0a0b410517/ea469fee82b6.webp",
+   "risk": "Sin marca registrada ni registro sanitario. Se vende caro (Q295 sugerido) y con 1 unidad no cierra con flete Q68 y CPA Q20; hay que reprecio o pack. Stock 772 pero depende de un solo proveedor (shop b, sin verificar). Herramienta electrica: mirar garantia y devolucion antes de pautar. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=30530&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/f2e21f62-9cbd-4a27-aa63-7b0a0b410517",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-24",
+   "tv": 201
+  },
+  "2026-11-04_2": {
+   "date": "2026-11-04",
+   "rank": 2,
+   "source": "ia",
+   "name": "Kahi balm (balsamo facial de salmon)",
+   "provider": "sicommer lab",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 54,
+   "pvp": 110,
+   "v7": 76,
+   "v30": 106,
+   "stock": 1378,
+   "score": 67,
+   "scores": {
+    "demanda": 6,
+    "traccion": 7,
+    "margen": 3,
+    "competencia": 9,
+    "riesgo": 3
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "76 ventas en 7 dias, 106 en 30 y 127 en total depuradas (creado el 2026-09-09; 18 dias con venta, 1 reabastecimiento y acelerando: 14, 7, 9, 4, 12 y 30 por dia del 29-oct al 3-nov), stock 1.378, 1 solo proveedor (sicommer lab, verificado) y 2 anunciantes del mismo producto en GT que arrancaron apenas el 1-nov (Liteshop y Nubigt). Esta recien despegando y la competencia acaba de llegar.",
+   "angle": "Balsamo coreano de colageno de salmon en barra, para arrugas e hidratacion. Liteshop usa 'el secreto coreano para una piel mas radiante' y Nubigt 'hidratacion + glow en un solo stick'. Queda libre el angulo del maquillaje (prepara la piel antes de maquillarse), el regalo y la rutina rapida para trabajadoras.",
+   "competition": "2 anunciantes distintos del mismo producto en GT en lo leido (Liteshop y Nubigt, los dos con 2 dias activos desde el 1-nov). Semaforo 1-2, muy buena senal; pero ambos empezaron hoy mismo, asi que la ventana puede cerrarse en dias.",
+   "anWA": 0,
+   "anLand": 2,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto 'kahi balm', solo GT, activos recientes). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [
+    {
+     "url": "https://liteshop.com.co/products/balsamokoreano-colagenoy-salmon-hidratante",
+     "adv": "Liteshop",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Landing con boton 'Realizar pedido'; empezo el 1-nov."
+    },
+    {
+     "url": "https://nubigt.com/products/kahi-tecnologia-con-colageno-de-salmon",
+     "adv": "Nubigt",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Landing con boton 'Comprar'; empezo el 1-nov."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Liteshop",
+     "pais": "GT",
+     "dias": 2,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2087145898583516",
+     "dk": "https://app.dropkiller.com/dashboard/ads/f59426e3-e69d-4e7d-bcd5-da285f7e2ca8",
+     "nota": "Gancho: 'El secreto coreano para una piel mas radiante'."
+    },
+    {
+     "adv": "Nubigt",
+     "pais": "GT",
+     "dias": 2,
+     "score": 20,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=981159388385393",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d21db7a1-daf4-485e-a8e6-ddff0c3fba1f",
+     "nota": "Gancho: 'Hidratacion + glow en un solo stick'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "sicommer lab",
+     "id": "21718",
+     "nombre": "kahi balm",
+     "costo": 54,
+     "stock": 1378,
+     "v7": 76,
+     "v30": 106,
+     "tv": 127,
+     "ct": "2026-09-09",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con ventas_reales.py: REAL (127 / 127), 1 reabastecimiento(s), 18 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/8f6dedbd-701e-4b42-a3ca-41f30296b9b7/e5d99121e43d.webp",
+   "risk": "BANDERA ROJA: KAHI es una marca coreana registrada (KAHI Wrinkle Bounce Multi Balm); Meta puede tumbar la cuenta publicitaria si el anuncio usa el nombre. Usa un nombre propio ('balsamo de salmon') y no menciones KAHI. BANDERA AMARILLA: cosmetico, pide registro sanitario. Con 1 unidad y flete Q68 pierde plata al PVP sugerido Q110; solo cierra en pack de 2.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=21718&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/8f6dedbd-701e-4b42-a3ca-41f30296b9b7",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-09",
+   "tv": 127
+  },
+  "2026-11-04_3": {
+   "date": "2026-11-04",
+   "rank": 3,
+   "source": "ia",
+   "name": "Basurero electrico",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "hogar",
+   "costo": 118,
+   "pvp": 168,
+   "v7": 87,
+   "v30": 91,
+   "stock": 101,
+   "score": 60,
+   "scores": {
+    "demanda": 7,
+    "traccion": 5,
+    "margen": 4,
+    "competencia": 8,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 409
+   },
+   "verdict": "87 ventas en 7 dias y 91 en 30 y en total depuradas (creado el 2026-10-27; 7 dias con venta y 1 reabastecimiento: el stock subio de 31 a 123 el 31-oct), stock 101 (apenas arriba del minimo de 80), 1 solo proveedor (60 segundos, sin verificar) y 1 anunciante del mismo producto en GT que ya no se ve activo desde el 27-oct (Zentrix, por WhatsApp). Vende rapido desde la primera semana, pero el stock es corto: puede agotarse en dias.",
+   "angle": "'Deja de tocar la tapa sucia del basurero': basurero con sensor que abre la tapa al acercar la mano. Zentrix (WhatsApp, 27-oct) usa justo ese gancho y ya no aparece activo; queda libre el angulo de higiene con ninos y mascotas, el regalo para el hogar y la cocina sin olores.",
+   "competition": "1 anunciante del mismo producto en GT en lo leido (Zentrix, por WhatsApp, empezo el 27-oct y no se ve activo desde entonces). Otros anuncios de 'basurero' (Dura Rack, Comelasa) son de basureros comerciales, no del mismo producto. Semaforo 1-2, muy buena senal.",
+   "anWA": 1,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "1 anunciante distinto del mismo producto en GT en lo leido (Zentrix; la busqueda con maxStaleDays 7 no lo vio, con 10 dias si). Dura Rack y Comelasa venden basureros comerciales, no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Zentrix",
+     "pais": "GT",
+     "dias": 0,
+     "score": 21,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1758612821919266",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c27b14e2-c9c7-4b9a-8856-563f202f4184",
+     "nota": "Gancho: 'Deja de tocar la tapa sucia del basurero'. Sin vista activa desde el 27-oct."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "60 segundos",
+     "id": "30662",
+     "nombre": "basurero electrico",
+     "costo": 118,
+     "stock": 101,
+     "v7": 87,
+     "v30": 91,
+     "tv": 91,
+     "ct": "2026-10-27",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con ventas_reales.py: REAL (91 / 91), 1 reabastecimiento(s), 7 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/dad2d45d-ae88-46f8-8bd8-71fdf123028a/18b02d4de1c8.webp",
+   "risk": "Stock de solo 101 unidades con venta de 10 a 34 por dia: si sigue asi se agota en menos de una semana (ya bajo a 31 el 30-oct y el proveedor repuso). Confirmar stock real en Dropi antes de pautar. Un solo proveedor sin verificar. Aparato electrico (bateria): revisar garantia. Con 1 unidad pierde plata al PVP sugerido Q168; solo cierra en pack de 2 a Q409.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=30662&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/dad2d45d-ae88-46f8-8bd8-71fdf123028a",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-27",
+   "tv": 91
+  },
+  "2026-11-04_4": {
+   "date": "2026-11-04",
+   "rank": 4,
+   "source": "ia",
+   "name": "Mascarilla colageno cabello",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 46,
+   "pvp": 66,
+   "v7": 66,
+   "v30": 357,
+   "stock": 157,
+   "score": 60,
+   "scores": {
+    "demanda": 6,
+    "traccion": 9,
+    "margen": 3,
+    "competencia": 9,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 269
+   },
+   "verdict": "66 ventas en 7 dias, 357 en 30 y 408 en total depuradas (creado el 2026-09-14; 29 dias seguidos con venta y sin reabastecimientos: el stock cae parejo de 477 a 157), 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Es el mas constante de hoy, pero va frenando (de 125 por semana a principios de octubre a 66 ahora) y el stock de 157 alcanza para unas 2 semanas.",
+   "angle": "Mascarilla capilar de colageno: el unico anuncio de GT cercano es una capsula de biotina y colageno por WhatsApp (AZ.distribuciones), que es otro producto. Queda libre el angulo del antes y despues en 5 minutos, el cabello danado por tinte o plancha y el regalo.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busqueda de texto 'mascarilla colageno cabello', solo GT). Semaforo 0, cuidado: con 408 ventas en 7 semanas alguien ya lo vende, quiza por WhatsApp o con otro nombre; el unico anuncio parecido (AZ.distribuciones, capsulas HAIR GROWTH con biotina y colageno) es otro producto.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto, solo GT). El unico resultado cercano es otro producto y no se conto. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "22670",
+     "nombre": "mascarilla colageno cabello",
+     "costo": 46,
+     "stock": 157,
+     "v7": 66,
+     "v30": 357,
+     "tv": 408,
+     "ct": "2026-09-14",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con ventas_reales.py: REAL (408 / 408), 0 reabastecimiento(s), 29 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/7a750175-b8ee-44a1-bd26-a2f35e72e997/207a57770c83.webp",
+   "risk": "BANDERA AMARILLA: cosmetico capilar, pide registro sanitario y evitar promesas de cura (nada de 'crece el pelo' ni 'cura la caida'). Stock 157: alcanza para unas 2 semanas al ritmo actual y el ritmo va bajando. Un solo proveedor. Con 1 unidad pierde plata al PVP sugerido Q66; solo cierra en pack de 2 a Q269.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=22670&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/7a750175-b8ee-44a1-bd26-a2f35e72e997",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-14",
+   "tv": 408
+  },
+  "2026-11-04_5": {
+   "date": "2026-11-04",
+   "rank": 5,
+   "source": "ia",
+   "name": "Atrapador de cucarachas ecologico",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "hogar",
+   "costo": 40.5,
+   "pvp": 60.5,
+   "v7": 71,
+   "v30": 75,
+   "stock": 386,
+   "score": 53,
+   "scores": {
+    "demanda": 6,
+    "traccion": 5,
+    "margen": 2,
+    "competencia": 9,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 249
+   },
+   "verdict": "71 ventas en 7 dias y 75 en 30 y en total depuradas (creado el 2026-10-10; arranco el 27-oct tras 17 dias sin venta, 8 dias con venta y 0 reabastecimientos), stock 386, 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Hay anuncios de cebo de nido contra cucarachas (otro producto) que arrancaron el 4-nov: el nicho se esta calentando.",
+   "angle": "Trampa ecologica para cucarachas, sin quimicos. Los anuncios de GT del nicho son de cebo para el nido (MegaOfertas Guate, Plaza Nova) y de fumigadoras, no de este producto. Queda libre el angulo 'sin veneno' para casas con ninos y mascotas y el de trampa reutilizable.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busquedas de texto 'atrapador de cucarachas' y 'cucarachas', solo GT). Semaforo 0, cuidado: quiza ya lo probaron. Si hay anuncios de cebo y de fumigadoras en GT (MegaOfertas Guate y Plaza Nova desde el 4-nov), pero son sustitutos, no el mismo producto.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes distintos del mismo producto en GT en lo leido; los anuncios de cebo de nido y de fumigadoras (MegaOfertas Guate, Plaza Nova, Total Solution Fumigadora, Top del Ano, Fumistargt) son sustitutos y no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27581",
+     "nombre": "atrapador cucarachas ecologico",
+     "costo": 40.5,
+     "stock": 386,
+     "v7": 71,
+     "v30": 75,
+     "tv": 75,
+     "ct": "2026-10-10",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con ventas_reales.py: REAL (75 / 75), 0 reabastecimiento(s), 8 dias con venta"
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/f407a7d7-8a81-4b44-89da-4aa577ea8ade/2155a55d581b.webp",
+   "risk": "Precio sugerido de solo Q60,5: con 1 unidad pierde plata (Q-61 por pedido con flete Q68 y CPA Q20) y el pack de 2 solo cierra vendido a unos Q249, 4 veces el sugerido, donde los sustitutos (cebos) venden mucho mas barato. Es el de peor margen del dia. Tuvo 17 dias sin venta antes de arrancar: puede ser una moda corta. Sin marca ni registro sanitario ('ecologico' no debe prometer cero toxicidad).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27581&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/f407a7d7-8a81-4b44-89da-4aa577ea8ade",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-10",
+   "tv": 75
   }
  },
  "validations": {
@@ -23748,6 +24100,1325 @@
    ],
    "resumen": "108 leidos con los filtros de entrada del Plan B (creado desde 2026-08-01, stock 80 o mas, 7d 20 o mas, total 20 o mas, ACTIVE, DROPI, GT, orden createdAt mas reciente; una sola pagina, total=108). 32 tienen las tres ventas en el rango normal 50-800 y 1 pasa todos los filtros normales (1 o 2 proveedores, ventas depuradas, maximo 6 anunciantes en GT, sin repetir los ultimos 20 dias). El filtro que mas corto fue los 3 o mas proveedores/listados del mismo producto (te chino, renovia, nippori, drenaje linfatico, glucora, creatine, flex-a, spray bucal) y la saturacion de anunciantes (minoxidil, batana), seguido de los repetidos de los ultimos 20 dias (los 5 de ayer y los de dias anteriores) y los productos de marca o ropa al por mayor. Plan B: completo 4 (espatula facial, balon flotante, lampara alarma solar y medidor de glucosa) de los mas recientes que pasaron; el tren navideno (saturado), el limpiador a vapor (3 proveedores), el ahorrador de energia y las luces navidenas (repetidos) se descartaron.",
    "revisar": "Sin gemas ni despegues: no hay memoria de corridas disponible. Para revisar a mano: (1) Barra privada (24113): abrirla en Dropi y ver que es antes de invertir; vende 71 en 7 dias pero va frenando (105 por semana de promedio) y la foto es generica; (2) Medidor de glucosa (25972): 39 de 53 ventas en 3 dias y stock de solo 150, puede ser un pico de un anunciante; bandera amarilla por dispositivo de salud; (3) Espatula facial (27605): la unica que sube dia a dia, pero 3 anunciantes la venden a Q65 o 2 x Q100 y el costo es Q75; (4) Lampara alarma solar (27596): 14 de 24 ventas en un dia y costo Q64 contra PVP Q84, la mas apretada; (5) Balon flotante (29932): 0 anunciantes, confirmar en Dropi que hace exactamente; (6) Reserva Plan B sin evaluar a fondo: guantes de compresion (16115, 22 / 198 / 327, ya hubo tarjeta el 14-oct) y barra telescopica de tension (23128, 26 / 69 / 119); (7) Te chino (29042, 228 / 460 / 460) vende muy bien pero son 3 listados del mismo producto y el mercado esta maduro."
+  },
+  "2026-11-04": {
+   "date": "2026-11-04",
+   "source": "ia",
+   "planb": false,
+   "titulo": "Radar Caza Diaria · 2026-11-04 · 5 normales",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (filtros normales 50 a 800), sin navegador",
+   "veredicto": "Veredicto. Con los filtros normales (creado desde el 2026-08-06 y en 2026, las tres ventas de 50 a 800, stock 80 o mas, 1 o 2 proveedores, competencia solo GT, sin repetir los ultimos 20 dias) salieron los 5 productos de hoy y no hizo falta el Plan B. El que mas vende es el pulverizador para pintar (195 / 201 / 201 depuradas, 1 anunciante con 59 dias activo); el kahi balm esta despegando (76 / 106 / 127, 30 ventas el 3-nov) pero KAHI es una marca registrada y hay que anunciarlo con otro nombre; la mascarilla de colageno para cabello es la mas constante (29 dias seguidos con venta, 0 anunciantes) aunque va frenando; el basurero electrico vende 87 en 7 dias pero tiene solo 101 unidades en stock; y el atrapador de cucarachas tiene el peor margen del dia. Con flete Q68 y CPA Q20 de referencia ninguno cierra con 1 unidad al PVP sugerido; en pack x2 superan Q30 por pedido los cinco, pero el atrapador solo a un precio 4 veces el sugerido; hay que medir flete y CPA reales.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador) y no se pudieron ver las fotos (el CDN de imagenes no es accesible desde aqui); los anuncios salen de la biblioteca de DropKiller (busqueda por texto, solo GT, activos vistos en los ultimos 7 dias; para el basurero tambien 10 dias) y se leyeron solo los primeros resultados por producto, asi que los conteos de anunciantes son minimos. No se buscaron referentes fuera de GT. Las ventas se depuraron con ventas_reales.py sobre get_product_history (los 5 salieron REAL, sin recortes); las ventas de 7 dias son la suma de los ultimos 7 dias con lectura hasta el 2 o 3-nov (DropKiller reporta cifras distintas por un retraso de lectura). Un mismo producto con varios listados se sumo como uno solo. Aviso de repeticion: la regla se aplico contra los ids de proveedor y los nombres de las tarjetas desde el 15-oct. No se uso Fasebook, Vercel ni ArtifactData. Valores de referencia de rentabilidad (flete Q68, devolucion Q30, entrega 62 %, CPA Q20): no son medidos.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Pulverizador para pintar",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/f2e21f62-9cbd-4a27-aa63-7b0a0b410517/ea469fee82b6.webp",
+     "v": "195 ventas en 7 dias y 201 en 30 y en total depuradas (creado el 2026-10-24; 8 dias con venta y 1 reabastecimiento: el stock subio de 492 a 967 el 26-oct), stock 772, 1 solo proveedor (shop b) y 1 anunciante del mismo producto en GT (ShopTrend, con 59 dias activo: a alguien le funciona). Es el que mas vende hoy y acelera (14 a 41 por dia desde el 27-oct). El PVP sugerido de Q295 ya es alto: con 1 unidad pierde plata y solo cierra en pack de 2.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "195"
+      ],
+      [
+       "30d",
+       "201"
+      ],
+      [
+       "Total",
+       "201"
+      ],
+      [
+       "Stock",
+       "772"
+      ],
+      [
+       "Costo",
+       "Q198"
+      ],
+      [
+       "PVP sug.",
+       "Q295"
+      ],
+      [
+       "Creado",
+       "2026-10-24"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 1 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q569; utilidad estimada por pedido generado: Q33.7. Con 1 unidad al PVP sugerido Q295: Q-13.4. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "shop b",
+         "30530",
+         "pulverizador para pintar",
+         "Q198",
+         "772",
+         "195/201/201",
+         "2026-10-24"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena senal",
+       "p": "1 anunciante distinto del mismo producto en GT en lo leido (ShopTrend, landing sjmarketluxury.com, video, 59 dias activo, 3 variantes). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "ShopTrend · 59 dias activo · Gancho: 'Todavia pierdes horas pintando paredes completas con rodillo?'",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2483524155478517"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/dff0fe62-a804-47f7-9d03-e1702400dab4"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Pintar una pared sin rodillo en la mitad del tiempo. ShopTrend (la unica tienda activa en GT, 59 dias) vende con video y pago contra entrega: arranca con el dolor de pintar metros y metros con rodillo. Queda libre el angulo del arreglo en casa por cuenta propia (sin pagar pintor) y el de remodelar antes de fin de ano."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Duenos de casa que quieren pintar solos y ahorrarse el pintor",
+         "s": "Pinta una habitacion en una tarde, sin brochas ni rodillo."
+        },
+        {
+         "b": "Quien remodela antes de fin de ano",
+         "s": "Renueva la fachada o el cuarto con un solo equipo, sin contratar a nadie."
+        },
+        {
+         "b": "Pintores y albaniles independientes",
+         "s": "Mas metros por dia con el mismo trabajo: acabado parejo sin marcas."
+        },
+        {
+         "b": "Quien tiene una cerca, mueble o reja por pintar",
+         "s": "Tambien sirve para rejas, cercas y muebles: un equipo, mil usos."
+        },
+        {
+         "b": "Regalo para el papa o el esposo manitas",
+         "s": "El regalo de herramientas que de verdad se usa en casa."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin marca registrada ni registro sanitario. Se vende caro (Q295 sugerido) y con 1 unidad no cierra con flete Q68 y CPA Q20; hay que reprecio o pack. Stock 772 pero depende de un solo proveedor (shop b, sin verificar). Herramienta electrica: mirar garantia y devolucion antes de pautar. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=30530&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/f2e21f62-9cbd-4a27-aa63-7b0a0b410517"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Pulverizador+para+pintar"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Pulverizador+para+pintar"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Kahi balm (balsamo facial de salmon)",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      },
+      {
+       "t": "Marca registrada KAHI",
+       "c": "ro"
+      },
+      {
+       "t": "Cosmetico: registro sanitario",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/8f6dedbd-701e-4b42-a3ca-41f30296b9b7/e5d99121e43d.webp",
+     "v": "76 ventas en 7 dias, 106 en 30 y 127 en total depuradas (creado el 2026-09-09; 18 dias con venta, 1 reabastecimiento y acelerando: 14, 7, 9, 4, 12 y 30 por dia del 29-oct al 3-nov), stock 1.378, 1 solo proveedor (sicommer lab, verificado) y 2 anunciantes del mismo producto en GT que arrancaron apenas el 1-nov (Liteshop y Nubigt). Esta recien despegando y la competencia acaba de llegar.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "76"
+      ],
+      [
+       "30d",
+       "106"
+      ],
+      [
+       "Total",
+       "127"
+      ],
+      [
+       "Stock",
+       "1378"
+      ],
+      [
+       "Costo",
+       "Q54"
+      ],
+      [
+       "PVP sug.",
+       "Q110"
+      ],
+      [
+       "Creado",
+       "2026-09-09"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q279; utilidad estimada por pedido generado: Q32.5. Con 1 unidad al PVP sugerido Q110: Q-38.8. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "sicommer lab",
+         "21718",
+         "kahi balm",
+         "Q54",
+         "1378",
+         "76/106/127",
+         "2026-09-09"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena senal",
+       "p": "2 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto 'kahi balm', solo GT, activos recientes). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Liteshop · 2 dias activo · Gancho: 'El secreto coreano para una piel mas radiante'.",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2087145898583516"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/f59426e3-e69d-4e7d-bcd5-da285f7e2ca8"
+          }
+         ]
+        },
+        {
+         "t": "Nubigt · 2 dias activo · Gancho: 'Hidratacion + glow en un solo stick'.",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=981159388385393"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/d21db7a1-daf4-485e-a8e6-ddff0c3fba1f"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Balsamo coreano de colageno de salmon en barra, para arrugas e hidratacion. Liteshop usa 'el secreto coreano para una piel mas radiante' y Nubigt 'hidratacion + glow en un solo stick'. Queda libre el angulo del maquillaje (prepara la piel antes de maquillarse), el regalo y la rutina rapida para trabajadoras."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres de 30 a 50 que notan arrugas de expresion",
+         "s": "Una barra que se pasa en 10 segundos, sin cremas ni manchas."
+        },
+        {
+         "b": "Quien se maquilla a diario",
+         "s": "Prepara la piel antes del maquillaje: se ve jugosa en vez de reseca."
+        },
+        {
+         "b": "Trabajadoras con poco tiempo",
+         "s": "Rutina coreana de piel en el bolso: cabe en cualquier cartera."
+        },
+        {
+         "b": "Regalo para mama, hermana o novia",
+         "s": "El detalle coreano que se estrena en el acto."
+        },
+        {
+         "b": "Quien ya probo muchas cremas sin ver cambio",
+         "s": "Colageno de salmon en barra: textura ligera, sin sensacion grasosa."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "BANDERA ROJA: KAHI es una marca coreana registrada (KAHI Wrinkle Bounce Multi Balm); Meta puede tumbar la cuenta publicitaria si el anuncio usa el nombre. Usa un nombre propio ('balsamo de salmon') y no menciones KAHI. BANDERA AMARILLA: cosmetico, pide registro sanitario. Con 1 unidad y flete Q68 pierde plata al PVP sugerido Q110; solo cierra en pack de 2."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=21718&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/8f6dedbd-701e-4b42-a3ca-41f30296b9b7"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Kahi+balm+(balsamo+facial+de+salmon)"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Kahi+balm+(balsamo+facial+de+salmon)"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Basurero electrico",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "9/15 · tarjeta 60/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/dad2d45d-ae88-46f8-8bd8-71fdf123028a/18b02d4de1c8.webp",
+     "v": "87 ventas en 7 dias y 91 en 30 y en total depuradas (creado el 2026-10-27; 7 dias con venta y 1 reabastecimiento: el stock subio de 31 a 123 el 31-oct), stock 101 (apenas arriba del minimo de 80), 1 solo proveedor (60 segundos, sin verificar) y 1 anunciante del mismo producto en GT que ya no se ve activo desde el 27-oct (Zentrix, por WhatsApp). Vende rapido desde la primera semana, pero el stock es corto: puede agotarse en dias.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "87"
+      ],
+      [
+       "30d",
+       "91"
+      ],
+      [
+       "Total",
+       "91"
+      ],
+      [
+       "Stock",
+       "101"
+      ],
+      [
+       "Costo",
+       "Q118"
+      ],
+      [
+       "PVP sug.",
+       "Q168"
+      ],
+      [
+       "Creado",
+       "2026-10-27"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 1 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 1"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q409; utilidad estimada por pedido generado: Q33.7. Con 1 unidad al PVP sugerido Q168: Q-42.6. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "60 segundos",
+         "30662",
+         "basurero electrico",
+         "Q118",
+         "101",
+         "87/91/91",
+         "2026-10-27"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena senal",
+       "p": "1 anunciante distinto del mismo producto en GT en lo leido (Zentrix; la busqueda con maxStaleDays 7 no lo vio, con 10 dias si). Dura Rack y Comelasa venden basureros comerciales, no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Zentrix · 0 dias activo · Gancho: 'Deja de tocar la tapa sucia del basurero'. Sin vista activa desde el 27-oct.",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1758612821919266"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/c27b14e2-c9c7-4b9a-8856-563f202f4184"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "'Deja de tocar la tapa sucia del basurero': basurero con sensor que abre la tapa al acercar la mano. Zentrix (WhatsApp, 27-oct) usa justo ese gancho y ya no aparece activo; queda libre el angulo de higiene con ninos y mascotas, el regalo para el hogar y la cocina sin olores."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Familias con ninos pequenos que no quieren tocar la basura",
+         "s": "Abre solo con acercar la mano: la tapa nunca se toca."
+        },
+        {
+         "b": "Quien cocina a diario y odia los olores",
+         "s": "Tapa cerrada sola: menos olor y menos moscas en la cocina."
+        },
+        {
+         "b": "Duenos de mascotas que riegan la basura",
+         "s": "Cierra solo y no la abre el perro ni el gato."
+        },
+        {
+         "b": "Regalo para estrenar casa o apartamento",
+         "s": "El detalle moderno que todos comentan en la cocina."
+        },
+        {
+         "b": "Personas mayores o con las manos ocupadas",
+         "s": "Sin agacharse ni apretar pedal: abre con el movimiento de la mano."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Stock de solo 101 unidades con venta de 10 a 34 por dia: si sigue asi se agota en menos de una semana (ya bajo a 31 el 30-oct y el proveedor repuso). Confirmar stock real en Dropi antes de pautar. Un solo proveedor sin verificar. Aparato electrico (bateria): revisar garantia. Con 1 unidad pierde plata al PVP sugerido Q168; solo cierra en pack de 2 a Q409."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=30662&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/dad2d45d-ae88-46f8-8bd8-71fdf123028a"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Basurero+electrico"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Basurero+electrico"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Mascarilla colageno cabello",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "9/15 · tarjeta 60/100",
+       "c": "gr"
+      },
+      {
+       "t": "Cosmetico: registro sanitario",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/7a750175-b8ee-44a1-bd26-a2f35e72e997/207a57770c83.webp",
+     "v": "66 ventas en 7 dias, 357 en 30 y 408 en total depuradas (creado el 2026-09-14; 29 dias seguidos con venta y sin reabastecimientos: el stock cae parejo de 477 a 157), 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Es el mas constante de hoy, pero va frenando (de 125 por semana a principios de octubre a 66 ahora) y el stock de 157 alcanza para unas 2 semanas.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "66"
+      ],
+      [
+       "30d",
+       "357"
+      ],
+      [
+       "Total",
+       "408"
+      ],
+      [
+       "Stock",
+       "157"
+      ],
+      [
+       "Costo",
+       "Q46"
+      ],
+      [
+       "PVP sug.",
+       "Q66"
+      ],
+      [
+       "Creado",
+       "2026-09-14"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 1 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q269; utilidad estimada por pedido generado: Q36.2. Con 1 unidad al PVP sugerido Q66: Q-61.2. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "22670",
+         "mascarilla colageno cabello",
+         "Q46",
+         "157",
+         "66/357/408",
+         "2026-09-14"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado",
+       "p": "0 anunciantes distintos del mismo producto en GT en lo leido (busqueda de texto, solo GT). El unico resultado cercano es otro producto y no se conto. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Mascarilla capilar de colageno: el unico anuncio de GT cercano es una capsula de biotina y colageno por WhatsApp (AZ.distribuciones), que es otro producto. Queda libre el angulo del antes y despues en 5 minutos, el cabello danado por tinte o plancha y el regalo."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres con cabello danado por tinte o plancha",
+         "s": "Mascarilla de colageno para dejar el cabello suave en 5 minutos."
+        },
+        {
+         "b": "Quien quiere cabello brillante para una fiesta o fin de ano",
+         "s": "Un tratamiento rapido en casa antes del evento."
+        },
+        {
+         "b": "Quien no tiene tiempo ni plata para salon",
+         "s": "Tratamiento de salon en tu bano, por una fraccion del precio."
+        },
+        {
+         "b": "Regalo para mama o hermana",
+         "s": "Un detalle de cuidado que se usa y se nota."
+        },
+        {
+         "b": "Quien ya probo shampoos caros sin ver cambio",
+         "s": "Colageno directo en el cabello: textura mas suave desde la primera vez."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "BANDERA AMARILLA: cosmetico capilar, pide registro sanitario y evitar promesas de cura (nada de 'crece el pelo' ni 'cura la caida'). Stock 157: alcanza para unas 2 semanas al ritmo actual y el ritmo va bajando. Un solo proveedor. Con 1 unidad pierde plata al PVP sugerido Q66; solo cierra en pack de 2 a Q269."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=22670&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/7a750175-b8ee-44a1-bd26-a2f35e72e997"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Mascarilla+colageno+cabello"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Mascarilla+colageno+cabello"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Atrapador de cucarachas ecologico",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "8/15 · tarjeta 53/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/f407a7d7-8a81-4b44-89da-4aa577ea8ade/2155a55d581b.webp",
+     "v": "71 ventas en 7 dias y 75 en 30 y en total depuradas (creado el 2026-10-10; arranco el 27-oct tras 17 dias sin venta, 8 dias con venta y 0 reabastecimientos), stock 386, 1 solo proveedor (importadora el mayorista, verificado) y 0 anunciantes del mismo producto en GT en lo leido. Hay anuncios de cebo de nido contra cucarachas (otro producto) que arrancaron el 4-nov: el nicho se esta calentando.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "71"
+      ],
+      [
+       "30d",
+       "75"
+      ],
+      [
+       "Total",
+       "75"
+      ],
+      [
+       "Stock",
+       "386"
+      ],
+      [
+       "Costo",
+       "Q40.5"
+      ],
+      [
+       "PVP sug.",
+       "Q60.5"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 0 · Funcion en foto 2 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q249; utilidad estimada por pedido generado: Q30.6. Con 1 unidad al PVP sugerido Q60.5: Q-61.2. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "importadora el mayorista",
+         "27581",
+         "atrapador cucarachas ecologico",
+         "Q40.5",
+         "386",
+         "71/75/75",
+         "2026-10-10"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado",
+       "p": "0 anunciantes distintos del mismo producto en GT en lo leido; los anuncios de cebo de nido y de fumigadoras (MegaOfertas Guate, Plaza Nova, Total Solution Fumigadora, Top del Ano, Fumistargt) son sustitutos y no se contaron. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Sin anuncios del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Trampa ecologica para cucarachas, sin quimicos. Los anuncios de GT del nicho son de cebo para el nido (MegaOfertas Guate, Plaza Nova) y de fumigadoras, no de este producto. Queda libre el angulo 'sin veneno' para casas con ninos y mascotas y el de trampa reutilizable."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Familias con ninos o mascotas que no quieren veneno",
+         "s": "Atrapa cucarachas sin quimicos ni olores en la cocina."
+        },
+        {
+         "b": "Quien ya fumigo y sigue viendo cucarachas",
+         "s": "Un atrapador que trabaja solo de noche, sin rociar nada."
+        },
+        {
+         "b": "Duenos de restaurantes, loncherias y tiendas",
+         "s": "Trampa discreta para la bodega y la cocina, reutilizable."
+        },
+        {
+         "b": "Quien vive en apartamento o primer piso",
+         "s": "Cierra la entrada a las cucarachas del drenaje y la cocina."
+        },
+        {
+         "b": "Regalo practico para quien estrena casa",
+         "s": "La solucion limpia para el primer problema de toda casa nueva."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Precio sugerido de solo Q60,5: con 1 unidad pierde plata (Q-61 por pedido con flete Q68 y CPA Q20) y el pack de 2 solo cierra vendido a unos Q249, 4 veces el sugerido, donde los sustitutos (cebos) venden mucho mas barato. Es el de peor margen del dia. Tuvo 17 dias sin venta antes de arrancar: puede ser una moda corta. Sin marca ni registro sanitario ('ecologico' no debe prometer cero toxicidad)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27581&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/f407a7d7-8a81-4b44-89da-4aa577ea8ade"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Atrapador+de+cucarachas+ecologico"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Atrapador+de+cucarachas+ecologico"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "1104 / 4902 / 5212",
+     "st": "2729",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 1104, 30d 4902, total 5212)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "456 / 1820 / 2342",
+     "st": "2291",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 456, 30d 1820, total 2342)",
+     "c": "d"
+    },
+    {
+     "n": "ácido r-alfa lipoico (r-ala)",
+     "s": "ID 28678 · natural labs organic",
+     "v": "305 / 581 / 581",
+     "st": "4419",
+     "ct": "2026-10-17",
+     "r": "Descartado: ya salio el 2026-10-29 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "282 / 1097 / 1717",
+     "st": "179",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 282, 30d 1097, total 1717)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "246 / 2081 / 2625",
+     "st": "4041",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 246, 30d 2081, total 2625)",
+     "c": "d"
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "208 / 530 / 546",
+     "st": "4117",
+     "ct": "2026-08-28",
+     "r": "Descartado: 3 o mas proveedores del mismo producto (excalvo shampoo: 14 listados de natural labs organic, corporacion g&c, market latam, suplem gt, almafit, nibresma, kura labs, nexus, altamira, prana, etc.)",
+     "c": "d"
+    },
+    {
+     "n": "te chino",
+     "s": "ID 29042 · sicommer lab",
+     "v": "195 / 621 / 621",
+     "st": "1379",
+     "ct": "2026-10-18",
+     "r": "Descartado: te chino, ya descartado el 29-oct por 3 o mas proveedores (no se volvio a leer hoy)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "190 / 660 / 673",
+     "st": "4827",
+     "ct": "2026-09-25",
+     "r": "Descartado: ethiopian, ya salio el 7 y el 11-oct y el producto suma mas de 800 ventas entre listados (ID 24310)",
+     "c": "d"
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "165 / 904 / 2814",
+     "st": "1684",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 165, 30d 904, total 2814)",
+     "c": "d"
+    },
+    {
+     "n": "carrier baby sling",
+     "s": "ID 26207 · grupo luna",
+     "v": "154 / 292 / 305",
+     "st": "236",
+     "ct": "2026-10-03",
+     "r": "Descartado: ya salio el 2026-10-28 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "152 / 1436 / 3827",
+     "st": "1166",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 152, 30d 1436, total 3827)",
+     "c": "d"
+    },
+    {
+     "n": "set 4 cuadernos mágicos montessori+10rep",
+     "s": "ID 16108 · distribuidora rocke feller",
+     "v": "150 / 583 / 1569",
+     "st": "196",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 150, 30d 583, total 1569)",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "138 / 650 / 650",
+     "st": "350",
+     "ct": "2026-10-08",
+     "r": "Descartado: renovia, ya descartado el 29-oct por 3 o mas proveedores (no se volvio a leer hoy)",
+     "c": "d"
+    },
+    {
+     "n": "capsulas de cebo para cucaracha",
+     "s": "ID 16897 · grupo luna",
+     "v": "134 / 936 / 1501",
+     "st": "499",
+     "ct": "2026-08-06",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 134, 30d 936, total 1501)",
+     "c": "d"
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "130 / 736 / 1155",
+     "st": "827",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 130, 30d 736, total 1155)",
+     "c": "d"
+    },
+    {
+     "n": "pulverizador para pintar",
+     "s": "ID 30530 · shop b",
+     "v": "129 / 201 / 201",
+     "st": "772",
+     "ct": "2026-10-24",
+     "r": "FINALISTA: tarjeta 1 del 4-nov (filtros normales)",
+     "c": "f"
+    },
+    {
+     "n": "batana oil shampoo 300ml",
+     "s": "ID 30484 · american natural",
+     "v": "122 / 162 / 162",
+     "st": "2338",
+     "ct": "2026-10-24",
+     "r": "Descartado: batana, saturado en corridas anteriores (no se volvio a leer hoy)",
+     "c": "d"
+    },
+    {
+     "n": "limpiador a vapor de alta temperatura",
+     "s": "ID 16105 · distribuidora rocke feller",
+     "v": "122 / 140 / 140",
+     "st": "205",
+     "ct": "2026-10-24",
+     "r": "Descartado: 3 proveedores del mismo producto (distribuidora rocke feller, oriental import limpvapor y grupo luna sopladora vapor clean comparten familia en DropKiller)",
+     "c": "d"
+    },
+    {
+     "n": "2 pijamas huntrax niña premium x 190",
+     "s": "ID 17550 · laurean by seong woo",
+     "v": "119 / 371 / 372",
+     "st": "698",
+     "ct": "2026-08-13",
+     "r": "Descartado: ya salio el 2026-10-15 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "116 / 377 / 409",
+     "st": "2591",
+     "ct": "2026-09-04",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva)",
+     "c": ""
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "114 / 868 / 1059",
+     "st": "389",
+     "ct": "2026-09-30",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 114, 30d 868, total 1059)",
+     "c": "d"
+    },
+    {
+     "n": "oftamiel",
+     "s": "ID 28778 · sicommer lab",
+     "v": "111 / 232 / 232",
+     "st": "1764",
+     "ct": "2026-10-17",
+     "r": "Descartado: mismo producto 'oftamiel' con 2 listados del mismo proveedor y uno con 5.674 ventas totales (ID 15158): el producto ya no es nuevo",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas eléctrico 2 en 1 con luz",
+     "s": "ID 22144 · metacompras gt",
+     "v": "110 / 558 / 1039",
+     "st": "154",
+     "ct": "2026-09-11",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 110, 30d 558, total 1039)",
+     "c": "d"
+    },
+    {
+     "n": "ahorrador de energia",
+     "s": "ID 2712 · shop b",
+     "v": "106 / 138 / 138",
+     "st": "361",
+     "ct": "2026-10-26",
+     "r": "Descartado: el mismo producto tiene otro listado con 3.381 ventas totales (ID 9538, grupo luna): ya no es nuevo",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "98 / 509 / 510",
+     "st": "1490",
+     "ct": "2026-10-04",
+     "r": "Descartado: nippori, ya descartado el 29-oct por 3 o mas proveedores (no se volvio a leer hoy)",
+     "c": "d"
+    },
+    {
+     "n": "ajedrez magnético battle chess",
+     "s": "ID 30467 · shop b",
+     "v": "98 / 112 / 112",
+     "st": "383",
+     "ct": "2026-10-24",
+     "r": "Descartado: ajedrez magnetico, ya salio el 15-oct (ID 20243)",
+     "c": "d"
+    },
+    {
+     "n": "picador",
+     "s": "ID 23127 · importadora el mayorista",
+     "v": "96 / 96 / 125",
+     "st": "225",
+     "ct": "2026-09-17",
+     "r": "Descartado: picador con 4 proveedores del mismo tipo de producto (60 segundos, importadora el mayorista, metacompras gt y digital gt)",
+     "c": "d"
+    },
+    {
+     "n": "safebone - dolor articular",
+     "s": "ID 30132 · nexus",
+     "v": "91 / 118 / 118",
+     "st": "4382",
+     "ct": "2026-10-22",
+     "r": "Descartado: safebone con 4 proveedores (nexus, nibresma, almafit y suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "drill de uñas/finger",
+     "s": "ID 28316 · grupo luna",
+     "v": "87 / 205 / 205",
+     "st": "738",
+     "ct": "2026-10-15",
+     "r": "Descartado: ya salio el 2026-10-29 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "87 / 516 / 768",
+     "st": "1732",
+     "ct": "2026-09-17",
+     "r": "Descartado: glucora, el mismo producto suma mas de 4.600 ventas entre listados (ID 20595)",
+     "c": "d"
+    },
+    {
+     "n": "glucora control de glucosa",
+     "s": "ID 20595 · nexus",
+     "v": "82 / 2790 / 4660",
+     "st": "4342",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 82, 30d 2790, total 4660)",
+     "c": "d"
+    },
+    {
+     "n": "basurero electrico",
+     "s": "ID 30662 · 60 segundos",
+     "v": "81 / 91 / 91",
+     "st": "101",
+     "ct": "2026-10-27",
+     "r": "FINALISTA: tarjeta 3 del 4-nov (filtros normales)",
+     "c": "f"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "81 / 415 / 646",
+     "st": "169",
+     "ct": "2026-09-22",
+     "r": "Descartado: ya salio el 2026-10-30 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico",
+     "s": "ID 17797 · nibresma",
+     "v": "77 / 193 / 493",
+     "st": "520",
+     "ct": "2026-08-15",
+     "r": "Descartado: drenaje linfatico, 3 o mas proveedores del mismo producto",
+     "c": "d"
+    },
+    {
+     "n": "kahi balm",
+     "s": "ID 21718 · sicommer lab",
+     "v": "76 / 106 / 127",
+     "st": "1378",
+     "ct": "2026-09-09",
+     "r": "FINALISTA: tarjeta 2 del 4-nov (filtros normales)",
+     "c": "f"
+    },
+    {
+     "n": "cayenne pepper *60softgels",
+     "s": "ID 27396 · kura labs",
+     "v": "75 / 238 / 238",
+     "st": "262",
+     "ct": "2026-10-10",
+     "r": "Descartado: saturado, 8 anunciantes distintos del mismo producto en GT (Dra. Paula Agudelo Bernal, Valenza Premium, Aura Vital, Vitalbix, Easy Guatemala, Los Andes Mayorista, Nexora Group, Dra. Marta Gonzalez); el maximo es 6",
+     "c": "d"
+    },
+    {
+     "n": "candela",
+     "s": "ID 24092 · sicommer lab",
+     "v": "71 / 227 / 324",
+     "st": "1168",
+     "ct": "2026-09-22",
+     "r": "Descartado: 3 proveedores del mismo producto (sicommer lab, natural labs organic y kura labs comparten familia 'candela')",
+     "c": "d"
+    },
+    {
+     "n": "zapatera con colgadores",
+     "s": "ID 17668 · blue guatemala",
+     "v": "70 / 142 / 664",
+     "st": "100",
+     "ct": "2026-08-14",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva)",
+     "c": ""
+    },
+    {
+     "n": "brasier sin costura",
+     "s": "ID 27591 · importadora el mayorista",
+     "v": "67 / 67 / 67",
+     "st": "350",
+     "ct": "2026-10-10",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva)",
+     "c": ""
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "64 / 249 / 660",
+     "st": "1379",
+     "ct": "2026-08-19",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva)",
+     "c": ""
+    },
+    {
+     "n": "atrapador cucarachas ecologico",
+     "s": "ID 27581 · importadora el mayorista",
+     "v": "62 / 75 / 75",
+     "st": "386",
+     "ct": "2026-10-10",
+     "r": "FINALISTA: tarjeta 5 del 4-nov (filtros normales)",
+     "c": "f"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "62 / 324 / 336",
+     "st": "4663",
+     "ct": "2026-10-03",
+     "r": "Descartado: drenaje linfatico, 3 o mas proveedores del mismo producto",
+     "c": "d"
+    },
+    {
+     "n": "pestañina dodo girl",
+     "s": "ID 22607 · importadora el mayorista",
+     "v": "59 / 197 / 197",
+     "st": "202",
+     "ct": "2026-09-14",
+     "r": "Descartado: ya salio el 2026-10-29 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "56 / 304 / 791",
+     "st": "218",
+     "ct": "2026-09-05",
+     "r": "Descartado: no se evaluo a fondo",
+     "c": "d"
+    },
+    {
+     "n": "mascarilla colageno cabello",
+     "s": "ID 22670 · importadora el mayorista",
+     "v": "53 / 357 / 408",
+     "st": "157",
+     "ct": "2026-09-14",
+     "r": "FINALISTA: tarjeta 4 del 4-nov (filtros normales)",
+     "c": "f"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 20461 · natural labs organic",
+     "v": "52 / 354 / 768",
+     "st": "4306",
+     "ct": "2026-09-03",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva)",
+     "c": ""
+    },
+    {
+     "n": "safebone",
+     "s": "ID 29473 · nibresma",
+     "v": "50 / 120 / 120",
+     "st": "380",
+     "ct": "2026-10-20",
+     "r": "Descartado: safebone con 4 proveedores (nexus, nibresma, almafit y suplem gt)",
+     "c": "d"
+    },
+    {
+     "n": "pasta dental blanqueadora",
+     "s": "ID 27638 · importadora el mayorista",
+     "v": "50 / 100 / 100",
+     "st": "222",
+     "ct": "2026-10-10",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo (queda de reserva: 1 proveedor con 2 listados 27637/27638)",
+     "c": ""
+    }
+   ],
+   "resumen": "Se leyeron 48 filas con los filtros base (GT, Dropi, activo, stock 80 o mas, 7 dias 50 o mas, creado desde el 2026-08-06): 36 tenian las tres ventas entre 50 y 800. Cayeron por repetidos de los ultimos 20 dias (6), por 3 o mas proveedores o listados del mismo producto (excalvo, limpiador a vapor, candela, safebone, picador y otros), por saturacion (cayenne pepper con 8 anunciantes) y por productos que ya no son nuevos (oftamiel, ahorrador de energia, glucora, ethiopian). Quedaron 5 normales y no se uso el Plan B. El filtro que mas corto fue el de proveedores.",
+   "revisar": "A REVISAR: de reserva quedaron productos que pasaron los filtros de ventas pero no se evaluaron a fondo hoy (pasta dental blanqueadora 27638, brasier tira ancha 20725, zapatera con colgadores 17668, brasier sin costura 27591 y dr althea crema 345, IDs 18334 y 20461). El cebo de nido contra cucarachas (MegaOfertas Guate y Plaza Nova arrancaron el 4-nov) sugiere que el nicho de plagas se esta calentando. Sin memoria radar_mem disponible: no hay productos de corridas anteriores marcados como estables o despegando."
   }
  },
  "tiktokshop": {
