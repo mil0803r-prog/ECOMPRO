@@ -4828,10 +4828,8 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
       (d[g[1]]||[]).forEach(function(x){NID[x.id]=x.nombre});
     });
     function op(l){return l.map(function(x){return '<option value="'+E(x.id)+'">'+(x.estado==="ACTIVE"?"● ":"")+E(String(x.nombre||"").trim().slice(0,55))+" · "+E(x.id)+'</option>'}).join("")}
-    [["Anuncios","anuncios"],["Conjuntos","conjuntos"],["Campañas","campanas"]].forEach(function(g){
-      var A=(d[g[1]]||[]).filter(function(x){return x.estado==="ACTIVE"});
-      if(A.length)h+='<optgroup label="'+g[0]+' ACTIVOS">'+op(A)+'</optgroup>';
-    });
+    var A=(d.anuncios||[]).filter(function(x){return x.estado==="ACTIVE"});
+    if(A.length)h+='<optgroup label="Anuncios ACTIVOS">'+op(A)+'</optgroup>';
     var P=(d.anuncios||[]).filter(function(x){return x.estado!=="ACTIVE"}).sort(function(a,b){return b.id<a.id?-1:1}).slice(0,60);
     if(P.length)h+='<optgroup label="Anuncios pausados o antiguos">'+op(P)+'</optgroup>';
     sel.innerHTML='<option value="">'+(h?"Elige el anuncio…":"Esta cuenta no tiene anuncios cargados")+'</option>'+h+'<option value="'+OTRO+'">Otro (escribir)…</option>';
