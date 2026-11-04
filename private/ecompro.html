@@ -2359,10 +2359,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     }
     function apply(cur){
       if(!cur||!cur.cuentas)return false;
-      CT.forEach(function(c){
-        var L=cur.cuentas[c.id],o=CMAP[c.id];if(!L||!o)return;
-        mergeC(o,L,cur.since);
-        var lv=(window.META_LV=window.META_LV||{})[c.id];if(lv)mergeLV(lv,L,cur.since);
+      Object.keys(cur.cuentas).forEach(function(id){
+        var L=cur.cuentas[id],o=CMAP[id];if(!L)return;
+        if(o)mergeC(o,L,cur.since);
+        var M=(window.META_LV=window.META_LV||{});
+        if(!M[id])M[id]={campanas:[],conjuntos:[],anuncios:[],filasConj:[],filasAnun:[]};
+        mergeLV(M[id],L,cur.since);
       });
       if(cur.until&&cur.until>HOY){
         var viejo=HOY;HOY=cur.until;
@@ -4811,12 +4813,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     sel.innerHTML='<option value="">Elige un producto…</option>'+(cs.length?'<optgroup label="De la calculadora de precios">'+cs.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+(ant.length?'<optgroup label="Anotados antes">'+ant.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+'<option value="'+OTRO+'">Otro (escribir)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
-  var NID={},CN={"1345913420795708":"CUENTA 1","27517283797940921":"CUENTA 3"};
+  var NID={},CN={"1345913420795708":"CUENTA 1","27517283797940921":"CUENTA 3","1533623667776634":"GUATEMALA 2","24945736065120551":"GUATEMALA 3","27172810955691832":"Naturly 01","27728323580109106":"NaturLy Guatemala (solo lectura)","3417110235115151":"Millora (solo lectura) USD","1414841834122354":"Millora (solo lectura) PEN","982827797866665":"Milora (solo lectura)","1003297795617924":"MILORA","3444431272383870":"NAR O1","1821680385202185":"Sin nombre"};
   function cname(c){return CN[c]||"Cuenta "+String(c).slice(-6)}
   function cuentas(){
-    var lv=window.META_LV||{},sel=$("rd-ct"),cur=sel.value,ks=Object.keys(lv);
+    var lv=window.META_LV||{},sel=$("rd-ct"),cur=sel.value,ks=Object.keys(CN);Object.keys(lv).forEach(function(k){if(ks.indexOf(k)<0)ks.push(k)});
     var ORD=Object.keys(CN);ks.sort(function(a,b){var ia=ORD.indexOf(a),ib=ORD.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib)});
-    sel.innerHTML=ks.map(function(c){var n=(lv[c].anuncios||[]).filter(function(x){return x.estado==="ACTIVE"}).length;return '<option value="'+E(c)+'">'+E(cname(c))+' · '+n+' anuncio'+(n===1?'':'s')+' activo'+(n===1?'':'s')+'</option>'}).join("")+'<option value="'+OTRO+'">Otra cuenta (escribir ID)…</option>';
+    sel.innerHTML=ks.map(function(c){var n=((lv[c]||{}).anuncios||[]).filter(function(x){return x.estado==="ACTIVE"}).length;return '<option value="'+E(c)+'">'+E(cname(c))+' · '+(lv[c]?n+' anuncio'+(n===1?'':'s')+' activo'+(n===1?'':'s'):'sin datos de anuncios')+'</option>'}).join("")+'<option value="'+OTRO+'">Otra cuenta (escribir ID)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
   function ids(){
