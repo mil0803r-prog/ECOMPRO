@@ -996,7 +996,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div class="rd-g3" style="margin-top:12px;align-items:end">
         <div class="fld"><label for="rd-tc">Tipo de cambio (1 Q = S/)</label><input id="rd-tc" type="number" min="0.01" step="0.0001" inputmode="decimal"></div>
         <div class="fld"><label for="rd-n">Nota</label><input id="rd-n" type="text" maxlength="300" placeholder="Opcional"></div>
-        <div><button class="btn" type="button" id="rd-add" style="width:100%">Anotar</button></div>
+        <div style="display:flex;gap:8px"><button class="btn" type="button" id="rd-add" style="flex:1">Anotar</button><button class="btn" type="button" id="rd-cancel" hidden>Cancelar</button></div>
       </div>
       <p class="sub" id="rd-msg" role="status" style="margin:10px 0 0">El tipo de cambio se llena con el de hoy y queda guardado en cada registro, así el histórico no cambia si el cambio sube o baja.</p>
     </div>
@@ -4857,8 +4857,24 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
     $("rd-kpi").innerHTML=k("Gasto","Q "+f2(gq),"S/ "+f2(gs))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" · S/ "+f2(gs/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
-    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(r.in?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(r.in).slice(0,45))+'</div>':'')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td><button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
+    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(r.in?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(r.in).slice(0,45))+'</div>':'')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td style="white-space:nowrap"><button class="btn" type="button" data-e="'+E(r.id)+'" aria-label="Editar" title="Editar">✎</button> <button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar" title="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
+  var EDIT=null;
+  function salirEdicion(){EDIT=null;$("rd-add").textContent="Anotar";$("rd-cancel").hidden=true;["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs()}
+  function editar(id){
+    var r=L.filter(function(x){return x.id===id})[0];if(!r)return;EDIT=id;
+    $("rd-f").value=r.f;$("rd-tc").value=r.tc||rate();$("rd-tc").dataset.t="1";
+    var ct=$("rd-ct");if(r.ct&&Array.from(ct.options).some(function(o){return o.value===r.ct}))ct.value=r.ct;else ct.value=OTRO;
+    ids();
+    var is=$("rd-is");if(r.i&&Array.from(is.options).some(function(o){return o.value===r.i})){is.value=r.i;$("rd-i").hidden=true}else if(r.i){is.value=OTRO;$("rd-i").hidden=false;$("rd-i").value=r.i}else{is.value="";$("rd-i").hidden=true}
+    productos();var ps=$("rd-ps");if(Array.from(ps.options).some(function(o){return o.value===r.p})){ps.value=r.p;$("rd-p").hidden=true}else{ps.value=OTRO;$("rd-p").hidden=false;$("rd-p").value=r.p||""}
+    $("rd-gm").value=r.gm||"PEN";$("rd-g").value=r.gv!=null?r.gv:((r.gm||"PEN")==="PEN"?r.gs:r.gq);
+    $("rd-mm").value=r.mm||"GTQ";$("rd-m").value=r.mv!=null?r.mv:((r.mm||"GTQ")==="GTQ"?r.mq:r.ms);
+    $("rd-v").value=r.v;$("rd-n").value=r.n||"";eqs();
+    $("rd-add").textContent="Guardar cambios";$("rd-cancel").hidden=false;$("rd-msg").textContent="Editando el registro del "+r.f.split("-").reverse().join("/")+". Cambia lo que quieras y pulsa «Guardar cambios».";
+    $("rd-f").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+  $("rd-cancel").addEventListener("click",function(){salirEdicion();$("rd-msg").textContent="Edición cancelada."});
   $("rd-add").addEventListener("click",function(){
     var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0,pr=prod();
     if(!f){m.textContent="Pon la fecha.";return}
@@ -4867,10 +4883,12 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
     if(!g&&!v&&!mo){m.textContent="Anota al menos el gasto, las ventas o el monto.";return}
     var gm=$("rd-gm").value,mm=$("rd-mm").value;
     var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
-    L.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now(),f:f,i:idv(),in:NID[idv()]||"",ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim()});
+    var base={f:f,i:idv(),in:NID[idv()]||"",ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim(),gm:gm,gv:g,mm:mm,mv:mo};
+    if(EDIT){var k=L.findIndex(function(r){return r.id===EDIT});if(k>=0)L[k]=Object.assign({},L[k],base);salirEdicion();save();draw();m.textContent="Cambios guardados.";return}
+    L.push(Object.assign({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now()},base));
     save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
   });
-  $("rd-body").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});save();draw()});
+  $("rd-body").addEventListener("click",function(e){var be=e.target.closest("[data-e]");if(be){editar(be.dataset.e);return}var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});if(EDIT===b.dataset.d)salirEdicion();save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
   $("rd-xl").addEventListener("click",function(){
     var R=filtrado(),q=function(x){return '"'+String(x==null?"":x).replace(/"/g,'""')+'"'};
