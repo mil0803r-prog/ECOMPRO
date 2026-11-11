@@ -281,13 +281,42 @@ async function redis(cmd) {
 
 const okDate = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(v || "") ? v : null);
 
-// Responde GET ?a=data|prov y POST ?a=prov. El login ya fue verificado por api/dropi.js.
+// Huella digital de Dropi: lee el detalle del pedido y devuelve solo los campos que parezcan de huella/riesgo/historial del comprador
+// (sin datos personales), más los nombres de campos que trae el pedido para poder ajustar la lectura.
+const HUELLA_RE = /huella|finger|riesg|risk|recibe|reliab|score|comportam|buyer|comprador|historial|history|calific|etiqueta|label|nivel|level|frecuen/i;
+const PII_RE = /phone|tel|name|surname|dir|address|email|mail|document|dni|nit|lat|lng|coord|notes|nota|comment/i;
+function walk(o, path, out, keys, depth) {
+  if (!o || typeof o !== "object" || depth > 4) return;
+  for (const k of Object.keys(o)) {
+    const v = o[k], p = path ? path + "." + k : k;
+    if (depth <= 1) keys.push(p);
+    if (HUELLA_RE.test(k) && !PII_RE.test(k)) {
+      const t = JSON.stringify(v);
+      if (t !== undefined && t.length < 600) { out.push({ campo: p, valor: v }); continue; }
+    }
+    if (v && typeof v === "object") walk(v, p, out, keys, depth + 1);
+  }
+}
+async function huella(id) {
+  const j = await dropi("/integrations/orders/myorders/" + encodeURIComponent(id), 15000);
+  const ob = (j && j.objects) || {};
+  const out = [], keys = [];
+  walk(ob, "", out, keys, 0);
+  return { campos: out.slice(0, 40), keys: keys.filter((k) => !PII_RE.test(k)).slice(0, 120) };
+}
+
+// Responde GET ?a=data|prov|huella y POST ?a=prov. El login ya fue verificado por api/dropi.js.
 async function handle(req, send) {
   const u = new URL(req.url, "http://x");
   const a = u.searchParams.get("a");
   try {
     if (a === "data" && req.method === "GET") {
       return send(200, await build(okDate(u.searchParams.get("from")), okDate(u.searchParams.get("to"))));
+    }
+    if (a === "huella" && req.method === "GET") {
+      const id = String(u.searchParams.get("id") || "");
+      if (!/^\d{1,12}$/.test(id)) return send(400, { error: "id inválido" });
+      return send(200, await huella(id));
     }
     if (a === "prov") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
