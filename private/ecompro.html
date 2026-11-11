@@ -926,7 +926,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <p class="sub" style="margin:8px 0">En Dropi exporta tus órdenes (con guía, nombre del cliente, producto y transportadora) y ábrelo en Excel. Sube el archivo (Excel o CSV) y se importa solo: las columnas se reconocen por su encabezado, sin que tengas que elegir nada. Cada pedido se une por su número de orden: los que ya existen solo se completan y los que no existen se agregan como nuevos. El número de orden nunca se repite. Para agregar pedidos nuevos el archivo necesita las columnas de fecha y de estado.</p>
         <div class="frow" style="align-items:flex-end"><div class="fld"><label class="btn" style="cursor:pointer;display:inline-block">Elegir archivo (Excel o CSV)<input type="file" id="oi-f" accept=".xlsx,.xls,.csv,.tsv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden></label></div><div class="fld grow"><label for="oi-t">…o pega las filas</label><textarea id="oi-t" rows="3" placeholder="Pedido&#9;Guía&#9;Cliente&#9;Producto&#9;Transportadora"></textarea></div><button class="btn" type="button" id="oi-go">Importar</button></div>
         <div id="oi-map" style="margin-top:10px"></div>
-        <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
+        <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn" type="button" id="oi-api">Traer de Dropi (cliente, producto, guía y transportadora)</button><span class="sub" id="oi-api-m" role="status"></span></div>
         <p class="foot" style="margin:8px 0 0" id="oi-pie"></p>
       </details>
       <div id="o-zona" style="margin-top:12px" hidden></div>
@@ -4535,7 +4535,7 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
         e.target.disabled=false;
         if(!j||!j.ok){m.textContent=(j&&j.error?j.error:"No se pudo traer.")+(j&&j.tried?" Intentos: "+j.tried.map(function(t){return (t.status||t.error)+" "+(t.base||"").replace("https://","")+(t.respuesta?" ("+String(t.respuesta).slice(0,60)+")":"")}).join(" | "):"");return}
         var set={};(window.__ORD||[]).forEach(function(o){set[o.n]=1});var c=0;
-        j.rows.forEach(function(r){var n=digits(r.n);if(!set[n])return;var x=MAP[n]||{};["g","p","t"].forEach(function(k){if(r[k])x[k]=String(r[k]).slice(0,80)});MAP[n]=x;c++});
+        j.rows.forEach(function(r){var n=digits(r.n);if(!set[n])return;var x=MAP[n]||{};["g","p","t","c","tl"].forEach(function(k){if(r[k])x[k]=String(r[k]).slice(0,80)});MAP[n]=x;c++});
         persist();refresh();m.textContent="Listo: "+c+" pedidos actualizados de "+j.rows.length+" que devolvió Dropi."
       }).catch(function(){e.target.disabled=false;m.textContent="No se pudo conectar con el servidor."});return}
     if(e.target.id==="oi-del"){MAP={};var O=window.__ORD||[];for(var i=O.length-1;i>=0;i--)if(O[i].nuevo)O.splice(i,1);NEWO={};persist();refresh();return}

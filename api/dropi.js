@@ -1,6 +1,6 @@
-// Trae de Dropi, solo para el tablero: producto, guía y transportadora de cada pedido.
+// Trae de Dropi, solo para el tablero: producto, guía, transportadora y cliente (nombre y teléfono) de cada pedido.
 // El token vive en la variable de Vercel DROPI_TOKEN; nunca sale al navegador ni se guarda en el código.
-// No pide ni devuelve nombres, teléfonos ni direcciones de clientes.
+// Devuelve nombre y teléfono del cliente solo a quien tenga sesión válida (para la huella del cliente). No devuelve direcciones.
 const { session } = require("./_auth");
 
 const BASES = (process.env.DROPI_API_BASE ? [process.env.DROPI_API_BASE] : ["https://api.dropi.gt", "https://api.dropi.co"]).map((b) => b.replace(/\/+$/, ""));
@@ -23,6 +23,8 @@ function slim(o) {
     g: pick(o, ["shipping_guide", "guide", "guia", "tracking_number", "shipping_guide_number"]),
     t: pick(o, ["distribution_company.name", "shipping_company", "shipping_company_name", "transportadora", "carrier"]),
     p: prods.join(" + "),
+    c: [pick(o, ["name", "client_name", "customer_name", "client.name"]), pick(o, ["surname", "lastname", "client_surname", "client.surname"])].filter(Boolean).join(" ").slice(0, 80),
+    tl: pick(o, ["phone", "client_phone", "customer_phone", "telefono", "client.phone"]).replace(/[^\d+]/g, "").slice(0, 20),
   };
 }
 
