@@ -519,6 +519,43 @@ function renderTrend(){
       y:{position:'left',ticks:{color:cssVar('muted')},grid:{color:cssVar('line')},beginAtZero:true},
       y1:{position:'right',ticks:{color:cssVar('muted')},grid:{display:false},beginAtZero:true}}}});
 }
+/* ===== Extensión ECOMPRO: pide la huella a Dropi con tu sesión (Dropi abierto) ===== */
+let EXT=false,HUELLA_TEL='',HUELLA_T=null;
+window.addEventListener('message',e=>{
+  const m=e.data;if(!m||m.src!=='ecompro-ext')return;
+  if(m.tipo==='hola')EXT=true;
+  const out=$('#huellaDropiEst');if(!out||!$('#huellaOverlay').classList.contains('show'))return;
+  if(m.tipo==='huella'){
+    const it=(m.items||[]).find(x=>x.tel===HUELLA_TEL);
+    if(it){clearTimeout(HUELLA_T);out.textContent='';pintaHuellaExt(it);}
+  }
+  if(m.tipo==='huellaEstado'){
+    const s=m.estado||{};
+    const t={ 'sin-plantilla':'Falta una sola vez: en Dropi abre UN pedido donde se vea la Huella Digital del comprador y vuelve a tocar este botón.',
+      'sin-sesion':'No encontré tu sesión de Dropi. Entra a Dropi (Mis pedidos) y vuelve a tocar este botón.',
+      'error':s.error||'No se pudo.' }[s.estado];
+    if(t){clearTimeout(HUELLA_T);out.innerHTML='<span style="color:var(--yellow)">'+E(t)+'</span>';}
+    else if(s.estado==='corriendo'){out.textContent='Pidiéndole la huella a Dropi…';}
+    else if(s.estado==='fin'&&!s.ok&&s.total){clearTimeout(HUELLA_T);out.innerHTML='<span style="color:var(--yellow)">Dropi no devolvió la huella de este cliente.</span>';}
+  }
+});
+function pintaHuellaExt(it){
+  const out=$('#huellaDropiOut');
+  const fila=c=>`<div class="stat" style="padding:5px 0"><span class="nm" style="font-family:ui-monospace,monospace;font-size:11.5px">${E(c.campo)}</span><span class="ct" style="font-weight:700;font-size:12.5px;max-width:55%;text-align:right;overflow-wrap:anywhere">${E(typeof c.valor==='object'?JSON.stringify(c.valor):c.valor)}</span></div>`;
+  out.innerHTML=(it.campos&&it.campos.length?'<div class="hint" style="margin-bottom:4px"><b>Huella de Dropi · recién leída</b></div>'+it.campos.map(fila).join(''):'Dropi no trae huella para este cliente (puede ser nuevo en su red).');
+}
+function pedirHuellaExt(tel){
+  const out=$('#huellaDropiEst');if(!out)return;
+  HUELLA_TEL=String(tel||'').replace(/\D/g,'').slice(-8);
+  if(HUELLA_TEL.length!==8){out.textContent='Este pedido no trae un teléfono válido.';return;}
+  window.postMessage({src:'ecompro-page',tipo:'hola'},'*');
+  out.textContent='Pidiéndole la huella a Dropi con tu extensión…';
+  setTimeout(()=>{
+    if(!EXT){out.innerHTML='<span style="color:var(--yellow)">No detecto la extensión ECOMPRO en este Chrome. Instálala (o recarga la página) y vuelve a intentar.</span>';return;}
+    window.postMessage({src:'ecompro-page',tipo:'huella',tel:HUELLA_TEL},'*');
+    clearTimeout(HUELLA_T);HUELLA_T=setTimeout(()=>{const o=$('#huellaDropiEst');if(o&&o.textContent.startsWith('Pidiéndole'))o.innerHTML='<span style="color:var(--yellow)">Dropi no respondió. Revisa que tengas Dropi abierto e iniciado.</span>';},45000);
+  },400);
+}
 function openHuella(id){
   const o=(DATA.orders||[]).find(x=>String(x.id)===String(id));if(!o)return;
   const h=(DATA.huella||{})[o.hk]||null;
@@ -544,11 +581,12 @@ function openHuella(id){
     <div class="hint">Comprado en total: <b>${money(h.total)}</b> · en proceso ${h.proceso} · novedad ${h.novedad}</div>
     <div style="display:flex;flex-direction:column;gap:6px">${h.orders.slice(0,15).map(x=>`<div class="stat"><span class="chip ${badge(x.g)}">${E(x.st)}</span><span class="nm">#${E(x.id)} · ${E(x.c)}${x.city?' · '+E(x.city):''}</span><span class="ct" style="font-weight:600">${money(x.t)}</span><span class="pct" style="width:78px">${E(x.d)}</span></div>`).join('')}</div>
     <div style="display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:13px;padding:11px 13px;background:var(--card2)">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b style="font-size:13px">Huella digital de Dropi</b><span class="hint" style="flex:1">La calificación que Dropi le pone al comprador en toda su red</span><button class="solid" id="huellaDropi" data-id="${E(o.id)}" data-hk="${E(o.hk||'')}">Consultar en Dropi</button></div>
-      <div id="huellaDropiOut" class="hint"></div></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b style="font-size:13px">Huella digital de Dropi</b><span class="hint" style="flex:1">Se lee sola de Dropi con tu extensión (Dropi abierto)</span><button class="solid" id="huellaDropi" data-id="${E(o.id)}" data-hk="${E(o.hk||'')}">Actualizar</button></div>
+      <div id="huellaDropiOut" class="hint"></div><div id="huellaDropiEst" class="hint"></div></div>
     <div class="hint">Se arma con los ${DATA.revisados||'—'} pedidos de tu cuenta de Dropi que se revisaron (mismo teléfono)${(DATA.revisados||0)<=100?'. Dropi solo entregó 100: si tienes más antiguos no aparecen aquí':''}. No incluye lo que el cliente compró con otros vendedores.</div>`;
   $('#huellaOverlay').classList.add('show');
-  const bd=$('#huellaDropi');if(bd)bd.addEventListener('click',()=>consultaHuellaDropi(bd.dataset.id,bd.dataset.hk));
+  const bd=$('#huellaDropi');if(bd){bd.textContent='Actualizar';bd.addEventListener('click',()=>pedirHuellaExt(o.clientPhone));}
+  consultaHuellaDropi(o.id,o.hk).then(()=>pedirHuellaExt(o.clientPhone));
 }
 async function consultaHuellaDropi(id,hk){
   const out=$('#huellaDropiOut'),btn=$('#huellaDropi');out.textContent='Consultando a Dropi…';btn.disabled=true;

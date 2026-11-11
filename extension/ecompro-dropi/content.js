@@ -118,7 +118,7 @@
       if (msg && msg.tipo === "traerHuellas") {
         var abiertos = Object.keys(fonos).filter(function (k) { return fonos[k]; });
         var otros = Object.keys(fonos).filter(function (k) { return !fonos[k]; });
-        var tels = abiertos.concat(otros).slice(0, 40);
+        var tels = Array.isArray(msg.tels) && msg.tels.length ? msg.tels.slice(0, 40) : abiertos.concat(otros).slice(0, 40);
         if (!tels.length) { resp({ ok: false, error: "Todavía no vi pedidos con teléfono. Abre Mis pedidos en Dropi y espera a que cargue la lista." }); return; }
         window.postMessage({ src: "ecompro-cmd", tipo: "huellas", tels: tels }, "*");
         resp({ ok: true, total: tels.length });

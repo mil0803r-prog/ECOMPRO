@@ -1,4 +1,4 @@
-// Manda los pedidos a tu servidor de ECOMPRO con tu clave. Guarda el resultado para el panel.
+// Manda los pedidos a tu tablero de ECOMPRO con tu sesión (sin clave). Guarda el resultado para el panel.
 function recargarDropi(abrir, resp) {
   chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
     if (chrome.runtime.lastError) { resp && resp({ ok: false, error: String(chrome.runtime.lastError.message) }); return; }
@@ -27,6 +27,35 @@ function avisar(ok, texto) {
     chrome.notifications.create("ec-" + Date.now(), { type: "basic", iconUrl: "icon-128.png", title: ok ? "ECOMPRO: pedidos subidos ✔" : "ECOMPRO: error ✖", message: texto, priority: 1, silent: !!ok });
   } catch (e) {}
 }
+// Sube datos al tablero con la sesión que ya tienes abierta en este Chrome (sin clave).
+async function subir(base, body) {
+  var c = await chrome.storage.local.get({ key: "" });
+  var h = { "Content-Type": "application/json" };
+  if (c.key) h["x-ec-key"] = c.key;
+  return fetch(String(base || "").replace(/\/+$/, "") + "/api/dropi-live", { method: "POST", headers: h, credentials: "include", body: JSON.stringify(body) });
+}
+// Reenvía algo a las pestañas del tablero abiertas (para que el botón de huella se actualice al instante).
+async function alTablero(msg) {
+  var c = await chrome.storage.local.get({ base: "https://ecompro-iota.vercel.app" });
+  try {
+    var o = new URL(c.base).origin;
+    chrome.tabs.query({ url: [o + "/*"] }, function (tabs) { (tabs || []).forEach(function (t) { chrome.tabs.sendMessage(t.id, msg, function () { void chrome.runtime.lastError; }); }); });
+  } catch (e) {}
+}
+// Busca una pestaña de Dropi; si no hay, abre una (sin sacarte de donde estás) y espera a que cargue.
+function conDropi(cb) {
+  chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
+    var t = (tabs || []).filter(function (x) { return /order|pedido/i.test(x.url || ""); })[0] || (tabs || [])[0];
+    if (t) { cb(t); return; }
+    chrome.tabs.create({ url: "https://app.dropi.gt/", active: false }, function (nt) {
+      if (!nt) { cb(null); return; }
+      var hecho = false;
+      function listo(id, info) { if (id === nt.id && info.status === "complete" && !hecho) { hecho = true; chrome.tabs.onUpdated.removeListener(listo); setTimeout(function () { cb(nt); }, 6000); } }
+      chrome.tabs.onUpdated.addListener(listo);
+      setTimeout(function () { if (!hecho) { hecho = true; chrome.tabs.onUpdated.removeListener(listo); cb(nt); } }, 25000);
+    });
+  });
+}
 async function cfg() { return chrome.storage.local.get({ base: "https://ecompro-iota.vercel.app", key: "", log: null, total: 0 }); }
 chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
   if (msg && msg.tipo === "refrescar") { recargarDropi(true, resp); return true; }
@@ -52,15 +81,24 @@ chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
     });
     return true;
   }
-  if (msg && msg.tipo === "huellaEstado") { chrome.storage.local.set({ hu: Object.assign({ ts: Date.now() }, msg.estado) }); return false; }
+  if (msg && msg.tipo === "huellaWeb") {
+    var tel = String(msg.tel || "").replace(/\D/g, "").slice(-8);
+    if (tel.length !== 8) { resp({ ok: false, error: "Este pedido no trae un teléfono válido." }); return false; }
+    conDropi(function (t) {
+      if (!t) { resp({ ok: false, error: "No pude abrir Dropi." }); return; }
+      chrome.tabs.sendMessage(t.id, { tipo: "traerHuellas", tels: [tel] }, function (r) {
+        if (chrome.runtime.lastError) { resp({ ok: false, error: "Recarga la pestaña de Dropi (Ctrl+Shift+R) y vuelve a intentar." }); return; }
+        resp(r || { ok: false, error: "Sin respuesta de Dropi." });
+      });
+    });
+    return true;
+  }
+  if (msg && msg.tipo === "huellaEstado") { chrome.storage.local.set({ hu: Object.assign({ ts: Date.now() }, msg.estado) }); alTablero({ tipo: "huellaEstado", estado: msg.estado }); return false; }
   if (msg && msg.tipo === "huellas") {
+    alTablero({ tipo: "huellaResultado", items: (msg.items || []).slice(0, 60) });
     (async function () {
       var c = await cfg();
-      if (!c.key) return;
-      try {
-        var base = String(c.base || "").replace(/\/+$/, "");
-        await fetch(base + "/api/dropi-live", { method: "POST", headers: { "Content-Type": "application/json", "x-ec-key": c.key }, body: JSON.stringify({ huellas: (msg.items || []).slice(0, 60) }) });
-      } catch (e) {}
+      try { await subir(c.base, { huellas: (msg.items || []).slice(0, 60) }); } catch (e) {}
     })();
     return false;
   }
@@ -74,12 +112,11 @@ chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
   if (!msg || msg.tipo !== "pedidos") return;
   (async function () {
     var c = await cfg();
-    if (!c.key) { await chrome.storage.local.set({ log: { ok: false, ts: Date.now(), msg: "Falta la clave. Ábrela en el icono de la extensión." } }); chrome.action.setBadgeText({ text: "!" }); avisar(false, "Falta la clave. Ábrela en el icono de la extensión."); return; }
     try {
       var base = String(c.base || "").replace(/\/+$/, "");
       var tot = { nuevos: 0, actualizados: 0 };
       for (var i = 0; i < msg.orders.length; i += 200) {
-        var r = await fetch(base + "/api/dropi-live", { method: "POST", headers: { "Content-Type": "application/json", "x-ec-key": c.key }, body: JSON.stringify({ orders: msg.orders.slice(i, i + 200) }) });
+        var r = await subir(base, { orders: msg.orders.slice(i, i + 200) });
         var j = await r.json().catch(function () { return {}; });
         if (!r.ok) throw new Error(j.error || ("Error " + r.status));
         c.total += (j.recibidos || 0); tot.nuevos += (j.nuevos || 0); tot.actualizados += (j.actualizados || 0);

@@ -24,7 +24,7 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 | `APP_URL` | Opcional: la dirección pública, por ejemplo `https://ecompro.vercel.app` |
 | `ALERTAS_KEY` | Clave larga (texto aleatorio). Con ella Claude manda avisos de ventas a la campana 🔔 del tablero (`POST /api/alertas`, cabecera `x-alertas-key`). Sin esta variable el endpoint responde 503 |
 | `DROPI_TOKEN` | Token de integración de Dropi (Sensible). Lo usa la sección **Dropi** (panel de pedidos en vivo) para leer `api.dropi.gt/integrations`. Nunca llega al navegador |
-| `DROPI_LIVE_KEY` | Clave inventada por ti para la extensión de Chrome que manda pedidos al tablero (`/api/dropi-live`) |
+| `DROPI_LIVE_KEY` | Opcional. La extensión de Chrome ya entra con tu sesión del tablero y no necesita clave; esta variable solo sirve si prefieres usar una clave en lugar de la sesión |
 | `META_ACCESS_TOKEN` | Token de un usuario del sistema de Meta con permiso `ads_read` (Sensible). Lo usa `/api/meta-sync` para traer las métricas en vivo |
 | `META_ACCOUNTS` | Opcional: IDs de cuentas publicitarias de Meta a leer, separados por coma. Por defecto: Cuenta 1, Cuenta 3, Guatemala 2 y Guatemala 3 |
 | `CRON_SECRET` | Texto largo y aleatorio. Vercel lo manda en el cron diario de `/api/meta-sync` |

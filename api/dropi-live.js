@@ -2,6 +2,7 @@
 // No usa la API de Dropi. Se protege con la clave DROPI_LIVE_KEY (variable de Vercel, sensible).
 // Une los pedidos con settings/pedextra: nunca repite un número de orden y mantiene el estado al día.
 const crypto = require("crypto");
+const { session } = require("./_auth");
 
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -68,9 +69,12 @@ module.exports = async (req, res) => {
   };
   if (req.method === "OPTIONS") return send(204, {});
   if (req.method !== "POST") return send(405, { error: "method" });
+  // Entra con la sesión del tablero (la extensión la usa sola en tu Chrome) o, si prefieres, con la clave DROPI_LIVE_KEY.
   const key = process.env.DROPI_LIVE_KEY;
-  if (!key) return send(503, { error: "Falta la variable DROPI_LIVE_KEY en Vercel." });
-  if (!safeEq(req.headers["x-ec-key"], key)) return send(401, { error: "Clave incorrecta." });
+  const keyOk = !!key && safeEq(req.headers["x-ec-key"], key);
+  let sesOk = false;
+  try { sesOk = !!session(req); } catch (e) {}
+  if (!keyOk && !sesOk) return send(401, { error: "Entra al tablero (inicia sesión) en este mismo Chrome." });
   if (!URL_ || !TOKEN) return send(503, { error: "Falta conectar la base (Upstash Redis) en Vercel." });
   let b;
   try {
