@@ -92,6 +92,15 @@ h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--mu
 .hd-tl span{flex:none;width:22px;border-radius:5px 5px 3px 3px;min-height:14px}
 .hd-k div.vk{border-left:4px solid var(--verde)}.hd-k div.rk{border-left:4px solid var(--rojo)}.hd-k div.ak{border-left:4px solid var(--amar)}.hd-k div.bk{border-left:4px solid var(--azul)}
 @media(max-width:560px){.hd-gr{grid-template-columns:1fr;justify-items:center}}
+.hd-list{display:flex;flex-direction:column}
+.hd-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.hd-row .pill{flex:1;display:flex;align-items:center;gap:8px;text-transform:uppercase;font-size:.72rem;border-radius:8px}
+.hd-row .pill i{width:10px;height:10px;border-radius:50%;flex:none}
+.hd-row b{font-size:1.05rem;min-width:28px;text-align:right}.hd-row .sub{min-width:48px;text-align:right}
+.hd-row.z{opacity:.45}
+.hd-cs{display:flex;flex-direction:column;gap:6px}
+.hd-c{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hd-c input{width:110px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
 .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.74rem;font-weight:600;white-space:nowrap}
 .pill.v{background:var(--verde-bg);color:var(--verde)}
 .pill.a{background:var(--amar-bg);color:var(--amar)}
@@ -2158,7 +2167,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   /* ===== Huella del cliente en Dropi ===== */
   (function(){
     var box=document.createElement("div");box.className="hd-scrim";box.hidden=true;box.innerHTML='<div class="hd" role="dialog" aria-modal="true" aria-label="Huella del cliente en Dropi"></div>';document.body.appendChild(box);
-    var dlg=box.firstChild,lastFocus=null;
+    var dlg=box.firstChild,lastFocus=null,cur=null;
+    function costos(){try{return JSON.parse(localStorage.getItem("ec_costop")||"{}")||{}}catch(e){return {}}}
     function nm(t){return String(t||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/\s+/g," ").trim()}
     function ph(t){var d=String(t||"").replace(/\D/g,"");return d.length>=8?d.slice(-8):""}
     function q(v){return "Q"+Math.round(v).toLocaleString("es-GT")}
@@ -2173,25 +2183,30 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       if(!cerr){ver="Sin historial cerrado";cls="a"}else if(c.D>=2&&tasa<50){ver="Riesgo alto: devuelve más de lo que recibe";cls="r"}else if(c.D>=1&&tasa<100){ver="Con devoluciones, confirmar bien antes de enviar";cls="a"}else{ver="Cliente confiable: recibe sus pedidos";cls="v"}
       var tel=X.tl||"",w=ph(tel)?(String(tel).replace(/\D/g,"").length===8?"502"+String(tel).replace(/\D/g,""):String(tel).replace(/\D/g,"")):"";
       var ciudades={};L.forEach(function(o){ciudades[o.c]=1});
-      var col={E:"var(--verde)",D:"var(--rojo)",T:"var(--amar)",C:"var(--gris)"},tot=L.length||1,R=52,CI=2*Math.PI*R,off=0,arcs="";
-      [["E",c.E],["D",c.D],["T",c.T],["C",c.C]].forEach(function(z){if(!z[1])return;var len=z[1]/tot*CI;arcs+='<circle r="'+R+'" cx="70" cy="70" fill="none" stroke="'+col[z[0]]+'" stroke-width="18" stroke-dasharray="'+len+' '+(CI-len)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 70 70)"/>';off+=len});
-      var donut='<svg viewBox="0 0 140 140" width="140" height="140" role="img" aria-label="Resultado de sus pedidos"><circle r="'+R+'" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="18"/>'+arcs+'<text x="70" y="68" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">'+(tasa==null?'–':tasa+'%')+'</text><text x="70" y="88" text-anchor="middle" font-size="11" fill="var(--muted)">de entrega</text></svg>';
-      var leg='<div class="hd-leg"><div><i style="background:var(--verde)"></i>Entregados<b>'+c.E+'</b></div><div><i style="background:var(--rojo)"></i>Devueltos<b>'+c.D+'</b></div><div><i style="background:var(--amar)"></i>En proceso<b>'+c.T+'</b></div><div><i style="background:var(--gris)"></i>Cancelados<b>'+c.C+'</b></div></div>';
-      var pos=tasa==null?50:100-tasa,ini=String(X.c||"?").trim().split(/\s+/).slice(0,2).map(function(w){return w.charAt(0)}).join("").toUpperCase();
-      var asc=L.slice().reverse(),mxv=asc.reduce(function(m,o){return Math.max(m,o.v)},1);
-      var tl=asc.map(function(o){var k=o.s==="E"?"E":(o.s==="D"||o.s==="I"||o.s==="J")?"D":o.s==="C"?"C":"T";return '<span style="background:'+col[k]+';height:'+Math.round(14+o.v/mxv*46)+'px" title="'+esc((o.d||"").split("-").reverse().join("/")+" · "+ST[o.s][0]+" · "+q(o.v))+'"></span>'}).join("");
-      var h='<div class="hd-h"><div class="hd-top"><div class="hd-av '+cls+'" aria-hidden="true">'+esc(ini)+'</div><div><h2>'+esc(X.c||"Cliente")+'</h2><div class="sub">'+(tel?esc(tel)+' · ':'')+esc(Object.keys(ciudades).join(", "))+'</div></div></div><button type="button" class="btn" id="hd-x" aria-label="Cerrar">✕</button></div>'+
+      var COL={E:"#22c55e",D:"#f43f5e",C:"#fb7185",R:"#38c6f4",G:"#60a5fa",K:"#22d3ee",P:"#f59e0b",F:"#fbbf24",I:"#fb923c",J:"#f97316"},cnt={},tot=L.length||1,R=52,CI=2*Math.PI*R,off=0,arcs="";
+      Object.keys(ST).forEach(function(k){cnt[k]=0});L.forEach(function(o){cnt[o.s]=(cnt[o.s]||0)+1});
+      Object.keys(ST).forEach(function(k){if(!cnt[k])return;var len=cnt[k]/tot*CI;arcs+='<circle r="'+R+'" cx="70" cy="70" fill="none" stroke="'+COL[k]+'" stroke-width="18" stroke-dasharray="'+len+' '+(CI-len)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 70 70)"/>';off+=len});
+      var donut='<svg viewBox="0 0 140 140" width="150" height="150" role="img" aria-label="Pedidos por estado"><circle r="'+R+'" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="18"/>'+arcs+'<text x="70" y="68" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">'+L.length+'</text><text x="70" y="88" text-anchor="middle" font-size="11" fill="var(--muted)">pedidos</text></svg>';
+      var lista=Object.keys(ST).map(function(k){var n2=cnt[k]||0;return '<div class="hd-row'+(n2?'':' z')+'"><span class="pill '+ST[k][1]+'" style="--c:'+COL[k]+'"><i style="background:'+COL[k]+'"></i>'+ST[k][0]+'</span><b>'+n2+'</b><span class="sub">'+(n2?(n2/tot*100).toFixed(1):"0.0")+'%</span></div>'}).join("");
+      var trans={};L.forEach(function(o){var t=(all[o.n]||{}).t||"Sin transportadora";trans[t]=(trans[t]||0)+1});
+      var tch=Object.keys(trans).map(function(t){return '<span class="pill g">'+esc(t)+' · '+trans[t]+'</span>'}).join(" ");
+      var CP=costos(),prods={};L.forEach(function(o){var pn=window.ecProd?window.ecProd.of(o):"Sin producto";prods[pn]=(prods[pn]||0)+1});
+      var costoTot=0;L.forEach(function(o){if(o.s==="E"){var pn=window.ecProd?window.ecProd.of(o):"Sin producto";costoTot+=+CP[pn]||0}});
+      var cin=Object.keys(prods).map(function(pn){return '<label class="hd-c"><span>'+esc(pn)+' <small class="sub">('+prods[pn]+')</small></span><input type="number" min="0" step="0.01" inputmode="decimal" data-p="'+esc(pn)+'" value="'+(CP[pn]!=null?esc(CP[pn]):"")+'" placeholder="Costo Q"></label>'}).join("");
+      var h='<div class="hd-h"><div><h2>'+esc(X.c||"Cliente")+'</h2><div class="sub">'+(tel?esc(tel)+' · ':'')+esc(Object.keys(ciudades).join(", "))+'</div></div><button type="button" class="btn" id="hd-x" aria-label="Cerrar">✕</button></div>'+
         '<div><span class="pill '+cls+'">'+ver+'</span>'+(pk?'':' <span class="sub">Sin teléfono: se agrupa por nombre, puede mezclar personas iguales.</span>')+'</div>'+
-        '<div class="hd-gr">'+donut+'<div>'+leg+'<div class="hd-sem" title="Semáforo de confianza"><span style="background:var(--verde)"></span><span style="background:var(--amar)"></span><span style="background:var(--rojo)"></span><u style="left:'+Math.min(97,Math.max(3,pos))+'%"></u></div><div class="sub" style="display:flex;justify-content:space-between"><span>Confiable</span><span>Riesgo</span></div></div></div>'+
-        '<div class="hd-k"><div class="bk"><b>'+L.length+'</b><small>Pedidos en Dropi</small></div><div class="vk"><b class="tv">'+q(val)+'</b><small>Entregado</small></div><div class="rk"><b class="tr_">'+q(perd)+'</b><small>Perdido en devoluciones</small></div><div class="ak"><b>'+c.T+'</b><small>En proceso</small></div></div>'+
-        '<div><div class="flab">Línea de tiempo (altura = valor del pedido)</div><div class="hd-tl">'+tl+'</div></div>'+
+        '<h3 style="margin:0">Pedidos por estado</h3><div class="hd-gr">'+donut+'<div class="hd-list">'+lista+'</div></div>'+
+        '<h3 style="margin:0">Transportadora</h3><div>'+tch+'</div>'+
+        '<h3 style="margin:0">Costo del producto</h3><div class="hd-cs">'+cin+'</div><div class="sub">Costo de lo entregado: <b>'+q(costoTot)+'</b> · Venta entregada: <b>'+q(val)+'</b>'+(costoTot?' · Queda antes de flete y pauta: <b>'+q(val-costoTot)+'</b>':'')+'</div>'+
         (w?'<div><a class="btn" href="https://wa.me/'+w+'" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>':'')+
-        '<table><thead><tr><th>Fecha</th><th>Pedido</th><th>Producto</th><th>Estado</th><th>Transportadora / guía</th><th>Valor</th></tr></thead><tbody>'+
-        L.map(function(o){var Y=all[o.n]||{},pn=window.ecProd?window.ecProd.of(o):"";return '<tr><td style="white-space:nowrap">'+esc((o.d||"").split("-").reverse().join("/"))+'</td><td>'+esc(o.n)+'</td><td>'+esc(pn&&pn!=="Sin producto"?pn:"–")+'</td><td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(Y.t||"–")+(Y.g?'<div class="sub">'+esc(Y.g)+'</div>':'')+(Y.nv?'<div><span class="pill r">'+esc(Y.nv)+'</span></div>':'')+'</td><td>'+q(o.v)+'</td></tr>'}).join("")+'</tbody></table>'+
-        '<p class="foot" style="margin:0">Solo cuenta los pedidos que están en este tablero. Se unen por teléfono (o por nombre si no hay teléfono).</p>';
+        '<table><thead><tr><th>Fecha</th><th>Pedido</th><th>Producto</th><th>Estado</th><th>Transportadora / guía</th><th>Costo</th><th>Valor</th></tr></thead><tbody>'+
+        L.map(function(o){var Y=all[o.n]||{},pn=window.ecProd?window.ecProd.of(o):"Sin producto",cc=CP[pn];return '<tr><td style="white-space:nowrap">'+esc((o.d||"").split("-").reverse().join("/"))+'</td><td>'+esc(o.n)+'</td><td>'+esc(pn!=="Sin producto"?pn:"–")+'</td><td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(Y.t||"–")+(Y.g?'<div class="sub">'+esc(Y.g)+'</div>':'')+(Y.nv?'<div><span class="pill r">'+esc(Y.nv)+'</span></div>':'')+'</td><td>'+(cc!=null&&cc!==""?q(cc):"–")+'</td><td>'+q(o.v)+'</td></tr>'}).join("")+'</tbody></table>'+
+        '<p class="foot" style="margin:0">Solo cuenta los pedidos que están en este tablero. Se unen por teléfono (o por nombre si no hay teléfono). El costo lo escribes tú una vez por producto y se guarda en este navegador.</p>';
+      cur=n;
       dlg.innerHTML=h;lastFocus=document.activeElement;box.hidden=false;var x=$("hd-x");if(x)x.focus()}
     function cerrar(){box.hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
     obody.addEventListener("click",function(ev){var b=ev.target.closest(".cli");if(b)huella(b.dataset.n)});
+    dlg.addEventListener("change",function(ev){var i=ev.target;if(!i.dataset||i.dataset.p==null)return;var C=costos();if(i.value==="")delete C[i.dataset.p];else C[i.dataset.p]=Math.max(0,+i.value||0);try{localStorage.setItem("ec_costop",JSON.stringify(C))}catch(e){}var y=dlg.scrollTop;huella(cur);dlg.scrollTop=y});
     box.addEventListener("click",function(ev){if(ev.target===box||ev.target.id==="hd-x")cerrar()});
     document.addEventListener("keydown",function(ev){if(ev.key==="Escape"&&!box.hidden)cerrar()});
   })();
