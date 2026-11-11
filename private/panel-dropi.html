@@ -307,7 +307,21 @@
 </div>
 
 <script>
-try{const t=localStorage.getItem('ec_theme');document.documentElement.setAttribute('data-theme',t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'))}catch(e){}
+/* Sigue el tema y la paleta del tablero (claro/oscuro, morado/celeste...) y se actualiza si los cambias */
+(function(){
+  const R=document.documentElement;
+  function sync(){
+    let t=null,ac=null,ac2=null;
+    try{const P=parent.document.documentElement;t=P.getAttribute('data-theme');const cs=parent.getComputedStyle(P);ac=cs.getPropertyValue('--accent').trim();ac2=cs.getPropertyValue('--accent2').trim()}catch(e){}
+    if(t!=='light'&&t!=='dark'){try{t=localStorage.getItem('ec_theme')}catch(e){}}
+    if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+    R.setAttribute('data-theme',t);
+    if(ac){R.style.setProperty('--accent',ac);R.style.setProperty('--accent2',ac2||ac);R.style.setProperty('--accentsoft','color-mix(in srgb,'+ac+' 16%,transparent)')}
+  }
+  sync();
+  try{new MutationObserver(sync).observe(parent.document.documentElement,{attributes:true,attributeFilter:['data-theme','data-pal']})}catch(e){}
+  try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',sync)}catch(e){}
+})();
 const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let DATA=null, sortK='date', sortDir=-1, charts={};
@@ -584,7 +598,7 @@ document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('clic
 $('#applyRange').addEventListener('click',()=>{range={from:$('#dFrom').value||null,to:$('#dTo').value||null};
   document.querySelectorAll('#presets button').forEach(x=>x.classList.remove('on'));load();});
 $('#btnReload').addEventListener('click',load);
-$('#btnTheme').addEventListener('click',()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';DATA&&render();});
+$('#btnTheme').addEventListener('click',()=>{const r=document.documentElement;const n=r.dataset.theme==='dark'?'light':'dark';r.dataset.theme=n;try{parent.document.documentElement.setAttribute('data-theme',n);localStorage.setItem('ec_theme',n)}catch(e){}DATA&&render();});
 $('#btnProv').addEventListener('click',openProv);
 $('#provClose').addEventListener('click',()=>$('#provOverlay').classList.remove('show'));
 $('#provCancel').addEventListener('click',()=>$('#provOverlay').classList.remove('show'));
