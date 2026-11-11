@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel Dropi — millora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#070b16; --bg2:#0b1122; --card:#111830; --card2:#172038; --line:#253050;
+    --tx:#eef2fc; --muted:#8a97bd; --soft:#aab4d4;
+    --accent:#6366f1; --accent2:#8b5cf6; --accentsoft:rgba(99,102,241,.16);
+    --green:#22c55e; --greenbg:rgba(34,197,94,.14);
+    --yellow:#f59e0b; --yellowbg:rgba(245,158,11,.15);
+    --red:#f43f5e; --redbg:rgba(244,63,94,.14);
+    --blue:#38bdf8; --bluebg:rgba(56,189,248,.14);
+    --wa:#25d366; --wabg:rgba(37,211,102,.14);
+    --radius:18px; --shadow:0 10px 34px rgba(0,0,0,.34);
+  }
+  :root[data-theme="light"]{
+    --bg:#eef1fa; --bg2:#e6ebf7; --card:#ffffff; --card2:#f4f7fe; --line:#e0e6f3;
+    --tx:#141b32; --muted:#64719a; --soft:#4b5878; --accentsoft:rgba(99,102,241,.12);
+    --shadow:0 10px 28px rgba(50,70,130,.10);
+    --greenbg:rgba(34,197,94,.14); --yellowbg:rgba(217,119,6,.16); --redbg:rgba(244,63,94,.12); --bluebg:rgba(14,165,233,.12); --wabg:rgba(37,211,102,.14);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 80% -5%,rgba(99,102,241,.10),transparent 60%),linear-gradient(170deg,var(--bg),var(--bg2));
+    color:var(--tx);font-family:"Inter",system-ui,-apple-system,sans-serif;min-height:100vh;padding:22px 18px 60px;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+  .wrap{max-width:1320px;margin:0 auto}
+  a{color:inherit}
+  /* header */
+  header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:grid;place-items:center;font-size:23px;box-shadow:0 8px 22px rgba(99,102,241,.4)}
+  h1{font-size:21px;margin:0;font-weight:800;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:12.5px;margin-top:3px;font-weight:500}
+  .spacer{flex:1}
+  .pill{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);
+    padding:8px 13px;border-radius:999px;font-size:12.5px;color:var(--soft);font-weight:500}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--greenbg)}
+  .dot.off{background:var(--muted);box-shadow:none}
+  button.ghost{background:var(--card);border:1px solid var(--line);color:var(--tx);padding:8px 13px;
+    border-radius:11px;cursor:pointer;font-size:12.5px;font-weight:600;transition:.15s}
+  button.ghost:hover{border-color:var(--accent);background:var(--accentsoft)}
+  button.solid{background:linear-gradient(135deg,var(--accent),var(--accent2));border:0;color:#fff;padding:8px 14px;
+    border-radius:11px;cursor:pointer;font-size:12.5px;font-weight:700;transition:.15s}
+  button.solid:hover{filter:brightness(1.08)}
+  /* date bar */
+  .daterow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;padding:13px 16px}
+  .daterow .dlabel{font-weight:700;font-size:13px}
+  .presets{display:flex;gap:6px;flex-wrap:wrap}
+  .presets button{background:var(--card2);border:1px solid var(--line);color:var(--muted);
+    padding:7px 13px;border-radius:999px;font-size:12.5px;cursor:pointer;font-weight:600;transition:.15s}
+  .presets button:hover{border-color:var(--accent);color:var(--tx)}
+  .presets button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .daterow .sep{width:1px;height:24px;background:var(--line)}
+  .daterow .to{color:var(--muted)}
+  .rangeInfo{color:var(--muted);font-size:12px;margin-left:auto;font-weight:500}
+  input,select{background:var(--card2);border:1px solid var(--line);color:var(--tx);padding:9px 12px;border-radius:11px;font-size:13px;font-family:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:13px;margin-bottom:18px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi::after{content:"";position:absolute;inset:0 0 auto auto;width:70px;height:70px;background:var(--accentsoft);filter:blur(26px);border-radius:50%}
+  .kpi .l{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;display:flex;align-items:center;gap:6px}
+  .kpi .v{font-size:clamp(21px,6.2vw,27px);font-weight:900;margin-top:7px;line-height:1;letter-spacing:-.03em}
+  .kpi .d{font-size:11.5px;color:var(--muted);margin-top:6px;font-weight:500}
+  .v.green{color:var(--green)} .v.red{color:var(--red)} .v.yellow{color:var(--yellow)} .v.blue{color:var(--blue)}
+  .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .card h2{font-size:14.5px;margin:0 0 14px;display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.01em}
+  .card h2 .tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:0}
+  /* alertas */
+  .alert-card{border-color:rgba(245,158,11,.45)}
+  .alert-head .tag{color:var(--yellow)}
+  .alertlist{display:flex;flex-direction:column;gap:9px;max-height:360px;overflow:auto}
+  .alertrow{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--line);border-radius:13px;background:var(--card2);flex-wrap:wrap}
+  .alertrow .meta{display:flex;flex-direction:column;gap:2px;min-width:160px}
+  .alertrow .who{font-weight:700;font-size:13.5px}
+  .alertrow .det{font-size:11.5px;color:var(--muted)}
+  .alertrow .guia{font-family:ui-monospace,monospace;font-size:12px;background:var(--bluebg);color:var(--blue);padding:3px 9px;border-radius:7px;font-weight:700}
+  .alertrow .age{font-size:11.5px;font-weight:700}
+  .alertrow .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .wa{display:inline-flex;align-items:center;gap:7px;background:var(--wabg);color:var(--wa);border:1px solid rgba(37,211,102,.4);
+    padding:7px 12px;border-radius:10px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s}
+  .wa:hover{background:var(--wa);color:#04210f}
+  .empty{color:var(--muted);font-size:13px;text-align:center;padding:22px;font-weight:500}
+  /* semaforo */
+  .sem{display:flex;flex-direction:column;gap:11px}
+  .carrier{border:1px solid var(--line);border-radius:14px;padding:13px 15px;background:var(--card2)}
+  .carrier .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .light{width:14px;height:14px;border-radius:50%;flex:none}
+  .light.green{background:var(--green);box-shadow:0 0 12px var(--green)}
+  .light.yellow{background:var(--yellow);box-shadow:0 0 12px var(--yellow)}
+  .light.red{background:var(--red);box-shadow:0 0 12px var(--red)}
+  .carrier .nm{font-weight:800;font-size:14.5px}
+  .carrier .score{margin-left:auto;font-weight:900;font-size:19px;letter-spacing:-.02em}
+  .bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden;display:flex;margin-top:11px}
+  .bar i{display:block;height:100%}
+  .bar i.g{background:var(--green)} .bar i.b{background:var(--blue)} .bar i.r{background:var(--red)} .bar i.y{background:var(--yellow)}
+  .legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:11px;font-weight:500}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .sq{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .mini{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap;font-weight:500}
+  .mini b{color:var(--tx);font-weight:700}
+  /* status */
+  .stat{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .stat:last-child{border:0}
+  .stat .nm{font-size:13px;font-weight:500}
+  .stat .ct{margin-left:auto;font-weight:800}
+  .stat .pct{color:var(--muted);font-size:12px;width:48px;text-align:right;font-weight:600}
+  .chip{font-size:10.5px;padding:3px 9px;border-radius:999px;font-weight:800;letter-spacing:.2px}
+  .chip.green{background:var(--greenbg);color:var(--green)} .chip.red{background:var(--redbg);color:var(--red)}
+  .chip.yellow{background:var(--yellowbg);color:var(--yellow)} .chip.blue{background:var(--bluebg);color:var(--blue)}
+  /* table */
+  .tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:10px 11px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;position:sticky;top:0;background:var(--card);z-index:1}
+  td.r,th.r{text-align:right}
+  tbody tr:hover{background:var(--card2)}
+  .guia-cell{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--soft)}
+  .tablewrap{max-height:470px;overflow:auto;border-radius:13px;border:1px solid var(--line)}
+  .wa-sm{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--wabg);color:var(--wa);border:1px solid rgba(37,211,102,.4);cursor:pointer;text-decoration:none;font-size:14px}
+  .wa-sm:hover{background:var(--wa);color:#04210f}
+  .err{background:var(--redbg);color:var(--red);border:1px solid var(--red);padding:13px 15px;border-radius:13px;margin-bottom:14px;display:none;font-weight:600}
+  .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:24px;font-weight:500}
+  /* modal proveedores */
+  .overlay{position:fixed;inset:0;background:rgba(5,8,16,.66);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;z-index:50;overflow:auto}
+  .overlay.show{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:20px;max-width:640px;width:100%;box-shadow:var(--shadow)}
+  .modal .mh{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .modal .mh h3{margin:0;font-size:16px;font-weight:800}
+  .modal .mb{padding:18px 20px;display:flex;flex-direction:column;gap:18px;max-height:66vh;overflow:auto}
+  .modal .mf{padding:15px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+  .fgroup label{display:block;font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+  .prow{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+  .prow .pn{font-weight:700;font-size:13px;min-width:96px}
+  .prow input{flex:1;min-width:120px}
+  .modal textarea{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:11px;padding:11px 13px;font-family:inherit;font-size:12.5px;min-height:76px;resize:vertical}
+  .hint{font-size:11.5px;color:var(--muted);font-weight:500}
+  .saveok{color:var(--green);font-size:12.5px;font-weight:700;margin-right:auto;opacity:0;transition:.2s}
+  .saveok.show{opacity:1}
+  .close{margin-left:auto;cursor:pointer;color:var(--muted);font-size:22px;line-height:1}
+  .supbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+  .supchip{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid var(--line);border-radius:13px;background:var(--card2);cursor:pointer;transition:.15s}
+  .supchip:hover{border-color:var(--accent)}
+  .supchip.on{border-color:var(--accent);background:var(--accentsoft)}
+  .supchip .nm{font-weight:700;font-size:13px}
+  .onlylate{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--soft);font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">🚚</div>
+    <div>
+      <h1>Centro de Pedidos · <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent">millora</span></h1>
+      <div class="sub">Dropi Guatemala · semáforo de transportadoras, guías y seguimiento en vivo</div>
+    </div>
+    <div class="spacer"></div>
+    <span class="pill"><span class="dot" id="live"></span><span id="livetxt">Conectando…</span></span>
+    <span class="pill" id="refreshin">⟳ —</span>
+    <button class="ghost" id="btnProv">⚙ Proveedores</button>
+    <button class="ghost" id="btnTheme">◐ Tema</button>
+    <button class="solid" id="btnReload">Actualizar</button>
+  </header>
+
+  <div class="err" id="err"></div>
+
+  <div class="daterow card">
+    <span class="dlabel">📅 Periodo</span>
+    <div class="presets" id="presets">
+      <button data-p="todo" class="on">Todo</button>
+      <button data-p="hoy">Hoy</button>
+      <button data-p="7">7 días</button>
+      <button data-p="30">30 días</button>
+      <button data-p="mes">Este mes</button>
+      <button data-p="mespas">Mes pasado</button>
+    </div>
+    <span class="sep"></span>
+    <input type="date" id="dFrom"><span class="to">→</span><input type="date" id="dTo">
+    <button class="ghost" id="applyRange">Aplicar</button>
+    <span class="rangeInfo" id="rangeInfo"></span>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card alert-card" style="margin-bottom:16px">
+    <h2 class="alert-head">⚠️ Pedidos que requieren atención
+      <span class="tag" id="alertTag">novedades + en tránsito +5 días</span></h2>
+    <div class="alertlist" id="alertlist"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>🚦 Semáforo de transportadoras <span class="tag">efectividad = entregados ÷ finalizados</span></h2>
+      <div class="sem" id="sem"></div>
+      <div class="legend">
+        <span><i class="sq" style="background:var(--green)"></i> Entregado</span>
+        <span><i class="sq" style="background:var(--blue)"></i> En proceso</span>
+        <span><i class="sq" style="background:var(--yellow)"></i> Novedad</span>
+        <span><i class="sq" style="background:var(--red)"></i> Devolución / Cancelado</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>📦 Pedidos por estado</h2>
+      <div style="height:190px;position:relative"><canvas id="statusChart"></canvas></div>
+      <div id="statusList" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>🗺️ Semáforo por zona <span class="tag">dónde conviene cobrar anticipado (alta devolución)</span></h2>
+    <div class="tablewrap" style="max-height:340px">
+      <table id="zoneTbl">
+        <thead><tr><th>Zona</th><th>Estado</th><th class="r">Pedidos</th><th class="r">Entrega</th>
+          <th class="r">Devol.</th><th class="r">Días</th><th class="r">Utilidad</th><th>Recomendación</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>📈 Tendencia diaria <span class="tag">pedidos y recaudo por día en el periodo</span></h2>
+    <div style="height:240px;position:relative"><canvas id="trendChart"></canvas></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>🗺️ Pedidos por departamento</h2>
+      <div style="height:230px;position:relative"><canvas id="deptChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>🏆 Productos más vendidos</h2>
+      <div id="topProd"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧾 Pedidos y proveedores <span class="tag" id="rowcount"></span></h2>
+    <div class="supbar" id="supList"></div>
+    <div class="tools">
+      <input id="q" placeholder="Buscar cliente, ciudad, guía, #id…" style="flex:1;min-width:190px">
+      <select id="fStatus"><option value="">Todos los estados</option></select>
+      <select id="fCarrier"><option value="">Todas las transportadoras</option></select>
+      <select id="fSupplier"><option value="">Todos los proveedores</option></select>
+      <label class="onlylate"><input type="checkbox" id="fLate"> Solo con retraso</label>
+    </div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead><tr>
+          <th data-k="id"># </th><th data-k="status">Estado</th><th data-k="supplierId">Proveedor</th><th data-k="carrier">Transportadora</th>
+          <th data-k="guia">Guía</th><th data-k="name">Cliente</th><th data-k="city">Ciudad</th>
+          <th data-k="total" class="r">Total (Q)</th><th data-k="util" class="r">Utilidad</th><th data-k="date">Fecha</th><th>Acción</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="foot" id="foot">—</div>
+</div>
+
+<!-- Modal proveedores -->
+<div class="overlay" id="provOverlay">
+  <div class="modal">
+    <div class="mh"><span style="font-size:20px">📇</span><h3>Directorio de proveedores y transportadoras</h3><span class="close" id="provClose">×</span></div>
+    <div class="mb">
+      <div class="fgroup">
+        <label>📱 Teléfonos de transportadoras (para reclamar guías)</label>
+        <div id="provCarriers"></div>
+        <div class="hint">Incluye código de país. Ej: 50255551234 (si pones 8 dígitos se asume Guatemala +502).</div>
+      </div>
+      <div class="fgroup">
+        <label>🏭 Proveedores (bodegas)</label>
+        <div id="provSuppliers"></div>
+      </div>
+      <div class="fgroup">
+        <label>💬 Plantilla del mensaje de WhatsApp</label>
+        <textarea id="provTpl"></textarea>
+        <div class="hint">Variables: <code>{guia}</code> <code>{id}</code> <code>{cliente}</code> <code>{ciudad}</code> <code>{estado}</code> <code>{transportadora}</code></div>
+      </div>
+    </div>
+    <div class="mf">
+      <span class="saveok" id="saveok">✓ Guardado</span>
+      <button class="ghost" id="provCancel">Cerrar</button>
+      <button class="solid" id="provSave">Guardar directorio</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal tracking -->
+<div class="overlay" id="trackOverlay">
+  <div class="modal" style="max-width:520px">
+    <div class="mh"><span style="font-size:20px">🧭</span><h3 id="trackTitle">Seguimiento de guía</h3><span class="close" id="trackClose">×</span></div>
+    <div class="mb" id="trackBody"></div>
+    <div class="mf"><button class="ghost" id="trackCancel">Cerrar</button></div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DATA=null, sortK='date', sortDir=-1, charts={};
+const REFRESH=60; let left=REFRESH, timer=null;
+let range={from:null,to:null}, boundsSet=false;
+const DEFAULT_TPL="Hola 👋, consulto por la guía *{guia}* del pedido #{id} ({cliente} – {ciudad}) con {transportadora}, que figura en estado *{estado}*. ¿Me ayudan a revisar si está retrasada? Gracias 🙏";
+let PROV={template:DEFAULT_TPL, carriers:{}, suppliers:{}};
+
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+function apiUrl(path,extra){const p=new URLSearchParams();p.set('a',path==='/api/data'?'data':'prov');
+  if(extra)for(const k in extra){if(extra[k]!=null&&extra[k]!=='')p.set(k,extra[k]);}
+  return '/api/dropi?'+p.toString();}
+function daysSince(d){if(!d)return 0;return Math.floor((Date.now()-new Date(d).getTime())/86400000);}
+function badge(g){return {entregado:'green',devolucion:'red',cancelado:'red',novedad:'yellow',proceso:'blue'}[g]||'blue';}
+function waLink(phone,msg){const d=(phone||'').replace(/\D/g,'');if(!d)return null;const full=d.length<=8?('502'+d):d;return 'https://wa.me/'+full+'?text='+encodeURIComponent(msg);}
+function waMsg(o){return (PROV.template||DEFAULT_TPL)
+  .replace(/{guia}/g,o.guia||'(sin guía)').replace(/{id}/g,o.id)
+  .replace(/{cliente}/g,o.name||'').replace(/{ciudad}/g,o.city||'')
+  .replace(/{estado}/g,o.status||'').replace(/{transportadora}/g,o.carrier||'');}
+function waFor(o){const ph=(PROV.carriers||{})[o.carrier];const link=waLink(ph,waMsg(o));return link;}
+
+function preset(p){
+  const now=new Date(); let f=null,t=null;
+  if(p==='hoy'){f=t=iso(now);}
+  else if(p==='7'){const a=new Date(now);a.setDate(a.getDate()-6);f=iso(a);t=iso(now);}
+  else if(p==='30'){const a=new Date(now);a.setDate(a.getDate()-29);f=iso(a);t=iso(now);}
+  else if(p==='mes'){f=iso(new Date(now.getFullYear(),now.getMonth(),1));t=iso(now);}
+  else if(p==='mespas'){f=iso(new Date(now.getFullYear(),now.getMonth()-1,1));t=iso(new Date(now.getFullYear(),now.getMonth(),0));}
+  range={from:f,to:t}; $('#dFrom').value=f||''; $('#dTo').value=t||''; load();
+}
+
+async function loadProviders(){
+  try{const r=await fetch(apiUrl('/api/providers'),{cache:'no-store'});if(r.ok){const j=await r.json();
+    PROV={template:j.template||DEFAULT_TPL, carriers:j.carriers||{}, suppliers:j.suppliers||{}};}}catch(e){}
+}
+async function load(){
+  try{
+    const r=await fetch(apiUrl('/api/data',{from:range.from,to:range.to}),{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    DATA=await r.json();
+    if(DATA.error) throw new Error(DATA.error);
+    $('#err').style.display='none';
+    $('#live').classList.remove('off'); $('#livetxt').textContent='En vivo';
+    render(); left=REFRESH;
+  }catch(e){
+    $('#err').style.display='block';
+    $('#err').textContent='⚠️ No se pudo leer la API: '+e.message+'  (¿servidor activo? ¿token válido? ¿clave de acceso?)';
+    $('#live').classList.add('off'); $('#livetxt').textContent='Sin conexión';
+  }
+}
+
+function render(){
+  const rg=DATA.range||{};
+  $('#rangeInfo').textContent = rg.min ? ('Mostrando '+(rg.from||rg.min)+'  →  '+(rg.to||rg.max)+(rg.applied?'':'  · todo')+' · '+DATA.kpis.total+' pedidos') : '';
+  if(!boundsSet && rg.min){['#dFrom','#dTo'].forEach(s=>{$(s).min=rg.min;$(s).max=rg.max;});boundsSet=true;}
+  const k=DATA.kpis;
+  $('#kpis').innerHTML=[
+    ['📋 Pedidos totales',k.total,'','blue'],
+    ['💰 Recaudo total',money(k.revenue),'ticket prom. '+money(k.avg),''],
+    ['💵 Utilidad entregada',money(k.utilidad),'margen '+k.utilidadMargin+'% · prom. '+money(k.utilidadAvg),'green'],
+    ['✅ Entregados',k.entregado+' · '+k.deliveryRate+'%',money(k.ventaEnt)+' recaudado','green'],
+    ['↩️ Devoluciones',k.devolucion+' · '+k.returnRate+'%','tasa de devolución','red'],
+    ['🔄 En proceso',k.proceso,'recolectado / guía / ruta','blue'],
+    ['🔔 Novedades',k.novedad,'incidencias por resolver','yellow'],
+    ['💳 Por cobrar',money(k.porCobrar),k.enTransito+' en tránsito (COD)','blue'],
+    ['⏱️ Entrega prom.',k.entregaAvg+' días','máx '+k.entregaMax+' días',''],
+    ['📉 Pérdida devol.',money(k.perdidaDevol),'flete de devoluciones','red'],
+  ].map(([l,v,d,c])=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="d">${d||''}</div></div>`).join('');
+
+  // ALERTAS: novedades + en proceso con +5 dias
+  const alerts=DATA.orders.filter(o=>o.group==='novedad'||(o.group==='proceso'&&daysSince(o.date)>=5))
+     .sort((a,b)=>daysSince(b.date)-daysSince(a.date));
+  $('#alertTag').textContent=alerts.length+' pedido'+(alerts.length===1?'':'s');
+  $('#alertlist').innerHTML = alerts.length? alerts.map(o=>{
+    const dd=daysSince(o.date); const link=waFor(o);
+    const ageCol=dd>=10?'var(--red)':dd>=5?'var(--yellow)':'var(--muted)';
+    const btn=link?`<a class="wa" href="${link}" target="_blank" rel="noopener">💬 WhatsApp</a>`
+      :`<span class="wa" style="opacity:.6;cursor:default" title="Configura el número en ⚙ Proveedores">💬 Sin número</span>`;
+    return `<div class="alertrow">
+      <span class="chip ${badge(o.group)}">${E(o.status)}</span>
+      <div class="meta"><span class="who">#${E(o.id)} · ${E(o.name||'—')}</span>
+        <span class="det">${E(o.carrier||'—')} · ${E(o.city||'—')}</span></div>
+      <span class="guia">${E(o.guia||'sin guía')}</span>
+      <span class="age" style="color:${ageCol}">⏱ ${dd} d</span>
+      <div class="right"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line)" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span>${btn}</div></div>`;
+  }).join('') : '<div class="empty">🎉 Sin pedidos retrasados ni novedades en este periodo.</div>';
+
+  // semaforo
+  $('#sem').innerHTML=DATA.carriers.map(c=>{
+    const tot=c.total||1;
+    const seg=g=>`<i class="${g}" style="width:${(c[{g:'entregado',b:'proceso',y:'novedad',r:'devcan'}[g]]/tot*100)}%"></i>`;
+    const ph=(PROV.carriers||{})[c.name];
+    const wa=ph?`<a class="wa" style="margin-left:8px;padding:4px 10px" href="${waLink(ph,'Hola, consulto por el estado de varias guías con '+c.name+'. ¿Me ayudan? Gracias 🙏')}" target="_blank" rel="noopener">💬</a>`:'';
+    return `<div class="carrier">
+      <div class="top"><span class="light ${c.light}"></span><span class="nm">${E(c.name)}</span>
+        <span class="chip ${c.light}">${c.light==='green'?'Óptimo':c.light==='yellow'?'Atención':'Crítico'}</span>${wa}
+        <span class="score" style="color:var(--${c.light})">${c.effectiveness}%</span></div>
+      <div class="bar">${seg('g')}${seg('b')}${seg('y')}${seg('r')}</div>
+      <div class="mini"><span>Pedidos <b>${c.total}</b></span>
+        <span>Entregados <b style="color:var(--green)">${c.entregado}</b></span>
+        <span>Devueltos <b style="color:var(--red)">${c.devolucion}</b></span>
+        <span>Cancelados <b>${c.cancelado}</b></span>
+        <span>En proceso <b style="color:var(--blue)">${c.proceso}</b></span>
+        <span>Recaudo <b>${money(c.revenue)}</b></span>
+        <span>Utilidad <b style="color:var(--green)">${money(c.utilidad)}</b></span></div></div>`;
+  }).join('')||'<div class="empty">Sin datos</div>';
+
+  const sl=DATA.statusList;
+  $('#statusList').innerHTML=sl.map(s=>`<div class="stat">
+     <span class="chip ${badge(s.group)}">${E(s.group)}</span><span class="nm">${E(s.name)}</span>
+     <span class="ct">${s.count}</span><span class="pct">${s.pct}%</span></div>`).join('');
+  donut('statusChart', sl.map(s=>s.name), sl.map(s=>s.count), sl.map(s=>cssVar(badge(s.group))));
+  bar('deptChart', DATA.depts.map(d=>d.name), DATA.depts.map(d=>d.count));
+  renderZones(); renderTrend(); renderSuppliers();
+  $('#topProd').innerHTML=DATA.products.map((p,i)=>`<div class="stat">
+     <span style="width:20px;color:var(--muted);font-weight:700">${i+1}</span><span class="nm">${E(p.name)}</span>
+     <span class="ct">${p.qty}</span><span class="pct">${p.orders} ped.</span></div>`).join('')||'<div class="empty">—</div>';
+
+  fill('#fStatus', sl.map(s=>s.name)); fill('#fCarrier', DATA.carriers.map(c=>c.name));
+  drawTable();
+  $('#foot').textContent='Fuente: api.dropi.gt/integrations · Actualizado '+new Date(DATA.updated).toLocaleString('es-GT')+' · '+DATA.ms+' ms';
+}
+
+function fill(sel,vals){const el=$(sel),cur=el.value;const base=el.querySelector('option').outerHTML;
+  el.innerHTML=base+[...new Set(vals)].map(v=>`<option>${E(v)}</option>`).join('');el.value=cur;}
+
+function drawTable(){
+  const q=$('#q').value.toLowerCase(), fs=$('#fStatus').value, fc=$('#fCarrier').value,
+        fp=$('#fSupplier').value, fl=$('#fLate').checked;
+  let rows=DATA.orders.filter(o=>
+    (!fs||o.status===fs)&&(!fc||o.carrier===fc)&&(!fp||String(o.supplierId)===fp)&&(!fl||isLate(o))&&
+    (!q||(o.name||'').toLowerCase().includes(q)||(o.city||'').toLowerCase().includes(q)||String(o.id).includes(q)||(o.guia||'').toLowerCase().includes(q)));
+  rows.sort((a,b)=>{let x=a[sortK],y=b[sortK];if(sortK==='total'||sortK==='util'){x=+x;y=+y;}return (x>y?1:x<y?-1:0)*sortDir;});
+  $('#rowcount').textContent=rows.length+' de '+DATA.orders.length;
+  $('#tbl tbody').innerHTML=rows.map(o=>{
+    const sid=String(o.supplierId), sph=supPhone(sid), cph=(PROV.carriers||{})[o.carrier];
+    const waP=sph?`<a class="wa-sm" href="${waLink(sph,waMsg(o))}" target="_blank" rel="noopener" title="WhatsApp al proveedor (${E(supName(sid))})">💬</a>`
+                 :`<span class="wa-sm" style="opacity:.35" title="Sin número del proveedor — ⚙ Proveedores">💬</span>`;
+    const waC=cph?`<a class="wa-sm" style="margin-left:4px" href="${waLink(cph,waMsg(o))}" target="_blank" rel="noopener" title="WhatsApp a ${E(o.carrier)}">🚚</a>`:'';
+    const wa=waP+waC;
+    return `<tr style="${isLate(o)?'background:var(--redbg)':''}">
+     <td style="color:var(--muted)">${E(o.id)}</td>
+     <td><span class="chip ${badge(o.group)}">${E(o.status)}</span></td>
+     <td>${E(supName(sid))}</td>
+     <td>${E(o.carrier||'—')}</td><td class="guia-cell">${E(o.guia||'—')}</td>
+     <td>${E(o.name||'—')}</td><td>${E(o.city||'—')}</td>
+     <td class="r">${money(o.total)}</td>
+     <td class="r" style="color:${o.group==='entregado'?'var(--green)':'var(--muted)'};font-weight:600" title="${o.group==='entregado'?'Utilidad realizada':'Utilidad potencial (aún no entregado)'}">${money(o.util)}</td>
+     <td>${E((o.date||'').slice(0,10))}</td>
+     <td style="white-space:nowrap"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span>${wa}</td></tr>`;}).join('');
+}
+
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();}
+function donut(id,labels,data,colors){const c=$('#'+id);if(charts[id])charts[id].destroy();
+  charts[id]=new Chart(c,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0}]},
+    options:{plugins:{legend:{display:false}},cutout:'64%',responsive:true,maintainAspectRatio:false}});}
+function bar(id,labels,data){const c=$('#'+id);if(charts[id])charts[id].destroy();
+  charts[id]=new Chart(c,{type:'bar',data:{labels,datasets:[{data,backgroundColor:cssVar('accent'),borderRadius:7}]},
+    options:{plugins:{legend:{display:false}},responsive:true,maintainAspectRatio:false,
+      scales:{x:{ticks:{color:cssVar('muted'),font:{size:10}},grid:{display:false}},
+              y:{ticks:{color:cssVar('muted')},grid:{color:cssVar('line')},beginAtZero:true}}}});}
+
+function renderZones(){
+  const z=DATA.zones||[];
+  $('#zoneTbl tbody').innerHTML=z.map(r=>{
+    const rec=r.light==='red'?'<span class="chip red">⚠️ Cobrar anticipado</span>'
+      :r.light==='yellow'?'<span class="chip yellow">Vigilar</span>':'<span class="chip green">COD OK</span>';
+    return `<tr>
+      <td><span class="light ${r.light}" style="display:inline-block;margin-right:7px;vertical-align:middle"></span>${E(r.name)}</td>
+      <td><span class="chip ${r.light}">${r.light==='green'?'Bueno':r.light==='yellow'?'Medio':'Malo'}</span></td>
+      <td class="r">${r.total}</td><td class="r" style="color:var(--green)">${r.effectiveness}%</td>
+      <td class="r" style="color:var(--red)">${r.devRate}%</td>
+      <td class="r">${r.dias!=null?r.dias+' d':'—'}</td>
+      <td class="r" style="color:var(--green)">${money(r.util)}</td><td>${rec}</td></tr>`;
+  }).join('')||'<tr><td colspan="8" class="empty">Sin datos</td></tr>';
+}
+function renderTrend(){
+  const t=DATA.trend||[]; const id='trendChart';const c=$('#'+id);if(charts[id])charts[id].destroy();
+  charts[id]=new Chart(c,{data:{labels:t.map(d=>d.date.slice(5)),datasets:[
+    {type:'bar',label:'Pedidos',data:t.map(d=>d.pedidos),backgroundColor:cssVar('accent'),borderRadius:5,yAxisID:'y'},
+    {type:'line',label:'Recaudo (Q)',data:t.map(d=>d.recaudo),borderColor:cssVar('green'),backgroundColor:'transparent',tension:.3,yAxisID:'y1',pointRadius:2}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:cssVar('muted'),usePointStyle:true,boxWidth:8}}},
+    scales:{x:{ticks:{color:cssVar('muted'),font:{size:9}},grid:{display:false}},
+      y:{position:'left',ticks:{color:cssVar('muted')},grid:{color:cssVar('line')},beginAtZero:true},
+      y1:{position:'right',ticks:{color:cssVar('muted')},grid:{display:false},beginAtZero:true}}}});
+}
+function openTrack(id){
+  const o=(DATA.orders||[]).find(x=>String(x.id)===String(id));if(!o)return;
+  $('#trackTitle').textContent='Guía '+(o.guia||'—')+' · '+o.carrier;
+  const mv=o.mov||[];
+  const steps=mv.length?mv.map((m,i)=>`<div style="display:flex;gap:11px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <span style="width:12px;height:12px;border-radius:50%;background:${i===mv.length-1?'var(--green)':'var(--accent)'}"></span>
+        ${i<mv.length-1?'<span style="width:2px;flex:1;min-height:26px;background:var(--line)"></span>':''}</div>
+      <div style="padding-bottom:14px"><div style="font-weight:700;font-size:13px">${E(m.n)}</div>
+        <div style="font-size:11.5px;color:var(--muted)">${(m.d||'').replace('T',' ').slice(0,16)}</div></div></div>`).join('')
+    :'<div class="empty">Esta guía aún no registra movimientos.</div>';
+  $('#trackBody').innerHTML=`
+    <div class="prow" style="justify-content:space-between"><span><b>#${E(o.id)}</b> · ${E(o.name||'')}</span>
+      <span class="chip ${badge(o.group)}">${E(o.status)}</span></div>
+    <div class="hint" style="margin-bottom:6px">${E(o.city||'')} · ${E(o.dept||'')}${o.dias!=null?' · entregado en '+o.dias+' días':''}</div>
+    ${steps}`;
+  $('#trackOverlay').classList.add('show');
+}
+
+function supApi(id){return ((DATA&&DATA.supplierInfo)||{})[id]||{};}
+function supName(id){const s=(PROV.suppliers||{})[id]||{};return s.name||supApi(id).name||('Proveedor '+id);}
+function supPhone(id){const s=(PROV.suppliers||{})[id]||{};return s.phone||supApi(id).phone||'';}
+function isLate(o){return o.group==='novedad'||(o.group==='proceso'&&daysSince(o.date)>=5);}
+function renderSuppliers(){
+  const groups={};
+  (DATA.orders||[]).forEach(o=>{const id=o.supplierId==null?'—':String(o.supplierId);(groups[id]=groups[id]||[]).push(o);});
+  const ids=Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length);
+  $('#supList').innerHTML=ids.map(id=>{
+    const list=groups[id];
+    const retr=list.filter(isLate);
+    const ph=supPhone(id);
+    let btn;
+    if(ph){
+      const msg=retr.length
+        ? 'Hola 👋, te comparto los pedidos con posible retraso:\n'+retr.map(o=>`• #${E(o.id)} guía ${o.guia||'s/g'} — ${E(o.status)} (${daysSince(o.date)}d)`).join('\n')+'\n¿Me ayudas a revisarlos? Gracias 🙏'
+        : 'Hola 👋, consulto por el estado de mis pedidos del día. ¿Todo en orden? Gracias 🙏';
+      btn=`<a class="wa" style="padding:5px 10px" href="${waLink(ph,msg)}" target="_blank" rel="noopener">💬 ${retr.length?('Avisar '+retr.length):'Escribir'}</a>`;
+    } else {
+      btn=`<span class="hint" title="Configura el número en ⚙ Proveedores">📱 sin número</span>`;
+    }
+    const on=$('#fSupplier').value===id?' on':'';
+    return `<div class="supchip${on}" onclick="pickSupplier('${E(id)}')" title="Filtrar la tabla por este proveedor">
+      <span class="nm">🏭 ${E(supName(id))}</span>
+      <span class="chip blue">${list.length}</span>
+      ${retr.length?`<span class="chip red">${retr.length} retraso${retr.length>1?'s':''}</span>`:`<span class="chip green">al día</span>`}
+      <span onclick="event.stopPropagation()">${btn}</span></div>`;
+  }).join('');
+  const sel=$('#fSupplier'), cur=sel.value;
+  sel.innerHTML='<option value="">Todos los proveedores</option>'+ids.map(id=>`<option value="${E(id)}">${E(supName(id))}</option>`).join('');
+  sel.value=cur;
+}
+function pickSupplier(id){const s=$('#fSupplier');s.value=(s.value===id?'':id);renderSuppliers();drawTable();}
+
+/* ===== Modal proveedores ===== */
+function openProv(){
+  const carriers=(DATA?DATA.carriers.map(c=>c.name):Object.keys(PROV.carriers));
+  $('#provCarriers').innerHTML=carriers.map(n=>`<div class="prow"><span class="pn">${E(n)}</span>
+    <input data-carrier="${E(n)}" placeholder="Número con WhatsApp" value="${E((PROV.carriers||{})[n]||'')}"></div>`).join('')||'<div class="hint">Sin transportadoras cargadas aún.</div>';
+  const sups=(DATA&&DATA.suppliers&&DATA.suppliers.length)?DATA.suppliers:Object.keys(PROV.suppliers).map(id=>({id}));
+  $('#provSuppliers').innerHTML=sups.map(s=>{const cur=(PROV.suppliers||{})[s.id]||{};
+    return `<div class="prow"><span class="pn">Prov. ${E(s.id)}${s.count?' ('+s.count+')':''}</span>
+      <input data-sup-name="${E(s.id)}" placeholder="${E(supApi(s.id).name||'Nombre')}" value="${E(cur.name||'')}" style="max-width:150px">
+      <input data-sup-phone="${E(s.id)}" placeholder="${supApi(s.id).phone?('Dropi: '+E(supApi(s.id).phone)):'Número con WhatsApp'}" value="${E(cur.phone||'')}"></div>`;}).join('')||'<div class="hint">Sin proveedores cargados aún.</div>';
+  $('#provTpl').value=PROV.template||DEFAULT_TPL;
+  $('#provOverlay').classList.add('show');
+}
+async function saveProv(){
+  const carriers={}; document.querySelectorAll('[data-carrier]').forEach(i=>{if(i.value.trim())carriers[i.getAttribute('data-carrier')]=i.value.trim();});
+  const suppliers={}; document.querySelectorAll('[data-sup-phone]').forEach(i=>{const id=i.getAttribute('data-sup-phone');
+    const nm=document.querySelector('[data-sup-name="'+id+'"]'); suppliers[id]={name:(nm?nm.value.trim():''),phone:i.value.trim()};});
+  PROV={template:$('#provTpl').value||DEFAULT_TPL, carriers, suppliers};
+  try{await fetch(apiUrl('/api/providers'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(PROV)});
+    $('#saveok').classList.add('show');setTimeout(()=>$('#saveok').classList.remove('show'),1800);
+    if(DATA)render();
+  }catch(e){alert('No se pudo guardar: '+e.message);}
+}
+
+// eventos
+$('#q').addEventListener('input',()=>DATA&&drawTable());
+$('#fStatus').addEventListener('change',()=>DATA&&drawTable());
+$('#fCarrier').addEventListener('change',()=>DATA&&drawTable());
+$('#fSupplier').addEventListener('change',()=>{if(DATA){renderSuppliers();drawTable();}});
+$('#fLate').addEventListener('change',()=>DATA&&drawTable());
+document.querySelectorAll('#tbl th').forEach(th=>th.addEventListener('click',()=>{const k=th.dataset.k;if(!k)return;sortDir=(sortK===k)?-sortDir:1;sortK=k;DATA&&drawTable();}));
+document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#presets button').forEach(x=>x.classList.remove('on'));b.classList.add('on');preset(b.dataset.p);}));
+$('#applyRange').addEventListener('click',()=>{range={from:$('#dFrom').value||null,to:$('#dTo').value||null};
+  document.querySelectorAll('#presets button').forEach(x=>x.classList.remove('on'));load();});
+$('#btnReload').addEventListener('click',load);
+$('#btnTheme').addEventListener('click',()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark';DATA&&render();});
+$('#btnProv').addEventListener('click',openProv);
+$('#provClose').addEventListener('click',()=>$('#provOverlay').classList.remove('show'));
+$('#provCancel').addEventListener('click',()=>$('#provOverlay').classList.remove('show'));
+$('#provOverlay').addEventListener('click',e=>{if(e.target.id==='provOverlay')$('#provOverlay').classList.remove('show');});
+$('#provSave').addEventListener('click',saveProv);
+$('#trackClose').addEventListener('click',()=>$('#trackOverlay').classList.remove('show'));
+$('#trackCancel').addEventListener('click',()=>$('#trackOverlay').classList.remove('show'));
+$('#trackOverlay').addEventListener('click',e=>{if(e.target.id==='trackOverlay')$('#trackOverlay').classList.remove('show');});
+
+timer=setInterval(()=>{left--;$('#refreshin').textContent='⟳ '+left+'s';if(left<=0)load();},1000);
+(async()=>{await loadProviders();load();})();
+</script>
+</body>
+</html>

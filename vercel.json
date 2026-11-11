@@ -6,6 +6,10 @@
       "destination": "/api/app"
     },
     {
+      "source": "/pedidos-dropi",
+      "destination": "/api/app?v=dropi"
+    },
+    {
       "source": "/login",
       "destination": "/api/login"
     },
@@ -20,7 +24,7 @@
   ],
   "functions": {
     "api/app.js": {
-      "includeFiles": "private/ecompro.html"
+      "includeFiles": "private/*.html"
     },
     "api/db.js": {
       "includeFiles": "private/seed.json"

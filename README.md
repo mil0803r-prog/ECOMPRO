@@ -3,12 +3,12 @@
 Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pedidos de Dropi y landings), Meta Ads, TikTok Ads y DropKiller. Se sirve desde Vercel detrás de un inicio de sesión con Google.
 
 - Secciones: Resumen, Logística (Pedidos, Dinero), Marketing (Landings, Meta, TikTok) e Investigación de mercado (Caza diaria, Mercado, Validador manual).
-- Los datos de pedidos, Meta y TikTok son una foto al 7 de octubre de 2026 incrustada en el archivo.
+- Meta Ads se actualiza en vivo (`/api/meta-sync`, cada 15 min con el tablero abierto). Los pedidos de Dropi entran por la sección **Dropi** (API en vivo), la extensión o la importación de archivos; TikTok sigue siendo una foto incrustada.
 - La Caza diaria, el Validador manual y los parámetros guardan sus datos en una base Upstash Redis (`api/db.js`). `api/_shim.js` imita la base del artefacto de Claude para que el tablero funcione igual en Vercel. La primera vez que se abre, la base se llena con lo que había en el artefacto (`private/seed.json`).
 
 ## Cómo está protegido
 
-- `public/` solo tiene `robots.txt`. El tablero vive en `private/` y solo lo entrega `api/app.js` cuando hay sesión válida.
+- `public/` tiene solo archivos públicos (robots.txt, service worker y la extensión). El tablero vive en `private/` y solo lo entrega `api/app.js` cuando hay sesión válida.
 - `api/login.js` y `api/callback.js` hacen el inicio de sesión con Google (OAuth, sin librerías). Solo entra un correo de la lista `ALLOWED_EMAILS`.
 - La sesión es una cookie firmada (HMAC) de 7 días. `/logout` la borra.
 
@@ -23,6 +23,11 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 | `KV_REST_API_URL` y `KV_REST_API_TOKEN` | Se crean solos al conectar Upstash Redis desde Vercel (Storage → Marketplace → Upstash Redis → conectar al proyecto) |
 | `APP_URL` | Opcional: la dirección pública, por ejemplo `https://ecompro.vercel.app` |
 | `ALERTAS_KEY` | Clave larga (texto aleatorio). Con ella Claude manda avisos de ventas a la campana 🔔 del tablero (`POST /api/alertas`, cabecera `x-alertas-key`). Sin esta variable el endpoint responde 503 |
+| `DROPI_TOKEN` | Token de integración de Dropi (Sensible). Lo usa la sección **Dropi** (panel de pedidos en vivo) para leer `api.dropi.gt/integrations`. Nunca llega al navegador |
+| `DROPI_LIVE_KEY` | Clave inventada por ti para la extensión de Chrome que manda pedidos al tablero (`/api/dropi-live`) |
+| `META_ACCESS_TOKEN` | Token de un usuario del sistema de Meta con permiso `ads_read` (Sensible). Lo usa `/api/meta-sync` para traer las métricas en vivo |
+| `META_ACCOUNTS` | Opcional: IDs de cuentas publicitarias de Meta a leer, separados por coma. Por defecto: Cuenta 1, Cuenta 3, Guatemala 2 y Guatemala 3 |
+| `CRON_SECRET` | Texto largo y aleatorio. Vercel lo manda en el cron diario de `/api/meta-sync` |
 
 ## Google Cloud (una vez)
 
