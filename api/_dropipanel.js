@@ -8,7 +8,8 @@ const RTOK = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOK
 const DELIVERED = ["ENTREGADO"];
 const RETURNED = ["DEVOLUCION", "DEVOLUCION RECIBIDA", "DEVOLUCION_RECIBIDA", "DEVUELTO"];
 const CANCELLED = ["CANCELADO", "ANULADO"];
-const CACHE_TTL = 30 * 1000;
+const CACHE_TTL = 90 * 1000;
+const PAGE = 100, MAX_PAGES = 40; // hasta 4.000 pedidos
 const WH_TTL = 6 * 3600 * 1000;
 let RAW = { t: 0, orders: null };
 const WH = new Map(); // warehouse_id -> {name, phone, city, t}
@@ -48,11 +49,22 @@ async function dropi(path, timeoutMs) {
   const e = new Error("Dropi rechazó el token (HTTP " + last + ")."); e.code = 502; throw e;
 }
 
+// Trae TODOS los pedidos de la cuenta: pide de 100 en 100 con start=0,100,200... y se detiene cuando ya no llegan pedidos nuevos
+// (si Dropi ignorara "start", la segunda página repite los mismos pedidos y ahí se corta: quedan los últimos 100).
 async function getRaw() {
   const now = Date.now();
   if (RAW.orders && now - RAW.t < CACHE_TTL) return RAW.orders;
-  const j = await dropi("/integrations/orders/myorders?result_number=100", 25000);
-  RAW = { t: now, orders: (j && j.objects) || [] };
+  const all = [], seen = new Set();
+  let pages = 0;
+  for (let i = 0; i < MAX_PAGES; i++) {
+    const j = await dropi("/integrations/orders/myorders?result_number=" + PAGE + (i ? "&start=" + i * PAGE : ""), 20000);
+    const objs = (j && j.objects) || [];
+    let nuevos = 0;
+    for (const x of objs) { const k = String(x.id); if (!seen.has(k)) { seen.add(k); all.push(x); nuevos++; } }
+    pages++;
+    if (!nuevos || objs.length < PAGE) break;
+  }
+  RAW = { t: now, orders: all, pages };
   return RAW.orders;
 }
 
@@ -253,7 +265,7 @@ async function build(dFrom, dTo) {
   }
   for (const k of Object.keys(huella)) { huella[k].total = r2(huella[k].total); huella[k].orders.sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0)); }
   return {
-    huella,
+    huella, revisados: raw.length, paginas: RAW.pages || 1,
     updated: new Date().toISOString().slice(0, 19), ms: Date.now() - t0,
     range: { from: f, to: t, min: dmin, max: dmax, applied: !!(dFrom || dTo) },
     kpis, carriers: carList, statusList, depts, products, orders, suppliers, supplierInfo, zones: zoneList, trend: trendList,

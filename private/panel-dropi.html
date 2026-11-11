@@ -543,7 +543,7 @@ function openHuella(id){
     </div>
     <div class="hint">Comprado en total: <b>${money(h.total)}</b> · en proceso ${h.proceso} · novedad ${h.novedad}</div>
     <div style="display:flex;flex-direction:column;gap:6px">${h.orders.slice(0,15).map(x=>`<div class="stat"><span class="chip ${badge(x.g)}">${E(x.st)}</span><span class="nm">#${E(x.id)} · ${E(x.c)}${x.city?' · '+E(x.city):''}</span><span class="ct" style="font-weight:600">${money(x.t)}</span><span class="pct" style="width:78px">${E(x.d)}</span></div>`).join('')}</div>
-    <div class="hint">Se arma con los últimos 100 pedidos de tu cuenta de Dropi (mismo teléfono). No es la huella interna de Dropi ni incluye lo que el cliente compró con otros vendedores.</div>`;
+    <div class="hint">Se arma con los ${DATA.revisados||'—'} pedidos de tu cuenta de Dropi que se revisaron (mismo teléfono)${(DATA.revisados||0)<=100?'. Dropi solo entregó 100: si tienes más antiguos no aparecen aquí':''}. No incluye lo que el cliente compró con otros vendedores.</div>`;
   $('#huellaOverlay').classList.add('show');
 }
 function openTrack(id){

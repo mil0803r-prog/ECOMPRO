@@ -35,6 +35,9 @@
     },
     "api/meta-sync.js": {
       "maxDuration": 30
+    },
+    "api/dropi.js": {
+      "maxDuration": 60
     }
   },
   "headers": [
