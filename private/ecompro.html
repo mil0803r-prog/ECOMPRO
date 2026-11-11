@@ -4081,6 +4081,10 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
 .grid.g4,.grid.g5{grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr))}
 .grid{gap:14px}.pane{gap:16px}
 /* celular */
+/* Sección Dropi a pantalla completa: sin título, sin márgenes laterales extra */
+#p-dro{padding-inline:0!important}
+#p-dro #dropi-frame{display:block;width:100%;height:calc(100vh - 92px);min-height:640px;border-radius:var(--r)}
+@media(max-width:899px){#p-dro #dropi-frame{height:calc(100vh - 150px)}}
 @media(max-width:700px){
   body{padding-inline:12px}
   .card{padding:14px}
@@ -4102,7 +4106,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   var hd=document.querySelector(".wrap>header"),ph=document.createElement("div");ph.id="phead";
   if(hd)hd.parentNode.insertBefore(ph,hd.nextSibling);
   function cur(){var p=document.querySelector(".wrap>.pane:not([hidden])");return p?p.id.replace(/^p-/,""):"res"}
-  function head(){var k=cur(),h=HEAD[k]||["ECOMPRO",""];ph.innerHTML='<div class="pt">'+svg(k)+'</div><div><h1>'+h[0]+'</h1><p>'+h[1]+'</p></div>'}
+  function head(){var k=cur(),h=HEAD[k]||["ECOMPRO",""];ph.hidden=(k==="dro");if(k==="dro")return;ph.innerHTML='<div class="pt">'+svg(k)+'</div><div><h1>'+h[0]+'</h1><p>'+h[1]+'</p></div>'}
   /* control de moneda arriba */
   var meta=document.querySelector("header .meta");
   if(meta&&!meta.querySelector(".fxmini")){var fx=document.createElement("div");fx.className="fxmini";fx.setAttribute("role","group");fx.setAttribute("aria-label","Moneda");fx.innerHTML='<button type="button" class="fxopt" data-c="GTQ" aria-pressed="true">Q</button><button type="button" class="fxopt" data-c="PEN" aria-pressed="false">S/</button>';meta.insertBefore(fx,meta.firstChild)}
