@@ -78,6 +78,20 @@ h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:var(--mu
 .hd-k b{display:block;font-size:1.25rem}.hd-k small{color:var(--muted)}
 .hd table{width:100%;border-collapse:collapse;font-size:.85rem}
 .hd th,.hd td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.hd-top{display:flex;gap:14px;align-items:center}
+.hd-av{flex:none;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;color:#fff}
+.hd-av.v{background:var(--verde)}.hd-av.a{background:var(--amar)}.hd-av.r{background:var(--rojo)}
+.hd-gr{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.hd-leg{display:flex;flex-direction:column;gap:6px}
+.hd-leg div{display:flex;align-items:center;gap:8px;font-size:.88rem}
+.hd-leg i{width:12px;height:12px;border-radius:3px;flex:none}
+.hd-leg b{margin-left:auto;font-variant-numeric:tabular-nums}
+.hd-sem{height:12px;border-radius:99px;display:flex;overflow:hidden;position:relative;margin:10px 0 4px}
+.hd-sem span{flex:1}.hd-sem u{position:absolute;top:-4px;width:4px;height:20px;background:var(--fg);border-radius:2px;transform:translateX(-50%)}
+.hd-tl{display:flex;gap:6px;align-items:flex-end;overflow-x:auto;padding:6px 2px}
+.hd-tl span{flex:none;width:22px;border-radius:5px 5px 3px 3px;min-height:14px}
+.hd-k div.vk{border-left:4px solid var(--verde)}.hd-k div.rk{border-left:4px solid var(--rojo)}.hd-k div.ak{border-left:4px solid var(--amar)}.hd-k div.bk{border-left:4px solid var(--azul)}
+@media(max-width:560px){.hd-gr{grid-template-columns:1fr;justify-items:center}}
 .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.74rem;font-weight:600;white-space:nowrap}
 .pill.v{background:var(--verde-bg);color:var(--verde)}
 .pill.a{background:var(--amar-bg);color:var(--amar)}
@@ -2159,9 +2173,18 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       if(!cerr){ver="Sin historial cerrado";cls="a"}else if(c.D>=2&&tasa<50){ver="Riesgo alto: devuelve más de lo que recibe";cls="r"}else if(c.D>=1&&tasa<100){ver="Con devoluciones, confirmar bien antes de enviar";cls="a"}else{ver="Cliente confiable: recibe sus pedidos";cls="v"}
       var tel=X.tl||"",w=ph(tel)?(String(tel).replace(/\D/g,"").length===8?"502"+String(tel).replace(/\D/g,""):String(tel).replace(/\D/g,"")):"";
       var ciudades={};L.forEach(function(o){ciudades[o.c]=1});
-      var h='<div class="hd-h"><div><h2>'+esc(X.c||"Cliente")+'</h2><div class="sub">'+(tel?esc(tel)+' · ':'')+esc(Object.keys(ciudades).join(", "))+'</div></div><button type="button" class="btn" id="hd-x" aria-label="Cerrar">✕</button></div>'+
+      var col={E:"var(--verde)",D:"var(--rojo)",T:"var(--amar)",C:"var(--gris)"},tot=L.length||1,R=52,CI=2*Math.PI*R,off=0,arcs="";
+      [["E",c.E],["D",c.D],["T",c.T],["C",c.C]].forEach(function(z){if(!z[1])return;var len=z[1]/tot*CI;arcs+='<circle r="'+R+'" cx="70" cy="70" fill="none" stroke="'+col[z[0]]+'" stroke-width="18" stroke-dasharray="'+len+' '+(CI-len)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 70 70)"/>';off+=len});
+      var donut='<svg viewBox="0 0 140 140" width="140" height="140" role="img" aria-label="Resultado de sus pedidos"><circle r="'+R+'" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="18"/>'+arcs+'<text x="70" y="68" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">'+(tasa==null?'–':tasa+'%')+'</text><text x="70" y="88" text-anchor="middle" font-size="11" fill="var(--muted)">de entrega</text></svg>';
+      var leg='<div class="hd-leg"><div><i style="background:var(--verde)"></i>Entregados<b>'+c.E+'</b></div><div><i style="background:var(--rojo)"></i>Devueltos<b>'+c.D+'</b></div><div><i style="background:var(--amar)"></i>En proceso<b>'+c.T+'</b></div><div><i style="background:var(--gris)"></i>Cancelados<b>'+c.C+'</b></div></div>';
+      var pos=tasa==null?50:100-tasa,ini=String(X.c||"?").trim().split(/\s+/).slice(0,2).map(function(w){return w.charAt(0)}).join("").toUpperCase();
+      var asc=L.slice().reverse(),mxv=asc.reduce(function(m,o){return Math.max(m,o.v)},1);
+      var tl=asc.map(function(o){var k=o.s==="E"?"E":(o.s==="D"||o.s==="I"||o.s==="J")?"D":o.s==="C"?"C":"T";return '<span style="background:'+col[k]+';height:'+Math.round(14+o.v/mxv*46)+'px" title="'+esc((o.d||"").split("-").reverse().join("/")+" · "+ST[o.s][0]+" · "+q(o.v))+'"></span>'}).join("");
+      var h='<div class="hd-h"><div class="hd-top"><div class="hd-av '+cls+'" aria-hidden="true">'+esc(ini)+'</div><div><h2>'+esc(X.c||"Cliente")+'</h2><div class="sub">'+(tel?esc(tel)+' · ':'')+esc(Object.keys(ciudades).join(", "))+'</div></div></div><button type="button" class="btn" id="hd-x" aria-label="Cerrar">✕</button></div>'+
         '<div><span class="pill '+cls+'">'+ver+'</span>'+(pk?'':' <span class="sub">Sin teléfono: se agrupa por nombre, puede mezclar personas iguales.</span>')+'</div>'+
-        '<div class="hd-k"><div><b>'+L.length+'</b><small>Pedidos en Dropi</small></div><div><b class="tv">'+c.E+'</b><small>Entregados · '+q(val)+'</small></div><div><b class="tr_">'+c.D+'</b><small>Devueltos · '+q(perd)+'</small></div><div><b>'+c.T+'</b><small>En proceso</small></div><div><b>'+(tasa==null?'–':tasa+'%')+'</b><small>Entrega</small></div></div>'+
+        '<div class="hd-gr">'+donut+'<div>'+leg+'<div class="hd-sem" title="Semáforo de confianza"><span style="background:var(--verde)"></span><span style="background:var(--amar)"></span><span style="background:var(--rojo)"></span><u style="left:'+Math.min(97,Math.max(3,pos))+'%"></u></div><div class="sub" style="display:flex;justify-content:space-between"><span>Confiable</span><span>Riesgo</span></div></div></div>'+
+        '<div class="hd-k"><div class="bk"><b>'+L.length+'</b><small>Pedidos en Dropi</small></div><div class="vk"><b class="tv">'+q(val)+'</b><small>Entregado</small></div><div class="rk"><b class="tr_">'+q(perd)+'</b><small>Perdido en devoluciones</small></div><div class="ak"><b>'+c.T+'</b><small>En proceso</small></div></div>'+
+        '<div><div class="flab">Línea de tiempo (altura = valor del pedido)</div><div class="hd-tl">'+tl+'</div></div>'+
         (w?'<div><a class="btn" href="https://wa.me/'+w+'" target="_blank" rel="noopener">Escribir por WhatsApp</a></div>':'')+
         '<table><thead><tr><th>Fecha</th><th>Pedido</th><th>Producto</th><th>Estado</th><th>Transportadora / guía</th><th>Valor</th></tr></thead><tbody>'+
         L.map(function(o){var Y=all[o.n]||{},pn=window.ecProd?window.ecProd.of(o):"";return '<tr><td style="white-space:nowrap">'+esc((o.d||"").split("-").reverse().join("/"))+'</td><td>'+esc(o.n)+'</td><td>'+esc(pn&&pn!=="Sin producto"?pn:"–")+'</td><td><span class="pill '+ST[o.s][1]+'">'+ST[o.s][0]+'</span></td><td>'+esc(Y.t||"–")+(Y.g?'<div class="sub">'+esc(Y.g)+'</div>':'')+(Y.nv?'<div><span class="pill r">'+esc(Y.nv)+'</span></div>':'')+'</td><td>'+q(o.v)+'</td></tr>'}).join("")+'</tbody></table>'+
