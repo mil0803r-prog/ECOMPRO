@@ -25,6 +25,35 @@
     if (!items.length) return;
     try { chrome.runtime.sendMessage({ tipo: "huellas", items: items }, function () { void chrome.runtime.lastError; }); } catch (e) {}
   }
+  // Si la lista de pedidos de Dropi ya trae campos de huella/riesgo del comprador, se toman de ahí (sin abrir cada pedido).
+  var HK = /huella|finger|footprint|riesg|risk|delivery_?rate|effectiv|efectiv|recibe|clasific|classif|buyer_?type|tipo_?comprador|calific/i;
+  var HPII = /phone|tel|name|surname|dir|address|email|mail|document|dni|nit|lat|lng|coord|note|nota|comment/i;
+  function camposHK(o, path, out, d) {
+    if (!o || typeof o !== "object" || d > 3) return out;
+    Object.keys(o).forEach(function (k) {
+      var p = path ? path + "." + k : k, v = o[k];
+      if (HK.test(k) && !HPII.test(k)) { var t = JSON.stringify(v); if (t !== undefined && t.length < 600) { out.push({ campo: p, valor: v }); return; } }
+      if (v && typeof v === "object" && !Array.isArray(v)) camposHK(v, p, out, d + 1);
+    });
+    return out;
+  }
+  function huellasDeLista(json) {
+    var q = [json], n = 0, filas = null;
+    while (q.length && n++ < 40 && !filas) {
+      var x = q.shift();
+      if (Array.isArray(x)) { if (x.length && x[0] && typeof x[0] === "object" && !Array.isArray(x[0])) filas = x; }
+      else if (x && typeof x === "object") Object.keys(x).forEach(function (k) { if (x[k] && typeof x[k] === "object") q.push(x[k]); });
+    }
+    var vistos = 0;
+    (filas || []).slice(0, 300).forEach(function (r) {
+      var tel = t8(r.phone || r.telefono || r.client_phone || r.customer_phone || r.cellphone || r.celular);
+      if (!tel) return;
+      var c = camposHK(r, "", [], 0);
+      if (c.length) { hcola.push({ tel: tel, campos: c.slice(0, 30) }); vistos++; }
+    });
+    if (vistos && !htimer) htimer = setTimeout(subirHuellas, 1500);
+    if (vistos) { dbg.huellaEnLista = (dbg.huellaEnLista || 0) + vistos; }
+  }
   var dbg = { pagina: location.host + location.pathname.replace(/\d+/g, "#"), json: 0, vistos: {} };
   var dtimer = null;
   function claves(o) { return o && typeof o === "object" ? Object.keys(o).slice(0, 25) : typeof o; }
@@ -67,6 +96,7 @@
     var up = String(ev.data.url || "").replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 70);
     if (!dbg.vistos[up] && Object.keys(dbg.vistos).length < 25) dbg.vistos[up] = huellaJson(json);
     if (!dtimer) dtimer = setTimeout(guardarDbg, 2000);
+    try { huellasDeLista(json); } catch (e) {}
     var ped = self.ECDropiNorm.extraer(json);
     if (ped.length && ped.length >= mejorN) { mejorN = ped.length; window.postMessage({ src: "ecompro-cmd", tipo: "marcar", url: ev.data.url }, "*"); }
     stats.capturados++;
