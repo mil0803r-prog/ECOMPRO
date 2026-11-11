@@ -304,6 +304,7 @@
 </div>
 
 <script>
+try{const t=localStorage.getItem('ec_theme');document.documentElement.setAttribute('data-theme',t==='light'||t==='dark'?t:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'))}catch(e){}
 const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let DATA=null, sortK='date', sortDir=-1, charts={};

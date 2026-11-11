@@ -1,5 +1,5 @@
 <title>ECOMPRO</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap">
 <style>
 /* Layout: cabecera con pestañas pegajosas; cada pestaña es una pantalla de tableros. Verde/amarillo/rojo son semántica de estado, no acento. */
 :root{
@@ -4023,6 +4023,65 @@ window.addEventListener('resize',function(){if(innerWidth>=900)set(false)})})();
 .sw6 button[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 3px color-mix(in srgb,var(--cel) 40%,transparent)}
 #aju-box{display:flex;flex-direction:column;gap:14px;max-width:860px}
 </style>
+<style id="estilo-millora">
+/* ===== Estilo Millora: fondo azul noche, recuadros redondeados y paleta morada (igual que la sección Dropi) ===== */
+:root{--accent:#6366f1;--accent2:#8b5cf6;--r:18px;--display:'Inter',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;
+  --bg:#eef1fa;--card:#ffffff;--card2:#f4f7fe;--fg:#141b32;--muted:#64719a;--line:#e0e6f3;--shadow:0 10px 28px rgba(50,70,130,.10);
+  --verde:#16a34a;--verde-bg:rgba(34,197,94,.14);--amar:#b7791f;--amar-bg:rgba(245,158,11,.16);--rojo:#e11d48;--rojo-bg:rgba(244,63,94,.12);--gris:#64719a;--gris-bg:#e6ebf7}
+:root:not([data-pal]){--ink:#5b4fe0;--azul:#6366f1;--cel:#8b5cf6;--cel2:#c4b5fd}
+:root[data-theme="dark"]{--bg:#070b16;--card:#111830;--card2:#172038;--fg:#eef2fc;--muted:#8a97bd;--line:#253050;--shadow:0 10px 34px rgba(0,0,0,.34);
+  --verde:#22c55e;--verde-bg:rgba(34,197,94,.14);--amar:#f59e0b;--amar-bg:rgba(245,158,11,.15);--rojo:#f43f5e;--rojo-bg:rgba(244,63,94,.14);--gris:#8a97bd;--gris-bg:#172038}
+:root[data-theme="dark"]:not([data-pal]){--ink:#a5b4fc;--azul:#818cf8;--cel:#8b5cf6;--cel2:#c4b5fd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070b16;--card:#111830;--card2:#172038;--fg:#eef2fc;--muted:#8a97bd;--line:#253050;--shadow:0 10px 34px rgba(0,0,0,.34);
+  --verde:#22c55e;--verde-bg:rgba(34,197,94,.14);--amar:#f59e0b;--amar-bg:rgba(245,158,11,.15);--rojo:#f43f5e;--rojo-bg:rgba(244,63,94,.14);--gris:#8a97bd;--gris-bg:#172038}
+  :root:not([data-theme="light"]):not([data-pal]){--ink:#a5b4fc;--azul:#818cf8;--cel:#8b5cf6;--cel2:#c4b5fd}}
+body{background:radial-gradient(1200px 600px at 80% -5%,rgba(99,102,241,.12),transparent 60%),linear-gradient(170deg,var(--bg),color-mix(in srgb,var(--bg) 94%,var(--accent)));background-color:var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+h1,h2{font-weight:800;letter-spacing:-.02em}
+h3{letter-spacing:.07em;font-weight:700}
+/* recuadros */
+.card,.tbl,.dbk>div,.dbc>div,.ajc,.dbp,.dbgh,.warn,.alert,.tbl.cards tr{border-radius:var(--r)!important}
+.card,.dbk>div,.dbc>div,.ajc,.dbp,.dbgh{box-shadow:var(--shadow)!important;border-color:var(--line)!important}
+.card{padding:16px 18px}
+.card.kpi,.dbk>div{position:relative;overflow:hidden}
+.card.kpi::after,.dbk>div::after{content:"";position:absolute;inset:0 0 auto auto;width:70px;height:70px;background:color-mix(in srgb,var(--accent) 16%,transparent);filter:blur(26px);border-radius:50%;pointer-events:none}
+.big,.dbk .kv,.dbhero .hv{font-family:'Inter',system-ui,sans-serif;font-weight:900;letter-spacing:-.03em}
+.big{font-size:clamp(1.7rem,5.4vw,2.2rem)}
+.kpi .big{font-size:clamp(1.55rem,5vw,2rem)}
+.sub{font-weight:500}
+.dbhero{background:linear-gradient(135deg,#4f46e5,#8b5cf6)!important;box-shadow:0 10px 28px -12px rgba(99,102,241,.6)!important}
+.dbhero.neg{background:linear-gradient(135deg,#be123c,#f43f5e)!important}
+#phead .pt{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;border:0!important;box-shadow:0 8px 22px rgba(99,102,241,.4)}
+#phead h1{font-size:clamp(1.4rem,2.4vw,1.9rem)}
+/* botones, chips y campos */
+.btn{border-radius:11px;padding:9px 14px;background:var(--card2);transition:.15s}
+.btn:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--card))}
+.chip{background:var(--card2);padding:6px 13px}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#fff!important;border-color:transparent!important}
+.chip.v[aria-pressed="true"]{background:var(--verde)!important}.chip.a[aria-pressed="true"]{background:var(--amar)!important}.chip.r[aria-pressed="true"]{background:var(--rojo)!important}
+.fld input,.fld select,.fld textarea,.sel select,.rdm .rd-bx input,.rdm .rd-bx select{background:var(--card2)!important;border-radius:11px!important;border-color:var(--line)!important;padding:10px 12px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent)!important;outline:2px solid color-mix(in srgb,var(--accent) 45%,transparent)!important}
+.seg{background:var(--card2)}.seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+/* tablas */
+.tbl{box-shadow:var(--shadow)}
+th{background:var(--card2)!important;font-weight:700}
+tbody tr:hover td{background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+/* menú */
+nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.sg[aria-current="true"]{background:color-mix(in srgb,var(--accent) 22%,transparent)!important;box-shadow:inset 3px 0 0 var(--accent2)!important}
+.sg[aria-current="true"] .sic,.sg[aria-current="true"]{color:var(--fg)!important}
+/* alineación en cuadrículas de tarjetas: mismas columnas fluidas que el panel Dropi */
+.grid.g4,.grid.g5{grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr))}
+.grid{gap:14px}.pane{gap:16px}
+/* celular */
+@media(max-width:700px){
+  body{padding-inline:12px}
+  .card{padding:14px}
+  .btn,.chip{min-height:40px}
+  input,select,textarea{font-size:16px!important}
+  .tbl{border-radius:14px!important}
+}
+</style>
+
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};
