@@ -297,6 +297,15 @@
   </div>
 </div>
 
+<!-- Modal huella del cliente -->
+<div class="overlay" id="huellaOverlay">
+  <div class="modal" style="max-width:560px">
+    <div class="mh"><span style="display:inline-flex;color:var(--accent2)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11v3a6 6 0 0 1-1.2 3.6"/><path d="M8 11a4 4 0 0 1 8 0v1.5c0 2-.4 3.900-1.300 5.500"/><path d="M5 11a7 7 0 0 1 14 0v1c0 1.700-.2 3.300-.600 4.800"/><path d="M5.200 15.500c-.1-.8-.2-1.500-.2-2.300"/><path d="M8.500 20.500c.8-1.300 1.300-2.700 1.600-4.200"/></svg></span><h3 id="huellaTitle">Huella del cliente</h3><span class="close" id="huellaClose">×</span></div>
+    <div class="mb" id="huellaBody"></div>
+    <div class="mf"><button class="ghost" id="huellaCancel">Cerrar</button></div>
+  </div>
+</div>
+
 <!-- Modal tracking -->
 <div class="overlay" id="trackOverlay">
   <div class="modal" style="max-width:520px">
@@ -324,6 +333,7 @@
 })();
 const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FP='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11v3a6 6 0 0 1-1.2 3.6"/><path d="M8 11a4 4 0 0 1 8 0v1.5c0 2-.4 3.900-1.300 5.500"/><path d="M5 11a7 7 0 0 1 14 0v1c0 1.700-.2 3.300-.600 4.800"/><path d="M5.200 15.500c-.1-.8-.2-1.500-.2-2.300"/><path d="M8.500 20.500c.8-1.300 1.300-2.700 1.600-4.200"/></svg>';
 let DATA=null, sortK='date', sortDir=-1, charts={};
 const REFRESH=60; let left=REFRESH, timer=null;
 let range={from:null,to:null}, boundsSet=false;
@@ -407,7 +417,7 @@ function render(){
         <span class="det">${E(o.carrier||'—')} · ${E(o.city||'—')}</span></div>
       <span class="guia">${E(o.guia||'sin guía')}</span>
       <span class="age" style="color:${ageCol}">⏱ ${dd} d</span>
-      <div class="right"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line)" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span>${btn}</div></div>`;
+      <div class="right"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line)" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent2);border-color:var(--line)" title="Huella del cliente (su historial de pedidos)" onclick="openHuella('${E(o.id)}')">${FP}</span>${btn}</div></div>`;
   }).join('') : '<div class="empty">🎉 Sin pedidos retrasados ni novedades en este periodo.</div>';
 
   // semaforo
@@ -472,7 +482,7 @@ function drawTable(){
      <td class="r">${money(o.total)}</td>
      <td class="r" style="color:${o.group==='entregado'?'var(--green)':'var(--muted)'};font-weight:600" title="${o.group==='entregado'?'Utilidad realizada':'Utilidad potencial (aún no entregado)'}">${money(o.util)}</td>
      <td>${E((o.date||'').slice(0,10))}</td>
-     <td style="white-space:nowrap"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span>${wa}</td></tr>`;}).join('');
+     <td style="white-space:nowrap"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent2);border-color:var(--line);margin-right:5px" title="Huella del cliente (su historial de pedidos)" onclick="openHuella('${E(o.id)}')">${FP}</span>${wa}</td></tr>`;}).join('');
 }
 
 function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();}
@@ -508,6 +518,33 @@ function renderTrend(){
     scales:{x:{ticks:{color:cssVar('muted'),font:{size:9}},grid:{display:false}},
       y:{position:'left',ticks:{color:cssVar('muted')},grid:{color:cssVar('line')},beginAtZero:true},
       y1:{position:'right',ticks:{color:cssVar('muted')},grid:{display:false},beginAtZero:true}}}});
+}
+function openHuella(id){
+  const o=(DATA.orders||[]).find(x=>String(x.id)===String(id));if(!o)return;
+  const h=(DATA.huella||{})[o.hk]||null;
+  $('#huellaTitle').textContent='Huella · '+(o.name||'cliente');
+  if(!h){$('#huellaBody').innerHTML='<div class="empty">Este pedido no trae un teléfono válido, así que no se puede armar la huella.</div>';$('#huellaOverlay').classList.add('show');return;}
+  const fin=h.entregado+h.devolucion+h.cancelado, mal=h.devolucion+h.cancelado, rate=fin?Math.round(mal/fin*100):0;
+  let nivel,cls,txt;
+  if(h.n<=1){nivel='Cliente nuevo';cls='blue';txt='Es su único pedido en tu cuenta: todavía no hay historial.';}
+  else if(fin<2){nivel='Aún sin cerrar';cls='yellow';txt='Tiene pedidos pero casi ninguno cerrado: espera a ver cómo terminan.';}
+  else if(rate>=50){nivel='Riesgo alto';cls='red';txt='La mitad o más de sus pedidos terminaron devueltos o cancelados. Conviene cobrar anticipado.';}
+  else if(rate>=25){nivel='Riesgo medio';cls='yellow';txt='Tiene algunas devoluciones o cancelaciones. Confirma bien antes de enviar.';}
+  else{nivel='Buen cliente';cls='green';txt='Casi todos sus pedidos se entregaron.';}
+  const ph=String(o.clientPhone||'');
+  $('#huellaBody').innerHTML=`
+    <div class="prow" style="justify-content:space-between"><span><b>${E(o.name||'—')}</b><br><span class="hint">${E(ph||'sin teléfono')} · ${E(o.city||'')}</span></span>
+      <span class="chip ${cls}" style="font-size:12px">${nivel}</span></div>
+    <div class="hint" style="font-size:12.5px">${txt}</div>
+    <div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0">
+      <div class="kpi"><div class="l">Pedidos</div><div class="v blue">${h.n}</div></div>
+      <div class="kpi"><div class="l">Entregados</div><div class="v green">${h.entregado}</div></div>
+      <div class="kpi"><div class="l">Devueltos / cancel.</div><div class="v red">${mal}</div><div class="d">${fin?rate+'% de los cerrados':'—'}</div></div>
+    </div>
+    <div class="hint">Comprado en total: <b>${money(h.total)}</b> · en proceso ${h.proceso} · novedad ${h.novedad}</div>
+    <div style="display:flex;flex-direction:column;gap:6px">${h.orders.slice(0,15).map(x=>`<div class="stat"><span class="chip ${badge(x.g)}">${E(x.st)}</span><span class="nm">#${E(x.id)} · ${E(x.c)}${x.city?' · '+E(x.city):''}</span><span class="ct" style="font-weight:600">${money(x.t)}</span><span class="pct" style="width:78px">${E(x.d)}</span></div>`).join('')}</div>
+    <div class="hint">Se arma con los últimos 100 pedidos de tu cuenta de Dropi (mismo teléfono). No es la huella interna de Dropi ni incluye lo que el cliente compró con otros vendedores.</div>`;
+  $('#huellaOverlay').classList.add('show');
 }
 function openTrack(id){
   const o=(DATA.orders||[]).find(x=>String(x.id)===String(id));if(!o)return;
@@ -605,6 +642,9 @@ $('#provCancel').addEventListener('click',()=>$('#provOverlay').classList.remove
 $('#provOverlay').addEventListener('click',e=>{if(e.target.id==='provOverlay')$('#provOverlay').classList.remove('show');});
 $('#provSave').addEventListener('click',saveProv);
 $('#trackClose').addEventListener('click',()=>$('#trackOverlay').classList.remove('show'));
+$('#huellaClose').addEventListener('click',()=>$('#huellaOverlay').classList.remove('show'));
+$('#huellaCancel').addEventListener('click',()=>$('#huellaOverlay').classList.remove('show'));
+$('#huellaOverlay').addEventListener('click',e=>{if(e.target.id==='huellaOverlay')$('#huellaOverlay').classList.remove('show');});
 $('#trackCancel').addEventListener('click',()=>$('#trackOverlay').classList.remove('show'));
 $('#trackOverlay').addEventListener('click',e=>{if(e.target.id==='trackOverlay')$('#trackOverlay').classList.remove('show');});
 

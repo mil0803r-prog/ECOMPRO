@@ -17,6 +17,9 @@ const num = (x) => { const n = parseFloat(x); return isFinite(n) ? n : 0; };
 const r2 = (n) => Math.round(n * 100) / 100;
 const r1 = (n) => Math.round(n * 10) / 10;
 
+// Huella del cliente: historial de TODOS los pedidos que vienen del mismo teléfono (últimos 100 de la cuenta de Dropi).
+const phoneKey = (p) => { const d = String(p || "").replace(/\D/g, ""); return d.length >= 8 ? d.slice(-8) : ""; };
+
 function groupOf(status) {
   const s = String(status || "").toUpperCase();
   if (DELIVERED.includes(s)) return "entregado";
@@ -159,7 +162,7 @@ async function build(dFrom, dTo) {
       city: x.city, dept, total: tot, date: x.created_at,
       guia: x.shipping_guide || "", guiaPath: x.guia_urls3 || "",
       supplierId: x.supplier_id, warehouseId: x.warehouse_id,
-      clientPhone: x.phone || "", util, dias: dia, mov: orderMovs(x),
+      clientPhone: x.phone || "", hk: phoneKey(x.phone), util, dias: dia, mov: orderMovs(x),
     });
   }
 
@@ -237,7 +240,20 @@ async function build(dFrom, dTo) {
     const mainW = whs[0] || {};
     supplierInfo[sid] = { name: mainW.name || "", phone: mainW.phone || "", city: mainW.city || "", warehouses: whs };
   }
+  const need = new Set(orders.map((x) => x.hk).filter(Boolean));
+  const huella = {};
+  for (const x of raw) {
+    const k = phoneKey(x.phone);
+    if (!k || !need.has(k)) continue;
+    const h = huella[k] || (huella[k] = { n: 0, entregado: 0, devolucion: 0, cancelado: 0, proceso: 0, novedad: 0, total: 0, orders: [] });
+    const g = groupOf(x.status);
+    h.n++; h[g]++; h.total += num(x.total_order);
+    const dc = x.distribution_company;
+    h.orders.push({ id: x.id, d: String(x.created_at || "").slice(0, 10), st: x.status || "—", g, t: num(x.total_order), c: (dc && typeof dc === "object" ? dc.name : null) || x.shipping_company || "—", city: x.city || "" });
+  }
+  for (const k of Object.keys(huella)) { huella[k].total = r2(huella[k].total); huella[k].orders.sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0)); }
   return {
+    huella,
     updated: new Date().toISOString().slice(0, 19), ms: Date.now() - t0,
     range: { from: f, to: t, min: dmin, max: dmax, applied: !!(dFrom || dTo) },
     kpis, carriers: carList, statusList, depts, products, orders, suppliers, supplierInfo, zones: zoneList, trend: trendList,
