@@ -316,7 +316,12 @@ async function handle(req, send) {
     if (a === "huella" && req.method === "GET") {
       const id = String(u.searchParams.get("id") || "");
       if (!/^\d{1,12}$/.test(id)) return send(400, { error: "id inválido" });
-      return send(200, await huella(id));
+      const hk = String(u.searchParams.get("hk") || "").replace(/\D/g, "").slice(-8);
+      const out = await huella(id).catch((e) => ({ campos: [], keys: [], error: String((e && e.message) || e).slice(0, 120) }));
+      if (hk.length === 8 && RURL && RTOK) {
+        try { const g = await redis(["HGET", "ec:huella", hk]); if (g) out.guardada = JSON.parse(g); } catch (e) {}
+      }
+      return send(200, out);
     }
     if (a === "prov") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });

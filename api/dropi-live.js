@@ -78,6 +78,22 @@ module.exports = async (req, res) => {
   } catch (e) {
     return send(400, { error: "json" });
   }
+  // Huellas digitales leídas por la extensión (sin datos personales): clave = últimos 8 dígitos del teléfono.
+  if (Array.isArray(b.huellas)) {
+    try {
+      let n = 0;
+      for (const h of b.huellas.slice(0, 60)) {
+        const k = String((h && h.tel) || "").replace(/\D/g, "").slice(-8);
+        if (k.length !== 8 || !Array.isArray(h.campos)) continue;
+        const campos = h.campos.slice(0, 30).map((c) => ({ campo: String((c && c.campo) || "").slice(0, 80), valor: JSON.stringify((c && c.valor) === undefined ? null : c.valor).length < 600 ? c.valor : null }));
+        await redis(["HSET", "ec:huella", k, JSON.stringify({ ts: Date.now(), campos })]);
+        n++;
+      }
+      return send(200, { ok: true, huellas: n });
+    } catch (e) {
+      return send(500, { error: "No se pudo guardar." });
+    }
+  }
   const lista = Array.isArray(b.orders) ? b.orders.slice(0, 500) : [];
   if (!lista.length) return send(200, { ok: true, recibidos: 0, nuevos: 0, actualizados: 0 });
   try {

@@ -15,6 +15,16 @@
       chrome.runtime.sendMessage({ tipo: "pedidos", orders: lista, stats: stats }, function () { void chrome.runtime.lastError; });
     } catch (e) {}
   }
+  // ---- Huella digital: teléfonos de los pedidos vistos y resultados que llegan de la página ----
+  var fonos = {};            // últimos 8 dígitos -> true si el pedido sigue abierto (no es entregado/devuelto/cancelado)
+  var hcola = [], htimer = null;
+  function t8(t) { var d = String(t || "").replace(/\D/g, ""); return d.length >= 8 ? d.slice(-8) : ""; }
+  function subirHuellas() {
+    htimer = null;
+    var items = hcola; hcola = [];
+    if (!items.length) return;
+    try { chrome.runtime.sendMessage({ tipo: "huellas", items: items }, function () { void chrome.runtime.lastError; }); } catch (e) {}
+  }
   var dbg = { pagina: location.host + location.pathname.replace(/\d+/g, "#"), json: 0, vistos: {} };
   var dtimer = null;
   function claves(o) { return o && typeof o === "object" ? Object.keys(o).slice(0, 25) : typeof o; }
@@ -40,6 +50,9 @@
       if (ev.data.prog.estado === "fin" && !timer && Object.keys(cola).length) timer = setTimeout(enviar, 300);
       return;
     }
+    if (ev.data.huellaTpl) { dbg.huellaTpl = ev.data.huellaTpl; if (!dtimer) dtimer = setTimeout(guardarDbg, 1500); }
+    if (ev.data.huellaEstado) { try { chrome.runtime.sendMessage({ tipo: "huellaEstado", estado: ev.data.huellaEstado }, function () { void chrome.runtime.lastError; }); } catch (e) {} return; }
+    if (ev.data.huella) { if (ev.data.huella.tel && ev.data.huella.campos) { hcola.push(ev.data.huella); if (!htimer) htimer = setTimeout(subirHuellas, 1200); } if (!ev.data.texto && !ev.data.meta) return; }
     if (ev.data.meta) {
       var mu = String(ev.data.url || "").replace(/[?#].*$/, "").replace(/\d+/g, "#").slice(0, 90);
       dbg.red = dbg.red || {};
@@ -63,6 +76,7 @@
       if (!stats.forma) stats.forma = self.ECDropiNorm.forma(json);
     }
     ped.forEach(function (p) {
+      var k8 = t8(p.tl); if (k8) fonos[k8] = !/^[EDC]$/.test(String(p.s || ""));
       var h = huella(p);
       if (visto[p.n] === h) return;
       visto[p.n] = h; cola[p.n] = p; stats.pedidos++;
@@ -71,6 +85,15 @@
   });
   try {
     chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
+      if (msg && msg.tipo === "traerHuellas") {
+        var abiertos = Object.keys(fonos).filter(function (k) { return fonos[k]; });
+        var otros = Object.keys(fonos).filter(function (k) { return !fonos[k]; });
+        var tels = abiertos.concat(otros).slice(0, 40);
+        if (!tels.length) { resp({ ok: false, error: "Todavía no vi pedidos con teléfono. Abre Mis pedidos en Dropi y espera a que cargue la lista." }); return; }
+        window.postMessage({ src: "ecompro-cmd", tipo: "huellas", tels: tels }, "*");
+        resp({ ok: true, total: tels.length });
+        return;
+      }
       if (msg && msg.tipo === "importar") {
         if (!mejorN) { resp({ ok: false, error: "Todavía no vi la lista de pedidos de Dropi. Abre Mis pedidos, espera a que cargue la lista y vuelve a pulsar." }); return; }
         window.postMessage({ src: "ecompro-cmd", tipo: "importar", desde: msg.desde, hasta: msg.hasta }, "*");

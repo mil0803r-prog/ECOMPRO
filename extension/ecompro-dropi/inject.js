@@ -28,6 +28,76 @@
     if (SENSIBLE.test(String(url))) return;
     try { window.postMessage(Object.assign({ src: "ecompro-dropi", meta: true, url: String(url).slice(0, 200), ct: String(ct || "").slice(0, 40), len: len, st: st }, extra || {}), "*"); } catch (e) {}
   }
+  // ---------------- Huella digital del comprador ----------------
+  // La página de Dropi pide la huella de un comprador por su teléfono. Aquí se aprende cómo es esa petición (con el teléfono
+  // reemplazado por {TEL}) para repetirla con los teléfonos de tus pedidos, con tu propia sesión. No se guarda ningún token.
+  var HK = /huella|finger|footprint|riesg|risk|delivery_?rate|effectiv|efectiv|recibe|clasific|classif|buyer_?type|tipo_?comprador|calific/i;
+  var HPII = /phone|tel|name|surname|dir|address|email|mail|document|dni|nit|lat|lng|coord|note|nota|comment/i;
+  var TPL_KEY = "ec_huella_tpl";
+  function tieneHK(o, d) {
+    if (!o || typeof o !== "object" || d > 4) return false;
+    for (var k in o) { if (HK.test(k) && !HPII.test(k)) return true; if (o[k] && typeof o[k] === "object" && tieneHK(o[k], d + 1)) return true; }
+    return false;
+  }
+  function camposHuella(o, path, out, d) {
+    if (!o || typeof o !== "object" || d > 4) return out;
+    Object.keys(o).forEach(function (k) {
+      var p = path ? path + "." + k : k, v = o[k];
+      if (HK.test(k) && !HPII.test(k)) { var t = JSON.stringify(v); if (t !== undefined && t.length < 600) { out.push({ campo: p, valor: v }); return; } }
+      if (v && typeof v === "object") camposHuella(v, p, out, d + 1);
+    });
+    return out;
+  }
+  var TEL = /\d{8,13}/;
+  function tel8(t) { var d = String(t || "").replace(/\D/g, ""); return d.length >= 8 ? d.slice(-8) : ""; }
+  function aprender(url, metodo, body, texto) {
+    try {
+      if (!texto || texto.charAt(0) !== "{") return;
+      var u = abs(url), b = typeof body === "string" ? body : "";
+      var mu = (u.replace(/^https?:\/\/[^/]+/, "").match(TEL) || [])[0], mb = (b.match(TEL) || [])[0];
+      var fono = mu || mb;
+      if (!fono) return;
+      var j = JSON.parse(texto);
+      if (!tieneHK(j, 0)) return;
+      var tpl = { m: String(metodo || "GET").toUpperCase(), url: u.split(fono).join("{TEL}"), body: b ? b.split(fono).join("{TEL}") : "" };
+      try { localStorage.setItem(TPL_KEY, JSON.stringify(tpl)); } catch (e) {}
+      window.postMessage({ src: "ecompro-dropi", huellaTpl: { m: tpl.m, ruta: tpl.url.replace(/^https?:\/\/[^/]+/, "").replace(/[?#].*$/, "").slice(0, 120), tieneBody: !!tpl.body }, huella: { tel: tel8(fono), campos: camposHuella(j, "", [], 0).slice(0, 30) } }, "*");
+    } catch (e) {}
+  }
+  function cabecera(origen) {
+    var ks = Object.keys(REQ);
+    for (var i = ks.length - 1; i >= 0; i--) {
+      if (ks[i].indexOf(origen) !== 0) continue;
+      var h = REQ[ks[i]].h || {};
+      if (Object.keys(h).some(function (k) { return /^authorization$/i.test(k); })) return h;
+    }
+    return null;
+  }
+  async function huellas(tels) {
+    var tpl = null;
+    try { tpl = JSON.parse(localStorage.getItem(TPL_KEY) || "null"); } catch (e) {}
+    function est(o) { try { window.postMessage({ src: "ecompro-dropi", huellaEstado: o }, "*"); } catch (e) {} }
+    if (!tpl || !tpl.url) { est({ estado: "sin-plantilla" }); return; }
+    var origen = (tpl.url.match(/^https?:\/\/[^/]+/) || [""])[0];
+    var h = cabecera(origen);
+    if (!h) { est({ estado: "sin-sesion" }); return; }
+    var lista = Array.from(new Set((tels || []).map(tel8).filter(Boolean))).slice(0, 40), ok = 0, fallo = 0;
+    est({ estado: "corriendo", total: lista.length, ok: 0 });
+    for (var i = 0; i < lista.length; i++) {
+      try {
+        var init = { method: tpl.m, headers: h, credentials: "omit" };
+        if (tpl.m !== "GET" && tpl.body) init.body = tpl.body.split("{TEL}").join(lista[i]);
+        var r = await of.call(window, tpl.url.split("{TEL}").join(lista[i]), init);
+        var t = await r.text(), j = null;
+        try { j = JSON.parse(t); } catch (e) {}
+        if (r.ok && j) { window.postMessage({ src: "ecompro-dropi", huella: { tel: lista[i], campos: camposHuella(j, "", [], 0).slice(0, 30) } }, "*"); ok++; }
+        else fallo++;
+      } catch (e) { fallo++; }
+      est({ estado: "corriendo", total: lista.length, ok: ok, fallo: fallo });
+      await new Promise(function (res) { setTimeout(res, 700); });
+    }
+    est({ estado: "fin", total: lista.length, ok: ok, fallo: fallo });
+  }
   function enviar(url, texto) {
     if (SENSIBLE.test(String(url))) return;
     try {
@@ -53,7 +123,7 @@
           var u = (args[0] && args[0].url) || args[0];
           var ct = (r.headers && r.headers.get && r.headers.get("content-type")) || "";
           meta(u, ct, +(r.headers.get("content-length") || 0), r.status, { m: String((args[1] && args[1].method) || (args[0] && args[0].method) || "GET") });
-          if (/json/i.test(ct)) r.clone().text().then(function (t) { enviar(u, t); }).catch(function () {});
+          if (/json/i.test(ct)) r.clone().text().then(function (t) { enviar(u, t); aprender(u, (args[1] && args[1].method) || (args[0] && args[0].method), args[1] && args[1].body, t); }).catch(function () {});
         } catch (e) {}
         return r;
       });
@@ -64,11 +134,12 @@
   XMLHttpRequest.prototype.setRequestHeader = function (k, v) { try { this.__ech[k] = v; } catch (e) {} return oh.apply(this, arguments); };
   XMLHttpRequest.prototype.send = function (body) {
     var x = this;
+    x.__ecb = body;
     try { guardarReq(x.__ecu, x.__ecm, x.__ech, body); } catch (e) {}
     x.addEventListener("load", function () {
       try {
         meta(x.__ecu, x.getResponseHeader("content-type"), 0, x.status, { m: String(x.__ecm || "GET"), rt: x.responseType || "text" });
-        if (x.responseType === "" || x.responseType === "text") enviar(x.__ecu, x.responseText);
+        if (x.responseType === "" || x.responseType === "text") { enviar(x.__ecu, x.responseText); aprender(x.__ecu, x.__ecm, x.__ecb, x.responseText); }
         else if (x.responseType === "json" && x.response) enviar(x.__ecu, JSON.stringify(x.response));
       } catch (e) {}
     });
@@ -157,6 +228,7 @@
     var d = ev.data;
     if (ev.source !== window || !d || d.src !== "ecompro-cmd") return;
     if (d.tipo === "marcar" && d.url) MARCA = d.url;
+    if (d.tipo === "huellas" && Array.isArray(d.tels)) huellas(d.tels);
     if (d.tipo === "importar" && /^\d{4}-\d{2}-\d{2}$/.test(d.desde) && /^\d{4}-\d{2}-\d{2}$/.test(d.hasta)) importar(d.desde, d.hasta);
   });
 })();

@@ -41,6 +41,29 @@ chrome.runtime.onMessage.addListener(function (msg, sender, resp) {
     });
     return true;
   }
+  if (msg && msg.tipo === "traerHuellas") {
+    chrome.tabs.query({ url: ["https://*.dropi.gt/*", "https://*.dropi.co/*"] }, function (tabs) {
+      var t = (tabs || []).filter(function (x) { return /order|pedido/i.test(x.url || ""); })[0] || (tabs || [])[0];
+      if (!t) { resp({ ok: false, error: "Abre Dropi en una pestaña (Mis pedidos) y vuelve a intentar." }); return; }
+      chrome.tabs.sendMessage(t.id, { tipo: "traerHuellas" }, function (r) {
+        if (chrome.runtime.lastError) { resp({ ok: false, error: "Recarga la pestaña de Dropi (Ctrl+Shift+R) y vuelve a intentar." }); return; }
+        resp(r || { ok: false, error: "Sin respuesta de Dropi." });
+      });
+    });
+    return true;
+  }
+  if (msg && msg.tipo === "huellaEstado") { chrome.storage.local.set({ hu: Object.assign({ ts: Date.now() }, msg.estado) }); return false; }
+  if (msg && msg.tipo === "huellas") {
+    (async function () {
+      var c = await cfg();
+      if (!c.key) return;
+      try {
+        var base = String(c.base || "").replace(/\/+$/, "");
+        await fetch(base + "/api/dropi-live", { method: "POST", headers: { "Content-Type": "application/json", "x-ec-key": c.key }, body: JSON.stringify({ huellas: (msg.items || []).slice(0, 60) }) });
+      } catch (e) {}
+    })();
+    return false;
+  }
   if (msg && msg.tipo === "prog") {
     chrome.storage.local.set({ imp: Object.assign({ ts: Date.now() }, msg.prog) });
     if (msg.prog.estado === "fin") avisar(true, "Importación lista (" + msg.prog.desde + " a " + msg.prog.hasta + "): Dropi devolvió " + msg.prog.filas + " pedidos. Se están subiendo al tablero.");

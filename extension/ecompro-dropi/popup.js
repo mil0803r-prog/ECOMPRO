@@ -41,3 +41,19 @@ $("d").onclick = function () {
     navigator.clipboard.writeText(t).then(function () { $("st").textContent = "Diagnóstico copiado. Pégalo en el chat."; });
   });
 };
+
+(function () {
+  function txt(i) {
+    if (!i) return "";
+    if (i.estado === "sin-plantilla") return "Todavía no aprendí cómo Dropi pide la huella. En Dropi abre un pedido donde se vea la Huella Digital del comprador y vuelve a pulsar.";
+    if (i.estado === "sin-sesion") return "No encontré tu sesión de Dropi en esta pestaña. Recarga Dropi, entra a Mis pedidos y vuelve a pulsar.";
+    if (i.estado === "corriendo") return "Trayendo huellas… " + (i.ok || 0) + " de " + (i.total || 0) + (i.fallo ? " (" + i.fallo + " sin respuesta)" : "") + ".";
+    if (i.estado === "fin") return "Listo: " + (i.ok || 0) + " huellas leídas de Dropi y enviadas al tablero" + (i.fallo ? " (" + i.fallo + " sin respuesta)" : "") + ".";
+    return "";
+  }
+  $("hu").onclick = function () {
+    $("st").textContent = "Pidiendo las huellas a Dropi…";
+    chrome.runtime.sendMessage({ tipo: "traerHuellas" }, function (r) { if (!r || !r.ok) $("st").textContent = "No pude: " + ((r && r.error) || "sin respuesta"); });
+  };
+  chrome.storage.onChanged.addListener(function (ch) { if (ch.hu && ch.hu.newValue) $("st").textContent = txt(ch.hu.newValue); });
+})();
