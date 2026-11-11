@@ -7961,6 +7961,372 @@
    "fav": false,
    "ct": "2026-10-10",
    "tv": 75
+  },
+  "2026-11-11_1": {
+   "date": "2026-11-11",
+   "rank": 1,
+   "source": "ia",
+   "name": "Ajedrez magnetico battle chess",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "jugueteria",
+   "costo": 43,
+   "pvp": 95,
+   "v7": 111,
+   "v30": 269,
+   "stock": 401,
+   "score": 73,
+   "scores": {
+    "demanda": 8,
+    "traccion": 7,
+    "margen": 3,
+    "competencia": 8,
+    "riesgo": 7
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 259
+   },
+   "verdict": "111 ventas en 7 dias y 269 en 30 y en total depuradas (creado el 2026-10-24; 17 dias con venta y 1 reabastecimiento el 7-nov), stock 401, 2 proveedores (shop b y 60 segundos, este con 9 unidades) y 2 anunciantes del mismo producto en GT que llevan 307 y 320 dias con el mismo anuncio: el mas viejo de la corrida, a alguien le funciona hace casi un ano. Es el que mas vende hoy y acelera desde el 1-nov (de 2 a 46 por dia). Con 1 unidad al PVP sugerido de Q95 no cierra con flete Q68; solo en pack de 2.",
+   "angle": "Regalo educativo y entretenido para ninos y adultos, jugable en el carro o de viaje porque las piezas no se mueven. Los dos anunciantes de GT (Pa Tu casa Store y Hogar 2 Go) usan el mismo texto, con WhatsApp y video: 'regala diversion, aprendizaje y momentos en familia'. Queda libre el angulo de Navidad (regalo para el sobrino, para el abuelo) y el de quitar pantallas.",
+   "competition": "2 anunciantes del mismo producto en GT en lo leido (busqueda 'ajedrez magnetico', solo GT, activos vistos en los ultimos 7 dias), ambos por WhatsApp con video y el mismo texto. Semaforo 1-2, muy buena senal: llevan 307 y 320 dias, asi que el producto vende; sigue sin saturar.",
+   "anWA": 2,
+   "anLand": 0,
+   "anTotal": 2,
+   "anNota": "2 anunciantes distintos del mismo producto en GT en lo leido (Pa Tu casa Store, 307 dias; Hogar 2 Go, 320 dias; los dos con la misma copia, video y WhatsApp). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Pa Tu casa Store",
+     "pais": "GT",
+     "dias": 307,
+     "score": 63,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1420774632812703",
+     "dk": "https://app.dropkiller.com/dashboard/ads/d7af39c2-c52f-4d9b-8ee1-d7a4cf528b57",
+     "nota": "Gancho: 'Regala diversion, aprendizaje y momentos en familia' (WhatsApp, video)."
+    },
+    {
+     "adv": "Hogar 2 Go",
+     "pais": "GT",
+     "dias": 320,
+     "score": 63,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1558013745516947",
+     "dk": "https://app.dropkiller.com/dashboard/ads/12d2b4b4-4133-433a-91f6-7a6a291ea547",
+     "nota": "Mismo texto que el anterior: regalo educativo para ninos y adultos (WhatsApp, video)."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "30467",
+     "nombre": "ajedrez magnetico battle chess",
+     "costo": 43,
+     "stock": 401,
+     "v7": 111,
+     "v30": 269,
+     "tv": 269,
+     "ct": "2026-10-24",
+     "alt": "Ventas depuradas con get_product_history: REAL (269 / 269), 1 reabastecimiento (stock 283 a 458 el 7-nov), 17 dias con venta."
+    },
+    {
+     "prov": "60 segundos",
+     "id": "20243",
+     "nombre": "ajedrez magnetico",
+     "costo": 47,
+     "stock": 9,
+     "v7": 18,
+     "v30": 194,
+     "tv": 574,
+     "ct": "2026-09-02",
+     "alt": "Mismo producto (misma familia en DropKiller) con 9 unidades: casi agotado; sirve solo de respaldo."
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/6d1b66f2-1b76-4f2e-b77b-078b06826ff7/7545c16dd635.webp",
+   "risk": "Sin marca registrada ni registro sanitario. Con 1 unidad al PVP sugerido Q95 no cierra con flete Q68 y CPA Q20: hay que pack x2 o reprecio. El proveedor principal (shop b) no esta verificado y el respaldo (60 segundos) tiene solo 9 unidades. Producto de bajo valor: cuidar la tasa de devolucion. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=30467&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/6d1b66f2-1b76-4f2e-b77b-078b06826ff7",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-24",
+   "tv": 269
+  },
+  "2026-11-11_2": {
+   "date": "2026-11-11",
+   "rank": 2,
+   "source": "ia",
+   "name": "Consola portatil con 400 juegos retro",
+   "provider": "digital gt",
+   "verificado": false,
+   "cats": "jugueteria",
+   "costo": 85,
+   "pvp": 185,
+   "v7": 82,
+   "v30": 118,
+   "stock": 138,
+   "score": 67,
+   "scores": {
+    "demanda": 7,
+    "traccion": 5,
+    "margen": 3,
+    "competencia": 10,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 339
+   },
+   "verdict": "82 ventas en 7 dias y 118 en 30 depuradas (162 en total; creado el 2026-08-22), stock 138, 1 solo proveedor (digital gt) y 0 anunciantes del mismo producto en GT en lo leido. Estuvo casi parado hasta el 29-oct y desde el 30-oct vende todos los dias (de 1 a 23 por dia). El stock baja de 256 a 138 sin reabastecer: se puede agotar en una semana si sigue asi. Con 1 unidad al PVP sugerido de Q185 no cierra con flete Q68; solo en pack de 2.",
+   "angle": "Nostalgia para adultos y entretenimiento sin pantallas para ninos: una consola de bolsillo con 400 juegos clasicos. No hay anunciantes del mismo producto en GT; el unico anuncio de consolas portatiles es otro modelo de gama alta (Retroid Flip 2, Jb business products). Queda todo el angulo libre: 'los juegos de tu infancia' y regalo de Navidad.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busqueda 'consola portatil juegos retro', solo GT, activos vistos en los ultimos 7 dias). Solo salio un anuncio de otra consola mas cara (Retroid Flip 2), que no cuenta como el mismo producto. Semaforo 0: cuidado, quiza ya lo probaron y no funciono; la venta en Dropi indica lo contrario.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes del mismo producto en GT en lo leido. Aparecio 1 anuncio de otra consola portatil (Retroid Flip 2, Jb business products, 5 dias, WhatsApp) que no se cuenta. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "digital gt",
+     "id": "18591",
+     "nombre": "consola portatil con 400 juegos retro en 1",
+     "costo": 85,
+     "stock": 138,
+     "v7": 82,
+     "v30": 118,
+     "tv": 162,
+     "ct": "2026-08-22",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con get_product_history: REAL (118 / 162), sin reabastecimientos, 10 dias con venta en 30."
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/61d468f2-60c5-4f24-a2dc-12f7465365d4/c1bdae19e2d2.webp",
+   "risk": "Los juegos clasicos pueden traer nombres de marcas ajenas (Nintendo, Sega y otras): no nombrarlas en el anuncio ni en la foto para que Meta no tumbe la cuenta (bandera amarilla). Sin registro sanitario. Con 1 unidad al PVP sugerido Q185 no cierra; hay que pack x2 o reprecio. Stock 138 y baja rapido sin reabastecer; un solo proveedor sin verificar. Producto electronico: mirar garantia y devolucion. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=18591&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/61d468f2-60c5-4f24-a2dc-12f7465365d4",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-08-22",
+   "tv": 162
+  },
+  "2026-11-11_3": {
+   "date": "2026-11-11",
+   "rank": 3,
+   "source": "ia",
+   "name": "Smartwatch con 7 correas intercambiables",
+   "provider": "metacompras gt",
+   "verificado": false,
+   "cats": "tecnologia",
+   "costo": 110,
+   "pvp": 200,
+   "v7": 62,
+   "v30": 142,
+   "stock": 100,
+   "score": 73,
+   "scores": {
+    "demanda": 7,
+    "traccion": 9,
+    "margen": 3,
+    "competencia": 6,
+    "riesgo": 7
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 389
+   },
+   "verdict": "62 ventas en 7 dias y 142 en 30 depuradas (238 en total; creado el 2026-09-04), stock 100, 1 solo proveedor (metacompras gt). Es el mas constante de la corrida: 22 dias con venta en 30 y acelera (de 7 por dia a 27 el 8-nov). 1 anunciante del mismo producto (Luiza Martina, 9 dias, landing fyzard.store) y 3 de otros smartwatch (45, 163 y 29 dias): la categoria funciona hace meses. El stock es justo (100): 62 ventas por semana lo agotan en 10 dias si no reabastecen.",
+   "angle": "Smartwatch con 7 correas, 7 estilos: se vende como accesorio de moda mas que como tecnologia. Luiza Martina (landing fyzard.store, video, pago contra entrega) arranco el 27-oct con 'Paga al recibir + envio gratis + garantia' y la oferta por precio; los otros anunciantes de smartwatch usan WhatsApp con precio Q129 a Q250. Queda libre el angulo de regalo de Navidad y el de combinar la correa con el look.",
+   "competition": "4 anunciantes de smartwatch en GT en lo leido (busqueda 'smartwatch correas', solo GT, activos vistos en los ultimos 7 dias), pero solo 1 vende este mismo modelo (7 correas); los otros 3 son otros modelos (GT3 Max, Ultra 3 Pro, Molvu T8) por WhatsApp. Semaforo 3-8, zona dulce.",
+   "anWA": 3,
+   "anLand": 1,
+   "anTotal": 4,
+   "anNota": "4 anunciantes de smartwatch distintos en GT en lo leido; 1 es el mismo producto (Luiza Martina, landing fyzard.store, video, 9 dias) y 3 son otros modelos por WhatsApp (Punto Chapin 45 dias, Multi Nova 2 163 dias, Molvu Guatemala 29 dias). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [
+    {
+     "url": "https://fyzard.store/products/smartwatch-7-correas-intercambiables",
+     "adv": "Luiza Martina",
+     "pais": "GT",
+     "dias": 9,
+     "nota": "Landing con pago contra entrega, envio gratis y garantia; mismo producto (7 correas intercambiables)."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Luiza Martina",
+     "pais": "GT",
+     "dias": 9,
+     "score": 25,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1866780614526180",
+     "dk": "https://app.dropkiller.com/dashboard/ads/e3e38627-4f4c-4937-8d5a-28e94150ab86",
+     "nota": "Gancho: '7 correas, 7 estilos para cada ocasion' (voz en off con tomas de apoyo, oferta por precio)."
+    },
+    {
+     "adv": "Multi Nova 2",
+     "pais": "GT",
+     "dias": 163,
+     "score": 58,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1434663151752180",
+     "dk": "https://app.dropkiller.com/dashboard/ads/bf4987ba-c286-44d2-a6e3-a1c3f890567d",
+     "nota": "Otro modelo (Ultra 3 Pro) por WhatsApp a Q129; 163 dias activo: la categoria vende."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "metacompras gt",
+     "id": "20437",
+     "nombre": "smartwatch + 7 correas intercambiables",
+     "costo": 110,
+     "stock": 100,
+     "v7": 62,
+     "v30": 142,
+     "tv": 238,
+     "ct": "2026-09-04",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido (los otros smartwatch de Dropi son otros modelos). Ventas depuradas con get_product_history: REAL (142 / 238), 1 reabastecimiento (stock 58 a 192 el 28-oct), 22 dias con venta en 30."
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/1a039f75-86ae-49ad-9a78-ec02fda1c2ab/3f1216564be2.webp",
+   "risk": "Sin marca registrada ni registro sanitario; no prometer funciones de salud medicas. Se vende con 7 correas: confirmar que lleguen completas para evitar devoluciones. Con 1 unidad al PVP sugerido Q200 no cierra; hay que pack x2 o reprecio. Stock 100 y un solo proveedor sin verificar (metacompras gt). Producto electronico: mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20437&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/1a039f75-86ae-49ad-9a78-ec02fda1c2ab",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-09-04",
+   "tv": 238
+  },
+  "2026-11-11_4": {
+   "date": "2026-11-11",
+   "rank": 4,
+   "source": "ia",
+   "name": "Generador portatil con radio FM",
+   "provider": "60 segundos",
+   "verificado": false,
+   "cats": "tecnologia",
+   "costo": 206,
+   "pvp": 256,
+   "v7": 56,
+   "v30": 82,
+   "stock": 101,
+   "score": 73,
+   "scores": {
+    "demanda": 7,
+    "traccion": 4,
+    "margen": 4,
+    "competencia": 10,
+    "riesgo": 5
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 579
+   },
+   "verdict": "56 ventas en 7 dias y 82 en 30 y en total depuradas (creado el 2026-10-31; empezo a vender el 3-nov y lleva 7 dias con venta), stock 101, 1 solo proveedor (60 segundos) y 0 anunciantes del mismo producto en GT en lo leido. Es el de ticket mas alto de la corrida (costo Q206, PVP sugerido Q256) y vende rapido: se agoto casi todo el stock (de 100 a 18 en 6 dias) y repusieron 83 unidades hoy. Con 1 unidad al PVP sugerido Q256 no cierra con flete Q68; solo en pack de 2 a un precio alto.",
+   "angle": "Energia de respaldo para los apagones: un generador portatil con radio FM para cargar celular, linterna y luces cuando se va la luz, y para camping. Ningun anunciante en GT lo vende todavia, asi que el angulo del apagon (la lluvia y los cortes) esta completamente libre. Cuidado: es un equipo caro y la gente lo compara con una planta electrica; hay que ser claro con lo que alimenta y lo que no.",
+   "competition": "0 anunciantes del mismo producto en GT en lo leido (busqueda 'generador portatil radio', solo GT, activos vistos en los ultimos 7 dias): sin resultados. Semaforo 0: cuidado, quiza ya lo probaron y no funciono; hay ventas reales en Dropi, asi que probablemente nadie lo anuncia todavia.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anunciantes del mismo producto en GT en lo leido (busqueda sin resultados). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo y el producto es muy nuevo (creado el 31-oct).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "60 segundos",
+     "id": "31950",
+     "nombre": "generador portatil con radio fm",
+     "costo": 206,
+     "stock": 101,
+     "v7": 56,
+     "v30": 82,
+     "tv": 82,
+     "ct": "2026-10-31",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con get_product_history: REAL (82 / 82), 1 reabastecimiento (stock 18 a 101 el 11-nov), 7 dias con venta."
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/a93e19fa-e0a7-4c7d-aa3a-5092d560520e/a55613db5207.webp",
+   "risk": "Sin marca registrada en el nombre, pero es un equipo electrico de ticket alto (costo Q206): riesgo de devolucion si no entrega la potencia que el cliente imagina; no prometer que alimenta refrigeradora ni equipos grandes. Stock 101 y un solo proveedor (60 segundos, sin verificar) que ya estuvo en 18 unidades. Con 1 unidad al PVP sugerido Q256 no cierra; solo pack x2 a precio alto. Mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=31950&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/a93e19fa-e0a7-4c7d-aa3a-5092d560520e",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-31",
+   "tv": 82
+  },
+  "2026-11-11_5": {
+   "date": "2026-11-11",
+   "rank": 5,
+   "source": "ia",
+   "name": "Escalera navidena LED de Papa Noel",
+   "provider": "digital gt",
+   "verificado": false,
+   "cats": "hogar",
+   "costo": 169,
+   "pvp": 270,
+   "v7": 56,
+   "v30": 103,
+   "stock": 196,
+   "score": 73,
+   "scores": {
+    "demanda": 7,
+    "traccion": 6,
+    "margen": 3,
+    "competencia": 9,
+    "riesgo": 7
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 509
+   },
+   "verdict": "56 ventas en 7 dias y 103 en 30 (104 en total depuradas; creado el 2026-10-09), stock 196, 1 solo proveedor (digital gt) y 1 anunciante del mismo producto en GT (Dapaju, con 2 dias activo, landing dapaju.com). Estuvo parado hasta el 2-nov y desde el 3-nov vende todos los dias y acelera (de 5 a 17 por dia). Es estacional: la ventana de Navidad termina el 24-dic. Con 1 unidad al PVP sugerido Q270 no cierra con flete Q68; solo en pack de 2.",
+   "angle": "Decoracion navidena con un toque distinto: Papa Noel escalando la casa en lugar de entrar por la chimenea. Dapaju (landing dapaju.com, video, 2 dias) apenas arranco con 'Esta Navidad, Papa Noel llega escalando a tu hogar' y 'ultimas unidades'. Queda libre el angulo de la foto para redes (fachada que llama la atencion), el regalo para el vecindario y el de ahorrar en adornos grandes.",
+   "competition": "1 anunciante del mismo producto en GT en lo leido (busqueda 'escalera navidena papa noel', solo GT, activos vistos en los ultimos 7 dias). Semaforo 1-2, muy buena senal, aunque Dapaju apenas empezo y la temporada atrae a mas tiendas cada semana.",
+   "anWA": 0,
+   "anLand": 1,
+   "anTotal": 1,
+   "anNota": "1 anunciante distinto del mismo producto en GT en lo leido (Dapaju, landing dapaju.com, video, 2 dias activo). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo.",
+   "tiendas": [
+    {
+     "url": "https://dapaju.com/products/magicsanta%E2%84%A2-escalera-navidena-con-luces-led-y-papa-noel",
+     "adv": "Dapaju",
+     "pais": "GT",
+     "dias": 2,
+     "nota": "Landing 'MagicSanta' con pago contra entrega; mismo producto (escalera navidena LED con Papa Noel)."
+    }
+   ],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Dapaju",
+     "pais": "GT",
+     "dias": 2,
+     "score": 33,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1464668219098463",
+     "dk": "https://app.dropkiller.com/dashboard/ads/c47edeb4-726d-4d4d-b3a4-8cee925b3008",
+     "nota": "Gancho: 'Esta Navidad, Papa Noel no llega por la chimenea... llega escalando a tu hogar'."
+    }
+   ],
+   "provs": [
+    {
+     "prov": "digital gt",
+     "id": "27227",
+     "nombre": "escalera navidena led de papa noel",
+     "costo": 169,
+     "stock": 196,
+     "v7": 56,
+     "v30": 103,
+     "tv": 104,
+     "ct": "2026-10-09",
+     "alt": "Sin otros listados del mismo producto en Dropi GT en lo leido. Ventas depuradas con get_product_history: REAL (103 / 104), sin reabastecimientos, 16 dias con venta en 30 (despega desde el 3-nov)."
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/0ab1d95d-77c0-4be3-920f-1d0308391492/0aef31392549.webp",
+   "risk": "Estacional: sirve solo hasta fin de ano (la demanda se corta despues del 24-dic); no comprar mucho ni dejar pauta corriendo en enero. Sin marca registrada ni registro sanitario; Papa Noel es figura libre. Con 1 unidad al PVP sugerido Q270 no cierra con flete Q68 y CPA Q20; hay que pack x2 o reprecio. Un solo proveedor (digital gt, sin verificar). Producto electrico con luces: mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27227&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/0ab1d95d-77c0-4be3-920f-1d0308391492",
+   "status": "nuevo",
+   "fav": false,
+   "ct": "2026-10-09",
+   "tv": 104
   }
  },
  "validations": {
@@ -25419,6 +25785,1487 @@
    ],
    "resumen": "Se leyeron 48 filas con los filtros base (GT, Dropi, activo, stock 80 o mas, 7 dias 50 o mas, creado desde el 2026-08-06): 36 tenian las tres ventas entre 50 y 800. Cayeron por repetidos de los ultimos 20 dias (6), por 3 o mas proveedores o listados del mismo producto (excalvo, limpiador a vapor, candela, safebone, picador y otros), por saturacion (cayenne pepper con 8 anunciantes) y por productos que ya no son nuevos (oftamiel, ahorrador de energia, glucora, ethiopian). Quedaron 5 normales y no se uso el Plan B. El filtro que mas corto fue el de proveedores.",
    "revisar": "A REVISAR: de reserva quedaron productos que pasaron los filtros de ventas pero no se evaluaron a fondo hoy (pasta dental blanqueadora 27638, brasier tira ancha 20725, zapatera con colgadores 17668, brasier sin costura 27591 y dr althea crema 345, IDs 18334 y 20461). El cebo de nido contra cucarachas (MegaOfertas Guate y Plaza Nova arrancaron el 4-nov) sugiere que el nicho de plagas se esta calentando. Sin memoria radar_mem disponible: no hay productos de corridas anteriores marcados como estables o despegando."
+  },
+  "2026-11-11": {
+   "date": "2026-11-11",
+   "source": "ia",
+   "planb": false,
+   "titulo": "Radar Caza Diaria · 2026-11-11 · 5 normales",
+   "sub": "Guatemala · Dropi · DropKiller · corrida manual (filtros normales 50 a 800), sin navegador",
+   "veredicto": "Veredicto. Con los filtros normales (creado desde el 2026-08-13 y en 2026, las tres ventas de 50 a 800, stock 80 o mas, 1 o 2 proveedores, competencia solo GT, sin repetir los ultimos 20 dias) salieron los 5 productos de hoy y no hizo falta el Plan B. El que mas vende es el ajedrez magnetico (111 / 269 / 269 depuradas, 2 anunciantes que llevan 307 y 320 dias con el mismo anuncio); la consola portatil con 400 juegos retro despega desde el 30-oct y no tiene anunciantes del mismo producto en GT; el smartwatch con 7 correas es el mas constante (22 dias con venta en 30) en una categoria que ya tiene 4 anunciantes; el generador portatil con radio FM es el de mayor ticket y no tiene competencia, pero su stock es justo (101); y la escalera navidena de Papa Noel acelera con la temporada, con la ventana cerrando el 24-dic. Con flete Q68 y CPA Q20 de referencia ninguno cierra con 1 unidad al PVP sugerido; en pack x2 los cinco superan Q30 por pedido, pero a precios altos (hasta Q579), asi que hay que medir flete y CPA reales.",
+   "nota": "Limites de esta corrida: no se verifico en la Biblioteca de Anuncios de Meta ni en Amazon (no hay navegador) y no se pudieron ver las fotos (el CDN de imagenes no es accesible desde aqui); los anuncios salen de la biblioteca de DropKiller (busqueda por texto, solo GT, activos vistos en los ultimos 7 dias) y se leyeron solo los primeros resultados por producto, asi que los conteos de anunciantes son minimos. No se buscaron referentes fuera de GT. Las ventas se depuraron con get_product_history (los 5 salieron REAL, sin recortes; el reabastecimiento de cada uno esta anotado en su ficha); las ventas de 7 dias son las que reporta DropKiller y cuadran con la suma de los ultimos 7 dias. Un mismo producto con varios listados se conto como uno solo. Aviso de repeticion: la regla se aplico contra los ids de proveedor y los nombres de las tarjetas desde el 25-oct. No se uso Fasebook, Vercel ni ArtifactData. Valores de referencia de rentabilidad (flete Q68, devolucion Q30, entrega 62 %, CPA Q20): no son medidos.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Ajedrez magnetico battle chess",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/6d1b66f2-1b76-4f2e-b77b-078b06826ff7/7545c16dd635.webp",
+     "v": "111 ventas en 7 dias y 269 en 30 y en total depuradas (creado el 2026-10-24; 17 dias con venta y 1 reabastecimiento el 7-nov), stock 401, 2 proveedores (shop b y 60 segundos, este con 9 unidades) y 2 anunciantes del mismo producto en GT que llevan 307 y 320 dias con el mismo anuncio: el mas viejo de la corrida, a alguien le funciona hace casi un ano. Es el que mas vende hoy y acelera desde el 1-nov (de 2 a 46 por dia). Con 1 unidad al PVP sugerido de Q95 no cierra con flete Q68; solo en pack de 2.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "111"
+      ],
+      [
+       "30d",
+       "269"
+      ],
+      [
+       "Total",
+       "269"
+      ],
+      [
+       "Stock",
+       "401"
+      ],
+      [
+       "Costo",
+       "Q43"
+      ],
+      [
+       "PVP sug.",
+       "Q95"
+      ],
+      [
+       "Creado",
+       "2026-10-24"
+      ],
+      [
+       "Proveedores",
+       "2"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 2 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q259; utilidad estimada por pedido generado: Q33.7. Con 1 unidad al PVP sugerido Q95: Q-41.3. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "shop b",
+         "30467",
+         "ajedrez magnetico battle chess",
+         "Q43",
+         "401",
+         "111/269/269",
+         "2026-10-24"
+        ],
+        [
+         "60 segundos",
+         "20243",
+         "ajedrez magnetico",
+         "Q47",
+         "9",
+         "18/194/574",
+         "2026-09-02"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 2 anunciante(s) · 1-2 muy buena senal",
+       "p": "2 anunciantes distintos del mismo producto en GT en lo leido (Pa Tu casa Store, 307 dias; Hogar 2 Go, 320 dias; los dos con la misma copia, video y WhatsApp). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Pa Tu casa Store · 307 dias activo · 'Regala diversion, aprendizaje y momentos en familia'",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1420774632812703"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/d7af39c2-c52f-4d9b-8ee1-d7a4cf528b57"
+          }
+         ]
+        },
+        {
+         "t": "Hogar 2 Go · 320 dias activo · mismo texto, video y WhatsApp",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1558013745516947"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/12d2b4b4-4133-433a-91f6-7a6a291ea547"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Regalo educativo y entretenido para ninos y adultos, jugable en el carro o de viaje porque las piezas no se mueven. Los dos anunciantes de GT (Pa Tu casa Store y Hogar 2 Go) usan el mismo texto, con WhatsApp y video: 'regala diversion, aprendizaje y momentos en familia'. Queda libre el angulo de Navidad (regalo para el sobrino, para el abuelo) y el de quitar pantallas."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Papas y mamas que quieren menos pantallas",
+         "s": "Un juego de mesa que si engancha a los ninos: ajedrez que no se desordena ni en el carro."
+        },
+        {
+         "b": "Quien busca un regalo para Navidad",
+         "s": "El regalo que se juega el mismo dia: ajedrez magnetico listo para abrir y jugar."
+        },
+        {
+         "b": "Abuelos y adultos mayores",
+         "s": "Mantener la mente activa jugando ajedrez sin piezas que se caen ni se pierden."
+        },
+        {
+         "b": "Familias que viajan en bus o en carro",
+         "s": "Ajedrez de viaje: las piezas se pegan al tablero aunque haya baches."
+        },
+        {
+         "b": "Maestros y papas que ensenan estrategia",
+         "s": "Aprende ajedrez desde cero con un tablero que se arma solo."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin marca registrada ni registro sanitario. Con 1 unidad al PVP sugerido Q95 no cierra con flete Q68 y CPA Q20: hay que pack x2 o reprecio. El proveedor principal (shop b) no esta verificado y el respaldo (60 segundos) tiene solo 9 unidades. Producto de bajo valor: cuidar la tasa de devolucion. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=30467&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/6d1b66f2-1b76-4f2e-b77b-078b06826ff7"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Ajedrez+magnetico+battle+chess"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Ajedrez+magnetico+battle+chess"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Consola portatil con 400 juegos retro",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "Marcas de juegos: cuidar nombres",
+       "c": "am"
+      },
+      {
+       "t": "10/15 · tarjeta 67/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/61d468f2-60c5-4f24-a2dc-12f7465365d4/c1bdae19e2d2.webp",
+     "v": "82 ventas en 7 dias y 118 en 30 depuradas (162 en total; creado el 2026-08-22), stock 138, 1 solo proveedor (digital gt) y 0 anunciantes del mismo producto en GT en lo leido. Estuvo casi parado hasta el 29-oct y desde el 30-oct vende todos los dias (de 1 a 23 por dia). El stock baja de 256 a 138 sin reabastecer: se puede agotar en una semana si sigue asi. Con 1 unidad al PVP sugerido de Q185 no cierra con flete Q68; solo en pack de 2.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "82"
+      ],
+      [
+       "30d",
+       "118"
+      ],
+      [
+       "Total",
+       "162"
+      ],
+      [
+       "Stock",
+       "138"
+      ],
+      [
+       "Costo",
+       "Q85"
+      ],
+      [
+       "PVP sug.",
+       "Q185"
+      ],
+      [
+       "Creado",
+       "2026-08-22"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 2 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q339; utilidad estimada por pedido generado: Q31.2. Con 1 unidad al PVP sugerido Q185: Q-11.6. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "digital gt",
+         "18591",
+         "consola portatil con 400 juegos retro en 1",
+         "Q85",
+         "138",
+         "82/118/162",
+         "2026-08-22"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado: quiza ya lo probaron",
+       "p": "0 anunciantes del mismo producto en GT en lo leido. Aparecio 1 anuncio de otra consola portatil (Retroid Flip 2, Jb business products, 5 dias, WhatsApp) que no se cuenta. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "No se vio ningun anuncio del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Nostalgia para adultos y entretenimiento sin pantallas para ninos: una consola de bolsillo con 400 juegos clasicos. No hay anunciantes del mismo producto en GT; el unico anuncio de consolas portatiles es otro modelo de gama alta (Retroid Flip 2, Jb business products). Queda todo el angulo libre: 'los juegos de tu infancia' y regalo de Navidad."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Adultos de 30 a 45 que jugaron de ninos",
+         "s": "Los 400 juegos de tu infancia en la palma de la mano: Mario, carreras y mas, sin instalar nada."
+        },
+        {
+         "b": "Papas que quieren un regalo de Navidad sin internet",
+         "s": "Entretenimiento para el nino sin pantallas conectadas ni redes: enciende y juega."
+        },
+        {
+         "b": "Quien viaja o espera mucho (buses, filas, consultas)",
+         "s": "Una consola del tamano de un celular para matar el tiempo en cualquier lado."
+        },
+        {
+         "b": "Hermanos o amigos que quieren jugar juntos",
+         "s": "Juega a dos con tu hermano: videojuegos clasicos para compartir."
+        },
+        {
+         "b": "Regalo para el novio o el esposo gamer",
+         "s": "El detalle retro que le va a sacar una sonrisa: 400 juegos en un solo aparato."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Los juegos clasicos pueden traer nombres de marcas ajenas (Nintendo, Sega y otras): no nombrarlas en el anuncio ni en la foto para que Meta no tumbe la cuenta (bandera amarilla). Sin registro sanitario. Con 1 unidad al PVP sugerido Q185 no cierra; hay que pack x2 o reprecio. Stock 138 y baja rapido sin reabastecer; un solo proveedor sin verificar. Producto electronico: mirar garantia y devolucion. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=18591&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/61d468f2-60c5-4f24-a2dc-12f7465365d4"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Consola+portatil+con+400+juegos+retro"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Consola+portatil+con+400+juegos+retro"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Smartwatch con 7 correas intercambiables",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/1a039f75-86ae-49ad-9a78-ec02fda1c2ab/3f1216564be2.webp",
+     "v": "62 ventas en 7 dias y 142 en 30 depuradas (238 en total; creado el 2026-09-04), stock 100, 1 solo proveedor (metacompras gt). Es el mas constante de la corrida: 22 dias con venta en 30 y acelera (de 7 por dia a 27 el 8-nov). 1 anunciante del mismo producto (Luiza Martina, 9 dias, landing fyzard.store) y 3 de otros smartwatch (45, 163 y 29 dias): la categoria funciona hace meses. El stock es justo (100): 62 ventas por semana lo agotan en 10 dias si no reabastecen.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "62"
+      ],
+      [
+       "30d",
+       "142"
+      ],
+      [
+       "Total",
+       "238"
+      ],
+      [
+       "Stock",
+       "100"
+      ],
+      [
+       "Costo",
+       "Q110"
+      ],
+      [
+       "PVP sug.",
+       "Q200"
+      ],
+      [
+       "Creado",
+       "2026-09-04"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 3 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q389; utilidad estimada por pedido generado: Q31.2. Con 1 unidad al PVP sugerido Q200: Q-17.8. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "metacompras gt",
+         "20437",
+         "smartwatch + 7 correas intercambiables",
+         "Q110",
+         "100",
+         "62/142/238",
+         "2026-09-04"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 4 anunciante(s) · 3-8 zona dulce",
+       "p": "4 anunciantes de smartwatch distintos en GT en lo leido; 1 es el mismo producto (Luiza Martina, landing fyzard.store, video, 9 dias) y 3 son otros modelos por WhatsApp (Punto Chapin 45 dias, Multi Nova 2 163 dias, Molvu Guatemala 29 dias). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Luiza Martina · 9 dias activo · '7 correas, 7 estilos para cada ocasion'",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1866780614526180"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/e3e38627-4f4c-4937-8d5a-28e94150ab86"
+          }
+         ]
+        },
+        {
+         "t": "Multi Nova 2 (otro modelo) · 163 dias activo · Ultra 3 Pro a Q129 por WhatsApp",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1434663151752180"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/bf4987ba-c286-44d2-a6e3-a1c3f890567d"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Smartwatch con 7 correas, 7 estilos: se vende como accesorio de moda mas que como tecnologia. Luiza Martina (landing fyzard.store, video, pago contra entrega) arranco el 27-oct con 'Paga al recibir + envio gratis + garantia' y la oferta por precio; los otros anunciantes de smartwatch usan WhatsApp con precio Q129 a Q250. Queda libre el angulo de regalo de Navidad y el de combinar la correa con el look."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Mujeres y hombres que cuidan su estilo",
+         "s": "Un reloj, siete looks: cambia la correa segun la ocasion en 5 segundos."
+        },
+        {
+         "b": "Quien busca un regalo de Navidad a buen precio",
+         "s": "Trae 7 correas: el regalo que se ve distinto cada dia."
+        },
+        {
+         "b": "Deportistas y gente activa",
+         "s": "Mide tus pasos y ritmo cardiaco con una correa que aguanta el sudor."
+        },
+        {
+         "b": "Estudiantes y jovenes de 16 a 25",
+         "s": "El smartwatch que combina con tu uniforme, tu ropa del finde y tu outfit de salida."
+        },
+        {
+         "b": "Padres que quieren una alternativa al celular para sus hijos",
+         "s": "Ve la hora, llamadas y mensajes sin sacar el celular en clase."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin marca registrada ni registro sanitario; no prometer funciones de salud medicas. Se vende con 7 correas: confirmar que lleguen completas para evitar devoluciones. Con 1 unidad al PVP sugerido Q200 no cierra; hay que pack x2 o reprecio. Stock 100 y un solo proveedor sin verificar (metacompras gt). Producto electronico: mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=20437&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/1a039f75-86ae-49ad-9a78-ec02fda1c2ab"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Smartwatch+con+7+correas+intercambiables"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Smartwatch+con+7+correas+intercambiables"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Generador portatil con radio FM",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/a93e19fa-e0a7-4c7d-aa3a-5092d560520e/a55613db5207.webp",
+     "v": "56 ventas en 7 dias y 82 en 30 y en total depuradas (creado el 2026-10-31; empezo a vender el 3-nov y lleva 7 dias con venta), stock 101, 1 solo proveedor (60 segundos) y 0 anunciantes del mismo producto en GT en lo leido. Es el de ticket mas alto de la corrida (costo Q206, PVP sugerido Q256) y vende rapido: se agoto casi todo el stock (de 100 a 18 en 6 dias) y repusieron 83 unidades hoy. Con 1 unidad al PVP sugerido Q256 no cierra con flete Q68; solo en pack de 2 a un precio alto.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "56"
+      ],
+      [
+       "30d",
+       "82"
+      ],
+      [
+       "Total",
+       "82"
+      ],
+      [
+       "Stock",
+       "101"
+      ],
+      [
+       "Costo",
+       "Q206"
+      ],
+      [
+       "PVP sug.",
+       "Q256"
+      ],
+      [
+       "Creado",
+       "2026-10-31"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 3 · Estatus/emocion 1 · Funcion en foto 3 · Angulos nuevos 3 · Oferta ganadora 1"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q579; utilidad estimada por pedido generado: Q30. Con 1 unidad al PVP sugerido Q256: Q-42.6. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "60 segundos",
+         "31950",
+         "generador portatil con radio fm",
+         "Q206",
+         "101",
+         "56/82/82",
+         "2026-10-31"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 0 anunciante(s) · 0 cuidado: quiza ya lo probaron",
+       "p": "0 anunciantes del mismo producto en GT en lo leido (busqueda sin resultados). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo y el producto es muy nuevo (creado el 31-oct)."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "No se vio ningun anuncio del mismo producto en GT en lo leido.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Energia de respaldo para los apagones: un generador portatil con radio FM para cargar celular, linterna y luces cuando se va la luz, y para camping. Ningun anunciante en GT lo vende todavia, asi que el angulo del apagon (la lluvia y los cortes) esta completamente libre. Cuidado: es un equipo caro y la gente lo compara con una planta electrica; hay que ser claro con lo que alimenta y lo que no."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Familias en zonas con apagones frecuentes",
+         "s": "Se fue la luz y tu casa sigue con radio, linterna y celular cargado."
+        },
+        {
+         "b": "Campistas y gente que sale de paseo",
+         "s": "Energia en tu mochila: carga el celular y escucha la radio donde no hay enchufe."
+        },
+        {
+         "b": "Comerciantes y negocios chicos",
+         "s": "No pierdas ventas por un apagon: luz de respaldo para el mostrador."
+        },
+        {
+         "b": "Estudiantes y quien trabaja desde casa",
+         "s": "Un respaldo para no perder el trabajo ni la clase cuando se va la luz."
+        },
+        {
+         "b": "Regalo para el papa o la mama que se preocupa por la casa",
+         "s": "El regalo practico que se agradece el dia del apagon."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Sin marca registrada en el nombre, pero es un equipo electrico de ticket alto (costo Q206): riesgo de devolucion si no entrega la potencia que el cliente imagina; no prometer que alimenta refrigeradora ni equipos grandes. Stock 101 y un solo proveedor (60 segundos, sin verificar) que ya estuvo en 18 unidades. Con 1 unidad al PVP sugerido Q256 no cierra; solo pack x2 a precio alto. Mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=31950&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/a93e19fa-e0a7-4c7d-aa3a-5092d560520e"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Generador+portatil+con+radio+FM"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Generador+portatil+con+radio+FM"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Escalera navidena LED de Papa Noel",
+     "tags": [
+      {
+       "t": "Filtros normales: ventas 50 a 800",
+       "c": "ok"
+      },
+      {
+       "t": "Tarjeta Caza diaria",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE solo en pack x2",
+       "c": "ok"
+      },
+      {
+       "t": "Estacional (hasta el 24-dic)",
+       "c": "am"
+      },
+      {
+       "t": "11/15 · tarjeta 73/100",
+       "c": "gr"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/0ab1d95d-77c0-4be3-920f-1d0308391492/0aef31392549.webp",
+     "v": "56 ventas en 7 dias y 103 en 30 (104 en total depuradas; creado el 2026-10-09), stock 196, 1 solo proveedor (digital gt) y 1 anunciante del mismo producto en GT (Dapaju, con 2 dias activo, landing dapaju.com). Estuvo parado hasta el 2-nov y desde el 3-nov vende todos los dias y acelera (de 5 a 17 por dia). Es estacional: la ventana de Navidad termina el 24-dic. Con 1 unidad al PVP sugerido Q270 no cierra con flete Q68; solo en pack de 2.",
+     "kv": [
+      [
+       "Ventas 7d",
+       "56"
+      ],
+      [
+       "30d",
+       "103"
+      ],
+      [
+       "Total",
+       "104"
+      ],
+      [
+       "Stock",
+       "196"
+      ],
+      [
+       "Costo",
+       "Q169"
+      ],
+      [
+       "PVP sug.",
+       "Q270"
+      ],
+      [
+       "Creado",
+       "2026-10-09"
+      ],
+      [
+       "Proveedores",
+       "1"
+      ]
+     ],
+     "secs": [
+      {
+       "h": "Puntaje",
+       "p": "Necesidad 1 · Estatus/emocion 3 · Funcion en foto 3 · Angulos nuevos 2 · Oferta ganadora 2"
+      },
+      {
+       "h": "Margen (informativo)",
+       "p": "Oferta sugerida: 2 unidad(es) a Q509; utilidad estimada por pedido generado: Q32.5. Con 1 unidad al PVP sugerido Q270: Q-10.9. Valores de referencia: flete Q68, devolucion Q30, entrega 62 %, CPA Q20; no son medidos."
+      },
+      {
+       "h": "Proveedores en Dropi",
+       "rows": [
+        [
+         "Proveedor",
+         "ID",
+         "Nombre",
+         "Costo",
+         "Stock",
+         "7d/30d/total",
+         "Creado"
+        ],
+        [
+         "digital gt",
+         "27227",
+         "escalera navidena led de papa noel",
+         "Q169",
+         "196",
+         "56/103/104",
+         "2026-10-09"
+        ]
+       ]
+      },
+      {
+       "h": "Competencia en GT: 1 anunciante(s) · 1-2 muy buena senal",
+       "p": "1 anunciante distinto del mismo producto en GT en lo leido (Dapaju, landing dapaju.com, video, 2 dias activo). No se verifico en la Biblioteca de Anuncios de Meta (sin navegador); el conteo es un minimo."
+      },
+      {
+       "h": "Anuncios vistos",
+       "ul": [
+        {
+         "t": "Dapaju · 2 dias activo · 'Papa Noel no llega por la chimenea... llega escalando a tu hogar'",
+         "l": [
+          {
+           "t": "Ver en la Biblioteca de Meta",
+           "u": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=1464668219098463"
+          },
+          {
+           "t": "Ver en DropKiller",
+           "u": "https://app.dropkiller.com/dashboard/ads/c47edeb4-726d-4d4d-b3a4-8cee925b3008"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "h": "Referentes fuera de GT (0 tienda(s), 0 imagen(es), 0 video(s))",
+       "ul": [
+        {
+         "t": "No se buscaron referentes fuera de GT en esta corrida; no se rellena a ojo.",
+         "l": []
+        }
+       ]
+      },
+      {
+       "h": "Angulo ya en uso / recomendado",
+       "p": "Decoracion navidena con un toque distinto: Papa Noel escalando la casa en lugar de entrar por la chimenea. Dapaju (landing dapaju.com, video, 2 dias) apenas arranco con 'Esta Navidad, Papa Noel llega escalando a tu hogar' y 'ultimas unidades'. Queda libre el angulo de la foto para redes (fachada que llama la atencion), el regalo para el vecindario y el de ahorrar en adornos grandes."
+      },
+      {
+       "h": "5 angulos nuevos (audiencia y gancho)",
+       "ol": [
+        {
+         "b": "Familias que decoran la fachada o el balcon",
+         "s": "Tu casa, la mas comentada de la cuadra: Papa Noel escalando con luces LED."
+        },
+        {
+         "b": "Quien sube fotos y videos a redes en Navidad",
+         "s": "El adorno que se vuelve viral: Papa Noel subiendo por tu pared."
+        },
+        {
+         "b": "Duenos de negocios y tiendas",
+         "s": "Atrae clientes con una vitrina navidena distinta."
+        },
+        {
+         "b": "Papas que quieren sorprender a los ninos",
+         "s": "Los ninos van a gritar al ver a Papa Noel subiendo por la casa."
+        },
+        {
+         "b": "Quien quiere decorar sin gastar en adornos grandes",
+         "s": "Un solo adorno con luces que reemplaza varios."
+        }
+       ]
+      },
+      {
+       "h": "Riesgos",
+       "p": "Estacional: sirve solo hasta fin de ano (la demanda se corta despues del 24-dic); no comprar mucho ni dejar pauta corriendo en enero. Sin marca registrada ni registro sanitario; Papa Noel es figura libre. Con 1 unidad al PVP sugerido Q270 no cierra con flete Q68 y CPA Q20; hay que pack x2 o reprecio. Un solo proveedor (digital gt, sin verificar). Producto electrico con luces: mirar garantia. Foto a verificar en Dropi (el CDN de imagenes no se pudo ver desde aqui)."
+      }
+     ],
+     "links": [
+      {
+       "t": "Ver en Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27227&search_type=id"
+      },
+      {
+       "t": "Ver en DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/0ab1d95d-77c0-4be3-920f-1d0308391492"
+      },
+      {
+       "t": "Buscar en Amazon",
+       "u": "https://www.amazon.com/s?k=Escalera+navidena+LED+de+Papa+Noel"
+      },
+      {
+       "t": "Buscar en AliExpress",
+       "u": "https://www.aliexpress.com/wholesale?SearchText=Escalera+navidena+LED+de+Papa+Noel"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "gotas de drenaje linfatico",
+     "s": "ID 19504 · auré",
+     "v": "2178 / 6223 / 8350",
+     "st": "1317",
+     "ct": "2026-09-08",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 2178, 30d 6223, total 8350)",
+     "c": "d"
+    },
+    {
+     "n": "brazier acanelado",
+     "s": "ID 20699 · chicas empire fajas",
+     "v": "1226 / 2810 / 3569",
+     "st": "1237",
+     "ct": "2026-09-04",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 1226, 30d 2810, total 3569)",
+     "c": "d"
+    },
+    {
+     "n": "ácido r-alfa lipoico (r-ala) caps normal",
+     "s": "ID 28678 · natural labs organic",
+     "v": "626 / 1269 / 1269",
+     "st": "3731",
+     "ct": "2026-10-17",
+     "r": "Descartado: ya salio el 2026-10-29 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "dr. dent purple mouthwash",
+     "s": "ID 32308 · sicommer lab",
+     "v": "249 / 323 / 323",
+     "st": "1677",
+     "ct": "2026-11-01",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "excalvo shampoo 500 ml",
+     "s": "ID 19636 · natural labs organic",
+     "v": "239 / 722 / 870",
+     "st": "3793",
+     "ct": "2026-08-28",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 239, 30d 722, total 870)",
+     "c": "d"
+    },
+    {
+     "n": "ethiopian",
+     "s": "ID 23004 · natural labs organic",
+     "v": "227 / 839 / 949",
+     "st": "4551",
+     "ct": "2026-09-25",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 227, 30d 839, total 949)",
+     "c": "d"
+    },
+    {
+     "n": "ahorrador de energia",
+     "s": "ID 2712 · shop b",
+     "v": "223 / 337 / 419",
+     "st": "80",
+     "ct": "2026-10-26",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "spray para el dolor dental alivio rapido",
+     "s": "ID 19439 · metacompras gt",
+     "v": "217 / 1090 / 1987",
+     "st": "405",
+     "ct": "2026-08-27",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 217, 30d 1090, total 1987)",
+     "c": "d"
+    },
+    {
+     "n": "carrier baby sling",
+     "s": "ID 26207 · grupo luna",
+     "v": "210 / 380 / 528",
+     "st": "424",
+     "ct": "2026-10-03",
+     "r": "Descartado: ya salio el 2026-10-28 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "te chino",
+     "s": "ID 29042 · sicommer lab",
+     "v": "208 / 803 / 870",
+     "st": "1130",
+     "ct": "2026-10-18",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 208, 30d 803, total 870)",
+     "c": "d"
+    },
+    {
+     "n": "combo zador",
+     "s": "ID 33140 · importadora el mayorista",
+     "v": "187 / 187 / 187",
+     "st": "192",
+     "ct": "2026-11-05",
+     "r": "Descartado: el nombre sugiere producto para adultos (Meta no permite anunciarlo); no se evaluo",
+     "c": "d"
+    },
+    {
+     "n": "renovia 15en1",
+     "s": "ID 27143 · nibresma",
+     "v": "167 / 797 / 859",
+     "st": "141",
+     "ct": "2026-10-08",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 167, 30d 797, total 859)",
+     "c": "d"
+    },
+    {
+     "n": "nippori shampoo 300ml x1",
+     "s": "ID 26308 · american natural",
+     "v": "153 / 623 / 694",
+     "st": "1306",
+     "ct": "2026-10-04",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "dos cremas para la neuropatia",
+     "s": "ID 19133 · auré",
+     "v": "152 / 707 / 1335",
+     "st": "647",
+     "ct": "2026-08-26",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 152, 30d 707, total 1335)",
+     "c": "d"
+    },
+    {
+     "n": "perfume lattafa asad",
+     "s": "ID 22650 · importadora el mayorista",
+     "v": "144 / 227 / 261",
+     "st": "386",
+     "ct": "2026-09-14",
+     "r": "Descartado por bandera roja: nombre con marca registrada (Lattafa)",
+     "c": "d"
+    },
+    {
+     "n": "oftamiel",
+     "s": "ID 28778 · sicommer lab",
+     "v": "125 / 373 / 373",
+     "st": "1623",
+     "ct": "2026-10-17",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "brazier tira ancha comodo",
+     "s": "ID 20725 · chicas empire fajas",
+     "v": "125 / 450 / 546",
+     "st": "2454",
+     "ct": "2026-09-04",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "safebone - dolor articular",
+     "s": "ID 30132 · nexus",
+     "v": "117 / 250 / 250",
+     "st": "4250",
+     "ct": "2026-10-22",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "burbujas de fuegos artificiales",
+     "s": "ID 28249 · compras divertidas (fun shopping)",
+     "v": "113 / 120 / 120",
+     "st": "80",
+     "ct": "2026-10-17",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "ajedrez magnético battle chess",
+     "s": "ID 30467 · shop b",
+     "v": "111 / 269 / 269",
+     "st": "401",
+     "ct": "2026-10-24",
+     "r": "FINALISTA: paso todos los filtros normales (tarjeta 1 de hoy)",
+     "c": "f"
+    },
+    {
+     "n": "dr melaxin tx-cream",
+     "s": "ID 17675 · natural labs organic",
+     "v": "109 / 919 / 3964",
+     "st": "1029",
+     "ct": "2026-08-15",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 109, 30d 919, total 3964)",
+     "c": "d"
+    },
+    {
+     "n": "basurero electrico",
+     "s": "ID 30662 · 60 segundos",
+     "v": "108 / 189 / 216",
+     "st": "148",
+     "ct": "2026-10-27",
+     "r": "Descartado: ya salio el 2026-11-04 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "batidor privado vip",
+     "s": "ID 32572 · importadora el mayorista",
+     "v": "107 / 134 / 134",
+     "st": "155",
+     "ct": "2026-11-04",
+     "r": "Descartado: el nombre sugiere producto para adultos (Meta no permite anunciarlo); no se evaluo",
+     "c": "d"
+    },
+    {
+     "n": "serum deep collagen 30ml",
+     "s": "ID 33282 · nibresma",
+     "v": "104 / 104 / 276",
+     "st": "724",
+     "ct": "2026-11-07",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "perfume ycz con feromonas activas",
+     "s": "ID 19112 · altamira",
+     "v": "102 / 829 / 2943",
+     "st": "1557",
+     "ct": "2026-08-25",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 102, 30d 829, total 2943)",
+     "c": "d"
+    },
+    {
+     "n": "barra privada",
+     "s": "ID 24113 · importadora el mayorista",
+     "v": "97 / 372 / 766",
+     "st": "387",
+     "ct": "2026-09-22",
+     "r": "Descartado: ya salio el 2026-10-30 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "clean women creatina",
+     "s": "ID 31318 · natural labs organic",
+     "v": "96 / 121 / 121",
+     "st": "4880",
+     "ct": "2026-10-30",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "ethiopian j",
+     "s": "ID 24310 · laboratorio luna",
+     "v": "96 / 1585 / 2792",
+     "st": "3874",
+     "ct": "2026-09-23",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 96, 30d 1585, total 2792)",
+     "c": "d"
+    },
+    {
+     "n": "parches lipoma",
+     "s": "ID 17642 · grupo luna",
+     "v": "95 / 128 / 142",
+     "st": "358",
+     "ct": "2026-08-14",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "drenaje linfatico",
+     "s": "ID 17797 · nibresma",
+     "v": "93 / 239 / 577",
+     "st": "436",
+     "ct": "2026-08-15",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "batana oil shampoo 300ml",
+     "s": "ID 30484 · american natural",
+     "v": "92 / 234 / 255",
+     "st": "2245",
+     "ct": "2026-10-24",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "linterna zoom 23151-29",
+     "s": "ID 33253 · distribuidora gt",
+     "v": "91 / 91 / 91",
+     "st": "209",
+     "ct": "2026-11-07",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "limpiador a vapor de alta temperatura",
+     "s": "ID 16105 · distribuidora rocke feller",
+     "v": "91 / 243 / 243",
+     "st": "102",
+     "ct": "2026-10-24",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "ID 20409 · digital gt",
+     "v": "89 / 463 / 667",
+     "st": "361",
+     "ct": "2026-09-04",
+     "r": "Descartado: ya salio el 2026-10-28 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "drenaje linfatico aurelys 59ml",
+     "s": "ID 25527 · american natural",
+     "v": "88 / 355 / 437",
+     "st": "4562",
+     "ct": "2026-10-03",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "kahi balm",
+     "s": "ID 21718 · sicommer lab",
+     "v": "86 / 212 / 233",
+     "st": "1272",
+     "ct": "2026-09-09",
+     "r": "Descartado: ya salio el 2026-11-04 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "shampoo tinte cubre canas",
+     "s": "ID 27522 · importadora el mayorista",
+     "v": "83 / 93 / 106",
+     "st": "383",
+     "ct": "2026-10-10",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "consola portatil con 400 juegos retro en",
+     "s": "ID 18591 · digital gt",
+     "v": "82 / 118 / 162",
+     "st": "138",
+     "ct": "2026-08-22",
+     "r": "FINALISTA: paso todos los filtros normales (tarjeta 2 de hoy)",
+     "c": "f"
+    },
+    {
+     "n": "hem hero",
+     "s": "ID 16209 · natural labs organic",
+     "v": "81 / 125 / 127",
+     "st": "4950",
+     "ct": "2026-09-24",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "drenaje linfático",
+     "s": "ID 26764 · blue guatemala",
+     "v": "78 / 312 / 379",
+     "st": "1621",
+     "ct": "2026-10-06",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "ethiopian 60 capsulas",
+     "s": "ID 22526 · nibresma",
+     "v": "77 / 214 / 283",
+     "st": "2677",
+     "ct": "2026-09-12",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 18334 · sicommer lab",
+     "v": "76 / 334 / 785",
+     "st": "1268",
+     "ct": "2026-08-19",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "milk thistle 90 caps",
+     "s": "ID 33335 · natural labs organic",
+     "v": "74 / 74 / 74",
+     "st": "4876",
+     "ct": "2026-11-09",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "mascara pestañas 7d",
+     "s": "ID 27527 · importadora el mayorista",
+     "v": "73 / 73 / 73",
+     "st": "408",
+     "ct": "2026-10-10",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "glucora control de azucar",
+     "s": "ID 23103 · almafit",
+     "v": "70 / 408 / 856",
+     "st": "1644",
+     "ct": "2026-09-17",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 70, 30d 408, total 856)",
+     "c": "d"
+    },
+    {
+     "n": "visionmiel",
+     "s": "ID 20759 · sicommer lab",
+     "v": "68 / 284 / 854",
+     "st": "159",
+     "ct": "2026-09-05",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 68, 30d 284, total 854)",
+     "c": "d"
+    },
+    {
+     "n": "jjlbro men¨s spray",
+     "s": "ID 25052 · natural labs organic",
+     "v": "67 / 175 / 227",
+     "st": "4774",
+     "ct": "2026-09-26",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "combo mino",
+     "s": "ID 27973 · importadora el mayorista",
+     "v": "67 / 593 / 593",
+     "st": "285",
+     "ct": "2026-10-13",
+     "r": "Descartado: el nombre sugiere producto para adultos (Meta no permite anunciarlo); no se evaluo",
+     "c": "d"
+    },
+    {
+     "n": "láminas 2x1",
+     "s": "ID 30673 · importadora el mayorista",
+     "v": "66 / 96 / 133",
+     "st": "129",
+     "ct": "2026-10-24",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "gomitas shilajit 30",
+     "s": "ID 33230 · laboratorio luna",
+     "v": "65 / 65 / 65",
+     "st": "2935",
+     "ct": "2026-11-06",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "tinte para canas vegetal eelohe",
+     "s": "ID 25444 · digital gt",
+     "v": "64 / 942 / 1446",
+     "st": "165",
+     "ct": "2026-09-30",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 64, 30d 942, total 1446)",
+     "c": "d"
+    },
+    {
+     "n": "pulidor de uñas",
+     "s": "ID 24845 · 60 segundos",
+     "v": "64 / 128 / 129",
+     "st": "137",
+     "ct": "2026-09-30",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "pack de x4 blusas x 99 chicos",
+     "s": "ID 32902 · laurean by seong woo",
+     "v": "62 / 65 / 65",
+     "st": "1935",
+     "ct": "2026-11-04",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "smartwatch + 7 correas intercambiables",
+     "s": "ID 20437 · metacompras gt",
+     "v": "62 / 142 / 238",
+     "st": "100",
+     "ct": "2026-09-04",
+     "r": "FINALISTA: paso todos los filtros normales (tarjeta 3 de hoy)",
+     "c": "f"
+    },
+    {
+     "n": "dr. althea crema 345",
+     "s": "ID 20461 · natural labs organic",
+     "v": "60 / 232 / 827",
+     "st": "4247",
+     "ct": "2026-09-03",
+     "r": "Descartado: ventas fuera del rango normal 50-800 (7d 60, 30d 232, total 827)",
+     "c": "d"
+    },
+    {
+     "n": "drill de uñas/finger",
+     "s": "ID 28316 · grupo luna",
+     "v": "59 / 254 / 292",
+     "st": "651",
+     "ct": "2026-10-15",
+     "r": "Descartado: ya salio el 2026-10-29 (repetido de los ultimos 20 dias)",
+     "c": "d"
+    },
+    {
+     "n": "acid uric",
+     "s": "ID 32640 · natural labs organic",
+     "v": "57 / 57 / 81",
+     "st": "4905",
+     "ct": "2026-11-04",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "renovia 15 in 1",
+     "s": "ID 28447 · nexus",
+     "v": "56 / 110 / 126",
+     "st": "3676",
+     "ct": "2026-10-16",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "generador portatil con radio fm",
+     "s": "ID 31950 · 60 segundos",
+     "v": "56 / 82 / 82",
+     "st": "101",
+     "ct": "2026-10-31",
+     "r": "FINALISTA: paso todos los filtros normales (tarjeta 4 de hoy)",
+     "c": "f"
+    },
+    {
+     "n": "escalera navideña led de papá noel",
+     "s": "ID 27227 · digital gt",
+     "v": "56 / 103 / 104",
+     "st": "196",
+     "ct": "2026-10-09",
+     "r": "FINALISTA: paso todos los filtros normales (tarjeta 5 de hoy)",
+     "c": "f"
+    },
+    {
+     "n": "rainbow light men's one",
+     "s": "ID 24808 · almafit",
+     "v": "55 / 172 / 174",
+     "st": "1827",
+     "ct": "2026-09-25",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "hem hero 60 caps",
+     "s": "ID 26766 · natural labs organic",
+     "v": "55 / 79 / 79",
+     "st": "4921",
+     "ct": "2026-10-06",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "crema antifungal 60g",
+     "s": "ID 30546 · ecom supply",
+     "v": "53 / 98 / 110",
+     "st": "890",
+     "ct": "2026-10-24",
+     "r": "Paso los filtros de ventas; no se evaluo a fondo hoy (de reserva)",
+     "c": ""
+    },
+    {
+     "n": "magneticas privadas",
+     "s": "ID 26500 · importadora el mayorista",
+     "v": "52 / 273 / 335",
+     "st": "405",
+     "ct": "2026-10-04",
+     "r": "Descartado: el nombre sugiere producto para adultos (Meta no permite anunciarlo); no se evaluo",
+     "c": "d"
+    }
+   ],
+   "resumen": "Se leyeron 64 filas con los filtros base (GT, Dropi, activo, stock 80 o mas, 7 dias 50 o mas, creado desde el 2026-08-13): 49 tenian las tres ventas entre 50 y 800. Cayeron por repetidos de los ultimos 20 dias, por ventas fuera de rango (tinte para canas, dr. althea 20461, gotas de drenaje), por nombre de producto para adultos y por marca registrada (perfume Lattafa); el resto de los productos que pasaron los filtros de ventas no se evaluaron a fondo y quedan de reserva. Quedaron 5 normales y no se uso el Plan B. El filtro que mas corto fue el de proveedores y repeticion.",
+   "revisar": "A REVISAR: de reserva quedaron productos que pasaron los filtros de ventas pero no se evaluaron a fondo hoy (limpiador a vapor 16105, que ya tiene 6 anunciantes en GT y arrancaron 5 en la ultima semana; linterna zoom 33253, con 2 anunciantes y solo 3 dias de venta; ahorrador de energia 2712, con 5 anunciantes y stock 80; oftamiel 28778 y safebone 30132, que son consumibles; y el serum deep collagen 33282). El nicho de limpiadores a vapor y de ahorradores de energia se esta calentando. Sin memoria radar_mem disponible: no hay productos de corridas anteriores marcados como estables o despegando."
   }
  },
  "tiktokshop": {
