@@ -10,7 +10,7 @@ const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const MTOKEN = process.env.META_ACCESS_TOKEN;
 const GV = "v21.0";
-const CUENTAS = (process.env.META_ACCOUNTS || "1345913420795708,27517283797940921,1533623667776634,24945736065120551").split(",").map((s) => s.trim()).filter((s) => /^\d{5,20}$/.test(s));
+const CUENTAS = (process.env.META_ACCOUNTS || "1345913420795708,27517283797940921,1533623667776634,24945736065120551,1226449025709907,1426099046336722").split(",").map((s) => s.trim()).filter((s) => /^\d{5,20}$/.test(s));
 const DIAS = 5;
 const MIN_MS = 10 * 60 * 1000;
 

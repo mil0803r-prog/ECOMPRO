@@ -2180,10 +2180,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
    {n:"Milora (solo lectura)",id:"982827797866665",bm:"Respaldo",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo."},
    {n:"MILORA",id:"1003297795617924",bm:"Respaldo",mo:"PEN",st:"ACTIVE",pago:false,off:"Meta aún no habilita esta cuenta para consultarla desde aquí.",nota:"Cuenta de respaldo sin método de pago."},
    {n:"NAR O1",id:"3444431272383870",bm:"BM cuenta",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo y sin método de pago."},
-   {n:"Sin nombre",id:"1821680385202185",bm:"Sin Business Manager",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo, sin método de pago y sin Business Manager."}
+   {n:"Sin nombre",id:"1821680385202185",bm:"Sin Business Manager",mo:"PEN",st:"ACTIVE",pago:false,cero:true,nota:"Sin gasto desde marzo, sin método de pago y sin Business Manager."},
+   {n:"Daniel San CUENTA PERU",id:"1226449025709907",bm:"Bm cuentas peru",mo:"PEN",st:"ACTIVE",pago:true,cero:true,nota:"Cuenta nueva en la lista. Sus métricas llegan con Meta en vivo."},
+   {n:"ERICK LANZADOR mx",id:"1426099046336722",bm:"Sin Business Manager",mo:"PEN",st:"ACTIVE",pago:true,cero:true,nota:"Cuenta nueva en la lista, en periodo de gracia de pago. Sus métricas llegan con Meta en vivo."}
   ];
   var msel=$("cta"),mview=$("cta-view"),md=$("m-desde"),mh=$("m-hasta");
-  msel.innerHTML='<option value="all">Todas las cuentas (12)</option>'+CT.map(function(c,i){return '<option value="'+i+'">'+esc(c.n)+' · '+c.mo+' · '+c.id.slice(-6)+(c.off?' · no consultable':'')+'</option>'}).join("");
+  msel.innerHTML='<option value="all">Todas las cuentas ('+CT.length+')</option>'+CT.map(function(c,i){return '<option value="'+i+'">'+esc(c.n)+' · '+c.mo+' · '+c.id.slice(-6)+(c.off?' · no consultable':'')+'</option>'}).join("");
   var PRE=[["Hoy",HOY,HOY],["Ayer","2026-10-27","2026-10-27"],["Todo el periodo",INI,HOY],["Últimos 7 días","2026-10-22",HOY],["Últimos 30 días","2026-09-29",HOY],["Septiembre","2026-09-01","2026-09-30"],["Agosto","2026-08-01","2026-08-31"],["Julio","2026-07-01","2026-07-31"],["Junio","2026-06-01","2026-06-30"]];
   $("m-presets").innerHTML=PRE.map(function(p,i){return '<button type="button" class="chip" data-i="'+i+'" aria-pressed="false">'+p[0]+'</button>'}).join("");
   md.value=INI;mh.value=HOY;
@@ -4890,7 +4892,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     sel.innerHTML='<option value="">Elige un producto…</option>'+(cs.length?'<optgroup label="De la calculadora de precios">'+cs.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+(ant.length?'<optgroup label="Anotados antes">'+ant.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("")+'</optgroup>':'')+'<option value="'+OTRO+'">Otro (escribir)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
-  var NID={},CN={"1345913420795708":"CUENTA 1","27517283797940921":"CUENTA 3","1533623667776634":"GUATEMALA 2","24945736065120551":"GUATEMALA 3","27172810955691832":"Naturly 01","27728323580109106":"NaturLy Guatemala (solo lectura)","3417110235115151":"Millora (solo lectura) USD","1414841834122354":"Millora (solo lectura) PEN","982827797866665":"Milora (solo lectura)","1003297795617924":"MILORA","3444431272383870":"NAR O1","1821680385202185":"Sin nombre"};
+  var NID={},CN={"1345913420795708":"CUENTA 1","27517283797940921":"CUENTA 3","1533623667776634":"GUATEMALA 2","24945736065120551":"GUATEMALA 3","27172810955691832":"Naturly 01","27728323580109106":"NaturLy Guatemala (solo lectura)","3417110235115151":"Millora (solo lectura) USD","1414841834122354":"Millora (solo lectura) PEN","982827797866665":"Milora (solo lectura)","1003297795617924":"MILORA","3444431272383870":"CUENTA BM RES","1821680385202185":"Sin nombre","1226449025709907":"Daniel San CUENTA PERU","1426099046336722":"ERICK LANZADOR mx"};
   function cname(c){return CN[c]||"Cuenta "+String(c).slice(-6)}
   function cuentas(){
     var lv=window.META_LV||{},sel=$("rd-ct"),cur=sel.value,ks=Object.keys(CN);Object.keys(lv).forEach(function(k){if(ks.indexOf(k)<0)ks.push(k)});
