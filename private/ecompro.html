@@ -679,6 +679,7 @@ button.pbd{border:0;padding:0;cursor:pointer;width:14px;height:14px;box-shadow:0
 .rdm .rd-bt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px}
 .rdm .rd-bx input,.rdm .rd-bx select{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0;width:100%}
 .rdm .rd-eq{margin-top:6px;font-size:.9rem;font-weight:700;color:var(--cel);min-height:1.2em}
+.rdm .rd-sel{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.rdm .rd-tag{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:4px 6px 4px 10px;border-radius:99px;font-size:.78rem;font-weight:600;background:color-mix(in srgb,var(--accent) 16%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));overflow-wrap:anywhere}.rdm .rd-tag button{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:.8rem;padding:0 4px;line-height:1}.rdm .rd-ids div{white-space:normal;margin-bottom:3px}
 .rdm .rd-t th.g{text-align:center;border-bottom:1px solid var(--line)}.rdm .rd-t th.n{text-align:right}.rdm .rd-h2 th{font-size:.7rem}
 .rdm .rd-t tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--line) 22%,var(--card))}
 .rdm .rd-t td:nth-child(5),.rdm .rd-t td:nth-child(7),.rdm .rd-t td:nth-child(9),.rdm .rd-t td:nth-child(11){border-left:1px solid var(--line)}
@@ -984,7 +985,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div class="rd-g3">
         <div class="fld"><label for="rd-f">Fecha</label><input id="rd-f" type="date"></div>
         <div class="fld"><label for="rd-ct">Cuenta publicitaria</label><select id="rd-ct"></select></div>
-        <div class="fld"><label for="rd-is">ID del anuncio (activos primero)</label><select id="rd-is"></select><input id="rd-i" type="text" maxlength="60" placeholder="Escribe el ID" hidden style="margin-top:6px"></div>
+        <div class="fld"><label for="rd-is">ID del anuncio (puedes agregar varios)</label><select id="rd-is"></select><div class="frow" id="rd-ow" hidden style="gap:6px;margin-top:6px;flex-wrap:nowrap"><input id="rd-i" type="text" inputmode="numeric" maxlength="30" placeholder="Escribe el ID y toca Agregar"><button class="btn" type="button" id="rd-iadd">Agregar</button></div><div class="rd-sel" id="rd-sel"></div></div>
         <div class="fld"><label for="rd-ps">Producto (de la calculadora)</label><select id="rd-ps"></select><input id="rd-p" type="text" maxlength="120" placeholder="Escribe el producto" hidden style="margin-top:6px"></div>
       </div>
       <div class="rd-g3" style="margin-top:12px">
@@ -4927,9 +4928,21 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     sel.innerHTML='<option value="">'+(h?"Elige el anuncio…":"Esta cuenta no tiene anuncios cargados")+'</option>'+h+'<option value="'+OTRO+'">Otro (escribir)…</option>';
     if(cur&&Array.from(sel.options).some(function(o){return o.value===cur}))sel.value=cur;
   }
-  $("rd-ct").addEventListener("change",function(){ids();$("rd-i").hidden=$("rd-is").value!==OTRO});
-  function idv(){var s=$("rd-is").value;return s===OTRO?$("rd-i").value.trim():s}
-  $("rd-is").addEventListener("change",function(){$("rd-i").hidden=this.value!==OTRO;if(this.value===OTRO)$("rd-i").focus()});
+  var SEL=[];
+  function idsDe(r){if(Array.isArray(r.ids)&&r.ids.length)return r.ids;return r.i?String(r.i).split(/[,\s]+/).filter(Boolean).map(function(id,k,a){return {id:id,n:a.length===1?(r.in||""):""}}):[]}
+  function pintaSel(){$("rd-sel").innerHTML=SEL.map(function(x,i){return '<span class="rd-tag">'+E(x.id)+(x.n?' · '+E(String(x.n).slice(0,26)):'')+' <button type="button" data-x="'+i+'" aria-label="Quitar este ID">✕</button></span>'}).join("")}
+  function addSel(id,n){id=String(id||"").trim();if(!id||SEL.some(function(x){return x.id===id}))return;SEL.push({id:id,n:n||""});pintaSel()}
+  $("rd-ct").addEventListener("change",function(){SEL=[];pintaSel();ids();$("rd-ow").hidden=true});
+  $("rd-sel").addEventListener("click",function(e){var b=e.target.closest("[data-x]");if(!b)return;SEL.splice(+b.dataset.x,1);pintaSel()});
+  function addManual(){var v=$("rd-i").value.replace(/\D/g,"");if(v)addSel(v,NID[v]||"");$("rd-i").value="";$("rd-i").focus()}
+  $("rd-iadd").addEventListener("click",addManual);
+  $("rd-i").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();addManual()}});
+  $("rd-is").addEventListener("change",function(){
+    var v=this.value;
+    if(v===OTRO){$("rd-ow").hidden=false;$("rd-i").focus();return}
+    if(v){addSel(v,NID[v]||"");this.value=""}
+    $("rd-ow").hidden=true;
+  });
 
   function prod(){var s=$("rd-ps").value;return s===OTRO?$("rd-p").value.trim():s}
   $("rd-ps").addEventListener("change",function(){$("rd-p").hidden=this.value!==OTRO;if(this.value===OTRO)$("rd-p").focus()});
@@ -4952,7 +4965,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
     $("rd-kpi").innerHTML=k("Gasto","Q "+f2(gq),"S/ "+f2(gs))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" · S/ "+f2(gs/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
-    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(r.i||"–")+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(r.in?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(r.in).slice(0,45))+'</div>':'')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td style="white-space:nowrap"><button class="btn" type="button" data-e="'+E(r.id)+'" aria-label="Editar" title="Editar">✎</button> <button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar" title="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
+    $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td class="rd-ids">'+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(idsDe(r).map(function(x){return '<div>'+E(x.id)+(x.n?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(x.n).slice(0,45))+'</div>':'')+'</div>'}).join("")||'–')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td style="white-space:nowrap"><button class="btn" type="button" data-e="'+E(r.id)+'" aria-label="Editar" title="Editar">✎</button> <button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar" title="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
   var EDIT=null;
   function salirEdicion(){EDIT=null;$("rd-add").textContent="Anotar";$("rd-cancel").hidden=true;["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs()}
@@ -4961,7 +4974,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     $("rd-f").value=r.f;$("rd-tc").value=r.tc||rate();$("rd-tc").dataset.t="1";
     var ct=$("rd-ct");if(r.ct&&Array.from(ct.options).some(function(o){return o.value===r.ct}))ct.value=r.ct;else ct.value=OTRO;
     ids();
-    var is=$("rd-is");if(r.i&&Array.from(is.options).some(function(o){return o.value===r.i})){is.value=r.i;$("rd-i").hidden=true}else if(r.i){is.value=OTRO;$("rd-i").hidden=false;$("rd-i").value=r.i}else{is.value="";$("rd-i").hidden=true}
+    SEL=idsDe(r).map(function(x){return {id:x.id,n:x.n||NID[x.id]||""}});pintaSel();$("rd-is").value="";$("rd-ow").hidden=true;$("rd-i").value="";
     productos();var ps=$("rd-ps");if(Array.from(ps.options).some(function(o){return o.value===r.p})){ps.value=r.p;$("rd-p").hidden=true}else{ps.value=OTRO;$("rd-p").hidden=false;$("rd-p").value=r.p||""}
     $("rd-gm").value=r.gm||"PEN";$("rd-g").value=r.gv!=null?r.gv:((r.gm||"PEN")==="PEN"?r.gs:r.gq);
     $("rd-mm").value=r.mm||"GTQ";$("rd-m").value=r.mv!=null?r.mv:((r.mm||"GTQ")==="GTQ"?r.mq:r.ms);
@@ -4978,7 +4991,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     if(!g&&!v&&!mo){m.textContent="Anota al menos el gasto, las ventas o el monto.";return}
     var gm=$("rd-gm").value,mm=$("rd-mm").value;
     var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
-    var base={f:f,i:idv(),in:NID[idv()]||"",ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim(),gm:gm,gv:g,mm:mm,mv:mo};
+    var base={f:f,i:SEL.map(function(x){return x.id}).join(", "),ids:SEL.map(function(x){return {id:x.id,n:x.n}}),in:SEL.map(function(x){return x.n}).filter(Boolean).join(" · "),ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim(),gm:gm,gv:g,mm:mm,mv:mo};
     if(EDIT){var k=L.findIndex(function(r){return r.id===EDIT});if(k>=0)L[k]=Object.assign({},L[k],base);salirEdicion();save();draw();m.textContent="Cambios guardados.";return}
     L.push(Object.assign({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now()},base));
     save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
@@ -4988,7 +5001,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   $("rd-chips").addEventListener("click",function(e){var b=e.target.closest("[data-p]");if(!b)return;$("rd-fp").value=b.dataset.p;draw()});
   $("rd-xl").addEventListener("click",function(){
     var R=filtrado(),q=function(x){return '"'+String(x==null?"":x).replace(/"/g,'""')+'"'};
-    var rows=[["Fecha","Cuenta","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.ct?cname(r.ct):"",r.i,r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
+    var rows=[["Fecha","Cuenta","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.ct?cname(r.ct):"",idsDe(r).map(function(x){return x.id}).join(" | "),r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
     var txt="﻿"+rows.map(function(r){return r.map(q).join(",")}).join("\n"),dl=window.claude&&window.claude.downloads;
     if(dl&&dl.save){dl.save({filename:"registro-meta-app.csv",data:txt}).catch(function(){});return}
     var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/csv"}));a.download="registro-meta-app.csv";document.body.appendChild(a);a.click();a.remove();
