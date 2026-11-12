@@ -1798,6 +1798,17 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 (function(){
   var $=function(i){return document.getElementById(i)};
   var MG=[["2026-04","Abril",27,5535,1705,1595,2868],["2026-05","Mayo",20,3752,1100,1516,1960],["2026-06","Junio",39,7791,2365,2865,4047],["2026-07","Julio",82,16239,4895,4857,8487],["2026-08","Agosto",3,579,163,245,311],["2026-09","Septiembre",51,10065,3340,3495,4948],["2026-10","Octubre 1-28",28,5474,1805,2482,2695]];
+  // Noviembre y diciembre: entregados y venta salen de los pedidos que ya tiene el tablero; la ganancia base de Lumy queda en 0 hasta
+  // que se cargue (los gastos fijos y variables sí se cuentan). costo = venta para que "venta − costo − flete" tampoco invente ganancia.
+  function completar(){
+    var ORD=window.__ORD||[];
+    [["2026-11","Noviembre"],["2026-12","Diciembre"]].forEach(function(m){
+      var e=0,v=0;ORD.forEach(function(o){if(o.s==="E"&&o.d&&o.d.slice(0,7)===m[0]){e++;v+=+o.v||0}});
+      var fila=[m[0],m[1],e,v,v,0,0],i=MG.findIndex(function(r){return r[0]===m[0]});
+      if(i<0)MG.push(fila);else MG[i]=fila;
+    });
+  }
+  completar();
   var st={pauta:true,fijos:true,vars:true,devs:true,devq:30,base:"lumy",vmod:"una"};
   try{var s=JSON.parse(localStorage.getItem("ec_gan")||"null");if(s)st=Object.assign(st,s)}catch(e){}
   function f0(n){return Math.round(n).toLocaleString("de-DE")}
@@ -1823,6 +1834,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function devs(mes){return (window.__ORD||[]).filter(function(o){return o.s==="D"&&o.d&&o.d.slice(0,7)===mes}).length}
   function FL(){return st.devq>=0?+st.devq:30}
   function render(){
+    completar();
     var P=pauta(),rows=MG.map(function(r){
       var ent=r[2],venta=r[3],base=st.base==="lumy"?r[6]:venta-r[4]-r[5];
       var pm=(P[r[0]]||{meta:0}).meta/rate(),pt=(P[r[0]]||{tt:0}).tt/rate(),gs=gastos(r[0],ent),nd=devs(r[0]),dv=nd*FL();
@@ -1856,7 +1868,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   }
   function sv(){try{localStorage.setItem("ec_gan",JSON.stringify(st))}catch(e){}}
   window.ecGanRender=render;
-  window.ecGan={MG:MG,st:st,costo:costo,rate:rate};
+  window.ecGan={MG:MG,st:st,costo:costo,rate:rate,fill:completar};
   bind();render();
   setTimeout(function(){if(window.ecFx)window.ecFx.hooks.push(render);if(window.ecGastos)window.ecGastos.onChange(render)},0);
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="gan"]'))setTimeout(render,0)});
@@ -1871,6 +1883,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   function render(){
     var A=window.ecGan,G=window.ecGastos;if(!A||!G)return;
     var fx=window.ecFx,on=!!(fx&&fx.st&&fx.st.on),rt=A.rate();
+    if(A.fill)A.fill();
     var meses=A.MG.map(function(r){
       var f=0,v=0;G.get().forEach(function(x){var c=A.costo(x,r[0],r[2]);if(x.tipo==="variable")v+=c;else f+=c});
       var base=A.st.base==="lumy"?r[6]:r[3]-r[4]-r[5];
