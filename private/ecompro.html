@@ -1012,6 +1012,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <div class="fld"><label for="rd-fh">Hasta</label><input id="rd-fh" type="date"></div>
         <div class="fld"><label for="rd-fp">Producto</label><select id="rd-fp"><option value="">Todos</option></select></div>
       </div>
+      <div class="chips" id="rd-chips" style="margin-top:10px" role="group" aria-label="Filtrar por producto registrado"></div>
       <div style="margin-top:8px"><button class="btn" type="button" id="rd-xl">Descargar CSV</button></div>
       <div class="grid g4" id="rd-kpi" style="margin-top:12px"></div>
       <div class="tbl" style="margin-top:12px"><table class="rd-t" style="min-width:1100px"><thead>
@@ -4927,6 +4928,9 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     productos();ids();
     var ps=Array.from(new Set(L.map(function(r){return r.p}).filter(Boolean))).sort(),cur=$("rd-fp").value;
     $("rd-fp").innerHTML='<option value="">Todos</option>'+ps.map(function(x){return '<option value="'+E(x)+'">'+E(x)+'</option>'}).join("");if(ps.indexOf(cur)>-1)$("rd-fp").value=cur;
+    var cnt={};L.forEach(function(r){if(r.p)cnt[r.p]=(cnt[r.p]||0)+1});
+    var fpv=$("rd-fp").value;
+    $("rd-chips").innerHTML='<button type="button" class="chip" data-p="" aria-pressed="'+(!fpv)+'">Todos · '+L.length+'</button>'+ps.map(function(x){return '<button type="button" class="chip" data-p="'+E(x)+'" aria-pressed="'+(fpv===x)+'">'+E(x)+' · '+cnt[x]+'</button>'}).join("");
     var R=filtrado(),gs=0,gq=0,v=0,ms=0,mq=0;
     R.forEach(function(r){gs+=r.gs;gq+=r.gq;v+=r.v;ms+=r.ms;mq+=r.mq});
     var res=mq-gq,tcm=gq>0?gs/gq:rate();
@@ -4966,6 +4970,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   });
   $("rd-body").addEventListener("click",function(e){var be=e.target.closest("[data-e]");if(be){editar(be.dataset.e);return}var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});if(EDIT===b.dataset.d)salirEdicion();save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
+  $("rd-chips").addEventListener("click",function(e){var b=e.target.closest("[data-p]");if(!b)return;$("rd-fp").value=b.dataset.p;draw()});
   $("rd-xl").addEventListener("click",function(){
     var R=filtrado(),q=function(x){return '"'+String(x==null?"":x).replace(/"/g,'""')+'"'};
     var rows=[["Fecha","Cuenta","ID","Producto","Gasto S/","Gasto Q","Ventas","Monto S/","Monto Q","Tipo de cambio","Nota"]].concat(R.map(function(r){return [r.f,r.ct?cname(r.ct):"",r.i,r.p,r.gs,r.gq,r.v,r.ms,r.mq,r.tc,r.n]}));
