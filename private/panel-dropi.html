@@ -461,7 +461,7 @@ function render(){
     ['🔔 Novedades',k.novedad,'incidencias por resolver','yellow'],
     ['💳 Por cobrar',money(k.porCobrar),k.enTransito+' en tránsito (COD)','blue'],
     ['⏱️ Entrega prom.',k.entregaAvg+' días','máx '+k.entregaMax+' días',''],
-    ['📉 Pérdida devol.',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum())+' · toca para cambiar':k.devConFlete?'flete de devolución real de Dropi ('+k.devConFlete+' de '+k.devolucion+' devol.)':'Dropi no lo trae en este campo · toca para ponerlo','red'],
+    ['📉 Pérdida devol.',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum())+' · toca para cambiar':k.devConFlete?'flete de devolución real de Dropi ('+k.devConFlete+' de '+k.devolucion+' devol.)':'estimado: '+k.devolucion+' devol. × '+money(FLETE_DEV_REF)+' (referencia) · toca para poner el tuyo','red'],
   ].map(([l,v,d,c])=>`<div class="kpi"${l.includes('Pérdida')?' style="cursor:pointer" onclick="ponFleteDev()"':''}><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="d">${d||''}</div></div>`).join('');
 
   // ALERTAS: novedades + en proceso con +5 dias
@@ -773,7 +773,8 @@ timer=setInterval(()=>{left--;$('#refreshin').textContent='⟳ '+left+'s';if(lef
 
 /* ===== Pestañas ===== */
 function fleteDevNum(){const f=parseFloat(((typeof GEST!=='undefined'&&GEST._fleteDev)||{}).r);return isFinite(f)&&f>0?f:0;}
-function perdidaTxt(k){const f=fleteDevNum();if(f)return money(f*(k.devolucion||0));return k.devConFlete?money(k.perdidaDevol):'Define flete';}
+const FLETE_DEV_REF=30;
+function perdidaTxt(k){const f=fleteDevNum();if(f)return money(f*(k.devolucion||0));if(k.devConFlete)return money(k.perdidaDevol);return '≈ '+money(FLETE_DEV_REF*(k.devolucion||0));}
 function ponFleteDev(){const v=prompt('¿Cuánto te cobran de flete por cada DEVOLUCIÓN (en Q)? No es el flete de envío.',fleteDevNum()||'');if(v===null)return;const n=parseFloat(String(v).replace(',','.'));
   if(isFinite(n)&&n>=0){GEST._fleteDev={r:String(n),t:Date.now()};saveGest();if(DATA)render();}}
 let GEST={}, TAB='res', OFI_CH='todos', NOV_CH='', REN_BY='carrier', REN_MODE='pct', REN_ORD='dev';
@@ -876,12 +877,12 @@ function renderRen(){
 function renderPag(){
   const O=DATA.orders,k=DATA.kpis,hay=O.some(o=>o.inv!=null),ent=O.filter(o=>o.group==='entregado');
   const card=(l,v,d,c)=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c||''}">${v}</div><div class="d">${d||''}</div></div>`;
-  let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum()):'define tu flete de devolución en Resumen','red');
+  let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum()):k.devConFlete?'flete de devolución real de Dropi':'estimado con Q'+FLETE_DEV_REF+' por devolución','red');
   if(hay){const pg=ent.filter(o=>o.inv===true),pd=ent.filter(o=>o.inv===false);
     h+=card('✅ Entregados ya pagados',pg.length,money(pg.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','green')+card('⏳ Entregados por pagar',pd.length,money(pd.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','yellow');}
   h+='</div>';
   if(!hay)h+='<div class="note">Dropi no entrega por la API la cartera, retiros ni facturas, así que aquí solo se muestran cifras calculadas de tus pedidos (utilidad de entregados, por cobrar y pérdida por devoluciones). El estado de pago real se ve en la sección Cartera de Dropi.</div>';
-  if(!k.devConFlete&&!fleteDevNum()&&k.fleteDevDiag)h+='<div class="note" style="margin-top:12px"><b>Campos numéricos que Dropi devuelve en una devolución</b> (solo nombres): '+E(k.fleteDevDiag)+'</div>';
+  if(false&&k.fleteDevDiag)h+='<div class="note" style="margin-top:12px"><b>Campos numéricos que Dropi devuelve en una devolución</b> (solo nombres): '+E(k.fleteDevDiag)+'</div>';
   $('#pagBody').innerHTML=h;
 }
 loadGest();setTab(lsg('dp_tab','res'));
