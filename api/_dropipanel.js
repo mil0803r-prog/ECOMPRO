@@ -93,25 +93,6 @@ function orderCost(x) {
   }
   return c;
 }
-// Flete de devolución real: busca en el pedido un campo de costo ligado a devolución (distinto del flete de envío).
-const RET_KEY = /(return|devol|reverse)[a-z_]*(ship|flete|freight|amount|cost|price|value)|(ship|flete|freight)[a-z_]*(return|devol|reverse)/i;
-const RETC = new Map(); // id -> {n,key}|null (detalle ya consultado)
-function retFreight(x) { return x && RETC.has(x.id) ? RETC.get(x.id) : scanRet(x); }
-function scanRet(x) {
-  let best = null;
-  const walk = (o, d, pre) => {
-    if (!o || typeof o !== "object" || d > 2) return;
-    for (const k of Object.keys(o)) {
-      const v = o[k], path = pre + k;
-      if (v && typeof v === "object") { if (!Array.isArray(v)) walk(v, d + 1, path + "."); continue; }
-      if (k === "shipping_amount" || !RET_KEY.test(k)) continue;
-      const n = num(v);
-      if (n > 0 && (!best || n > best.n)) best = { n, key: path };
-    }
-  };
-  walk(x, 0, "");
-  return best;
-}
 const orderUtil = (x) => num(x.total_order) - orderCost(x) - num(x.shipping_amount);
 
 function ts(s) {
@@ -146,26 +127,10 @@ async function build(dFrom, dTo) {
     o = raw.filter((x) => dOf(x) && f <= dOf(x) && dOf(x) <= t);
   } else { f = dmin; t = dmax; o = raw.slice(); }
 
-  // Las devoluciones sin flete en la lista: se consulta el detalle del pedido (máx. 40, 6 a la vez, con caché).
-  const pend = o.filter((x) => groupOf(x.status) === "devolucion" && !RETC.has(x.id) && !retFreight(x)).slice(0, 40);
-  let diag = [];
-  for (let i = 0; i < pend.length; i += 6) {
-    await Promise.all(pend.slice(i, i + 6).map(async (x) => {
-      try {
-        const j = await dropi("/integrations/orders/myorders/" + encodeURIComponent(x.id), 8000);
-        const ob = (j && j.objects) || {};
-        RETC.set(x.id, scanRet(ob) || scanRet(ob.order || {}) || null);
-        if (!RETC.get(x.id) && !diag.length) {
-          const names = [], w = (o2, d, pre) => { if (!o2 || typeof o2 !== "object" || d > 2) return; for (const k of Object.keys(o2)) { const v = o2[k], pth = pre + k; if (PII_RE.test(k)) continue; if (v && typeof v === "object") { if (!Array.isArray(v)) w(v, d + 1, pth + "."); } else if (v !== "" && v != null && !isNaN(Number(v))) names.push(pth); } };
-          w(ob, 0, ""); diag = names.slice(0, 80);
-        }
-      } catch (e) {}
-    }));
-  }
   const orders = [], carriers = new Map(), crev = new Map(), cutil = new Map(), cdias = new Map();
   const statusCt = new Map(), deptCt = new Map(), prodQty = new Map(), prodOrd = new Map(), gCt = new Map();
   const zones = new Map(), trend = new Map(), diasAll = [];
-  let revenue = 0, utilEnt = 0, ventaEnt = 0, costoEnt = 0, porCobrar = 0, enTransito = 0, perdidaDevol = 0, devConFlete = 0; const retKeys = new Set();
+  let revenue = 0, utilEnt = 0, ventaEnt = 0, costoEnt = 0, porCobrar = 0, enTransito = 0, perdidaDevol = 0;
 
   for (const x of o) {
     const st = x.status || "—";
@@ -186,7 +151,7 @@ async function build(dFrom, dTo) {
       if (dia != null && dia >= 0) { if (!cdias.has(carrier)) cdias.set(carrier, []); cdias.get(carrier).push(dia); diasAll.push(dia); }
     }
     if (g === "proceso") { porCobrar += tot; enTransito++; }
-    if (g === "devolucion") { const rf = retFreight(x); if (rf) { perdidaDevol += rf.n; devConFlete++; retKeys.add(rf.key); } }
+    if (g === "devolucion") perdidaDevol += num(x.shipping_amount);
     if (!zones.has(dept)) zones.set(dept, { total: 0, entregado: 0, devolucion: 0, cancelado: 0, novedad: 0, proceso: 0, revenue: 0, util: 0, dias: [] });
     const z = zones.get(dept); z.total++; z[g]++; z.revenue += tot;
     if (g === "entregado") z.util += util;
@@ -244,7 +209,7 @@ async function build(dFrom, dTo) {
     utilidad: r2(utilEnt), costoEnt: r2(costoEnt), ventaEnt: r2(ventaEnt),
     utilidadMargin: ventaEnt ? Math.round((utilEnt / ventaEnt) * 100) : 0,
     utilidadAvg: G("entregado") ? r2(utilEnt / G("entregado")) : 0,
-    porCobrar: r2(porCobrar), enTransito, perdidaDevol: r2(perdidaDevol), devConFlete, fleteDevCampo: [...retKeys].slice(0, 3).join(", "), fleteDevDiag: diag.join(", "),
+    porCobrar: r2(porCobrar), enTransito, perdidaDevol: r2(perdidaDevol),
     entregaAvg: diasAll.length ? r1(avg(diasAll)) : 0, entregaMax: diasAll.length ? Math.max(...diasAll) : 0,
   };
 
