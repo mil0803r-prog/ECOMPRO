@@ -93,6 +93,23 @@ function orderCost(x) {
   }
   return c;
 }
+// Flete de devolución real: busca en el pedido un campo de costo ligado a devolución (distinto del flete de envío).
+const RET_KEY = /(return|devol|reverse)[a-z_]*(ship|flete|freight|amount|cost|price|value)|(ship|flete|freight)[a-z_]*(return|devol|reverse)/i;
+function retFreight(x) {
+  let best = null;
+  const walk = (o, d, pre) => {
+    if (!o || typeof o !== "object" || d > 2) return;
+    for (const k of Object.keys(o)) {
+      const v = o[k], path = pre + k;
+      if (v && typeof v === "object") { if (!Array.isArray(v)) walk(v, d + 1, path + "."); continue; }
+      if (k === "shipping_amount" || !RET_KEY.test(k)) continue;
+      const n = num(v);
+      if (n > 0 && (!best || n > best.n)) best = { n, key: path };
+    }
+  };
+  walk(x, 0, "");
+  return best;
+}
 const orderUtil = (x) => num(x.total_order) - orderCost(x) - num(x.shipping_amount);
 
 function ts(s) {
@@ -130,7 +147,7 @@ async function build(dFrom, dTo) {
   const orders = [], carriers = new Map(), crev = new Map(), cutil = new Map(), cdias = new Map();
   const statusCt = new Map(), deptCt = new Map(), prodQty = new Map(), prodOrd = new Map(), gCt = new Map();
   const zones = new Map(), trend = new Map(), diasAll = [];
-  let revenue = 0, utilEnt = 0, ventaEnt = 0, costoEnt = 0, porCobrar = 0, enTransito = 0, perdidaDevol = 0;
+  let revenue = 0, utilEnt = 0, ventaEnt = 0, costoEnt = 0, porCobrar = 0, enTransito = 0, perdidaDevol = 0, devConFlete = 0; const retKeys = new Set();
 
   for (const x of o) {
     const st = x.status || "—";
@@ -151,7 +168,7 @@ async function build(dFrom, dTo) {
       if (dia != null && dia >= 0) { if (!cdias.has(carrier)) cdias.set(carrier, []); cdias.get(carrier).push(dia); diasAll.push(dia); }
     }
     if (g === "proceso") { porCobrar += tot; enTransito++; }
-    if (g === "devolucion") perdidaDevol += num(x.shipping_amount);
+    if (g === "devolucion") { const rf = retFreight(x); if (rf) { perdidaDevol += rf.n; devConFlete++; retKeys.add(rf.key); } }
     if (!zones.has(dept)) zones.set(dept, { total: 0, entregado: 0, devolucion: 0, cancelado: 0, novedad: 0, proceso: 0, revenue: 0, util: 0, dias: [] });
     const z = zones.get(dept); z.total++; z[g]++; z.revenue += tot;
     if (g === "entregado") z.util += util;
@@ -209,7 +226,7 @@ async function build(dFrom, dTo) {
     utilidad: r2(utilEnt), costoEnt: r2(costoEnt), ventaEnt: r2(ventaEnt),
     utilidadMargin: ventaEnt ? Math.round((utilEnt / ventaEnt) * 100) : 0,
     utilidadAvg: G("entregado") ? r2(utilEnt / G("entregado")) : 0,
-    porCobrar: r2(porCobrar), enTransito, perdidaDevol: r2(perdidaDevol),
+    porCobrar: r2(porCobrar), enTransito, perdidaDevol: r2(perdidaDevol), devConFlete, fleteDevCampo: [...retKeys].slice(0, 3).join(", "),
     entregaAvg: diasAll.length ? r1(avg(diasAll)) : 0, entregaMax: diasAll.length ? Math.max(...diasAll) : 0,
   };
 
