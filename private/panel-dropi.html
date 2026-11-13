@@ -155,6 +155,38 @@
   .supchip.on{border-color:var(--accent);background:var(--accentsoft)}
   .supchip .nm{font-weight:700;font-size:13px}
   .onlylate{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--soft);font-weight:600;cursor:pointer}
+  /* pestañas */
+  .tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;padding:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;position:sticky;top:0;z-index:5;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none;background:transparent;border:0;color:var(--muted);padding:10px 16px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:.15s}
+  .tabs button:hover{color:var(--tx)}
+  .tabs button.on{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+  .tabs .nb{display:inline-block;min-width:18px;padding:1px 6px;margin-left:6px;border-radius:999px;background:var(--redbg);color:var(--red);font-size:10.5px;font-weight:800}
+  .tabs button.on .nb{background:rgba(255,255,255,.25);color:#fff}
+  .tp{display:none}.tp.on{display:block}
+  .acards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-bottom:16px}
+  @media(max-width:800px){.acards{grid-template-columns:1fr}}
+  .acard{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--accent));border-radius:var(--radius);padding:15px 17px;box-shadow:var(--shadow);cursor:pointer}
+  .acard .n{font-size:28px;font-weight:900;color:var(--c,var(--tx));letter-spacing:-.03em;line-height:1}
+  .acard .t{font-weight:800;font-size:13.5px;margin-top:6px}.acard .s{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+  .chips button{background:var(--card2);border:1px solid var(--line);color:var(--muted);padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+  .chips button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .split{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px}
+  @media(max-width:1000px){.split{grid-template-columns:1fr}}
+  .orow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card2);margin-bottom:9px}
+  .orow .meta{flex:1;min-width:180px;display:flex;flex-direction:column;gap:3px}
+  .orow .who{font-weight:800;font-size:13.5px}.orow .det{font-size:11.5px;color:var(--muted)}
+  .orow select{padding:7px 9px;font-size:12px}
+  .pcard{border:1px solid var(--line);border-radius:14px;background:var(--card2);margin-bottom:10px;overflow:hidden}
+  .pcard .ph{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;flex-wrap:wrap}
+  .pcard .pb{display:none;padding:0 15px 13px}.pcard.open .pb{display:block}
+  .rrow{display:grid;grid-template-columns:minmax(120px,1.4fr) 70px minmax(100px,2fr) 54px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+  .rrow:last-child{border:0}
+  .rrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rbar{height:9px;border-radius:999px;background:var(--line);overflow:hidden;display:flex}
+  .rbar i{display:block;height:100%}.rbar i.g{background:var(--green)}.rbar i.r{background:var(--red)}.rbar i.y{background:var(--yellow)}.rbar i.b{background:var(--blue)}
+  .note{background:var(--bluebg);color:var(--soft);border:1px solid var(--line);border-radius:13px;padding:13px 15px;font-size:12.5px;font-weight:500;line-height:1.5}
 </style>
 </head>
 <body>
@@ -191,6 +223,13 @@
     <span class="rangeInfo" id="rangeInfo"></span>
   </div>
 
+  <nav class="tabs" id="tabs">
+    <button data-t="res" class="on">📊 Resumen</button><button data-t="ofi">🏢 Oficina<span class="nb" id="nbOfi" style="display:none"></span></button>
+    <button data-t="prv">🏭 Proveedores</button><button data-t="nov">🔔 Novedades<span class="nb" id="nbNov" style="display:none"></span></button>
+    <button data-t="ren">📈 Rendimiento</button><button data-t="pag">💳 Pagos</button>
+  </nav>
+  <section class="tp on" id="tab-res">
+  <div class="acards" id="acards"></div>
   <div class="kpis" id="kpis"></div>
 
   <div class="card alert-card" style="margin-bottom:16px">
@@ -265,6 +304,25 @@
       </table>
     </div>
   </div>
+
+  </section>
+
+  <section class="tp" id="tab-ofi">
+    <div class="split"><div class="card">
+      <h2>🏢 Pedidos en oficina <span class="tag" id="ofiTag"></span></h2>
+      <div class="chips" id="ofiChips"></div>
+      <div class="tools"><input id="ofiQ" placeholder="Buscar cliente, guía, ciudad…" style="flex:1;min-width:170px">
+        <select id="ofiCar"><option value="">Todas las transportadoras</option></select>
+        <select id="ofiSort"><option value="dias">Más días primero</option><option value="rec">Más recientes</option><option value="tot">Mayor monto</option></select>
+        <label class="onlylate">Plazo <input id="ofiPlazo" type="number" min="1" max="30" value="3" style="width:62px;padding:6px 8px"> días</label></div>
+      <div id="ofiList"></div></div>
+    <div class="card"><h2>Resumen</h2><div id="ofiSide"></div></div></div>
+  </section>
+  <section class="tp" id="tab-prv"><div class="card"><h2>🏭 Proveedores <span class="tag">pedidos por proveedor y mensaje con las guías con problema</span></h2><div id="prvList"></div></div></section>
+  <section class="tp" id="tab-nov"><div class="card"><h2>🔔 Novedades <span class="tag" id="novTag"></span></h2><div class="chips" id="novChips"></div><div id="novList"></div></div></section>
+  <section class="tp" id="tab-ren"><div class="card"><h2>📈 Rendimiento</h2>
+    <div class="chips" id="renBy"></div><div class="chips" id="renMode"></div><div id="renList"></div></div></section>
+  <section class="tp" id="tab-pag"><div id="pagBody"></div></section>
 
   <div class="foot" id="foot">—</div>
 </div>
@@ -452,7 +510,7 @@ function render(){
      <span class="ct">${p.qty}</span><span class="pct">${p.orders} ped.</span></div>`).join('')||'<div class="empty">—</div>';
 
   fill('#fStatus', sl.map(s=>s.name)); fill('#fCarrier', DATA.carriers.map(c=>c.name));
-  drawTable();
+  drawTable(); renderTabs();
   $('#foot').textContent='Fuente: api.dropi.gt/integrations · Actualizado '+new Date(DATA.updated).toLocaleString('es-GT')+' · '+DATA.ms+' ms';
 }
 
@@ -708,6 +766,98 @@ $('#trackOverlay').addEventListener('click',e=>{if(e.target.id==='trackOverlay')
 
 timer=setInterval(()=>{left--;$('#refreshin').textContent='⟳ '+left+'s';if(left<=0)load();},1000);
 (async()=>{await loadProviders();load();})();
+
+/* ===== Pestañas ===== */
+let GEST={}, TAB='res', OFI_CH='todos', NOV_CH='', REN_BY='carrier', REN_MODE='pct', REN_ORD='dev';
+const lsg=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}};
+const lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+function setTab(t){TAB=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  document.querySelectorAll('.tp').forEach(x=>x.classList.toggle('on',x.id==='tab-'+t));lss('dp_tab',t);
+  if(t==='res'&&DATA)setTimeout(()=>{Object.values(charts).forEach(c=>{try{c.resize()}catch(e){}})},30);}
+document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.t)));
+async function loadGest(){try{const r=await fetch('/api/dropi?a=gest',{cache:'no-store'});if(r.ok){const j=await r.json();if(j&&typeof j==='object'&&!j.error)GEST=j}}catch(e){}}
+async function saveGest(){try{await fetch('/api/dropi?a=gest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(GEST)})}catch(e){}}
+function setGest(id,v){if(v)GEST[id]={r:v,t:Date.now()};else delete GEST[id];
+  const k=Object.keys(GEST);if(k.length>400){k.sort((a,b)=>GEST[a].t-GEST[b].t).slice(0,k.length-400).forEach(x=>delete GEST[x])}
+  saveGest();renderTabs();}
+const RES=['Contactado','Recogerá','Sin respuesta','Rechazó','Reagendado'];
+const enOfi=o=>/oficina/i.test(o.status||'')&&o.group!=='entregado'&&o.group!=='devolucion'&&o.group!=='cancelado';
+const diasOfi=o=>daysSince(o.upd||o.date);
+const plazo=()=>Math.max(1,parseInt($('#ofiPlazo').value,10)||3);
+function gestSel(o){return `<select onchange="setGest('${E(o.id)}',this.value)" title="Registrar resultado"><option value="">Registrar resultado…</option>${RES.map(x=>`<option${(GEST[o.id]||{}).r===x?' selected':''}>${x}</option>`).join('')}</select>`;}
+function waBtn(o){const l=o.clientPhone?waLink(o.clientPhone,'Hola '+(o.name||'')+', tu pedido #'+o.id+' ya está en la oficina de '+(o.carrier||'la transportadora')+'. ¿Pasas a recogerlo? Gracias 🙏'):null;
+  return l?`<a class="wa" href="${l}" target="_blank" rel="noopener">💬 Cliente</a>`:'<span class="wa" style="opacity:.5;cursor:default">Sin teléfono</span>';}
+function renderTabs(){if(!DATA)return;renderAcards();renderOfi();renderPrv();renderNov();renderRen();renderPag();}
+function renderAcards(){
+  const O=DATA.orders,nov=O.filter(o=>o.group==='novedad').length,ofi=O.filter(enOfi),ofiL=ofi.filter(o=>diasOfi(o)>=plazo()).length,
+    ret=O.filter(o=>/devoluci.n/i.test(o.status||'')&&o.group==='devolucion'&&daysSince(o.upd||o.date)<=7).length,
+    sd=O.filter(o=>/pendiente|preparaci|por despachar|sin despachar/i.test(o.status||'')).length;
+  const card=(n,t,s,c,tab)=>`<div class="acard" style="--c:${c}" onclick="setTab('${tab}')"><div class="n">${n}</div><div class="t">${t}</div><div class="s">${s}</div></div>`;
+  $('#acards').innerHTML=card(nov,'Novedades por resolver','incidencias con la transportadora','var(--yellow)','nov')+card(ofiL,'En oficina pasados del plazo','por devolverse si el cliente no pasa ('+ofi.length+' en oficina)','var(--red)','ofi')+card(sd,'Sin despachar','pendientes / en preparación','var(--blue)','prv');
+  const nb=(id,n)=>{const e=$(id);e.style.display=n?'inline-block':'none';e.textContent=n};nb('#nbNov',nov);nb('#nbOfi',ofiL);
+}
+function renderOfi(){
+  const car=[...new Set(DATA.orders.filter(enOfi).map(o=>o.carrier).filter(Boolean))];fill('#ofiCar',car);
+  const pl=plazo(),all=DATA.orders.filter(enOfi),q=$('#ofiQ').value.toLowerCase(),fc=$('#ofiCar').value,st=(id)=>(GEST[id]||{}).r||'';
+  const F={todos:()=>true,dev:o=>diasOfi(o)>=pl,nuevo:o=>diasOfi(o)<=1,hoy:o=>!!st(o.id)&&daysSince(new Date(GEST[o.id].t).toISOString())===0,sin:o=>!st(o.id),esp:o=>['Recogerá','Reagendado'].includes(st(o.id)),desc:o=>st(o.id)==='Rechazó'};
+  const L=[['todos','Todos'],['dev','Por devolverse'],['nuevo','Llegaron hace poco'],['hoy','Seguimiento hoy'],['sin','Sin gestionar'],['esp','En espera'],['desc','Descartados']];
+  $('#ofiChips').innerHTML=L.map(([k,t])=>`<button data-c="${k}" class="${OFI_CH===k?'on':''}">${t} (${all.filter(F[k]).length})</button>`).join('');
+  $('#ofiChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{OFI_CH=b.dataset.c;renderOfi()});
+  let rows=all.filter(F[OFI_CH]).filter(o=>(!fc||o.carrier===fc)&&(!q||[o.name,o.city,o.guia,o.id].join(' ').toLowerCase().includes(q)));
+  const so=$('#ofiSort').value;rows.sort((a,b)=>so==='tot'?b.total-a.total:so==='rec'?diasOfi(a)-diasOfi(b):diasOfi(b)-diasOfi(a));
+  $('#ofiTag').textContent=rows.length+' pedidos';
+  $('#ofiList').innerHTML=rows.length?rows.slice(0,200).map(o=>{const d=diasOfi(o),c=d>=pl?'var(--red)':d>=pl-1?'var(--yellow)':'var(--green)';
+    return `<div class="orow"><span class="chip ${badge(o.group)}">${E(o.status)}</span><div class="meta"><span class="who">#${E(o.id)} · ${E(o.name||'—')}</span><span class="det">${E(o.carrier||'—')} · ${E(o.city||'—')} · ${E(o.prod||'')} · ${money(o.total)}</span></div>
+      <span class="guia" style="font-family:ui-monospace,monospace;font-size:12px">${E(o.guia||'sin guía')}</span><span class="age" style="color:${c};font-weight:800">⏱ ${d} d</span>${waBtn(o)}${gestSel(o)}</div>`}).join(''):'<div class="empty">Sin pedidos en oficina con este filtro. Si esperabas ver alguno, depende del texto de estado que devuelve la transportadora ("oficina").</div>';
+  const dev=all.filter(F.dev),mt=dev.reduce((a,o)=>a+(+o.total||0),0);
+  $('#ofiSide').innerHTML=[['En oficina',all.length,''],['Pasados del plazo',dev.length,'red'],['Monto en riesgo',money(mt),'red'],['Sin gestionar',all.filter(F.sin).length,'yellow']].map(([l,v,c])=>`<div class="stat"><span class="nm">${l}</span><span class="ct ${c?'':''}" style="${c?'color:var(--'+c+')':''}">${v}</span></div>`).join('')+'<div class="hint" style="margin-top:10px">Los resultados que registras se guardan en tu cuenta.</div>';
+}
+['#ofiQ','#ofiCar','#ofiSort','#ofiPlazo'].forEach(s=>{const e=$(s);e.addEventListener('input',()=>{if(s==='#ofiPlazo')lss('dp_plazo',e.value);DATA&&(renderOfi(),renderAcards())});});
+$('#ofiPlazo').value=lsg('dp_plazo','3');
+function renderPrv(){
+  const by={};DATA.orders.forEach(o=>{(by[o.supplierId]=by[o.supplierId]||[]).push(o)});
+  const ids=Object.keys(by).sort((a,b)=>by[b].length-by[a].length);
+  $('#prvList').innerHTML=ids.map(id=>{const L=by[id],ent=L.filter(o=>o.group==='entregado').length,dev=L.filter(o=>o.group==='devolucion').length,pr=L.filter(o=>isLate(o)),ph=supPhone(id);
+    const msg='Hola, te escribo por estos pedidos con problema:\n'+pr.slice(0,25).map(o=>'• #'+o.id+' '+(o.guia||'sin guía')+' – '+o.status).join('\n')+'\n¿Me ayudan a revisarlos? Gracias 🙏';
+    const all=ph&&pr.length?`<a class="wa" href="${waLink(ph,msg)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">💬 Enviar a todos (${pr.length})</a>`:'';
+    return `<div class="pcard"><div class="ph" onclick="this.parentNode.classList.toggle('open')"><b style="font-size:14px">${E(supName(id))}</b><span class="chip blue">${L.length} pedidos</span><span class="chip green">${ent} entregados</span><span class="chip red">${dev} devol.</span>${pr.length?`<span class="chip yellow">${pr.length} con problema</span>`:''}<span style="margin-left:auto">${all}</span></div>
+      <div class="pb">${L.slice(0,60).map(o=>`<div class="stat"><span class="chip ${badge(o.group)}">${E(o.status)}</span><span class="nm">#${E(o.id)} · ${E(o.name||'—')}</span><span class="ct" style="font-weight:600;font-size:12px">${E(o.guia||'—')}</span></div>`).join('')}</div></div>`}).join('')||'<div class="empty">Sin datos</div>';
+}
+function renderNov(){
+  const N=DATA.orders.filter(o=>o.group==='novedad'),causas={};N.forEach(o=>{causas[o.status]=(causas[o.status]||0)+1});
+  const ks=Object.keys(causas).sort((a,b)=>causas[b]-causas[a]);
+  $('#novTag').textContent=N.length+' novedades';
+  $('#novChips').innerHTML=`<button data-c="" class="${NOV_CH===''?'on':''}">Todas (${N.length})</button>`+ks.map(k=>`<button data-c="${E(k)}" class="${NOV_CH===k?'on':''}">${E(k)} (${causas[k]})</button>`).join('');
+  $('#novChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{NOV_CH=b.dataset.c;renderNov()});
+  const rows=N.filter(o=>!NOV_CH||o.status===NOV_CH).sort((a,b)=>daysSince(b.date)-daysSince(a.date));
+  $('#novList').innerHTML=rows.length?rows.slice(0,200).map(o=>{const l=waFor(o);return `<div class="orow"><span class="chip yellow">${E(o.status)}</span><div class="meta"><span class="who">#${E(o.id)} · ${E(o.name||'—')}</span><span class="det">${E(o.carrier||'—')} · ${E(o.city||'—')} · ${E(o.mov||'')}</span></div>
+    <span class="guia" style="font-family:ui-monospace,monospace;font-size:12px">${E(o.guia||'sin guía')}</span><span class="age" style="font-weight:800">⏱ ${daysSince(o.date)} d</span>${waBtn(o)}${l?`<a class="wa" href="${l}" target="_blank" rel="noopener">🚚 Transp.</a>`:''}<span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line)" onclick="openTrack('${E(o.id)}')">🧭</span></div>`}).join(''):'<div class="empty">🎉 Sin novedades en este periodo.</div>';
+}
+function renderRen(){
+  const BY=[['carrier','Transportadoras'],['city','Ciudades'],['dept','Departamentos'],['prod','Productos']],MD=[['pct','Porcentaje'],['qty','Cantidad']],OD=[['dev','Más devoluciones'],['ent','Más entregas']];
+  const ch=(arr,cur,id)=>arr.map(([k,t])=>`<button data-k="${k}" class="${cur===k?'on':''}">${t}</button>`).join('');
+  $('#renBy').innerHTML='<span class="hint" style="align-self:center">Ver por</span>'+ch(BY,REN_BY)+'<span class="hint" style="align-self:center;margin-left:8px">Orden</span>'+ch(OD,REN_ORD).replace(/data-k/g,'data-o');
+  $('#renMode').innerHTML='<span class="hint" style="align-self:center">Mostrar</span>'+ch(MD,REN_MODE).replace(/data-k/g,'data-m');
+  $('#renBy').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k)REN_BY=b.dataset.k;if(b.dataset.o)REN_ORD=b.dataset.o;renderRen()});
+  $('#renMode').querySelectorAll('button').forEach(b=>b.onclick=()=>{REN_MODE=b.dataset.m;renderRen()});
+  const m={};DATA.orders.forEach(o=>{const k=(o[REN_BY]||'—')||'—';(m[k]=m[k]||{t:0,e:0,d:0,c:0,p:0});const x=m[k];x.t++;if(o.group==='entregado')x.e++;else if(o.group==='devolucion')x.d++;else if(o.group==='cancelado')x.c++;else x.p++;});
+  let L=Object.keys(m).map(k=>Object.assign({k},m[k]));L.forEach(x=>{const f=x.e+x.d;x.er=f?Math.round(x.e/f*100):0;x.dr=f?Math.round(x.d/f*100):0});
+  L.sort((a,b)=>REN_ORD==='dev'?(REN_MODE==='pct'?b.dr-a.dr:b.d-a.d):(REN_MODE==='pct'?b.er-a.er:b.e-a.e));
+  $('#renList').innerHTML=L.slice(0,25).map(x=>{const T=x.t||1;return `<div class="rrow"><span class="nm" title="${E(x.k)}">${E(x.k)}</span><span style="color:var(--muted)">${x.t} ped.</span>
+    <div class="rbar"><i class="g" style="width:${x.e/T*100}%"></i><i class="b" style="width:${x.p/T*100}%"></i><i class="r" style="width:${(x.d+x.c)/T*100}%"></i></div>
+    <b style="text-align:right;color:var(--${REN_ORD==='dev'?'red':'green'})">${REN_MODE==='pct'?(REN_ORD==='dev'?x.dr:x.er)+'%':(REN_ORD==='dev'?x.d:x.e)}</b></div>`}).join('')||'<div class="empty">Sin datos</div>';
+}
+function renderPag(){
+  const O=DATA.orders,k=DATA.kpis,hay=O.some(o=>o.inv!=null),ent=O.filter(o=>o.group==='entregado');
+  const card=(l,v,d,c)=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c||''}">${v}</div><div class="d">${d||''}</div></div>`;
+  let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',money(k.perdidaDevol),'flete de devoluciones','red');
+  if(hay){const pg=ent.filter(o=>o.inv===true),pd=ent.filter(o=>o.inv===false);
+    h+=card('✅ Entregados ya pagados',pg.length,money(pg.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','green')+card('⏳ Entregados por pagar',pd.length,money(pd.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','yellow');}
+  h+='</div>';
+  if(!hay)h+='<div class="note">Dropi no entrega por la API la cartera, retiros ni facturas, así que aquí solo se muestran cifras calculadas de tus pedidos (utilidad de entregados, por cobrar y pérdida por devoluciones). El estado de pago real se ve en la sección Cartera de Dropi.</div>';
+  $('#pagBody').innerHTML=h;
+}
+loadGest();setTab(lsg('dp_tab','res'));
 </script>
 </body>
 </html>

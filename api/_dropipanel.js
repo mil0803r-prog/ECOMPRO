@@ -174,7 +174,7 @@ async function build(dFrom, dTo) {
       city: x.city, dept, total: tot, date: x.created_at,
       guia: x.shipping_guide || "", guiaPath: x.guia_urls3 || "",
       supplierId: x.supplier_id, warehouseId: x.warehouse_id,
-      clientPhone: x.phone || "", hk: phoneKey(x.phone), util, dias: dia, mov: orderMovs(x),
+      clientPhone: x.phone || "", hk: phoneKey(x.phone), prod: (x.orderdetails || []).slice(0, 2).map((d) => (d.product && d.product.name) || "Producto").join(" + "), upd: x.updated_at || "", inv: x.invoiced == null ? null : !!x.invoiced, util, dias: dia, mov: orderMovs(x),
     });
   }
 
@@ -322,6 +322,17 @@ async function handle(req, send) {
         try { const g = await redis(["HGET", "ec:huella", hk]); if (g) out.guardada = JSON.parse(g); } catch (e) {}
       }
       return send(200, out);
+    }
+    if (a === "gest") {
+      if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
+      if (req.method === "GET") { const cur = await redis(["HGET", "ec:settings", "dropigest"]); return send(200, cur ? JSON.parse(cur) : {}); }
+      if (req.method === "POST") {
+        const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+        const t = JSON.stringify(b);
+        if (!b || typeof b !== "object" || Array.isArray(b) || t.length > 60000) return send(400, { error: "datos inválidos" });
+        await redis(["HSET", "ec:settings", "dropigest", t]);
+        return send(200, { ok: true });
+      }
     }
     if (a === "prov") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });

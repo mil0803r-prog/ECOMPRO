@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
   try { s = session(req); } catch (e) { return send(500, { error: "config" }); }
   if (!s) return send(401, { error: "auth" });
   // Sección "Dropi" del tablero (GET ?a=data | ?a=prov, POST ?a=prov): ver api/_dropipanel.js
-  if (/[?&]a=(data|prov|huella)(&|$)/.test(req.url || "")) return require("./_dropipanel").handle(req, send);
+  if (/[?&]a=(data|prov|huella|gest)(&|$)/.test(req.url || "")) return require("./_dropipanel").handle(req, send);
   if (req.method !== "POST") return send(405, { error: "method" });
   const token = process.env.DROPI_TOKEN;
   if (!token) return send(503, { error: "Falta la variable DROPI_TOKEN en Vercel (Settings > Environment Variables, marcada Sensitive)." });
