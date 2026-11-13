@@ -878,10 +878,8 @@ function renderPag(){
   const O=DATA.orders,k=DATA.kpis,hay=O.some(o=>o.inv!=null),ent=O.filter(o=>o.group==='entregado');
   const card=(l,v,d,c)=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c||''}">${v}</div><div class="d">${d||''}</div></div>`;
   let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum()):k.devConFlete?'flete de devolución real de Dropi':'estimado con Q'+FLETE_DEV_REF+' por devolución','red');
-  if(hay){const pg=ent.filter(o=>o.inv===true),pd=ent.filter(o=>o.inv===false);
-    h+=card('✅ Entregados ya pagados',pg.length,money(pg.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','green')+card('⏳ Entregados por pagar',pd.length,money(pd.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','yellow');}
   h+='</div>';
-  if(!hay)h+='<div class="note">Dropi no entrega por la API la cartera, retiros ni facturas, así que aquí solo se muestran cifras calculadas de tus pedidos (utilidad de entregados, por cobrar y pérdida por devoluciones). El estado de pago real se ve en la sección Cartera de Dropi.</div>';
+  h+='<div class="note">Dropi no entrega por la API la cartera, retiros ni facturas, así que aquí solo se muestran cifras calculadas de tus pedidos (utilidad de entregados, por cobrar y pérdida por devoluciones). El estado de pago real se ve en la sección Cartera de Dropi.</div>';
   if(false&&k.fleteDevDiag)h+='<div class="note" style="margin-top:12px"><b>Campos numéricos que Dropi devuelve en una devolución</b> (solo nombres): '+E(k.fleteDevDiag)+'</div>';
   $('#pagBody').innerHTML=h;
 }
