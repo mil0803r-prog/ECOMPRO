@@ -461,8 +461,8 @@ function render(){
     ['🔔 Novedades',k.novedad,'incidencias por resolver','yellow'],
     ['💳 Por cobrar',money(k.porCobrar),k.enTransito+' en tránsito (COD)','blue'],
     ['⏱️ Entrega prom.',k.entregaAvg+' días','máx '+k.entregaMax+' días',''],
-    ['📉 Pérdida devol.',money(k.perdidaDevol),'flete de devoluciones','red'],
-  ].map(([l,v,d,c])=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="d">${d||''}</div></div>`).join('');
+    ['📉 Pérdida devol.',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum())+' · toca para cambiar':'toca para poner tu flete de devolución','red'],
+  ].map(([l,v,d,c])=>`<div class="kpi"${l.includes('Pérdida')?' style="cursor:pointer" onclick="ponFleteDev()"':''}><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="d">${d||''}</div></div>`).join('');
 
   // ALERTAS: novedades + en proceso con +5 dias
   const alerts=DATA.orders.filter(o=>o.group==='novedad'||(o.group==='proceso'&&daysSince(o.date)>=5))
@@ -772,6 +772,10 @@ timer=setInterval(()=>{left--;$('#refreshin').textContent='⟳ '+left+'s';if(lef
 (async()=>{await loadProviders();load();})();
 
 /* ===== Pestañas ===== */
+function fleteDevNum(){const f=parseFloat(((typeof GEST!=='undefined'&&GEST._fleteDev)||{}).r);return isFinite(f)&&f>0?f:0;}
+function perdidaTxt(k){const f=fleteDevNum();return f?money(f*(k.devolucion||0)):'Define flete';}
+function ponFleteDev(){const v=prompt('¿Cuánto te cobran de flete por cada DEVOLUCIÓN (en Q)? No es el flete de envío.',fleteDevNum()||'');if(v===null)return;const n=parseFloat(String(v).replace(',','.'));
+  if(isFinite(n)&&n>=0){GEST._fleteDev={r:String(n),t:Date.now()};saveGest();if(DATA)render();}}
 let GEST={}, TAB='res', OFI_CH='todos', NOV_CH='', REN_BY='carrier', REN_MODE='pct', REN_ORD='dev';
 const lsg=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}};
 const lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
@@ -782,7 +786,7 @@ document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',
 async function loadGest(){try{const r=await fetch('/api/dropi?a=gest',{cache:'no-store'});if(r.ok){const j=await r.json();if(j&&typeof j==='object'&&!j.error)GEST=j}}catch(e){}}
 async function saveGest(){try{await fetch('/api/dropi?a=gest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(GEST)})}catch(e){}}
 function setGest(id,v){if(v)GEST[id]={r:v,t:Date.now()};else delete GEST[id];
-  const k=Object.keys(GEST);if(k.length>400){k.sort((a,b)=>GEST[a].t-GEST[b].t).slice(0,k.length-400).forEach(x=>delete GEST[x])}
+  const k=Object.keys(GEST).filter(x=>x[0]!=='_');if(k.length>400){k.sort((a,b)=>GEST[a].t-GEST[b].t).slice(0,k.length-400).forEach(x=>delete GEST[x])}
   saveGest();renderTabs();}
 const RES=['Contactado','Recogerá','Sin respuesta','Rechazó','Reagendado'];
 const enOfi=o=>/oficina/i.test(o.status||'')&&o.group!=='entregado'&&o.group!=='devolucion'&&o.group!=='cancelado';
@@ -872,7 +876,7 @@ function renderRen(){
 function renderPag(){
   const O=DATA.orders,k=DATA.kpis,hay=O.some(o=>o.inv!=null),ent=O.filter(o=>o.group==='entregado');
   const card=(l,v,d,c)=>`<div class="kpi"><div class="l">${l}</div><div class="v ${c||''}">${v}</div><div class="d">${d||''}</div></div>`;
-  let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',money(k.perdidaDevol),'flete de devoluciones','red');
+  let h='<div class="kpis">'+card('💵 Utilidad de entregados',money(k.utilidad),ent.length+' pedidos entregados','green')+card('💳 Por cobrar (COD en tránsito)',money(k.porCobrar),k.enTransito+' pedidos en tránsito','blue')+card('📉 Pérdida por devoluciones',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum()):'define tu flete de devolución en Resumen','red');
   if(hay){const pg=ent.filter(o=>o.inv===true),pd=ent.filter(o=>o.inv===false);
     h+=card('✅ Entregados ya pagados',pg.length,money(pg.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','green')+card('⏳ Entregados por pagar',pd.length,money(pd.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','yellow');}
   h+='</div>';
