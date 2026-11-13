@@ -155,7 +155,10 @@ async function build(dFrom, dTo) {
         const j = await dropi("/integrations/orders/myorders/" + encodeURIComponent(x.id), 8000);
         const ob = (j && j.objects) || {};
         RETC.set(x.id, scanRet(ob) || scanRet(ob.order || {}) || null);
-        if (!RETC.get(x.id) && diag.length < 1) diag = Object.keys(ob).filter((k) => !PII_RE.test(k)).slice(0, 60);
+        if (!RETC.get(x.id) && !diag.length) {
+          const names = [], w = (o2, d, pre) => { if (!o2 || typeof o2 !== "object" || d > 2) return; for (const k of Object.keys(o2)) { const v = o2[k], pth = pre + k; if (PII_RE.test(k)) continue; if (v && typeof v === "object") { if (!Array.isArray(v)) w(v, d + 1, pth + "."); } else if (v !== "" && v != null && !isNaN(Number(v))) names.push(pth); } };
+          w(ob, 0, ""); diag = names.slice(0, 80);
+        }
       } catch (e) {}
     }));
   }

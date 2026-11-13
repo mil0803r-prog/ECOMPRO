@@ -461,7 +461,7 @@ function render(){
     ['🔔 Novedades',k.novedad,'incidencias por resolver','yellow'],
     ['💳 Por cobrar',money(k.porCobrar),k.enTransito+' en tránsito (COD)','blue'],
     ['⏱️ Entrega prom.',k.entregaAvg+' días','máx '+k.entregaMax+' días',''],
-    ['📉 Pérdida devol.',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum())+' · toca para cambiar':k.devConFlete?'flete de devolución real de Dropi ('+k.devConFlete+' de '+k.devolucion+' devol.)':'Dropi no lo trae · toca para ponerlo'+(k.fleteDevDiag?' · campos: '+k.fleteDevDiag.slice(0,90):''),'red'],
+    ['📉 Pérdida devol.',perdidaTxt(k),fleteDevNum()?k.devolucion+' devol. × '+money(fleteDevNum())+' · toca para cambiar':k.devConFlete?'flete de devolución real de Dropi ('+k.devConFlete+' de '+k.devolucion+' devol.)':'Dropi no lo trae en este campo · toca para ponerlo','red'],
   ].map(([l,v,d,c])=>`<div class="kpi"${l.includes('Pérdida')?' style="cursor:pointer" onclick="ponFleteDev()"':''}><div class="l">${l}</div><div class="v ${c}">${v}</div><div class="d">${d||''}</div></div>`).join('');
 
   // ALERTAS: novedades + en proceso con +5 dias
@@ -881,6 +881,7 @@ function renderPag(){
     h+=card('✅ Entregados ya pagados',pg.length,money(pg.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','green')+card('⏳ Entregados por pagar',pd.length,money(pd.reduce((a,o)=>a+(+o.util||0),0))+' de utilidad','yellow');}
   h+='</div>';
   if(!hay)h+='<div class="note">Dropi no entrega por la API la cartera, retiros ni facturas, así que aquí solo se muestran cifras calculadas de tus pedidos (utilidad de entregados, por cobrar y pérdida por devoluciones). El estado de pago real se ve en la sección Cartera de Dropi.</div>';
+  if(!k.devConFlete&&!fleteDevNum()&&k.fleteDevDiag)h+='<div class="note" style="margin-top:12px"><b>Campos numéricos que Dropi devuelve en una devolución</b> (solo nombres): '+E(k.fleteDevDiag)+'</div>';
   $('#pagBody').innerHTML=h;
 }
 loadGest();setTab(lsg('dp_tab','res'));
