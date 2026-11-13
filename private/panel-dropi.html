@@ -186,6 +186,8 @@
   .rrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .rbar{height:9px;border-radius:999px;background:var(--line);overflow:hidden;display:flex}
   .rbar i{display:block;height:100%}.rbar i.g{background:var(--green)}.rbar i.r{background:var(--red)}.rbar i.y{background:var(--yellow)}.rbar i.b{background:var(--blue)}
+  .pt{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}.pt th{cursor:default;position:static;background:transparent}.pt td{vertical-align:top;white-space:normal}.pt .s2{display:block;font-size:11px;color:var(--muted);font-weight:500}
+  .pcard .ph .chev{transition:.15s;color:var(--muted)}.pcard.open .chev{transform:rotate(90deg)}
   .note{background:var(--bluebg);color:var(--soft);border:1px solid var(--line);border-radius:13px;padding:13px 15px;font-size:12.5px;font-weight:500;line-height:1.5}
 </style>
 </head>
@@ -318,7 +320,9 @@
       <div id="ofiList"></div></div>
     <div class="card"><h2>Resumen</h2><div id="ofiSide"></div></div></div>
   </section>
-  <section class="tp" id="tab-prv"><div class="card"><h2>🏭 Proveedores <span class="tag">pedidos por proveedor y mensaje con las guías con problema</span></h2><div id="prvList"></div></div></section>
+  <section class="tp" id="tab-prv"><div class="card">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><h2 style="margin:0">Proveedores con pedidos atrasados <span class="hint" id="prvTag" style="margin-left:8px"></span></h2><button class="ghost" id="prvXls" style="margin-left:auto">Exportar a Excel</button></div>
+  <div class="acards" id="prvCards"></div><div class="hint" style="margin-bottom:10px">Haz clic en un proveedor para ver sus pedidos.</div><div id="prvList"></div></div></section>
   <section class="tp" id="tab-nov"><div class="card"><h2>🔔 Novedades <span class="tag" id="novTag"></span></h2><div class="chips" id="novChips"></div><div id="novList"></div></div></section>
   <section class="tp" id="tab-ren"><div class="card"><h2>📈 Rendimiento</h2>
     <div class="chips" id="renBy"></div><div class="chips" id="renMode"></div><div id="renList"></div></div></section>
@@ -791,7 +795,7 @@ function renderTabs(){if(!DATA)return;renderAcards();renderOfi();renderPrv();ren
 function renderAcards(){
   const O=DATA.orders,nov=O.filter(o=>o.group==='novedad').length,ofi=O.filter(enOfi),ofiL=ofi.filter(o=>diasOfi(o)>=plazo()).length,
     ret=O.filter(o=>/devoluci.n/i.test(o.status||'')&&o.group==='devolucion'&&daysSince(o.upd||o.date)<=7).length,
-    sd=O.filter(o=>/pendiente|preparaci|por despachar|sin despachar/i.test(o.status||'')).length;
+    sd=O.filter(sinDesp).length;
   const card=(n,t,s,c,tab)=>`<div class="acard" style="--c:${c}" onclick="setTab('${tab}')"><div class="n">${n}</div><div class="t">${t}</div><div class="s">${s}</div></div>`;
   $('#acards').innerHTML=card(nov,'Novedades por resolver','incidencias con la transportadora','var(--yellow)','nov')+card(ofiL,'En oficina pasados del plazo','por devolverse si el cliente no pasa ('+ofi.length+' en oficina)','var(--red)','ofi')+card(sd,'Sin despachar','pendientes / en preparación','var(--blue)','prv');
   const nb=(id,n)=>{const e=$(id);e.style.display=n?'inline-block':'none';e.textContent=n};nb('#nbNov',nov);nb('#nbOfi',ofiL);
@@ -814,15 +818,33 @@ function renderOfi(){
 }
 ['#ofiQ','#ofiCar','#ofiSort','#ofiPlazo'].forEach(s=>{const e=$(s);e.addEventListener('input',()=>{if(s==='#ofiPlazo')lss('dp_plazo',e.value);DATA&&(renderOfi(),renderAcards())});});
 $('#ofiPlazo').value=lsg('dp_plazo','3');
+const SIND=/gu[ií]a generada|pendiente|preparaci|por despachar|sin despachar|alistamiento|empaque|generad/i;
+const sinDesp=o=>o.group==='proceso'&&SIND.test(o.status||'');
+const UMBRAL=3;
+function csvDown(name,rows){const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';const t='﻿'+rows.map(r=>r.map(q).join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);}
+const csvRows=L=>[['Proveedor','Pedido','Estado','Días sin despachar','Transportadora','Guía','Producto','Cliente','Teléfono','Ciudad','Departamento','Valor']].concat(L.map(o=>[supName(o.supplierId),o.id,o.status,daysSince(o.date),o.carrier,o.guia,o.prod,o.name,o.clientPhone,o.city,o.dept,o.total]));
+let PRV_G=[];
 function renderPrv(){
-  const by={};DATA.orders.forEach(o=>{(by[o.supplierId]=by[o.supplierId]||[]).push(o)});
-  const ids=Object.keys(by).sort((a,b)=>by[b].length-by[a].length);
-  $('#prvList').innerHTML=ids.map(id=>{const L=by[id],ent=L.filter(o=>o.group==='entregado').length,dev=L.filter(o=>o.group==='devolucion').length,pr=L.filter(o=>isLate(o)),ph=supPhone(id);
-    const msg='Hola, te escribo por estos pedidos con problema:\n'+pr.slice(0,25).map(o=>'• #'+o.id+' '+(o.guia||'sin guía')+' – '+o.status).join('\n')+'\n¿Me ayudan a revisarlos? Gracias 🙏';
-    const all=ph&&pr.length?`<a class="wa" href="${waLink(ph,msg)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">💬 Enviar a todos (${pr.length})</a>`:'';
-    return `<div class="pcard"><div class="ph" onclick="this.parentNode.classList.toggle('open')"><b style="font-size:14px">${E(supName(id))}</b><span class="chip blue">${L.length} pedidos</span><span class="chip green">${ent} entregados</span><span class="chip red">${dev} devol.</span>${pr.length?`<span class="chip yellow">${pr.length} con problema</span>`:''}<span style="margin-left:auto">${all}</span></div>
-      <div class="pb">${L.slice(0,60).map(o=>`<div class="stat"><span class="chip ${badge(o.group)}">${E(o.status)}</span><span class="nm">#${E(o.id)} · ${E(o.name||'—')}</span><span class="ct" style="font-weight:600;font-size:12px">${E(o.guia||'—')}</span></div>`).join('')}</div></div>`}).join('')||'<div class="empty">Sin datos</div>';
+  const by={};DATA.orders.filter(sinDesp).forEach(o=>{(by[o.supplierId]=by[o.supplierId]||[]).push(o)});
+  const G=Object.keys(by).map(id=>{const L=by[id].sort((a,b)=>daysSince(b.date)-daysSince(a.date));const old=daysSince(L[0].date);return {id,L,old,tot:L.reduce((a,o)=>a+(+o.total||0),0),late:L.filter(o=>daysSince(o.date)>=UMBRAL)}}).filter(g=>g.late.length).sort((a,b)=>b.old-a.old);
+  PRV_G=G;
+  const nPed=G.reduce((a,g)=>a+g.L.length,0),nLate=G.reduce((a,g)=>a+g.late.length,0),oldest=G.length?G[0].old:0;
+  $('#prvTag').textContent=nPed+' pedidos en '+G.length+' proveedores';
+  const pend=G.filter(g=>supPhone(g.id));
+  const msgOf=g=>'Hola, te escribo por estos pedidos que siguen sin despachar:\n'+g.L.slice(0,25).map(o=>'• #'+o.id+' – '+daysSince(o.date)+' días ('+(o.prod||'')+')').join('\n')+'\n¿Me ayudan a despacharlos hoy? Gracias 🙏';
+  const first=G[0]?supName(G[0].id):'';
+  $('#prvCards').innerHTML=`<div class="acard" style="--c:var(--red);background:var(--redbg)"><div class="n">${G.length}</div><div class="t">Proveedores atrasados</div><div class="s">Con pedidos sin despachar hace ${UMBRAL}+ días</div></div>
+   <div class="acard" style="--c:var(--yellow);background:var(--yellowbg)"><div class="n">${nLate}</div><div class="t">Pedidos estancados</div><div class="s">El más antiguo lleva ${oldest} días sin despachar</div></div>
+   <div class="acard" style="--c:var(--green);background:var(--greenbg);cursor:default"><div class="t">Recomendación</div><div class="s">Escríbele a cada proveedor con “Enviar por WhatsApp” para evitar devoluciones.${first?' Empieza por <b>'+E(first)+'</b>.':''}</div><div style="margin-top:8px"><button class="solid" id="prvAll" style="background:var(--green)">Enviar a todos los pendientes (${pend.length})</button></div></div>`;
+  $('#prvAll').onclick=()=>{pend.slice(0,6).forEach((g,i)=>setTimeout(()=>window.open(waLink(supPhone(g.id),msgOf(g)),'_blank'),i*400));if(pend.length>6)alert('Se abrieron los primeros 6; vuelve a tocar para los demás tras enviarlos.');};
+  $('#prvList').innerHTML=G.map((g,i)=>{const ph=supPhone(g.id),city=((DATA.supplierInfo||{})[g.id]||{}).city;
+    const rows=g.L.map(o=>{const d=daysSince(o.date),c=d>=UMBRAL+3?'red':'yellow';return `<tr><td><span class="chip ${c}">${d} días</span></td><td>${E(o.status)}</td><td><b>#${E(o.id)}</b><span class="s2">${E((o.date||'').slice(0,10))}</span></td><td>${E(o.carrier||'—')}<span class="s2">Guía ${E(o.guia||'—')}</span></td><td>${E(o.prod||'—')}</td><td><b>${E(o.name||'—')}</b><span class="s2">${E(o.clientPhone||'')}</span></td><td>${E(o.city||'—')}<span class="s2">${E(o.dept||'')}</span></td><td class="r"><b>${money(o.total)}</b></td></tr>`}).join('');
+    return `<div class="pcard"><div class="ph" onclick="this.parentNode.classList.toggle('open')"><span class="chev">›</span><div><b style="font-size:14px">${E(supName(g.id))}</b><span class="s2" style="font-size:11px;color:var(--muted);display:block">${city?'Bodega en '+E(city):'Proveedor '+E(g.id)}</span></div><span class="chip yellow">${g.L.length} sin despachar</span>
+      <span style="margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><b style="color:var(--red);font-size:12px">El más antiguo: ${g.old} días</b><span style="color:var(--soft);font-size:12.5px">${money(g.tot)}</span><button class="ghost" style="padding:5px 10px" onclick="event.stopPropagation();csvDown('proveedor-${E(g.id)}.csv',csvRows(PRV_G[${i}].L))">Excel</button>
+      ${ph?`<a class="wa" href="${waLink(ph,msgOf(g))}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="background:var(--green);color:#fff">Enviar por WhatsApp</a>`:'<span class="wa" style="opacity:.5;cursor:default" title="Pon el número en ⚙ Proveedores">Sin número</span>'}</span></div>
+      <div class="pb"><div class="tablewrap" style="max-height:none;border:0"><table class="pt"><thead><tr><th>Días sin despachar</th><th>Estado</th><th>Pedido</th><th>Transportadora</th><th>Producto</th><th>Cliente</th><th>Ciudad</th><th class="r">Valor</th></tr></thead><tbody>${rows}</tbody></table></div></div></div>`}).join('')||'<div class="empty">🎉 Ningún proveedor con pedidos sin despachar hace '+UMBRAL+'+ días.</div>';
 }
+$('#prvXls').addEventListener('click',()=>{if(PRV_G.length)csvDown('proveedores-atrasados.csv',csvRows([].concat(...PRV_G.map(g=>g.L))));});
 function renderNov(){
   const N=DATA.orders.filter(o=>o.group==='novedad'),causas={};N.forEach(o=>{causas[o.status]=(causas[o.status]||0)+1});
   const ks=Object.keys(causas).sort((a,b)=>causas[b]-causas[a]);
