@@ -2342,6 +2342,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     bar.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;t.scrollBy({left:+b.dataset.d*Math.max(260,t.clientWidth*0.6),behavior:"smooth"})});
     t.addEventListener("scroll",est);est();
   })}
+  window.ecCta=function(){return msel.value==="all"?null:CT[+msel.value]||null};
   function renderMeta(){marcar();if(msel.value==="all")renderAll();else renderOne(CT[+msel.value]);tscroll();try{sessionStorage.setItem("cta",msel.value)}catch(e){}}
   msel.addEventListener("change",renderMeta);md.addEventListener("change",renderMeta);mh.addEventListener("change",renderMeta);$("m-dia").addEventListener("change",function(e){if(!e.target.value)return;md.value=e.target.value;mh.value=e.target.value;renderMeta()});
   $("m-presets").addEventListener("click",function(ev){var b=ev.target.closest(".chip");if(!b)return;var p=PRE[+b.dataset.i];md.value=p[1];mh.value=p[2];renderMeta()});
@@ -4674,6 +4675,15 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     el.innerHTML='<h4>'+nm+' · '+r.t+' pedidos · Q '+f0(r.v)+'</h4><table><thead><tr><th>Estado</th><th>Pedidos</th><th>%</th><th>Venta</th></tr></thead><tbody>'+rows+'</tbody></table>';el.hidden=false}
   function render(){
     var O=window.__ORD||[];if(!O.length)return;
+    /* Con una cuenta publicitaria elegida: solo los pedidos de los productos que anotaste con esa cuenta en Registro diario */
+    var cta=window.ecCta?window.ecCta():null,ctaTxt="",ctaPie="";
+    if(cta){
+      var RL=[];try{RL=JSON.parse(localStorage.getItem("ec_regmeta")||"[]")||[]}catch(e){}
+      var nk=function(x){return String(x||"").trim().toLowerCase()},PS={},pn=[];
+      RL.forEach(function(r){if(r&&r.ct===cta.id&&r.p){var k=nk(r.p);if(!PS[k]){PS[k]=1;pn.push(String(r.p).trim())}}});
+      if(pn.length&&window.ecProd){O=O.filter(function(o){return PS[nk(window.ecProd.of(o))]});ctaTxt="Solo "+cta.n+" · productos: "+pn.join(", ")+". ";ctaPie="Aquí solo entran los pedidos de los productos que anotaste con esta cuenta en Registro diario. "}
+      else{O=[];ctaTxt="Solo "+cta.n+". ";ctaPie="Esta cuenta publicitaria no tiene productos anotados en Registro diario, por eso no hay pedidos que mostrar. Anota ahí el producto con esta cuenta y aparecerán solo sus pedidos. "}
+    }
     var d1=($("m-dia")&&$("m-dia").value)||($("m-desde")&&$("m-desde").value)||"",d2=($("m-dia")&&$("m-dia").value)||($("m-hasta")&&$("m-hasta").value)||"";
     var H=[],D=[],i,sinHora=0,tot=0;for(i=0;i<24;i++)H.push(nz());for(i=0;i<7;i++)D.push(nz());
     O.forEach(function(o){if(!o.d||(d1&&o.d<d1)||(d2&&o.d>d2))return;var g=grp(o.s),v=+o.v||0,dd;tot++;
@@ -4685,7 +4695,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     $("mh-tz").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.z===S.z)});
     var bh=H.reduce(function(a,r,i){return val(r)>val(H[a])?i:a},0),bd=D.reduce(function(a,r,i){return val(r)>val(D[a])?i:a},0);
     var eh=H.reduce(function(a,r,i){return r.e>H[a].e?i:a},0);
-    $("mh-sub").textContent=(d1||d2?"Del "+(d1||"inicio")+" al "+(d2||"hoy")+" (sigue las fechas de arriba). ":"Todo el período. ")+tot+" pedidos.";
+    $("mh-sub").textContent=ctaTxt+(d1||d2?"Del "+(d1||"inicio")+" al "+(d2||"hoy")+" (sigue las fechas de arriba). ":"Todo el período. ")+tot+" pedidos.";
     var pad=function(n){return ampm(n)};
     $("mh-kpis").innerHTML=
       '<div class="card kpi"><h3>Mejor hora</h3><div class="big">'+(val(H[bh])?pad(bh):"–")+'</div><div class="sub">'+(val(H[bh])?(S.m==="v"?'Q '+f0(H[bh].v):H[bh].t+' pedidos'):"sin datos")+'</div></div>'+
@@ -4698,13 +4708,15 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
       '<div class="card kpi"><h3>% de cancelados</h3><div class="big">'+tp(T.c,T.t)+'</div><div class="sub">'+T.c+' cancelados</div></div>';
     bars("mh-h",H,H.map(function(r,i){return i%3?"":pad(i)}),0,function(i,r){return pad(i)+" · "+r.t+" pedidos · "+r.e+" entregados ("+tp(r.e,r.t)+") · "+r.d+" devueltos ("+tp(r.d,r.t)+") · "+r.c+" cancelados ("+tp(r.c,r.t)+") · Q "+f0(r.v)});
     bars("mh-d",D,DN,0,function(i,r){return DL[i]+" · "+r.t+" pedidos · "+r.e+" entregados ("+tp(r.e,r.t)+") · "+r.d+" devueltos ("+tp(r.d,r.t)+") · "+r.c+" cancelados ("+tp(r.c,r.t)+") · Q "+f0(r.v)});
-    $("mh-pie").textContent="Son todos los pedidos de Dropi de esas fechas, no solo los de Meta: hoy el sistema no sabe de qué anuncio salió cada pedido. Las horas salen de Lumy, que usa hora de Colombia (igual que Perú, una más que Guatemala); el botón de zona horaria solo cambia cómo se ven las horas y los días. Los pedidos viejos sin hora no cuentan en la gráfica por hora. Con borde = la hora o el día con más movimiento.";
+    $("mh-pie").textContent=ctaPie+(cta?"Hoy":"Son todos los pedidos de Dropi de esas fechas, no solo los de Meta: hoy")+" el sistema no sabe de qué anuncio salió cada pedido. Las horas salen de Lumy, que usa hora de Colombia (igual que Perú, una más que Guatemala); el botón de zona horaria solo cambia cómo se ven las horas y los días. Los pedidos viejos sin hora no cuentan en la gráfica por hora. Con borde = la hora o el día con más movimiento.";
   }
   ["mh-h","mh-d"].forEach(function(b){$(b).addEventListener("click",function(e){var c=e.target.closest(".c[data-i]");if(!c)return;var i=+c.dataset.i;SEL[b]=SEL[b]===i?null:i;render()})});
   $("mh-tz").addEventListener("click",function(e){var b=e.target.closest("button[data-z]");if(!b)return;S.z=b.dataset.z;try{localStorage.setItem("ec_mhtz",S.z)}catch(x){}render()});
   $("mh-modo").addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;S.m=b.dataset.m;render()});
   ["m-desde","m-hasta","m-dia"].forEach(function(i){var e=$(i);if(e){e.addEventListener("change",render);e.addEventListener("input",render)}});
   var pr=$("m-presets");if(pr)pr.addEventListener("click",function(){setTimeout(render,50)});
+  var cs=$("cta");if(cs)cs.addEventListener("change",function(){setTimeout(render,60)});
+  var cv=$("cta-view");if(cv)cv.addEventListener("click",function(e){if(e.target.closest("a[data-i]"))setTimeout(render,80)});
   document.addEventListener("ecprod",function(){setTimeout(render,0)});
   document.addEventListener("click",function(e){if(e.target.closest('#side button[data-p="met"]'))setTimeout(render,80)});
   setTimeout(render,600);
