@@ -33,12 +33,66 @@ async function graph(path, params) {
   const out = [];
   let url = "https://graph.facebook.com/" + GV + "/" + path + "?" + new URLSearchParams(Object.assign({ access_token: MTOKEN, limit: "500" }, params)).toString();
   for (let i = 0; i < 20 && url; i++) {
-    const r = await fetch(url, { signal: AbortSignal.timeout(25000) });
-    const j = await r.json();
-    if (!r.ok || j.error) throw new Error((j.error && j.error.message) || "meta " + r.status);
+    let r, j;
+    for (let n = 0; ; n++) {
+      r = await fetch(url, { signal: AbortSignal.timeout(25000) });
+      j = await r.json().catch(() => ({}));
+      const c = j.error && j.error.code;
+      // 1, 2: fallo pasajero de Meta · 4, 17, 341, 80000, 80004: demasiadas consultas
+      if (j.error && n < 2 && (c === 1 || c === 2 || j.error.is_transient)) { await new Promise((ok) => setTimeout(ok, 1500 * (n + 1))); continue; }
+      break;
+    }
+    if (!r.ok || j.error) { const e = new Error(explica(j.error) || "meta " + r.status); e.code = j.error && j.error.code; throw e; }
     (j.data || []).forEach((x) => out.push(x));
     url = j.paging && j.paging.next ? j.paging.next : null;
   }
+  return out;
+}
+
+// Traduce el error de Meta a qué pasa y qué hacer.
+function explica(e) {
+  if (!e) return "";
+  const c = e.code, sub = e.error_subcode, m = String(e.message || "");
+  if (c === 190) return sub === 463 || /expired/i.test(m) ? "El token venció: genera uno nuevo y cámbialo en Vercel (META_ACCESS_TOKEN)." : "El token no es válido (" + m.slice(0, 90) + "): genera uno nuevo y cámbialo en Vercel.";
+  if (/API access blocked/i.test(m)) return "Meta tiene bloqueada la app que creó el token (API access blocked): en developers.facebook.com revisa los avisos de la app o crea el token con otra app.";
+  if (c === 200 || c === 10 || c === 3 || c === 294) return "Al token le falta permiso para esta cuenta (necesita ads_read y la cuenta asignada al usuario del sistema). Meta dice: " + m.slice(0, 110);
+  if (c === 100 && /does not exist|missing permissions|cannot be loaded/i.test(m)) return "El token no ve esta cuenta: asígnala al usuario del sistema en Configuración del negocio.";
+  if (c === 4 || c === 17 || c === 341 || c === 80000 || c === 80004 || c === 613) return "Meta pide esperar: demasiadas consultas seguidas. Se reintenta solo.";
+  if (c === 368) return "Meta bloqueó temporalmente la acción por sus políticas.";
+  if (c === 2635) return "La versión de la API ya no existe: hay que actualizar el tablero.";
+  return m.slice(0, 180) + (c ? " (código " + c + ")" : "");
+}
+
+// Prueba de conexión: dice si el token sirve, qué permisos tiene y si ve cada cuenta. Nunca devuelve el token.
+async function diagnostico() {
+  const out = { token: !!MTOKEN, cuentas: [] };
+  if (!MTOKEN) { out.problema = "Falta la variable META_ACCESS_TOKEN en Vercel (o falta Redeploy después de crearla)."; return out; }
+  const get = async (path, params) => {
+    const r = await fetch("https://graph.facebook.com/" + GV + "/" + path + "?" + new URLSearchParams(Object.assign({ access_token: MTOKEN }, params)).toString(), { signal: AbortSignal.timeout(15000) });
+    return r.json().catch(() => ({}));
+  };
+  try {
+    const d = await get("debug_token", { input_token: MTOKEN });
+    const x = d.data || {};
+    if (d.error) out.problema = explica(d.error);
+    else {
+      out.valido = !!x.is_valid; out.app = x.application || ""; out.tipo = x.type || "";
+      out.vence = x.expires_at ? new Date(x.expires_at * 1000).toISOString().slice(0, 10) : "no vence";
+      out.permisos = x.scopes || [];
+      if (!x.is_valid) out.problema = explica(x.error) || "El token ya no es válido: genera uno nuevo.";
+      else if (out.permisos.indexOf("ads_read") < 0 && out.permisos.indexOf("ads_management") < 0) out.problema = "Al token le falta el permiso ads_read: vuelve a generarlo marcando ads_read.";
+    }
+  } catch (e) { out.problema = "No se pudo hablar con Meta: " + String(e.message || e).slice(0, 120); }
+  await Promise.all(CUENTAS.map(async (id) => {
+    try {
+      const a = await get("act_" + id, { fields: "name,account_status,currency,disable_reason" });
+      if (a.error) return out.cuentas.push({ id, ok: false, motivo: explica(a.error) });
+      const i = await get("act_" + id + "/insights", { date_preset: "today", fields: "spend" });
+      const st = { 1: "activa", 2: "deshabilitada", 3: "con pago pendiente", 7: "en revisión", 9: "en periodo de gracia", 101: "cerrada" }[a.account_status] || "estado " + a.account_status;
+      out.cuentas.push({ id, ok: !i.error, nombre: a.name || "", estado: st, moneda: a.currency || "", motivo: i.error ? explica(i.error) : "" });
+    } catch (e) { out.cuentas.push({ id, ok: false, motivo: String(e.message || e).slice(0, 120) }); }
+  }));
+  out.cuentas.sort((a, b) => (a.id < b.id ? -1 : 1));
   return out;
 }
 
@@ -167,6 +221,7 @@ module.exports = async (req, res) => {
   }
   if (!URL_ || !TOKEN) return send(503, { error: "Falta conectar la base (Upstash Redis) en Vercel." });
   const q = req.query || Object.fromEntries(new URL(req.url, "http://x").searchParams);
+  if (q.diag === "1") { try { return send(200, { ok: true, diag: await diagnostico() }); } catch (e) { return send(200, { ok: false, error: "diag", detalle: String(e.message || e).slice(0, 200) }); } }
   try {
     const g = await leer();
     const cur = salida(g.meta, g.cuentas);

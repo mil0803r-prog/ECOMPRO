@@ -2423,6 +2423,24 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         renderMeta();
       }).catch(function(e){msg("Meta en vivo: error "+(e&&e.message||e),"err")});
     }
+    /* Probar conexión: pregunta al servidor si el token sirve y si ve cada cuenta */
+    var bx=document.createElement("div");bx.style.cssText="margin:0 0 8px;display:flex;flex-direction:column;gap:6px";
+    bx.innerHTML='<div><button type="button" class="chip" id="m-diag">Probar conexión con Meta</button> <button type="button" class="chip" id="m-resync">Actualizar ahora</button></div><div id="m-diag-out" class="sub" style="display:none;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);line-height:1.55"></div>';
+    mview.parentNode.insertBefore(bx,mview);
+    function nomCta(id){var n="cuenta "+id.slice(-6);CT.forEach(function(c){if(c.id===id)n=c.n});return n}
+    document.getElementById("m-resync").addEventListener("click",sync);
+    document.getElementById("m-diag").addEventListener("click",function(){
+      var o=document.getElementById("m-diag-out");o.style.display="block";o.textContent="Probando la conexión con Meta...";
+      fetch("/api/meta-sync?diag=1",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
+        var d=j&&j.diag;if(!d){o.textContent="No se pudo probar: "+((j&&(j.detalle||j.error))||"sin respuesta")+". Si acabas de subir cambios, espera a que Vercel diga Ready.";return}
+        var h="";
+        if(d.problema)h+='<div style="color:var(--rojo);font-weight:700">Problema: '+esc(d.problema)+'</div>';
+        else h+='<div style="color:var(--verde);font-weight:700">El token funciona.</div>';
+        if(d.token&&d.valido!==undefined)h+='<div>Token '+(d.valido?"válido":"NO válido")+(d.app?" · app: "+esc(d.app):"")+" · vence: "+esc(d.vence||"–")+" · permisos: "+esc((d.permisos||[]).join(", ")||"ninguno")+'</div>';
+        (d.cuentas||[]).forEach(function(c){h+='<div>'+(c.ok?"✅":"❌")+" <b>"+esc(nomCta(c.id))+"</b>"+(c.estado?" · "+esc(c.estado):"")+(c.moneda?" · "+esc(c.moneda):"")+(c.motivo?' · <span style="color:var(--rojo)">'+esc(c.motivo)+"</span>":"")+'</div>'});
+        o.innerHTML=h;
+      }).catch(function(e){o.textContent="No se pudo probar: "+(e&&e.message||e)});
+    });
     window.ecMetaLive={sync:sync,apply:apply};
     sync();setInterval(sync,15*60*1000);
   })();
