@@ -2186,7 +2186,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
    {n:"CUENTA 1",id:"1345913420795708",bm:"BM cuentas publicitarias millora",mo:"PEN",st:"ACTIVE",pago:true,data:C1,nota:"Primer gasto el 23 de junio. Casi todas las campañas optimizan conversaciones de mensajes."},
    {n:"CUENTA 3",id:"27517283797940921",bm:"BM cuentas publicitarias millora",mo:"PEN",st:"ACTIVE",pago:true,data:C3,nota:"Todo el gasto es de septiembre."},
    {n:"GUATEMALA 3",id:"24945736065120551",bm:"BM cuentas publicitarias",mo:"COP",st:"ACTIVE",pago:false,cero:true,nota:"Activa, sin gasto desde marzo y sin método de pago."},
-   {n:"GUATEMALA 2",id:"1533623667776634",bm:"BM cuentas publicitarias",mo:"GTQ",st:"ACTIVE",pago:true,nota:"Cuenta en quetzales, ya activa. Sus métricas diarias llegan con Meta en vivo; por ahora aquí solo se listan sus anuncios activos (en el Registro diario)."},
+   {n:"GUATEMALA 2",id:"1533623667776634",bm:"BM cuentas publicitarias",mo:"GTQ",st:"ACTIVE",pago:true,nota:"Cuenta en quetzales, ya activa. Sus métricas llegan con Meta en vivo."},
    {n:"Naturly 01",id:"27172810955691832",bm:"NaturLy Guatemala",mo:"PEN",st:"UNSETTLED",pago:true,off:"Meta no deja consultarla porque tiene un pago pendiente.",nota:"Mientras no se pague, no entrega anuncios."},
    {n:"NaturLy Guatemala (solo lectura)",id:"27728323580109106",bm:"NaturLy Guatemala",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo."},
    {n:"Millora (solo lectura) · USD",id:"3417110235115151",bm:"Millora",mo:"USD",st:"ACTIVE",pago:true,cero:true,nota:"Sin gasto desde marzo. Tiene catálogo de productos asociado."},
@@ -2200,7 +2200,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
   ];
   var msel=$("cta"),mview=$("cta-view"),md=$("m-desde"),mh=$("m-hasta");
   msel.innerHTML='<option value="all">Todas las cuentas ('+CT.length+')</option>'+CT.map(function(c,i){return '<option value="'+i+'">'+esc(c.n)+' · '+c.mo+' · '+c.id.slice(-6)+(c.off?' · no consultable':'')+'</option>'}).join("");
-  var PRE=[["Hoy",HOY,HOY],["Ayer","2026-10-27","2026-10-27"],["Todo el periodo",INI,HOY],["Últimos 7 días","2026-10-22",HOY],["Últimos 30 días","2026-09-29",HOY],["Septiembre","2026-09-01","2026-09-30"],["Agosto","2026-08-01","2026-08-31"],["Julio","2026-07-01","2026-07-31"],["Junio","2026-06-01","2026-06-30"]];
+  var PRE=[["Hoy",HOY,HOY],["Ayer","2026-10-27","2026-10-27"],["Todo el periodo",INI,HOY],["Últimos 7 días","2026-10-22",HOY],["Últimos 30 días","2026-09-29",HOY],["Este mes",HOY.slice(0,8)+"01",HOY],["Octubre","2026-10-01","2026-10-31"],["Septiembre","2026-09-01","2026-09-30"],["Agosto","2026-08-01","2026-08-31"],["Julio","2026-07-01","2026-07-31"],["Junio","2026-06-01","2026-06-30"]];
   $("m-presets").innerHTML=PRE.map(function(p,i){return '<button type="button" class="chip" data-i="'+i+'" aria-pressed="false">'+p[0]+'</button>'}).join("");
   md.value=INI;mh.value=HOY;
   function rango(){var d=md.value||INI,h=mh.value||HOY;if(d>h){var t=d;d=h;h=t}return [d,h]}
@@ -2293,12 +2293,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     return '<div><h2>'+(LVL==="conj"?"Conjuntos de anuncios":"Anuncios")+' en el rango</h2>'+lvch()+fc+(list.length?'':'<div class="sub" style="margin:8px 0">No hay '+(LVL==="conj"?"conjuntos":"anuncios")+' con ese filtro en este rango.</div>')+'<div class="tbl"><table><thead><tr><th>'+(LVL==="conj"?"Conjunto":"Anuncio")+'</th><th class="num">Gasto</th><th class="num">Impresiones</th><th class="num">Clics</th><th class="num">CTR</th><th class="num">Conv.</th><th class="num">Costo/conv.</th>'+(MM.cp?'<th class="num m-cp">Compras</th><th class="num m-cp">Costo/compra</th>':'')+'</tr></thead><tbody>'+body+'<tr><td class="lab">Total</td><td class="num">'+fm(T.sp)+'</td><td class="num">'+fi(T.im)+'</td><td class="num">'+fi(T.cl)+'</td><td class="num">'+ctr(T)+'</td><td class="num">'+fi(T.cv)+'</td><td class="num">'+(T.cv?fm(T.sp/T.cv):"–")+'</td>'+(MM.cp?'<td class="num m-cp">'+fi(T.cp)+'</td><td class="num m-cp">'+(T.cp?fm(T.sp/T.cp):"–")+'</td>':'')+'</tr></tbody></table></div><p class="foot">Métricas de Meta por '+(LVL==="conj"?"conjunto":"anuncio")+' en el rango elegido, en '+esc(c.mo)+'. Toca el nombre de un conjunto para ver sus anuncios. El interruptor deja un pedido de activar o pausar: dile a Claude "aplica los cambios de anuncios".</p></div>'}
   window.ecMetaRerender=function(){var pm=document.getElementById("p-met");if(pm&&!pm.hidden)renderMeta()};
   function renderAll(){
-    var r=rango(),a1=agg(CT[0]),a3=agg(CT[1]),ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
+    var r=rango(),a1={sp:0,im:0,cl:0,cv:0,cp:0},a3={sp:0,im:0,cl:0,cv:0,cp:0},nPen=0,nGasto=0,nPend=0;CT.forEach(function(c){if(c.st==="UNSETTLED")nPend++;if(!c.data)return;var a=agg(c);if(a.sp>0)nGasto++;if(c.mo!=="PEN")return;nPen++;["sp","im","cl","cv","cp"].forEach(function(k){a1[k]+=a[k]})});var ent=ORD.filter(function(o){return o.s==="E"&&o.d>=r[0]&&o.d<=r[1]}).length;
     var rows=CT.map(function(c,i){var a=agg(c);var g=c.off?'<span class="sub">no consultable</span>':(c.data?fm(a.sp):'0,00');
-      return '<tr><td><a href="#" data-i="'+i+'" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(c.n)+'</a><div class="sub">'+c.id+'</div></td><td>'+c.mo+'</td><td>'+pill(c)+'</td><td class="num">'+g+'</td><td class="num">'+(c.data?fi(a.cl):'–')+'</td><td class="num">'+(c.data?fi(a.cv):'–')+'</td></tr>'}).join("");
-    mview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(a1.sp+a3.sp,0)+' <small style="font-size:1rem">PEN</small>',"Cuenta 1 más Cuenta 3")+kS(sCtr({im:a1.im+a3.im,cl:a1.cl+a3.cl}),kpi("Clics",fi(a1.cl+a3.cl),"CTR "+ctr({im:a1.im+a3.im,cl:a1.cl+a3.cl})))+kS(sCosto(a1.sp+a3.sp,a1.cv+a3.cv,1,2,4),kpi("Conversaciones",fi(a1.cv+a3.cv),(a1.cv+a3.cv)?fm((a1.sp+a3.sp)/(a1.cv+a3.cv))+" PEN cada una":"sin datos"))+kS(sCosto(a1.sp+a3.sp,a1.cp+a3.cp,8,12,8),kpi("Compras (según Meta)",fi(a1.cp+a3.cp),(a1.cp+a3.cp)?fm((a1.sp+a3.sp)/(a1.cp+a3.cp))+" PEN cada una":"sin compras"))+kpi("Entregados (estado de Lumy)",fi(ent),"pedidos del rango · "+ORD.filter(function(o){return o.d>=r[0]&&o.d<=r[1]}).length+" en total")+kpi("CPA real (por entregado)",ent?fm((a1.sp+a3.sp)/ent)+' <small style="font-size:1rem">PEN</small>':"–",ent?"gasto de Cuenta 1 y 3 ÷ entregados":"sin entregados en el rango")+kpi("Cuentas con gasto",(a1.sp>0?1:0)+(a3.sp>0?1:0)+" de 12","2 con pago pendiente","ta")+'</div>'+
+      return '<tr><td><a href="#" data-i="'+i+'" style="color:var(--azul);font-weight:600;text-decoration:none">'+esc(c.n)+'</a><div class="sub">'+c.id+'</div></td><td>'+c.mo+'</td><td>'+pill(c)+'</td><td class="num">'+g+'</td><td class="num">'+(c.data?fi(a.cl):'–')+'</td><td class="num">'+(c.data?fi(a.cv):'–')+'</td><td class="num">'+(c.data?fi(a.cp):'–')+'</td></tr>'}).join("");
+    mview.innerHTML='<div class="grid g4">'+kpi("Gasto en el rango",fm(a1.sp+a3.sp,0)+' <small style="font-size:1rem">PEN</small>',nPen+" cuentas en soles")+kS(sCtr({im:a1.im+a3.im,cl:a1.cl+a3.cl}),kpi("Clics",fi(a1.cl+a3.cl),"CTR "+ctr({im:a1.im+a3.im,cl:a1.cl+a3.cl})))+kS(sCosto(a1.sp+a3.sp,a1.cv+a3.cv,1,2,4),kpi("Conversaciones",fi(a1.cv+a3.cv),(a1.cv+a3.cv)?fm((a1.sp+a3.sp)/(a1.cv+a3.cv))+" PEN cada una":"sin datos"))+kS(sCosto(a1.sp+a3.sp,a1.cp+a3.cp,8,12,8),kpi("Compras (según Meta)",fi(a1.cp+a3.cp),(a1.cp+a3.cp)?fm((a1.sp+a3.sp)/(a1.cp+a3.cp))+" PEN cada una":"sin compras"))+kpi("Entregados (estado de Lumy)",fi(ent),"pedidos del rango · "+ORD.filter(function(o){return o.d>=r[0]&&o.d<=r[1]}).length+" en total")+kpi("CPA real (por entregado)",ent?fm((a1.sp+a3.sp)/ent)+' <small style="font-size:1rem">PEN</small>':"–",ent?"gasto en soles ÷ entregados":"sin entregados en el rango")+kpi("Cuentas con gasto",nGasto+" de "+CT.length,nPend+" con pago pendiente","ta")+'</div>'+
      metricas(a1.sp+a3.sp,a1.cp+a3.cp,"PEN",false)+'<div class="warn"><b>Tu pauta compra conversaciones de WhatsApp, no visitas a la página</b><span>Casi todas las campañas optimizan "conversaciones iniciadas". Por eso las landings casi no reciben visitas de Meta. Lo que falta medir es cuántas conversaciones terminan en pedido.</span></div>'+
-     '<div><h2>Todas las cuentas · '+r[0]+' a '+r[1]+'</h2><div class="tbl"><table><thead><tr><th>Cuenta</th><th>Moneda</th><th>Estado</th><th class="num">Gasto</th><th class="num">Clics</th><th class="num">Conversaciones</th><th class="num">Compras</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot">Toca el nombre de una cuenta, o elige una en el desplegable, para ver su detalle. El CPA real es el gasto de Meta (soles, Cuentas 1 y 3) entre los pedidos que Lumy marca como entregados en Dropi que se crearon en ese rango; no separa pedidos que no vienen de Meta. Las compras son los eventos de compra que Meta atribuye a los anuncios (no son pedidos entregados). Los gastos están en la moneda de cada cuenta y no se suman entre monedas distintas. El total de arriba es solo Cuenta 1 más Cuenta 3, ambas en soles.</p></div>';
+     '<div><h2>Todas las cuentas · '+r[0]+' a '+r[1]+'</h2><div class="tbl"><table><thead><tr><th>Cuenta</th><th>Moneda</th><th>Estado</th><th class="num">Gasto</th><th class="num">Clics</th><th class="num">Conversaciones</th><th class="num">Compras</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="foot">Toca el nombre de una cuenta, o elige una en el desplegable, para ver su detalle. El CPA real es el gasto de Meta (cuentas en soles) entre los pedidos que Lumy marca como entregados en Dropi que se crearon en ese rango; no separa pedidos que no vienen de Meta. Las compras son los eventos de compra que Meta atribuye a los anuncios (no son pedidos entregados). Los gastos están en la moneda de cada cuenta y no se suman entre monedas distintas. El total de arriba suma solo las cuentas en soles.</p></div>';
     mview.querySelectorAll("a[data-i]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();msel.value=a.dataset.i;renderMeta()})});
   }
   function renderOne(c){
@@ -2383,16 +2383,20 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       if(!cur||!cur.cuentas)return false;
       Object.keys(cur.cuentas).forEach(function(id){
         var L=cur.cuentas[id],o=CMAP[id];if(!L)return;
-        if(o)mergeC(o,L,cur.since);
+        var desde=L.desde||cur.since;
+        if(!o){var cc=null;CT.forEach(function(c){if(c.id===id)cc=c});if(cc&&!cc.off){o=cc.data=cc.data||{names:[],rows:[],est:{},buy:{},cbuy:{}};CMAP[id]=o;cc.nota="Métricas en vivo de Meta desde el "+desde.split("-").reverse().join("/")+"."}}
+        if(o)mergeC(o,L,desde);
         var M=(window.META_LV=window.META_LV||{});
         if(!M[id])M[id]={campanas:[],conjuntos:[],anuncios:[],filasConj:[],filasAnun:[]};
-        mergeLV(M[id],L,cur.since);
+        mergeLV(M[id],L,desde);
       });
       if(cur.until&&cur.until>HOY){
         var viejo=HOY;HOY=cur.until;
         var ayer=new Date(Date.parse(HOY+"T12:00:00Z")-86400000).toISOString().slice(0,10);
         var s7=new Date(Date.parse(HOY+"T12:00:00Z")-6*86400000).toISOString().slice(0,10);
-        PRE.forEach(function(p){if(p[0]==="Hoy"){p[1]=HOY;p[2]=HOY}else if(p[0]==="Ayer"){p[1]=ayer;p[2]=ayer}else if(p[0]==="Todo el periodo"){p[2]=HOY}else if(p[0]==="Últimos 7 días"){p[1]=s7;p[2]=HOY}});
+        var s30=new Date(Date.parse(HOY+"T12:00:00Z")-29*86400000).toISOString().slice(0,10);
+        PRE.forEach(function(p){if(p[0]==="Hoy"){p[1]=HOY;p[2]=HOY}else if(p[0]==="Ayer"){p[1]=ayer;p[2]=ayer}else if(p[0]==="Todo el periodo"){p[2]=HOY}else if(p[0]==="Últimos 7 días"){p[1]=s7;p[2]=HOY}else if(p[0]==="Últimos 30 días"){p[1]=s30;p[2]=HOY}else if(p[0]==="Este mes"){p[1]=HOY.slice(0,8)+"01";p[2]=HOY}});
+        [md,mh,$("m-dia")].forEach(function(e){if(e)e.max=HOY});
         if(mh.value===viejo)mh.value=HOY;
       }
       return true;
@@ -2403,7 +2407,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return {st:r.status,j:j}});
       }).then(function(x){
         var j=x.j;
-        if(!j){msg("Meta en vivo: el servidor no tiene todavía la conexión nueva (HTTP "+x.st+"). Revisa en Vercel > Deployments que el último despliegue esté en Ready.","err");return}
+        if(!j){msg(x.st===504||x.st===502?"Meta en vivo: Meta tardó demasiado en responder; se vuelve a intentar solo en unos minutos.":"Meta en vivo: el servidor respondió con un error (HTTP "+x.st+"). Revisa en Vercel > Deployments que el último despliegue esté en Ready.","err");return}
         if(j.error==="auth"){msg("Meta en vivo: tu sesión venció. Recarga la página e inicia sesión de nuevo.","err");return}
         if(j.sin_token){msg("Meta en vivo: falta la variable META_ACCESS_TOKEN en Vercel (o falta hacer Redeploy después de crearla).","err");return}
         if(j.error){

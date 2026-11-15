@@ -1,6 +1,7 @@
 // Trae las métricas de Meta Ads directo de la Marketing API y las guarda en la base (ec:metalive).
 // Token: variable de entorno META_ACCESS_TOKEN (usuario del sistema con permiso ads_read). Nunca va en el repo.
 // GET  -> devuelve lo guardado.  GET ?refresh=1 -> vuelve a consultar Meta (máx. 1 vez cada 10 min).
+// Guarda una cuenta por campo (c:<id>) y va ACUMULANDO los días: cada consulta trae los últimos 5 y conserva los anteriores.
 // Cron de Vercel: llega con Authorization: Bearer CRON_SECRET.
 const crypto = require("crypto");
 const { session } = require("./_auth");
@@ -12,6 +13,8 @@ const MTOKEN = process.env.META_ACCESS_TOKEN;
 const GV = "v21.0";
 const CUENTAS = (process.env.META_ACCOUNTS || "1345913420795708,27517283797940921,1533623667776634,24945736065120551,1226449025709907,1426099046336722").split(",").map((s) => s.trim()).filter((s) => /^\d{5,20}$/.test(s));
 const DIAS = 5;
+const BASE = "2026-10-28"; // último día de los datos fijos del tablero: la primera consulta de cada cuenta arranca aquí
+const MAX_DIAS = 120; // historia en vivo que se conserva por cuenta
 const MIN_MS = 10 * 60 * 1000;
 
 async function redis(cmd) {
@@ -30,7 +33,7 @@ async function graph(path, params) {
   const out = [];
   let url = "https://graph.facebook.com/" + GV + "/" + path + "?" + new URLSearchParams(Object.assign({ access_token: MTOKEN, limit: "500" }, params)).toString();
   for (let i = 0; i < 20 && url; i++) {
-    const r = await fetch(url);
+    const r = await fetch(url, { signal: AbortSignal.timeout(25000) });
     const j = await r.json();
     if (!r.ok || j.error) throw new Error((j.error && j.error.message) || "meta " + r.status);
     (j.data || []).forEach((x) => out.push(x));
@@ -65,7 +68,7 @@ async function cuenta(id, since, until) {
     ins("campaign", "campaign_id"),
     ins("adset", "adset_id"),
     ins("ad", "ad_id"),
-    graph(act + "/insights", { level: "ad", date_preset: "maximum", fields: "ad_id,spend,actions" }),
+    graph(act + "/insights", { level: "ad", date_preset: "maximum", fields: "ad_id,spend,actions", filtering: JSON.stringify([{ field: "ad.effective_status", operator: "IN", value: ["ACTIVE"] }]) }).catch(() => []),
   ]);
   return {
     campanas: camp.map((x) => ({ id: x.id, nombre: x.name, estado: x.effective_status })),
@@ -81,7 +84,36 @@ function fechas() {
   const hoy = new Date(Date.now() - 5 * 3600 * 1000);
   const ini = new Date(hoy.getTime() - (DIAS - 1) * 86400000);
   const f = (d) => d.toISOString().slice(0, 10);
-  return { since: f(ini), until: f(hoy) };
+  return { since: f(ini), until: f(hoy), corte: f(new Date(hoy.getTime() - MAX_DIAS * 86400000)) };
+}
+
+// Une lo nuevo con lo guardado: las entidades se actualizan por id y las filas anteriores a "since" se conservan.
+function unir(old, nu, since, corte) {
+  const sMD = since.slice(5), cMD = corte.slice(0, 4) === since.slice(0, 4) ? corte.slice(5) : "00-00";
+  const ent = (k) => { const by = new Map(); ((old && old[k]) || []).forEach((x) => by.set(x.id, x)); nu[k].forEach((x) => by.set(x.id, x)); return [...by.values()]; };
+  const fil = (k) => ((old && old[k]) || []).filter((r) => r[0] < sMD && r[0] >= cMD).concat(nu[k]).sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));
+  const desde = old && old.desde && old.desde < since ? old.desde : since;
+  return { desde: desde < corte ? corte : desde, campanas: ent("campanas"), conjuntos: ent("conjuntos"), anuncios: ent("anuncios"), filasCamp: fil("filasCamp"), filasConj: fil("filasConj"), filasAnun: fil("filasAnun") };
+}
+
+// Lee todo lo guardado: { meta, cuentas }. Acepta el formato viejo (todo dentro de "cur"), que no trae historia.
+async function leer() {
+  const flat = (await redis(["HGETALL", "ec:metalive"])) || [];
+  let meta = null; const cuentas = {};
+  for (let i = 0; i < flat.length; i += 2) {
+    try {
+      if (flat[i] === "cur") meta = JSON.parse(flat[i + 1]);
+      else if (flat[i].slice(0, 2) === "c:") cuentas[flat[i].slice(2)] = JSON.parse(flat[i + 1]);
+    } catch (e) {}
+  }
+  if (meta && meta.cuentas) delete meta.cuentas;
+  return { meta, cuentas };
+}
+function salida(meta, cuentas) {
+  if (!meta && !Object.keys(cuentas).length) return null;
+  const out = Object.assign({}, meta, { cuentas: {} });
+  Object.keys(cuentas).forEach((k) => { const c = Object.assign({}, cuentas[k]); c.desde = String(c.desde || "").slice(5); out.cuentas[k] = c; });
+  return out;
 }
 
 // Alertas al celular: anuncio ACTIVO con S/ 8 gastados desde que empezó y 0 compras, y anuncio activo con costo por conversación mayor a S/ 1.
@@ -136,30 +168,39 @@ module.exports = async (req, res) => {
   if (!URL_ || !TOKEN) return send(503, { error: "Falta conectar la base (Upstash Redis) en Vercel." });
   const q = req.query || Object.fromEntries(new URL(req.url, "http://x").searchParams);
   try {
-    const cur = JSON.parse((await redis(["HGET", "ec:metalive", "cur"])) || "null");
+    const g = await leer();
+    const cur = salida(g.meta, g.cuentas);
     const quiere = cron || q.refresh === "1";
-    if (!quiere || (!cron && cur && Date.now() - cur.ts < MIN_MS)) return send(200, { ok: true, cur, sin_token: !MTOKEN });
+    if (!quiere || (!cron && g.meta && Object.keys(g.cuentas).length && Date.now() - g.meta.ts < MIN_MS)) return send(200, { ok: true, cur, sin_token: !MTOKEN });
     if (!MTOKEN) return send(200, { ok: false, error: "Falta META_ACCESS_TOKEN en Vercel.", cur, sin_token: true });
-    const { since, until } = fechas();
-    const cuentas = {}, fallas = {};
-    for (const id of CUENTAS) {
-      try { cuentas[id] = await cuenta(id, since, until); } catch (e) { fallas[id] = String(e.message || e).slice(0, 200); }
-    }
-    if (!Object.keys(cuentas).length) {
+    const { since, until, corte } = fechas();
+    const nuevas = {}, fallas = {};
+    // Todas las cuentas a la vez. La que aún no tiene historia arranca desde BASE para no dejar días sin datos.
+    await Promise.all(CUENTAS.map(async (id) => {
+      const old = g.cuentas[id];
+      const desde = old && old.desde ? since : (BASE > corte ? BASE : corte);
+      try { nuevas[id] = { desde, datos: await cuenta(id, desde, until) }; } catch (e) { fallas[id] = String(e.message || e).slice(0, 200); }
+    }));
+    if (!Object.keys(nuevas).length) {
       const motivo = Object.keys(fallas).map((k) => fallas[k]).join(" | ").slice(0, 300);
       return send(200, { ok: false, error: "meta", detalle: motivo || "Meta no devolvió datos", cur });
     }
-    const nuevo = { ts: Date.now(), since: since.slice(5), until, cuentas: Object.assign({}, cur && cur.cuentas, cuentas), fallas };
-    // Las cifras acumuladas solo sirven para las alertas: no se guardan en el tablero.
-    const sinAcum = JSON.parse(JSON.stringify(nuevo));
-    Object.keys(sinAcum.cuentas).forEach((k) => { delete sinAcum.cuentas[k].acum; });
-    await redis(["HSET", "ec:metalive", "cur", JSON.stringify(sinAcum)]);
+    const paraAlertas = {};
+    for (const id of Object.keys(nuevas)) {
+      const n = nuevas[id];
+      paraAlertas[id] = n.datos;
+      const u = unir(g.cuentas[id], n.datos, n.desde, corte);
+      g.cuentas[id] = u;
+      await redis(["HSET", "ec:metalive", "c:" + id, JSON.stringify(u)]);
+    }
+    const meta = { ts: Date.now(), since: since.slice(5), until, fallas };
+    await redis(["HSET", "ec:metalive", "cur", JSON.stringify(meta)]);
     let avisos = 0;
-    try { avisos = await alertar(cuentas); } catch (e) {}
-    return send(200, { ok: true, cur: sinAcum, avisos });
+    try { avisos = await alertar(paraAlertas); } catch (e) {}
+    return send(200, { ok: true, cur: salida(meta, g.cuentas), avisos });
   } catch (e) {
     let cur = null;
-    try { cur = JSON.parse((await redis(["HGET", "ec:metalive", "cur"])) || "null"); } catch (e2) {}
+    try { const g2 = await leer(); cur = salida(g2.meta, g2.cuentas); } catch (e2) {}
     return send(200, { ok: false, error: "meta", detalle: String(e.message || e).slice(0, 200), cur });
   }
 };
