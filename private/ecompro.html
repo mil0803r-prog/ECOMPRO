@@ -2923,8 +2923,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     var fij=PINS.map(function(p){return find(p)?[p,find(p)]:null}).filter(Boolean);
     var top=fij.length?'<div class="sgrp sgpins open"><div class="sg sghead">Fijados</div><div class="sgbody">'+fij.map(function(x){return item(x[1].g,[x[0],x[1].l],x[1].g===g&&x[0]===pane)}).join("")+'</div></div>':'';
     sd.innerHTML=top+SGR.map(function(G){
-      if(G.solo){if(gHidden(G.solo))return "";var x=GR[G.solo][0];return '<button type="button" class="sg sgsolo'+(G.k==="aju"?' sgend':'')+'" data-g="'+G.solo+'" data-p="'+x[0]+'" aria-current="'+(G.solo===g)+'">'+ico(x[0])+'<span>'+x[1]+'</span>'+pinb(x[0],x[1])+'</button>'}
-      var its=[],act=false;G.gs.forEach(function(k){if(gHidden(k))return;GR[k].forEach(function(x){var on=k===g&&x[0]===pane;if(on)act=true;its.push(item(k,x,on))})});
+      if(G.solo){if(gHidden(G.solo))return "";var x=GR[G.solo][0];if(PINS.indexOf(x[0])>=0)return "";return '<button type="button" class="sg sgsolo'+(G.k==="aju"?' sgend':'')+'" data-g="'+G.solo+'" data-p="'+x[0]+'" aria-current="'+(G.solo===g)+'">'+ico(x[0])+'<span>'+x[1]+'</span>'+pinb(x[0],x[1])+'</button>'}
+      var its=[],act=false;G.gs.forEach(function(k){if(gHidden(k))return;GR[k].forEach(function(x){if(PINS.indexOf(x[0])>=0)return;var on=k===g&&x[0]===pane;if(on)act=true;its.push(item(k,x,on))})});
       if(!its.length)return "";var op=!!SOPEN[G.k];
       return '<div class="sgrp'+(op?' open':'')+(act?' act':'')+'"><div class="sgh" role="button" tabindex="0" data-tg="'+G.k+'" aria-expanded="'+op+'"><span class="sgi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+G.ic+'</svg></span><span class="sgt">'+G.t+'</span><span class="sgn">'+its.length+'</span><svg class="sgc" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div><div class="sgbody">'+its.join("")+'</div></div>';
     }).join("");
