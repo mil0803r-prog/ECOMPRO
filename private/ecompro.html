@@ -4673,15 +4673,39 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     var nm=box==="mh-h"?ampm(i)+" a "+ampm((i+1)%24):DL[i];
     var rows=[["e","Entregados"],["d","Devueltos e incidencias"],["p","En proceso"],["c","Cancelados"]].map(function(k){return '<tr><td><span class="dot" style="background:'+COL[k[0]]+'"></span>'+k[1]+'</td><td>'+r[k[0]]+'</td><td><b>'+tp(r[k[0]],r.t)+'</b></td><td>Q '+f0(r["v"+k[0]])+'</td></tr>'}).join("");
     el.innerHTML='<h4>'+nm+' · '+r.t+' pedidos · Q '+f0(r.v)+'</h4><table><thead><tr><th>Estado</th><th>Pedidos</th><th>%</th><th>Venta</th></tr></thead><tbody>'+rows+'</tbody></table>';el.hidden=false}
+  /* Pedidos de Dropi en vivo (con el nombre del producto) para ligar cada pedido con su cuenta publicitaria */
+  var DLV=null,DLT=0;
+  function cargaDropi(){if(Date.now()-DLT<5*60*1000)return;DLT=Date.now();
+    fetch("/api/dropi?a=data",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){
+      if(!j||!j.orders||!j.orders.length)return;var G={entregado:"E",devolucion:"D",cancelado:"C",novedad:"I",proceso:"R"};
+      DLV=j.orders.map(function(o){var raw=String(o.date||""),d=raw.slice(0,10),t="";
+        if(raw.length>=16){if(/Z$|[+-]\d\d:?\d\d$/.test(raw)){var x=new Date(new Date(raw).getTime()-5*3600*1000);if(!isNaN(x)){d=x.toISOString().slice(0,10);t=x.toISOString().slice(11,16)}}else t=raw.slice(11,16)}
+        return {n:String(o.id),d:d,t:t,s:G[o.group]||"R",v:+o.total||0,pn:o.prod||""}});
+      render()}).catch(function(){})}
   function render(){
-    var O=window.__ORD||[];if(!O.length)return;
+    if(window.ecCta&&window.ecCta())cargaDropi();
+    var O=window.__ORD||[];if(!O.length&&!(DLV&&DLV.length))return;
     /* Con una cuenta publicitaria elegida: solo los pedidos de los productos que anotaste con esa cuenta en Registro diario */
     var cta=window.ecCta?window.ecCta():null,ctaTxt="",ctaPie="";
     if(cta){
       var RL=[];try{RL=JSON.parse(localStorage.getItem("ec_regmeta")||"[]")||[]}catch(e){}
-      var nk=function(x){return String(x||"").trim().toLowerCase()},PS={},pn=[];
-      RL.forEach(function(r){if(r&&r.ct===cta.id&&r.p){var k=nk(r.p);if(!PS[k]){PS[k]=1;pn.push(String(r.p).trim())}}});
-      if(pn.length&&window.ecProd){O=O.filter(function(o){return PS[nk(window.ecProd.of(o))]});ctaTxt="Solo "+cta.n+" · productos: "+pn.join(", ")+". ";ctaPie="Aquí solo entran los pedidos de los productos que anotaste con esta cuenta en Registro diario. "}
+      /* Liga pedido ↔ cuenta: por nombre del producto (sin fijarse en x1/x2, tildes ni mayúsculas) o por el precio de venta de ese producto en la calculadora */
+      var nk=function(x){return String(x||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s*x\s*\d+\s*$/,"").replace(/[^a-z0-9]+/g," ").trim()},PS={},pn=[],PV={},pvs=[];
+      RL.forEach(function(r){if(r&&r.ct===cta.id&&r.p){var k=nk(r.p);if(k&&!PS[k]){PS[k]=1;pn.push(String(r.p).trim())}}});
+      try{(window.__calcs?window.__calcs():[]).forEach(function(g){if(!g||!PS[nk(g.nombre)])return;var re=g.res||{},ip=g.inp||{};if((re.mon||ip.mon||"GTQ")!=="GTQ")return;
+        [re.sell,Math.round(+re.pv||0),+ip.pp,+ip.pp2].forEach(function(v){v=+v;if(v>0&&!PV[v]){PV[v]=1;pvs.push(v)}})})}catch(e){}
+      if(pn.length){
+        /* Si Dropi en vivo está conectado se usan sus pedidos, que traen el nombre real del producto */
+        var vivo=DLV&&DLV.length;if(vivo)O=DLV;
+        var todos=O.length,tk=function(x){return x.split(" ").filter(function(w){return w.length>=4})},PT=Object.keys(PS).map(tk);
+        var parecido=function(nm){if(PS[nm])return true;for(var k in PS)if(nm.indexOf(k)>-1||k.indexOf(nm)>-1)return true;
+          var t=tk(nm);if(!t.length)return false;for(var i=0;i<PT.length;i++){var c=PT[i].filter(function(w){return t.indexOf(w)>-1}).length;if(c>=2||(c>=1&&Math.min(PT[i].length,t.length)===1))return true}return false};
+        O=O.filter(function(o){var nm=nk(o.pn||(window.ecProd?window.ecProd.of(o):""));if(nm&&nm!=="sin producto"&&nm!=="producto")return parecido(nm);return !!PV[+o.v]});
+        if(vivo)ctaTxt="";
+        ctaTxt="Solo "+cta.n+" · productos: "+pn.join(", ")+". "+(vivo?"Pedidos de Dropi en vivo. ":"");
+        ctaPie=O.length?"Aquí solo entran los pedidos de los productos que anotaste con esta cuenta en Registro diario (por nombre del producto o por su precio de venta"+(pvs.length?": Q "+pvs.sort(function(x,y){return x-y}).join(", Q "):"")+"). "
+          :"No encontré pedidos de esos productos entre los "+todos+" pedidos cargados"+(pvs.length?" (busqué por nombre y por precio Q "+pvs.sort(function(x,y){return x-y}).join(", Q ")+")":" (el producto no tiene precio en quetzales guardado en la calculadora)")+". Para ligarlos: en Ajustes > Productos por precio pon el precio real al que se vende ese producto, o asigna el producto al pedido. ";
+      }
       else{O=[];ctaTxt="Solo "+cta.n+". ";ctaPie="Esta cuenta publicitaria no tiene productos anotados en Registro diario, por eso no hay pedidos que mostrar. Anota ahí el producto con esta cuenta y aparecerán solo sus pedidos. "}
     }
     var d1=($("m-dia")&&$("m-dia").value)||($("m-desde")&&$("m-desde").value)||"",d2=($("m-dia")&&$("m-dia").value)||($("m-hasta")&&$("m-hasta").value)||"";
