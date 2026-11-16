@@ -67,6 +67,23 @@ async function dropiPost(path, body, timeoutMs) {
 
 // Productos FAVORITOS de la cuenta: catálogo de Dropi filtrado con favorite=true. Si Dropi ignora el filtro (devuelve lo mismo
 // que sin él) no se muestra nada, para no hacer pasar por favoritos productos que no lo son.
+// Busca el teléfono del PROVEEDOR dentro de un producto: en su usuario, su bodega o su tienda (nunca datos de compradores).
+const TEL_K = /^(phone|cellphone|cell_phone|mobile|whatsapp|whatsapp_number|telefono|celular|phone_number|contact_phone)$/i;
+function telProv(r) {
+  const limpio = (v) => { const d = String(v == null ? "" : v).replace(/[^\d+]/g, ""); return d.replace(/\D/g, "").length >= 8 ? d.slice(0, 20) : ""; };
+  const mira = (o, d) => {
+    if (!o || typeof o !== "object" || d > 3) return "";
+    for (const k of Object.keys(o)) { if (TEL_K.test(k)) { const t = limpio(o[k]); if (t) return t; } }
+    for (const k of Object.keys(o)) { const v = o[k]; if (v && typeof v === "object") { const t = mira(Array.isArray(v) ? v[0] : v, d + 1); if (t) return t; } }
+    return "";
+  };
+  for (const k of ["user", "supplier", "provider", "store", "warehouse", "warehouses", "warehouse_product", "user_warehouse"]) {
+    const v = r && r[k]; if (!v) continue;
+    const t = mira(Array.isArray(v) ? v[0] : v, 0); if (t) return t;
+  }
+  return "";
+}
+const TELC = new Map(); // id de producto -> teléfono encontrado en su detalle ("" = no trae)
 let FAVC = null;
 async function favoritos() {
   if (FAVC && Date.now() - FAVC.t < 5 * 60 * 1000) return FAVC.v;
@@ -84,11 +101,27 @@ async function favoritos() {
       const u = (r.user && typeof r.user === "object" ? r.user : null) || {};
       const cat = Array.isArray(r.categories) && r.categories[0] ? r.categories[0].name || "" : "";
       const st = Array.isArray(r.warehouse_product) ? r.warehouse_product.reduce((a, w) => a + (num(w.stock) || 0), 0) : r.stock;
-      out.push({ id: String(r.id), n: String(r.name).slice(0, 120), prov: String(u.store_name || u.name || "").slice(0, 80), sid: String(u.id != null ? u.id : r.user_id != null ? r.user_id : ""), tel: String(u.phone || u.cellphone || "").replace(/[^\d+]/g, "").slice(0, 20), cat: String(cat).slice(0, 40), costo: num(r.sale_price), sug: num(r.suggested_price), stock: st == null ? null : num(st) });
+      out.push({ id: String(r.id), n: String(r.name).slice(0, 120), prov: String(u.store_name || u.name || "").slice(0, 80), sid: String(u.id != null ? u.id : r.user_id != null ? r.user_id : ""), tel: telProv(r), cat: String(cat).slice(0, 40), costo: num(r.sale_price), sug: num(r.suggested_price), stock: st == null ? null : num(st) });
     }
     if (L.length < 50 || !nuevos) break;
   }
-  let v = { ok: true, favs: out };
+  // A los que no traen teléfono en la lista se les mira el detalle del producto (máx. 60, de 6 en 6, con caché).
+  // Un mismo proveedor comparte número: lo que se encuentra en un producto sirve para los demás del mismo proveedor.
+  const porProv = new Map();
+  out.forEach((f) => { if (f.tel && f.sid) porProv.set(f.sid, f.tel); });
+  const faltan = out.filter((f) => !f.tel && !(f.sid && porProv.has(f.sid)) && !TELC.has(f.id)).slice(0, 60);
+  for (let i = 0; i < faltan.length; i += 6) {
+    await Promise.all(faltan.slice(i, i + 6).map(async (f) => {
+      if (f.sid && porProv.has(f.sid)) return;
+      try {
+        const j = await dropi("/integrations/products/" + encodeURIComponent(f.id), 8000);
+        const t = telProv((j && (j.objects || j.data || j.product)) || j || {});
+        TELC.set(f.id, t); if (t && f.sid) porProv.set(f.sid, t);
+      } catch (e) { TELC.set(f.id, ""); }
+    }));
+  }
+  out.forEach((f) => { if (!f.tel) f.tel = (f.sid && porProv.get(f.sid)) || TELC.get(f.id) || ""; });
+  let v = { ok: true, favs: out, conTel: out.filter((f) => f.tel).length };
   if (out.length) {
     const sin = filas(await dropiPost("/integrations/products/index", Object.assign({}, base, { favorite: false }))).map((x) => x && x.id).join(",");
     if (sin && sin === primera) v = { ok: false, favs: [], motivo: "Dropi no filtra los favoritos con este token: devuelve el catálogo completo." };

@@ -934,7 +934,7 @@ let FAVD=null;
 async function loadFavD(){try{const r=await fetch('/api/dropi?a=favs',{cache:'no-store'});if(r.ok){FAVD=await r.json();renderFav();}}catch(e){}}
 const favSid=f=>f.s||((FAV_M[f.n]||{}).sid)||'';
 const favCatOf=f=>{const sid=favSid(f),sn=sid?supName(sid):'';return (f.d&&f.p?f.p:'')||(sn&&!/^Proveedor \d+$/.test(sn)?sn:'')||(f.p||'').trim()||sn||'Sin proveedor';};
-const favTel=f=>f.t||(favSid(f)?String(supPhone(favSid(f))||'').replace(/[^\d+]/g,''):'');
+const favTel=f=>{if(f.t)return f.t;const sid=favSid(f);if(!sid)return '';const d=String(supPhone(sid)||'').replace(/[^\d+]/g,'');if(d)return d;const o=(PROV.favs||[]).filter(x=>x.t&&favSid(x)===sid)[0];return o?o.t:'';};
 function renderFav(){
   if(!$('#favList'))return;
   const F=PROV.favs||(PROV.favs=[]),M=FAV_M=favMapa(),tiene=n=>F.some(f=>f.n.toLowerCase()===n.toLowerCase());
@@ -953,7 +953,7 @@ function renderFav(){
     if(cambios)favSave();}
   const visible=f=>!dOk||!!f.d||!!f.m||(('c' in f)&&!f.x);
   const V=F.filter(visible);
-  $('#favHint2').innerHTML=dOk?'⭐ '+FAVD.favs.length+' favoritos leídos de Dropi.':(FAVD&&FAVD.motivo?'No se pudieron leer tus favoritos de Dropi: '+E(FAVD.motivo)+' Mientras tanto se muestran los productos de tus pedidos.':FAVD&&FAVD.ok?'Dropi no devolvió favoritos para esta cuenta. Se muestran los productos de tus pedidos.':'');
+  $('#favHint2').innerHTML=dOk?'⭐ '+FAVD.favs.length+' favoritos leídos de Dropi · '+V.filter(f=>favTel(f)).length+' con WhatsApp del proveedor.':(FAVD&&FAVD.motivo?'No se pudieron leer tus favoritos de Dropi: '+E(FAVD.motivo)+' Mientras tanto se muestran los productos de tus pedidos.':FAVD&&FAVD.ok?'Dropi no devolvió favoritos para esta cuenta. Se muestran los productos de tus pedidos.':'');
   $('#favTag').textContent=V.length?V.length+' producto'+(V.length===1?'':'s'):'';
   if(document.activeElement!==$('#favTpl'))$('#favTpl').value=PROV.favTpl||FAV_TPL;
   const nombres=Object.keys(M).sort((a,b)=>M[b].c-M[a].c);
@@ -967,7 +967,7 @@ function renderFav(){
   $('#favCatChips').innerHTML=cn.length>1?`<button data-c="" class="${FAV_CAT===''?'on':''}">Todos los proveedores (${V.length})</button>`+cn.map(c=>`<button data-c="${E(c)}" class="${FAV_CAT===c?'on':''}">${E(c)} (${cats[c]})</button>`).join(''):'';
   $('#favCatChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{FAV_CAT=b.dataset.c;renderFav();});
   const fila=(f,i)=>{const tel=favTel(f),l=waLink(tel,favMsg(f));
-    return `<div class="orow"><div class="meta"><span class="who">${f.d?'⭐ ':''}${E(f.n)}</span><span class="det">${tel?'WhatsApp '+E(tel):'Sin WhatsApp del proveedor'}</span></div>
+    return `<div class="orow"><div class="meta"><span class="who">${f.d?'⭐ ':''}${E(f.n)}</span><span class="det">${tel?'📱 <b style="color:var(--tx);font-size:12.500px">'+E(tel)+'</b>':'Sin WhatsApp del proveedor'}</span></div>
       ${tel?'':`<input data-ft="${i}" inputmode="tel" placeholder="WhatsApp del proveedor" style="width:190px;padding:7px 10px;font-size:12.500px">`}
       ${l?`<a class="wa" href="${l}" target="_blank" rel="noopener" style="background:var(--green);color:#fff">💬 Pedir foto o video</a>`:'<span class="wa" style="opacity:.5;cursor:default">Falta el WhatsApp</span>'}
       <button class="ghost" data-fe="${i}" title="Cambiar el WhatsApp" style="padding:6px 9px">✏️</button><button class="ghost" data-fd="${i}" title="Quitar de favoritos" style="padding:6px 9px">✕</button></div>`};
