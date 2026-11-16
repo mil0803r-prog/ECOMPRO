@@ -252,6 +252,18 @@ async function build(dFrom, dTo) {
     const mainW = whs[0] || {};
     supplierInfo[sid] = { name: mainW.name || "", phone: mainW.phone || "", city: mainW.city || "", warehouses: whs };
   }
+  // catálogo: TODOS los productos de todos los pedidos (sin importar las fechas elegidas) con su proveedor más frecuente
+  const cat = new Map();
+  for (const x of raw) {
+    for (const det of x.orderdetails || []) {
+      const n = String((det && det.product && det.product.name) || "").trim();
+      if (!n) continue;
+      const c = cat.get(n) || { c: 0, s: new Map() };
+      c.c++; if (x.supplier_id != null) cnt(c.s, String(x.supplier_id));
+      cat.set(n, c);
+    }
+  }
+  const catalogo = [...cat.entries()].map(([n, v]) => ({ n, c: v.c, sid: (top(v.s)[0] || [])[0] || "" })).sort((a, b) => b.c - a.c).slice(0, 400);
   const need = new Set(orders.map((x) => x.hk).filter(Boolean));
   const huella = {};
   for (const x of raw) {
@@ -268,7 +280,7 @@ async function build(dFrom, dTo) {
     huella, revisados: raw.length, paginas: RAW.pages || 1,
     updated: new Date().toISOString().slice(0, 19), ms: Date.now() - t0,
     range: { from: f, to: t, min: dmin, max: dmax, applied: !!(dFrom || dTo) },
-    kpis, carriers: carList, statusList, depts, products, orders, suppliers, supplierInfo, zones: zoneList, trend: trendList,
+    kpis, carriers: carList, statusList, depts, products, orders, suppliers, supplierInfo, catalogo, zones: zoneList, trend: trendList,
   };
 }
 
@@ -343,7 +355,7 @@ async function handle(req, send) {
       if (req.method === "POST") {
         const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
         const s = JSON.stringify(b);
-        if (!b || typeof b !== "object" || Array.isArray(b) || s.length > 80000) return send(400, { error: "datos inválidos" });
+        if (!b || typeof b !== "object" || Array.isArray(b) || s.length > 120000) return send(400, { error: "datos inválidos" });
         await redis(["HSET", "ec:settings", "dropiprov", s]);
         return send(200, { ok: true });
       }
