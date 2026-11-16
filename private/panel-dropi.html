@@ -435,7 +435,7 @@ let DATA=null, sortK='date', sortDir=-1, charts={};
 const REFRESH=60; let left=REFRESH, timer=null;
 let range={from:null,to:null}, boundsSet=false;
 const DEFAULT_TPL="Hola 👋, consulto por la guía *{guia}* del pedido #{id} ({cliente} – {ciudad}) con {transportadora}, que figura en estado *{estado}*. ¿Me ayudan a revisar si está retrasada? Gracias 🙏";
-let PROV={template:DEFAULT_TPL, carriers:{}, suppliers:{}};
+let PROV={template:DEFAULT_TPL, carriers:{}, suppliers:{}};let PROV_OK=false;
 
 const pad=n=>String(n).padStart(2,'0');
 const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
@@ -463,7 +463,7 @@ function preset(p){
 
 async function loadProviders(){
   try{const r=await fetch(apiUrl('/api/providers'),{cache:'no-store'});if(r.ok){const j=await r.json();
-    PROV={template:j.template||DEFAULT_TPL, carriers:j.carriers||{}, suppliers:j.suppliers||{}, favs:Array.isArray(j.favs)?j.favs:[], favTpl:j.favTpl||''};}}catch(e){}
+    PROV={template:j.template||DEFAULT_TPL, carriers:j.carriers||{}, suppliers:j.suppliers||{}, favs:Array.isArray(j.favs)?j.favs:[], favTpl:j.favTpl||'', favNo:Array.isArray(j.favNo)?j.favNo:[]};PROV_OK=true;}}catch(e){}
   if(typeof renderFav==='function')renderFav();
 }
 async function load(){
@@ -772,7 +772,7 @@ async function saveProv(){
   const carriers={}; document.querySelectorAll('[data-carrier]').forEach(i=>{if(i.value.trim())carriers[i.getAttribute('data-carrier')]=i.value.trim();});
   const suppliers={}; document.querySelectorAll('[data-sup-phone]').forEach(i=>{const id=i.getAttribute('data-sup-phone');
     const nm=document.querySelector('[data-sup-name="'+id+'"]'); suppliers[id]={name:(nm?nm.value.trim():''),phone:i.value.trim()};});
-  PROV={template:$('#provTpl').value||DEFAULT_TPL, carriers, suppliers, favs:PROV.favs||[], favTpl:PROV.favTpl||''};
+  PROV={template:$('#provTpl').value||DEFAULT_TPL, carriers, suppliers, favs:PROV.favs||[], favTpl:PROV.favTpl||'', favNo:PROV.favNo||[]};
   try{await fetch(apiUrl('/api/providers'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(PROV)});
     $('#saveok').classList.add('show');setTimeout(()=>$('#saveok').classList.remove('show'),1800);
     if(DATA)render();
@@ -924,17 +924,22 @@ async function favSave(){try{await fetch(apiUrl('/api/providers'),{method:'POST'
 /* producto -> proveedor más frecuente en tus pedidos */
 function favMapa(){const m={};((DATA&&DATA.orders)||[]).forEach(o=>{const n=String(o.prod||'').trim();if(!n||n==='Producto')return;const x=m[n]||(m[n]={c:0,s:{}});x.c++;x.s[o.supplierId]=(x.s[o.supplierId]||0)+1;});
   Object.keys(m).forEach(n=>{const s=m[n].s;m[n].sid=Object.keys(s).sort((a,b)=>s[b]-s[a])[0];});return m;}
+const FAV_MAX=150;
 const FAV_CATS=['Belleza','Salud','Hogar','Cocina','Tecnología','Juguetes','Mascotas','Moda','Deporte','Herramientas','Bebés','Auto'];
 let FAV_CAT='';
 const favCatOf=f=>(f.c||'').trim()||'Sin categoría';
 function renderFav(){
   if(!$('#favList'))return;
   const F=PROV.favs||(PROV.favs=[]),M=favMapa(),tiene=n=>F.some(f=>f.n.toLowerCase()===n.toLowerCase());
+  /* Todos los productos de tus pedidos entran solos a la lista (menos los que quitaste) */
+  if(PROV_OK&&DATA){const no=(PROV.favNo||[]).map(x=>x.toLowerCase());let nuevos=0;
+    Object.keys(M).sort((a,b)=>M[b].c-M[a].c).forEach(n=>{if(F.length>=FAV_MAX||tiene(n)||no.indexOf(n.toLowerCase())>=0)return;const sid=M[n].sid;F.push({n:n.slice(0,120),p:supName(sid).slice(0,80),t:String(supPhone(sid)||'').replace(/[^\d+]/g,'').slice(0,20),c:''});nuevos++;});
+    if(nuevos)favSave();}
   $('#favTag').textContent=F.length?F.length+' producto'+(F.length===1?'':'s'):'';
   if(document.activeElement!==$('#favTpl'))$('#favTpl').value=PROV.favTpl||FAV_TPL;
   const nombres=Object.keys(M).sort((a,b)=>M[b].c-M[a].c);
   $('#favProds').innerHTML=nombres.map(n=>`<option value="${E(n)}">`).join('');
-  const sug=nombres.filter(n=>!tiene(n)).slice(0,10);
+  const sug=[];
   $('#favSug').innerHTML=sug.length?'<span class="hint" style="align-self:center">De tus pedidos:</span>'+sug.map((n,i)=>`<button data-s="${i}" title="Agregar a favoritos">＋ ${E(n.length>34?n.slice(0,33)+'…':n)}</button>`).join(''):'';
   $('#favSug').querySelectorAll('button').forEach(b=>b.onclick=()=>{const n=sug[+b.dataset.s],sid=M[n].sid;favAdd(n,supName(sid),supPhone(sid),FAV_CAT==='Sin categoría'?'':FAV_CAT);});
   const cats={};F.forEach(f=>{const c=favCatOf(f);cats[c]=(cats[c]||0)+1;});
@@ -950,12 +955,12 @@ function renderFav(){
       ${f.t?'':`<input data-ft="${i}" inputmode="tel" placeholder="WhatsApp del proveedor" style="width:190px;padding:7px 10px;font-size:12.500px">`}
       ${l?`<a class="wa" href="${l}" target="_blank" rel="noopener" style="background:var(--green);color:#fff">💬 Pedir foto o video</a>`:'<span class="wa" style="opacity:.5;cursor:default">Falta el WhatsApp</span>'}
       <button class="ghost" data-fe="${i}" title="Cambiar el WhatsApp" style="padding:6px 9px">✏️</button><button class="ghost" data-fd="${i}" title="Quitar de favoritos" style="padding:6px 9px">✕</button></div>`};
-  $('#favList').innerHTML=F.length?cn.filter(c=>!FAV_CAT||c===FAV_CAT).map(c=>`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 2px 7px">${E(c)} · ${cats[c]}</div>`+F.map((f,i)=>favCatOf(f)===c?fila(f,i):'').join('')).join('')
-    :'<div class="empty">Aún no tienes productos favoritos. Agrégalos arriba o toca uno de tus pedidos.</div>';
+  $('#favList').innerHTML=F.length?cn.filter(c=>!FAV_CAT||c===FAV_CAT).map(c=>`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 2px 7px">${E(c)} · ${cats[c]}</div>`+F.map((f,i)=>[f,i]).filter(x=>favCatOf(x[0])===c).sort((x,y)=>x[0].n.localeCompare(y[0].n,'es',{sensitivity:'base'})).map(x=>fila(x[0],x[1])).join('')).join('')
+    :'<div class="empty">Aún no hay productos. Los de tus pedidos de Dropi aparecen aquí solos; también puedes agregar uno arriba.</div>';
   $('#favList').querySelectorAll('[data-fc]').forEach(sel=>sel.onchange=()=>{const f=F[+sel.dataset.fc];let v=sel.value;
     if(v==='__nueva'){v=prompt('Nombre de la nueva categoría:','');if(v===null||!v.trim()){renderFav();return;}}
     f.c=String(v).trim().slice(0,40);favSave();renderFav();});
-  $('#favList').querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fd];if(confirm('¿Quitar «'+f.n+'» de favoritos?')){F.splice(+b.dataset.fd,1);favSave();renderFav();}});
+  $('#favList').querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fd];if(confirm('¿Quitar «'+f.n+'» de la lista?')){F.splice(+b.dataset.fd,1);(PROV.favNo=PROV.favNo||[]).push(f.n);if(PROV.favNo.length>200)PROV.favNo.shift();favSave();renderFav();}});
   $('#favList').querySelectorAll('[data-fe]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fe];const v=prompt('WhatsApp del proveedor de «'+f.n+'» (con código de país, ej. 50255551234):',f.t||'');if(v===null)return;f.t=v.replace(/[^\d+]/g,'');favSave();renderFav();});
   $('#favList').querySelectorAll('[data-ft]').forEach(inp=>inp.onchange=()=>{const v=inp.value.replace(/[^\d+]/g,'');if(v){F[+inp.dataset.ft].t=v;favSave();renderFav();}});
 }
@@ -963,7 +968,8 @@ function favAdd(n,p,t,c){
   n=String(n||'').trim();if(!n){$('#favHint').textContent='Escribe el nombre del producto.';return;}
   const F=PROV.favs||(PROV.favs=[]);
   if(F.some(f=>f.n.toLowerCase()===n.toLowerCase())){$('#favHint').textContent='Ese producto ya está en favoritos.';return;}
-  if(F.length>=60){$('#favHint').textContent='Llegaste al máximo de 60 favoritos.';return;}
+  if(F.length>=FAV_MAX){$('#favHint').textContent='Llegaste al máximo de '+FAV_MAX+' productos.';return;}
+  if(PROV.favNo)PROV.favNo=PROV.favNo.filter(x=>x.toLowerCase()!==n.toLowerCase());
   F.push({n:n.slice(0,120),p:String(p||'').trim().slice(0,80),t:String(t||'').replace(/[^\d+]/g,'').slice(0,20),c:String(c||'').trim().slice(0,40)});
   $('#favHint').textContent='';['#favName','#favSup','#favPhone','#favCat'].forEach(x=>$(x).value='');favSave();renderFav();
 }

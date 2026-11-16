@@ -343,7 +343,7 @@ async function handle(req, send) {
       if (req.method === "POST") {
         const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
         const s = JSON.stringify(b);
-        if (!b || typeof b !== "object" || Array.isArray(b) || s.length > 40000) return send(400, { error: "datos inválidos" });
+        if (!b || typeof b !== "object" || Array.isArray(b) || s.length > 80000) return send(400, { error: "datos inválidos" });
         await redis(["HSET", "ec:settings", "dropiprov", s]);
         return send(200, { ok: true });
       }
