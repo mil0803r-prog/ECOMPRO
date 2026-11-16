@@ -341,7 +341,21 @@
   </section>
   <section class="tp" id="tab-prv"><div class="card">
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px"><h2 style="margin:0">Proveedores con pedidos atrasados <span class="hint" id="prvTag" style="margin-left:8px"></span></h2><button class="ghost" id="prvXls" style="margin-left:auto">Exportar a Excel</button></div>
-  <div class="acards" id="prvCards"></div><div class="hint" style="margin-bottom:10px">Haz clic en un proveedor para ver sus pedidos.</div><div id="prvList"></div></div></section>
+  <div class="acards" id="prvCards"></div><div class="hint" style="margin-bottom:10px">Haz clic en un proveedor para ver sus pedidos.</div><div id="prvList"></div></div>
+  <div class="card" style="margin-top:14px">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px"><h2 style="margin:0">⭐ Productos favoritos <span class="hint" id="favTag" style="margin-left:8px"></span></h2><button class="ghost" id="favMsgBtn" style="margin-left:auto">✏️ Mensaje</button></div>
+    <div id="favMsgBox" style="display:none;margin-bottom:12px"><textarea id="favTpl" style="width:100%;background:var(--card2);border:1px solid var(--line);color:var(--tx);border-radius:11px;padding:11px 13px;font-family:inherit;font-size:12.500px;min-height:70px;resize:vertical"></textarea>
+      <div class="hint" style="margin-top:5px">Es el mensaje que se abre en WhatsApp. Puedes usar <code>{producto}</code> para que ponga el nombre. <button class="ghost" id="favTplSave" style="padding:4px 10px;margin-left:6px">Guardar mensaje</button></div></div>
+    <div class="tools" id="favForm">
+      <input id="favName" list="favProds" placeholder="Producto" style="flex:2;min-width:170px"><datalist id="favProds"></datalist>
+      <input id="favSup" placeholder="Proveedor" style="flex:1;min-width:130px">
+      <input id="favPhone" inputmode="tel" placeholder="WhatsApp del proveedor" style="flex:1;min-width:150px">
+      <button class="solid" id="favAdd">Agregar</button>
+    </div>
+    <div class="hint" id="favHint" style="margin-bottom:8px"></div>
+    <div class="chips" id="favSug"></div>
+    <div id="favList"></div>
+  </div></section>
   <section class="tp" id="tab-nov"><div class="card"><h2>🔔 Novedades <span class="tag" id="novTag"></span></h2><div class="chips" id="novChips"></div><div id="novList"></div></div></section>
   <section class="tp" id="tab-ren"><div class="card"><h2>📈 Rendimiento</h2>
     <div class="chips" id="renBy"></div><div class="chips" id="renMode"></div><div id="renList"></div></div></section>
@@ -447,7 +461,8 @@ function preset(p){
 
 async function loadProviders(){
   try{const r=await fetch(apiUrl('/api/providers'),{cache:'no-store'});if(r.ok){const j=await r.json();
-    PROV={template:j.template||DEFAULT_TPL, carriers:j.carriers||{}, suppliers:j.suppliers||{}};}}catch(e){}
+    PROV={template:j.template||DEFAULT_TPL, carriers:j.carriers||{}, suppliers:j.suppliers||{}, favs:Array.isArray(j.favs)?j.favs:[], favTpl:j.favTpl||''};}}catch(e){}
+  if(typeof renderFav==='function')renderFav();
 }
 async function load(){
   try{
@@ -755,7 +770,7 @@ async function saveProv(){
   const carriers={}; document.querySelectorAll('[data-carrier]').forEach(i=>{if(i.value.trim())carriers[i.getAttribute('data-carrier')]=i.value.trim();});
   const suppliers={}; document.querySelectorAll('[data-sup-phone]').forEach(i=>{const id=i.getAttribute('data-sup-phone');
     const nm=document.querySelector('[data-sup-name="'+id+'"]'); suppliers[id]={name:(nm?nm.value.trim():''),phone:i.value.trim()};});
-  PROV={template:$('#provTpl').value||DEFAULT_TPL, carriers, suppliers};
+  PROV={template:$('#provTpl').value||DEFAULT_TPL, carriers, suppliers, favs:PROV.favs||[], favTpl:PROV.favTpl||''};
   try{await fetch(apiUrl('/api/providers'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(PROV)});
     $('#saveok').classList.add('show');setTimeout(()=>$('#saveok').classList.remove('show'),1800);
     if(DATA)render();
@@ -810,7 +825,7 @@ const plazo=()=>Math.max(1,parseInt($('#ofiPlazo').value,10)||3);
 function gestSel(o){return `<select onchange="setGest('${E(o.id)}',this.value)" title="Registrar resultado"><option value="">Registrar resultado…</option>${RES.map(x=>`<option${(GEST[o.id]||{}).r===x?' selected':''}>${x}</option>`).join('')}</select>`;}
 function waBtn(o){const l=o.clientPhone?waLink(o.clientPhone,'Hola '+(o.name||'')+', tu pedido #'+o.id+' ya está en la oficina de '+(o.carrier||'la transportadora')+'. ¿Pasas a recogerlo? Gracias 🙏'):null;
   return l?`<a class="wa" href="${l}" target="_blank" rel="noopener">💬 Cliente</a>`:'<span class="wa" style="opacity:.5;cursor:default">Sin teléfono</span>';}
-function renderTabs(){if(!DATA)return;renderAcards();renderOfi();renderPrv();renderNov();renderRen();renderPag();}
+function renderTabs(){if(!DATA)return;if(typeof renderFav==='function')renderFav();renderAcards();renderOfi();renderPrv();renderNov();renderRen();renderPag();}
 function renderAcards(){
   const O=DATA.orders,nov=O.filter(o=>o.group==='novedad').length,ofi=O.filter(enOfi),ofiL=ofi.filter(o=>diasOfi(o)>=plazo()).length,
     ret=O.filter(o=>/devoluci.n/i.test(o.status||'')&&o.group==='devolucion'&&daysSince(o.upd||o.date)<=7).length,
@@ -899,6 +914,47 @@ function renderPag(){
   $('#pagBody').innerHTML=h;
 }
 loadGest();setTab(lsg('dp_tab','res'));
+
+/* ===== Productos favoritos: lista propia con el WhatsApp del proveedor y un mensaje listo para pedir foto o video ===== */
+const FAV_TPL="Hola, mi nombre es Milner. Estoy trabajando con su producto *{producto}*. ¿Me podría enviar la foto real de este producto o algún video, por favor? Gracias 🙏";
+const favMsg=f=>(PROV.favTpl||FAV_TPL).replace(/{producto}/g,f.n||'');
+async function favSave(){try{await fetch(apiUrl('/api/providers'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(PROV)});}catch(e){alert('No se pudo guardar: '+e.message);}}
+/* producto -> proveedor más frecuente en tus pedidos */
+function favMapa(){const m={};((DATA&&DATA.orders)||[]).forEach(o=>{const n=String(o.prod||'').trim();if(!n||n==='Producto')return;const x=m[n]||(m[n]={c:0,s:{}});x.c++;x.s[o.supplierId]=(x.s[o.supplierId]||0)+1;});
+  Object.keys(m).forEach(n=>{const s=m[n].s;m[n].sid=Object.keys(s).sort((a,b)=>s[b]-s[a])[0];});return m;}
+function renderFav(){
+  if(!$('#favList'))return;
+  const F=PROV.favs||(PROV.favs=[]),M=favMapa(),tiene=n=>F.some(f=>f.n.toLowerCase()===n.toLowerCase());
+  $('#favTag').textContent=F.length?F.length+' producto'+(F.length===1?'':'s'):'';
+  if(document.activeElement!==$('#favTpl'))$('#favTpl').value=PROV.favTpl||FAV_TPL;
+  const nombres=Object.keys(M).sort((a,b)=>M[b].c-M[a].c);
+  $('#favProds').innerHTML=nombres.map(n=>`<option value="${E(n)}">`).join('');
+  const sug=nombres.filter(n=>!tiene(n)).slice(0,10);
+  $('#favSug').innerHTML=sug.length?'<span class="hint" style="align-self:center">De tus pedidos:</span>'+sug.map((n,i)=>`<button data-s="${i}" title="Agregar a favoritos">＋ ${E(n.length>34?n.slice(0,33)+'…':n)}</button>`).join(''):'';
+  $('#favSug').querySelectorAll('button').forEach(b=>b.onclick=()=>{const n=sug[+b.dataset.s],sid=M[n].sid;favAdd(n,supName(sid),supPhone(sid));});
+  $('#favList').innerHTML=F.length?F.map((f,i)=>{const l=waLink(f.t,favMsg(f));
+    return `<div class="orow"><div class="meta"><span class="who">${E(f.n)}</span><span class="det">${E(f.p||'Proveedor sin nombre')}${f.t?' · '+E(f.t):''}</span></div>
+      ${f.t?'':`<input data-ft="${i}" inputmode="tel" placeholder="WhatsApp del proveedor" style="width:190px;padding:7px 10px;font-size:12.500px">`}
+      ${l?`<a class="wa" href="${l}" target="_blank" rel="noopener" style="background:var(--green);color:#fff">💬 Pedir foto o video</a>`:'<span class="wa" style="opacity:.5;cursor:default">Falta el WhatsApp</span>'}
+      <button class="ghost" data-fe="${i}" title="Cambiar el WhatsApp" style="padding:6px 9px">✏️</button><button class="ghost" data-fd="${i}" title="Quitar de favoritos" style="padding:6px 9px">✕</button></div>`}).join('')
+    :'<div class="empty">Aún no tienes productos favoritos. Agrégalos arriba o toca uno de tus pedidos.</div>';
+  $('#favList').querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fd];if(confirm('¿Quitar «'+f.n+'» de favoritos?')){F.splice(+b.dataset.fd,1);favSave();renderFav();}});
+  $('#favList').querySelectorAll('[data-fe]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fe];const v=prompt('WhatsApp del proveedor de «'+f.n+'» (con código de país, ej. 50255551234):',f.t||'');if(v===null)return;f.t=v.replace(/[^\d+]/g,'');favSave();renderFav();});
+  $('#favList').querySelectorAll('[data-ft]').forEach(inp=>inp.onchange=()=>{const v=inp.value.replace(/[^\d+]/g,'');if(v){F[+inp.dataset.ft].t=v;favSave();renderFav();}});
+}
+function favAdd(n,p,t){
+  n=String(n||'').trim();if(!n){$('#favHint').textContent='Escribe el nombre del producto.';return;}
+  const F=PROV.favs||(PROV.favs=[]);
+  if(F.some(f=>f.n.toLowerCase()===n.toLowerCase())){$('#favHint').textContent='Ese producto ya está en favoritos.';return;}
+  if(F.length>=60){$('#favHint').textContent='Llegaste al máximo de 60 favoritos.';return;}
+  F.push({n:n.slice(0,120),p:String(p||'').trim().slice(0,80),t:String(t||'').replace(/[^\d+]/g,'').slice(0,20)});
+  $('#favHint').textContent='';['#favName','#favSup','#favPhone'].forEach(x=>$(x).value='');favSave();renderFav();
+}
+$('#favAdd').addEventListener('click',()=>favAdd($('#favName').value,$('#favSup').value,$('#favPhone').value));
+$('#favName').addEventListener('change',()=>{const M=favMapa(),x=M[$('#favName').value.trim()];if(x){if(!$('#favSup').value)$('#favSup').value=supName(x.sid);if(!$('#favPhone').value)$('#favPhone').value=supPhone(x.sid);}});
+$('#favMsgBtn').addEventListener('click',()=>{const b=$('#favMsgBox');b.style.display=b.style.display==='none'?'block':'none';});
+$('#favTplSave').addEventListener('click',()=>{PROV.favTpl=$('#favTpl').value.trim();favSave();renderFav();$('#favMsgBox').style.display='none';});
+renderFav();
 </script>
 </body>
 </html>
