@@ -49,6 +49,54 @@ async function dropi(path, timeoutMs) {
   const e = new Error("Dropi rechazó el token (HTTP " + last + ")."); e.code = 502; throw e;
 }
 
+// Igual que dropi() pero con POST y cuerpo JSON (catálogo de productos de la API de integraciones).
+async function dropiPost(path, body, timeoutMs) {
+  const token = process.env.DROPI_TOKEN;
+  if (!token) { const e = new Error("Falta la variable DROPI_TOKEN en Vercel."); e.code = 503; throw e; }
+  const heads = [{ "dropi-integration-key": token }, { Authorization: "Bearer " + token }];
+  let last = 0;
+  for (const h of heads) {
+    const r = await fetch(BASE + path, { method: "POST", headers: Object.assign({ Accept: "application/json", "Content-Type": "application/json" }, h), body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs || 15000) });
+    last = r.status;
+    if (r.status === 401 || r.status === 403) continue;
+    if (!r.ok) { const e = new Error("Dropi respondió HTTP " + r.status + " al pedir los productos."); e.code = 502; throw e; }
+    return await r.json();
+  }
+  const e = new Error("Dropi no deja leer los productos con este token (HTTP " + last + ")."); e.code = 502; throw e;
+}
+
+// Productos FAVORITOS de la cuenta: catálogo de Dropi filtrado con favorite=true. Si Dropi ignora el filtro (devuelve lo mismo
+// que sin él) no se muestra nada, para no hacer pasar por favoritos productos que no lo son.
+let FAVC = null;
+async function favoritos() {
+  if (FAVC && Date.now() - FAVC.t < 5 * 60 * 1000) return FAVC.v;
+  const base = { pageSize: 50, startData: 0, no_count: true, order_by: "id", order_type: "desc", keywords: "", privated_product: false, userVerified: false };
+  const filas = (j) => { const o = j && (j.objects || j.data || j.products); return Array.isArray(o) ? o : (o && Array.isArray(o.data) ? o.data : []); };
+  const out = [], vistos = new Set();
+  let primera = null;
+  for (let p = 0; p < 10; p++) {
+    const L = filas(await dropiPost("/integrations/products/index", Object.assign({}, base, { favorite: true, startData: p * 50 })));
+    if (p === 0) primera = L.map((x) => x && x.id).join(",");
+    let nuevos = 0;
+    for (const r of L) {
+      if (!r || r.id == null || !r.name || vistos.has(r.id)) continue;
+      vistos.add(r.id); nuevos++;
+      const u = (r.user && typeof r.user === "object" ? r.user : null) || {};
+      const cat = Array.isArray(r.categories) && r.categories[0] ? r.categories[0].name || "" : "";
+      const st = Array.isArray(r.warehouse_product) ? r.warehouse_product.reduce((a, w) => a + (num(w.stock) || 0), 0) : r.stock;
+      out.push({ id: String(r.id), n: String(r.name).slice(0, 120), prov: String(u.store_name || u.name || "").slice(0, 80), sid: String(u.id != null ? u.id : r.user_id != null ? r.user_id : ""), tel: String(u.phone || u.cellphone || "").replace(/[^\d+]/g, "").slice(0, 20), cat: String(cat).slice(0, 40), costo: num(r.sale_price), sug: num(r.suggested_price), stock: st == null ? null : num(st) });
+    }
+    if (L.length < 50 || !nuevos) break;
+  }
+  let v = { ok: true, favs: out };
+  if (out.length) {
+    const sin = filas(await dropiPost("/integrations/products/index", Object.assign({}, base, { favorite: false }))).map((x) => x && x.id).join(",");
+    if (sin && sin === primera) v = { ok: false, favs: [], motivo: "Dropi no filtra los favoritos con este token: devuelve el catálogo completo." };
+  }
+  FAVC = { t: Date.now(), v };
+  return v;
+}
+
 // Trae TODOS los pedidos de la cuenta: pide de 100 en 100 con start=0,100,200... y se detiene cuando ya no llegan pedidos nuevos
 // (si Dropi ignorara "start", la segunda página repite los mismos pedidos y ahí se corta: quedan los últimos 100).
 async function getRaw() {
@@ -334,6 +382,9 @@ async function handle(req, send) {
         try { const g = await redis(["HGET", "ec:huella", hk]); if (g) out.guardada = JSON.parse(g); } catch (e) {}
       }
       return send(200, out);
+    }
+    if (a === "favs" && req.method === "GET") {
+      try { return send(200, await favoritos()); } catch (e) { return send(200, { ok: false, favs: [], motivo: String(e.message || e).slice(0, 160) }); }
     }
     if (a === "gest") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
