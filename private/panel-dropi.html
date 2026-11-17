@@ -473,7 +473,7 @@ async function loadProviders(){
 async function load(){
   try{
     const r=await fetch(apiUrl('/api/data',{from:range.from,to:range.to}),{cache:'no-store'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
+    if(!r.ok){let m='';try{m=(await r.json()).error||''}catch(e){}throw new Error(m||('HTTP '+r.status));}
     DATA=await r.json();
     if(DATA.error) throw new Error(DATA.error);
     $('#err').style.display='none';
@@ -481,7 +481,7 @@ async function load(){
     render(); left=REFRESH;
   }catch(e){
     $('#err').style.display='block';
-    $('#err').textContent='⚠️ No se pudo leer la API: '+e.message+'  (¿servidor activo? ¿token válido? ¿clave de acceso?)';
+    $('#err').textContent='⚠️ No se pudo leer Dropi: '+e.message+(/Falta la variable/.test(e.message)?' Créala en Vercel > Settings > Environment Variables (marcada para Production), y después haz Redeploy.':'');
     $('#live').classList.add('off'); $('#livetxt').textContent='Sin conexión';
   }
 }
