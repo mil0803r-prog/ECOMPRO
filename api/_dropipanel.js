@@ -270,7 +270,7 @@ async function build(dFrom, dTo) {
       city: x.city, dept, total: tot, date: x.created_at,
       guia: x.shipping_guide || "", guiaPath: x.guia_urls3 || "",
       supplierId: x.supplier_id, warehouseId: x.warehouse_id,
-      clientPhone: x.phone || "", hk: phoneKey(x.phone), prod: (x.orderdetails || []).slice(0, 2).map((d) => (d.product && d.product.name) || "Producto").join(" + "), upd: x.updated_at || "", inv: x.invoiced == null ? null : !!x.invoiced, util, dias: dia, mov: orderMovs(x),
+      clientPhone: x.phone || "", dir: String(x.dir || x.address || x.direccion || x.direction || x.client_address || "").replace(/\s+/g, " ").trim().slice(0, 200), hk: phoneKey(x.phone), prod: (x.orderdetails || []).slice(0, 2).map((d) => (d.product && d.product.name) || "Producto").join(" + "), upd: x.updated_at || "", inv: x.invoiced == null ? null : !!x.invoiced, util, dias: dia, mov: orderMovs(x),
     });
   }
 

@@ -308,7 +308,7 @@
     <h2>🧾 Pedidos y proveedores <span class="tag" id="rowcount"></span></h2>
     <div class="supbar" id="supList"></div>
     <div class="tools">
-      <input id="q" placeholder="Buscar cliente, ciudad, guía, #id…" style="flex:1;min-width:190px">
+      <input id="q" placeholder="Buscar cliente, ciudad, dirección, guía, #id…" style="flex:1;min-width:190px">
       <select id="fStatus"><option value="">Todos los estados</option></select>
       <select id="fCarrier"><option value="">Todas las transportadoras</option></select>
       <select id="fSupplier"><option value="">Todos los proveedores</option></select>
@@ -318,7 +318,7 @@
       <table id="tbl">
         <thead><tr>
           <th data-k="id"># </th><th data-k="status">Estado</th><th data-k="supplierId">Proveedor</th><th data-k="carrier">Transportadora</th>
-          <th data-k="guia">Guía</th><th data-k="name">Cliente</th><th data-k="city">Ciudad</th>
+          <th data-k="guia">Guía</th><th data-k="name">Cliente</th><th data-k="city">Ciudad</th><th data-k="dir">Dirección</th>
           <th data-k="total" class="r">Total (Q)</th><th data-k="util" class="r">Utilidad</th><th data-k="date">Fecha</th><th>Acción</th>
         </tr></thead>
         <tbody></tbody>
@@ -566,7 +566,7 @@ function drawTable(){
         fp=$('#fSupplier').value, fl=$('#fLate').checked;
   let rows=DATA.orders.filter(o=>
     (!fs||o.status===fs)&&(!fc||o.carrier===fc)&&(!fp||String(o.supplierId)===fp)&&(!fl||isLate(o))&&
-    (!q||(o.name||'').toLowerCase().includes(q)||(o.city||'').toLowerCase().includes(q)||String(o.id).includes(q)||(o.guia||'').toLowerCase().includes(q)));
+    (!q||(o.name||'').toLowerCase().includes(q)||(o.city||'').toLowerCase().includes(q)||(o.dir||'').toLowerCase().includes(q)||String(o.id).includes(q)||(o.guia||'').toLowerCase().includes(q)));
   rows.sort((a,b)=>{let x=a[sortK],y=b[sortK];if(sortK==='total'||sortK==='util'){x=+x;y=+y;}return (x>y?1:x<y?-1:0)*sortDir;});
   $('#rowcount').textContent=rows.length+' de '+DATA.orders.length;
   $('#tbl tbody').innerHTML=rows.map(o=>{
@@ -580,7 +580,7 @@ function drawTable(){
      <td><span class="chip ${badge(o.group)}">${E(o.status)}</span></td>
      <td>${E(supName(sid))}</td>
      <td>${E(o.carrier||'—')}</td><td class="guia-cell">${E(o.guia||'—')}</td>
-     <td>${E(o.name||'—')}</td><td>${E(o.city||'—')}</td>
+     <td>${E(o.name||'—')}</td><td>${E(o.city||'—')}</td><td style="white-space:normal;min-width:190px;max-width:320px">${E(o.dir||'—')}</td>
      <td class="r">${money(o.total)}</td>
      <td class="r" style="color:${o.group==='entregado'?'var(--green)':'var(--muted)'};font-weight:600" title="${o.group==='entregado'?'Utilidad realizada':'Utilidad potencial (aún no entregado)'}">${money(o.util)}</td>
      <td>${E((o.date||'').slice(0,10))}</td>
