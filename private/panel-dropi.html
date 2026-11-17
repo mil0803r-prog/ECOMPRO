@@ -355,6 +355,7 @@
     <div class="hint" id="favHint" style="margin-bottom:8px"></div>
     <div class="hint" id="favHint2" style="margin-bottom:8px"></div>
     <div class="chips" id="favSug"></div>
+    <input id="favQ" placeholder="Buscar producto o proveedor…" style="width:100%;margin-bottom:10px">
     <div class="chips" id="favCatChips"></div>
     <div id="favList"></div>
   </div></section>
@@ -947,13 +948,14 @@ function renderFav(){
   if(dOk&&PROV_OK){const no=(PROV.favNo||[]).map(x=>x.toLowerCase());let cambios=0;const ids={};FAVD.favs.forEach(x=>ids[x.id]=1);
     FAVD.favs.forEach(x=>{if(no.indexOf(x.n.toLowerCase())>=0)return;let f=F.filter(y=>y.d===x.id||y.n.toLowerCase()===x.n.toLowerCase())[0];
       if(!f){if(F.length>=FAV_MAX)return;f={n:x.n};F.push(f);cambios++;}
-      if(f.d!==x.id||f.p!==x.prov||f.s!==x.sid){f.d=x.id;f.p=x.prov;f.s=x.sid;cambios++;}
+      if(f.d!==x.id||f.p!==x.prov||f.s!==x.sid||(f.a||'')!==(x.alt||'')){f.d=x.id;f.p=x.prov;f.s=x.sid;f.a=x.alt||'';cambios++;}
       if(!f.t&&x.tel){f.t=x.tel;cambios++;}});
     F.forEach(f=>{if(f.d&&!ids[f.d]){delete f.d;f.x=1;cambios++;}});
     if(cambios)favSave();}
   const visible=f=>!dOk||!!f.d||!!f.m||(('c' in f)&&!f.x);
-  const V=F.filter(visible);
-  $('#favHint2').innerHTML=dOk?'⭐ '+FAVD.favs.length+' favoritos leídos de Dropi · '+V.filter(f=>favTel(f)).length+' con WhatsApp del proveedor.':(FAVD&&FAVD.motivo?'No se pudieron leer tus favoritos de Dropi: '+E(FAVD.motivo)+' Mientras tanto se muestran los productos de tus pedidos.':FAVD&&FAVD.ok?'Dropi no devolvió favoritos para esta cuenta. Se muestran los productos de tus pedidos.':'');
+  const fq=($('#favQ').value||'').trim().toLowerCase();
+  const V=F.filter(visible).filter(f=>!fq||[f.n,f.p,f.a,favCatOf(f)].join(' ').toLowerCase().includes(fq));
+  $('#favHint2').innerHTML=dOk?'⭐ '+FAVD.favs.length+' favoritos leídos de Dropi ('+[...new Set(FAVD.favs.map(x=>x.prov||'sin nombre'))].length+' proveedores) · '+V.filter(f=>favTel(f)).length+' con WhatsApp del proveedor.':(FAVD&&FAVD.motivo?'No se pudieron leer tus favoritos de Dropi: '+E(FAVD.motivo)+' Mientras tanto se muestran los productos de tus pedidos.':FAVD&&FAVD.ok?'Dropi no devolvió favoritos para esta cuenta. Se muestran los productos de tus pedidos.':'');
   $('#favTag').textContent=V.length?V.length+' producto'+(V.length===1?'':'s'):'';
   if(document.activeElement!==$('#favTpl'))$('#favTpl').value=PROV.favTpl||FAV_TPL;
   const nombres=Object.keys(M).sort((a,b)=>M[b].c-M[a].c);
@@ -967,11 +969,11 @@ function renderFav(){
   $('#favCatChips').innerHTML=cn.length>1?`<button data-c="" class="${FAV_CAT===''?'on':''}">Todos los proveedores (${V.length})</button>`+cn.map(c=>`<button data-c="${E(c)}" class="${FAV_CAT===c?'on':''}">${E(c)} (${cats[c]})</button>`).join(''):'';
   $('#favCatChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{FAV_CAT=b.dataset.c;renderFav();});
   const fila=(f,i)=>{const tel=favTel(f),l=waLink(tel,favMsg(f));
-    return `<div class="orow"><div class="meta"><span class="who">${f.d?'⭐ ':''}${E(f.n)}</span><span class="det">${tel?'📱 <b style="color:var(--tx);font-size:12.500px">'+E(tel)+'</b>':'Sin WhatsApp del proveedor'}</span></div>
+    return `<div class="orow"><div class="meta"><span class="who">${f.d?'⭐ ':''}${E(f.n)}</span><span class="det">${f.a?E(f.a)+' · ':''}${tel?'📱 <b style="color:var(--tx);font-size:12.500px">'+E(tel)+'</b>':'Sin WhatsApp del proveedor'}</span></div>
       ${tel?'':`<input data-ft="${i}" inputmode="tel" placeholder="WhatsApp del proveedor" style="width:190px;padding:7px 10px;font-size:12.500px">`}
       ${l?`<a class="wa" href="${l}" target="_blank" rel="noopener" style="background:var(--green);color:#fff">💬 Pedir foto o video</a>`:'<span class="wa" style="opacity:.5;cursor:default">Falta el WhatsApp</span>'}
       <button class="ghost" data-fe="${i}" title="Cambiar el WhatsApp" style="padding:6px 9px">✏️</button><button class="ghost" data-fd="${i}" title="Quitar de favoritos" style="padding:6px 9px">✕</button></div>`};
-  $('#favList').innerHTML=V.length?cn.filter(c=>!FAV_CAT||c===FAV_CAT).map(c=>`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 2px 7px">${E(c)} · ${cats[c]}</div>`+F.map((f,i)=>[f,i]).filter(x=>visible(x[0])&&favCatOf(x[0])===c).sort((x,y)=>x[0].n.localeCompare(y[0].n,'es',{sensitivity:'base'})).map(x=>fila(x[0],x[1])).join('')).join('')
+  $('#favList').innerHTML=V.length?cn.filter(c=>!FAV_CAT||c===FAV_CAT).map(c=>`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 2px 7px">${E(c)} · ${cats[c]}</div>`+F.map((f,i)=>[f,i]).filter(x=>V.indexOf(x[0])>=0&&favCatOf(x[0])===c).sort((x,y)=>x[0].n.localeCompare(y[0].n,'es',{sensitivity:'base'})).map(x=>fila(x[0],x[1])).join('')).join('')
     :'<div class="empty">Aún no hay productos. Los de tus pedidos de Dropi aparecen aquí solos; también puedes agregar uno arriba.</div>';
   $('#favList').querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fd];if(confirm('¿Quitar «'+f.n+'» de la lista?')){F.splice(+b.dataset.fd,1);(PROV.favNo=PROV.favNo||[]).push(f.n);if(PROV.favNo.length>200)PROV.favNo.shift();favSave();renderFav();}});
   $('#favList').querySelectorAll('[data-fe]').forEach(b=>b.onclick=()=>{const f=F[+b.dataset.fe];const v=prompt('WhatsApp del proveedor de «'+f.n+'» (con código de país, ej. 50255551234):',f.t||'');if(v===null)return;f.t=v.replace(/[^\d+]/g,'');favSave();renderFav();});
@@ -988,6 +990,7 @@ function favAdd(n,p,t,c){
 }
 $('#favAdd').addEventListener('click',()=>favAdd($('#favName').value,$('#favSup').value,$('#favPhone').value));
 $('#favName').addEventListener('change',()=>{const M=favMapa(),x=M[$('#favName').value.trim()];if(x){if(!$('#favSup').value)$('#favSup').value=supName(x.sid);if(!$('#favPhone').value)$('#favPhone').value=supPhone(x.sid);}});
+$('#favQ').addEventListener('input',renderFav);
 $('#favMsgBtn').addEventListener('click',()=>{const b=$('#favMsgBox');b.style.display=b.style.display==='none'?'block':'none';});
 $('#favTplSave').addEventListener('click',()=>{PROV.favTpl=$('#favTpl').value.trim();favSave();renderFav();$('#favMsgBox').style.display='none';});
 renderFav();loadFavD();

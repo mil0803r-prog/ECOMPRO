@@ -83,6 +83,13 @@ function telProv(r) {
   }
   return "";
 }
+// Nombres del proveedor de un producto: primero el del usuario proveedor ("Provider" en Dropi) y después tienda o marca.
+function nomProv(r, u) {
+  const out = [];
+  const add = (v) => { v = String(v == null ? "" : v).trim().slice(0, 80); if (v && v.length > 1 && !/^\d+$/.test(v) && out.map((x) => x.toLowerCase()).indexOf(v.toLowerCase()) < 0) out.push(v); };
+  [u.name, u.store_name, u.business_name, u.company, u.company_name, u.username, r.supplier_name, r.provider_name, r.provider, r.store_name, r.brand && (r.brand.name || r.brand), r.private_label && (r.private_label.name || r.private_label)].forEach((v) => { if (typeof v === "string" || typeof v === "number") add(v); });
+  return out.length ? out : [""];
+}
 const TELC = new Map(); // id de producto -> teléfono encontrado en su detalle ("" = no trae)
 let FAVC = null;
 async function favoritos() {
@@ -101,7 +108,7 @@ async function favoritos() {
       const u = (r.user && typeof r.user === "object" ? r.user : null) || {};
       const cat = Array.isArray(r.categories) && r.categories[0] ? r.categories[0].name || "" : "";
       const st = Array.isArray(r.warehouse_product) ? r.warehouse_product.reduce((a, w) => a + (num(w.stock) || 0), 0) : r.stock;
-      out.push({ id: String(r.id), n: String(r.name).slice(0, 120), prov: String(u.store_name || u.name || "").slice(0, 80), sid: String(u.id != null ? u.id : r.user_id != null ? r.user_id : ""), tel: telProv(r), cat: String(cat).slice(0, 40), costo: num(r.sale_price), sug: num(r.suggested_price), stock: st == null ? null : num(st) });
+      out.push({ id: String(r.id), n: String(r.name).slice(0, 120), prov: nomProv(r, u)[0], alt: nomProv(r, u).slice(1).join(" · ").slice(0, 120), sid: String(u.id != null ? u.id : r.user_id != null ? r.user_id : ""), tel: telProv(r), cat: String(cat).slice(0, 40), costo: num(r.sale_price), sug: num(r.suggested_price), stock: st == null ? null : num(st) });
     }
     if (L.length < 50 || !nuevos) break;
   }
