@@ -11,8 +11,14 @@ const CANCELLED = ["CANCELADO", "ANULADO"];
 const CACHE_TTL = 90 * 1000;
 const PAGE = 100, MAX_PAGES = 40; // hasta 4.000 pedidos
 const WH_TTL = 6 * 3600 * 1000;
-let RAW = { t: 0, orders: null };
-const WH = new Map(); // warehouse_id -> {name, phone, city, t}
+// Dos cuentas de Dropi: cada una con su token (DROPI_TOKEN y DROPI_TOKEN_2), su caché y sus ajustes guardados aparte.
+const { AsyncLocalStorage } = require("async_hooks");
+const ALS = new AsyncLocalStorage();
+const mk = (n) => ({ n, suf: n === 1 ? "" : String(n), env: n === 1 ? "DROPI_TOKEN" : "DROPI_TOKEN_" + n,
+  base: (process.env[n === 1 ? "DROPI_API_BASE" : "DROPI_API_BASE_" + n] || BASE).replace(/\/+$/, ""),
+  RAW: { t: 0, orders: null }, WH: new Map(), TELC: new Map(), FAVC: null });
+const CTAS = { 1: mk(1), 2: mk(2) };
+const S = () => ALS.getStore() || CTAS[1];
 
 const num = (x) => { const n = parseFloat(x); return isFinite(n) ? n : 0; };
 const r2 = (n) => Math.round(n * 100) / 100;
@@ -31,15 +37,15 @@ function groupOf(status) {
 }
 
 async function dropi(path, timeoutMs) {
-  const token = process.env.DROPI_TOKEN;
-  if (!token) { const e = new Error("Falta la variable DROPI_TOKEN en Vercel."); e.code = 503; throw e; }
+  const token = process.env[S().env];
+  if (!token) { const e = new Error("Falta la variable " + S().env + " en Vercel."); e.code = 503; throw e; }
   const heads = [{ Authorization: "Bearer " + token }, { "dropi-integration-key": token }];
   let last = 0;
   for (const h of heads) {
     const ctl = new AbortController();
     const t = setTimeout(() => ctl.abort(), timeoutMs || 15000);
     try {
-      const r = await fetch(BASE + path, { headers: Object.assign({ Accept: "application/json" }, h), signal: ctl.signal });
+      const r = await fetch(S().base + path, { headers: Object.assign({ Accept: "application/json" }, h), signal: ctl.signal });
       last = r.status;
       if (r.status === 401 || r.status === 403) continue;
       if (!r.ok) { const e = new Error("Dropi respondió HTTP " + r.status); e.code = 502; throw e; }
@@ -51,12 +57,12 @@ async function dropi(path, timeoutMs) {
 
 // Igual que dropi() pero con POST y cuerpo JSON (catálogo de productos de la API de integraciones).
 async function dropiPost(path, body, timeoutMs) {
-  const token = process.env.DROPI_TOKEN;
-  if (!token) { const e = new Error("Falta la variable DROPI_TOKEN en Vercel."); e.code = 503; throw e; }
+  const token = process.env[S().env];
+  if (!token) { const e = new Error("Falta la variable " + S().env + " en Vercel."); e.code = 503; throw e; }
   const heads = [{ "dropi-integration-key": token }, { Authorization: "Bearer " + token }];
   let last = 0;
   for (const h of heads) {
-    const r = await fetch(BASE + path, { method: "POST", headers: Object.assign({ Accept: "application/json", "Content-Type": "application/json" }, h), body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs || 15000) });
+    const r = await fetch(S().base + path, { method: "POST", headers: Object.assign({ Accept: "application/json", "Content-Type": "application/json" }, h), body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs || 15000) });
     last = r.status;
     if (r.status === 401 || r.status === 403) continue;
     if (!r.ok) { const e = new Error("Dropi respondió HTTP " + r.status + " al pedir los productos."); e.code = 502; throw e; }
@@ -90,10 +96,10 @@ function nomProv(r, u) {
   [u.name, u.store_name, u.business_name, u.company, u.company_name, u.username, r.supplier_name, r.provider_name, r.provider, r.store_name, r.brand && (r.brand.name || r.brand), r.private_label && (r.private_label.name || r.private_label)].forEach((v) => { if (typeof v === "string" || typeof v === "number") add(v); });
   return out.length ? out : [""];
 }
-const TELC = new Map(); // id de producto -> teléfono encontrado en su detalle ("" = no trae)
-let FAVC = null;
+
 async function favoritos() {
-  if (FAVC && Date.now() - FAVC.t < 5 * 60 * 1000) return FAVC.v;
+  const st = S(), TELC = st.TELC;
+  if (st.FAVC && Date.now() - st.FAVC.t < 5 * 60 * 1000) return st.FAVC.v;
   const base = { pageSize: 50, startData: 0, no_count: true, order_by: "id", order_type: "desc", keywords: "", privated_product: false, userVerified: false };
   const filas = (j) => { const o = j && (j.objects || j.data || j.products); return Array.isArray(o) ? o : (o && Array.isArray(o.data) ? o.data : []); };
   const out = [], vistos = new Set();
@@ -133,7 +139,7 @@ async function favoritos() {
     const sin = filas(await dropiPost("/integrations/products/index", Object.assign({}, base, { favorite: false }))).map((x) => x && x.id).join(",");
     if (sin && sin === primera) v = { ok: false, favs: [], motivo: "Dropi no filtra los favoritos con este token: devuelve el catálogo completo." };
   }
-  FAVC = { t: Date.now(), v };
+  st.FAVC = { t: Date.now(), v };
   return v;
 }
 
@@ -141,7 +147,8 @@ async function favoritos() {
 // (si Dropi ignorara "start", la segunda página repite los mismos pedidos y ahí se corta: quedan los últimos 100).
 async function getRaw() {
   const now = Date.now();
-  if (RAW.orders && now - RAW.t < CACHE_TTL) return RAW.orders;
+  const st = S();
+  if (st.RAW.orders && now - st.RAW.t < CACHE_TTL) return st.RAW.orders;
   const all = [], seen = new Set();
   let pages = 0;
   for (let i = 0; i < MAX_PAGES; i++) {
@@ -152,12 +159,13 @@ async function getRaw() {
     pages++;
     if (!nuevos || objs.length < PAGE) break;
   }
-  RAW = { t: now, orders: all, pages };
-  return RAW.orders;
+  st.RAW = { t: now, orders: all, pages };
+  return st.RAW.orders;
 }
 
 async function warehouseInfo(wid, sampleOrderId) {
   const now = Date.now();
+  const WH = S().WH;
   const c = WH.get(wid);
   if (c && now - c.t < WH_TTL) return c;
   let out;
@@ -334,7 +342,7 @@ async function build(dFrom, dTo) {
   const supplierInfo = {};
   for (const [sid, m] of supWh) {
     const whs = top(m).map(([wid, n]) => {
-      const w = WH.get(wid) || {};
+      const w = S().WH.get(wid) || {};
       return { id: wid, name: w.name || "", phone: w.phone || "", city: w.city || "", orders: n };
     });
     const mainW = whs[0] || {};
@@ -365,7 +373,7 @@ async function build(dFrom, dTo) {
   }
   for (const k of Object.keys(huella)) { huella[k].total = r2(huella[k].total); huella[k].orders.sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0)); }
   return {
-    huella, revisados: raw.length, paginas: RAW.pages || 1,
+    huella, revisados: raw.length, paginas: S().RAW.pages || 1,
     updated: new Date().toISOString().slice(0, 19), ms: Date.now() - t0,
     range: { from: f, to: t, min: dmin, max: dmax, applied: !!(dFrom || dTo) },
     kpis, carriers: carList, statusList, depts, products, orders, suppliers, supplierInfo, catalogo, zones: zoneList, trend: trendList,
@@ -406,7 +414,25 @@ async function huella(id) {
 }
 
 // Responde GET ?a=data|prov|huella y POST ?a=prov. El login ya fue verificado por api/dropi.js.
-async function handle(req, send) {
+// Nombres que el dueño le pone a cada cuenta y si su token ya está en Vercel (nunca se devuelve el token).
+async function cuentas(req, send) {
+  const def = { 1: "Dropi 1", 2: "Dropi 2" };
+  let names = {};
+  if (RURL && RTOK) { try { names = JSON.parse((await redis(["HGET", "ec:settings", "dropinames"])) || "{}") || {}; } catch (e) {} }
+  if (req.method === "POST") {
+    if (!RURL || !RTOK) return send(503, { error: "Falta conectar la base (Upstash Redis)." });
+    const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+    [1, 2].forEach((n) => { if (b && typeof b[n] === "string") { const v = b[n].replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 30); if (v) names[n] = v; else delete names[n]; } });
+    await redis(["HSET", "ec:settings", "dropinames", JSON.stringify(names)]);
+  }
+  return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2 } });
+}
+function handle(req, send) {
+  const u = new URL(req.url, "http://x");
+  if (u.searchParams.get("a") === "cuentas") return cuentas(req, send).catch((e) => send(500, { error: String(e.message || e).slice(0, 160) }));
+  return ALS.run(CTAS[u.searchParams.get("c") === "2" ? 2 : 1], () => handle0(req, send));
+}
+async function handle0(req, send) {
   const u = new URL(req.url, "http://x");
   const a = u.searchParams.get("a");
   try {
@@ -428,26 +454,26 @@ async function handle(req, send) {
     }
     if (a === "gest") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
-      if (req.method === "GET") { const cur = await redis(["HGET", "ec:settings", "dropigest"]); return send(200, cur ? JSON.parse(cur) : {}); }
+      if (req.method === "GET") { const cur = await redis(["HGET", "ec:settings", "dropigest" + S().suf]); return send(200, cur ? JSON.parse(cur) : {}); }
       if (req.method === "POST") {
         const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
         const t = JSON.stringify(b);
         if (!b || typeof b !== "object" || Array.isArray(b) || t.length > 60000) return send(400, { error: "datos inválidos" });
-        await redis(["HSET", "ec:settings", "dropigest", t]);
+        await redis(["HSET", "ec:settings", "dropigest" + S().suf, t]);
         return send(200, { ok: true });
       }
     }
     if (a === "prov") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
       if (req.method === "GET") {
-        const cur = await redis(["HGET", "ec:settings", "dropiprov"]);
+        const cur = await redis(["HGET", "ec:settings", "dropiprov" + S().suf]);
         return send(200, cur ? JSON.parse(cur) : {});
       }
       if (req.method === "POST") {
         const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
         const s = JSON.stringify(b);
         if (!b || typeof b !== "object" || Array.isArray(b) || s.length > 120000) return send(400, { error: "datos inválidos" });
-        await redis(["HSET", "ec:settings", "dropiprov", s]);
+        await redis(["HSET", "ec:settings", "dropiprov" + S().suf, s]);
         return send(200, { ok: true });
       }
     }

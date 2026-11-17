@@ -429,6 +429,9 @@
   try{new MutationObserver(sync).observe(parent.document.documentElement,{attributes:true,attributeFilter:['data-theme','data-pal']})}catch(e){}
   try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',sync)}catch(e){}
 })();
+/* Cuenta de Dropi que muestra este panel (1 o 2): todas las consultas al servidor llevan esa cuenta */
+const CTA=new URLSearchParams(location.search).get('c')==='2'?'2':'1';
+(function(){const f=window.fetch;window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api/dropi?')===0&&CTA!=='1')u+='&c='+CTA;return f.call(this,u,o)}})();
 const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const FP='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11v3a6 6 0 0 1-1.2 3.6"/><path d="M8 11a4 4 0 0 1 8 0v1.5c0 2-.4 3.900-1.300 5.500"/><path d="M5 11a7 7 0 0 1 14 0v1c0 1.700-.2 3.300-.600 4.800"/><path d="M5.200 15.500c-.1-.8-.2-1.500-.2-2.300"/><path d="M8.500 20.500c.8-1.300 1.300-2.700 1.600-4.200"/></svg>';
@@ -810,8 +813,8 @@ timer=setInterval(()=>{left--;$('#refreshin').textContent='⟳ '+left+'s';if(lef
 
 /* ===== Pestañas ===== */
 let GEST={}, TAB='res', OFI_CH='todos', NOV_CH='', REN_BY='carrier', REN_MODE='pct', REN_ORD='dev';
-const lsg=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}};
-const lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const lsg=(k,d)=>{k+=CTA==='1'?'':'_'+CTA;try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}};
+const lss=(k,v)=>{k+=CTA==='1'?'':'_'+CTA;try{localStorage.setItem(k,v)}catch(e){}};
 function setTab(t){TAB=t;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
   document.querySelectorAll('.tp').forEach(x=>x.classList.toggle('on',x.id==='tab-'+t));lss('dp_tab',t);
   if(t==='res'&&DATA)setTimeout(()=>{Object.values(charts).forEach(c=>{try{c.resize()}catch(e){}})},30);}
