@@ -110,6 +110,9 @@ async function viaPagina(url) {
   try {
     const r = await get(url, { "User-Agent": UA, "Accept-Language": "es,en;q=0.8", Accept: "text/html" }, 12000);
     const html = await r.text();
+    // TikTok pide las mismas cookies de la página para entregar el archivo: se pasan solo al bajar el video.
+    let ck = "";
+    try { ck = (r.headers.getSetCookie ? r.headers.getSetCookie() : []).map((c) => String(c).split(";")[0]).filter((c) => /^[\w.-]+=[\w%.\-:~+\/=]*$/.test(c)).join("; ").slice(0, 900); } catch (e) {}
     const m = html.match(/<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/);
     if (!m) return { motivo: "TikTok no entregó la página del video" };
     const j = JSON.parse(m[1]);
@@ -117,7 +120,7 @@ async function viaPagina(url) {
     const v = it && it.video;
     const u1 = v && (v.downloadAddr || v.playAddr);
     if (!u1) return { motivo: "la página no trae el video" };
-    return { out: { plataforma: "tiktok", titulo: clean(it.desc, 180), autor: clean((it.author && (it.author.nickname || it.author.uniqueId)) || "", 80), portada: httpsOnly(v.cover || ""), duracion: +v.duration || 0, videos: [{ calidad: "Normal", url: u1 }] } };
+    return { out: { plataforma: "tiktok", titulo: clean(it.desc, 180), autor: clean((it.author && (it.author.nickname || it.author.uniqueId)) || "", 80), portada: httpsOnly(v.cover || ""), duracion: +v.duration || 0, videos: [{ calidad: "Normal", url: u1, ck }] } };
   } catch (e) { return { motivo: "no se pudo leer la página (" + String((e && e.message) || e).slice(0, 60) + ")" }; }
 }
 async function tiktok(u) {
@@ -126,7 +129,7 @@ async function tiktok(u) {
   if (a.out) return a.out;
   const b = await viaPagina(largo);
   if (b.out) return b.out;
-  return { error: "No pude sacar ese video de TikTok. " + (a.motivo ? "El servicio de descarga dijo: «" + a.motivo + "». " : "") + "Revisa que el enlace sea de un video público y completo; si el error se repite, el servicio puede estar bloqueando al servidor: intenta de nuevo en un minuto." };
+  return { error: "No pude sacar ese video de TikTok. " + (a.motivo && /502|503|504|Bad gateway|protecci/i.test(a.motivo) ? "El servicio de descarga está caído en este momento (" + a.motivo + ") y la página de TikTok tampoco entregó el video (" + (b.motivo || "sin datos") + "). Intenta de nuevo en unos minutos. " : a.motivo ? "El servicio de descarga dijo: «" + a.motivo + "». " : "") + "Revisa que el enlace sea de un video público y completo; si el error se repite, el servicio puede estar bloqueando al servidor: intenta de nuevo en un minuto." };
 }
 
 // ---------- Facebook ----------
@@ -246,7 +249,9 @@ async function entregarConvertido(res, u, q, nombre) {
   const ent = base + ".src", sal = base + (gif ? ".gif" : ".mp4");
   const limpiar = () => [ent, sal].forEach((f) => fs.unlink(f, () => {}));
   try {
-    const r = await get(u.toString(), { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" }, 25000);
+    const hc = { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" };
+    if (/tiktok/.test(u.hostname) && /^[\w.-]+=[\w%.\-:~+\/=]*(; [\w.-]+=[\w%.\-:~+\/=]*)*$/.test(String(q.k || "")) && String(q.k).length <= 900) hc.Cookie = String(q.k);
+    const r = await get(u.toString(), hc, 25000);
     const len = +r.headers.get("content-length") || 0;
     if (!r.ok || !r.body || len > 120 * 1024 * 1024) {
       res.statusCode = r.ok ? 413 : 502;
@@ -283,6 +288,7 @@ async function entregar(req, res, q) {
   if (conv) return entregarConvertido(res, u, q, nombre);
   try {
     const hdr = { "User-Agent": UA, Referer: /tik|muscdn/.test(u.hostname) ? "https://www.tiktok.com/" : "https://www.facebook.com/" };
+    if (/tiktok/.test(u.hostname) && /^[\w.-]+=[\w%.\-:~+\/=]*(; [\w.-]+=[\w%.\-:~+\/=]*)*$/.test(String(q.k || "")) && String(q.k).length <= 900) hdr.Cookie = String(q.k);
     const rango = ver && /^bytes=\d*-\d*$/.test(String(req.headers.range || "")) ? req.headers.range : "";
     if (rango) hdr.Range = rango;
     const r = await get(u.toString(), hdr, 25000);

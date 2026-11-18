@@ -3123,7 +3123,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
           .then(function(q){return q.json().catch(function(){return {error:"Respuesta inválida del servidor."}})})
           .then(function(j){b.disabled=false;var d=document.createElement("div");d.className="vp";
             if(!j||!j.ok||!j.videos||!j.videos.length){b.textContent="Ver video";d.innerHTML='<p class="sub" style="margin:6px 0 0">'+E((j&&j.error)||"No se pudo abrir el video.")+'</p>';it.appendChild(d);return}
-            var src="/api/descargar?v=1&u="+encodeURIComponent((j.videos[j.videos.length-1]||j.videos[0]).url)+"&n=ver";
+            var vv=(j.videos[j.videos.length-1]||j.videos[0]);var src="/api/descargar?v=1&u="+encodeURIComponent(vv.url)+(vv.ck?"&k="+encodeURIComponent(vv.ck):"")+"&n=ver";
             d.innerHTML='<video controls playsinline preload="metadata" style="width:100%;max-width:360px;max-height:70vh;border-radius:10px;background:#000;display:block;margin-top:8px"></video><p class="sub vpe" style="margin:6px 0 0" hidden>No se pudo reproducir aquí. Usa el botón Descargar.</p>';
             var v=d.querySelector("video");v.addEventListener("error",function(){d.querySelector(".vpe").hidden=false});v.src=src;it.appendChild(d);b.textContent="Ocultar video";
             if(j.titulo&&x.t!==String(j.titulo).slice(0,120)&&/^[a-z0-9.@\/_\-]+$/i.test(x.t||"")){x.t=String(j.titulo).slice(0,120);saveVL();}
@@ -3134,7 +3134,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       return {fmt:f,h:s,ar:a,fit:ft}}
     function draw(){var bt=$(k+"-bt");if(!bt||!LAST)return;var o=opts();
       var q=(o.fmt!=="mp4"?"&fmt="+o.fmt:"")+(o.h?"&h="+o.h:"")+(o.ar?"&ar="+encodeURIComponent(o.ar)+"&fit="+o.fit:"");
-      bt.innerHTML=LAST.videos.map(function(v,i){return '<a class="btn" href="/api/descargar?u='+encodeURIComponent(v.url)+'&n='+encodeURIComponent(NOM+(i?"-b":""))+q+'" download>Descargar '+E(v.calidad)+' · '+(o.fmt==="gif"?"GIF":"MP4")+'</a>'}).join("");
+      bt.innerHTML=LAST.videos.map(function(v,i){return '<a class="btn" href="/api/descargar?u='+encodeURIComponent(v.url)+'&n='+encodeURIComponent(NOM+(i?"-b":""))+(v.ck?'&k='+encodeURIComponent(v.ck):'')+q+'" download>Descargar '+E(v.calidad)+' · '+(o.fmt==="gif"?"GIF":"MP4")+'</a>'}).join("");
       var t=[];t.push(o.fmt==="gif"?"GIF":"MP4");t.push(o.h?(o.h==="2160"?"4K":o.h+"p"):"resolución original");t.push(o.ar?o.ar+(o.fit==="blur"?" con fondo difuminado":" recortado al centro"):"proporción original");
       var rs=$(k+"-rs");if(rs)rs.textContent="Se descargará en: "+t.join(" · ")+(o.fmt==="mp4"&&!o.h&&!o.ar?" (archivo tal cual, sin convertir).":". Puede tardar unos segundos en prepararse.")}
     ["fmt","res","ar","fit"].forEach(function(x){$(k+"-"+x).addEventListener("change",draw)});
