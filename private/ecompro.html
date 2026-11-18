@@ -3141,10 +3141,12 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     function run(auto){
       var u=inp.value.trim();r.innerHTML="";LASTU=u;
       if(!/^https?:\/\//i.test(u)){m.textContent="Pega el enlace completo del video (empieza con https://).";return}
-      m.textContent="Buscando el video…";go.disabled=true;
-      fetch("/api/descargar",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u,plataforma:pl})})
-        .then(function(x){return x.json().catch(function(){return {error:"Respuesta inválida del servidor."}})})
-        .then(function(j){go.disabled=false;
+      m.textContent="Buscando el video… (puede tardar hasta 30 segundos)";go.disabled=true;var dlb=$(k+"-dl");if(dlb)dlb.disabled=true;
+      var ctl=new AbortController(),tmo=setTimeout(function(){ctl.abort()},50000);
+      function libre(){clearTimeout(tmo);go.disabled=false;if(dlb)dlb.disabled=false}
+      fetch("/api/descargar",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u,plataforma:pl}),signal:ctl.signal})
+        .then(function(x){return x.json().catch(function(){return {error:x.status===504?"El servidor tardó demasiado. Intenta otra vez.":"Respuesta inválida del servidor (HTTP "+x.status+")."}})})
+        .then(function(j){libre();
           if(!j||!j.ok){m.textContent=(j&&j.error)||"No se pudo leer el video.";return}
           m.textContent="Listo.";
           LAST=j;NOM=(j.autor||pl)+"-"+Date.now().toString(36);
@@ -3153,7 +3155,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
           draw();
           var sx=VL.filter(function(y){return y.u===u&&y.k===k})[0];if(sx&&j.titulo&&sx.t!==j.titulo.slice(0,120)){sx.t=j.titulo.slice(0,120);saveVL();REDRAW.forEach(function(f){f()})}
           if(auto===true){setTimeout(function(){var a=$(k+"-bt")&&$(k+"-bt").querySelector("a.btn");if(a){m.textContent="Descargando…";a.click()}},150)}
-        }).catch(function(){go.disabled=false;m.textContent="No hay conexión con el servidor."});
+        }).catch(function(e){libre();m.textContent=e&&e.name==="AbortError"?"Tardó demasiado en responder. Intenta otra vez en un momento.":"No hay conexión con el servidor."});
     }
     go.addEventListener("click",function(){run()});
     $(k+"-dl").addEventListener("click",function(){run(true)});
