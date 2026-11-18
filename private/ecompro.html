@@ -1044,6 +1044,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
       <div class="chips" id="rd-chips" style="margin-top:10px" role="group" aria-label="Filtrar por producto registrado"></div>
       <div style="margin-top:8px"><button class="btn" type="button" id="rd-xl">Descargar CSV</button></div>
       <div class="grid g4" id="rd-kpi" style="margin-top:12px"></div>
+      <div id="rd-cua" style="margin-top:14px"></div>
       <div class="tbl" style="margin-top:12px"><table class="rd-t" style="min-width:1100px"><thead>
         <tr class="rd-h1"><th rowspan="2">Fecha</th><th rowspan="2">ID</th><th rowspan="2">Producto</th><th rowspan="2" class="n">Ventas</th><th colspan="2" class="g">Gasto</th><th colspan="2" class="g">Monto vendido</th><th colspan="2" class="g">Costo por venta</th><th colspan="2" class="g">Resultado</th><th rowspan="2">Nota</th><th rowspan="2"></th></tr>
         <tr class="rd-h2"><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th><th class="n">S/</th><th class="n">Q</th></tr>
@@ -5069,6 +5070,22 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     var res=mq-gq,tcm=gq>0?gs/gq:rate();
     function k(t,b,s,c){return '<div class="card kpi'+(c?' sem-'+c:'')+'"><h3>'+t+'</h3><div class="big">'+b+'</div><div class="sub">'+s+'</div></div>'}
     $("rd-kpi").innerHTML=k("Gasto","Q "+f2(gq),"S/ "+f2(gs))+k("Ventas",String(v),v?"Q "+f2(gq/v)+" · S/ "+f2(gs/v)+" de gasto por venta":"sin ventas",v?(gq/v<=(mq/v)*0.5?"v":gq/v<=(mq/v)?"a":"r"):"n")+k("Monto vendido","Q "+f2(mq),"S/ "+f2(ms))+k("Resultado (monto − gasto)","Q "+f2(res),"S/ "+f2(ms-gs),R.length?(res>0?"v":"r"):"n");
+    /* Cuadritos: por cada producto, una tarjeta por ID de anuncio con sus ventas (un registro con varios IDs reparte sus cifras en partes iguales) */
+    (function(){
+      var P={},ord=[];
+      R.forEach(function(r){var key=r.p||"Sin producto";if(!P[key]){P[key]={n:key,v:0,gq:0,gs:0,mq:0,A:{}};ord.push(key)}var o=P[key];o.v+=r.v;o.gq+=r.gq;o.gs+=r.gs;o.mq+=r.mq;
+        var li=idsDe(r);if(!li.length)li=[{id:"",n:""}];var n=li.length;
+        li.forEach(function(x){var k=(r.ct||"")+"|"+x.id,a=o.A[k]||(o.A[k]={id:x.id,nm:x.n||NID[x.id]||"",ct:r.ct||"",v:0,gq:0,gs:0,mq:0,rep:0,dias:{}});
+          a.v+=r.v/n;a.gq+=r.gq/n;a.gs+=r.gs/n;a.mq+=r.mq/n;if(n>1)a.rep=1;if(!a.nm&&(x.n||NID[x.id]))a.nm=x.n||NID[x.id];a.dias[r.f]=1})});
+      var h="";
+      ord.sort(function(a,b){return P[b].v-P[a].v||P[b].mq-P[a].mq}).forEach(function(key){
+        var o=P[key],L2=Object.keys(o.A).map(function(k){return o.A[k]}).sort(function(a,b){return b.v-a.v||b.mq-a.mq});
+        var nv=function(x){return Math.round(x*10)/10};
+        h+='<div class="rd-pg"><div class="rd-ph"><b>'+E(o.n)+'</b><span class="sub">'+nv(o.v)+' venta'+(nv(o.v)===1?'':'s')+' · '+L2.length+' ID'+(L2.length===1?'':'s')+' · Q '+f2(o.gq)+' de gasto · Q '+f2(o.mq)+' vendido</span></div><div class="rd-tiles">'+
+          L2.map(function(a){var cpv=a.v>0?a.gq/a.v:0,c=a.v>0?(a.mq>0&&cpv<=(a.mq/a.v)*0.5?"v":a.mq>0&&cpv<=a.mq/a.v?"a":"r"):(a.gq>0?"r":"n");
+            return '<div class="rd-tile sem-'+c+'" title="'+E(a.nm||"")+'"><div class="rd-tid">'+(a.id?E(a.id):"Sin ID")+'</div><div class="rd-tnm">'+E(String(a.nm||(a.ct?cname(a.ct):"")).slice(0,44))+'</div><div class="rd-tv">'+nv(a.v)+'<small> venta'+(nv(a.v)===1?'':'s')+'</small></div><div class="rd-ts">Gasto Q '+f2(a.gq)+'</div><div class="rd-ts">'+(a.v>0?'Q '+f2(cpv)+' por venta':'sin ventas')+'</div>'+(a.rep?'<div class="rd-ts" style="opacity:.7">repartido entre varios IDs</div>':'')+'</div>'}).join("")+'</div></div>'});
+      $("rd-cua").innerHTML=h?'<h3 style="margin:0 0 6px">Ventas por anuncio (ID)</h3>'+h:'';
+    })();
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
     $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td class="rd-ids">'+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(idsDe(r).map(function(x){return '<div>'+E(x.id)+(x.n?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(x.n).slice(0,45))+'</div>':'')+'</div>'}).join("")||'–')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td style="white-space:nowrap"><button class="btn" type="button" data-e="'+E(r.id)+'" aria-label="Editar" title="Editar">✎</button> <button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar" title="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
@@ -5149,4 +5166,16 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
 .side .sgbody .sg.sgsub>span:not(.pinb){flex:1;min-width:0}
 @media(hover:hover){.side .sg .pinb:not(.on){width:0;overflow:hidden;margin:0}.side .sg:hover .pinb:not(.on),.side .sg .pinb:focus-visible{width:26px}}
 @media(max-width:900px){.side .sgbody .sg.sgsub{min-height:40px}.side .sgh{min-height:44px}}
+</style>
+<style id="rd-tiles-css">
+.rd-pg{margin:0 0 14px}.rd-ph{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.rd-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:10px}
+.rd-tile{border:1px solid var(--line);border-left:4px solid var(--gris,var(--muted));border-radius:12px;padding:10px 12px;background:var(--card);display:flex;flex-direction:column;gap:2px;min-width:0}
+.rd-tile.sem-v{border-left-color:var(--verde);background:color-mix(in srgb,var(--verde) 9%,var(--card))}
+.rd-tile.sem-a{border-left-color:var(--amar);background:color-mix(in srgb,var(--amar) 10%,var(--card))}
+.rd-tile.sem-r{border-left-color:var(--rojo);background:color-mix(in srgb,var(--rojo) 9%,var(--card))}
+.rd-tid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;font-weight:700;word-break:break-all;user-select:all}
+.rd-tnm{font-size:.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rd-tv{font-size:1.7rem;font-weight:800;line-height:1.1;margin-top:4px}.rd-tv small{font-size:.72rem;font-weight:600;color:var(--muted)}
+.rd-ts{font-size:.76rem;color:var(--muted)}
 </style>
