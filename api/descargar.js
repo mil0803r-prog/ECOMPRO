@@ -52,24 +52,81 @@ const clean = (s, n) => String(s == null ? "" : s).replace(/[\u0000-\u001f<>]/g,
 const httpsOnly = (s) => (/^https:\/\//i.test(s) ? s : "");
 
 // ---------- TikTok ----------
-async function tiktok(u) {
-  const r = await get("https://www.tikwm.com/api/?hd=1&url=" + encodeURIComponent(u.toString()), { "User-Agent": UA, Accept: "application/json" });
-  const j = await r.json().catch(() => null);
-  const d = j && j.code === 0 && j.data;
-  if (!d) return { error: "No pude leer ese video de TikTok. Revisa que el enlace sea público y completo." };
-  const abs = (p) => (p ? (/^https?:/i.test(p) ? p : "https://www.tikwm.com" + p) : "");
+const esp = (ms) => new Promise((r) => setTimeout(r, ms));
+// Enlaces cortos (vm.tiktok.com, vt.tiktok.com, tiktok.com/t/...) se abren primero y se queda el enlace largo, sin datos de seguimiento.
+async function tiktokLargo(u) {
+  const t = u.toString();
+  if (/\/video\/\d+|\/photo\/\d+/.test(u.pathname)) return t.replace(/[?#].*$/, "");
+  try {
+    const r = await get(t, { "User-Agent": UA, Accept: "text/html" }, 9000);
+    const f = new URL(r.url);
+    if (hostOk(f.hostname.toLowerCase(), PAGE_HOSTS.tiktok)) return f.toString().replace(/[?#].*$/, "") || t;
+  } catch (e) {}
+  return t;
+}
+const absTk = (p) => (p ? (/^https?:/i.test(p) ? p : "https://www.tikwm.com" + p) : "");
+function armar(d) {
   const videos = [];
-  if (d.hdplay) videos.push({ calidad: "HD sin marca de agua", url: abs(d.hdplay) });
-  if (d.play) videos.push({ calidad: "Sin marca de agua", url: abs(d.play) });
-  if (!videos.length) return { error: "TikTok no entregó el video sin marca de agua para este enlace." };
+  if (d.hdplay) videos.push({ calidad: "HD sin marca de agua", url: absTk(d.hdplay) });
+  if (d.play) videos.push({ calidad: "Sin marca de agua", url: absTk(d.play) });
+  if (!videos.length) return null;
   return {
     plataforma: "tiktok",
     titulo: clean(d.title, 180),
     autor: clean((d.author && (d.author.nickname || d.author.unique_id)) || "", 80),
-    portada: httpsOnly(abs(d.cover || d.origin_cover || "")),
+    portada: httpsOnly(absTk(d.cover || d.origin_cover || "")),
     duracion: +d.duration || 0,
     videos,
   };
+}
+// Proveedor 1: tikwm (con reintento si pide esperar, porque deja 1 consulta por segundo) por GET y por POST.
+async function viaTikwm(url) {
+  let motivo = "";
+  const intentos = [
+    () => get("https://www.tikwm.com/api/?hd=1&url=" + encodeURIComponent(url), { "User-Agent": UA, Accept: "application/json" }, 14000),
+    () => get("https://tikwm.com/api/?hd=1&url=" + encodeURIComponent(url), { "User-Agent": UA, Accept: "application/json" }, 14000),
+    () => fetch("https://www.tikwm.com/api/", { method: "POST", headers: { "User-Agent": UA, "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", Accept: "application/json" }, body: "hd=1&web=1&url=" + encodeURIComponent(url), signal: AbortSignal.timeout(14000) }),
+  ];
+  for (let i = 0; i < intentos.length; i++) {
+    for (let n = 0; n < 2; n++) {
+      try {
+        const r = await intentos[i]();
+        const txt = await r.text();
+        let j = null;
+        try { j = JSON.parse(txt); } catch (e) {}
+        if (j && j.code === 0 && j.data) { const o = armar(j.data); if (o) return { out: o }; motivo = "TikTok no entregó el video sin marca de agua"; break; }
+        if (j && j.msg) {
+          motivo = String(j.msg).slice(0, 120);
+          if (/limit|second|segundo|too many/i.test(motivo) && n === 0) { await esp(1300); continue; }
+        } else motivo = "respuesta " + r.status + (/^\s*</.test(txt) ? " (página de protección, no datos)" : "");
+        break;
+      } catch (e) { motivo = String(e && e.name === "TimeoutError" ? "tiempo agotado" : (e && e.message) || e).slice(0, 80); break; }
+    }
+  }
+  return { motivo };
+}
+// Proveedor 2: la propia página pública del video en TikTok (datos incrustados). Solo sirve si TikTok la entrega sin pedir verificación.
+async function viaPagina(url) {
+  try {
+    const r = await get(url, { "User-Agent": UA, "Accept-Language": "es,en;q=0.8", Accept: "text/html" }, 12000);
+    const html = await r.text();
+    const m = html.match(/<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>([\s\S]*?)<\/script>/);
+    if (!m) return { motivo: "TikTok no entregó la página del video" };
+    const j = JSON.parse(m[1]);
+    const it = j && j.__DEFAULT_SCOPE__ && j.__DEFAULT_SCOPE__["webapp.video-detail"] && j.__DEFAULT_SCOPE__["webapp.video-detail"].itemInfo && j.__DEFAULT_SCOPE__["webapp.video-detail"].itemInfo.itemStruct;
+    const v = it && it.video;
+    const u1 = v && (v.downloadAddr || v.playAddr);
+    if (!u1) return { motivo: "la página no trae el video" };
+    return { out: { plataforma: "tiktok", titulo: clean(it.desc, 180), autor: clean((it.author && (it.author.nickname || it.author.uniqueId)) || "", 80), portada: httpsOnly(v.cover || ""), duracion: +v.duration || 0, videos: [{ calidad: "Normal", url: u1 }] } };
+  } catch (e) { return { motivo: "no se pudo leer la página (" + String((e && e.message) || e).slice(0, 60) + ")" }; }
+}
+async function tiktok(u) {
+  const largo = await tiktokLargo(u);
+  const a = await viaTikwm(largo);
+  if (a.out) return a.out;
+  const b = await viaPagina(largo);
+  if (b.out) return b.out;
+  return { error: "No pude sacar ese video de TikTok. " + (a.motivo ? "El servicio de descarga dijo: «" + a.motivo + "». " : "") + "Revisa que el enlace sea de un video público y completo; si el error se repite, el servicio puede estar bloqueando al servidor: intenta de nuevo en un minuto." };
 }
 
 // ---------- Facebook ----------
