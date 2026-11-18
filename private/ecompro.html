@@ -5075,15 +5075,16 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
       var P={},ord=[];
       R.forEach(function(r){var key=r.p||"Sin producto";if(!P[key]){P[key]={n:key,v:0,gq:0,gs:0,mq:0,A:{}};ord.push(key)}var o=P[key];o.v+=r.v;o.gq+=r.gq;o.gs+=r.gs;o.mq+=r.mq;
         var li=idsDe(r);if(!li.length)li=[{id:"",n:""}];var n=li.length;
-        li.forEach(function(x){var k=(r.ct||"")+"|"+x.id,a=o.A[k]||(o.A[k]={id:x.id,nm:x.n||NID[x.id]||"",ct:r.ct||"",v:0,gq:0,gs:0,mq:0,rep:0,dias:{}});
-          a.v+=r.v/n;a.gq+=r.gq/n;a.gs+=r.gs/n;a.mq+=r.mq/n;if(n>1)a.rep=1;if(!a.nm&&(x.n||NID[x.id]))a.nm=x.n||NID[x.id];a.dias[r.f]=1})});
+        var vb=Math.floor(r.v/n),vr=r.v-vb*n;
+        li.forEach(function(x,ix){var k=(r.ct||"")+"|"+x.id,a=o.A[k]||(o.A[k]={id:x.id,nm:x.n||NID[x.id]||"",ct:r.ct||"",v:0,gq:0,gs:0,mq:0,rep:0,dias:{}});
+          a.v+=vb+(ix<vr?1:0);a.gq+=r.gq/n;a.gs+=r.gs/n;a.mq+=r.mq/n;if(n>1)a.rep=1;if(!a.nm&&(x.n||NID[x.id]))a.nm=x.n||NID[x.id];a.dias[r.f]=1})});
       var h="";
       ord.sort(function(a,b){return P[b].v-P[a].v||P[b].mq-P[a].mq}).forEach(function(key){
         var o=P[key],L2=Object.keys(o.A).map(function(k){return o.A[k]}).sort(function(a,b){return b.v-a.v||b.mq-a.mq});
         var nv=function(x){return Math.round(x*10)/10};
         h+='<div class="rd-pg"><div class="rd-ph"><b>'+E(o.n)+'</b><span class="sub">'+nv(o.v)+' venta'+(nv(o.v)===1?'':'s')+' · '+L2.length+' ID'+(L2.length===1?'':'s')+' · Q '+f2(o.gq)+' de gasto · Q '+f2(o.mq)+' vendido</span></div><div class="rd-tiles">'+
           L2.map(function(a){var cpv=a.v>0?a.gq/a.v:0,c=a.v>0?(a.mq>0&&cpv<=(a.mq/a.v)*0.5?"v":a.mq>0&&cpv<=a.mq/a.v?"a":"r"):(a.gq>0?"r":"n");
-            return '<div class="rd-tile sem-'+c+'" title="'+E(a.nm||"")+'"><div class="rd-tid">'+(a.id?E(a.id):"Sin ID")+'</div><div class="rd-tnm">'+E(String(a.nm||(a.ct?cname(a.ct):"")).slice(0,44))+'</div><div class="rd-tv">'+nv(a.v)+'<small> venta'+(nv(a.v)===1?'':'s')+'</small></div><div class="rd-ts">Gasto Q '+f2(a.gq)+'</div><div class="rd-ts">'+(a.v>0?'Q '+f2(cpv)+' por venta':'sin ventas')+'</div>'+(a.rep?'<div class="rd-ts" style="opacity:.7">repartido entre varios IDs</div>':'')+'</div>'}).join("")+'</div></div>'});
+            return '<div class="rd-tile sem-'+c+'" title="'+E(a.nm||"")+'"><div class="rd-tid">'+(a.id?E(a.id):"Sin ID")+'</div><div class="rd-tnm">'+E(String(a.nm||(a.ct?cname(a.ct):"")).slice(0,44))+'</div><div class="rd-tv">'+nv(a.v)+'<small> venta'+(nv(a.v)===1?'':'s')+'</small></div><div class="rd-ts">Gasto Q '+f2(a.gq)+'</div><div class="rd-ts">'+(a.v>0?'Q '+f2(cpv)+' por venta':'sin ventas')+'</div>'+(a.rep?'<div class="rd-ts" style="opacity:.7">anuncios juntos: ventas y gasto repartidos</div>':'')+'</div>'}).join("")+'</div></div>'});
       $("rd-cua").innerHTML=h?'<h3 style="margin:0 0 6px">Ventas por anuncio (ID)</h3>'+h:'';
     })();
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
