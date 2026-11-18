@@ -3157,6 +3157,18 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
           if(auto===true){setTimeout(function(){var a=$(k+"-bt")&&$(k+"-bt").querySelector("a.btn");if(a){m.textContent="Descargando…";a.click()}},150)}
         }).catch(function(e){libre();m.textContent=e&&e.name==="AbortError"?"Tardó demasiado en responder. Intenta otra vez en un momento.":"No hay conexión con el servidor."});
     }
+    /* La descarga pasa por aquí para poder mostrar el motivo si falla (antes el navegador solo decía "archivo no encontrado") */
+    r.addEventListener("click",function(ev){
+      var a=ev.target.closest("a.btn[href^='/api/descargar']");if(!a)return;ev.preventDefault();
+      if(a.dataset.busy)return;a.dataset.busy="1";var txt=a.textContent;a.textContent="Preparando…";m.textContent="Preparando la descarga… los videos largos o la conversión pueden tardar unos segundos.";
+      var c2=new AbortController(),t2=setTimeout(function(){c2.abort()},110000);
+      function fin(){clearTimeout(t2);delete a.dataset.busy;a.textContent=txt}
+      fetch(a.getAttribute("href"),{credentials:"same-origin",signal:c2.signal}).then(function(x){
+        if(!x.ok)return x.text().then(function(t){throw new Error((t&&t.length<200?t:"")||("el servidor respondió "+x.status))});
+        var cd=x.headers.get("content-disposition")||"",mm=cd.match(/filename="([^"]+)"/);
+        return x.blob().then(function(bl){var nm=(mm&&mm[1])||"video.mp4",u=URL.createObjectURL(bl),l=document.createElement("a");l.href=u;l.download=nm;document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);fin();m.textContent="Descarga lista: "+nm})
+      }).catch(function(e){fin();var n=e&&e.name==="AbortError";m.textContent=n?"Tardó demasiado. Prueba con menos resolución o un video más corto.":"No se pudo descargar: "+(e&&e.message||"error")+(/no se pudo bajar/.test(e&&e.message||"")?". El servidor del video no entregó el archivo (si es TikTok, el servicio externo puede estar caído: reintenta en unos minutos).":"")});
+    });
     go.addEventListener("click",function(){run()});
     $(k+"-dl").addEventListener("click",function(){run(true)});
     inp.addEventListener("keydown",function(e){if(e.key==="Enter")run()});
