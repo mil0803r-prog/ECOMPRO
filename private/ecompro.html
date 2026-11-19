@@ -1009,7 +1009,8 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
 
   <section class="pane" id="p-rdm" hidden>
     <div class="card rdm">
-      <h3 style="margin:0 0 10px">Anotar el día</h3>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px"><h3 style="margin:0">Anotar el día</h3><button class="btn" type="button" id="rd-tg" aria-expanded="false" aria-controls="rd-form" style="margin-left:auto">➕ Registrar pedido</button></div>
+      <div id="rd-form" hidden>
       <div class="rd-g3">
         <div class="fld"><label for="rd-f">Fecha</label><input id="rd-f" type="date"></div>
         <div class="fld"><label for="rd-ct">Cuenta publicitaria</label><select id="rd-ct"></select></div>
@@ -1031,7 +1032,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <div class="fld"><label for="rd-tc">Tipo de cambio (1 Q = S/)</label><input id="rd-tc" type="number" min="0.01" step="0.0001" inputmode="decimal"></div>
         <div class="fld"><label for="rd-n">Nota</label><input id="rd-n" type="text" maxlength="300" placeholder="Opcional"></div>
         <div style="display:flex;gap:8px"><button class="btn" type="button" id="rd-add" style="flex:1">Anotar</button><button class="btn" type="button" id="rd-cancel" hidden>Cancelar</button></div>
-      </div>
+      </div></div>
       <p class="sub" id="rd-msg" role="status" style="margin:10px 0 0">El tipo de cambio se llena con el de hoy y queda guardado en cada registro, así el histórico no cambia si el cambio sube o baja.</p>
     </div>
     <div class="card rdm" style="margin-top:12px">
@@ -5147,6 +5148,9 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
       (T.n===0?'<div class="sub" style="margin-top:6px">No encontré pedidos entregados de estos productos en Dropi para esas fechas. Si el producto se llama distinto en Dropi, usa en Registro diario un nombre parecido al de Dropi.</div>':'');
   }
   var EDIT=null;
+  /* El formulario está plegado para ahorrar espacio: se abre con "Registrar pedido" */
+  function abreForm(v){var f=$("rd-form"),b=$("rd-tg");f.hidden=!v;b.setAttribute("aria-expanded",v?"true":"false");b.textContent=v?"✕ Cerrar":"➕ Registrar pedido"}
+  $("rd-tg").addEventListener("click",function(){abreForm($("rd-form").hidden)});
   function salirEdicion(){EDIT=null;$("rd-add").textContent="Anotar";$("rd-cancel").hidden=true;["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs()}
   function editar(id){
     var r=L.filter(function(x){return x.id===id})[0];if(!r)return;EDIT=id;
@@ -5158,10 +5162,10 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     $("rd-gm").value=r.gm||"PEN";$("rd-g").value=r.gv!=null?r.gv:((r.gm||"PEN")==="PEN"?r.gs:r.gq);
     $("rd-mm").value=r.mm||"GTQ";$("rd-m").value=r.mv!=null?r.mv:((r.mm||"GTQ")==="GTQ"?r.mq:r.ms);
     $("rd-v").value=r.v;$("rd-n").value=r.n||"";eqs();
-    $("rd-add").textContent="Guardar cambios";$("rd-cancel").hidden=false;$("rd-msg").textContent="Editando el registro del "+r.f.split("-").reverse().join("/")+". Cambia lo que quieras y pulsa «Guardar cambios».";
+    abreForm(true);$("rd-add").textContent="Guardar cambios";$("rd-cancel").hidden=false;$("rd-msg").textContent="Editando el registro del "+r.f.split("-").reverse().join("/")+". Cambia lo que quieras y pulsa «Guardar cambios».";
     $("rd-f").scrollIntoView({behavior:"smooth",block:"center"});
   }
-  $("rd-cancel").addEventListener("click",function(){salirEdicion();$("rd-msg").textContent="Edición cancelada."});
+  $("rd-cancel").addEventListener("click",function(){salirEdicion();abreForm(false);$("rd-msg").textContent="Edición cancelada."});
   $("rd-add").addEventListener("click",function(){
     var m=$("rd-msg"),f=$("rd-f").value,tc=parseFloat($("rd-tc").value),g=parseFloat($("rd-g").value)||0,mo=parseFloat($("rd-m").value)||0,v=parseInt($("rd-v").value,10)||0,pr=prod();
     if(!f){m.textContent="Pon la fecha.";return}
@@ -5171,9 +5175,9 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     var gm=$("rd-gm").value,mm=$("rd-mm").value;
     var gs=gm==="PEN"?g:g*tc,gq=gm==="GTQ"?g:g/tc,ms=mm==="PEN"?mo:mo*tc,mq=mm==="GTQ"?mo:mo/tc;
     var base={f:f,i:SEL.map(function(x){return x.id}).join(", "),ids:SEL.map(function(x){return {id:x.id,n:x.n}}),in:SEL.map(function(x){return x.n}).filter(Boolean).join(" · "),ct:$("rd-ct").value===OTRO?"":$("rd-ct").value,p:pr,gs:Math.round(gs*100)/100,gq:Math.round(gq*100)/100,v:v,ms:Math.round(ms*100)/100,mq:Math.round(mq*100)/100,tc:tc,n:$("rd-n").value.trim(),gm:gm,gv:g,mm:mm,mv:mo};
-    if(EDIT){var k=L.findIndex(function(r){return r.id===EDIT});if(k>=0)L[k]=Object.assign({},L[k],base);salirEdicion();save();draw();m.textContent="Cambios guardados.";return}
+    if(EDIT){var k=L.findIndex(function(r){return r.id===EDIT});if(k>=0)L[k]=Object.assign({},L[k],base);salirEdicion();save();draw();abreForm(false);m.textContent="Cambios guardados.";return}
     L.push(Object.assign({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now()},base));
-    save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
+    save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();abreForm(false);m.textContent="Anotado. Para registrar otro, toca «Registrar pedido».";
   });
   $("rd-ut").addEventListener("change",function(e){var i=e.target.closest(".rd-pid");if(!i)return;var v=i.value.replace(/[^\d,\s]/g,"").trim();if(v)PID[i.dataset.pn]=v;else delete PID[i.dataset.pn];savePid();draw()});
   $("rd-body").addEventListener("click",function(e){var be=e.target.closest("[data-e]");if(be){editar(be.dataset.e);return}var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});if(EDIT===b.dataset.d)salirEdicion();save();draw()});
