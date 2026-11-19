@@ -5109,6 +5109,10 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   }
   /* Utilidad real: pedidos ENTREGADOS en Dropi de cada producto registrado, contra el gasto anotado aquí */
   var DPD=null,DPT=0,DPE="",DPL=false;
+  /* ID del producto en Dropi para cada producto registrado (así los pedidos se buscan por ID y no por nombre) */
+  var PID={};try{PID=JSON.parse(localStorage.getItem("ec_regpid")||"{}")||{}}catch(e){PID={}}
+  function savePid(){try{localStorage.setItem("ec_regpid",JSON.stringify(PID))}catch(e){}if(db&&can)db.doc("settings/regprodid").set({map:PID}).catch(function(){})}
+  function idsDe2(pn){return String(PID[pn]||"").split(/[,\s]+/).filter(function(x){return /^\d+$/.test(x)})}
   function dpCarga(){
     if(DPL||Date.now()-DPT<5*60*1000)return;DPL=true;DPT=Date.now();
     var pide=function(c){return fetch("/api/dropi?a=data"+(c>1?"&c="+c:""),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {error:"respuesta inválida"}}).then(function(j){return {ok:r.ok&&!j.error,j:j}})}).catch(function(){return {ok:false,j:{error:"sin conexión"}}})};
@@ -5128,17 +5132,18 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     if(DPD===null)return '<div class="warn"><b>No se pudieron leer los pedidos de Dropi</b><span>'+E(DPE||"Sin respuesta")+'. Revisa que el token DROPI_TOKEN esté en Vercel.</span></div>';
     var tc=rate();
     var rows=prods.map(function(pn){
-      var key=nkp(pn),n=0,dev=0,venta=0,util=0,gq=0,gs=0,vr=0;
-      DPD.forEach(function(o){var f=String(o.date||"").slice(0,10);if((d&&f<d)||(h&&f>h))return;if(!mismo(key,nkp(o.prod)))return;
+      var key=nkp(pn),n=0,dev=0,venta=0,util=0,gq=0,gs=0,vr=0,mi=idsDe2(pn);
+      DPD.forEach(function(o){var f=String(o.date||"").slice(0,10);if((d&&f<d)||(h&&f>h))return;
+        if(mi.length){var op=String(o.pid||"").split(",");if(!mi.some(function(x){return op.indexOf(x)>-1}))return}else if(!mismo(key,nkp(o.prod)))return;
         if(o.group==="entregado"){n++;venta+=+o.total||0;util+=+o.util||0}else if(o.group==="devolucion")dev++});
       R.forEach(function(r){if(r.p===pn){gq+=r.gq;gs+=r.gs;vr+=r.v}});
-      return {p:pn,n:n,dev:dev,venta:venta,util:util,gq:gq,gs:gs,vr:vr,net:util-gq,nets:util*tc-gs}}).sort(function(a,b){return b.net-a.net});
+      return {p:pn,n:n,dev:dev,venta:venta,util:util,gq:gq,gs:gs,vr:vr,net:util-gq,nets:util*tc-gs,id:mi.join(", ")}}).sort(function(a,b){return b.net-a.net});
     var T=rows.reduce(function(a,x){a.n+=x.n;a.dev+=x.dev;a.venta+=x.venta;a.util+=x.util;a.gq+=x.gq;a.gs+=x.gs;a.net+=x.net;a.nets+=x.nets;return a},{n:0,dev:0,venta:0,util:0,gq:0,gs:0,net:0,nets:0});
     var cls=function(v){return v>0?"rd-pos":v<0?"rd-neg":""};
-    var tr=function(x,t){return '<tr'+(t?' style="font-weight:700"':'')+'><td>'+E(x.p)+'</td><td class="n">'+x.n+'</td><td class="n">'+x.dev+'</td><td class="n">'+f2(x.venta)+'</td><td class="n sub">'+f2(x.venta*tc)+'</td><td class="n">'+f2(x.util)+'</td><td class="n sub">'+f2(x.util*tc)+'</td><td class="n">'+f2(x.gq)+'</td><td class="n sub">'+f2(x.gs)+'</td><td class="n '+cls(x.net)+'">'+f2(x.net)+'</td><td class="n sub '+cls(x.nets)+'">'+f2(x.nets)+'</td></tr>'};
+    var tr=function(x,t){return '<tr'+(t?' style="font-weight:700"':'')+'><td>'+E(x.p)+(t?'':'<div class="sub"><input class="rd-pid" data-pn="'+E(x.p)+'" list="rd-pidl" inputmode="numeric" placeholder="ID del producto en Dropi" value="'+E(PID[x.p]||"")+'" style="width:100%;max-width:190px;padding:4px 7px;font-size:.78rem;margin-top:3px"></div>')+'</td><td class="n">'+x.n+'</td><td class="n">'+x.dev+'</td><td class="n">'+f2(x.venta)+'</td><td class="n sub">'+f2(x.venta*tc)+'</td><td class="n">'+f2(x.util)+'</td><td class="n sub">'+f2(x.util*tc)+'</td><td class="n">'+(x.n?f2(x.util/x.n):"–")+'</td><td class="n sub">'+(x.n?f2(x.util/x.n*tc):"–")+'</td><td class="n">'+f2(x.gq)+'</td><td class="n sub">'+f2(x.gs)+'</td><td class="n '+cls(x.net)+'">'+f2(x.net)+'</td><td class="n sub '+cls(x.nets)+'">'+f2(x.nets)+'</td></tr>'};
     return '<h3 style="margin:0 0 4px">Utilidad real: entregados en Dropi vs. gasto en anuncios</h3>'+
-      '<div class="sub" style="margin:0 0 8px">Cuenta solo pedidos <b>entregados</b> de Dropi (de Dropi 1 y Dropi 2) creados en las fechas elegidas, que coincidan con el nombre del producto. Utilidad Dropi = lo que cobraste − costo del proveedor − flete. Utilidad neta = utilidad Dropi − gasto de anuncios anotado aquí. Q en quetzales y S/ en soles (los pedidos de Dropi se pasan a soles con el tipo de cambio de arriba).</div>'+
-      '<div class="tbl"><table class="rd-t" style="min-width:900px"><thead><tr><th>Producto</th><th class="n">Entregados</th><th class="n">Devueltos</th><th class="n">Venta Q</th><th class="n">S/</th><th class="n">Utilidad Dropi Q</th><th class="n">S/</th><th class="n">Gasto Q</th><th class="n">S/</th><th class="n">Utilidad neta Q</th><th class="n">S/</th></tr></thead><tbody>'+rows.map(function(x){return tr(x,false)}).join("")+(rows.length>1?tr({p:"Total",n:T.n,dev:T.dev,venta:T.venta,util:T.util,gq:T.gq,gs:T.gs,net:T.net,nets:T.nets},true):"")+'</tbody></table></div>'+
+      '<div class="sub" style="margin:0 0 8px">Cuenta solo pedidos <b>entregados</b> de Dropi (de Dropi 1 y Dropi 2) creados en las fechas elegidas, que coincidan con el nombre del producto. Utilidad sin publicidad = lo que cobraste − costo del proveedor − flete, solo de los entregados. Pon el <b>ID del producto en Dropi</b> debajo de cada nombre para que busque por ID (si lo dejas vacío, busca por el nombre). Utilidad neta = utilidad sin publicidad − gasto de anuncios anotado aquí. Q en quetzales y S/ en soles (los pedidos de Dropi se pasan a soles con el tipo de cambio de arriba).</div>'+
+      '<datalist id="rd-pidl">'+(function(){var m={};DPD.forEach(function(o){var ids=String(o.pid||"").split(","),nm=String(o.pnames||o.prod||"").split(" | ");ids.forEach(function(id,i){if(id&&!m[id])m[id]=nm[i]||nm[0]||""})});return Object.keys(m).slice(0,300).map(function(id){return '<option value="'+E(id)+'">'+E(m[id])+'</option>'}).join("")})()+'</datalist><div class="tbl"><table class="rd-t" style="min-width:1100px"><thead><tr><th>Producto</th><th class="n">Entregados</th><th class="n">Devueltos</th><th class="n">Venta Q</th><th class="n">S/</th><th class="n">Utilidad sin publicidad Q</th><th class="n">S/</th><th class="n">Por entregado Q</th><th class="n">S/</th><th class="n">Gasto Q</th><th class="n">S/</th><th class="n">Utilidad neta Q</th><th class="n">S/</th></tr></thead><tbody>'+rows.map(function(x){return tr(x,false)}).join("")+(rows.length>1?tr({p:"Total",n:T.n,dev:T.dev,venta:T.venta,util:T.util,gq:T.gq,gs:T.gs,net:T.net,nets:T.nets},true):"")+'</tbody></table></div>'+
       (T.n===0?'<div class="sub" style="margin-top:6px">No encontré pedidos entregados de estos productos en Dropi para esas fechas. Si el producto se llama distinto en Dropi, usa en Registro diario un nombre parecido al de Dropi.</div>':'');
   }
   var EDIT=null;
@@ -5170,6 +5175,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     L.push(Object.assign({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now()},base));
     save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();m.textContent="Anotado.";
   });
+  $("rd-ut").addEventListener("change",function(e){var i=e.target.closest(".rd-pid");if(!i)return;var v=i.value.replace(/[^\d,\s]/g,"").trim();if(v)PID[i.dataset.pn]=v;else delete PID[i.dataset.pn];savePid();draw()});
   $("rd-body").addEventListener("click",function(e){var be=e.target.closest("[data-e]");if(be){editar(be.dataset.e);return}var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});if(EDIT===b.dataset.d)salirEdicion();save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
   $("rd-chips").addEventListener("click",function(e){var b=e.target.closest("[data-p]");if(!b)return;$("rd-fp").value=b.dataset.p;draw()});
@@ -5184,6 +5190,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   $("rd-tc").addEventListener("input",function(){$("rd-tc").dataset.t="1"});
   draw();setTimeout(function(){productos();ids()},3000);setTimeout(function(){productos();ids()},9000);
   (async function(){try{if(window.claude&&window.claude.use){db=await window.claude.use("db");var us=await window.claude.use("user");if(us&&us.can&&us.can("data.write")===false)can=false;
+    db.doc("settings/regprodid").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&d.map&&typeof d.map==="object"){PID=d.map;try{localStorage.setItem("ec_regpid",JSON.stringify(PID))}catch(e){}if(document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains("rd-pid"))return;draw()}},function(){});
     db.doc("settings/registrometa").onSnapshot(function(s){var d=s&&s.exists&&s.data();if(d&&Array.isArray(d.list)){L=d.list.filter(function(r){return r&&r.id&&r.f});try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}draw()}},function(){})}}catch(e){}})();
 })();
 </script>
