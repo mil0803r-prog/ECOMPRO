@@ -5104,12 +5104,13 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
       /* Solo con un producto elegido: con "Todos" ocuparía demasiado espacio */
       $("rd-cua").innerHTML=(h&&fpv)?'<h3 style="margin:0 0 6px">Ventas por anuncio (ID)</h3>'+h:'';
     })();
-    $("rd-ut").innerHTML=utilidadHTML(R);
+    $("rd-ut").className="rd-sz-"+SZ;$("rd-ut").innerHTML=utilidadHTML(R);
     function c2(a,b){return '<td class="n">'+a+'</td><td class="n">'+b+'</td>'}
     $("rd-body").innerHTML=R.length?R.map(function(r){var ra=r.mq-r.gq,rs=r.ms-r.gs;return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td class="rd-ids">'+(r.ct?'<div class="sub">'+E(cname(r.ct))+'</div>':'')+(idsDe(r).map(function(x){return '<div>'+E(x.id)+(x.n?'<div class="sub" style="white-space:normal;max-width:190px">'+E(String(x.n).slice(0,45))+'</div>':'')+'</div>'}).join("")||'–')+'</td><td>'+E(r.p||"–")+'</td><td class="n">'+r.v+'</td>'+c2(f2(r.gs),f2(r.gq))+c2(f2(r.ms),f2(r.mq))+c2(r.v?f2(r.gs/r.v):"–",r.v?f2(r.gq/r.v):"–")+'<td class="n '+cls(rs)+'">'+f2(rs)+'</td><td class="n '+cls(ra)+'">'+f2(ra)+'</td><td style="white-space:normal;min-width:120px">'+E(r.n||"")+'</td><td style="white-space:nowrap"><button class="btn" type="button" data-e="'+E(r.id)+'" aria-label="Editar" title="Editar">✎</button> <button class="btn" type="button" data-d="'+E(r.id)+'" aria-label="Borrar" title="Borrar">✕</button></td></tr>'}).join("")+'<tr class="rd-tot"><td colspan="3">Total ('+R.length+' registro'+(R.length===1?'':'s')+')</td><td class="n">'+v+'</td>'+c2(f2(gs),f2(gq))+c2(f2(ms),f2(mq))+c2(v?f2(gs/v):"–",v?f2(gq/v):"–")+'<td class="n '+cls(ms-gs)+'">'+f2(ms-gs)+'</td><td class="n '+cls(res)+'">'+f2(res)+'</td><td colspan="2"></td></tr>':'<tr><td colspan="14" class="sub">Todavía no hay registros en este rango.</td></tr>';
   }
   /* Utilidad real: pedidos ENTREGADOS en Dropi de cada producto registrado, contra el gasto anotado aquí */
   var DPD=null,DPT=0,DPE="",DPL=false;
+  var SZ="m";try{var z0=localStorage.getItem("ec_rdsz");if(z0==="s"||z0==="m"||z0==="l")SZ=z0}catch(e){}
   /* ID del producto en Dropi para cada producto registrado (así los pedidos se buscan por ID y no por nombre) */
   var PID={};try{PID=JSON.parse(localStorage.getItem("ec_regpid")||"{}")||{}}catch(e){PID={}}
   function savePid(){try{localStorage.setItem("ec_regpid",JSON.stringify(PID))}catch(e){}if(db&&can)db.doc("settings/regprodid").set({map:PID}).catch(function(){})}
@@ -5142,7 +5143,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     var T=rows.reduce(function(a,x){a.n+=x.n;a.dev+=x.dev;a.cam+=x.cam;a.venta+=x.venta;a.util+=x.util;a.gq+=x.gq;a.gs+=x.gs;a.net+=x.net;a.nets+=x.nets;return a},{n:0,dev:0,cam:0,venta:0,util:0,gq:0,gs:0,net:0,nets:0});
     var cls=function(v){return v>0?"rd-pos":v<0?"rd-neg":""};
     var tr=function(x,t){var c=function(g,v){return '<td class="n rg'+g+'"><b>'+v+'</b></td>'};return '<tr'+(t?' style="font-weight:700"':'')+'><td>'+E(x.p)+(t?'':'<div class="sub"><input class="rd-pid" data-pn="'+E(x.p)+'" list="rd-pidl" inputmode="numeric" placeholder="ID del producto en Dropi" value="'+E(PID[x.p]||"")+'" style="width:100%;max-width:190px;padding:4px 7px;font-size:.78rem;margin-top:3px"></div>')+'</td><td class="n rd-nc">'+x.n+'</td><td class="n rd-nc">'+x.dev+'</td><td class="n rd-nc">'+x.cam+'</td>'+c(1,f2(x.venta))+c(1,f2(x.venta*tc))+c(2,f2(x.util))+c(2,f2(x.util*tc))+c(3,x.n?f2(x.util/x.n):"–")+c(3,x.n?f2(x.util/x.n*tc):"–")+c(4,f2(x.gq))+c(4,f2(x.gs))+'<td class="n rg5 '+cls(x.net)+'"><b>'+f2(x.net)+'</b></td><td class="n rg5 '+cls(x.nets)+'"><b>'+f2(x.nets)+'</b></td></tr>'};
-    return '<h3 style="margin:0 0 4px">Utilidad real: entregados en Dropi vs. gasto en anuncios</h3>'+
+    return '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 6px"><h3 style="margin:0">Utilidad real: entregados en Dropi vs. gasto en anuncios</h3><span class="rd-sz" role="group" aria-label="Tamaño de la tabla" style="margin-left:auto">'+[["s","Compacto"],["m","Normal"],["l","Grande"]].map(function(z){return '<button type="button" class="chip" data-sz="'+z[0]+'" aria-pressed="'+(SZ===z[0])+'">'+z[1]+'</button>'}).join("")+'</span></div>'+
       
       '<datalist id="rd-pidl">'+(function(){var m={};DPD.forEach(function(o){var ids=String(o.pid||"").split(","),nm=String(o.pnames||o.prod||"").split(" | ");ids.forEach(function(id,i){if(id&&!m[id])m[id]=nm[i]||nm[0]||""})});return Object.keys(m).slice(0,300).map(function(id){return '<option value="'+E(id)+'">'+E(m[id])+'</option>'}).join("")})()+'</datalist><div class="tbl"><table class="rd-t" style="min-width:960px"><thead><tr class="rd-h1 rd-u"><th rowspan="2">Producto</th><th rowspan="2" class="n rd-nc">Entregados</th><th rowspan="2" class="n rd-nc">Devueltos</th><th rowspan="2" class="n rd-nc">En camino</th><th colspan="2" class="n rg1"><span class="rdt">Venta cobrada</span><span class="rds">lo que pagaron los clientes</span></th><th colspan="2" class="n rg2"><span class="rdt">Ganancia total</span><span class="rds">entregados · SIN restar anuncios</span></th><th colspan="2" class="n rg3"><span class="rdt">Ganancia por pedido</span><span class="rds">promedio de 1 entregado</span></th><th colspan="2" class="n rg4"><span class="rdt">Gasto en anuncios</span><span class="rds">lo que anotaste</span></th><th colspan="2" class="n rg5"><span class="rdt">Ganancia final</span><span class="rds">total − anuncios</span></th></tr><tr class="rd-h2 rd-u"><th class="n rg1">Q</th><th class="n rg1">S/</th><th class="n rg2">Q</th><th class="n rg2">S/</th><th class="n rg3">Q</th><th class="n rg3">S/</th><th class="n rg4">Q</th><th class="n rg4">S/</th><th class="n rg5">Q</th><th class="n rg5">S/</th></tr></thead><tbody>'+rows.map(function(x){return tr(x,false)}).join("")+(rows.length>1?tr({p:"Total",n:T.n,dev:T.dev,cam:T.cam,venta:T.venta,util:T.util,gq:T.gq,gs:T.gs,net:T.net,nets:T.nets},true):"")+'</tbody></table></div>'+
       (T.n===0?'<div class="sub" style="margin-top:6px">No encontré pedidos entregados de estos productos en Dropi para esas fechas. Si el producto se llama distinto en Dropi, usa en Registro diario un nombre parecido al de Dropi.</div>':'');
@@ -5179,6 +5180,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
     L.push(Object.assign({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:Date.now()},base));
     save();draw();["rd-g","rd-v","rd-m","rd-n"].forEach(function(x){$(x).value=""});eqs();abreForm(false);m.textContent="Anotado. Para registrar otro, toca «Registrar pedido».";
   });
+  $("rd-ut").addEventListener("click",function(e){var b=e.target.closest("[data-sz]");if(!b)return;SZ=b.dataset.sz;try{localStorage.setItem("ec_rdsz",SZ)}catch(x){}draw()});
   $("rd-ut").addEventListener("change",function(e){var i=e.target.closest(".rd-pid");if(!i)return;var v=i.value.replace(/[^\d,\s]/g,"").trim();if(v)PID[i.dataset.pn]=v;else delete PID[i.dataset.pn];savePid();draw()});
   $("rd-body").addEventListener("click",function(e){var be=e.target.closest("[data-e]");if(be){editar(be.dataset.e);return}var b=e.target.closest("[data-d]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;L=L.filter(function(r){return r.id!==b.dataset.d});if(EDIT===b.dataset.d)salirEdicion();save();draw()});
   ["rd-fd","rd-fh","rd-fp"].forEach(function(x){$(x).addEventListener("change",draw)});
@@ -5254,38 +5256,47 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
 .rd-u .rdt{display:block;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
 .rd-u .rds{display:block;font-size:.68rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted);margin-top:2px}
 
-/* Contorno fuerte por grupo (Q + S/) */
+/* Grupos Q + S/: franja de color arriba, separador fino y esquinas suaves */
 #rd-ut table.rd-t{border-collapse:separate;border-spacing:0}
-#rd-ut th.rd-nc{font-size:.64rem!important;letter-spacing:0!important;padding-left:5px!important;padding-right:5px!important}
+#rd-ut{--rdf:.84rem;--rdp:10px}
+#rd-ut.rd-sz-s{--rdf:.74rem;--rdp:5px}
+#rd-ut.rd-sz-l{--rdf:1rem;--rdp:15px}
+#rd-ut tbody td{font-size:var(--rdf);padding-top:var(--rdp)!important;padding-bottom:var(--rdp)!important}
+#rd-ut tbody td.n b{font-size:calc(var(--rdf) + .02rem)}
+#rd-ut.rd-sz-s .rd-pid{font-size:.68rem!important;padding:2px 6px!important}
+#rd-ut.rd-sz-l .rd-pid{font-size:.9rem!important;padding:6px 9px!important;max-width:240px!important}
 #rd-ut .rd-nc{width:1%;white-space:nowrap;padding-left:8px!important;padding-right:8px!important;text-align:center!important}
-#rd-ut tbody td:nth-child(5){border-left:2px solid #3b82f6!important}
-#rd-ut tbody td:nth-child(6){border-right:2px solid #3b82f6!important}
-#rd-ut tbody tr:last-child td:nth-child(5),#rd-ut tbody tr:last-child td:nth-child(6){border-bottom:2px solid #3b82f6!important}
-#rd-ut thead tr.rd-h1 th:nth-child(5){border:2px solid #3b82f6!important;border-bottom:0!important}
-#rd-ut thead tr.rd-h2 th:nth-child(1){border-left:2px solid #3b82f6!important}
-#rd-ut thead tr.rd-h2 th:nth-child(2){border-right:2px solid #3b82f6!important}
-#rd-ut tbody td:nth-child(7){border-left:2px solid #22c55e!important}
-#rd-ut tbody td:nth-child(8){border-right:2px solid #22c55e!important}
-#rd-ut tbody tr:last-child td:nth-child(7),#rd-ut tbody tr:last-child td:nth-child(8){border-bottom:2px solid #22c55e!important}
-#rd-ut thead tr.rd-h1 th:nth-child(6){border:2px solid #22c55e!important;border-bottom:0!important}
-#rd-ut thead tr.rd-h2 th:nth-child(3){border-left:2px solid #22c55e!important}
-#rd-ut thead tr.rd-h2 th:nth-child(4){border-right:2px solid #22c55e!important}
-#rd-ut tbody td:nth-child(9){border-left:2px solid #8b5cf6!important}
-#rd-ut tbody td:nth-child(10){border-right:2px solid #8b5cf6!important}
-#rd-ut tbody tr:last-child td:nth-child(9),#rd-ut tbody tr:last-child td:nth-child(10){border-bottom:2px solid #8b5cf6!important}
-#rd-ut thead tr.rd-h1 th:nth-child(7){border:2px solid #8b5cf6!important;border-bottom:0!important}
-#rd-ut thead tr.rd-h2 th:nth-child(5){border-left:2px solid #8b5cf6!important}
-#rd-ut thead tr.rd-h2 th:nth-child(6){border-right:2px solid #8b5cf6!important}
-#rd-ut tbody td:nth-child(11){border-left:2px solid #f59e0b!important}
-#rd-ut tbody td:nth-child(12){border-right:2px solid #f59e0b!important}
-#rd-ut tbody tr:last-child td:nth-child(11),#rd-ut tbody tr:last-child td:nth-child(12){border-bottom:2px solid #f59e0b!important}
-#rd-ut thead tr.rd-h1 th:nth-child(8){border:2px solid #f59e0b!important;border-bottom:0!important}
-#rd-ut thead tr.rd-h2 th:nth-child(7){border-left:2px solid #f59e0b!important}
-#rd-ut thead tr.rd-h2 th:nth-child(8){border-right:2px solid #f59e0b!important}
-#rd-ut tbody td:nth-child(13){border-left:2px solid #059669!important}
-#rd-ut tbody td:nth-child(14){border-right:2px solid #059669!important}
-#rd-ut tbody tr:last-child td:nth-child(13),#rd-ut tbody tr:last-child td:nth-child(14){border-bottom:2px solid #059669!important}
-#rd-ut thead tr.rd-h1 th:nth-child(9){border:2px solid #059669!important;border-bottom:0!important}
-#rd-ut thead tr.rd-h2 th:nth-child(9){border-left:2px solid #059669!important}
-#rd-ut thead tr.rd-h2 th:nth-child(10){border-right:2px solid #059669!important}
+#rd-ut th.rd-nc{font-size:.64rem!important;letter-spacing:0!important;padding-left:5px!important;padding-right:5px!important}
+#rd-ut thead tr.rd-h1 th.rg1,#rd-ut thead tr.rd-h1 th.rg2,#rd-ut thead tr.rd-h1 th.rg3,#rd-ut thead tr.rd-h1 th.rg4,#rd-ut thead tr.rd-h1 th.rg5{border-radius:12px 12px 0 0}
+#rd-ut thead tr.rd-h1 th:nth-child(5){border-top:5px solid #3b82f6!important}
+#rd-ut tbody td:nth-child(5){border-left:1px solid color-mix(in srgb,#3b82f6 45%,var(--line))!important}
+#rd-ut tbody td:nth-child(6){border-right:1px solid color-mix(in srgb,#3b82f6 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(1){border-left:1px solid color-mix(in srgb,#3b82f6 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(2){border-right:1px solid color-mix(in srgb,#3b82f6 45%,var(--line))!important}
+#rd-ut tbody tr:last-child td:nth-child(5),#rd-ut tbody tr:last-child td:nth-child(6){border-bottom:5px solid #3b82f6!important}
+#rd-ut thead tr.rd-h1 th:nth-child(6){border-top:5px solid #22c55e!important}
+#rd-ut tbody td:nth-child(7){border-left:1px solid color-mix(in srgb,#22c55e 45%,var(--line))!important}
+#rd-ut tbody td:nth-child(8){border-right:1px solid color-mix(in srgb,#22c55e 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(3){border-left:1px solid color-mix(in srgb,#22c55e 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(4){border-right:1px solid color-mix(in srgb,#22c55e 45%,var(--line))!important}
+#rd-ut tbody tr:last-child td:nth-child(7),#rd-ut tbody tr:last-child td:nth-child(8){border-bottom:5px solid #22c55e!important}
+#rd-ut thead tr.rd-h1 th:nth-child(7){border-top:5px solid #8b5cf6!important}
+#rd-ut tbody td:nth-child(9){border-left:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line))!important}
+#rd-ut tbody td:nth-child(10){border-right:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(5){border-left:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(6){border-right:1px solid color-mix(in srgb,#8b5cf6 45%,var(--line))!important}
+#rd-ut tbody tr:last-child td:nth-child(9),#rd-ut tbody tr:last-child td:nth-child(10){border-bottom:5px solid #8b5cf6!important}
+#rd-ut thead tr.rd-h1 th:nth-child(8){border-top:5px solid #f59e0b!important}
+#rd-ut tbody td:nth-child(11){border-left:1px solid color-mix(in srgb,#f59e0b 45%,var(--line))!important}
+#rd-ut tbody td:nth-child(12){border-right:1px solid color-mix(in srgb,#f59e0b 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(7){border-left:1px solid color-mix(in srgb,#f59e0b 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(8){border-right:1px solid color-mix(in srgb,#f59e0b 45%,var(--line))!important}
+#rd-ut tbody tr:last-child td:nth-child(11),#rd-ut tbody tr:last-child td:nth-child(12){border-bottom:5px solid #f59e0b!important}
+#rd-ut thead tr.rd-h1 th:nth-child(9){border-top:5px solid #059669!important}
+#rd-ut tbody td:nth-child(13){border-left:1px solid color-mix(in srgb,#059669 45%,var(--line))!important}
+#rd-ut tbody td:nth-child(14){border-right:1px solid color-mix(in srgb,#059669 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(9){border-left:1px solid color-mix(in srgb,#059669 45%,var(--line))!important}
+#rd-ut thead tr.rd-h2 th:nth-child(10){border-right:1px solid color-mix(in srgb,#059669 45%,var(--line))!important}
+#rd-ut tbody tr:last-child td:nth-child(13),#rd-ut tbody tr:last-child td:nth-child(14){border-bottom:5px solid #059669!important}
+#rd-ut tbody tr:last-child td:nth-child(5){border-bottom-left-radius:12px}#rd-ut tbody tr:last-child td:nth-child(14){border-bottom-right-radius:12px}
 </style>
