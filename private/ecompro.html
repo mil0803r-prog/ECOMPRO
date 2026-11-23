@@ -820,14 +820,14 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     /* Admin Dropi: dos cuentas de Dropi. Cada una abre el mismo panel con su propio token y sus propios ajustes. */
     (function(){
       var fr=document.getElementById("dropi-frame"),tb=document.getElementById("adm-tabs"),ms=document.getElementById("adm-msg");
-      var N={1:"Dropi 1",2:"Dropi 2"},CON={1:true,2:true},cur="1";
-      try{var g=localStorage.getItem("ec_dropicta");if(g==="2")cur="2"}catch(e){}
+      var N={1:"Dropi 1",2:"Dropi 2",3:"Dropi Colombia"},CON={1:true,2:true,3:true},cur="1";
+      try{var g=localStorage.getItem("ec_dropicta");if(g==="2"||g==="3")cur=g}catch(e){}
       function e(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
       function pinta(){
-        tb.innerHTML=[1,2].map(function(n){var on=String(n)===cur;return '<span style="display:inline-flex;align-items:center;border:1px solid '+(on?"var(--accent,var(--cel))":"var(--line)")+';border-radius:999px;overflow:hidden;background:'+(on?"color-mix(in srgb,var(--accent,var(--cel)) 18%,var(--card))":"var(--card)")+'"><button type="button" data-c="'+n+'" style="border:0;background:none;color:var(--fg);font:inherit;font-weight:700;font-size:.86rem;padding:7px 6px 7px 14px;cursor:pointer">'+e(N[n])+(CON[n]?"":" · sin token")+'</button><button type="button" data-r="'+n+'" title="Cambiar el nombre" aria-label="Cambiar el nombre de '+e(N[n])+'" style="border:0;background:none;color:var(--muted);font:inherit;padding:7px 11px 7px 4px;cursor:pointer">✎</button></span>'}).join("");
-        ms.textContent=CON[cur]?"":"Falta poner el token de esta cuenta en Vercel: variable DROPI_TOKEN"+(cur==="2"?"_2":"")+" (Sensitive) y luego Redeploy.";
+        tb.innerHTML=[1,2,3].map(function(n){var on=String(n)===cur;return '<span style="display:inline-flex;align-items:center;border:1px solid '+(on?"var(--accent,var(--cel))":"var(--line)")+';border-radius:999px;overflow:hidden;background:'+(on?"color-mix(in srgb,var(--accent,var(--cel)) 18%,var(--card))":"var(--card)")+'"><button type="button" data-c="'+n+'" style="border:0;background:none;color:var(--fg);font:inherit;font-weight:700;font-size:.86rem;padding:7px 6px 7px 14px;cursor:pointer">'+e(N[n])+(CON[n]?"":" · sin token")+'</button><button type="button" data-r="'+n+'" title="Cambiar el nombre" aria-label="Cambiar el nombre de '+e(N[n])+'" style="border:0;background:none;color:var(--muted);font:inherit;padding:7px 11px 7px 4px;cursor:pointer">✎</button></span>'}).join("");
+        ms.textContent=CON[cur]?"":"Falta poner el token de esta cuenta en Vercel: variable DROPI_TOKEN"+(cur==="1"?"":"_"+cur)+" (Sensitive) y luego Redeploy.";
       }
-      function abre(n){cur=String(n);try{localStorage.setItem("ec_dropicta",cur)}catch(x){}var u="/pedidos-dropi"+(cur==="2"?"?c=2":"");if(fr.getAttribute("src")!==u)fr.setAttribute("src",u);pinta()}
+      function abre(n){cur=String(n);try{localStorage.setItem("ec_dropicta",cur)}catch(x){}var u="/pedidos-dropi"+(cur==="1"?"":"?c="+cur);if(fr.getAttribute("src")!==u)fr.setAttribute("src",u);pinta()}
       tb.addEventListener("click",function(ev){
         var b=ev.target.closest("button");if(!b)return;
         if(b.dataset.c){abre(b.dataset.c);return}

@@ -15,9 +15,9 @@ const WH_TTL = 6 * 3600 * 1000;
 const { AsyncLocalStorage } = require("async_hooks");
 const ALS = new AsyncLocalStorage();
 const mk = (n) => ({ n, suf: n === 1 ? "" : String(n), env: n === 1 ? "DROPI_TOKEN" : "DROPI_TOKEN_" + n,
-  base: (process.env[n === 1 ? "DROPI_API_BASE" : "DROPI_API_BASE_" + n] || BASE).replace(/\/+$/, ""),
+  base: (process.env[n === 1 ? "DROPI_API_BASE" : "DROPI_API_BASE_" + n] || (n === 3 ? "https://api.dropi.co" : BASE)).replace(/\/+$/, ""),
   RAW: { t: 0, orders: null }, WH: new Map(), TELC: new Map(), FAVC: null });
-const CTAS = { 1: mk(1), 2: mk(2) };
+const CTAS = { 1: mk(1), 2: mk(2), 3: mk(3) }; // 3 = Dropi Colombia (DROPI_TOKEN_3, api.dropi.co)
 const S = () => ALS.getStore() || CTAS[1];
 
 const num = (x) => { const n = parseFloat(x); return isFinite(n) ? n : 0; };
@@ -31,6 +31,8 @@ function groupOf(status) {
   const s = String(status || "").toUpperCase();
   if (DELIVERED.includes(s)) return "entregado";
   if (RETURNED.includes(s)) return "devolucion";
+  // Colombia: las transportadoras usan más variantes de estado (devolución en tránsito, rechazado, etc.).
+  if (S().n === 3 && (/^DEVOLUC/.test(s) || s === "RECHAZADO" || s === "REHUSADO")) return "devolucion";
   if (CANCELLED.includes(s)) return "cancelado";
   if (s.includes("INCIDENCIA") || s.includes("NOVEDAD")) return "novedad";
   return "proceso";
@@ -201,8 +203,10 @@ function ddays(a, b) {
 }
 function orderMovs(x) {
   const out = [];
-  for (const m of x.servientrega_movements || []) {
-    if (m && typeof m === "object") out.push({ n: m.nom_mov || m.name || "—", d: m.created_at || "" });
+  // Cada transportadora trae sus movimientos en su propio campo (servientrega_movements, coordinadora_movements, ...).
+  for (const k of Object.keys(x)) {
+    if (!/_movements$/.test(k) || !Array.isArray(x[k])) continue;
+    for (const m of x[k]) if (m && typeof m === "object") out.push({ n: m.nom_mov || m.name || m.description || m.status || "—", d: m.created_at || m.date || "" });
   }
   out.sort((a, b) => (a.d < b.d ? -1 : a.d > b.d ? 1 : 0));
   return out;
@@ -416,16 +420,16 @@ async function huella(id) {
 // Responde GET ?a=data|prov|huella y POST ?a=prov. El login ya fue verificado por api/dropi.js.
 // Nombres que el dueño le pone a cada cuenta y si su token ya está en Vercel (nunca se devuelve el token).
 async function cuentas(req, send) {
-  const def = { 1: "Dropi 1", 2: "Dropi 2" };
+  const def = { 1: "Dropi 1", 2: "Dropi 2", 3: "Dropi Colombia" };
   let names = {};
   if (RURL && RTOK) { try { names = JSON.parse((await redis(["HGET", "ec:settings", "dropinames"])) || "{}") || {}; } catch (e) {} }
   if (req.method === "POST") {
     if (!RURL || !RTOK) return send(503, { error: "Falta conectar la base (Upstash Redis)." });
     const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-    [1, 2].forEach((n) => { if (b && typeof b[n] === "string") { const v = b[n].replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 30); if (v) names[n] = v; else delete names[n]; } });
+    [1, 2, 3].forEach((n) => { if (b && typeof b[n] === "string") { const v = b[n].replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 30); if (v) names[n] = v; else delete names[n]; } });
     await redis(["HSET", "ec:settings", "dropinames", JSON.stringify(names)]);
   }
-  return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2 } });
+  return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2], 3: names[3] || def[3] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2, 3: !!process.env.DROPI_TOKEN_3 } });
 }
 // Intenta leer los retiros de Dropi con el token de integración. Si Dropi no los entrega por esta vía, lo dice (no inventa nada).
 async function retirosAuto() {
@@ -454,7 +458,7 @@ async function retirosAuto() {
 function handle(req, send) {
   const u = new URL(req.url, "http://x");
   if (u.searchParams.get("a") === "cuentas") return cuentas(req, send).catch((e) => send(500, { error: String(e.message || e).slice(0, 160) }));
-  return ALS.run(CTAS[u.searchParams.get("c") === "2" ? 2 : 1], () => handle0(req, send));
+  return ALS.run(CTAS[{ 2: 2, 3: 3 }[u.searchParams.get("c")] || 1], () => handle0(req, send));
 }
 async function handle0(req, send) {
   const u = new URL(req.url, "http://x");

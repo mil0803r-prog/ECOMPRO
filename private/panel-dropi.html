@@ -216,7 +216,7 @@
     <div class="logo">🚚</div>
     <div>
       <h1>Centro de Pedidos · <span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent">millora</span></h1>
-      <div class="sub">Dropi Guatemala · semáforo de transportadoras, guías y seguimiento en vivo</div>
+      <div class="sub" id="pais-sub">Dropi Guatemala · semáforo de transportadoras, guías y seguimiento en vivo</div>
     </div>
     <div class="spacer"></div>
     <span class="pill"><span class="dot" id="live"></span><span id="livetxt">Conectando…</span></span>
@@ -375,7 +375,7 @@
       <div class="fgroup">
         <label>📱 Teléfonos de transportadoras (para reclamar guías)</label>
         <div id="provCarriers"></div>
-        <div class="hint">Incluye código de país. Ej: 50255551234 (si pones 8 dígitos se asume Guatemala +502).</div>
+        <div class="hint">Incluye código de país. Ej: 50255551234 (si pones 8 dígitos se asume Guatemala +502; en Dropi Colombia, 10 dígitos = +57).</div>
       </div>
       <div class="fgroup">
         <label>🏭 Proveedores (bodegas)</label>
@@ -430,9 +430,9 @@
   try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',sync)}catch(e){}
 })();
 /* Cuenta de Dropi que muestra este panel (1 o 2): todas las consultas al servidor llevan esa cuenta */
-const CTA=new URLSearchParams(location.search).get('c')==='2'?'2':'1';
+const CTA=({2:'2',3:'3'})[new URLSearchParams(location.search).get('c')]||'1';const CO=CTA==='3';
 (function(){const f=window.fetch;window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api/dropi?')===0&&CTA!=='1')u+='&c='+CTA;return f.call(this,u,o)}})();
-const $=s=>document.querySelector(s), money=n=>'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const $=s=>document.querySelector(s), money=n=>CO?'$'+Math.round(Number(n||0)).toLocaleString('es-CO')+' COP':'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const FP='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 11v3a6 6 0 0 1-1.2 3.6"/><path d="M8 11a4 4 0 0 1 8 0v1.5c0 2-.4 3.900-1.300 5.500"/><path d="M5 11a7 7 0 0 1 14 0v1c0 1.700-.2 3.300-.600 4.800"/><path d="M5.200 15.500c-.1-.8-.2-1.500-.2-2.300"/><path d="M8.500 20.500c.8-1.300 1.300-2.700 1.600-4.200"/></svg>';
 let DATA=null, sortK='date', sortDir=-1, charts={};
@@ -448,7 +448,7 @@ function apiUrl(path,extra){const p=new URLSearchParams();p.set('a',path==='/api
   return '/api/dropi?'+p.toString();}
 function daysSince(d){if(!d)return 0;return Math.floor((Date.now()-new Date(d).getTime())/86400000);}
 function badge(g){return {entregado:'green',devolucion:'red',cancelado:'red',novedad:'yellow',proceso:'blue'}[g]||'blue';}
-function waLink(phone,msg){const d=(phone||'').replace(/\D/g,'');if(!d)return null;const full=d.length<=8?('502'+d):d;return 'https://wa.me/'+full+'?text='+encodeURIComponent(msg);}
+function waLink(phone,msg){const d=(phone||'').replace(/\D/g,'');if(!d)return null;const full=CO?(d.length<=10?('57'+d):d):(d.length<=8?('502'+d):d);return 'https://wa.me/'+full+'?text='+encodeURIComponent(msg);}
 function waMsg(o){return (PROV.template||DEFAULT_TPL)
   .replace(/{guia}/g,o.guia||'(sin guía)').replace(/{id}/g,o.id)
   .replace(/{cliente}/g,o.name||'').replace(/{ciudad}/g,o.city||'')
@@ -555,7 +555,7 @@ function render(){
 
   fill('#fStatus', sl.map(s=>s.name)); fill('#fCarrier', DATA.carriers.map(c=>c.name));
   drawTable(); renderTabs();
-  $('#foot').textContent='Fuente: api.dropi.gt/integrations · Actualizado '+new Date(DATA.updated).toLocaleString('es-GT')+' · '+DATA.ms+' ms';
+  $('#foot').textContent='Fuente: '+(CO?'api.dropi.co':'api.dropi.gt')+'/integrations · Actualizado '+new Date(DATA.updated).toLocaleString('es-GT')+' · '+DATA.ms+' ms';
 }
 
 function fill(sel,vals){const el=$(sel),cur=el.value;const base=el.querySelector('option').outerHTML;
@@ -998,5 +998,5 @@ $('#favMsgBtn').addEventListener('click',()=>{const b=$('#favMsgBox');b.style.di
 $('#favTplSave').addEventListener('click',()=>{PROV.favTpl=$('#favTpl').value.trim();favSave();renderFav();$('#favMsgBox').style.display='none';});
 renderFav();loadFavD();
 </script>
-</body>
+<script>if(CO){var ps=document.getElementById('pais-sub');if(ps)ps.textContent='Dropi Colombia · semáforo de transportadoras (Servientrega, Coordinadora, Interrapidísimo, Envía, TCC…), guías y seguimiento en vivo';document.title='Dropi Colombia'}</script></body>
 </html>
