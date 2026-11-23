@@ -478,7 +478,7 @@ async function handle0(req, send) {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? { manual: [] } : { error: "Falta conectar la base (Upstash Redis)." });
       if (req.method === "POST") {
         const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-        const L = (Array.isArray(b.manual) ? b.manual : []).slice(0, 500).map((r) => ({ id: String((r && r.id) || "").replace(/[^\w-]/g, "").slice(0, 24), f: /^\d{4}-\d{2}-\d{2}$/.test((r && r.f) || "") ? r.f : "", m: Math.round((+(r && r.m) || 0) * 100) / 100, n: String((r && r.n) || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 120) })).filter((r) => r.id && r.f && r.m > 0);
+        const L = (Array.isArray(b.manual) ? b.manual : []).slice(0, 500).map((r) => ({ id: String((r && r.id) || "").replace(/[^\w-]/g, "").slice(0, 24), f: /^\d{4}-\d{2}-\d{2}$/.test((r && r.f) || "") ? r.f : "", m: Math.round((+(r && r.m) || 0) * 100) / 100, c: Math.max(0, Math.round((+(r && r.c) || 0) * 100) / 100), t: Math.max(0, Math.round((+(r && r.t) || 0) * 100) / 100), b: String((r && r.b) || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 40), n: String((r && r.n) || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 120) })).filter((r) => r.id && r.f && r.m > 0);
         await redis(["HSET", "ec:settings", key, JSON.stringify(L)]);
         return send(200, { ok: true, n: L.length });
       }
