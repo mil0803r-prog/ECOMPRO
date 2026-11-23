@@ -991,6 +991,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <div class="fld grow" style="min-width:160px"><label for="rt-n">Nota (opcional)</label><input id="rt-n" type="text" maxlength="120" placeholder="Referencia…"></div>
         <button class="btn" type="button" id="rt-add" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff">Guardar retiro</button>
       </div>
+      <div id="rt-msg" class="sub" role="status" style="font-weight:600"></div>
       <div id="rt-eq" class="sub" role="status"></div>
       <div id="rt-auto"></div>
       <div id="rt-list"></div>
@@ -5581,13 +5582,19 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   function aQ(v){return on()?v/rate():v}
   var cur="0",NAMES={1:"Dropi 1",2:"Dropi 2"},DATA={1:null,2:null},LOADING={1:false,2:false},TS=0;
   try{var c0=localStorage.getItem("ec_rtcta");if(c0==="1"||c0==="2")cur=c0}catch(e){}
-  function url(n){return "/api/dropi?a=retiros"+(n>1?"&c="+n:"")}
+  function url(n,auto){return "/api/dropi?a=retiros"+(n>1?"&c="+n:"")+(auto?"&auto=1":"")}
+  function msg(t,mal){var e=$("rt-msg");if(!e)return;e.textContent=t||"";e.style.color=mal?"var(--rojo)":"var(--verde)"}
   function carga(n){
     if(LOADING[n])return;LOADING[n]=true;
-    fetch(url(n),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {}})}).then(function(j){DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:j.error||""};LOADING[n]=false;TS=Date.now();pinta()}).catch(function(){DATA[n]={manual:[],auto:null,err:"sin conexión"};LOADING[n]=false;pinta()});
+    var tm=new AbortController(),to=setTimeout(function(){tm.abort()},15000);
+    fetch(url(n),{credentials:"same-origin",cache:"no-store",signal:tm.signal}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {ok:r.ok,j:j}})}).then(function(x){
+      clearTimeout(to);var j=x.j;DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:x.ok?"":(j.error||"el servidor respondió con error"),ok:x.ok};LOADING[n]=false;TS=Date.now();pinta();
+      if(x.ok&&!(j.auto&&j.auto.ok)){fetch(url(n,true),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json()}).then(function(k){if(DATA[n]&&k&&k.auto){DATA[n].auto=k.auto;pinta()}}).catch(function(){})}
+    }).catch(function(e){clearTimeout(to);DATA[n]={manual:[],auto:null,err:e&&e.name==="AbortError"?"tardó demasiado en responder":"sin conexión",ok:false};LOADING[n]=false;pinta()});
   }
   function todo(f){carga(1);carga(2)}
-  function guarda(n){var d=DATA[n];fetch(url(n),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).catch(function(){})}
+  function guarda(n){var d=DATA[n];msg("Guardando…");
+    return fetch(url(n),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||j.error)throw new Error(j.error||("el servidor respondió "+r.status));msg("Guardado ("+j.n+" retiros en "+NAMES[n]+").",false);return true})}).catch(function(e){msg("No se pudo guardar: "+(e&&e.message||"sin conexión")+(/Falta conectar la base/.test(e&&e.message||"")?" Conecta Upstash Redis en Vercel.":""),true);return false})}
   function filas(){
     var out=[];[1,2].forEach(function(n){var d=DATA[n];if(!d)return;
       if(d.auto&&d.auto.ok)d.auto.rows.forEach(function(r){out.push({c:n,f:r.f,m:r.m,cm:0,t:r.m,b:"",n:r.n||"",id:"",auto:true})});
@@ -5618,9 +5625,16 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     return '<div class="tbl"><table><thead><tr><th>Fecha</th><th>Cuenta</th><th>Banco</th><th class="num">Retiré ('+sym()+')</th><th class="num">Comisión ('+sym()+')</th><th class="num">Neta ('+sym()+')</th><th class="num">Neta ('+(on()?"Q":"S/")+')</th><th>Nota</th><th></th></tr></thead><tbody>'+L.map(function(r){return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(NAMES[r.c])+(r.auto?' <span class="pill v">Dropi</span>':'')+'</td><td>'+E(r.b||"–")+'</td><td class="num">'+f2(on()?r.m*tc:r.m)+'</td><td class="num" style="color:var(--rojo)">'+(r.cm?f2(on()?r.cm*tc:r.cm):"–")+'</td><td class="num"><b>'+f2(on()?r.t*tc:r.t)+'</b></td><td class="num">'+f2(on()?r.t:r.t*tc)+'</td><td>'+E(r.n)+'</td><td class="num">'+(r.auto?'':'<button class="btn" type="button" data-d="'+E(r.id)+'" data-c="'+r.c+'" title="Borrar este retiro" aria-label="Borrar este retiro" style="padding:4px 10px">✕</button>')+'</td></tr>'}).join("")+'</tbody></table></div>'}
   $("rt-tabs").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;cur=b.dataset.c;try{localStorage.setItem("ec_rtcta",cur)}catch(x){}pinta()});
   $("rt-tg").addEventListener("click",function(){var f=$("rt-form"),o=f.hidden;f.hidden=!o;f.style.display=o?"flex":"none";$("rt-tg").setAttribute("aria-expanded",o?"true":"false");$("rt-tg").textContent=o?"✕ Cerrar":"➕ Registrar retiro";if(o&&!$("rt-f").value)$("rt-f").value=new Date(Date.now()-6*3600*1000).toISOString().slice(0,10)});
-  $("rt-add").addEventListener("click",function(){var n=+($("rt-c").value||1),d=DATA[n];if(!d)return;var f=$("rt-f").value,m=parseFloat($("rt-m").value);if(!f||!(m>0)){$("rt-m").focus();return}
+  $("rt-add").addEventListener("click",function(){var n=+($("rt-c").value||1),d=DATA[n];
+    if(!d){msg("Todavía estoy leyendo los retiros de "+NAMES[n]+"; espera un momento y vuelve a tocar Guardar.",true);carga(n);return}
+    var f=$("rt-f").value,m=parseFloat($("rt-m").value);
+    if(!f){msg("Pon la fecha del retiro.",true);$("rt-f").focus();return}
+    if(!(m>0)){msg("Escribe cuánto retiraste de Dropi (el campo «Monto que retiré de Dropi»).",true);$("rt-m").focus();return}
+    if(d.ok===false){msg("No pude leer los retiros anteriores de "+NAMES[n]+" ("+(d.err||"error")+"). Para no borrarlos, recarga la página y vuelve a intentar.",true);return}
     m=aQ(m);var cm=aQ(parseFloat($("rt-cm").value)||0),t=parseFloat($("rt-t").value);t=t>0?aQ(t):Math.max(0,m-cm);
-    d.manual.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:f,m:Math.round(m*100)/100,c:Math.round(cm*100)/100,t:Math.round(t*100)/100,b:$("rt-b").value.trim(),n:$("rt-n").value.trim()});["rt-m","rt-cm","rt-t","rt-n"].forEach(function(i){$(i).value=""});guarda(n);pinta()});
+    var nuevo={id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:f,m:Math.round(m*100)/100,c:Math.round(cm*100)/100,t:Math.round(t*100)/100,b:$("rt-b").value.trim(),n:$("rt-n").value.trim()};
+    d.manual.push(nuevo);["rt-m","rt-cm","rt-t","rt-n"].forEach(function(i){$(i).value=""});$("rt-t").dataset.man="";pinta();
+    guarda(n).then(function(ok){if(!ok){d.manual=d.manual.filter(function(r){return r.id!==nuevo.id});pinta()}})});
   /* la neta se calcula sola: retirado − comisión (puedes corregirla si el banco te depositó otra cifra) */
   function neta(){var m=parseFloat($("rt-m").value)||0,c=parseFloat($("rt-cm").value)||0,t=$("rt-t");if(t.dataset.man!=="1")t.value=m>0?(Math.round(Math.max(0,m-c)*100)/100):"";eq()}
   function eq(){var e=$("rt-eq");if(!e)return;var m=parseFloat($("rt-m").value)||0,c=parseFloat($("rt-cm").value)||0,t=parseFloat($("rt-t").value)||0,o=function(v){return on()?"Q "+f2(v/rate()):"S/ "+f2(v*rate())};e.textContent=(m||c||t)?"Equivale a: retiro "+o(m)+" · comisión "+o(c)+" · neta "+o(t)+" (tipo de cambio 1 Q = "+rate().toFixed(4)+" S/). Se guarda en quetzales.":""}

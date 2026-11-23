@@ -429,23 +429,27 @@ async function cuentas(req, send) {
 }
 // Intenta leer los retiros de Dropi con el token de integración. Si Dropi no los entrega por esta vía, lo dice (no inventa nada).
 async function retirosAuto() {
+  const st = S();
+  if (st.RET && Date.now() - st.RET.t < 10 * 60 * 1000) return st.RET.v;
   const rutas = ["/integrations/wallet/withdrawals", "/integrations/withdrawals", "/integrations/wallet/history", "/integrations/historywallet", "/integrations/wallet"];
-  let ultimo = "";
-  for (const r of rutas) {
+  // Todas las rutas a la vez y con poco tiempo cada una, para no dejar esperando la pantalla.
+  const res = await Promise.all(rutas.map(async (r) => {
     try {
-      const j = await dropi(r + "?result_number=100", 8000);
+      const j = await dropi(r + "?result_number=100", 4000);
       const L = (j && (j.objects || j.data || j.withdrawals || j.history)) || [];
-      if (!Array.isArray(L) || !L.length) { ultimo = "ruta sin datos"; continue; }
+      if (!Array.isArray(L) || !L.length) return { motivo: "ruta sin datos" };
       const rows = L.map((x) => {
         const f = String(x.created_at || x.date || x.fecha || x.updated_at || "").slice(0, 10);
         const m = num(x.amount != null ? x.amount : x.value != null ? x.value : x.monto != null ? x.monto : x.total);
         return { f, m: r2(m), n: String(x.status || x.state || x.description || x.type || "").slice(0, 60) };
       }).filter((x) => /^\d{4}-\d{2}-\d{2}$/.test(x.f) && x.m);
-      if (rows.length) return { ok: true, ruta: r, rows: rows.slice(0, 200) };
-      ultimo = "formato desconocido";
-    } catch (e) { ultimo = String((e && e.message) || e).slice(0, 100); }
-  }
-  return { ok: false, motivo: ultimo || "Dropi no entrega los retiros con este token" };
+      return rows.length ? { ok: true, ruta: r, rows: rows.slice(0, 200) } : { motivo: "formato desconocido" };
+    } catch (e) { return { motivo: String((e && e.message) || e).slice(0, 100) }; }
+  }));
+  const bueno = res.find((x) => x.ok);
+  const v = bueno || { ok: false, motivo: (res.find((x) => x.motivo && !/HTTP 404|ruta sin datos/.test(x.motivo)) || res[0] || {}).motivo || "Dropi no entrega los retiros con este token" };
+  st.RET = { t: Date.now(), v };
+  return v;
 }
 function handle(req, send) {
   const u = new URL(req.url, "http://x");
@@ -483,9 +487,12 @@ async function handle0(req, send) {
         return send(200, { ok: true, n: L.length });
       }
       const cur = await redis(["HGET", "ec:settings", key]);
+      const manual = cur ? JSON.parse(cur) : [];
+      // Los retiros anotados salen enseguida; la lectura automática de Dropi va aparte (?auto=1) para no hacer esperar.
+      if (new URL(req.url, "http://x").searchParams.get("auto") !== "1") return send(200, { manual, auto: S().RET ? S().RET.v : null });
       let auto = null;
       try { auto = await retirosAuto(); } catch (e) { auto = { ok: false, motivo: String(e.message || e).slice(0, 120) }; }
-      return send(200, { manual: cur ? JSON.parse(cur) : [], auto });
+      return send(200, { manual, auto });
     }
     if (a === "gest") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
