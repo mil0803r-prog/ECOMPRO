@@ -5443,3 +5443,106 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   }
 })();
 </script>
+
+<style id="db-live-css">
+#p-res.db-live-on>*:not(#db-src):not(#db-live){display:none!important}
+#db-src{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 4px}
+#db-src .seg{flex-wrap:wrap}
+#db-src .lv{display:inline-flex;align-items:center;gap:7px;font-size:.74rem;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent)}
+#db-src .lv i{width:8px;height:8px;border-radius:50%;background:var(--verde);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 22%,transparent)}
+#db-src .lv.off i{background:var(--muted);box-shadow:none}
+#db-live{display:flex;flex-direction:column;gap:14px}
+#db-live .lvh{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(0,2fr);gap:16px}
+@media(max-width:1100px){#db-live .lvh{grid-template-columns:1fr}}
+</style>
+
+<script>
+(function(){
+  var p=document.getElementById("p-res");if(!p||document.getElementById("db-src"))return;
+  var $=function(i){return document.getElementById(i)};
+  var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var src="0",per="mes",modo="v",vista={d:false,s:false},NAMES={1:"Dropi 1",2:"Dropi 2"},CON={1:true,2:true};
+  try{var sv=JSON.parse(localStorage.getItem("ec_dblive")||"null");if(sv){src=sv.src==="1"||sv.src==="2"?sv.src:"0";per=sv.per||per;modo=sv.modo||modo}}catch(e){}
+  function save(){try{localStorage.setItem("ec_dblive",JSON.stringify({src:src,per:per,modo:modo}))}catch(e){}}
+  var CACHE={1:{t:0,o:null,e:""},2:{t:0,o:null,e:""}},LOAD={1:false,2:false};
+  function on(){var f=window.ecFx;return !!(f&&f.st&&f.st.on)}
+  function rt(){var f=window.ecFx;return f&&f.st&&f.st.rate>0?f.st.rate:0.4504}
+  function M(q){var v=on()?q*rt():q;return (on()?"S/ ":"Q ")+Math.round(v).toLocaleString("de-DE")}
+  function N(n){return Math.round(n).toLocaleString("de-DE")}
+  function hoy(){return new Date(Date.now()-6*3600*1000).toISOString().slice(0,10)}
+  /* barra de fuente */
+  var bar=document.createElement("div");bar.id="db-src";p.insertBefore(bar,p.firstChild);
+  var box=document.createElement("div");box.id="db-live";box.hidden=true;p.insertBefore(box,bar.nextSibling);
+  function pintaBar(){
+    var c=CACHE[src==="0"?1:+src],lv=src!=="0"&&c.o?'<span class="lv"><i></i>En vivo · '+new Date(c.t).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+'</span>':(src!=="0"?'<span class="lv off"><i></i>'+(LOAD[+src]?"Leyendo Dropi…":"Sin conexión")+'</span>':"");
+    bar.innerHTML='<div class="seg" id="db-srcs" role="group" aria-label="Fuente de datos"><button type="button" data-s="0" aria-pressed="'+(src==="0")+'">General</button><button type="button" data-s="1" aria-pressed="'+(src==="1")+'">'+E(NAMES[1])+' · en vivo</button><button type="button" data-s="2" aria-pressed="'+(src==="2")+'">'+E(NAMES[2])+' · en vivo</button></div>'+lv;
+    p.classList.toggle("db-live-on",src!=="0");box.hidden=src==="0";
+  }
+  function carga(n,fuerza){
+    var c=CACHE[n];if(LOAD[n]||(!fuerza&&c.o&&Date.now()-c.t<3*60*1000))return;LOAD[n]=true;pintaBar();
+    fetch("/api/dropi?a=data"+(n>1?"&c="+n:""),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {error:"respuesta inválida"}}).then(function(j){return {ok:r.ok&&!j.error&&Array.isArray(j.orders),j:j}})}).catch(function(){return {ok:false,j:{error:"sin conexión"}}}).then(function(x){
+      LOAD[n]=false;if(x.ok){c.o=x.j.orders;c.t=Date.now();c.e=""}else c.e=x.j.error||"no respondió";
+      pintaBar();if(src===String(n))pinta()});
+  }
+  function rango(){
+    var h=hoy(),y=+h.slice(0,4),m=+h.slice(5,7),pad=function(n){return String(n).padStart(2,"0")};
+    if(per==="todo")return {d:"0000-00-00",h:"9999-99-99",lab:"todo el tiempo"};
+    if(per==="ant"){var ya=m===1?y-1:y,ma=m===1?12:m-1,u=new Date(Date.UTC(ya,ma,0)).getUTCDate();return {d:ya+"-"+pad(ma)+"-01",h:ya+"-"+pad(ma)+"-"+pad(u),lab:MESES[ma-1]+" "+ya}}
+    return {d:y+"-"+pad(m)+"-01",h:h,lab:MESES[m-1]+" "+y+" · hasta hoy"};
+  }
+  function kpis(O){
+    var c={E:0,D:0,C:0,P:0},v=0,u=0,pc=0;
+    O.forEach(function(o){var g=o.group,t=+o.total||0;
+      if(g==="entregado"){c.E++;v+=t;u+=+o.util||0}else if(g==="devolucion")c.D++;else if(g==="cancelado")c.C++;else{c.P++;pc+=t}});
+    var tasa=(c.E+c.D)?c.E/(c.E+c.D):null,uavg=c.E?u/c.E:0;
+    return {c:c,v:v,u:u,pc:pc,tasa:tasa,tk:c.E?v/c.E:0,esp:c.P*uavg*(tasa==null?1:tasa),n:O.length};
+  }
+  function dias(n){var a=[],t=new Date(hoy()+"T12:00:00Z");for(var i=n-1;i>=0;i--){var x=new Date(t);x.setUTCDate(x.getUTCDate()-i);a.push(x.toISOString().slice(0,10))}return a}
+  function lunes(d){var x=new Date(d+"T12:00:00Z");x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return x.toISOString().slice(0,10)}
+  function serie(O,keys,fn){var m={};keys.forEach(function(k){m[k]={k:k,v:0,u:0,p:0}});
+    O.forEach(function(o){var d=String(o.date||"").slice(0,10);if(!d)return;var k=fn(d);if(!m[k])return;m[k].p++;if(o.group==="entregado"){m[k].v+=+o.total||0;m[k].u+=+o.util||0}});
+    return keys.map(function(k){return m[k]})}
+  function vl(r){return modo==="v"?r.v:modo==="u"?r.u:r.p}
+  function fm(n){return modo==="p"?N(n):M(n)}
+  function fk(id,k){var q=k.split("-");return id==="d"?(+q[2])+" "+MESES[+q[1]-1].slice(0,3):"sem. "+(+q[2])+" "+MESES[+q[1]-1].slice(0,3)}
+  function card(id,t,sub,rows,lab){
+    var vs=rows.map(vl),mx=Math.max.apply(null,vs.concat([1])),has=vs.some(function(v){return v>0}),b;
+    if(!has)b='<div class="dbempty">Aún no hay datos para este gráfico.</div>';
+    else if(vista[id])b='<div class="tw"><table><thead><tr><th>'+lab+'</th><th class="num">'+(modo==="v"?"Ventas":modo==="u"?"Utilidad":"Pedidos")+'</th></tr></thead><tbody>'+rows.slice().reverse().map(function(r){return '<tr><td>'+fk(id,r.k)+'</td><td class="num">'+fm(vl(r))+'</td></tr>'}).join("")+'</tbody></table></div>';
+    else b='<div class="bars" role="img" aria-label="'+t+'">'+rows.map(function(r){var v=vl(r);return '<i title="'+fk(id,r.k)+': '+fm(v)+'" style="height:'+Math.max(1,v/mx*100)+'%"></i>'}).join("")+'</div><div class="bx"><span>'+fk(id,rows[0].k)+'</span><span>'+fk(id,rows[rows.length-1].k)+'</span></div>';
+    return '<div><div class="ch"><div><h3>'+t+'</h3><div class="cs">'+sub+'</div></div><button type="button" class="vt" data-v="'+id+'">'+(vista[id]?"Ver gráfico":"Ver tabla")+'</button></div>'+b+'</div>';
+  }
+  function pinta(){
+    if(src==="0")return;var n=+src,c=CACHE[n];
+    if(!c.o){box.innerHTML=c.e?'<div class="warn"><b>No se pudo leer '+E(NAMES[n])+'</b><span>'+E(c.e)+(/Falta la variable/.test(c.e)?' Créala en Vercel (Settings > Environment Variables, marcada para Production) y haz Redeploy.':'')+'</span></div>':'<div class="dbempty">Leyendo los pedidos de '+E(NAMES[n])+'…</div>';return}
+    var R=rango(),O=c.o.filter(function(o){var d=String(o.date||"").slice(0,10);return d>=R.d&&d<=R.h}),K=kpis(O);
+    var T=[
+     ["Ventas entregadas",M(K.v),K.c.E+" entregados",""],
+     ["Ticket promedio",M(K.tk),"por pedido entregado",""],
+     ["Pedidos",N(K.n),K.c.P+" en curso",""],
+     ["Tasa de entrega",K.tasa==null?"–":Math.round(K.tasa*100)+"%",K.c.D+" devueltos",K.tasa==null?"":K.tasa>=.6?"g":K.tasa>=.5?"a":"r"],
+     ["Cancelados",N(K.c.C),"pedidos cancelados",""],
+     ["Por cobrar",M(K.pc),"pedidos en curso",""],
+     ["Utilidad esperada",M(K.esp),"de lo que va en curso (estimada)",""],
+     ["Utilidad por entregado",M(K.c.E?K.u/K.c.E:0),"promedio, sin anuncios",""]];
+    var wk=[],w0=lunes(hoy());for(var i=11;i>=0;i--){var x=new Date(w0+"T12:00:00Z");x.setUTCDate(x.getUTCDate()-7*i);wk.push(x.toISOString().slice(0,10))}
+    var nm=modo==="v"?"Ventas entregadas":modo==="u"?"Utilidad real de entregados":"Pedidos";
+    box.innerHTML='<div class="lvh"><div class="card dbp"><div><span class="kl">Período</span><b>'+E(NAMES[n])+'</b></div><select id="dl-per" aria-label="Período"><option value="mes">Este mes</option><option value="ant">Mes anterior</option><option value="todo">Todo el tiempo</option></select></div>'+
+      '<div class="dbhero"><span class="kl">Utilidad de entregados · '+E(NAMES[n])+'</span><div class="hv">'+M(K.u)+'</div><p>lo cobrado − costo del proveedor − flete, sin descontar anuncios · '+E(R.lab)+'</p></div></div>'+
+      '<div class="dbk">'+T.map(function(k){return '<div><span class="kl">'+k[0]+'</span><div class="kv '+k[3]+'">'+k[1]+'</div><div class="ks">'+k[2]+'</div></div>'}).join("")+'</div>'+
+      '<div class="card dbgh"><span class="kl">Gráficos por</span><div class="seg" id="dl-seg"><button type="button" data-m="v" aria-pressed="'+(modo==="v")+'">Ventas</button><button type="button" data-m="u" aria-pressed="'+(modo==="u")+'">Utilidad</button><button type="button" data-m="p" aria-pressed="'+(modo==="p")+'">Pedidos</button></div></div>'+
+      '<div class="dbc">'+card("d","Por día",nm+" · últimos 30 días",serie(c.o,dias(30),function(d){return d}),"Día")+card("s","Por semana",nm+" · últimas 12 semanas",serie(c.o,wk,lunes),"Semana")+'</div>';
+    var sel=$("dl-per");if(sel)sel.value=per;
+  }
+  bar.addEventListener("click",function(e){var b=e.target.closest("[data-s]");if(!b)return;src=b.dataset.s;save();pintaBar();if(src!=="0"){pinta();carga(+src)}});
+  box.addEventListener("change",function(e){if(e.target.id==="dl-per"){per=e.target.value;save();pinta()}});
+  box.addEventListener("click",function(e){var m=e.target.closest("#dl-seg button");if(m){modo=m.dataset.m;save();pinta();return}var v=e.target.closest(".vt");if(v){vista[v.dataset.v]=!vista[v.dataset.v];pinta()}});
+  /* nombres de las cuentas */
+  fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.nombres){NAMES=j.nombres;CON=j.conectada||CON;pintaBar()}}).catch(function(){});
+  document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#side button, #nav-g button")){setTimeout(function(){if(!p.hidden&&src!=="0")carga(+src)},50)}});
+  if(window.ecFx)window.ecFx.hooks.push(function(){if(src!=="0")pinta()});
+  setInterval(function(){if(!p.hidden&&src!=="0")carga(+src,true)},3*60*1000);
+  pintaBar();if(src!=="0"){pinta();carga(+src)}
+})();
+</script>
