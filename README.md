@@ -57,6 +57,20 @@ La campana 🔔 del tablero tiene el botón **Recibir avisos en este celular**. 
 ## API y MCP de ECOMPRO
 Un solo archivo (`api/mcp.js`) da el servidor MCP y el API REST, protegidos con `MCP_KEY` (`Authorization: Bearer <clave>` o `x-api-key`).
 
-- **MCP** (Streamable HTTP): `https://TU-DOMINIO/mcp`. En Claude: agregar conector personalizado con esa URL y la clave en la cabecera. Herramientas: `estado`, `leer_coleccion`, `leer_documento`, `guardar_documento` (solo winners, radar, tiktokshop, validations), `meta_ads`, `pedidos_dropi`, `crear_alerta`.
+- **MCP** (Streamable HTTP): `https://TU-DOMINIO/mcp`. En Claude: agregar conector personalizado con esa URL y la clave en la cabecera. Herramientas: `estado`, `leer_coleccion`, `leer_documento`, `guardar_documento` (solo winners, radar, tiktokshop, validations), `meta_ads`, `pedidos_dropi`, `crear_alerta`, `comprimir_imagen`.
 - **REST**: `GET /api/v1` lista las herramientas; `GET|POST /api/v1/<herramienta>` con los argumentos en la query o en el JSON. Ejemplo: `curl -H "x-api-key: $MCP_KEY" "https://TU-DOMINIO/api/v1/pedidos_dropi?estado=E&desde=2026-11-01"`.
 - Nunca devuelve teléfonos, direcciones ni nombres de clientes; `settings` y las huellas no se exponen.
+
+### Compresor de imágenes por API y conexión con Codex
+`comprimir_imagen` usa `sharp` en el servidor. Recibe una imagen y devuelve la comprimida (o la original si pesaría más).
+
+- **REST con archivo binario** (hasta ~4 MB de subida por el límite de Vercel; el resultado llega como imagen): `curl -X POST --data-binary @foto.png -H "x-api-key: $ECOMPRO_MCP_KEY" -H "Content-Type: application/octet-stream" "https://TU-DOMINIO/api/v1/comprimir_imagen?formato=webp&calidad=80&ancho_max=1920" -o foto.webp`. Los datos del resultado vienen en la cabecera `X-Resumen`.
+- **Carpeta completa:** `scripts/comprimir-imagenes.sh carpeta` (ver el encabezado del script).
+- **MCP en Codex:** agrega en `~/.codex/config.toml`:
+  ```toml
+  [mcp_servers.ecompro]
+  url = "https://TU-DOMINIO/mcp"
+  bearer_token_env_var = "ECOMPRO_MCP_KEY"
+  ```
+  y define `ECOMPRO_MCP_KEY` (el mismo valor de `MCP_KEY`) en tu entorno. `AGENTS.md` ya le indica a Codex que comprima todas las imágenes con esta herramienta.
+- Por `url` se aceptan imágenes públicas de hasta 25 MB (no se permiten direcciones internas).

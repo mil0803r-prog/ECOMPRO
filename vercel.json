@@ -52,7 +52,8 @@
       "maxDuration": 60
     },
     "api/mcp.js": {
-      "maxDuration": 30
+      "maxDuration": 60,
+      "memory": 1024
     }
   },
   "headers": [

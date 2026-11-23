@@ -4,6 +4,8 @@
 // Se protege con la variable MCP_KEY (Sensible): cabecera "Authorization: Bearer <MCP_KEY>" o "x-api-key: <MCP_KEY>".
 // Nunca devuelve teléfonos, direcciones ni nombres de clientes. La colección "settings" y las huellas no se exponen.
 const crypto = require("crypto");
+const dns = require("dns").promises;
+const net = require("net");
 
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -27,6 +29,71 @@ async function hall(key) {
 const clip = (v, n) => String(v == null ? "" : v).replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, n);
 const colOk = (c, lista) => COL.test(String(c)) && lista.indexOf(String(c)) >= 0;
 function fail(m) { const e = new Error(m); e.user = true; return e; }
+
+
+// ---- Compresor de imágenes (para Codex u otros clientes) ----
+const MAX_IN = 25 * 1024 * 1024, MAX_OUT = 4 * 1024 * 1024; // Vercel limita la respuesta a ~4,5 MB
+const EXT = { jpeg: "jpg", jpg: "jpg", png: "png", webp: "webp", avif: "avif" };
+const MIME = { jpg: "image/jpeg", png: "image/png", webp: "image/webp", avif: "image/avif" };
+function privada(ip) {
+  if (net.isIPv6(ip)) return /^(::1|fc|fd|fe80|::ffff:(10|127|169\.254|192\.168|172\.(1[6-9]|2\d|3[01]))\.)/i.test(ip) || ip === "::";
+  const [a, b] = ip.split(".").map(Number);
+  return a === 0 || a === 10 || a === 127 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || a >= 224;
+}
+async function bajar(url) {
+  let u = url;
+  for (let i = 0; i < 4; i++) {
+    let p;
+    try { p = new URL(u); } catch (e) { throw fail("URL no válida."); }
+    if (!/^https?:$/.test(p.protocol)) throw fail("Solo http/https.");
+    const host = p.hostname.replace(/^\[|\]$/g, "");
+    const ips = net.isIP(host) ? [host] : (await dns.lookup(host, { all: true }).catch(() => [])).map((x) => x.address);
+    if (!ips.length || ips.some(privada)) throw fail("Esa dirección no está permitida.");
+    const r = await fetch(p, { redirect: "manual", signal: AbortSignal.timeout(15000) });
+    if (r.status >= 300 && r.status < 400 && r.headers.get("location")) { u = new URL(r.headers.get("location"), p).href; continue; }
+    if (!r.ok) throw fail("No se pudo bajar la imagen (HTTP " + r.status + ").");
+    if (+r.headers.get("content-length") > MAX_IN) throw fail("La imagen pasa de 25 MB.");
+    const buf = Buffer.from(await r.arrayBuffer());
+    if (buf.length > MAX_IN) throw fail("La imagen pasa de 25 MB.");
+    return buf;
+  }
+  throw fail("Demasiadas redirecciones.");
+}
+async function comprimir(a) {
+  let sharp;
+  try { sharp = require("sharp"); } catch (e) { throw fail("El compresor no está disponible en este servidor."); }
+  let buf = a.imagen_buffer;
+  if (!buf && a.imagen_base64) buf = Buffer.from(String(a.imagen_base64).replace(/^data:[^,]*,/, ""), "base64");
+  if (!buf && a.url) buf = await bajar(String(a.url));
+  if (!buf || !buf.length) throw fail("Manda la imagen en 'imagen_base64', en 'url' o como cuerpo binario.");
+  if (buf.length > MAX_IN) throw fail("La imagen pasa de 25 MB.");
+  let meta;
+  try { meta = await sharp(buf, { animated: true }).metadata(); } catch (e) { throw fail("No parece una imagen válida."); }
+  const orig = meta.format === "jpeg" ? "jpg" : meta.format;
+  const pedido = String(a.formato || "original").toLowerCase().replace("jpeg", "jpg");
+  let fmt = pedido === "original" ? (EXT[orig] ? orig : "webp") : pedido;
+  if (!MIME[fmt]) throw fail("formato debe ser original, jpg, png, webp o avif.");
+  const cal = Math.min(100, Math.max(10, parseInt(a.calidad, 10) || 80));
+  const ancho = Math.max(0, parseInt(a.ancho_max, 10) || 0);
+  let img = sharp(buf, { animated: fmt === "webp" || fmt === "avif" ? meta.pages > 1 : false }).rotate();
+  if (ancho && meta.width > ancho) img = img.resize({ width: ancho, withoutEnlargement: true });
+  if (fmt === "jpg") img = img.flatten({ background: a.fondo === "negro" ? "#000" : "#fff" }).jpeg({ quality: cal, mozjpeg: true });
+  else if (fmt === "png") img = img.png({ compressionLevel: 9, palette: cal < 100, quality: cal });
+  else if (fmt === "webp") img = img.webp({ quality: cal });
+  else img = img.avif({ quality: cal });
+  let out;
+  try { out = await img.toBuffer({ resolveWithObject: true }); } catch (e) { throw fail("No se pudo procesar la imagen (¿archivo dañado o incompleto?)."); }
+  const redim = !!(ancho && meta.width > ancho);
+  let usado = false;
+  if (a.dejar_original !== false && !redim && fmt === (EXT[orig] ? orig : "") && out.data.length >= buf.length) { out = { data: buf, info: { width: meta.width, height: meta.height } }; usado = true; }
+  const ext = usado ? orig : fmt;
+  if (out.data.length * 1.34 > MAX_OUT && !a.imagen_buffer) throw fail("El resultado pesa " + Math.round(out.data.length / 1024) + " KB: baja ancho_max o calidad (el límite de respuesta es ~3 MB).");
+  return {
+    _bin: out.data,
+    mime: MIME[ext],
+    resumen: { formato: ext, mime: MIME[ext], bytes_antes: buf.length, bytes_despues: out.data.length, ahorro_pct: Math.round((1 - out.data.length / buf.length) * 100), ancho: out.info.width, alto: out.info.height, se_dejo_el_original: usado, nombre_sugerido: clip(a.nombre, 80).replace(/\.[^.]*$/, "") ? clip(a.nombre, 80).replace(/\.[^.]*$/, "") + "." + ext : "imagen." + ext },
+  };
+}
 
 const TOOLS = [
   {
@@ -120,6 +187,15 @@ const TOOLS = [
     },
   },
   {
+    name: "comprimir_imagen",
+    description: "Comprime y/o convierte UNA imagen (JPG, PNG, WebP, AVIF, GIF, BMP, HEIC…). Llámala una vez por imagen: manda la imagen en imagen_base64 (hasta ~3 MB) o en url (hasta 25 MB). Devuelve la imagen en base64 y cuánto se ahorró. Para archivos grandes usa el REST con cuerpo binario.",
+    inputSchema: { type: "object", properties: { imagen_base64: { type: "string" }, url: { type: "string", description: "Dirección pública http(s) de la imagen" }, nombre: { type: "string", description: "Nombre original del archivo (para sugerir el nuevo)" }, formato: { type: "string", enum: ["original", "jpg", "png", "webp", "avif"], description: "Por defecto original (solo comprimir)" }, calidad: { type: "integer", description: "10 a 100 (por defecto 80)" }, ancho_max: { type: "integer", description: "Ancho máximo en px (0 = no cambiar)" }, fondo: { type: "string", enum: ["blanco", "negro"] }, dejar_original: { type: "boolean", description: "Si el resultado pesa más, devolver el original (por defecto true)" } } },
+    async run(a) {
+      const r = await comprimir(a);
+      return { _contenido: [{ type: "text", text: JSON.stringify(r.resumen) }, { type: "image", data: r._bin.toString("base64"), mimeType: r.mime }], _bin: r._bin, resumen: r.resumen };
+    },
+  },
+  {
     name: "crear_alerta",
     description: "Manda un aviso a la campana 🔔 del tablero y al celular registrado.",
     inputSchema: { type: "object", properties: { titulo: { type: "string" }, texto: { type: "string" }, lineas: { type: "array", items: { type: "string" } }, tipo: { type: "string", enum: ["resumen", "alerta"] } }, required: ["titulo"] },
@@ -162,7 +238,7 @@ function coerce(tool, q) {
 async function correr(nombre, args) {
   const t = TOOLS.find((x) => x.name === nombre);
   if (!t) throw fail("Herramienta desconocida: " + nombre);
-  if (!URL_ || !TOKEN) throw fail("Falta conectar la base (Upstash Redis) en Vercel.");
+  if (!URL_ || !TOKEN) { if (nombre !== "comprimir_imagen") throw fail("Falta conectar la base (Upstash Redis) en Vercel."); }
   return t.run(args || {});
 }
 
@@ -180,7 +256,7 @@ async function rpc(m) {
     case "tools/call":
       try {
         const r = await correr(m.params && m.params.name, m.params && m.params.arguments);
-        return ok({ content: [{ type: "text", text: recortar(r) }] });
+        return ok({ content: r && r._contenido ? r._contenido : [{ type: "text", text: recortar(r) }] });
       } catch (e) {
         return ok({ isError: true, content: [{ type: "text", text: e.user ? e.message : "Error interno." }] });
       }
@@ -194,7 +270,7 @@ module.exports = async (req, res) => {
   const a = autorizado(req);
   if (a === 503) return send(503, { error: "Falta la variable MCP_KEY en Vercel." });
   if (a !== 200) { res.setHeader("WWW-Authenticate", "Bearer"); return send(401, { error: "Clave incorrecta." }); }
-  const u = new URL(req.url, "http://x"), tool = u.searchParams.get("tool");
+  const u = new URL(req.url, "http://x"), pm = u.pathname.match(/^\/api\/v1\/([A-Za-z0-9_]+)\/?$/), tool = u.searchParams.get("tool") || (pm ? pm[1] : null);
   let b = req.body;
   if (typeof b === "string") { try { b = JSON.parse(b || "{}"); } catch (e) { return send(400, { error: "json" }); } }
   // REST: /api/v1 y /api/v1/<herramienta>
@@ -207,7 +283,19 @@ module.exports = async (req, res) => {
     const args = Object.assign({}, coerce(t, q), req.method === "POST" && b && typeof b === "object" ? b : {});
     if (req.method === "GET" && t.name === "guardar_documento") return send(405, { error: "Usa POST." });
     if (req.method === "GET" && t.name === "crear_alerta") return send(405, { error: "Usa POST." });
-    try { return send(200, { ok: true, resultado: await correr(tool, args) }); }
+    if (Buffer.isBuffer(b) && b.length) args.imagen_buffer = b;
+    try {
+      const r = await correr(tool, args);
+      if (r && r._bin) {
+        if (u.searchParams.get("binario") === "1" || args.imagen_buffer) {
+          res.statusCode = 200; res.setHeader("Content-Type", r.resumen.mime);
+          res.setHeader("X-Resumen", JSON.stringify(r.resumen)); res.setHeader("Content-Disposition", 'inline; filename="' + r.resumen.nombre_sugerido.replace(/[^\w.-]/g, "_") + '"');
+          return res.end(r._bin);
+        }
+        return send(200, { ok: true, resultado: Object.assign({}, r.resumen, { imagen_base64: r._bin.toString("base64") }) });
+      }
+      return send(200, { ok: true, resultado: r });
+    }
     catch (e) { return send(e.user ? 400 : 500, { ok: false, error: e.user ? e.message : "Error interno." }); }
   }
   // MCP
