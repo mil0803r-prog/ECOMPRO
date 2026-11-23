@@ -5503,11 +5503,11 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     return {d:y+"-"+pad(m)+"-01",h:h,lab:MESES[m-1]+" "+y+" · hasta hoy"};
   }
   function kpis(O){
-    var c={E:0,D:0,C:0,P:0},v=0,u=0,pc=0;
+    var c={E:0,D:0,C:0,P:0},v=0,u=0,pc=0,vd=0;
     O.forEach(function(o){var g=o.group,t=+o.total||0;
-      if(g==="entregado"){c.E++;v+=t;u+=+o.util||0}else if(g==="devolucion")c.D++;else if(g==="cancelado")c.C++;else{c.P++;pc+=t}});
+      if(g==="entregado"){c.E++;v+=t;u+=+o.util||0}else if(g==="devolucion"){c.D++;vd+=t}else if(g==="cancelado")c.C++;else{c.P++;pc+=t}});
     var tasa=(c.E+c.D)?c.E/(c.E+c.D):null,uavg=c.E?u/c.E:0;
-    return {c:c,v:v,u:u,pc:pc,tasa:tasa,tk:c.E?v/c.E:0,esp:c.P*uavg*(tasa==null?1:tasa),n:O.length};
+    return {c:c,v:v,u:u,pc:pc,vd:vd,tasa:tasa,tk:c.E?v/c.E:0,esp:c.P*uavg*(tasa==null?1:tasa),n:O.length};
   }
   function dias(n){var a=[],t=new Date(hoy()+"T12:00:00Z");for(var i=n-1;i>=0;i--){var x=new Date(t);x.setUTCDate(x.getUTCDate()-i);a.push(x.toISOString().slice(0,10))}return a}
   function lunes(d){var x=new Date(d+"T12:00:00Z");x.setUTCDate(x.getUTCDate()-((x.getUTCDay()+6)%7));return x.toISOString().slice(0,10)}
@@ -5527,6 +5527,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   function pinta(){
     if(src==="0")return;var n=+src,c=CACHE[n];
     if(!c.o){box.innerHTML=c.e?'<div class="warn"><b>No se pudo leer '+E(NAMES[n])+'</b><span>'+E(c.e)+(/Falta la variable/.test(c.e)?' Créala en Vercel (Settings > Environment Variables, marcada para Production) y haz Redeploy.':'')+'</span></div>':'<div class="dbempty">Leyendo los pedidos de '+E(NAMES[n])+'…</div>';return}
+    var dq=(window.ecGan&&window.ecGan.st&&window.ecGan.st.devq>=0)?+window.ecGan.st.devq:30;
     var R=rango(),O=c.o.filter(function(o){var d=String(o.date||"").slice(0,10);return d>=R.d&&d<=R.h}),K=kpis(O);
     var T=[
      ["Ventas entregadas",M(K.v),K.c.E+" entregados",""],
@@ -5536,7 +5537,11 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
      ["Cancelados",N(K.c.C),"pedidos cancelados",""],
      ["Por cobrar",M(K.pc),"pedidos en curso",""],
      ["Utilidad esperada",M(K.esp),"de lo que va en curso (estimada)",""],
-     ["Utilidad por entregado",M(K.c.E?K.u/K.c.E:0),"promedio, sin anuncios",""]];
+     ["Utilidad por entregado",M(K.c.E?K.u/K.c.E:0),"promedio, sin anuncios",""],
+     ["Devueltos",N(K.c.D),(K.tasa==null?"":Math.round((1-K.tasa)*100)+"% de los que ya tuvieron resultado · ")+M(K.vd)+" en pedidos devueltos",K.c.D?"r":""],
+     ["Descuento por devueltos",M(dq*K.c.D),K.c.D+" devueltos × Q "+N(dq)+" de costo por devolución","r"],
+     ["Utilidad descontando devueltos",M(K.u-dq*K.c.D),"utilidad de entregados − descuento por devueltos",K.u-dq*K.c.D>=0?"g":"r"],
+     ["Valor de lo devuelto",M(K.vd),"lo que se cobraría si no se hubieran devuelto",""]];
     var wk=[],w0=lunes(hoy());for(var i=11;i>=0;i--){var x=new Date(w0+"T12:00:00Z");x.setUTCDate(x.getUTCDate()-7*i);wk.push(x.toISOString().slice(0,10))}
     var nm=modo==="v"?"Ventas entregadas":modo==="u"?"Utilidad real de entregados":"Pedidos";
     box.innerHTML='<div class="lvh"><div class="card dbp"><div><span class="kl">Período</span><b>'+E(NAMES[n])+'</b></div><select id="dl-per" aria-label="Período"><option value="mes">Este mes</option><option value="ant">Mes anterior</option><option value="todo">Todo el tiempo</option></select></div>'+
