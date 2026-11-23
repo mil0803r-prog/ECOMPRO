@@ -983,7 +983,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     <div class="card" id="rt-box" style="display:flex;flex-direction:column;gap:12px">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3 style="margin:0">Historial de retiros de Dropi</h3><span id="rt-tabs" style="display:flex;gap:6px;flex-wrap:wrap"></span><button class="btn" type="button" id="rt-tg" aria-expanded="false" style="margin-left:auto">➕ Registrar retiro</button></div>
       <div id="rt-form" hidden style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-        <div class="fld"><label for="rt-f">Fecha</label><input id="rt-f" type="date"></div>
+        <div class="fld"><label for="rt-c">Cuenta de Dropi</label><select id="rt-c"></select></div><div class="fld"><label for="rt-f">Fecha</label><input id="rt-f" type="date"></div>
         <div class="fld"><label for="rt-m">Monto retirado (Q)</label><input id="rt-m" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0,00"></div>
         <div class="fld grow" style="min-width:180px"><label for="rt-n">Nota (opcional)</label><input id="rt-n" type="text" maxlength="120" placeholder="Banco, referencia…"></div>
         <button class="btn" type="button" id="rt-add" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff">Guardar retiro</button>
@@ -5569,36 +5569,54 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function f2(n){return (Math.round(n*100)/100).toLocaleString("es-GT",{minimumFractionDigits:2,maximumFractionDigits:2})}
   function rate(){var f=window.ecFx;return f&&f.st&&f.st.rate>0?f.st.rate:0.4504}
-  var cur="1",NAMES={1:"Dropi 1",2:"Dropi 2"},DATA={1:null,2:null},LOADING={1:false,2:false};
-  try{if(localStorage.getItem("ec_rtcta")==="2")cur="2"}catch(e){}
+  var cur="0",NAMES={1:"Dropi 1",2:"Dropi 2"},DATA={1:null,2:null},LOADING={1:false,2:false},TS=0;
+  try{var c0=localStorage.getItem("ec_rtcta");if(c0==="1"||c0==="2")cur=c0}catch(e){}
   function url(n){return "/api/dropi?a=retiros"+(n>1?"&c="+n:"")}
   function carga(n){
     if(LOADING[n])return;LOADING[n]=true;
-    fetch(url(n),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {}})}).then(function(j){DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:j.error||""};LOADING[n]=false;pinta()}).catch(function(){DATA[n]={manual:[],auto:null,err:"sin conexión"};LOADING[n]=false;pinta()});
+    fetch(url(n),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {}})}).then(function(j){DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:j.error||""};LOADING[n]=false;TS=Date.now();pinta()}).catch(function(){DATA[n]={manual:[],auto:null,err:"sin conexión"};LOADING[n]=false;pinta()});
   }
-  function guarda(){var d=DATA[+cur];fetch(url(+cur),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).catch(function(){})}
+  function todo(f){carga(1);carga(2)}
+  function guarda(n){var d=DATA[n];fetch(url(n),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).catch(function(){})}
+  function filas(){
+    var out=[];[1,2].forEach(function(n){var d=DATA[n];if(!d)return;
+      if(d.auto&&d.auto.ok)d.auto.rows.forEach(function(r){out.push({c:n,f:r.f,m:r.m,n:r.n||"",id:"",auto:true})});
+      d.manual.forEach(function(r){out.push({c:n,f:r.f,m:r.m,n:r.n||"",id:r.id,auto:false})})});
+    return out.filter(function(r){return cur==="0"||String(r.c)===cur}).sort(function(a,b){return b.f.localeCompare(a.f)});
+  }
   function pinta(){
-    $("rt-tabs").innerHTML=[1,2].map(function(n){return '<button type="button" class="chip" data-c="'+n+'" aria-pressed="'+(String(n)===cur)+'">'+E(NAMES[n])+'</button>'}).join("");
-    var d=DATA[+cur],tc=rate();
-    if(!d){$("rt-list").innerHTML='<div class="sub">Cargando…</div>';$("rt-auto").innerHTML="";return}
-    var A=d.auto&&d.auto.ok?d.auto.rows:[];
-    $("rt-auto").innerHTML=A.length?'<div class="sub" style="margin:0 0 4px"><b>Retiros que entrega Dropi</b></div>'+tabla(A,false):'<div class="sub">Dropi no entrega el historial de retiros con este token'+(d.auto&&d.auto.motivo?' ('+E(d.auto.motivo)+')':'')+'; por eso se registran a mano aquí abajo.</div>';
-    var L=d.manual.slice().sort(function(a,b){return b.f.localeCompare(a.f)}),tot=L.reduce(function(a,r){return a+r.m},0)+A.reduce(function(a,r){return a+r.m},0);
-    $("rt-list").innerHTML=(d.err?'<div class="warn"><b>No se pudo leer</b><span>'+E(d.err)+'</span></div>':"")+
-      '<div class="grid g3" style="margin:0 0 8px"><div class="card kpi"><h3>Total retirado</h3><div class="big">Q '+f2(tot)+'</div><div class="sub">S/ '+f2(tot*tc)+'</div></div><div class="card kpi"><h3>Retiros</h3><div class="big">'+(L.length+A.length)+'</div><div class="sub">'+E(NAMES[+cur])+'</div></div><div class="card kpi"><h3>Último retiro</h3><div class="big" style="font-size:1.3rem">'+(L[0]?E(L[0].f.split("-").reverse().join("/")):"–")+'</div><div class="sub">'+(L[0]?"Q "+f2(L[0].m):"sin retiros anotados")+'</div></div></div>'+
-      (L.length?tabla(L,true):'<div class="sub">Todavía no anotaste retiros de '+E(NAMES[+cur])+'. Toca «Registrar retiro» cada vez que Dropi te transfiera.</div>');
+    var tc=rate(),ok=!!(DATA[1]||DATA[2]);
+    $("rt-tabs").innerHTML=[["0","Ambos"],["1",NAMES[1]],["2",NAMES[2]]].map(function(x){return '<button type="button" class="chip" data-c="'+x[0]+'" aria-pressed="'+(cur===x[0])+'">'+E(x[1])+'</button>'}).join("")+
+      (ok?'<span class="lv" style="display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--muted);margin-left:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--verde);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 22%,transparent)"></i>En vivo · '+new Date(TS||Date.now()).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+'</span>':'');
+    var sel=$("rt-c");if(sel){var v=sel.value||(cur==="2"?"2":"1");sel.innerHTML='<option value="1">'+E(NAMES[1])+'</option><option value="2">'+E(NAMES[2])+'</option>';sel.value=cur==="2"?"2":cur==="1"?"1":v}
+    if(!ok){$("rt-list").innerHTML='<div class="sub">Leyendo los retiros de Dropi…</div>';$("rt-auto").innerHTML="";return}
+    var L=filas(),tot=L.reduce(function(a,r){return a+r.m},0),avisos=[];
+    [1,2].forEach(function(n){var d=DATA[n];if(!d||(cur!=="0"&&String(n)!==cur))return;if(d.err)avisos.push(NAMES[n]+": "+d.err);else if(!(d.auto&&d.auto.ok))avisos.push(NAMES[n]+": Dropi no entrega el historial de retiros con este token"+(d.auto&&d.auto.motivo?" ("+d.auto.motivo+")":"")+"; se registran a mano.")});
+    var por=[1,2].map(function(n){var t=L.filter(function(r){return r.c===n}).reduce(function(a,r){return a+r.m},0);return {n:n,t:t,k:L.filter(function(r){return r.c===n}).length}});
+    $("rt-auto").innerHTML=avisos.length?'<div class="sub">'+avisos.map(E).join("<br>")+'</div>':"";
+    $("rt-list").innerHTML='<div class="grid g4" style="margin:0 0 8px"><div class="card kpi"><h3>Total retirado</h3><div class="big">Q '+f2(tot)+'</div><div class="sub">S/ '+f2(tot*tc)+' · '+L.length+' retiros</div></div>'+
+      por.map(function(x){return '<div class="card kpi" style="opacity:'+(cur==="0"||String(x.n)===cur?1:.45)+'"><h3>'+E(NAMES[x.n])+'</h3><div class="big">Q '+f2(x.t)+'</div><div class="sub">S/ '+f2(x.t*tc)+' · '+x.k+' retiros</div></div>'}).join("")+
+      '<div class="card kpi"><h3>Último retiro</h3><div class="big" style="font-size:1.3rem">'+(L[0]?E(L[0].f.split("-").reverse().join("/")):"–")+'</div><div class="sub">'+(L[0]?E(NAMES[L[0].c])+" · Q "+f2(L[0].m):"sin retiros")+'</div></div></div>'+
+      (L.length?tabla(L):'<div class="sub">Todavía no hay retiros. Si Dropi no los entrega solo, toca «Registrar retiro» cada vez que te transfieran.</div>');
   }
-  function tabla(L,borrar){var tc=rate();
-    return '<div class="tbl"><table><thead><tr><th>Fecha</th><th class="num">Monto Q</th><th class="num">Monto S/</th><th>Nota</th>'+(borrar?'<th></th>':'')+'</tr></thead><tbody>'+L.map(function(r){return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td class="num"><b>'+f2(r.m)+'</b></td><td class="num">'+f2(r.m*tc)+'</td><td>'+E(r.n||"")+'</td>'+(borrar?'<td class="num"><button class="btn" type="button" data-d="'+E(r.id)+'" title="Borrar este retiro" aria-label="Borrar este retiro" style="padding:4px 10px">✕</button></td>':'')+'</tr>'}).join("")+'</tbody></table></div>'}
-  $("rt-tabs").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;cur=b.dataset.c;try{localStorage.setItem("ec_rtcta",cur)}catch(x){}if(!DATA[+cur])carga(+cur);pinta()});
+  function tabla(L){var tc=rate();
+    return '<div class="tbl"><table><thead><tr><th>Fecha</th><th>Cuenta</th><th class="num">Monto Q</th><th class="num">Monto S/</th><th>Nota</th><th></th></tr></thead><tbody>'+L.map(function(r){return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(NAMES[r.c])+(r.auto?' <span class="pill v">Dropi</span>':'')+'</td><td class="num"><b>'+f2(r.m)+'</b></td><td class="num">'+f2(r.m*tc)+'</td><td>'+E(r.n)+'</td><td class="num">'+(r.auto?'':'<button class="btn" type="button" data-d="'+E(r.id)+'" data-c="'+r.c+'" title="Borrar este retiro" aria-label="Borrar este retiro" style="padding:4px 10px">✕</button>')+'</td></tr>'}).join("")+'</tbody></table></div>'}
+  $("rt-tabs").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;cur=b.dataset.c;try{localStorage.setItem("ec_rtcta",cur)}catch(x){}pinta()});
   $("rt-tg").addEventListener("click",function(){var f=$("rt-form"),o=f.hidden;f.hidden=!o;f.style.display=o?"flex":"none";$("rt-tg").setAttribute("aria-expanded",o?"true":"false");$("rt-tg").textContent=o?"✕ Cerrar":"➕ Registrar retiro";if(o&&!$("rt-f").value)$("rt-f").value=new Date(Date.now()-6*3600*1000).toISOString().slice(0,10)});
-  $("rt-add").addEventListener("click",function(){var d=DATA[+cur];if(!d)return;var f=$("rt-f").value,m=parseFloat($("rt-m").value);if(!f||!(m>0)){$("rt-m").focus();return}
-    d.manual.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:f,m:Math.round(m*100)/100,n:$("rt-n").value.trim()});$("rt-m").value="";$("rt-n").value="";guarda();pinta()});
-  $("rt-list").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b||!confirm("¿Borrar este retiro?"))return;var d=DATA[+cur];d.manual=d.manual.filter(function(r){return r.id!==b.dataset.d});guarda();pinta()});
-  function abre(){if(!DATA[+cur])carga(+cur);pinta()}
+  $("rt-add").addEventListener("click",function(){var n=+($("rt-c").value||1),d=DATA[n];if(!d)return;var f=$("rt-f").value,m=parseFloat($("rt-m").value);if(!f||!(m>0)){$("rt-m").focus();return}
+    d.manual.push({id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:f,m:Math.round(m*100)/100,n:$("rt-n").value.trim()});$("rt-m").value="";$("rt-n").value="";guarda(n);pinta()});
+  $("rt-list").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b||!confirm("¿Borrar este retiro?"))return;var n=+b.dataset.c,d=DATA[n];d.manual=d.manual.filter(function(r){return r.id!==b.dataset.d});guarda(n);pinta()});
+  function abre(){if(!DATA[1]||Date.now()-TS>3*60*1000)todo();pinta()}
   document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#side button, #nav-g button, #nav-s button"))setTimeout(function(){if(!p.hidden)abre()},60)});
   if(window.ecFx)window.ecFx.hooks.push(pinta);
   fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.nombres){NAMES=j.nombres;pinta()}}).catch(function(){});
-  var mo=new MutationObserver(function(){if(!p.hidden)abre()});mo.observe(p,{attributes:true,attributeFilter:["hidden"]});
+  new MutationObserver(function(){if(!p.hidden)abre()}).observe(p,{attributes:true,attributeFilter:["hidden"]});
+  setInterval(function(){if(!p.hidden)todo()},3*60*1000);
 })();
 </script>
+<style id="din-solo-retiros">
+/* Dinero: solo el historial de retiros (el resto queda oculto, sin quitarlo del todo para no romper los cálculos de fondo) */
+#p-din>*:not(#rt-box){display:none!important}
+#rt-box{margin-top:0}
+</style>
+
