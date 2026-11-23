@@ -1301,6 +1301,7 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
           <div class="fld"><label for="cim-q">Calidad: <b id="cim-qv">80</b> %</label><input id="cim-q" type="range" min="10" max="100" step="5" value="80"></div>
           <div class="fld"><label for="cim-w">Ancho máximo</label><select id="cim-w"><option value="0">Dejar el tamaño original</option><option value="3840">4K · 3840 px</option><option value="2560">2560 px</option><option value="1920">Full HD · 1920 px</option><option value="1280">1280 px</option><option value="1080">1080 px (cuadrado de Meta)</option><option value="800">800 px</option><option value="512">512 px</option></select></div>
           <div class="fld"><label for="cim-bg">Fondo si no hay transparencia</label><select id="cim-bg"><option value="#ffffff">Blanco</option><option value="#000000">Negro</option></select></div>
+          <label class="chk"><input type="checkbox" id="cim-keep" checked> Si pesa más, dejar el original</label>
           <button class="btn" type="button" id="cim-go">Comprimir y convertir</button>
           <button class="btn" type="button" id="cim-clr">Quitar todas</button>
         </div>
@@ -4894,7 +4895,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
 <script>
 (function(){
   var $=function(i){return document.getElementById(i)};if(!$("cim-f"))return;
-  var dz=$("cim-dz"),inp=$("cim-f"),lista=$("cim-lista"),opc=$("cim-opc"),fmt=$("cim-fmt"),q=$("cim-q"),qv=$("cim-qv"),wsel=$("cim-w"),bg=$("cim-bg"),go=$("cim-go"),clr=$("cim-clr"),msg=$("cim-m"),all=$("cim-all"),zipb=$("cim-zip");
+  var dz=$("cim-dz"),inp=$("cim-f"),lista=$("cim-lista"),opc=$("cim-opc"),fmt=$("cim-fmt"),q=$("cim-q"),qv=$("cim-qv"),wsel=$("cim-w"),bg=$("cim-bg"),go=$("cim-go"),clr=$("cim-clr"),msg=$("cim-m"),all=$("cim-all"),zipb=$("cim-zip"),keep=$("cim-keep");
   var ITEMS=[],OUT=[];
   function E(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function pes(n){return n>=1048576?(n/1048576).toFixed(2).replace(".",",")+" MB":Math.max(1,Math.round(n/1024))+" KB"}
@@ -4915,8 +4916,8 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   var SOP={JPG:true,PNG:true,BMP:true,ICO:true,WebP:false,AVIF:false};
   function probar(tipo){return new Promise(function(ok){try{var c=document.createElement("canvas");c.width=c.height=2;c.toBlob(function(b){ok(!!b&&b.type===TIPOS[tipo][0])},TIPOS[tipo][0],0.8)}catch(e){ok(false)}})}
   function llenar(){
-    fmt.innerHTML=Object.keys(TIPOS).map(function(k){return '<option value="'+k+'"'+(SOP[k]?'':' disabled')+'>'+k+(SOP[k]?'':' (este navegador no lo guarda)')+'</option>'}).join("");
-    fmt.value="WebP";if(fmt.selectedOptions[0]&&fmt.selectedOptions[0].disabled)fmt.value="JPG";
+    fmt.innerHTML='<option value="ORIG">Igual que el original (solo comprimir)</option>'+Object.keys(TIPOS).map(function(k){return '<option value="'+k+'"'+(SOP[k]?'':' disabled')+'>'+k+(SOP[k]?'':' (este navegador no lo guarda)')+'</option>'}).join("");
+    fmt.value="ORIG";
   }
   llenar();
   Promise.all([probar("WebP"),probar("AVIF")]).then(function(r){SOP.WebP=r[0];SOP.AVIF=r[1];var cur=fmt.value;llenar();if(SOP[cur]||TIPOS[cur]&&cur!=="WebP"&&cur!=="AVIF")fmt.value=cur});
@@ -4946,6 +4947,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   ["dragenter","dragover"].forEach(function(n){dz.addEventListener(n,function(e){e.preventDefault();dz.classList.add("on")})});
   ["dragleave","drop"].forEach(function(n){dz.addEventListener(n,function(e){e.preventDefault();dz.classList.remove("on")})});
   dz.addEventListener("drop",function(e){agregar(Array.from(e.dataTransfer.files).filter(function(f){return /^image\//.test(f.type)||/\.(heic|avif|webp|bmp|ico|svg)$/i.test(f.name)}))});
+  document.addEventListener("paste",function(e){if(!$("p-cim")||$("p-cim").hidden)return;var fs=Array.from((e.clipboardData&&e.clipboardData.files)||[]).filter(function(f){return /^image\//.test(f.type)});if(fs.length){e.preventDefault();agregar(fs)}});
   function u32(v){return [v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255]}
   function u16(v){return [v&255,(v>>8)&255]}
   function bmp(cv){
@@ -4974,18 +4976,21 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   function nombre(n,ext,usados){var base=n.replace(/\.[^.]+$/,"")||"imagen",c=base+"."+ext,k=2;while(usados[c]){c=base+"-"+k+"."+ext;k++}usados[c]=1;return c}
   go.addEventListener("click",async function(){
     if(!ITEMS.length)return;var tipo=fmt.value,cal=(+q.value)/100,maxw=+wsel.value,fondo=bg.value,usados={};OUT=[];go.disabled=true;all.hidden=true;
-    var ant=0,des=0,ok=0;
+    var ant=0,des=0,ok=0,orig=0;OUT.forEach(function(o){try{URL.revokeObjectURL(o.url)}catch(x){}});OUT=[];
     for(var i=0;i<ITEMS.length;i++){
       var it=ITEMS[i],r=$("cim-r"+i);r.textContent="Procesando…";
       try{
-        var o=await convertir(it,tipo,cal,maxw,fondo),nom=nombre(it.file.name,TIPOS[tipo][1],usados),url=URL.createObjectURL(o.blob);
+        var te=tipo==="ORIG"?(TIPOS[it.fmt]&&SOP[it.fmt]?it.fmt:(SOP.WebP?"WebP":"JPG")):tipo;
+        var o=await convertir(it,te,cal,maxw,fondo),ext=TIPOS[te][1],redim=!!(maxw&&it.w>maxw),dejo=false;
+        if(keep.checked&&!redim&&o.blob.size>=it.file.size){o={blob:it.file,w:it.w,h:it.h};ext=(it.file.name.match(/\.([^.]+)$/)||[0,ext])[1];dejo=true;orig++}
+        var nom=nombre(it.file.name,ext,usados),url=URL.createObjectURL(o.blob);
         var pc=Math.round((1-o.blob.size/it.file.size)*100);ant+=it.file.size;des+=o.blob.size;ok++;
-        OUT.push({name:nom,blob:o.blob});
-        r.innerHTML='<span class="'+(pc>=0?'cim-ok':'cim-mal')+'">'+pes(it.file.size)+' → '+pes(o.blob.size)+' ('+(pc>=0?'-'+pc+' %':'+'+Math.abs(pc)+' %, pesa más')+')</span> · '+o.w+' × '+o.h+' px · <a class="btn" download="'+E(nom)+'" href="'+url+'">Descargar '+E(nom)+'</a>';
+        OUT.push({name:nom,blob:o.blob,url:url});
+        r.innerHTML='<span class="'+(pc>=0?'cim-ok':'cim-mal')+'">'+pes(it.file.size)+' → '+pes(o.blob.size)+' ('+(pc>=0?'-'+pc+' %':'+'+Math.abs(pc)+' %, pesa más')+')</span>'+(dejo?' · <b>ya estaba optimizada: se dejó el original</b>':'')+' · '+o.w+' × '+o.h+' px · <a class="btn" download="'+E(nom)+'" href="'+url+'">Descargar '+E(nom)+'</a>';
       }catch(e){r.innerHTML='<span class="cim-mal">No se pudo: '+E(e.message||e)+'</span>'}
     }
     go.disabled=false;
-    msg.textContent=ok?"Listo: "+ok+" imagen(es) a "+tipo+". Pesaban "+pes(ant)+" y ahora "+pes(des)+(ant?(des<=ant?" (ahorro de "+Math.round((1-des/ant)*100)+" %).":" (pesan más que el original: prueba otro formato o baja el ancho)."):"."):"No se pudo convertir ninguna.";
+    msg.textContent=ok?"Listo: "+ok+" imagen(es)"+(tipo==="ORIG"?"":" a "+tipo)+(orig?" ("+orig+" se dejaron como estaban)":"")+". Pesaban "+pes(ant)+" y ahora "+pes(des)+(ant?(des<=ant?" (ahorro de "+Math.round((1-des/ant)*100)+" %).":" (pesan más que el original: prueba otro formato o baja el ancho)."):"."):"No se pudo convertir ninguna.";
     all.hidden=OUT.length<2;
   });
   /* ZIP sin compresión (las imágenes ya vienen comprimidas) */
