@@ -8327,6 +8327,960 @@
    "fav": false,
    "ct": "2026-10-09",
    "tv": 104
+  },
+  "2026-11-14_1": {
+   "date": "2026-11-14",
+   "rank": 1,
+   "source": "ia",
+   "name": "Linterna LED con zoom",
+   "provider": "distribuidora gt",
+   "verificado": false,
+   "cats": "herramientas",
+   "costo": 47,
+   "pvp": 150,
+   "v7": 160,
+   "v30": 379,
+   "stock": 298,
+   "score": 77,
+   "scores": {
+    "demanda": 6,
+    "traccion": 4,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "160 ventas en 7 dias, 379 en 30 y 379 en total (11 dias con venta en 30), stock 298, creado el 2026-11-07, 1 proveedor en lo leido. 4 anunciantes del mismo producto en GT en lo leido (TOOL HOUSE, Grupo Adriel, Alexpress y Mi Tienda 502; el mas viejo lleva 76 dias). Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "4 anunciantes del mismo producto en GT en lo leido (TOOL HOUSE, Grupo Adriel, Alexpress y Mi Tienda 502; el mas viejo lleva 76 dias).",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 6,
+   "anNota": "6 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [
+    {
+     "adv": "Mi Tienda 502",
+     "pais": "GT",
+     "dias": 76,
+     "score": 0,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=2324361821726737",
+     "dk": "",
+     "nota": "PowerBeam X3, recargable USB-C, Q195 (WhatsApp, video)"
+    },
+    {
+     "adv": "Alexpress",
+     "pais": "GT",
+     "dias": 54,
+     "score": 0,
+     "ver": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&id=968177072997280",
+     "dk": "",
+     "nota": "Linterna Elite 1x Q60 o 2x Q85 (WhatsApp, imagen)"
+    }
+   ],
+   "provs": [
+    {
+     "prov": "distribuidora gt",
+     "id": "33253",
+     "nombre": "linterna zoom 23151-29",
+     "costo": 47,
+     "stock": 298,
+     "v7": 160,
+     "v30": 379,
+     "tv": 379,
+     "ct": "2026-11-07",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/95436b5b-2569-4dc2-8c15-e3bf33dd10e8/ac49c2ee449c.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33253&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/95436b5b-2569-4dc2-8c15-e3bf33dd10e8",
+   "ct": "2026-11-07",
+   "tv": 379,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-14_2": {
+   "date": "2026-11-14",
+   "rank": 2,
+   "source": "ia",
+   "name": "Pack de 3 leggins bota campana",
+   "provider": "laurean by seong woo",
+   "verificado": true,
+   "cats": "moda-ropa",
+   "costo": 89,
+   "pvp": 199,
+   "v7": 66,
+   "v30": 177,
+   "stock": 3832,
+   "score": 76,
+   "scores": {
+    "demanda": 3,
+    "traccion": 7,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 359
+   },
+   "verdict": "66 ventas en 7 dias, 177 en 30 y 183 en total (22 dias con venta en 30), stock 3832, creado el 2026-10-21, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado o que nadie lo pauta con ese nombre. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado o que nadie lo pauta con ese nombre.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laurean by seong woo",
+     "id": "29834",
+     "nombre": "pack leggins bota campana x3 a 89",
+     "costo": 89,
+     "stock": 3832,
+     "v7": 66,
+     "v30": 177,
+     "tv": 183,
+     "ct": "2026-10-21",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/fb26735a-3027-4202-8cfe-c67a8b2236d5/cd11210a07bc.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=29834&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/fb26735a-3027-4202-8cfe-c67a8b2236d5",
+   "ct": "2026-10-21",
+   "tv": 183,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-14_3": {
+   "date": "2026-11-14",
+   "rank": 3,
+   "source": "ia",
+   "name": "2 licras para yoga negro y gris",
+   "provider": "laurean by seong woo",
+   "verificado": true,
+   "cats": "moda-ropa",
+   "costo": 39.5,
+   "pvp": 134.5,
+   "v7": 61,
+   "v30": 142,
+   "stock": 3462,
+   "score": 74,
+   "scores": {
+    "demanda": 2,
+    "traccion": 6,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 249
+   },
+   "verdict": "61 ventas en 7 dias, 142 en 30 y 142 en total (19 dias con venta en 30), stock 3462, creado el 2026-10-14, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laurean by seong woo",
+     "id": "28084",
+     "nombre": "2 licras para yoga | black & grey x 79",
+     "costo": 39.5,
+     "stock": 3462,
+     "v7": 61,
+     "v30": 142,
+     "tv": 142,
+     "ct": "2026-10-14",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/ccc0f6d6-fc40-43c7-b706-25c67ff2ea8e/735786fd3f96.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=28084&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/ccc0f6d6-fc40-43c7-b706-25c67ff2ea8e",
+   "ct": "2026-10-14",
+   "tv": 142,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-14_4": {
+   "date": "2026-11-14",
+   "rank": 4,
+   "source": "ia",
+   "name": "Pasta dental blanqueadora 9D",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 24,
+   "pvp": 44,
+   "v7": 43,
+   "v30": 186,
+   "stock": 344,
+   "score": 65,
+   "scores": {
+    "demanda": 2,
+    "traccion": 8,
+    "margen": 2,
+    "competencia": 10,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 129
+   },
+   "verdict": "43 ventas en 7 dias, 186 en 30 y 237 en total (25 dias con venta en 30), stock 344, creado el 2026-10-10, 1 proveedor en lo leido. 1 anuncio activo en GT en lo leido: muy buena senal. Plan B: ventas mas bajas que el filtro normal. Margen NO CIERRA con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "1 anuncio activo en GT en lo leido: muy buena senal.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 1,
+   "anNota": "1 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27637",
+     "nombre": "pasta dental blanqueadora 9d",
+     "costo": 24,
+     "stock": 344,
+     "v7": 43,
+     "v30": 186,
+     "tv": 237,
+     "ct": "2026-10-10",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/55650d80-0500-499a-bf48-7ceb2aedede5/077fbb06ecc7.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27637&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/55650d80-0500-499a-bf48-7ceb2aedede5",
+   "ct": "2026-10-10",
+   "tv": 237,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-14_5": {
+   "date": "2026-11-14",
+   "rank": 5,
+   "source": "ia",
+   "name": "Sellador de puertas contra bichos y polvo",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "hogar-deco",
+   "costo": 45,
+   "pvp": 175,
+   "v7": 23,
+   "v30": 88,
+   "stock": 703,
+   "score": 67,
+   "scores": {
+    "demanda": 1,
+    "traccion": 8,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 319
+   },
+   "verdict": "23 ventas en 7 dias, 88 en 30 y 97 en total (23 dias con venta en 30), stock 703, creado el 2026-10-13, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 4,
+   "anNota": "4 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "27954",
+     "nombre": "sellador de puertas para bichos y polvo",
+     "costo": 45,
+     "stock": 703,
+     "v7": 23,
+     "v30": 88,
+     "tv": 97,
+     "ct": "2026-10-13",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/cba5ca82-f1b3-45e4-8593-f89f8bd3bffc/926a9552aee7.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27954&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/cba5ca82-f1b3-45e4-8593-f89f8bd3bffc",
+   "ct": "2026-10-13",
+   "tv": 97,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-16_1": {
+   "date": "2026-11-16",
+   "rank": 1,
+   "source": "ia",
+   "name": "Mascarilla capilar reparadora",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 35.5,
+   "pvp": 55.5,
+   "v7": 53,
+   "v30": 112,
+   "stock": 352,
+   "score": 58,
+   "scores": {
+    "demanda": 2,
+    "traccion": 4,
+    "margen": 2,
+    "competencia": 10,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 179
+   },
+   "verdict": "53 ventas en 7 dias, 112 en 30 y 112 en total (11 dias con venta en 30), stock 352, creado el 2026-10-10, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen NO CIERRA con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27545",
+     "nombre": "mascarilla capilar reparadora",
+     "costo": 35.5,
+     "stock": 352,
+     "v7": 53,
+     "v30": 112,
+     "tv": 112,
+     "ct": "2026-10-10",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/b1dab782-00a2-4764-86dc-f09c46181ffc/fa8c5bf66e26.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27545&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/b1dab782-00a2-4764-86dc-f09c46181ffc",
+   "ct": "2026-10-10",
+   "tv": 112,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-16_2": {
+   "date": "2026-11-16",
+   "rank": 2,
+   "source": "ia",
+   "name": "Pack de 4 blusas",
+   "provider": "laurean by seong woo",
+   "verificado": true,
+   "cats": "moda-ropa",
+   "costo": 99,
+   "pvp": 259,
+   "v7": 58,
+   "v30": 220,
+   "stock": 1780,
+   "score": 71,
+   "scores": {
+    "demanda": 2,
+    "traccion": 5,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 469
+   },
+   "verdict": "58 ventas en 7 dias, 220 en 30 y 220 en total (15 dias con venta en 30), stock 1780, creado el 2026-11-04, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laurean by seong woo",
+     "id": "32902",
+     "nombre": "pack de x4 blusas x 99 chicos",
+     "costo": 99,
+     "stock": 1780,
+     "v7": 58,
+     "v30": 220,
+     "tv": 220,
+     "ct": "2026-11-04",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/1e953481-d5e4-48a0-b3fb-62fe98fd33e5/1f87d533ea15.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=32902&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/1e953481-d5e4-48a0-b3fb-62fe98fd33e5",
+   "ct": "2026-11-04",
+   "tv": 220,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-16_3": {
+   "date": "2026-11-16",
+   "rank": 3,
+   "source": "ia",
+   "name": "Parche para varices",
+   "provider": "auré",
+   "verificado": true,
+   "cats": "salud-bienestar",
+   "costo": 35,
+   "pvp": 70,
+   "v7": 40,
+   "v30": 115,
+   "stock": 885,
+   "score": 54,
+   "scores": {
+    "demanda": 2,
+    "traccion": 5,
+    "margen": 2,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 179
+   },
+   "verdict": "40 ventas en 7 dias, 115 en 30 y 115 en total (15 dias con venta en 30), stock 885, creado el 2026-10-30, 2 proveedores en lo leido. 7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen NO CIERRA con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 7,
+   "anNota": "7 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "auré",
+     "id": "31417",
+     "nombre": "parche para varices",
+     "costo": 35,
+     "stock": 885,
+     "v7": 40,
+     "v30": 115,
+     "tv": 115,
+     "ct": "2026-10-30",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/42aa2839-30c5-4e4a-9829-7574c451081f/2252c97b6923.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=31417&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/42aa2839-30c5-4e4a-9829-7574c451081f",
+   "ct": "2026-10-30",
+   "tv": 115,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-16_4": {
+   "date": "2026-11-16",
+   "rank": 4,
+   "source": "ia",
+   "name": "Limpiador facial para puntos negros",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "belleza",
+   "costo": 75,
+   "pvp": 195,
+   "v7": 32,
+   "v30": 142,
+   "stock": 349,
+   "score": 63,
+   "scores": {
+    "demanda": 1,
+    "traccion": 8,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 359
+   },
+   "verdict": "32 ventas en 7 dias, 142 en 30 y 142 en total (23 dias con venta en 30), stock 349, creado el 2026-10-29, 1 proveedor en lo leido. 6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 6,
+   "anNota": "6 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "31186",
+     "nombre": "limpiador facial puntos negros",
+     "costo": 75,
+     "stock": 349,
+     "v7": 32,
+     "v30": 142,
+     "tv": 142,
+     "ct": "2026-10-29",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/04390485-ec9b-4f27-b069-f3e36ede982c/2c07a6ecbb07.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=31186&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/04390485-ec9b-4f27-b069-f3e36ede982c",
+   "ct": "2026-10-29",
+   "tv": 142,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-16_5": {
+   "date": "2026-11-16",
+   "rank": 5,
+   "source": "ia",
+   "name": "Turboflush destapador de inodoros",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "aseo-limpieza",
+   "costo": 59,
+   "pvp": 195,
+   "v7": 21,
+   "v30": 117,
+   "stock": 279,
+   "score": 64,
+   "scores": {
+    "demanda": 1,
+    "traccion": 4,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 359
+   },
+   "verdict": "21 ventas en 7 dias, 117 en 30 y 216 en total (11 dias con venta en 30), stock 279, creado el 2026-10-08, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "27026",
+     "nombre": "turboflush – destapador de inodoros",
+     "costo": 59,
+     "stock": 279,
+     "v7": 21,
+     "v30": 117,
+     "tv": 216,
+     "ct": "2026-10-08",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7/67af02e59f02.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27026&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7",
+   "ct": "2026-10-08",
+   "tv": 216,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-18_1": {
+   "date": "2026-11-18",
+   "rank": 1,
+   "source": "ia",
+   "name": "Masajeador corporal",
+   "provider": "distribuidora gt",
+   "verificado": false,
+   "cats": "salud-bienestar",
+   "costo": 104,
+   "pvp": 300,
+   "v7": 54,
+   "v30": 93,
+   "stock": 107,
+   "score": 73,
+   "scores": {
+    "demanda": 2,
+    "traccion": 4,
+    "margen": 10,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 1,
+    "precio": 309
+   },
+   "verdict": "54 ventas en 7 dias, 93 en 30 y 93 en total (11 dias con venta en 30), stock 107, creado el 2026-11-05, 1 proveedor en lo leido. 2 anuncios activos del mismo producto en GT en lo leido. Margen VIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "2 anuncios activos del mismo producto en GT en lo leido.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 2,
+   "anNota": "2 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "distribuidora gt",
+     "id": "33035",
+     "nombre": "masajeador corporal 24040-12",
+     "costo": 104,
+     "stock": 107,
+     "v7": 54,
+     "v30": 93,
+     "tv": 93,
+     "ct": "2026-11-05",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/dcf85440-0dfb-448d-be6d-722cce53ae04/21f7d66013e6.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33035&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/dcf85440-0dfb-448d-be6d-722cce53ae04",
+   "ct": "2026-11-05",
+   "tv": 93,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-18_2": {
+   "date": "2026-11-18",
+   "rank": 2,
+   "source": "ia",
+   "name": "Guirnalda de arbol de Navidad de colores",
+   "provider": "distribuidora gt",
+   "verificado": false,
+   "cats": "hogar-deco",
+   "costo": 104,
+   "pvp": 200,
+   "v7": 145,
+   "v30": 181,
+   "stock": 193,
+   "score": 74,
+   "scores": {
+    "demanda": 6,
+    "traccion": 3,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 529
+   },
+   "verdict": "145 ventas en 7 dias, 181 en 30 y 181 en total (9 dias con venta en 30), stock 193, creado el 2026-11-11, 3 proveedores en lo leido. 5 anuncios activos en GT en lo leido (guirnaldas navidenas; el conteo mezcla productos parecidos). Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "5 anuncios activos en GT en lo leido (guirnaldas navidenas; el conteo mezcla productos parecidos).",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 5,
+   "anNota": "5 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "distribuidora gt",
+     "id": "33457",
+     "nombre": "guirnalda árbol colores 8836-30",
+     "costo": 104,
+     "stock": 193,
+     "v7": 145,
+     "v30": 181,
+     "tv": 181,
+     "ct": "2026-11-11",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/82a91ef2-9e6f-49b8-852b-18ffc018598c/b6b957d2f356.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33457&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/82a91ef2-9e6f-49b8-852b-18ffc018598c",
+   "ct": "2026-11-11",
+   "tv": 181,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-18_3": {
+   "date": "2026-11-18",
+   "rank": 3,
+   "source": "ia",
+   "name": "Desplumador electrico",
+   "provider": "distribuidora gt",
+   "verificado": false,
+   "cats": "hogar-deco",
+   "costo": 68,
+   "pvp": 200,
+   "v7": 37,
+   "v30": 56,
+   "stock": 144,
+   "score": 53,
+   "scores": {
+    "demanda": 1,
+    "traccion": 2,
+    "margen": 6,
+    "competencia": 5,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 369
+   },
+   "verdict": "37 ventas en 7 dias, 56 en 30 y 56 en total (7 dias con venta en 30), stock 144, creado el 2026-11-09, 1 proveedor en lo leido. 9 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "9 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 9,
+   "anNota": "9 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "distribuidora gt",
+     "id": "33346",
+     "nombre": "desplumador eléctrico 25090-31",
+     "costo": 68,
+     "stock": 144,
+     "v7": 37,
+     "v30": 56,
+     "tv": 56,
+     "ct": "2026-11-09",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/6710bd85-88c7-4bf0-a784-0faf43899958/6e5217aed4cd.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33346&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/6710bd85-88c7-4bf0-a784-0faf43899958",
+   "ct": "2026-11-09",
+   "tv": 56,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-18_4": {
+   "date": "2026-11-18",
+   "rank": 4,
+   "source": "ia",
+   "name": "Cepillo acolchado retractil",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 79,
+   "pvp": 99,
+   "v7": 28,
+   "v30": 67,
+   "stock": 493,
+   "score": 64,
+   "scores": {
+    "demanda": 1,
+    "traccion": 3,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 399
+   },
+   "verdict": "28 ventas en 7 dias, 67 en 30 y 67 en total (9 dias con venta en 30), stock 493, creado el 2026-10-10, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "27602",
+     "nombre": "cepillo acolchado retractil",
+     "costo": 79,
+     "stock": 493,
+     "v7": 28,
+     "v30": 67,
+     "tv": 67,
+     "ct": "2026-10-10",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/9712ed3d-b9b3-45be-a716-8b72078c6d26/eafdec970aac.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=27602&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/9712ed3d-b9b3-45be-a716-8b72078c6d26",
+   "ct": "2026-10-10",
+   "tv": 67,
+   "status": "nuevo",
+   "fav": false,
+   "planb": true
+  },
+  "2026-11-21_1": {
+   "date": "2026-11-21",
+   "rank": 1,
+   "source": "ia",
+   "name": "Ex Calvo (tratamiento capilar)",
+   "provider": "laboratorio luna",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 45,
+   "pvp": 150,
+   "v7": 54,
+   "v30": 54,
+   "stock": 924,
+   "score": 53,
+   "scores": {
+    "demanda": 2,
+    "traccion": 1,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "54 ventas en 7 dias, 54 en 30 y 54 en total (2 dias con venta en 30), stock 924, creado el 2026-11-16, 2 proveedores en lo leido. 7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 7,
+   "anNota": "7 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "laboratorio luna",
+     "id": "33623",
+     "nombre": "ex calvo",
+     "costo": 45,
+     "stock": 924,
+     "v7": 54,
+     "v30": 54,
+     "tv": 54,
+     "ct": "2026-11-16",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/60c3f047-9bce-40ef-a348-5ecc918ea869/e13a78c73db5.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33623&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/60c3f047-9bce-40ef-a348-5ecc918ea869",
+   "ct": "2026-11-16",
+   "tv": 54,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-23_1": {
+   "date": "2026-11-23",
+   "rank": 1,
+   "source": "ia",
+   "name": "Combo Geno",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "otros",
+   "costo": 46,
+   "pvp": 66,
+   "v7": 63,
+   "v30": 63,
+   "stock": 106,
+   "score": 66,
+   "scores": {
+    "demanda": 3,
+    "traccion": 2,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 239
+   },
+   "verdict": "63 ventas en 7 dias, 63 en 30 y 63 en total (5 dias con venta en 30), stock 106, creado el 2026-11-18, 5 proveedores en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "33742",
+     "nombre": "combo geno",
+     "costo": 46,
+     "stock": 106,
+     "v7": 63,
+     "v30": 63,
+     "tv": 63,
+     "ct": "2026-11-18",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/3b25b9ce-05ca-4bad-a9c7-2e712c780358/7cec5e27197d.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33742&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/3b25b9ce-05ca-4bad-a9c7-2e712c780358",
+   "ct": "2026-11-18",
+   "tv": 63,
+   "status": "nuevo",
+   "fav": false
   }
  },
  "validations": {
@@ -27266,6 +28220,1157 @@
    ],
    "resumen": "Se leyeron 64 filas con los filtros base (GT, Dropi, activo, stock 80 o mas, 7 dias 50 o mas, creado desde el 2026-08-13): 49 tenian las tres ventas entre 50 y 800. Cayeron por repetidos de los ultimos 20 dias, por ventas fuera de rango (tinte para canas, dr. althea 20461, gotas de drenaje), por nombre de producto para adultos y por marca registrada (perfume Lattafa); el resto de los productos que pasaron los filtros de ventas no se evaluaron a fondo y quedan de reserva. Quedaron 5 normales y no se uso el Plan B. El filtro que mas corto fue el de proveedores y repeticion.",
    "revisar": "A REVISAR: de reserva quedaron productos que pasaron los filtros de ventas pero no se evaluaron a fondo hoy (limpiador a vapor 16105, que ya tiene 6 anunciantes en GT y arrancaron 5 en la ultima semana; linterna zoom 33253, con 2 anunciantes y solo 3 dias de venta; ahorrador de energia 2712, con 5 anunciantes y stock 80; oftamiel 28778 y safebone 30132, que son consumibles; y el serum deep collagen 33282). El nicho de limpiadores a vapor y de ahorradores de energia se esta calentando. Sin memoria radar_mem disponible: no hay productos de corridas anteriores marcados como estables o despegando."
+  },
+  "2026-11-14": {
+   "date": "2026-11-14",
+   "source": "ia",
+   "planb": true,
+   "titulo": "Radar Caza Diaria · 2026-11-14 (sabado) · 3 normales + 2 Plan B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
+   "veredicto": "Veredicto. Corrida de recuperacion del sabado 2026-11-14: salieron 5 de 5 productos (3 con filtros normales y 2 de Plan B).",
+   "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Linterna LED con zoom",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/95436b5b-2569-4dc2-8c15-e3bf33dd10e8/ac49c2ee449c.webp",
+     "v": "160 ventas en 7 dias, 379 en 30 y 379 en total (11 dias con venta en 30), stock 298, creado el 2026-11-07, 1 proveedor en lo leido. 4 anunciantes del mismo producto en GT en lo leido (TOOL HOUSE, Grupo Adriel, Alexpress y Mi Tienda 502; el mas viejo lleva 76 dias). Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       160
+      ],
+      [
+       "Ventas 30d",
+       379
+      ],
+      [
+       "Total",
+       379
+      ],
+      [
+       "Stock",
+       298
+      ],
+      [
+       "Costo",
+       "Q47"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-11-07"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33253&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/95436b5b-2569-4dc2-8c15-e3bf33dd10e8"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Pack de 3 leggins bota campana",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/fb26735a-3027-4202-8cfe-c67a8b2236d5/cd11210a07bc.webp",
+     "v": "66 ventas en 7 dias, 177 en 30 y 183 en total (22 dias con venta en 30), stock 3832, creado el 2026-10-21, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado o que nadie lo pauta con ese nombre. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       66
+      ],
+      [
+       "Ventas 30d",
+       177
+      ],
+      [
+       "Total",
+       183
+      ],
+      [
+       "Stock",
+       3832
+      ],
+      [
+       "Costo",
+       "Q89"
+      ],
+      [
+       "PVP sug.",
+       "Q199"
+      ],
+      [
+       "Creado",
+       "2026-10-21"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=29834&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/fb26735a-3027-4202-8cfe-c67a8b2236d5"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "2 licras para yoga negro y gris",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/ccc0f6d6-fc40-43c7-b706-25c67ff2ea8e/735786fd3f96.webp",
+     "v": "61 ventas en 7 dias, 142 en 30 y 142 en total (19 dias con venta en 30), stock 3462, creado el 2026-10-14, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       61
+      ],
+      [
+       "Ventas 30d",
+       142
+      ],
+      [
+       "Total",
+       142
+      ],
+      [
+       "Stock",
+       3462
+      ],
+      [
+       "Costo",
+       "Q39.5"
+      ],
+      [
+       "PVP sug.",
+       "Q134.5"
+      ],
+      [
+       "Creado",
+       "2026-10-14"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=28084&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/ccc0f6d6-fc40-43c7-b706-25c67ff2ea8e"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Pasta dental blanqueadora 9D",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/55650d80-0500-499a-bf48-7ceb2aedede5/077fbb06ecc7.webp",
+     "v": "43 ventas en 7 dias, 186 en 30 y 237 en total (25 dias con venta en 30), stock 344, creado el 2026-10-10, 1 proveedor en lo leido. 1 anuncio activo en GT en lo leido: muy buena senal. Plan B: ventas mas bajas que el filtro normal. Margen NO CIERRA con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       43
+      ],
+      [
+       "Ventas 30d",
+       186
+      ],
+      [
+       "Total",
+       237
+      ],
+      [
+       "Stock",
+       344
+      ],
+      [
+       "Costo",
+       "Q24"
+      ],
+      [
+       "PVP sug.",
+       "Q44"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27637&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/55650d80-0500-499a-bf48-7ceb2aedede5"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Sellador de puertas contra bichos y polvo",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/cba5ca82-f1b3-45e4-8593-f89f8bd3bffc/926a9552aee7.webp",
+     "v": "23 ventas en 7 dias, 88 en 30 y 97 en total (23 dias con venta en 30), stock 703, creado el 2026-10-13, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       23
+      ],
+      [
+       "Ventas 30d",
+       88
+      ],
+      [
+       "Total",
+       97
+      ],
+      [
+       "Stock",
+       703
+      ],
+      [
+       "Costo",
+       "Q45"
+      ],
+      [
+       "PVP sug.",
+       "Q175"
+      ],
+      [
+       "Creado",
+       "2026-10-13"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27954&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/cba5ca82-f1b3-45e4-8593-f89f8bd3bffc"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "linterna zoom 23151-29",
+     "s": "33253 · distribuidora gt",
+     "v": "160 / 379 / 379",
+     "st": 298,
+     "ct": "2026-11-07",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "pack leggins bota campana x3 a 89",
+     "s": "29834 · laurean by seong woo",
+     "v": "66 / 177 / 183",
+     "st": 3832,
+     "ct": "2026-10-21",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "2 licras para yoga | black & grey x 79",
+     "s": "28084 · laurean by seong woo",
+     "v": "61 / 142 / 142",
+     "st": 3462,
+     "ct": "2026-10-14",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "pasta dental blanqueadora 9d",
+     "s": "27637 · importadora el mayorista",
+     "v": "43 / 186 / 237",
+     "st": 344,
+     "ct": "2026-10-10",
+     "r": "Plan B",
+     "c": "f"
+    },
+    {
+     "n": "sellador de puertas para bichos y polvo",
+     "s": "27954 · shop b",
+     "v": "23 / 88 / 97",
+     "st": 703,
+     "ct": "2026-10-13",
+     "r": "Plan B",
+     "c": "f"
+    }
+   ],
+   "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
+  },
+  "2026-11-16": {
+   "date": "2026-11-16",
+   "source": "ia",
+   "planb": true,
+   "titulo": "Radar Caza Diaria · 2026-11-16 (lunes) · 2 normales + 3 Plan B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
+   "veredicto": "Veredicto. Corrida de recuperacion del lunes 2026-11-16: salieron 5 de 5 productos (2 con filtros normales y 3 de Plan B).",
+   "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Mascarilla capilar reparadora",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/b1dab782-00a2-4764-86dc-f09c46181ffc/fa8c5bf66e26.webp",
+     "v": "53 ventas en 7 dias, 112 en 30 y 112 en total (11 dias con venta en 30), stock 352, creado el 2026-10-10, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen NO CIERRA con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       53
+      ],
+      [
+       "Ventas 30d",
+       112
+      ],
+      [
+       "Total",
+       112
+      ],
+      [
+       "Stock",
+       352
+      ],
+      [
+       "Costo",
+       "Q35.5"
+      ],
+      [
+       "PVP sug.",
+       "Q55.5"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27545&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/b1dab782-00a2-4764-86dc-f09c46181ffc"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Pack de 4 blusas",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/1e953481-d5e4-48a0-b3fb-62fe98fd33e5/1f87d533ea15.webp",
+     "v": "58 ventas en 7 dias, 220 en 30 y 220 en total (15 dias con venta en 30), stock 1780, creado el 2026-11-04, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       58
+      ],
+      [
+       "Ventas 30d",
+       220
+      ],
+      [
+       "Total",
+       220
+      ],
+      [
+       "Stock",
+       1780
+      ],
+      [
+       "Costo",
+       "Q99"
+      ],
+      [
+       "PVP sug.",
+       "Q259"
+      ],
+      [
+       "Creado",
+       "2026-11-04"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=32902&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/1e953481-d5e4-48a0-b3fb-62fe98fd33e5"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Parche para varices",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/42aa2839-30c5-4e4a-9829-7574c451081f/2252c97b6923.webp",
+     "v": "40 ventas en 7 dias, 115 en 30 y 115 en total (15 dias con venta en 30), stock 885, creado el 2026-10-30, 2 proveedores en lo leido. 7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen NO CIERRA con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       40
+      ],
+      [
+       "Ventas 30d",
+       115
+      ],
+      [
+       "Total",
+       115
+      ],
+      [
+       "Stock",
+       885
+      ],
+      [
+       "Costo",
+       "Q35"
+      ],
+      [
+       "PVP sug.",
+       "Q70"
+      ],
+      [
+       "Creado",
+       "2026-10-30"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=31417&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/42aa2839-30c5-4e4a-9829-7574c451081f"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Limpiador facial para puntos negros",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/04390485-ec9b-4f27-b069-f3e36ede982c/2c07a6ecbb07.webp",
+     "v": "32 ventas en 7 dias, 142 en 30 y 142 en total (23 dias con venta en 30), stock 349, creado el 2026-10-29, 1 proveedor en lo leido. 6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       32
+      ],
+      [
+       "Ventas 30d",
+       142
+      ],
+      [
+       "Total",
+       142
+      ],
+      [
+       "Stock",
+       349
+      ],
+      [
+       "Costo",
+       "Q75"
+      ],
+      [
+       "PVP sug.",
+       "Q195"
+      ],
+      [
+       "Creado",
+       "2026-10-29"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=31186&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/04390485-ec9b-4f27-b069-f3e36ede982c"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Turboflush destapador de inodoros",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7/67af02e59f02.webp",
+     "v": "21 ventas en 7 dias, 117 en 30 y 216 en total (11 dias con venta en 30), stock 279, creado el 2026-10-08, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       21
+      ],
+      [
+       "Ventas 30d",
+       117
+      ],
+      [
+       "Total",
+       216
+      ],
+      [
+       "Stock",
+       279
+      ],
+      [
+       "Costo",
+       "Q59"
+      ],
+      [
+       "PVP sug.",
+       "Q195"
+      ],
+      [
+       "Creado",
+       "2026-10-08"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27026&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/71d948d5-b059-4968-861c-0ee5e9b8d6d7"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "mascarilla capilar reparadora",
+     "s": "27545 · importadora el mayorista",
+     "v": "53 / 112 / 112",
+     "st": 352,
+     "ct": "2026-10-10",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "pack de x4 blusas x 99 chicos",
+     "s": "32902 · laurean by seong woo",
+     "v": "58 / 220 / 220",
+     "st": 1780,
+     "ct": "2026-11-04",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "parche para varices",
+     "s": "31417 · auré",
+     "v": "40 / 115 / 115",
+     "st": 885,
+     "ct": "2026-10-30",
+     "r": "Plan B",
+     "c": "f"
+    },
+    {
+     "n": "limpiador facial puntos negros",
+     "s": "31186 · shop b",
+     "v": "32 / 142 / 142",
+     "st": 349,
+     "ct": "2026-10-29",
+     "r": "Plan B",
+     "c": "f"
+    },
+    {
+     "n": "turboflush – destapador de inodoros",
+     "s": "27026 · shop b",
+     "v": "21 / 117 / 216",
+     "st": 279,
+     "ct": "2026-10-08",
+     "r": "Plan B",
+     "c": "f"
+    }
+   ],
+   "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
+  },
+  "2026-11-18": {
+   "date": "2026-11-18",
+   "source": "ia",
+   "planb": true,
+   "titulo": "Radar Caza Diaria · 2026-11-18 (miercoles) · 2 normales + 2 Plan B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
+   "veredicto": "Veredicto. Corrida de recuperacion del miercoles 2026-11-18: salieron 4 de 5 productos (2 con filtros normales y 2 de Plan B). Faltan 1: no quedaron mas productos que cumplan los filtros y no esten ya usados en otra fecha de esta recuperacion.",
+   "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Masajeador corporal",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "VIABLE",
+       "c": "ok"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/dcf85440-0dfb-448d-be6d-722cce53ae04/21f7d66013e6.webp",
+     "v": "54 ventas en 7 dias, 93 en 30 y 93 en total (11 dias con venta en 30), stock 107, creado el 2026-11-05, 1 proveedor en lo leido. 2 anuncios activos del mismo producto en GT en lo leido. Margen VIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       54
+      ],
+      [
+       "Ventas 30d",
+       93
+      ],
+      [
+       "Total",
+       93
+      ],
+      [
+       "Stock",
+       107
+      ],
+      [
+       "Costo",
+       "Q104"
+      ],
+      [
+       "PVP sug.",
+       "Q300"
+      ],
+      [
+       "Creado",
+       "2026-11-05"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33035&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/dcf85440-0dfb-448d-be6d-722cce53ae04"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Guirnalda de arbol de Navidad de colores",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/82a91ef2-9e6f-49b8-852b-18ffc018598c/b6b957d2f356.webp",
+     "v": "145 ventas en 7 dias, 181 en 30 y 181 en total (9 dias con venta en 30), stock 193, creado el 2026-11-11, 3 proveedores en lo leido. 5 anuncios activos en GT en lo leido (guirnaldas navidenas; el conteo mezcla productos parecidos). Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       145
+      ],
+      [
+       "Ventas 30d",
+       181
+      ],
+      [
+       "Total",
+       181
+      ],
+      [
+       "Stock",
+       193
+      ],
+      [
+       "Costo",
+       "Q104"
+      ],
+      [
+       "PVP sug.",
+       "Q200"
+      ],
+      [
+       "Creado",
+       "2026-11-11"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33457&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/82a91ef2-9e6f-49b8-852b-18ffc018598c"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Desplumador electrico",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/6710bd85-88c7-4bf0-a784-0faf43899958/6e5217aed4cd.webp",
+     "v": "37 ventas en 7 dias, 56 en 30 y 56 en total (7 dias con venta en 30), stock 144, creado el 2026-11-09, 1 proveedor en lo leido. 9 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       37
+      ],
+      [
+       "Ventas 30d",
+       56
+      ],
+      [
+       "Total",
+       56
+      ],
+      [
+       "Stock",
+       144
+      ],
+      [
+       "Costo",
+       "Q68"
+      ],
+      [
+       "PVP sug.",
+       "Q200"
+      ],
+      [
+       "Creado",
+       "2026-11-09"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33346&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/6710bd85-88c7-4bf0-a784-0faf43899958"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Cepillo acolchado retractil",
+     "tags": [
+      {
+       "t": "PLAN B",
+       "c": "gr"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/9712ed3d-b9b3-45be-a716-8b72078c6d26/eafdec970aac.webp",
+     "v": "28 ventas en 7 dias, 67 en 30 y 67 en total (9 dias con venta en 30), stock 493, creado el 2026-10-10, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Plan B: ventas mas bajas que el filtro normal. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       28
+      ],
+      [
+       "Ventas 30d",
+       67
+      ],
+      [
+       "Total",
+       67
+      ],
+      [
+       "Stock",
+       493
+      ],
+      [
+       "Costo",
+       "Q79"
+      ],
+      [
+       "PVP sug.",
+       "Q99"
+      ],
+      [
+       "Creado",
+       "2026-10-10"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=27602&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/9712ed3d-b9b3-45be-a716-8b72078c6d26"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "masajeador corporal 24040-12",
+     "s": "33035 · distribuidora gt",
+     "v": "54 / 93 / 93",
+     "st": 107,
+     "ct": "2026-11-05",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "guirnalda árbol colores 8836-30",
+     "s": "33457 · distribuidora gt",
+     "v": "145 / 181 / 181",
+     "st": 193,
+     "ct": "2026-11-11",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "desplumador eléctrico 25090-31",
+     "s": "33346 · distribuidora gt",
+     "v": "37 / 56 / 56",
+     "st": 144,
+     "ct": "2026-11-09",
+     "r": "Plan B",
+     "c": "f"
+    },
+    {
+     "n": "cepillo acolchado retractil",
+     "s": "27602 · importadora el mayorista",
+     "v": "28 / 67 / 67",
+     "st": 493,
+     "ct": "2026-10-10",
+     "r": "Plan B",
+     "c": "f"
+    }
+   ],
+   "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
+  },
+  "2026-11-21": {
+   "date": "2026-11-21",
+   "source": "ia",
+   "planb": false,
+   "titulo": "Radar Caza Diaria · 2026-11-21 (sabado) · 1 normales + 0 Plan B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
+   "veredicto": "Veredicto. Corrida de recuperacion del sabado 2026-11-21: salieron 1 de 5 productos (1 con filtros normales y 0 de Plan B). Faltan 4: no quedaron mas productos que cumplan los filtros y no esten ya usados en otra fecha de esta recuperacion.",
+   "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Ex Calvo (tratamiento capilar)",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/60c3f047-9bce-40ef-a348-5ecc918ea869/e13a78c73db5.webp",
+     "v": "54 ventas en 7 dias, 54 en 30 y 54 en total (2 dias con venta en 30), stock 924, creado el 2026-11-16, 2 proveedores en lo leido. 7 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       54
+      ],
+      [
+       "Ventas 30d",
+       54
+      ],
+      [
+       "Total",
+       54
+      ],
+      [
+       "Stock",
+       924
+      ],
+      [
+       "Costo",
+       "Q45"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-11-16"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33623&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/60c3f047-9bce-40ef-a348-5ecc918ea869"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "ex calvo",
+     "s": "33623 · laboratorio luna",
+     "v": "54 / 54 / 54",
+     "st": 924,
+     "ct": "2026-11-16",
+     "r": "Normal",
+     "c": "f"
+    }
+   ],
+   "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
+  },
+  "2026-11-23": {
+   "date": "2026-11-23",
+   "source": "ia",
+   "planb": false,
+   "titulo": "Radar Caza Diaria · 2026-11-23 (lunes) · 1 normales + 0 Plan B",
+   "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
+   "veredicto": "Veredicto. Corrida de recuperacion del lunes 2026-11-23: salieron 1 de 5 productos (1 con filtros normales y 0 de Plan B). Faltan 4: no quedaron mas productos que cumplan los filtros y no esten ya usados en otra fecha de esta recuperacion.",
+   "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Combo Geno",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/3b25b9ce-05ca-4bad-a9c7-2e712c780358/7cec5e27197d.webp",
+     "v": "63 ventas en 7 dias, 63 en 30 y 63 en total (5 dias con venta en 30), stock 106, creado el 2026-11-18, 5 proveedores en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       63
+      ],
+      [
+       "Ventas 30d",
+       63
+      ],
+      [
+       "Total",
+       63
+      ],
+      [
+       "Stock",
+       106
+      ],
+      [
+       "Costo",
+       "Q46"
+      ],
+      [
+       "PVP sug.",
+       "Q66"
+      ],
+      [
+       "Creado",
+       "2026-11-18"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33742&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/3b25b9ce-05ca-4bad-a9c7-2e712c780358"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "combo geno",
+     "s": "33742 · importadora el mayorista",
+     "v": "63 / 63 / 63",
+     "st": 106,
+     "ct": "2026-11-18",
+     "r": "Normal",
+     "c": "f"
+    }
+   ],
+   "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
   }
  },
  "tiktokshop": {
