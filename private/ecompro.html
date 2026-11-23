@@ -992,7 +992,6 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
         <button class="btn" type="button" id="rt-add" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff">Guardar retiro</button>
       </div>
       <div id="rt-msg" class="sub" role="status" style="font-weight:600"></div>
-      <div id="rt-eq" class="sub" role="status"></div>
       <div id="rt-auto"></div>
       <div id="rt-list"></div>
     </div>
@@ -5594,7 +5593,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   }
   function todo(f){carga(1);carga(2)}
   function guarda(n){var d=DATA[n];msg("Guardando…");
-    return fetch(url(n),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||j.error)throw new Error(j.error||("el servidor respondió "+r.status));msg("Guardado ("+j.n+" retiros en "+NAMES[n]+").",false);return true})}).catch(function(e){msg("No se pudo guardar: "+(e&&e.message||"sin conexión")+(/Falta conectar la base/.test(e&&e.message||"")?" Conecta Upstash Redis en Vercel.":""),true);return false})}
+    return fetch(url(n),{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({manual:d.manual})}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||j.error)throw new Error(j.error||("el servidor respondió "+r.status));msg(j.n!=null?"Guardado ("+j.n+(j.n===1?" retiro":" retiros")+" en "+NAMES[n]+").":"Guardado.",false);return true})}).catch(function(e){msg("No se pudo guardar: "+(e&&e.message||"sin conexión")+(/Falta conectar la base/.test(e&&e.message||"")?" Conecta Upstash Redis en Vercel.":""),true);return false})}
   function filas(){
     var out=[];[1,2].forEach(function(n){var d=DATA[n];if(!d)return;
       if(d.auto&&d.auto.ok)d.auto.rows.forEach(function(r){out.push({c:n,f:r.f,m:r.m,cm:0,t:r.m,b:"",n:r.n||"",id:"",auto:true})});
@@ -5602,27 +5601,25 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     return out.filter(function(r){return cur==="0"||String(r.c)===cur}).sort(function(a,b){return b.f.localeCompare(a.f)});
   }
   function pinta(){
-    var tc=rate(),ok=!!(DATA[1]||DATA[2]);
+    var ok=!!(DATA[1]||DATA[2]);
     $("rt-tabs").innerHTML=[["0","Ambos"],["1",NAMES[1]],["2",NAMES[2]]].map(function(x){return '<button type="button" class="chip" data-c="'+x[0]+'" aria-pressed="'+(cur===x[0])+'">'+E(x[1])+'</button>'}).join("")+
       (ok?'<span class="lv" style="display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--muted);margin-left:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--verde);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 22%,transparent)"></i>En vivo · '+new Date(TS||Date.now()).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+'</span>':'');
     var lb=function(i,t){var e=document.querySelector('label[for="'+i+'"]');if(e)e.textContent=t};
-    lb("rt-m","Monto que retiré de Dropi ("+sym()+")");lb("rt-cm","Comisión ("+sym()+")");lb("rt-t","Neta que me llegó ("+sym()+")");eq();
+    lb("rt-m","Retiré de Dropi ("+sym()+")");lb("rt-cm","Comisión ("+sym()+")");lb("rt-t","Neta que llegó ("+sym()+")");
     var bl=$("rt-bl");if(bl){var bs={};[1,2].forEach(function(n){var d=DATA[n];if(d)d.manual.forEach(function(r){if(r.b)bs[r.b]=1})});bl.innerHTML=Object.keys(bs).map(function(b){return '<option value="'+E(b)+'">'}).join("")}
     var sel=$("rt-c");if(sel){var v=sel.value||(cur==="2"?"2":"1");sel.innerHTML='<option value="1">'+E(NAMES[1])+'</option><option value="2">'+E(NAMES[2])+'</option>';sel.value=cur==="2"?"2":cur==="1"?"1":v}
-    if(!ok){$("rt-list").innerHTML='<div class="sub">Leyendo los retiros de Dropi…</div>';$("rt-auto").innerHTML="";return}
+    if(!ok){$("rt-list").innerHTML='<div class="sub">Leyendo los retiros…</div>';$("rt-auto").innerHTML="";return}
     var L=filas(),tot=L.reduce(function(a,r){return a+r.m},0),totc=L.reduce(function(a,r){return a+r.cm},0),totn=L.reduce(function(a,r){return a+r.t},0),avisos=[];
-    [1,2].forEach(function(n){var d=DATA[n];if(!d||(cur!=="0"&&String(n)!==cur))return;if(d.err)avisos.push(NAMES[n]+": "+d.err);else if(!(d.auto&&d.auto.ok))avisos.push(NAMES[n]+": Dropi no entrega el historial de retiros con este token"+(d.auto&&d.auto.motivo?" ("+d.auto.motivo+")":"")+"; se registran a mano.")});
+    [1,2].forEach(function(n){var d=DATA[n];if(!d||(cur!=="0"&&String(n)!==cur))return;if(d.err)avisos.push(NAMES[n]+": "+d.err);else if(!(d.auto&&d.auto.ok))avisos.push(NAMES[n]+": Dropi no entrega sus retiros por la API; se anotan a mano.")});
+    $("rt-auto").innerHTML=avisos.length?'<div class="sub" style="font-size:.74rem;opacity:.8">'+avisos.map(E).join(" · ")+'</div>':"";
     var por=[1,2].map(function(n){var X=L.filter(function(r){return r.c===n});return {n:n,t:X.reduce(function(a,r){return a+r.m},0),nt:X.reduce(function(a,r){return a+r.t},0),k:X.length}});
-    $("rt-auto").innerHTML=avisos.length?'<div class="sub">'+avisos.map(E).join("<br>")+'</div>':"";
-    $("rt-list").innerHTML='<div class="grid g4" style="margin:0 0 8px"><div class="card kpi"><h3>Retirado de Dropi</h3><div class="big">'+fmt(tot)+'</div><div class="sub">'+alt(tot)+' · '+L.length+' retiros</div></div>'+
-      '<div class="card kpi"><h3>Comisiones</h3><div class="big" style="color:var(--rojo)">'+fmt(totc)+'</div><div class="sub">'+alt(totc)+' · '+(tot?Math.round(totc/tot*1000)/10:0)+'% de lo retirado</div></div>'+
-      '<div class="card kpi"><h3>Neta que me llegó</h3><div class="big" style="color:var(--verde)">'+fmt(totn)+'</div><div class="sub">'+alt(totn)+' en el banco</div></div>'+
-      '<div class="card kpi"><h3>Último retiro</h3><div class="big" style="font-size:1.3rem">'+(L[0]?E(L[0].f.split("-").reverse().join("/")):"–")+'</div><div class="sub">'+(L[0]?E(NAMES[L[0].c])+" · "+fmt(L[0].m):"sin retiros")+'</div></div></div>'+
-      '<div class="grid g3" style="margin:0 0 8px">'+por.map(function(x){return '<div class="card kpi" style="opacity:'+(cur==="0"||String(x.n)===cur?1:.45)+'"><h3>'+E(NAMES[x.n])+'</h3><div class="big">'+fmt(x.nt)+'</div><div class="sub">neta · retiré '+fmt(x.t)+' · '+x.k+' retiros</div></div>'}).join("")+'</div>'+
-      (L.length?tabla(L):'<div class="sub">Todavía no hay retiros. Si Dropi no los entrega solo, toca «Registrar retiro» cada vez que te transfieran.</div>');
+    var K=function(t,v,sub,col){return '<div class="card kpi"><h3>'+t+'</h3><div class="big"'+(col?' style="color:var(--'+col+')"':'')+'>'+v+'</div><div class="sub">'+sub+'</div></div>'};
+    var porH=cur==="0"?'<div class="rt-por">'+por.map(function(x){return '<div class="rt-pc"><b>'+E(NAMES[x.n])+'</b><span>'+fmt(x.nt)+' <small>neta</small></span><small>retiró '+fmt(x.t)+' · '+x.k+(x.k===1?' retiro':' retiros')+'</small></div>'}).join("")+'</div>':"";
+    $("rt-list").innerHTML='<div class="rt-k">'+K("Retirado de Dropi",fmt(tot),L.length+(L.length===1?" retiro":" retiros"))+K("Comisiones",fmt(totc),(tot?Math.round(totc/tot*1000)/10:0)+"% de lo retirado",totc?"rojo":"")+K("Neta que llegó al banco",fmt(totn),"lo que sí recibiste","verde")+K("Último retiro",L[0]?E(L[0].f.split("-").reverse().join("/")):"–",L[0]?E(NAMES[L[0].c])+" · "+fmt(L[0].m):"sin retiros")+'</div>'+porH+
+      (L.length?tabla(L):'<div class="sub" style="padding:10px 2px">Todavía no hay retiros. Toca «Registrar retiro» cada vez que Dropi te transfiera.</div>');
   }
-  function tabla(L){var tc=rate();
-    return '<div class="tbl"><table><thead><tr><th>Fecha</th><th>Cuenta</th><th>Banco</th><th class="num">Retiré ('+sym()+')</th><th class="num">Comisión ('+sym()+')</th><th class="num">Neta ('+sym()+')</th><th class="num">Neta ('+(on()?"Q":"S/")+')</th><th>Nota</th><th></th></tr></thead><tbody>'+L.map(function(r){return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(NAMES[r.c])+(r.auto?' <span class="pill v">Dropi</span>':'')+'</td><td>'+E(r.b||"–")+'</td><td class="num">'+f2(on()?r.m*tc:r.m)+'</td><td class="num" style="color:var(--rojo)">'+(r.cm?f2(on()?r.cm*tc:r.cm):"–")+'</td><td class="num"><b>'+f2(on()?r.t*tc:r.t)+'</b></td><td class="num">'+f2(on()?r.t:r.t*tc)+'</td><td>'+E(r.n)+'</td><td class="num">'+(r.auto?'':'<button class="btn" type="button" data-d="'+E(r.id)+'" data-c="'+r.c+'" title="Borrar este retiro" aria-label="Borrar este retiro" style="padding:4px 10px">✕</button>')+'</td></tr>'}).join("")+'</tbody></table></div>'}
+  function tabla(L){
+    return '<div class="tbl rt-t"><table><thead><tr><th>Fecha</th><th>Cuenta</th><th>Banco</th><th class="num">Retiré</th><th class="num">Comisión</th><th class="num">Neta</th><th>Nota</th><th></th></tr></thead><tbody>'+L.map(function(r){var cv=function(q){return f2(on()?q*rate():q)};return '<tr><td>'+E(r.f.split("-").reverse().join("/"))+'</td><td>'+E(NAMES[r.c])+(r.auto?' <span class="pill v">Dropi</span>':'')+'</td><td>'+E(r.b||"–")+'</td><td class="num">'+cv(r.m)+'</td><td class="num" style="color:var(--rojo)">'+(r.cm?cv(r.cm):"–")+'</td><td class="num"><b>'+cv(r.t)+'</b></td><td>'+E(r.n)+'</td><td class="num">'+(r.auto?'':'<button class="btn" type="button" data-d="'+E(r.id)+'" data-c="'+r.c+'" title="Borrar este retiro" aria-label="Borrar este retiro" style="padding:3px 9px">✕</button>')+'</td></tr>'}).join("")+'</tbody></table></div>'+'<div class="sub" style="font-size:.72rem;margin-top:6px">Montos en '+(on()?"soles (S/)":"quetzales (Q)")+'. Cambia con el interruptor Q / S/ de arriba.</div>'}
   $("rt-tabs").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;cur=b.dataset.c;try{localStorage.setItem("ec_rtcta",cur)}catch(x){}pinta()});
   $("rt-tg").addEventListener("click",function(){var f=$("rt-form"),o=f.hidden;f.hidden=!o;f.style.display=o?"flex":"none";$("rt-tg").setAttribute("aria-expanded",o?"true":"false");$("rt-tg").textContent=o?"✕ Cerrar":"➕ Registrar retiro";if(o&&!$("rt-f").value)$("rt-f").value=new Date(Date.now()-6*3600*1000).toISOString().slice(0,10)});
   $("rt-add").addEventListener("click",function(){var n=+($("rt-c").value||1),d=DATA[n];
@@ -5654,3 +5651,19 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
 #rt-box{margin-top:0}
 </style>
 
+<style id="rt-css">
+#rt-box{gap:14px!important}
+#rt-form{padding:14px;border-radius:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--card2) 55%,transparent);gap:10px 12px!important}
+#rt-form .fld{flex:1 1 150px}
+#rt-form .fld label{font-size:.66rem!important}
+#rt-msg:empty{display:none}
+.rt-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.rt-por{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.rt-pc{display:flex;flex-direction:column;gap:2px;padding:12px 16px;border-radius:16px;border:1px solid var(--line);background:color-mix(in srgb,var(--card2) 55%,transparent)}
+.rt-pc b{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rt-pc span{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.rt-pc span small,.rt-pc>small{font-size:.74rem;font-weight:500;color:var(--muted);letter-spacing:0}
+.rt-t{margin-top:12px}
+@media(max-width:900px){.rt-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.rt-por{grid-template-columns:1fr}}
+</style>
