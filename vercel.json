@@ -2,6 +2,18 @@
   "outputDirectory": "public",
   "rewrites": [
     {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    },
+    {
+      "source": "/api/v1/:tool",
+      "destination": "/api/mcp?tool=:tool"
+    },
+    {
+      "source": "/api/v1",
+      "destination": "/api/mcp?r=tools"
+    },
+    {
       "source": "/",
       "destination": "/api/app"
     },
@@ -38,6 +50,9 @@
     },
     "api/dropi.js": {
       "maxDuration": 60
+    },
+    "api/mcp.js": {
+      "maxDuration": 30
     }
   },
   "headers": [

@@ -25,6 +25,7 @@ Tablero privado de un solo archivo (`private/ecompro.html`) que combina Lumy (pe
 | `ALERTAS_KEY` | Clave larga (texto aleatorio). Con ella Claude manda avisos de ventas a la campana 🔔 del tablero (`POST /api/alertas`, cabecera `x-alertas-key`). Sin esta variable el endpoint responde 503 |
 | `DROPI_TOKEN` | Token de integración de Dropi (Sensible). Lo usa la sección **Dropi** (panel de pedidos en vivo) para leer `api.dropi.gt/integrations`. Nunca llega al navegador |
 | `DROPI_TOKEN_2` | Token de integración de la **segunda** cuenta de Dropi (Sensible). La usa **Admin Dropi → Dropi 2**. Opcional: `DROPI_API_BASE_2` si esa cuenta es de otro país (por defecto `https://api.dropi.gt`) |
+| `MCP_KEY` | Clave larga y aleatoria (Sensible) para el API REST y el servidor MCP (`api/mcp.js`). Sin ella responden 503 |
 | `DROPI_LIVE_KEY` | Opcional. La extensión de Chrome ya entra con tu sesión del tablero y no necesita clave; esta variable solo sirve si prefieres usar una clave en lugar de la sesión |
 | `META_ACCESS_TOKEN` | Token de un usuario del sistema de Meta con permiso `ads_read` (Sensible). Lo usa `/api/meta-sync` para traer las métricas en vivo |
 | `META_ACCOUNTS` | Opcional: IDs de cuentas publicitarias de Meta a leer, separados por coma. Por defecto: Cuenta 1, Cuenta 3, Guatemala 2 y Guatemala 3 |
@@ -52,3 +53,10 @@ La campana 🔔 del tablero tiene el botón **Recibir avisos en este celular**. 
 - En iPhone hay que instalar primero la app: Compartir → Añadir a pantalla de inicio, y abrir ECOMPRO desde ese ícono.
 - Las claves VAPID se crean solas la primera vez y se guardan en la base (`ec:cfg`); no hay que crear variables nuevas. Opcional: `VAPID_SUBJECT` (por defecto usa el primer correo de `ALLOWED_EMAILS`).
 - El botón **Probar aviso** manda una notificación de prueba a los equipos registrados.
+
+## API y MCP de ECOMPRO
+Un solo archivo (`api/mcp.js`) da el servidor MCP y el API REST, protegidos con `MCP_KEY` (`Authorization: Bearer <clave>` o `x-api-key`).
+
+- **MCP** (Streamable HTTP): `https://TU-DOMINIO/mcp`. En Claude: agregar conector personalizado con esa URL y la clave en la cabecera. Herramientas: `estado`, `leer_coleccion`, `leer_documento`, `guardar_documento` (solo winners, radar, tiktokshop, validations), `meta_ads`, `pedidos_dropi`, `crear_alerta`.
+- **REST**: `GET /api/v1` lista las herramientas; `GET|POST /api/v1/<herramienta>` con los argumentos en la query o en el JSON. Ejemplo: `curl -H "x-api-key: $MCP_KEY" "https://TU-DOMINIO/api/v1/pedidos_dropi?estado=E&desde=2026-11-01"`.
+- Nunca devuelve teléfonos, direcciones ni nombres de clientes; `settings` y las huellas no se exponen.
