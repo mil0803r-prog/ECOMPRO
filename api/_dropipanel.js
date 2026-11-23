@@ -427,6 +427,26 @@ async function cuentas(req, send) {
   }
   return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2 } });
 }
+// Intenta leer los retiros de Dropi con el token de integración. Si Dropi no los entrega por esta vía, lo dice (no inventa nada).
+async function retirosAuto() {
+  const rutas = ["/integrations/wallet/withdrawals", "/integrations/withdrawals", "/integrations/wallet/history", "/integrations/historywallet", "/integrations/wallet"];
+  let ultimo = "";
+  for (const r of rutas) {
+    try {
+      const j = await dropi(r + "?result_number=100", 8000);
+      const L = (j && (j.objects || j.data || j.withdrawals || j.history)) || [];
+      if (!Array.isArray(L) || !L.length) { ultimo = "ruta sin datos"; continue; }
+      const rows = L.map((x) => {
+        const f = String(x.created_at || x.date || x.fecha || x.updated_at || "").slice(0, 10);
+        const m = num(x.amount != null ? x.amount : x.value != null ? x.value : x.monto != null ? x.monto : x.total);
+        return { f, m: r2(m), n: String(x.status || x.state || x.description || x.type || "").slice(0, 60) };
+      }).filter((x) => /^\d{4}-\d{2}-\d{2}$/.test(x.f) && x.m);
+      if (rows.length) return { ok: true, ruta: r, rows: rows.slice(0, 200) };
+      ultimo = "formato desconocido";
+    } catch (e) { ultimo = String((e && e.message) || e).slice(0, 100); }
+  }
+  return { ok: false, motivo: ultimo || "Dropi no entrega los retiros con este token" };
+}
 function handle(req, send) {
   const u = new URL(req.url, "http://x");
   if (u.searchParams.get("a") === "cuentas") return cuentas(req, send).catch((e) => send(500, { error: String(e.message || e).slice(0, 160) }));
@@ -451,6 +471,21 @@ async function handle0(req, send) {
     }
     if (a === "favs" && req.method === "GET") {
       try { return send(200, await favoritos()); } catch (e) { return send(200, { ok: false, favs: [], motivo: String(e.message || e).slice(0, 160) }); }
+    }
+    if (a === "retiros") {
+      // Retiros de la cuenta: los que registra el dueño (guardados por cuenta) y, si Dropi los entrega con este token, los de Dropi.
+      const key = "dropiretiros" + S().suf;
+      if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? { manual: [] } : { error: "Falta conectar la base (Upstash Redis)." });
+      if (req.method === "POST") {
+        const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+        const L = (Array.isArray(b.manual) ? b.manual : []).slice(0, 500).map((r) => ({ id: String((r && r.id) || "").replace(/[^\w-]/g, "").slice(0, 24), f: /^\d{4}-\d{2}-\d{2}$/.test((r && r.f) || "") ? r.f : "", m: Math.round((+(r && r.m) || 0) * 100) / 100, n: String((r && r.n) || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 120) })).filter((r) => r.id && r.f && r.m > 0);
+        await redis(["HSET", "ec:settings", key, JSON.stringify(L)]);
+        return send(200, { ok: true, n: L.length });
+      }
+      const cur = await redis(["HGET", "ec:settings", key]);
+      let auto = null;
+      try { auto = await retirosAuto(); } catch (e) { auto = { ok: false, motivo: String(e.message || e).slice(0, 120) }; }
+      return send(200, { manual: cur ? JSON.parse(cur) : [], auto });
     }
     if (a === "gest") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
