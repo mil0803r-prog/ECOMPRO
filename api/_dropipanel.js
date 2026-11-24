@@ -17,7 +17,8 @@ const ALS = new AsyncLocalStorage();
 const mk = (n) => ({ n, suf: n === 1 ? "" : String(n), env: n === 1 ? "DROPI_TOKEN" : "DROPI_TOKEN_" + n,
   base: (process.env[n === 1 ? "DROPI_API_BASE" : "DROPI_API_BASE_" + n] || (n === 3 ? "https://api.dropi.co" : BASE)).replace(/\/+$/, ""),
   RAW: { t: 0, orders: null }, WH: new Map(), TELC: new Map(), FAVC: null });
-const CTAS = { 1: mk(1), 2: mk(2), 3: mk(3) }; // 3 = Dropi Colombia (DROPI_TOKEN_3, api.dropi.co)
+const CTAS = { 1: mk(1), 2: mk(2), 3: mk(3), 4: mk(4) }; // 3 = Dropi Colombia (DROPI_TOKEN_3, api.dropi.co); 4 = cuarta cuenta (DROPI_TOKEN_4; otro país con DROPI_API_BASE_4)
+const esCO = () => { try { return new URL(S().base).hostname.endsWith(".co"); } catch (e) { return false; } };
 const S = () => ALS.getStore() || CTAS[1];
 
 const num = (x) => { const n = parseFloat(x); return isFinite(n) ? n : 0; };
@@ -32,8 +33,8 @@ function groupOf(status) {
   if (DELIVERED.includes(s)) return "entregado";
   if (RETURNED.includes(s)) return "devolucion";
   // Colombia: las transportadoras usan más variantes de estado (devolución en tránsito, rechazado, etc.).
-  if (S().n === 3 && (/^DEVOLUC/.test(s) || s === "RECHAZADO" || s === "REHUSADO")) return "devolucion";
-  if (S().n === 3 && (s === "GUIA_ANULADA" || s === "ANULADA" || s === "ERROR_GENERANDO_GUIA")) return "cancelado";
+  if (esCO() && (/^DEVOLUC/.test(s) || s === "RECHAZADO" || s === "REHUSADO")) return "devolucion";
+  if (esCO() && (s === "GUIA_ANULADA" || s === "ANULADA" || s === "ERROR_GENERANDO_GUIA")) return "cancelado";
   if (CANCELLED.includes(s)) return "cancelado";
   if (s.includes("INCIDENCIA") || s.includes("NOVEDAD")) return "novedad";
   return "proceso";
@@ -421,16 +422,21 @@ async function huella(id) {
 // Responde GET ?a=data|prov|huella y POST ?a=prov. El login ya fue verificado por api/dropi.js.
 // Nombres que el dueño le pone a cada cuenta y si su token ya está en Vercel (nunca se devuelve el token).
 async function cuentas(req, send) {
-  const def = { 1: "Dropi 1", 2: "Dropi 2", 3: "Dropi Colombia" };
-  let names = {};
+  const def = { 1: "Dropi 1", 2: "Dropi 2", 3: "Dropi Colombia", 4: "Dropi 4" };
+  let names = {}, hide = null;
   if (RURL && RTOK) { try { names = JSON.parse((await redis(["HGET", "ec:settings", "dropinames"])) || "{}") || {}; } catch (e) {} }
   if (req.method === "POST") {
     if (!RURL || !RTOK) return send(503, { error: "Falta conectar la base (Upstash Redis)." });
     const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-    [1, 2, 3].forEach((n) => { if (b && typeof b[n] === "string") { const v = b[n].replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 30); if (v) names[n] = v; else delete names[n]; } });
+    if (b && Array.isArray(b.ocultas)) hide = b.ocultas.map((x) => parseInt(x)).filter((x) => x >= 1 && x <= 4);
+    [1, 2, 3, 4].forEach((n) => { if (b && typeof b[n] === "string") { const v = b[n].replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 30); if (v) names[n] = v; else delete names[n]; } });
     await redis(["HSET", "ec:settings", "dropinames", JSON.stringify(names)]);
+    if (hide) await redis(["HSET", "ec:settings", "dropihide", JSON.stringify([...new Set(hide)])]);
   }
-  return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2], 3: names[3] || def[3] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2, 3: !!process.env.DROPI_TOKEN_3 } });
+  let ocultas = [];
+  if (RURL && RTOK) { try { ocultas = JSON.parse((await redis(["HGET", "ec:settings", "dropihide"])) || "[]") || []; } catch (e) {} }
+  const pais = {}; [1, 2, 3, 4].forEach((n) => { try { pais[n] = new URL(CTAS[n].base).hostname.endsWith(".co") ? "CO" : "GT"; } catch (e) { pais[n] = "GT"; } });
+  return send(200, { nombres: { 1: names[1] || def[1], 2: names[2] || def[2], 3: names[3] || def[3], 4: names[4] || def[4] }, conectada: { 1: !!process.env.DROPI_TOKEN, 2: !!process.env.DROPI_TOKEN_2, 3: !!process.env.DROPI_TOKEN_3, 4: !!process.env.DROPI_TOKEN_4 }, ocultas, pais });
 }
 // Intenta leer los retiros de Dropi con el token de integración. Si Dropi no los entrega por esta vía, lo dice (no inventa nada).
 async function retirosAuto() {
@@ -505,7 +511,7 @@ async function guiaArchivo(req, send, res, id) {
 function handle(req, send, res) {
   const u = new URL(req.url, "http://x");
   if (u.searchParams.get("a") === "cuentas") return cuentas(req, send).catch((e) => send(500, { error: String(e.message || e).slice(0, 160) }));
-  return ALS.run(CTAS[{ 2: 2, 3: 3 }[u.searchParams.get("c")] || 1], () => handle0(req, send, res));
+  return ALS.run(CTAS[{ 2: 2, 3: 3, 4: 4 }[u.searchParams.get("c")] || 1], () => handle0(req, send, res));
 }
 async function handle0(req, send, res) {
   const u = new URL(req.url, "http://x");

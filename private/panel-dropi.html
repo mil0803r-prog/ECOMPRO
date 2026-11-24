@@ -430,7 +430,7 @@
   try{matchMedia('(prefers-color-scheme: light)').addEventListener('change',sync)}catch(e){}
 })();
 /* Cuenta de Dropi que muestra este panel (1 o 2): todas las consultas al servidor llevan esa cuenta */
-const CTA=({2:'2',3:'3'})[new URLSearchParams(location.search).get('c')]||'1';const CO=CTA==='3';
+const CTA=({2:'2',3:'3',4:'4'})[new URLSearchParams(location.search).get('c')]||'1';const CO=CTA==='3'||new URLSearchParams(location.search).get('p')==='CO';
 (function(){const f=window.fetch;window.fetch=function(u,o){if(typeof u==='string'&&u.indexOf('/api/dropi?')===0&&CTA!=='1')u+='&c='+CTA;return f.call(this,u,o)}})();
 const $=s=>document.querySelector(s), money=n=>CO?'$'+Math.round(Number(n||0)).toLocaleString('es-CO')+' COP':'Q'+(Number(n||0)).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2});
 const E=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

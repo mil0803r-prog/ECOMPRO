@@ -820,23 +820,29 @@ a.gl{color:var(--cel);font-weight:700;text-decoration:underline dotted;text-unde
     /* Admin Dropi: dos cuentas de Dropi. Cada una abre el mismo panel con su propio token y sus propios ajustes. */
     (function(){
       var fr=document.getElementById("dropi-frame"),tb=document.getElementById("adm-tabs"),ms=document.getElementById("adm-msg");
-      var N={1:"Dropi 1",2:"Dropi 2",3:"Dropi Colombia"},CON={1:true,2:true,3:true},cur="1";
-      try{var g=localStorage.getItem("ec_dropicta");if(g==="2"||g==="3")cur=g}catch(e){}
+      var N={1:"Dropi 1",2:"Dropi 2",3:"Dropi Colombia",4:"Dropi 4"},CON={1:true,2:true,3:true,4:true},OC=[],PA={3:"CO"},cur="1";
+      try{var g=localStorage.getItem("ec_dropicta");if(g==="2"||g==="3"||g==="4")cur=g}catch(e){}
       function e(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+      function vis(){return [1,2,3,4].filter(function(n){return OC.indexOf(n)<0})}
+      function guarda(){window.ecDropiOc=OC.slice();document.dispatchEvent(new CustomEvent("ec-dropi-cuentas"));fetch("/api/dropi?a=cuentas",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({ocultas:OC})}).catch(function(){})}
       function pinta(){
-        tb.innerHTML=[1,2,3].map(function(n){var on=String(n)===cur;return '<span style="display:inline-flex;align-items:center;border:1px solid '+(on?"var(--accent,var(--cel))":"var(--line)")+';border-radius:999px;overflow:hidden;background:'+(on?"color-mix(in srgb,var(--accent,var(--cel)) 18%,var(--card))":"var(--card)")+'"><button type="button" data-c="'+n+'" style="border:0;background:none;color:var(--fg);font:inherit;font-weight:700;font-size:.86rem;padding:7px 6px 7px 14px;cursor:pointer">'+e(N[n])+(CON[n]?"":" · sin token")+'</button><button type="button" data-r="'+n+'" title="Cambiar el nombre" aria-label="Cambiar el nombre de '+e(N[n])+'" style="border:0;background:none;color:var(--muted);font:inherit;padding:7px 11px 7px 4px;cursor:pointer">✎</button></span>'}).join("");
-        ms.textContent=CON[cur]?"":"Falta poner el token de esta cuenta en Vercel: variable DROPI_TOKEN"+(cur==="1"?"":"_"+cur)+" (Sensitive) y luego Redeploy.";
+        var V=vis();if(V.length&&V.indexOf(+cur)<0){abre(V[0]);return}
+        tb.innerHTML=V.map(function(n){var on=String(n)===cur;return '<span style="display:inline-flex;align-items:center;border:1px solid '+(on?"var(--accent,var(--cel))":"var(--line)")+';border-radius:999px;overflow:hidden;background:'+(on?"color-mix(in srgb,var(--accent,var(--cel)) 18%,var(--card))":"var(--card)")+'"><button type="button" data-c="'+n+'" style="border:0;background:none;color:var(--fg);font:inherit;font-weight:700;font-size:.86rem;padding:7px 6px 7px 14px;cursor:pointer">'+e(N[n])+(CON[n]?"":" · sin token")+'</button><button type="button" data-r="'+n+'" title="Cambiar el nombre" aria-label="Cambiar el nombre de '+e(N[n])+'" style="border:0;background:none;color:var(--muted);font:inherit;padding:7px 6px 7px 4px;cursor:pointer">✎</button><button type="button" data-h="'+n+'" title="Ocultar esta cuenta" aria-label="Ocultar '+e(N[n])+'" style="border:0;background:none;color:var(--muted);font:inherit;padding:7px 11px 7px 2px;cursor:pointer">🙈</button></span>'}).join("")+(OC.length?'<span style="display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:4px"><span class="sub">Ocultas:</span>'+OC.map(function(n){return '<button type="button" data-m="'+n+'" title="Volver a mostrar" style="border:1px dashed var(--line);border-radius:999px;background:none;color:var(--muted);font:inherit;font-size:.82rem;padding:5px 11px;cursor:pointer">👁 '+e(N[n])+'</button>'}).join("")+'</span>':"");
+        ms.textContent=!V.length?"Todas las cuentas están ocultas. Toca una para mostrarla.":CON[cur]?"":"Falta poner el token de esta cuenta en Vercel: variable DROPI_TOKEN"+(cur==="1"?"":"_"+cur)+" (Sensitive) y luego Redeploy.";
+        if(!V.length)fr.setAttribute("src","about:blank");
       }
-      function abre(n){cur=String(n);try{localStorage.setItem("ec_dropicta",cur)}catch(x){}var u="/pedidos-dropi"+(cur==="1"?"":"?c="+cur);if(fr.getAttribute("src")!==u)fr.setAttribute("src",u);pinta()}
+      function abre(n){cur=String(n);try{localStorage.setItem("ec_dropicta",cur)}catch(x){}var u="/pedidos-dropi"+(cur==="1"?"":"?c="+cur+(PA[cur]==="CO"?"&p=CO":""));if(fr.getAttribute("src")!==u)fr.setAttribute("src",u);pinta()}
       tb.addEventListener("click",function(ev){
         var b=ev.target.closest("button");if(!b)return;
         if(b.dataset.c){abre(b.dataset.c);return}
+        if(b.dataset.h){var hn=+b.dataset.h;if(OC.indexOf(hn)<0)OC.push(hn);guarda();pinta();return}
+        if(b.dataset.m){OC=OC.filter(function(x){return x!==+b.dataset.m});guarda();pinta();if(vis().length===1)abre(b.dataset.m);return}
         var n=b.dataset.r,v=prompt("Nombre para esta cuenta de Dropi:",N[n]);if(v===null)return;v=v.trim().slice(0,30);if(!v)return;
         N[n]=v;pinta();var body={};body[n]=v;
         fetch("/api/dropi?a=cuentas",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).catch(function(){});
       });
       abre(cur);
-      fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.nombres)return;N=j.nombres;CON=j.conectada||CON;pinta()}).catch(function(){});
+      fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.nombres)return;N=j.nombres;CON=j.conectada||CON;OC=Array.isArray(j.ocultas)?j.ocultas:OC;PA=j.pais||PA;window.ecDropiOc=OC.slice();pinta();var uu=fr.getAttribute("src")||"";if(PA[cur]==="CO"&&uu.indexOf("p=CO")<0&&uu.indexOf("c=")>=0)abre(cur)}).catch(function(){});
     })();
     </script>
   </section>
@@ -5477,21 +5483,23 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   var $=function(i){return document.getElementById(i)};
   var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   function E(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-  var src="0",per="mes",modo="v",vista={d:false,s:false},NAMES={1:"Dropi 1",2:"Dropi 2"},CON={1:true,2:true};
-  try{var sv=JSON.parse(localStorage.getItem("ec_dblive")||"null");if(sv){src=sv.src==="1"||sv.src==="2"?sv.src:"0";per=sv.per||per;modo=sv.modo||modo}}catch(e){}
+  var src="0",per="mes",modo="v",vista={d:false,s:false},NAMES={1:"Dropi 1",2:"Dropi 2",3:"Dropi Colombia",4:"Dropi 4"},CON={1:true,2:true,3:true,4:true},OC=[],PAIS={3:"CO"},CURN=1;
+  try{var sv=JSON.parse(localStorage.getItem("ec_dblive")||"null");if(sv){src=/^[1-4]$/.test(sv.src)?sv.src:"0";per=sv.per||per;modo=sv.modo||modo}}catch(e){}
   function save(){try{localStorage.setItem("ec_dblive",JSON.stringify({src:src,per:per,modo:modo}))}catch(e){}}
-  var CACHE={1:{t:0,o:null,e:""},2:{t:0,o:null,e:""}},LOAD={1:false,2:false};
+  var CACHE={1:{t:0,o:null,e:""},2:{t:0,o:null,e:""},3:{t:0,o:null,e:""},4:{t:0,o:null,e:""}},LOAD={1:false,2:false,3:false,4:false};
   function on(){var f=window.ecFx;return !!(f&&f.st&&f.st.on)}
   function rt(){var f=window.ecFx;return f&&f.st&&f.st.rate>0?f.st.rate:0.4504}
-  function M(q){var v=on()?q*rt():q;return (on()?"S/ ":"Q ")+Math.round(v).toLocaleString("de-DE")}
+  function esCO(){return PAIS[CURN]==="CO"}
+  function M(q){if(esCO())return "$ "+Math.round(q).toLocaleString("es-CO")+" COP";var v=on()?q*rt():q;return (on()?"S/ ":"Q ")+Math.round(v).toLocaleString("de-DE")}
   function N(n){return Math.round(n).toLocaleString("de-DE")}
   function hoy(){return new Date(Date.now()-6*3600*1000).toISOString().slice(0,10)}
   /* barra de fuente */
   var bar=document.createElement("div");bar.id="db-src";p.insertBefore(bar,p.firstChild);
   var box=document.createElement("div");box.id="db-live";box.hidden=true;p.insertBefore(box,bar.nextSibling);
   function pintaBar(){
+    if(src!=="0"&&OC.indexOf(+src)>=0){src="0";save()}
     var c=CACHE[src==="0"?1:+src],lv=src!=="0"&&c.o?'<span class="lv"><i></i>En vivo · '+new Date(c.t).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+'</span>':(src!=="0"?'<span class="lv off"><i></i>'+(LOAD[+src]?"Leyendo Dropi…":"Sin conexión")+'</span>':"");
-    bar.innerHTML='<div class="seg" id="db-srcs" role="group" aria-label="Fuente de datos"><button type="button" data-s="0" aria-pressed="'+(src==="0")+'">General</button><button type="button" data-s="1" aria-pressed="'+(src==="1")+'">'+E(NAMES[1])+' · en vivo</button><button type="button" data-s="2" aria-pressed="'+(src==="2")+'">'+E(NAMES[2])+' · en vivo</button></div>'+lv;
+    bar.innerHTML='<div class="seg" id="db-srcs" role="group" aria-label="Fuente de datos"><button type="button" data-s="0" aria-pressed="'+(src==="0")+'">General</button>'+[1,2,3,4].filter(function(n){return OC.indexOf(n)<0}).map(function(n){return '<button type="button" data-s="'+n+'" aria-pressed="'+(src===String(n))+'">'+E(NAMES[n])+' · en vivo</button>'}).join("")+'</div>'+lv;
     p.classList.toggle("db-live-on",src!=="0");box.hidden=src==="0";
   }
   function carga(n,fuerza){
@@ -5529,7 +5537,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     return '<div><div class="ch"><div><h3>'+t+'</h3><div class="cs">'+sub+'</div></div><button type="button" class="vt" data-v="'+id+'">'+(vista[id]?"Ver gráfico":"Ver tabla")+'</button></div>'+b+'</div>';
   }
   function pinta(){
-    if(src==="0")return;var n=+src,c=CACHE[n];
+    if(src==="0")return;var n=+src,c=CACHE[n];CURN=n;
     if(!c.o){box.innerHTML=c.e?'<div class="warn"><b>No se pudo leer '+E(NAMES[n])+'</b><span>'+E(c.e)+(/Falta la variable/.test(c.e)?' Créala en Vercel (Settings > Environment Variables, marcada para Production) y haz Redeploy.':'')+'</span></div>':'<div class="dbempty">Leyendo los pedidos de '+E(NAMES[n])+'…</div>';return}
     var dq=(window.ecGan&&window.ecGan.st&&window.ecGan.st.devq>=0)?+window.ecGan.st.devq:30;
     var R=rango(),O=c.o.filter(function(o){var d=String(o.date||"").slice(0,10);return d>=R.d&&d<=R.h}),K=kpis(O);
@@ -5543,8 +5551,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
      ["Utilidad esperada",M(K.esp),"de lo que va en curso (estimada)",""],
      ["Utilidad por entregado",M(K.c.E?K.u/K.c.E:0),"promedio, sin anuncios",""],
      ["Devueltos",N(K.c.D),(K.tasa==null?"":Math.round((1-K.tasa)*100)+"% de los que ya tuvieron resultado · ")+M(K.vd)+" en pedidos devueltos",K.c.D?"r":""],
-     ["Descuento por devueltos",M(dq*K.c.D),K.c.D+" devueltos × Q "+N(dq)+" de costo por devolución","r"],
-     ["Utilidad descontando devueltos",M(K.u-dq*K.c.D),"utilidad de entregados − descuento por devueltos",K.u-dq*K.c.D>=0?"g":"r"],
+     esCO()?["Descuento por devueltos","–","el costo por devolución de esta cuenta (en pesos) aún no está configurado","r"]:["Descuento por devueltos",M(dq*K.c.D),K.c.D+" devueltos × Q "+N(dq)+" de costo por devolución","r"],
+     esCO()?["Utilidad descontando devueltos","–","necesita el costo por devolución en pesos",""]:["Utilidad descontando devueltos",M(K.u-dq*K.c.D),"utilidad de entregados − descuento por devueltos",K.u-dq*K.c.D>=0?"g":"r"],
      ["Valor de lo devuelto",M(K.vd),"lo que se cobraría si no se hubieran devuelto",""]];
     var wk=[],w0=lunes(hoy());for(var i=11;i>=0;i--){var x=new Date(w0+"T12:00:00Z");x.setUTCDate(x.getUTCDate()-7*i);wk.push(x.toISOString().slice(0,10))}
     var nm=modo==="v"?"Ventas entregadas":modo==="u"?"Utilidad real de entregados":"Pedidos";
@@ -5559,7 +5567,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   box.addEventListener("change",function(e){if(e.target.id==="dl-per"){per=e.target.value;save();pinta()}});
   box.addEventListener("click",function(e){var m=e.target.closest("#dl-seg button");if(m){modo=m.dataset.m;save();pinta();return}var v=e.target.closest(".vt");if(v){vista[v.dataset.v]=!vista[v.dataset.v];pinta()}});
   /* nombres de las cuentas */
-  fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.nombres){NAMES=j.nombres;CON=j.conectada||CON;pintaBar()}}).catch(function(){});
+  fetch("/api/dropi?a=cuentas",{credentials:"same-origin"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.nombres){NAMES=j.nombres;CON=j.conectada||CON;OC=Array.isArray(j.ocultas)?j.ocultas:OC;PAIS=j.pais||PAIS;pintaBar();if(src!=="0")pinta()}}).catch(function(){});
+  document.addEventListener("ec-dropi-cuentas",function(){OC=(window.ecDropiOc||[]).slice();pintaBar();if(src!=="0")pinta()});
   document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#side button, #nav-g button")){setTimeout(function(){if(!p.hidden&&src!=="0")carga(+src)},50)}});
   if(window.ecFx)window.ecFx.hooks.push(function(){if(src!=="0")pinta()});
   setInterval(function(){if(!p.hidden&&src!=="0")carga(+src,true)},3*60*1000);
