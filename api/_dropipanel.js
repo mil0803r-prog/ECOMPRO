@@ -33,6 +33,7 @@ function groupOf(status) {
   if (RETURNED.includes(s)) return "devolucion";
   // Colombia: las transportadoras usan más variantes de estado (devolución en tránsito, rechazado, etc.).
   if (S().n === 3 && (/^DEVOLUC/.test(s) || s === "RECHAZADO" || s === "REHUSADO")) return "devolucion";
+  if (S().n === 3 && (s === "GUIA_ANULADA" || s === "ANULADA" || s === "ERROR_GENERANDO_GUIA")) return "cancelado";
   if (CANCELLED.includes(s)) return "cancelado";
   if (s.includes("INCIDENCIA") || s.includes("NOVEDAD")) return "novedad";
   return "proceso";

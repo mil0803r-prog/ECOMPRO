@@ -762,7 +762,7 @@ function pickSupplier(id){const s=$('#fSupplier');s.value=(s.value===id?'':id);r
 
 /* ===== Modal proveedores ===== */
 function openProv(){
-  const carriers=(DATA?DATA.carriers.map(c=>c.name):Object.keys(PROV.carriers));
+  const carriers=[...new Set((DATA?DATA.carriers.map(c=>c.name):Object.keys(PROV.carriers)).concat(CO?['COORDINADORA','ENVIA','INTERRAPIDISIMO','TCC','VELOCES','99MINUTOS','JAMV-DRIVE','WIILOG','DEROCHA-EXPRESS']:[]))].filter(n=>n&&n!=='—');
   $('#provCarriers').innerHTML=carriers.map(n=>`<div class="prow"><span class="pn">${E(n)}</span>
     <input data-carrier="${E(n)}" placeholder="Número con WhatsApp" value="${E((PROV.carriers||{})[n]||'')}"></div>`).join('')||'<div class="hint">Sin transportadoras cargadas aún.</div>';
   const sups=(DATA&&DATA.suppliers&&DATA.suppliers.length)?DATA.suppliers:Object.keys(PROV.suppliers).map(id=>({id}));
