@@ -474,7 +474,11 @@ async function guiaArchivo(req, send, res, id) {
   const x = raw.find((o) => String(o.id) === id);
   if (!x) return send(404, { error: "Pedido no encontrado en las últimas consultas." });
   const link = guiaLink(x);
-  if (!link) return send(404, { error: "sin_guia_url", guia: x.shipping_guide || "" });
+  if (!link) {
+    // Para saber dónde la guarda Dropi: solo nombres de campos relacionados y la forma del valor (nada de datos del cliente).
+    const campos = Object.keys(x).filter((k) => /guia|guide|label|sticker|url|pdf|file|image|archivo/i.test(k)).slice(0, 25).map((k) => { const v = x[k]; return k + ": " + (v == null || v === "" ? "vacío" : Array.isArray(v) ? "lista de " + v.length : typeof v === "object" ? "objeto" : typeof v === "string" && /^https?:/i.test(v) ? "enlace" : typeof v); });
+    return send(404, { error: "sin_guia_url", guia: x.shipping_guide || "", transportadora: (x.distribution_company && x.distribution_company.name) || x.shipping_company || "", campos });
+  }
   let u;
   try { u = new URL(link); } catch (e) { return send(502, { error: "El enlace de la guía no es válido." }); }
   if (u.protocol !== "https:" || HOST_PRIV.test(u.hostname)) return send(502, { error: "El enlace de la guía no es seguro." });
