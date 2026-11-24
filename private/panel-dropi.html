@@ -584,7 +584,7 @@ function drawTable(){
      <td class="r">${money(o.total)}</td>
      <td class="r" style="color:${o.group==='entregado'?'var(--green)':'var(--muted)'};font-weight:600" title="${o.group==='entregado'?'Utilidad realizada':'Utilidad potencial (aún no entregado)'}">${money(o.util)}</td>
      <td>${E((o.date||'').slice(0,10))}</td>
-     <td style="white-space:nowrap"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent2);border-color:var(--line);margin-right:5px" title="Huella del cliente (su historial de pedidos)" onclick="openHuella('${E(o.id)}')">${FP}</span>${wa}</td></tr>`;}).join('');
+     <td style="white-space:nowrap"><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px" title="Ver seguimiento de la guía" onclick="openTrack('${E(o.id)}')">🧭</span>${CO?`<span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px;font-weight:800;font-size:10.5px" title="Descargar la guía en PDF" onclick="guiaGet('${E(o.id)}','pdf')">PDF</span><span class="wa-sm" style="background:var(--accentsoft);color:var(--accent);border-color:var(--line);margin-right:5px;font-weight:800;font-size:10.5px" title="Descargar la guía como foto" onclick="guiaGet('${E(o.id)}','img')">FOTO</span>`:''}<span class="wa-sm" style="background:var(--accentsoft);color:var(--accent2);border-color:var(--line);margin-right:5px" title="Huella del cliente (su historial de pedidos)" onclick="openHuella('${E(o.id)}')">${FP}</span>${wa}</td></tr>`;}).join('');
 }
 
 function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();}
@@ -721,6 +721,7 @@ function openTrack(id){
     <div class="prow" style="justify-content:space-between"><span><b>#${E(o.id)}</b> · ${E(o.name||'')}</span>
       <span class="chip ${badge(o.group)}">${E(o.status)}</span></div>
     <div class="hint" style="margin-bottom:6px">${E(o.city||'')} · ${E(o.dept||'')}${o.dias!=null?' · entregado en '+o.dias+' días':''}</div>
+    ${CO?`<div style="display:flex;gap:8px;margin:2px 0 12px;flex-wrap:wrap"><button type="button" class="ghost" onclick="guiaGet('${E(o.id)}','pdf')">📄 Guía en PDF</button><button type="button" class="ghost" onclick="guiaGet('${E(o.id)}','img')">🖼 Guía como foto</button><span class="hint" id="guiaMsg" role="status"></span></div>`:''}
     ${steps}`;
   $('#trackOverlay').classList.add('show');
 }
@@ -997,6 +998,57 @@ $('#favQ').addEventListener('input',renderFav);
 $('#favMsgBtn').addEventListener('click',()=>{const b=$('#favMsgBox');b.style.display=b.style.display==='none'?'block':'none';});
 $('#favTplSave').addEventListener('click',()=>{PROV.favTpl=$('#favTpl').value.trim();favSave();renderFav();$('#favMsgBox').style.display='none';});
 renderFav();loadFavD();
+</script>
+<script>
+/* Guías (Colombia): descarga la guía que Dropi guarda en el pedido, en PDF o como foto.
+   Si el pedido no trae archivo, arma una guía del tablero con los datos del pedido (no es la etiqueta oficial). */
+function guiaMsg(t){var m=document.getElementById('guiaMsg');if(m)m.textContent=t||'';else if(t)try{console.log(t)}catch(e){}}
+function guiaSave(blob,name){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},4000)}
+function guiaPdfJs(){return new Promise(function(ok,no){if(window.pdfjsLib){ok(window.pdfjsLib);return}var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';ok(window.pdfjsLib)};s.onerror=function(){no(new Error('No cargó el lector de PDF'))};document.head.appendChild(s)})}
+async function guiaPdfAFoto(buf){var L=await guiaPdfJs();var d=await L.getDocument({data:buf}).promise;var pg=await d.getPage(1);var vp=pg.getViewport({scale:2.2});var c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);await pg.render({canvasContext:x,viewport:vp}).promise;return new Promise(function(r){c.toBlob(r,'image/png')})}
+function guiaDibuja(o){
+  var W=900,H=1200,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);x.strokeStyle='#111';x.lineWidth=4;x.strokeRect(20,20,W-40,H-40);
+  x.fillStyle='#111';x.font='bold 40px Arial';x.fillText('GUÍA DE ENVÍO · '+(o.carrier||'—'),50,90);
+  x.font='bold 64px Arial';x.fillText(String(o.guia||'SIN GUÍA'),50,180);
+  x.font='28px Arial';x.fillText('Pedido #'+o.id+' · '+String(o.date||'').slice(0,10),50,230);
+  x.beginPath();x.moveTo(40,260);x.lineTo(W-40,260);x.stroke();
+  function wrap(t,px,py,mw,lh,mx){var w=String(t||'—').split(' '),l='',n=0;for(var i=0;i<w.length;i++){var tt=l?l+' '+w[i]:w[i];if(x.measureText(tt).width>mw&&l){x.fillText(l,px,py);py+=lh;n++;l=w[i];if(n>=mx)break}else l=tt}if(n<mx)x.fillText(l,px,py);return py+lh}
+  var y=320;x.font='bold 26px Arial';x.fillText('DESTINATARIO',50,y);y+=46;
+  x.font='bold 40px Arial';y=wrap(o.name,50,y,W-100,50,2);
+  x.font='32px Arial';y=wrap(o.dir,50,y+4,W-100,42,3);
+  y=wrap((o.city||'')+(o.dept&&o.dept!=='—'?', '+o.dept:''),50,y,W-100,42,2);
+  x.font='bold 34px Arial';x.fillText('Tel: '+(o.clientPhone||'—'),50,y+10);y+=70;
+  x.beginPath();x.moveTo(40,y);x.lineTo(W-40,y);x.stroke();y+=56;
+  x.font='bold 26px Arial';x.fillText('PRODUCTO',50,y);y+=44;x.font='32px Arial';y=wrap(o.prod,50,y,W-100,42,3);
+  y+=24;x.font='bold 26px Arial';x.fillText('VALOR A COBRAR (CONTRAENTREGA)',50,y);y+=70;
+  x.font='bold 64px Arial';x.fillText(money(o.total),50,y);
+  x.font='20px Arial';x.fillStyle='#555';x.fillText('Guía generada por el tablero con los datos del pedido. No es la etiqueta oficial de la transportadora.',50,H-50);
+  return c;
+}
+async function guiaGet(id,fmt){
+  var o=(DATA.orders||[]).find(function(q){return String(q.id)===String(id)});if(!o)return;
+  guiaMsg('Buscando la guía…');var nm='guia-'+(o.guia||o.id);
+  try{
+    var r=await fetch('/api/dropi?a=guia&id='+encodeURIComponent(id),{credentials:'same-origin'});
+    if(r.ok){
+      var blob=await r.blob(),isPdf=blob.type==='application/pdf';
+      if(fmt==='pdf'){
+        if(isPdf){guiaSave(blob,nm+'.pdf');guiaMsg('Guía descargada (PDF).');return}
+        var w=window.open('','_blank');if(w){var u=URL.createObjectURL(blob);w.document.write('<img src="'+u+'" style="max-width:100%" onload="setTimeout(function(){print()},300)">');w.document.close();guiaMsg('En la ventana que abrió, elige «Guardar como PDF».');return}
+      }else{
+        if(!isPdf){guiaSave(blob,nm+(blob.type==='image/png'?'.png':'.jpg'));guiaMsg('Guía descargada (foto).');return}
+        guiaMsg('Convirtiendo la guía a foto…');var png=await guiaPdfAFoto(await blob.arrayBuffer());guiaSave(png,nm+'.png');guiaMsg('Guía descargada (foto).');return}
+    }else{
+      var j=null;try{j=await r.json()}catch(e){}
+      if(!(j&&j.error==='sin_guia_url')){guiaMsg('No se pudo bajar la guía de Dropi: '+((j&&j.error)||('HTTP '+r.status))+'. Se arma una del tablero.')}
+    }
+  }catch(e){guiaMsg('No se pudo bajar la guía de Dropi ('+e.message+'). Se arma una del tablero.')}
+  /* Plan B: guía del tablero */
+  var cv=guiaDibuja(o);
+  if(fmt==='img'){cv.toBlob(function(b){guiaSave(b,nm+'.png');guiaMsg('Dropi no entregó el archivo de este pedido: bajé una guía del tablero con sus datos (no es la etiqueta oficial).')},'image/png')}
+  else{var w2=window.open('','_blank');if(w2){w2.document.write('<img src="'+cv.toDataURL('image/png')+'" style="max-width:100%" onload="setTimeout(function(){print()},300)">');w2.document.close();guiaMsg('Dropi no entregó el archivo de este pedido: se abrió una guía del tablero. Elige «Guardar como PDF».')}else guiaMsg('El navegador bloqueó la ventana. Usa FOTO o permite ventanas emergentes.')}
+}
 </script>
 <script>if(CO){var ps=document.getElementById('pais-sub');if(ps)ps.textContent='Dropi Colombia · semáforo de transportadoras (Servientrega, Coordinadora, Interrapidísimo, Envía, TCC…), guías y seguimiento en vivo';document.title='Dropi Colombia'}</script></body>
 </html>

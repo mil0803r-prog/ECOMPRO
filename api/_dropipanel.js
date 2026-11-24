@@ -455,17 +455,65 @@ async function retirosAuto() {
   st.RET = { t: Date.now(), v };
   return v;
 }
-function handle(req, send) {
+// Enlace del archivo de la guía (PDF o imagen) que Dropi guarda en el pedido. Devuelve null si el pedido no trae ninguno.
+const GUIA_KEYS = ["guia_urls3", "guia_url", "guia_urls", "guia_urls2", "guide_url", "shipping_guide_url", "label_url", "label", "sticker_url", "sticker", "guia_pdf", "pdf_guide"];
+function guiaLink(x) {
+  const pick = (v) => (Array.isArray(v) ? v.find((y) => typeof y === "string" && y.trim()) : typeof v === "string" ? v : "");
+  let v = "";
+  for (const k of GUIA_KEYS) { v = String(pick(x[k]) || "").trim(); if (v) break; }
+  if (!v) for (const k of Object.keys(x)) { if (/(guia|guide|label|sticker).*(url|path|pdf)|(url|path|pdf).*(guia|guide|label|sticker)/i.test(k)) { v = String(pick(x[k]) || "").trim(); if (v) break; } }
+  if (!v) return null;
+  if (/^https?:\/\//i.test(v)) return v;
+  if (v.startsWith("//")) return "https:" + v;
+  return S().base + (v.startsWith("/") ? "" : "/") + v;
+}
+const HOST_PRIV = /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[)/i;
+// Baja el archivo de la guía desde Dropi y lo entrega al navegador (el token solo viaja a la propia API de Dropi).
+async function guiaArchivo(req, send, res, id) {
+  const raw = await getRaw();
+  const x = raw.find((o) => String(o.id) === id);
+  if (!x) return send(404, { error: "Pedido no encontrado en las últimas consultas." });
+  const link = guiaLink(x);
+  if (!link) return send(404, { error: "sin_guia_url", guia: x.shipping_guide || "" });
+  let u;
+  try { u = new URL(link); } catch (e) { return send(502, { error: "El enlace de la guía no es válido." }); }
+  if (u.protocol !== "https:" || HOST_PRIV.test(u.hostname)) return send(502, { error: "El enlace de la guía no es seguro." });
+  const hs = { Accept: "application/pdf,image/*,*/*" };
+  const own = new URL(S().base).hostname === u.hostname;
+  const token = process.env[S().env];
+  if (own && token) hs.Authorization = "Bearer " + token;
+  const r = await fetch(u, { headers: hs, signal: AbortSignal.timeout(15000) });
+  if (!r.ok) return send(502, { error: "Dropi respondió HTTP " + r.status + " al pedir la guía." });
+  if (HOST_PRIV.test(new URL(r.url || link).hostname)) return send(502, { error: "El enlace de la guía no es seguro." });
+  const buf = Buffer.from(await r.arrayBuffer());
+  if (buf.length > 8 * 1024 * 1024) return send(502, { error: "El archivo de la guía es demasiado grande." });
+  const h4 = buf.subarray(0, 4);
+  const ct = h4.toString("latin1") === "%PDF" ? "application/pdf" : h4[0] === 0x89 && h4[1] === 0x50 ? "image/png" : h4[0] === 0xff && h4[1] === 0xd8 ? "image/jpeg" : "";
+  if (!ct) return send(502, { error: "Dropi no devolvió un PDF ni una imagen para esta guía." });
+  const ext = ct === "application/pdf" ? "pdf" : ct === "image/png" ? "png" : "jpg";
+  res.statusCode = 200;
+  res.setHeader("Content-Type", ct);
+  res.setHeader("Content-Disposition", 'inline; filename="guia-' + String(x.shipping_guide || id).replace(/[^\w-]/g, "") + "." + ext + '"');
+  res.setHeader("Cache-Control", "no-store");
+  res.end(buf);
+}
+function handle(req, send, res) {
   const u = new URL(req.url, "http://x");
   if (u.searchParams.get("a") === "cuentas") return cuentas(req, send).catch((e) => send(500, { error: String(e.message || e).slice(0, 160) }));
-  return ALS.run(CTAS[{ 2: 2, 3: 3 }[u.searchParams.get("c")] || 1], () => handle0(req, send));
+  return ALS.run(CTAS[{ 2: 2, 3: 3 }[u.searchParams.get("c")] || 1], () => handle0(req, send, res));
 }
-async function handle0(req, send) {
+async function handle0(req, send, res) {
   const u = new URL(req.url, "http://x");
   const a = u.searchParams.get("a");
   try {
     if (a === "data" && req.method === "GET") {
       return send(200, await build(okDate(u.searchParams.get("from")), okDate(u.searchParams.get("to"))));
+    }
+    if (a === "guia" && req.method === "GET") {
+      const gid = String(u.searchParams.get("id") || "");
+      if (!/^\d{1,12}$/.test(gid)) return send(400, { error: "id inválido" });
+      if (!res) return send(500, { error: "Sin respuesta binaria" });
+      return await guiaArchivo(req, send, res, gid);
     }
     if (a === "huella" && req.method === "GET") {
       const id = String(u.searchParams.get("id") || "");
