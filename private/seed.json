@@ -9581,87 +9581,202 @@
    "date": "2026-11-23",
    "rank": 2,
    "source": "ia",
-   "name": "Combo Mino",
-   "provider": "importadora el mayorista",
+   "name": "Ctar (bienestar)",
+   "provider": "laboratorio luna",
    "verificado": true,
-   "cats": "otros",
-   "costo": 45,
-   "pvp": 65,
-   "v7": 4,
-   "v30": 347,
-   "stock": 263,
-   "score": 64,
+   "cats": "salud-bienestar",
+   "costo": 60,
+   "pvp": 160,
+   "v7": 90,
+   "v30": 121,
+   "stock": 879,
+   "score": 66,
    "scores": {
-    "demanda": 0,
-    "traccion": 7,
+    "demanda": 4,
+    "traccion": 3,
     "margen": 6,
-    "competencia": 8,
-    "riesgo": 9
+    "competencia": 10,
+    "riesgo": 6
    },
    "oferta": {
     "u": 2,
-    "precio": 229
+    "precio": 289
    },
-   "verdict": "4 ventas en 7 dias, 347 en 30 y 615 en total (22 dias con venta en 30), stock 263, creado el 2026-10-13, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Plan C: producto de hace un mes que ya tiene ventas. Margen REPRECIABLE con flete Q68 (informativo).",
+   "verdict": "90 ventas en 7 dias, 121 en 30 y 121 en total (8 dias con venta en 30), stock 879, creado el 2026-11-12, 2 proveedores en lo leido. Cero anuncios activos con el nombre 'ctar' en GT en lo leido; el nombre es corto y el conteo puede quedar incompleto: confirmar a mano. Margen REPRECIABLE con flete Q68 (informativo).",
    "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
-   "competition": "7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos.",
+   "competition": "Cero anuncios activos con el nombre 'ctar' en GT en lo leido; el nombre es corto y el conteo puede quedar incompleto: confirmar a mano.",
    "anWA": 0,
    "anLand": 0,
-   "anTotal": 7,
-   "anNota": "7 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
    "tiendas": [],
    "imgs": [],
    "vids": [],
    "provs": [
     {
-     "prov": "importadora el mayorista",
-     "id": "27973",
-     "nombre": "combo mino",
-     "costo": 45,
-     "stock": 263,
-     "v7": 4,
-     "v30": 347,
-     "tv": 615,
-     "ct": "2026-10-13",
+     "prov": "laboratorio luna",
+     "id": "33473",
+     "nombre": "ctar",
+     "costo": 60,
+     "stock": 879,
+     "v7": 90,
+     "v30": 121,
+     "tv": 121,
+     "ct": "2026-11-12",
      "alt": ""
     }
    ],
-   "foto": "https://cdndropkiller.com/products/619a5ea0-3258-4982-9a0d-64eead04bf6e/f68f6ea9355f.webp",
-   "risk": "Sin bandera.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=27973&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/619a5ea0-3258-4982-9a0d-64eead04bf6e",
-   "ct": "2026-10-13",
-   "tv": 615,
+   "foto": "https://cdndropkiller.com/products/bd4a53c1-9e01-4554-ba21-311a142dc0c5/e13a78c73db5.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33473&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/bd4a53c1-9e01-4554-ba21-311a142dc0c5",
+   "ct": "2026-11-12",
+   "tv": 121,
    "status": "nuevo",
-   "fav": false,
-   "planc": true
+   "fav": false
   },
   "2026-11-23_3": {
    "date": "2026-11-23",
    "rank": 3,
    "source": "ia",
-   "name": "Brasier sin costura",
-   "provider": "importadora el mayorista",
+   "name": "Oxy Energy (bienestar)",
+   "provider": "natural labs organic",
    "verificado": true,
-   "cats": "moda-ropa",
-   "costo": 46,
-   "pvp": 66,
-   "v7": 17,
-   "v30": 158,
-   "stock": 259,
-   "score": 61,
+   "cats": "salud-bienestar",
+   "costo": 55,
+   "pvp": 99,
+   "v7": 327,
+   "v30": 328,
+   "stock": 4673,
+   "score": 74,
    "scores": {
-    "demanda": 1,
-    "traccion": 5,
+    "demanda": 10,
+    "traccion": 2,
     "margen": 6,
     "competencia": 8,
-    "riesgo": 9
+    "riesgo": 6
    },
    "oferta": {
     "u": 2,
-    "precio": 239
+    "precio": 279
    },
-   "verdict": "17 ventas en 7 dias, 158 en 30 y 158 en total (14 dias con venta en 30), stock 259, creado el 2026-10-10, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Plan C: producto de hace un mes que ya tiene ventas. Margen REPRECIABLE con flete Q68 (informativo).",
+   "verdict": "327 ventas en 7 dias, 328 en 30 y 328 en total (7 dias con venta en 30), stock 4673, creado el 2026-10-31, 1 proveedor en lo leido. 6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 6,
+   "anNota": "6 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "natural labs organic",
+     "id": "31813",
+     "nombre": "oxy energy",
+     "costo": 55,
+     "stock": 4673,
+     "v7": 327,
+     "v30": 328,
+     "tv": 328,
+     "ct": "2026-10-31",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/724429a3-54cf-4639-b1a4-d8610afeacb2/84f23a559032.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=31813&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/724429a3-54cf-4639-b1a4-d8610afeacb2",
+   "ct": "2026-10-31",
+   "tv": 328,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-23_4": {
+   "date": "2026-11-23",
+   "rank": 4,
+   "source": "ia",
+   "name": "Spray depilador",
+   "provider": "grupo luna",
+   "verificado": true,
+   "cats": "belleza",
+   "costo": 40,
+   "pvp": 150,
+   "v7": 79,
+   "v30": 83,
+   "stock": 917,
+   "score": 59,
+   "scores": {
+    "demanda": 3,
+    "traccion": 2,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "79 ventas en 7 dias, 83 en 30 y 83 en total (7 dias con venta en 30), stock 917, creado el 2026-09-17, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 4,
+   "anNota": "4 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "grupo luna",
+     "id": "23136",
+     "nombre": "spray depilador kingyes 150ml",
+     "costo": 40,
+     "stock": 917,
+     "v7": 79,
+     "v30": 83,
+     "tv": 83,
+     "ct": "2026-09-17",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/605b5e3d-f701-4fa9-afed-55bea65e20fa/e5e4c3fd1031.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=23136&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/605b5e3d-f701-4fa9-afed-55bea65e20fa",
+   "ct": "2026-09-17",
+   "tv": 83,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-23_5": {
+   "date": "2026-11-23",
+   "rank": 5,
+   "source": "ia",
+   "name": "Crema para las hemorroides (bienestar)",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "salud-bienestar",
+   "costo": 26,
+   "pvp": 46,
+   "v7": 51,
+   "v30": 65,
+   "stock": 135,
+   "score": 51,
+   "scores": {
+    "demanda": 2,
+    "traccion": 3,
+    "margen": 2,
+    "competencia": 8,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 139
+   },
+   "verdict": "51 ventas en 7 dias, 65 en 30 y 65 en total (8 dias con venta en 30), stock 135, creado el 2026-09-17, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Margen NO CIERRA con flete Q68 (informativo).",
    "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
    "competition": "7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos.",
    "anWA": 0,
@@ -9674,26 +9789,25 @@
    "provs": [
     {
      "prov": "importadora el mayorista",
-     "id": "27591",
-     "nombre": "brasier sin costura",
-     "costo": 46,
-     "stock": 259,
-     "v7": 17,
-     "v30": 158,
-     "tv": 158,
-     "ct": "2026-10-10",
+     "id": "23125",
+     "nombre": "crema para las hemorroides",
+     "costo": 26,
+     "stock": 135,
+     "v7": 51,
+     "v30": 65,
+     "tv": 65,
+     "ct": "2026-09-17",
      "alt": ""
     }
    ],
-   "foto": "https://cdndropkiller.com/products/563dfd1b-c04b-49bb-9bcc-5152756c667e/97e8d04824df.webp",
-   "risk": "Sin bandera.",
-   "dropi": "https://app.dropi.gt/dashboard/search?search=27591&search_type=id",
-   "dk": "https://app.dropkiller.com/dashboard/products/563dfd1b-c04b-49bb-9bcc-5152756c667e",
-   "ct": "2026-10-10",
-   "tv": 158,
+   "foto": "https://cdndropkiller.com/products/9c6f4e3c-63a9-4ff7-9c02-b1f88073ffd2/0bde219e3391.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=23125&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/9c6f4e3c-63a9-4ff7-9c02-b1f88073ffd2",
+   "ct": "2026-09-17",
+   "tv": 65,
    "status": "nuevo",
-   "fav": false,
-   "planc": true
+   "fav": false
   }
  },
  "validations": {
@@ -30046,10 +30160,10 @@
    "date": "2026-11-23",
    "source": "ia",
    "planb": false,
-   "planc": true,
-   "titulo": "Radar Caza Diaria · 2026-11-23 (lunes) · 1 normales + 0 Plan B + 2 Plan C",
+   "planc": false,
+   "titulo": "Radar Caza Diaria · 2026-11-23 (lunes) · 5 normales + 0 Plan B + 0 Plan C",
    "sub": "Guatemala · Dropi · DropKiller · corrida de recuperacion hecha el 2026-11-23",
-   "veredicto": "Veredicto. Corrida de recuperacion del lunes 2026-11-23: salieron 3 de 5 productos (1 con filtros normales, 0 de Plan B y 2 de Plan C). Faltan 2: no quedaron mas productos que cumplan los filtros y no esten ya usados en otra fecha de esta recuperacion.",
+   "veredicto": "Veredicto. Corrida de recuperacion del lunes 2026-11-23: salieron 5 de 5 productos (5 con filtros normales, 0 de Plan B y 0 de Plan C).",
    "nota": "Limites de esta corrida: las ventas son las de HOY (23-nov), no las de esa fecha; la antiguedad se verifico contra esa fecha (creado antes y maximo 90 dias). La competencia es el conteo de anuncios activos en GT de hoy (no se contaron anunciantes distintos); se descarto lo que tenia muchos anuncios. Los proveedores se contaron solo entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios.",
    "fichas": [
     {
@@ -30111,115 +30225,245 @@
     },
     {
      "n": 2,
-     "nombre": "Combo Mino",
+     "nombre": "Ctar (bienestar)",
      "tags": [
       {
-       "t": "PLAN C",
-       "c": "gr"
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
       },
       {
        "t": "REPRECIABLE",
        "c": "am"
       }
      ],
-     "foto": "https://cdndropkiller.com/products/619a5ea0-3258-4982-9a0d-64eead04bf6e/f68f6ea9355f.webp",
-     "v": "4 ventas en 7 dias, 347 en 30 y 615 en total (22 dias con venta en 30), stock 263, creado el 2026-10-13, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Plan C: producto de hace un mes que ya tiene ventas. Margen REPRECIABLE con flete Q68 (informativo).",
+     "foto": "https://cdndropkiller.com/products/bd4a53c1-9e01-4554-ba21-311a142dc0c5/e13a78c73db5.webp",
+     "v": "90 ventas en 7 dias, 121 en 30 y 121 en total (8 dias con venta en 30), stock 879, creado el 2026-11-12, 2 proveedores en lo leido. Cero anuncios activos con el nombre 'ctar' en GT en lo leido; el nombre es corto y el conteo puede quedar incompleto: confirmar a mano. Margen REPRECIABLE con flete Q68 (informativo).",
      "kv": [
       [
        "Ventas 7d",
-       4
+       90
       ],
       [
        "Ventas 30d",
-       347
+       121
       ],
       [
        "Total",
-       615
+       121
       ],
       [
        "Stock",
-       263
+       879
       ],
       [
        "Costo",
-       "Q45"
+       "Q60"
       ],
       [
        "PVP sug.",
-       "Q65"
+       "Q160"
       ],
       [
        "Creado",
-       "2026-10-13"
+       "2026-11-12"
       ]
      ],
      "secs": [],
      "links": [
       {
        "t": "Dropi",
-       "u": "https://app.dropi.gt/dashboard/search?search=27973&search_type=id"
+       "u": "https://app.dropi.gt/dashboard/search?search=33473&search_type=id"
       },
       {
        "t": "DropKiller",
-       "u": "https://app.dropkiller.com/dashboard/products/619a5ea0-3258-4982-9a0d-64eead04bf6e"
+       "u": "https://app.dropkiller.com/dashboard/products/bd4a53c1-9e01-4554-ba21-311a142dc0c5"
       }
      ]
     },
     {
      "n": 3,
-     "nombre": "Brasier sin costura",
+     "nombre": "Oxy Energy (bienestar)",
      "tags": [
       {
-       "t": "PLAN C",
-       "c": "gr"
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
       },
       {
        "t": "REPRECIABLE",
        "c": "am"
       }
      ],
-     "foto": "https://cdndropkiller.com/products/563dfd1b-c04b-49bb-9bcc-5152756c667e/97e8d04824df.webp",
-     "v": "17 ventas en 7 dias, 158 en 30 y 158 en total (14 dias con venta en 30), stock 259, creado el 2026-10-10, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Plan C: producto de hace un mes que ya tiene ventas. Margen REPRECIABLE con flete Q68 (informativo).",
+     "foto": "https://cdndropkiller.com/products/724429a3-54cf-4639-b1a4-d8610afeacb2/84f23a559032.webp",
+     "v": "327 ventas en 7 dias, 328 en 30 y 328 en total (7 dias con venta en 30), stock 4673, creado el 2026-10-31, 1 proveedor en lo leido. 6 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
      "kv": [
       [
        "Ventas 7d",
-       17
+       327
       ],
       [
        "Ventas 30d",
-       158
+       328
       ],
       [
        "Total",
-       158
+       328
       ],
       [
        "Stock",
-       259
+       4673
       ],
       [
        "Costo",
-       "Q46"
+       "Q55"
       ],
       [
        "PVP sug.",
-       "Q66"
+       "Q99"
       ],
       [
        "Creado",
-       "2026-10-10"
+       "2026-10-31"
       ]
      ],
      "secs": [],
      "links": [
       {
        "t": "Dropi",
-       "u": "https://app.dropi.gt/dashboard/search?search=27591&search_type=id"
+       "u": "https://app.dropi.gt/dashboard/search?search=31813&search_type=id"
       },
       {
        "t": "DropKiller",
-       "u": "https://app.dropkiller.com/dashboard/products/563dfd1b-c04b-49bb-9bcc-5152756c667e"
+       "u": "https://app.dropkiller.com/dashboard/products/724429a3-54cf-4639-b1a4-d8610afeacb2"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Spray depilador",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/605b5e3d-f701-4fa9-afed-55bea65e20fa/e5e4c3fd1031.webp",
+     "v": "79 ventas en 7 dias, 83 en 30 y 83 en total (7 dias con venta en 30), stock 917, creado el 2026-09-17, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       79
+      ],
+      [
+       "Ventas 30d",
+       83
+      ],
+      [
+       "Total",
+       83
+      ],
+      [
+       "Stock",
+       917
+      ],
+      [
+       "Costo",
+       "Q40"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-09-17"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=23136&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/605b5e3d-f701-4fa9-afed-55bea65e20fa"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Crema para las hemorroides (bienestar)",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "NO CIERRA",
+       "c": "ro"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/9c6f4e3c-63a9-4ff7-9c02-b1f88073ffd2/0bde219e3391.webp",
+     "v": "51 ventas en 7 dias, 65 en 30 y 65 en total (8 dias con venta en 30), stock 135, creado el 2026-09-17, 1 proveedor en lo leido. 7 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Margen NO CIERRA con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       51
+      ],
+      [
+       "Ventas 30d",
+       65
+      ],
+      [
+       "Total",
+       65
+      ],
+      [
+       "Stock",
+       135
+      ],
+      [
+       "Costo",
+       "Q26"
+      ],
+      [
+       "PVP sug.",
+       "Q46"
+      ],
+      [
+       "Creado",
+       "2026-09-17"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=23125&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/9c6f4e3c-63a9-4ff7-9c02-b1f88073ffd2"
       }
      ]
     }
@@ -30235,21 +30479,39 @@
      "c": "f"
     },
     {
-     "n": "combo mino",
-     "s": "27973 · importadora el mayorista",
-     "v": "4 / 347 / 615",
-     "st": 263,
-     "ct": "2026-10-13",
-     "r": "Plan C",
+     "n": "ctar",
+     "s": "33473 · laboratorio luna",
+     "v": "90 / 121 / 121",
+     "st": 879,
+     "ct": "2026-11-12",
+     "r": "Normal",
      "c": "f"
     },
     {
-     "n": "brasier sin costura",
-     "s": "27591 · importadora el mayorista",
-     "v": "17 / 158 / 158",
-     "st": 259,
-     "ct": "2026-10-10",
-     "r": "Plan C",
+     "n": "oxy energy",
+     "s": "31813 · natural labs organic",
+     "v": "327 / 328 / 328",
+     "st": 4673,
+     "ct": "2026-10-31",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "spray depilador kingyes 150ml",
+     "s": "23136 · grupo luna",
+     "v": "79 / 83 / 83",
+     "st": 917,
+     "ct": "2026-09-17",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "crema para las hemorroides",
+     "s": "23125 · importadora el mayorista",
+     "v": "51 / 65 / 65",
+     "st": 135,
+     "ct": "2026-09-17",
+     "r": "Normal",
      "c": "f"
     }
    ],
