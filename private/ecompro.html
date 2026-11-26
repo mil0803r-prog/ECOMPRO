@@ -5591,14 +5591,17 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   function aQ(v){return on()?v/rate():v}
   var cur="0",NAMES={1:"Dropi 1",2:"Dropi 2"},DATA={1:null,2:null},LOADING={1:false,2:false},TS=0;
   var EDIT=null;
+  /* se muestran enseguida los últimos retiros guardados en este navegador mientras llegan los del servidor */
+  try{var rc=JSON.parse(localStorage.getItem("ec_rtcache")||"null");if(rc)[1,2].forEach(function(n){if(Array.isArray(rc[n]))DATA[n]={manual:rc[n],auto:null,err:"",ok:false,cache:true}})}catch(e){}
+  function guardaCache(){try{var o={};[1,2].forEach(function(n){if(DATA[n]&&DATA[n].ok)o[n]=DATA[n].manual});localStorage.setItem("ec_rtcache",JSON.stringify(o))}catch(e){}}
   try{var c0=localStorage.getItem("ec_rtcta");if(c0==="1"||c0==="2")cur=c0}catch(e){}
   function url(n,auto){return "/api/dropi?a=retiros"+(n>1?"&c="+n:"")+(auto?"&auto=1":"")}
   function msg(t,mal){var e=$("rt-msg");if(!e)return;e.textContent=t||"";e.style.color=mal?"var(--rojo)":"var(--verde)"}
   function carga(n){
     if(LOADING[n])return;LOADING[n]=true;
-    var tm=new AbortController(),to=setTimeout(function(){tm.abort()},15000);
+    var tm=new AbortController(),to=setTimeout(function(){tm.abort()},10000);
     fetch(url(n),{credentials:"same-origin",cache:"no-store",signal:tm.signal}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {ok:r.ok,j:j}})}).then(function(x){
-      clearTimeout(to);var j=x.j;DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:x.ok?"":(j.error||"el servidor respondió con error"),ok:x.ok};LOADING[n]=false;TS=Date.now();pinta();
+      clearTimeout(to);var j=x.j;DATA[n]={manual:Array.isArray(j.manual)?j.manual:[],auto:j.auto||null,err:x.ok?"":(j.error||"el servidor respondió con error"),ok:x.ok};LOADING[n]=false;TS=Date.now();if(x.ok)guardaCache();pinta();
     }).catch(function(e){clearTimeout(to);DATA[n]={manual:[],auto:null,err:e&&e.name==="AbortError"?"tardó demasiado en responder":"sin conexión",ok:false};LOADING[n]=false;pinta()});
   }
   function todo(f){carga(1);carga(2)}
@@ -5636,6 +5639,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     var f=$("rt-f").value,m=parseFloat($("rt-m").value);
     if(!f){msg("Pon la fecha del retiro.",true);$("rt-f").focus();return}
     if(!(m>0)){msg("Escribe cuánto retiraste de Dropi (el campo «Monto que retiré de Dropi»).",true);$("rt-m").focus();return}
+    if(d.cache){msg("Estoy actualizando tus retiros; espera un momento y vuelve a tocar Guardar.",true);carga(n);return}
     if(d.ok===false){msg("No pude leer los retiros anteriores de "+NAMES[n]+" ("+(d.err||"error")+"). Para no borrarlos, recarga la página y vuelve a intentar.",true);return}
     var tv=parseFloat($("rt-t").value);
     if(!(tv>0)){msg("Escribe lo que te llegó al banco (el campo «Lo que me llegó al banco»). La comisión se calcula sola.",true);$("rt-t").focus();return}
@@ -5645,7 +5649,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
     var nuevo={id:ed?ed.id:"r"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:f,m:Math.round(m*100)/100,c:Math.round(cm*100)/100,t:Math.round(t*100)/100,b:$("rt-b").value.trim(),n:$("rt-n").value.trim()};
     if(ed)Object.assign(ed,nuevo);else d.manual.push(nuevo);
     limpia();pinta();
-    guarda(n).then(function(ok){if(!ok){if(ed)Object.assign(ed,ant);else d.manual=d.manual.filter(function(r){return r.id!==nuevo.id});pinta()}})});
+    guarda(n).then(function(ok){if(ok)guardaCache();if(!ok){if(ed)Object.assign(ed,ant);else d.manual=d.manual.filter(function(r){return r.id!==nuevo.id});pinta()}})});
   function limpia(){var was=!!EDIT;EDIT=null;if(was){var f=$("rt-form");f.hidden=true;f.style.display="none";$("rt-tg").setAttribute("aria-expanded","false");$("rt-tg").textContent="➕ Registrar retiro"}["rt-m","rt-cm","rt-t","rt-n"].forEach(function(i){$(i).value=""});$("rt-add").textContent="Guardar retiro";$("rt-cx").hidden=true;$("rt-c").disabled=false}
   $("rt-cx").addEventListener("click",function(){limpia();msg("",false)});
   /* la comisión se calcula sola: lo retirado − lo que llegó al banco */
