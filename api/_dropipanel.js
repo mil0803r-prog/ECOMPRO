@@ -551,11 +551,8 @@ async function handle0(req, send, res) {
       }
       const cur = await redis(["HGET", "ec:settings", key]);
       const manual = cur ? JSON.parse(cur) : [];
-      // Los retiros anotados salen enseguida; la lectura automática de Dropi va aparte (?auto=1) para no hacer esperar.
-      if (new URL(req.url, "http://x").searchParams.get("auto") !== "1") return send(200, { manual, auto: S().RET ? S().RET.v : null });
-      let auto = null;
-      try { auto = await retirosAuto(); } catch (e) { auto = { ok: false, motivo: String(e.message || e).slice(0, 120) }; }
-      return send(200, { manual, auto });
+      // Los retiros son SOLO manuales: no se leen de Dropi.
+      return send(200, { manual, auto: null });
     }
     if (a === "gest") {
       if (!RURL || !RTOK) return send(req.method === "GET" ? 200 : 503, req.method === "GET" ? {} : { error: "Falta conectar la base (Upstash Redis)." });
