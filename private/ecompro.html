@@ -5613,8 +5613,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
   }
   function pinta(){
     var ok=!!(DATA[1]||DATA[2]);
-    $("rt-tabs").innerHTML=[["0","Ambos"],["1",NAMES[1]],["2",NAMES[2]]].map(function(x){return '<button type="button" class="chip" data-c="'+x[0]+'" aria-pressed="'+(cur===x[0])+'">'+E(x[1])+'</button>'}).join("")+
-      (ok&&[1,2].some(function(n){return DATA[n]&&DATA[n].auto&&DATA[n].auto.ok})?'<span class="lv" style="display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--muted);margin-left:4px"><i style="width:8px;height:8px;border-radius:50%;background:var(--verde);box-shadow:0 0 0 4px color-mix(in srgb,var(--verde) 22%,transparent)"></i>En vivo · '+new Date(TS||Date.now()).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})+'</span>':'');
+    $("rt-tabs").innerHTML=[["0","Ambos"],["1",NAMES[1]],["2",NAMES[2]]].map(function(x){return '<button type="button" class="chip" data-c="'+x[0]+'" aria-pressed="'+(cur===x[0])+'">'+E(x[1])+'</button>'}).join("");
     var lb=function(i,t){var e=document.querySelector('label[for="'+i+'"]');if(e)e.textContent=t};
     lb("rt-m","Retiré de Dropi ("+sym()+")");lb("rt-cm","Comisión automática ("+sym()+")");lb("rt-t","Lo que me llegó al banco ("+sym()+")");
     var bl=$("rt-bl");if(bl){var bs={};[1,2].forEach(function(n){var d=DATA[n];if(d)d.manual.forEach(function(r){if(r.b)bs[r.b]=1})});bl.innerHTML=Object.keys(bs).map(function(b){return '<option value="'+E(b)+'">'}).join("")}
