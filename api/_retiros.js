@@ -24,6 +24,7 @@ async function handle(req, send) {
         id: String((r && r.id) || "").replace(/[^\w-]/g, "").slice(0, 24),
         f: /^\d{4}-\d{2}-\d{2}$/.test((r && r.f) || "") ? r.f : "",
         m: r2(r && r.m), c: Math.max(0, r2(r && r.c)), t: Math.max(0, r2(r && r.t)),
+        s: Math.max(0, r2(r && r.s)),
         b: clean(r && r.b, 40), n: clean(r && r.n, 120),
       })).filter((r) => r.id && r.f && r.m > 0);
       await redis(["HSET", "ec:settings", key, JSON.stringify(L)]);
