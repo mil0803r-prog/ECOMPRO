@@ -9808,6 +9808,296 @@
    "tv": 65,
    "status": "nuevo",
    "fav": false
+  },
+  "2026-11-26_1": {
+   "date": "2026-11-26",
+   "rank": 1,
+   "source": "ia",
+   "name": "Enzimas digestivas 60 caps (bienestar)",
+   "provider": "american natural",
+   "verificado": true,
+   "cats": "salud-bienestar",
+   "costo": 55,
+   "pvp": 55,
+   "v7": 314,
+   "v30": 373,
+   "stock": 1600,
+   "score": 71,
+   "scores": {
+    "demanda": 10,
+    "traccion": 4,
+    "margen": 6,
+    "competencia": 5,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "314 ventas en 7 dias, 373 en 30 y 401 en total (12 dias con venta en 30), stock 1600, creado el 2026-09-18, 2 proveedores en lo leido. 8 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "8 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 8,
+   "anNota": "8 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "american natural",
+     "id": "23267",
+     "nombre": "digestive enzymes 60 caps.",
+     "costo": 55,
+     "stock": 1600,
+     "v7": 314,
+     "v30": 373,
+     "tv": 401,
+     "ct": "2026-09-18",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/b457e7b7-51ad-4f70-9ba9-1927ae3d78c9/459cc1b250fa.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=23267&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/b457e7b7-51ad-4f70-9ba9-1927ae3d78c9",
+   "ct": "2026-09-18",
+   "tv": 401,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-26_2": {
+   "date": "2026-11-26",
+   "rank": 2,
+   "source": "ia",
+   "name": "Tiras moradas blanqueadoras dentales (cuidado personal)",
+   "provider": "digital gt",
+   "verificado": false,
+   "cats": "belleza",
+   "costo": 55,
+   "pvp": 150,
+   "v7": 85,
+   "v30": 259,
+   "stock": 271,
+   "score": 73,
+   "scores": {
+    "demanda": 3,
+    "traccion": 7,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 6
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "85 ventas en 7 dias, 259.26 en 30 y 758 en total (21 dias con venta en 30), stock 271, creado el 2026-09-04, 2 proveedores en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "digital gt",
+     "id": "20409",
+     "nombre": "tiras moradas blanqueadoras dentales",
+     "costo": 55,
+     "stock": 271,
+     "v7": 85,
+     "v30": 259,
+     "tv": 758,
+     "ct": "2026-09-04",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/74084dd1-a72d-4f77-b463-ba099dff0976/cb9a4961d1c9.webp",
+   "risk": "Amarillo: producto de salud o cosmetico (registro sanitario).",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=20409&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/74084dd1-a72d-4f77-b463-ba099dff0976",
+   "ct": "2026-09-04",
+   "tv": 758,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-26_3": {
+   "date": "2026-11-26",
+   "rank": 3,
+   "source": "ia",
+   "name": "Bolsa de lavado para zapatos",
+   "provider": "grupo luna",
+   "verificado": true,
+   "cats": "hogar-deco",
+   "costo": 45,
+   "pvp": 150,
+   "v7": 72,
+   "v30": 72,
+   "stock": 315,
+   "score": 63,
+   "scores": {
+    "demanda": 3,
+    "traccion": 2,
+    "margen": 6,
+    "competencia": 8,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 279
+   },
+   "verdict": "71.79 ventas en 7 dias, 71.79 en 30 y 67 en total (6 dias con venta en 30), stock 315, creado el 2026-11-10, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 4,
+   "anNota": "4 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "grupo luna",
+     "id": "33389",
+     "nombre": "bolsa de lavado para zapatos",
+     "costo": 45,
+     "stock": 315,
+     "v7": 72,
+     "v30": 72,
+     "tv": 67,
+     "ct": "2026-11-10",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/49d8d70c-e637-4acb-b366-e8cc6260fe6a/7d8ee4ffd640.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33389&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/49d8d70c-e637-4acb-b366-e8cc6260fe6a",
+   "ct": "2026-11-10",
+   "tv": 67,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-26_4": {
+   "date": "2026-11-26",
+   "rank": 4,
+   "source": "ia",
+   "name": "Basurero inteligente con sensor",
+   "provider": "shop b",
+   "verificado": false,
+   "cats": "herramientas",
+   "costo": 117,
+   "pvp": 195,
+   "v7": 51,
+   "v30": 62,
+   "stock": 438,
+   "score": 67,
+   "scores": {
+    "demanda": 2,
+    "traccion": 3,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 589
+   },
+   "verdict": "51 ventas en 7 dias, 62 en 30 y 62 en total (9 dias con venta en 30), stock 438, creado el 2026-11-14, 1 proveedor en lo leido. 2 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "2 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 2,
+   "anNota": "2 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "shop b",
+     "id": "33587",
+     "nombre": "basurero inteligente con sensor",
+     "costo": 117,
+     "stock": 438,
+     "v7": 51,
+     "v30": 62,
+     "tv": 62,
+     "ct": "2026-11-14",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/b33d592a-c3fb-4084-8459-743880d81515/accdc5e41c08.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33587&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/b33d592a-c3fb-4084-8459-743880d81515",
+   "ct": "2026-11-14",
+   "tv": 62,
+   "status": "nuevo",
+   "fav": false
+  },
+  "2026-11-26_5": {
+   "date": "2026-11-26",
+   "rank": 5,
+   "source": "ia",
+   "name": "Juguete excavadora",
+   "provider": "importadora el mayorista",
+   "verificado": true,
+   "cats": "ninos-bebes",
+   "costo": 74,
+   "pvp": 94,
+   "v7": 69,
+   "v30": 69,
+   "stock": 128,
+   "score": 67,
+   "scores": {
+    "demanda": 3,
+    "traccion": 2,
+    "margen": 6,
+    "competencia": 10,
+    "riesgo": 9
+   },
+   "oferta": {
+    "u": 2,
+    "precio": 379
+   },
+   "verdict": "68.83 ventas en 7 dias, 68.83 en 30 y 62 en total (5 dias con venta en 30), stock 128, creado el 2026-11-18, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+   "angle": "Sin angulo analizado en esta corrida de recuperacion: se leyeron cifras de venta y cantidad de anuncios, no los textos de los anuncios.",
+   "competition": "Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado.",
+   "anWA": 0,
+   "anLand": 0,
+   "anTotal": 0,
+   "anNota": "0 anuncios activos (vistos en los ultimos 14 dias) en GT con la busqueda del nombre del producto; es el conteo de anuncios, no de anunciantes. No se verifico en la Biblioteca de Anuncios de Meta (sin navegador).",
+   "tiendas": [],
+   "imgs": [],
+   "vids": [],
+   "provs": [
+    {
+     "prov": "importadora el mayorista",
+     "id": "33837",
+     "nombre": "juguete excavadora",
+     "costo": 74,
+     "stock": 128,
+     "v7": 69,
+     "v30": 69,
+     "tv": 62,
+     "ct": "2026-11-18",
+     "alt": ""
+    }
+   ],
+   "foto": "https://cdndropkiller.com/products/dffb066c-d0f2-4d8c-ba78-2a033c943301/7139e011b2de.webp",
+   "risk": "Sin bandera.",
+   "dropi": "https://app.dropi.gt/dashboard/search?search=33837&search_type=id",
+   "dk": "https://app.dropkiller.com/dashboard/products/dffb066c-d0f2-4d8c-ba78-2a033c943301",
+   "ct": "2026-11-18",
+   "tv": 62,
+   "status": "nuevo",
+   "fav": false
   }
  },
  "validations": {
@@ -30516,6 +30806,360 @@
     }
    ],
    "resumen": "Se leyeron 280 productos de Dropi GT creados desde 2026-08-16 con stock 80 o mas; 53 cumplian ventas 50 a 800 en las tres ventanas; se reviso la competencia de unos 45 y la mayoria (suplementos, cosmeticos) esta saturada con 20 a 500 anuncios.",
+   "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
+  },
+  "2026-11-26": {
+   "date": "2026-11-26",
+   "source": "ia",
+   "planb": false,
+   "planc": false,
+   "titulo": "Radar Caza Diaria · 2026-11-26 (jueves) · 5 normales + 0 Plan B + 0 Plan C",
+   "sub": "Guatemala · Dropi · DropKiller · caza hecha el 2026-11-26",
+   "veredicto": "Veredicto. Caza diaria del jueves 2026-11-26: salieron 5 de 5 productos (5 con filtros normales, 0 de Plan B y 0 de Plan C).",
+   "nota": "Limites de esta caza: las ventas y la competencia son las de hoy (26-nov) y la antiguedad se verifico contra hoy. La competencia es el conteo de anuncios activos en GT (no se contaron anunciantes distintos). Los proveedores se contaron entre lo leido. No se uso la Biblioteca de Meta ni se analizaron los textos de los anuncios. Se dio prioridad a bienestar entre los que cumplian igual.",
+   "fichas": [
+    {
+     "n": 1,
+     "nombre": "Enzimas digestivas 60 caps (bienestar)",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/b457e7b7-51ad-4f70-9ba9-1927ae3d78c9/459cc1b250fa.webp",
+     "v": "314 ventas en 7 dias, 373 en 30 y 401 en total (12 dias con venta en 30), stock 1600, creado el 2026-09-18, 2 proveedores en lo leido. 8 anuncios activos en GT en lo leido (hay que confirmar si son 6 anunciantes o menos); no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       314
+      ],
+      [
+       "Ventas 30d",
+       373
+      ],
+      [
+       "Total",
+       401
+      ],
+      [
+       "Stock",
+       1600
+      ],
+      [
+       "Costo",
+       "Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q55"
+      ],
+      [
+       "Creado",
+       "2026-09-18"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=23267&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/b457e7b7-51ad-4f70-9ba9-1927ae3d78c9"
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nombre": "Tiras moradas blanqueadoras dentales (cuidado personal)",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "sanitario",
+       "c": "am"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/74084dd1-a72d-4f77-b463-ba099dff0976/cb9a4961d1c9.webp",
+     "v": "85 ventas en 7 dias, 259.26 en 30 y 758 en total (21 dias con venta en 30), stock 271, creado el 2026-09-04, 2 proveedores en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       85
+      ],
+      [
+       "Ventas 30d",
+       259.26
+      ],
+      [
+       "Total",
+       758
+      ],
+      [
+       "Stock",
+       271
+      ],
+      [
+       "Costo",
+       "Q55"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-09-04"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=20409&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/74084dd1-a72d-4f77-b463-ba099dff0976"
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nombre": "Bolsa de lavado para zapatos",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/49d8d70c-e637-4acb-b366-e8cc6260fe6a/7d8ee4ffd640.webp",
+     "v": "71.79 ventas en 7 dias, 71.79 en 30 y 67 en total (6 dias con venta en 30), stock 315, creado el 2026-11-10, 1 proveedor en lo leido. 4 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       71.79
+      ],
+      [
+       "Ventas 30d",
+       71.79
+      ],
+      [
+       "Total",
+       67
+      ],
+      [
+       "Stock",
+       315
+      ],
+      [
+       "Costo",
+       "Q45"
+      ],
+      [
+       "PVP sug.",
+       "Q150"
+      ],
+      [
+       "Creado",
+       "2026-11-10"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33389&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/49d8d70c-e637-4acb-b366-e8cc6260fe6a"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "nombre": "Basurero inteligente con sensor",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/b33d592a-c3fb-4084-8459-743880d81515/accdc5e41c08.webp",
+     "v": "51 ventas en 7 dias, 62 en 30 y 62 en total (9 dias con venta en 30), stock 438, creado el 2026-11-14, 1 proveedor en lo leido. 2 anuncios activos en GT en lo leido; no se contaron los anunciantes distintos. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       51
+      ],
+      [
+       "Ventas 30d",
+       62
+      ],
+      [
+       "Total",
+       62
+      ],
+      [
+       "Stock",
+       438
+      ],
+      [
+       "Costo",
+       "Q117"
+      ],
+      [
+       "PVP sug.",
+       "Q195"
+      ],
+      [
+       "Creado",
+       "2026-11-14"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33587&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/b33d592a-c3fb-4084-8459-743880d81515"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "nombre": "Juguete excavadora",
+     "tags": [
+      {
+       "t": "normal",
+       "c": "ok"
+      },
+      {
+       "t": "REPRECIABLE",
+       "c": "am"
+      }
+     ],
+     "foto": "https://cdndropkiller.com/products/dffb066c-d0f2-4d8c-ba78-2a033c943301/7139e011b2de.webp",
+     "v": "68.83 ventas en 7 dias, 68.83 en 30 y 62 en total (5 dias con venta en 30), stock 128, creado el 2026-11-18, 1 proveedor en lo leido. Cero anuncios activos del mismo producto en GT en lo leido: cuidado, puede que ya lo hayan probado. Margen REPRECIABLE con flete Q68 (informativo).",
+     "kv": [
+      [
+       "Ventas 7d",
+       68.83
+      ],
+      [
+       "Ventas 30d",
+       68.83
+      ],
+      [
+       "Total",
+       62
+      ],
+      [
+       "Stock",
+       128
+      ],
+      [
+       "Costo",
+       "Q74"
+      ],
+      [
+       "PVP sug.",
+       "Q94"
+      ],
+      [
+       "Creado",
+       "2026-11-18"
+      ]
+     ],
+     "secs": [],
+     "links": [
+      {
+       "t": "Dropi",
+       "u": "https://app.dropi.gt/dashboard/search?search=33837&search_type=id"
+      },
+      {
+       "t": "DropKiller",
+       "u": "https://app.dropkiller.com/dashboard/products/dffb066c-d0f2-4d8c-ba78-2a033c943301"
+      }
+     ]
+    }
+   ],
+   "tabla": [
+    {
+     "n": "digestive enzymes 60 caps.",
+     "s": "23267 · american natural",
+     "v": "314 / 373 / 401",
+     "st": 1600,
+     "ct": "2026-09-18",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "tiras moradas blanqueadoras dentales",
+     "s": "20409 · digital gt",
+     "v": "85 / 259.26 / 758",
+     "st": 271,
+     "ct": "2026-09-04",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "bolsa de lavado para zapatos",
+     "s": "33389 · grupo luna",
+     "v": "71.79 / 71.79 / 67",
+     "st": 315,
+     "ct": "2026-11-10",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "basurero inteligente con sensor",
+     "s": "33587 · shop b",
+     "v": "51 / 62 / 62",
+     "st": 438,
+     "ct": "2026-11-14",
+     "r": "Normal",
+     "c": "f"
+    },
+    {
+     "n": "juguete excavadora",
+     "s": "33837 · importadora el mayorista",
+     "v": "68.83 / 68.83 / 62",
+     "st": 128,
+     "ct": "2026-11-18",
+     "r": "Normal",
+     "c": "f"
+    }
+   ],
+   "resumen": "De 67 productos de Dropi GT creados desde 2026-08-27 con stock 80 o mas y ventas de 7 y 30 dias de 50 o mas, 49 cumplian ventas 50 a 800 en las tres ventanas; se revisaron los que no estaban usados en los ultimos 20 dias y la mayoria de suplementos y cosmeticos esta saturada (30 a 190 anuncios).",
    "revisar": "A revisar: confirmar a mano en la Biblioteca de Meta los productos con cero anuncios (pueden estar pautados con otro nombre) y el numero de proveedores de cada uno en Dropi."
   }
  },
