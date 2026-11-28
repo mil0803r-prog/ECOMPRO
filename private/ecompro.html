@@ -5141,7 +5141,7 @@ nav button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent)
   function dpCarga(){
     if(DPL||Date.now()-DPT<5*60*1000)return;DPL=true;DPT=Date.now();
     var pide=function(c){return fetch("/api/dropi?a=data"+(c>1?"&c="+c:""),{credentials:"same-origin",cache:"no-store"}).then(function(r){return r.json().catch(function(){return {error:"respuesta inválida"}}).then(function(j){return {ok:r.ok&&!j.error,j:j}})}).catch(function(){return {ok:false,j:{error:"sin conexión"}}})};
-    Promise.all([pide(1),pide(2)]).then(function(rs){
+    Promise.all([pide(1),pide(2),pide(4)]).then(function(rs){
       var O=[],err=[];rs.forEach(function(x,i){if(x.ok&&x.j.orders)x.j.orders.forEach(function(o){O.push(o)});else if(i===0)err.push(x.j.error||"no respondió")});
       DPD=O.length||!err.length?O:null;DPE=err.join(" · ");DPL=false;draw()}).catch(function(){DPL=false});
   }
